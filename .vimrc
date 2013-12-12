@@ -47,14 +47,6 @@ set smartcase
 " => Indentation, Tabs, Space, Etc
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Have spacebar insert a space in normal mode
-nnoremap <space> i<space><esc>l
-
-" Set F2 to allow pasting from system clipboard without vim intending it
-set pastetoggle=<F2>
-" Turn off paste on leaving insert modea
-au InsertLeave * set nopaste
-
 " Line wrapping
 set wrap
 
@@ -83,6 +75,14 @@ filetype plugin on
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Remapping keys
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Have spacebar insert a space in normal mode
+nnoremap <space> i<space><esc>l
+
+" Set F2 to allow pasting from system clipboard without vim intending it
+set pastetoggle=<F2>
+" Turn off paste on leaving insert modea
+au InsertLeave * set nopaste
 
 " Nicer location list navigation. Calls the function below.
 nnoremap <leader>[ :call WrapLnext("up")<CR>
