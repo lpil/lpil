@@ -10,6 +10,9 @@ execute pathogen#infect()
 " Generic crap
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" Allow switching buffers without saving current buffer
+set hidden
+
 " Syntax
 syntax on
 
@@ -75,6 +78,11 @@ filetype plugin on
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Remapping keys
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let mapleader = ","
+
+" Easier : commands!
+nnoremap ; :
 
 " Have spacebar insert a space in normal mode
 nnoremap <space> i<space><esc>l
