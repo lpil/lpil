@@ -57,8 +57,8 @@ filetype plugin indent on
 
 set tabstop=8                   "A tab is 8 spaces
 set expandtab                   "Always uses spaces instead of tabs
-set softtabstop=4               "Insert 4 spaces when tab is pressed
-set shiftwidth=4                "An indent is 4 spaces
+set softtabstop=2               "Insert 2 spaces when tab is pressed
+set shiftwidth=2                "An indent is 2 spaces
 set smarttab                    "Indent instead of tab at start of line
 set shiftround                  "Round spaces to nearest shiftwidth multiple
 set nojoinspaces                "Don't convert spaces to tabs
@@ -99,19 +99,19 @@ nnoremap <leader>] :call WrapLnext("down")<CR>
 " This function is a replacement for :lnext and :lprevious. It allows you to
 " wrap around from last to first (and back again)
 function! WrapLnext(direction)
-    if a:direction == "up"
-        try
-            lprevious
-        catch /^Vim\%((\a\+)\)\=:E553/
-            llast
-        endtry
-        elseif a:direction == "down"
-        try
-            lnext
-        catch /^Vim\%((\a\+)\)\=:E553/
-            lfirst
-        endtry
-    endif
+  if a:direction == "up"
+    try
+      lprevious
+    catch /^Vim\%((\a\+)\)\=:E553/
+      llast
+    endtry
+  elseif a:direction == "down"
+    try
+      lnext
+    catch /^Vim\%((\a\+)\)\=:E553/
+      lfirst
+    endtry
+  endif
 endfunction
 
 " Nicer split navigation 
@@ -146,9 +146,9 @@ vnoremap <Leader>h :call HtmlEscape()<CR>
 
 " Insert more chars to replace here
 function HtmlEscape()
-    silent s/&/\&amp;/eg " Amp has to be first!
-    silent s/</\&lt;/eg
-    silent s/>/\&gt;/eg
+  silent s/&/\&amp;/eg " Amp has to be first!
+  silent s/</\&lt;/eg
+  silent s/>/\&gt;/eg
 endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
