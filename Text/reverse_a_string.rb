@@ -4,7 +4,7 @@
 class String
   def my_reverse
     reved = []
-    (self.length - 1).downto(0).to_a.each do |i|
+    (self.length - 1).downto(0).each do |i|
       reved<<self[i]
     end
     reved.join
