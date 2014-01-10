@@ -33,17 +33,8 @@ set ruler
 " Improve backspace deletion behaviour
 set backspace=indent,eol,start
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Searching
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Highlight all search results
-set hlsearch
-
-" Have <F1> clear search highlighting
-nnoremap <F1> :noh<return>
-
 " Smart case insentitive search
+set ignorecase
 set smartcase
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -52,6 +43,7 @@ set smartcase
 
 " Line wrapping
 set wrap
+set tw=79
 
 filetype plugin indent on
 
@@ -132,7 +124,11 @@ nnoremap k gk
 nnoremap + <C-a>
 nnoremap - <C-x>
 
-" Toggle show chars
+" Toggle Search result highlighting
+nnoremap <F1> :set hlsearch!<CR>
+" Toggle textwidth automatic new line insertion
+nnoremap <silent> <F2> :exe "set textwidth=" . (&tw ? 0 : 79)<CR> <Bar> :echo ":set textwidth=" . &tw<CR>
+" Toggle show hidden chars
 noremap <F3> :set list!<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -146,9 +142,10 @@ vnoremap <Leader>h :call HtmlEscape()<CR>
 
 " Insert more chars to replace here
 function HtmlEscape()
-  silent s/&/\&amp;/eg " Amp has to be first!
-  silent s/</\&lt;/eg
-  silent s/>/\&gt;/eg
+  silent s/&/\&amp;/eg  " Amp has to be first!
+  silent s/</\&lt;/eg   " less than
+  silent s/>/\&gt;/eg   " greater than
+  silent s/\ /\%20;/eg  " space
 endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
