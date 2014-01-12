@@ -14,8 +14,11 @@ Bundle 'tpope/vim-commentary'
 Bundle 'tpope/vim-repeat'
 Bundle 'tmhedberg/matchit'
 Bundle 'kien/ctrlp.vim'
+Bundle 'msanders/snipmate.vim'
+Bundle 'tpope/vim-fugitive'
 
 filetype plugin indent on
+filetype plugin on
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Generic crap
@@ -78,8 +81,6 @@ set nojoinspaces                "Don't convert spaces to tabs
 
 set autoindent
 set smartindent
-
-filetype plugin on
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Highlighting
