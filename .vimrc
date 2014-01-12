@@ -1,10 +1,21 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Pathogen package manager
+" Vundle package manager
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Plugins used:
-"   Syntastic
+filetype off
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
 
-execute pathogen#infect()
+" let Vundle manage Vundle
+Bundle 'gmarik/vundle'
+
+Bundle 'scrooloose/syntastic'
+Bundle 'justinmk/vim-sneak'
+Bundle 'tpope/vim-commentary'
+Bundle 'tpope/vim-repeat'
+Bundle 'tmhedberg/matchit'
+Bundle 'kien/ctrlp.vim'
+
+filetype plugin indent on
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Generic crap
@@ -33,9 +44,21 @@ set ruler
 " Improve backspace deletion behaviour
 set backspace=indent,eol,start
 
-" Smart case insentitive search
+" Smart case insensitive search
 set ignorecase
 set smartcase
+
+" / searches before hitting enter
+set incsearch
+
+" Command line auto complete
+set wildmenu
+
+" Auto read external file changes
+set autoread
+
+" Colours
+set t_Co=256
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Indentation, Tabs, Space, Etc
@@ -44,8 +67,6 @@ set smartcase
 " Line wrapping
 set wrap
 set tw=79
-
-filetype plugin indent on
 
 set tabstop=8                   "A tab is 8 spaces
 set expandtab                   "Always uses spaces instead of tabs
@@ -81,7 +102,7 @@ nnoremap <space> i<space><esc>l
 
 " Set F2 to allow pasting from system clipboard without vim intending it
 set pastetoggle=<F2>
-" Turn off paste on leaving insert modea
+" Turn off paste on leaving insert mode
 au InsertLeave * set nopaste
 
 " Nicer location list navigation. Calls the function below.
@@ -130,6 +151,8 @@ nnoremap <F1> :set hlsearch!<CR>
 nnoremap <silent> <F2> :exe "set textwidth=" . (&tw ? 0 : 79)<CR> <Bar> :echo ":set textwidth=" . &tw<CR>
 " Toggle show hidden chars
 noremap <F3> :set list!<CR>
+" Toggle spell check
+noremap <F4> :setlocal spell!
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " HTML char escaping
