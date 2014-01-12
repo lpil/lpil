@@ -96,6 +96,8 @@ let mapleader = ","
 
 " Easier : commands!
 nnoremap ; :
+" Get ; functionality back
+nnoremap : ;
 
 " Have spacebar insert a space in normal mode
 nnoremap <space> i<space><esc>l
