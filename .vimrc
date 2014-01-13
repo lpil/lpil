@@ -155,7 +155,7 @@ nnoremap <silent> <F2> :exe "set textwidth=" . (&tw ? 0 : 79)<CR> <Bar> :echo ":
 " Toggle show hidden chars
 noremap <F3> :set list!<CR>
 " Toggle spell check
-noremap <F4> :setlocal spell!
+noremap <F4> :setlocal spell!<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " HTML char escaping
