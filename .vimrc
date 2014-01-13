@@ -11,9 +11,12 @@ Bundle 'gmarik/vundle'
 Bundle 'scrooloose/syntastic'
 Bundle 'tpope/vim-commentary'
 Bundle 'tpope/vim-repeat'
-Bundle 'tmhedberg/matchit'
+Bundle 'vim-scripts/matchit.zip'
 Bundle 'kien/ctrlp.vim'
-Bundle 'msanders/snipmate.vim'
+Bundle 'garbas/vim-snipmate'
+Bundle "MarcWeber/vim-addon-mw-utils"
+Bundle "tomtom/tlib_vim"
+Bundle 'honza/vim-snippets'
 Bundle 'tpope/vim-fugitive'
 
 filetype plugin indent on
@@ -28,6 +31,8 @@ set hidden
 
 " Syntax
 syntax on
+" Turn off syntax for long lines to improve performance
+set synmaxcol=160
 
 " Colors
 set background=dark
