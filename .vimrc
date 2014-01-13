@@ -152,6 +152,9 @@ nnoremap k gk
 nnoremap + <C-a>
 nnoremap - <C-x>
 
+" Go away ex mode, you suck
+nnoremap Q <Nop>
+
 " Toggle Search result highlighting
 nnoremap <F1> :set hlsearch!<CR>
 " Toggle textwidth automatic new line insertion
