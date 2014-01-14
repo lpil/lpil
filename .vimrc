@@ -73,7 +73,6 @@ set t_Co=256
 
 " Line wrapping
 set wrap
-set tw=79
 
 set tabstop=8                   "A tab is 8 spaces
 set expandtab                   "Always uses spaces instead of tabs
@@ -101,8 +100,9 @@ let mapleader = ","
 
 " Easier : commands!
 nnoremap ; :
-" Get ; functionality back
 nnoremap : ;
+vnoremap ; :
+vnoremap : ;
 
 " Have spacebar insert a space in normal mode
 nnoremap <space> i<space><esc>l
