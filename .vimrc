@@ -18,6 +18,7 @@ Bundle "MarcWeber/vim-addon-mw-utils"
 Bundle "tomtom/tlib_vim"
 Bundle 'honza/vim-snippets'
 Bundle 'tpope/vim-fugitive'
+Bundle 'flazz/vim-colorschemes'
 
 filetype plugin indent on
 filetype plugin on
@@ -32,7 +33,7 @@ set hidden
 " Syntax
 syntax on
 " Turn off syntax for long lines to improve performance
-set synmaxcol=160
+set synmaxcol=320
 
 " Colors
 set background=dark
