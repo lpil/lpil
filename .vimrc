@@ -108,9 +108,8 @@ vnoremap : ;
 " Have spacebar insert a space in normal mode
 nnoremap <space> i<space><esc>l
 
-" Set F2 to allow pasting from system clipboard without vim intending it
-set pastetoggle=<F2>
 " Turn off paste on leaving insert mode
+" (only useful on machines with -clipboard as you have to use set paste)
 au InsertLeave * set nopaste
 
 " Nicer location list navigation. Calls the function below.
@@ -134,6 +133,15 @@ function! WrapLnext(direction)
     endtry
   endif
 endfunction
+
+" I've got used to the switched " and @ for buffers and macros on OSX.
+" So lets swap those two feature mappings on other platforms
+if ! has('macunix')
+  nnoremap @ "
+  nnoremap " @
+  vnoremap @ "
+  vnoremap " @
+endif
 
 " Nicer split navigation 
 nnoremap <C-h> <C-w>h
