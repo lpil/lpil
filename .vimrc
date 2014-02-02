@@ -214,3 +214,6 @@ let g:syntastic_auto_loc_list = 1
 
 " checking on :wq
 let g:syntastic_check_on_wq = 0
+
+" Ruby: mri syntax, rubocop style
+let g:syntastic_ruby_checkers=['mri', 'rubocop']
