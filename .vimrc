@@ -12,13 +12,10 @@ Bundle 'scrooloose/syntastic'
 Bundle 'tpope/vim-commentary'
 Bundle 'tpope/vim-repeat'
 Bundle 'vim-scripts/matchit.zip'
-Bundle 'kien/ctrlp.vim'
 Bundle 'garbas/vim-snipmate'
 Bundle "MarcWeber/vim-addon-mw-utils"
 Bundle "tomtom/tlib_vim"
 Bundle 'honza/vim-snippets'
-Bundle 'tpope/vim-fugitive'
-Bundle 'flazz/vim-colorschemes'
 
 filetype plugin indent on
 filetype plugin on
