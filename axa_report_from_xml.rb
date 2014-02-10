@@ -2,11 +2,14 @@
 # encoding: utf-8
 # rubocop: disable MethodLength
 
+# FIXME
+# rubocop: disable Debugger
+
 require 'pry'
 require 'nokogiri'
 
 # The meat
-class AxaReportFromXml
+class PageflexDatabase
   def initialize
     puts 'Parsing XML document'
     @doc      = parse_xml_doc
@@ -14,7 +17,11 @@ class AxaReportFromXml
     @names    = build_names_hash
     puts 'Parsing metadata table'
     @metadata = build_metadata_hash
+    puts 'Parsing products table'
+    @products = build_products_hash
   end
+
+  private
 
   def parse_xml_doc
     # Get the xml location from the CLI args
@@ -43,8 +50,8 @@ class AxaReportFromXml
     metadata = {}
     metadata.default = {}
     @doc.xpath([
-    '/PFWeb:Database', '/PFWeb:ProductMetadataFieldValues__Table',
-    '/PFWeb:ProductMetadataFieldValues__Row'
+      '/PFWeb:Database', '/PFWeb:ProductMetadataFieldValues__Table',
+      '/PFWeb:ProductMetadataFieldValues__Row'
     ].join('')).each do |i|
       m_key   = i.attributes['ProductID__IDREF'].value.to_sym
       m_name  = @names[i.attributes['FieldNameID__IDREF'].value.to_sym]
@@ -56,12 +63,28 @@ class AxaReportFromXml
     end
     metadata
   end
+
+  def build_products_hash
+    products = []
+    @doc.xpath(
+      '/PFWeb:Database/PFWeb:Products__Table/PFWeb:Products__Row'
+    ).each do |i|
+      attrs = {}
+      i.attributes.each do |a|
+        key   = a[0].to_sym
+        value = a[1].value
+        attrs[key] = value
+      end
+      products << attrs
+    end
+    products
+  end
 end
 
+# FIXME
 # rubocop: disable all
-a = AxaReportFromXml.new
+a = PageflexDatabase.new
 puts a.class
-
 binding.pry
 
 # names = doc.xpath('/PFWeb:Database/PFWeb:Names__Table/PFWeb:Names__Row')
