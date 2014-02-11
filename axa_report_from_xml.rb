@@ -1,15 +1,27 @@
-#!/usr/bin/ruby
+#!/usr/bin/env ruby
 # encoding: utf-8
 # rubocop: disable MethodLength
+
+columns = [
+  'Code',
+  'DisplayName',
+  'Expiry Date',
+  'Document Type',
+  'Team',
+  'Contact',
+  'Key Words',
+  'Archived?'
+]
 
 # FIXME
 # rubocop: disable Debugger
 
-require 'pry'
+require 'pry' # FIXME
 require 'nokogiri'
+require 'csv'
 
-# The meat
-class PageflexDatabase
+# Extracts the information from the XML
+class PageflexData
   def initialize
     puts 'Parsing XML document'
     @doc      = parse_xml_doc
@@ -54,7 +66,7 @@ class PageflexDatabase
       '/PFWeb:ProductMetadataFieldValues__Row'
     ].join('')).each do |i|
       m_key   = i.attributes['ProductID__IDREF'].value.to_sym
-      m_name  = @names[i.attributes['FieldNameID__IDREF'].value.to_sym]
+      m_name  = @names[i.attributes['FieldNameID__IDREF'].value.to_sym].to_sym
       m_value = i.attributes['FieldValue__STR']
       m_value = m_value ? m_value.value : '' # Handle nil values
       a = metadata[m_key]
@@ -81,9 +93,26 @@ class PageflexDatabase
   end
 end
 
+# Builds our report CSV
+class AXAReport < Array
+  def initialize(pageflex_data, options = {})
+    @data = pageflex_data
+    @options = option
+  end
+
+  def build_row
+  end
+end
+
+# Builds one row for the report
+class AXAReportRow < Array
+  def initialize(product_hash, names, metadata, column_order)
+  end
+end
+
 # FIXME
 # rubocop: disable all
-a = PageflexDatabase.new
+a = PageflexData.new
 puts a.class
 binding.pry
 
