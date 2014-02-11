@@ -3,14 +3,16 @@
 # rubocop: disable MethodLength
 
 columns = [
-  'Code',
-  'DisplayName',
-  'Expiry Date',
-  'Document Type',
-  'Team',
-  'Contact',
-  'Key Words',
-  'Archived?'
+  ['Code', :Code__STR],
+  ['DisplayName', :HTML_DisplayName__STR],
+  ['Expiry Date', :"Expiry Date"],
+  ['Document Type', :"Document Type"],
+  ['Team', :Team],
+  ['Contact', :Contact],
+  ['Key Words', :Keywords__STR],
+  ['Retired?', :b_IsRetired],
+  ['Archived?', :b_IsArchived],
+  ['Deleted?', :b_IsDeleted]
 ]
 
 # FIXME
@@ -22,6 +24,8 @@ require 'csv'
 
 # Extracts the information from the XML
 class PageflexData
+  attr_reader :names, :metadata, :products
+
   def initialize
     puts 'Parsing XML document'
     @doc      = parse_xml_doc
@@ -95,25 +99,24 @@ end
 
 # Builds our report CSV
 class AXAReport < Array
-  def initialize(pageflex_data, options = {})
+  def initialize(pageflex_data, columns)
     @data = pageflex_data
     @options = option
-  end
-
-  def build_row
+    @columns = columns
   end
 end
 
 # Builds one row for the report
 class AXAReportRow < Array
-  def initialize(product_hash, names, metadata, column_order)
+  def initialize(product_hash, names)
   end
 end
 
 # FIXME
 # rubocop: disable all
 a = PageflexData.new
-puts a.class
+b = AXAReport a, columns
+puts b.class
 binding.pry
 
 # names = doc.xpath('/PFWeb:Database/PFWeb:Names__Table/PFWeb:Names__Row')
