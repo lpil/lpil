@@ -103,11 +103,13 @@ class AXAReport < Array
     @products = product_attach_metadata pageflex_data
   end
 
+  private
+
   def product_attach_metadata(pageflex_data)
     puts 'Attaching metadata to products'
     products = pageflex_data.products
     products.each do |p|
-      p.merge! pageflex_data.metadata[p[:ProductID__ID]]
+      p.merge! pageflex_data.metadata.fetch p[:ProductID__ID].to_sym, {}
     end
     products
   end
