@@ -99,8 +99,16 @@ end
 # Builds our report CSV
 class AXAReport < Array
   def initialize(pageflex_data, columns)
-    @columns  = columns
     @products = product_attach_metadata pageflex_data
+    build_report @products, columns
+  end
+
+  def write_csv
+    file_name = "axa_mmstore_report_#{Time.new.strftime '%Y_%m_%d'}.csv"
+    puts "Writing to #{file_name}"
+    CSV.open(file_name, 'wb') do |csv|
+      each { |row| csv << row }
+    end
   end
 
   private
@@ -113,6 +121,24 @@ class AXAReport < Array
     end
     products
   end
+
+  def build_report(products, columns)
+    puts 'Building report'
+    products.each do |p|
+      row = []
+      columns.each { |c| row << (p.fetch c[1], '') }
+      self << row
+    end
+    strip_html
+    # Sort by the third column
+    self.sort! { |y, x| x[2] <=> y[2] }
+    # Add header
+    unshift columns.reduce([]) { |a, e| a << e[0] }
+  end
+
+  def strip_html
+    map! { |row| row.map! { |cell| cell.sub(/ *<.*>.*<\/.*>/, '') } }
+  end
 end
 
 # FIXME
@@ -120,30 +146,12 @@ end
 a = PageflexData.new
 b = AXAReport.new a, columns
 puts b.class
+
+b.write_csv
+puts '...done!'
+exit
+
 binding.pry
 
-# names = doc.xpath('/PFWeb:Database/PFWeb:Names__Table/PFWeb:Names__Row')
-# names.each { |e| puts e.attributes['NameID__ID'].value }
-#
-# /PFWeb:Database/PFWeb:Products__Table/PFWeb:Products__Row
-  # "ProductID__ID",
-  # "HTML_DisplayName__STR",
-  # "Keywords__STR",
-  # "b_IsStaged",
-  # "b_IsArchived",
-  # "b_IsRetired",
-  # "b_IsDeleted",
-  # "Code__STR",
-  # "SMDisplayName__STR",
-  # "SMDescription__STR",
-  # "SMPermaLink__STR",
-  # "ExternalProductID__STR",
-
-# /PFWeb:Database/PFWeb:ProductMetadataFieldValues__Table/PFWeb:ProductMetadataFieldValues__Row
-  # "ProductID__IDREF",       The ref of the attached product
-  # "FieldNameID__IDREF",     The ref of the field name
-  # "FieldValue__STR",
-
-# /PFWeb:Database/PFWeb:Names__Table/PFWeb:Names__Row
-  # "NameID__ID",
-  # "StringValue__STR"
+# funny expiry date one:
+# :ProductID__ID=>"Products_1276"
