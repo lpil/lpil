@@ -64,7 +64,6 @@ class PageflexData
 
   def build_metadata_hash
     metadata = {}
-    metadata.default = {}
     @doc.xpath([
       '/PFWeb:Database', '/PFWeb:ProductMetadataFieldValues__Table',
       '/PFWeb:ProductMetadataFieldValues__Row'
@@ -73,12 +72,9 @@ class PageflexData
       m_name  = @names[i.attributes['FieldNameID__IDREF'].value.to_sym].to_sym
       m_value = i.attributes['FieldValue__STR']
       m_value = m_value ? m_value.value : '' # Handle nil values
-      a = metadata[m_key]
+      a = metadata.fetch m_key, {}
       a[m_name] = m_value
       metadata[m_key] = a
-
-      p metadata
-      binding.pry
     end
     metadata
   end
