@@ -76,6 +76,9 @@ class PageflexData
       a = metadata[m_key]
       a[m_name] = m_value
       metadata[m_key] = a
+
+      p metadata
+      binding.pry
     end
     metadata
   end
@@ -100,22 +103,24 @@ end
 # Builds our report CSV
 class AXAReport < Array
   def initialize(pageflex_data, columns)
-    @data = pageflex_data
-    @options = option
-    @columns = columns
+    @columns  = columns
+    @products = product_attach_metadata pageflex_data
   end
-end
 
-# Builds one row for the report
-class AXAReportRow < Array
-  def initialize(product_hash, names)
+  def product_attach_metadata(pageflex_data)
+    puts 'Attaching metadata to products'
+    products = pageflex_data.products
+    products.each do |p|
+      p.merge! pageflex_data.metadata[p[:ProductID__ID]]
+    end
+    products
   end
 end
 
 # FIXME
 # rubocop: disable all
 a = PageflexData.new
-b = AXAReport a, columns
+b = AXAReport.new a, columns
 puts b.class
 binding.pry
 
