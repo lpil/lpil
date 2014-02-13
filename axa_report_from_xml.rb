@@ -15,10 +15,6 @@ columns = [
   ['Deleted?', :b_IsDeleted]
 ]
 
-# FIXME
-# rubocop: disable Debugger
-
-require 'pry' # FIXME
 require 'nokogiri'
 require 'csv'
 
