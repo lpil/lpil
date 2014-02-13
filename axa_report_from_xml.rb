@@ -29,11 +29,11 @@ class PageflexData
   def initialize
     puts 'Parsing XML document'
     @doc      = parse_xml_doc
-    puts 'Parsing field names table'
+    puts 'Extracting field names table'
     @names    = build_names_hash
-    puts 'Parsing metadata table'
+    puts 'Extracting metadata table'
     @metadata = build_metadata_hash
-    puts 'Parsing products table'
+    puts 'Extracting products table'
     @products = build_products_hash
   end
 
@@ -99,13 +99,14 @@ end
 # Builds our report CSV
 class AXAReport < Array
   def initialize(pageflex_data, columns)
-    @products = product_attach_metadata pageflex_data
+    @products = attach_metadata pageflex_data.products, pageflex_data.metadata
+    @products = filter_old_versions @products
     build_report @products, columns
   end
 
   def write_csv
     file_name = "axa_mmstore_report_#{Time.new.strftime '%Y_%m_%d'}.csv"
-    puts "Writing to #{file_name}"
+    puts "Writing to '#{file_name}'"
     CSV.open(file_name, 'wb') do |csv|
       each { |row| csv << row }
     end
@@ -113,17 +114,34 @@ class AXAReport < Array
 
   private
 
-  def product_attach_metadata(pageflex_data)
-    puts 'Attaching metadata to products'
-    products = pageflex_data.products
+  def filter_old_versions(products)
+    puts 'Identifying current versions'
+    buckets = {}
     products.each do |p|
-      p.merge! pageflex_data.metadata.fetch p[:ProductID__ID].to_sym, {}
+      if p.key? :MasterProductID__IDREF
+        b = buckets.fetch p[:MasterProductID__IDREF].to_sym, []
+        buckets[p[:MasterProductID__IDREF].to_sym] = b << p
+      else
+        b = buckets.fetch p[:ProductID__ID].to_sym, []
+        buckets[p[:ProductID__ID].to_sym] = b << p
+      end
+    end
+    date_key = :DateTimeModified__ISO8601
+    buckets.map do |b|
+      b[1].sort { |x, y| y[date_key] <=> x[date_key] }.first
+    end
+  end
+
+  def attach_metadata(products, metadata)
+    puts 'Attaching metadata to products'
+    products.each do |p|
+      p.merge! metadata.fetch p[:ProductID__ID].to_sym, {}
     end
     products
   end
 
   def build_report(products, columns)
-    puts 'Building report'
+    puts 'Building report arrays'
     products.each do |p|
       row = []
       columns.each { |c| row << (p.fetch c[1], '') }
@@ -137,21 +155,10 @@ class AXAReport < Array
   end
 
   def strip_html
+    puts 'Stripping in-line HTML'
     map! { |row| row.map! { |cell| cell.sub(/ *<.*>.*<\/.*>/, '') } }
   end
 end
 
-# FIXME
-# rubocop: disable all
-a = PageflexData.new
-b = AXAReport.new a, columns
-puts b.class
-
-b.write_csv
-puts '...done!'
-exit
-
-binding.pry
-
-# funny expiry date one:
-# :ProductID__ID=>"Products_1276"
+AXAReport.new(PageflexData.new, columns).write_csv
+puts "\t...done!"
