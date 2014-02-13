@@ -13,7 +13,6 @@ These values are...
     ['Document Type', :"Document Type"],
     ['Team', :Team],
     ['Contact', :Contact],
-    ['Key Words', :Keywords__STR],
 
 # Dependencies
 
