@@ -93,7 +93,7 @@ class PageflexData
 end
 
 # Builds our report CSV
-class AXAReport < Array
+class PageflexReport < Array
   def initialize(pageflex_data, columns)
     @products = attach_metadata pageflex_data.products, pageflex_data.metadata
     @products = filter_old_versions @products
@@ -144,10 +144,17 @@ class AXAReport < Array
       self << row
     end
     strip_html
-    # Sort by the third column
-    self.sort! { |y, x| x[2] <=> y[2] }
+    sort_by_uk_date
     # Add header
     unshift columns.reduce([]) { |a, e| a << e[0] }
+  end
+
+  def sort_by_uk_date
+    # Sort by the third column, after formatting the date to be sortable
+    puts 'Sorting by date'
+    sort! do |y, x|
+      x[2].split('/').reverse.join('/') <=> y[2].split('/').reverse.join('/')
+    end
   end
 
   def strip_html
@@ -156,5 +163,5 @@ class AXAReport < Array
   end
 end
 
-AXAReport.new(PageflexData.new, columns).write_csv
+PageflexReport.new(PageflexData.new, columns).write_csv
 puts "\t...done!"
