@@ -66,6 +66,9 @@ set autoread
 " Colours
 set t_Co=256
 
+" don't redraw when performing macros (for performance)
+set lazyredraw
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Indentation, Tabs, Space, Etc
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -73,13 +76,13 @@ set t_Co=256
 " Line wrapping
 set wrap
 
-set tabstop=8                   "A tab is 8 spaces
-set expandtab                   "Always uses spaces instead of tabs
-set softtabstop=2               "Insert 2 spaces when tab is pressed
-set shiftwidth=2                "An indent is 2 spaces
-set smarttab                    "Indent instead of tab at start of line
-set shiftround                  "Round spaces to nearest shiftwidth multiple
-set nojoinspaces                "Don't convert spaces to tabs
+set tabstop=8       "A tab is 8 spaces
+set expandtab       "Always uses spaces instead of tabs
+set softtabstop=2   "Insert 2 spaces when tab is pressed
+set shiftwidth=2    "An indent is 2 spaces
+set smarttab        "Indent instead of tab at start of line
+set shiftround      "Round spaces to nearest shiftwidth multiple
+set nojoinspaces    "Don't convert spaces to tabs
 
 set autoindent
 set smartindent
@@ -107,30 +110,8 @@ vnoremap : ;
 nnoremap <space> i<space><esc>l
 
 " Turn off paste on leaving insert mode
-" (only useful on machines with -clipboard as you have to use set paste)
+" (only useful on machines with -clipboard where you have to use 'set paste')
 au InsertLeave * set nopaste
-
-" Nicer location list navigation. Calls the function below.
-nnoremap <leader>[ :call WrapLnext("up")<CR>
-nnoremap <leader>] :call WrapLnext("down")<CR>
-
-" This function is a replacement for :lnext and :lprevious. It allows you to
-" wrap around from last to first (and back again)
-function! WrapLnext(direction)
-  if a:direction == "up"
-    try
-      lprevious
-    catch /^Vim\%((\a\+)\)\=:E553/
-      llast
-    endtry
-  elseif a:direction == "down"
-    try
-      lnext
-    catch /^Vim\%((\a\+)\)\=:E553/
-      lfirst
-    endtry
-  endif
-endfunction
 
 " I've got used to the switched " and @ for buffers and macros on OSX.
 " So lets swap those two feature mappings on other platforms (for UK keyboards)
@@ -162,6 +143,34 @@ nnoremap - <C-x>
 " Go away ex mode, you suck
 nnoremap Q <Nop>
 
+
+"""""""""""""""""""""""""""""""""""
+" Nicer location list navigation! "
+"""""""""""""""""""""""""""""""""""
+nnoremap <leader>[ :call WrapLnext("up")<CR>
+nnoremap <leader>] :call WrapLnext("down")<CR>
+
+" This function is a replacement for :lnext and :lprevious. It allows you to
+" wrap around from last to first (and back again)
+function! WrapLnext(direction)
+  if a:direction == "up"
+    try
+      lprevious
+    catch /^Vim\%((\a\+)\)\=:E553/
+      llast
+    endtry
+  elseif a:direction == "down"
+    try
+      lnext
+    catch /^Vim\%((\a\+)\)\=:E553/
+      lfirst
+    endtry
+  endif
+endfunction
+
+"""""""""""""""""""
+" Toggling stuff! "
+"""""""""""""""""""
 " Toggle Search result highlighting
 nnoremap <F1> :set hlsearch!<CR>
 " Toggle textwidth automatic new line insertion
@@ -173,10 +182,9 @@ noremap <F4> :setlocal spell!<CR>
 " Toggle syntax check
 noremap <F5> :SyntasticToggleMode<CR>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" HTML char escaping
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
+""""""""""""""""""""""
+" HTML char escaping "
+""""""""""""""""""""""
 " This will escape HTML chars from the last pasted block
 nnoremap <Leader>h :'[,']call HtmlEscape()<CR>
 " This will do it for the visually selected block
@@ -189,13 +197,6 @@ function HtmlEscape()
   silent s/>/\&gt;/eg   " greater than
   silent s/\ /\%20;/eg  " space
 endfunction
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Macros
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" don't redraw when performing macros (for performance)
-set lazyredraw
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " plugin: Syntastic syntax checking behaviour
