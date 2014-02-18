@@ -88,7 +88,7 @@ set smartindent
 " Highlighting
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Highlight chars in col 81 (long lines)
-2mat ErrorMsg '\%81v.'
+2mat ErrorMsg '\%80v.'
     " clear with :2mat
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -133,7 +133,7 @@ function! WrapLnext(direction)
 endfunction
 
 " I've got used to the switched " and @ for buffers and macros on OSX.
-" So lets swap those two feature mappings on other platforms
+" So lets swap those two feature mappings on other platforms (for UK keyboards)
 if ! has('macunix')
   nnoremap @ "
   nnoremap " @
@@ -170,6 +170,8 @@ nnoremap <silent> <F2> :exe "set textwidth=" . (&tw ? 0 : 79)<CR> <Bar> :echo ":
 noremap <F3> :set list!<CR>
 " Toggle spell check
 noremap <F4> :setlocal spell!<CR>
+" Toggle syntax check
+noremap <F5> :SyntasticToggleMode<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " HTML char escaping
