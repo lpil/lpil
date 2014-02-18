@@ -2,6 +2,8 @@
 # encoding: utf-8
 # rubocop: disable MethodLength
 
+require 'pry' # FIXME
+
 columns = [
   ['Code', :Code__STR],
   ['DisplayName', :HTML_DisplayName__STR],
@@ -26,11 +28,15 @@ class PageflexData
     puts 'Parsing XML document'
     @doc      = parse_xml_doc
     puts 'Extracting field names table'
-    @names    = build_names_hash
+    @names    = build_names
     puts 'Extracting metadata table'
-    @metadata = build_metadata_hash
+    @metadata = build_metadata
     puts 'Extracting products table'
-    @products = build_products_hash
+    @products = build_products
+    puts 'Extracting categories table'
+    @categories = build_categories
+    puts 'Extracting catalog entries table'
+    @catalog_entries = build_catalog_entries
   end
 
   private
@@ -46,7 +52,7 @@ class PageflexData
     doc
   end
 
-  def build_names_hash
+  def build_names
     names = {}
     @doc.xpath(
       '/PFWeb:Database/PFWeb:Names__Table/PFWeb:Names__Row'
@@ -58,24 +64,24 @@ class PageflexData
     names
   end
 
-  def build_metadata_hash
+  def build_metadata
     metadata = {}
     @doc.xpath([
       '/PFWeb:Database', '/PFWeb:ProductMetadataFieldValues__Table',
       '/PFWeb:ProductMetadataFieldValues__Row'
     ].join('')).each do |i|
-      m_key   = i.attributes['ProductID__IDREF'].value.to_sym
-      m_name  = @names[i.attributes['FieldNameID__IDREF'].value.to_sym].to_sym
-      m_value = i.attributes['FieldValue__STR']
-      m_value = m_value ? m_value.value : '' # Handle nil values
-      a = metadata.fetch m_key, {}
-      a[m_name] = m_value
-      metadata[m_key] = a
+      key   = i.attributes['ProductID__IDREF'].value.to_sym
+      name  = @names[i.attributes['FieldNameID__IDREF'].value.to_sym].to_sym
+      value = i.attributes['FieldValue__STR']
+      value = value ? value.value : '' # Handle nil values
+      a = metadata.fetch key, {}
+      a[name] = value
+      metadata[key] = a
     end
     metadata
   end
 
-  def build_products_hash
+  def build_products
     products = []
     @doc.xpath(
       '/PFWeb:Database/PFWeb:Products__Table/PFWeb:Products__Row'
@@ -89,6 +95,36 @@ class PageflexData
       products << attrs
     end
     products
+  end
+
+  def build_categories
+    categories = []
+    @doc.xpath([
+      '/PFWeb:Database/PFWeb:ProductCatalogCategories__Table',
+      '/PFWeb:ProductCatalogCategories__Row'
+    ].join('')).each do |i|
+      attrs = {}
+      i.attributes.each do |a|
+        key   = a[0].to_sym
+        value = a[1].value
+        attrs[key] = value
+      end
+      categories << attrs
+    end
+    categories
+  end
+
+  def build_catalog_entries
+    entries = {}
+    @doc.xpath([
+      '/PFWeb:Database/PFWeb:ProductCatalogEntries__Table',
+      '/PFWeb:ProductCatalogEntries__Row'
+    ].join('')).each do |i|
+      key   = i.attributes['ProductID__IDREF'].value.to_sym
+      value = i.attributes['ParentCategoryID__IDREF'].value
+      entries[key] = (entries.fetch key, []) << value
+    end
+    entries
   end
 end
 
