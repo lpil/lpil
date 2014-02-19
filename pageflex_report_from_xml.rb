@@ -82,34 +82,36 @@ class PageflexData
   end
 
   def build_products
-    products = []
+    products = {}
     @doc.xpath(
       '/PFWeb:Database/PFWeb:Products__Table/PFWeb:Products__Row'
     ).each do |i|
-      attrs = {}
+      id, attrs = nil, {}
       i.attributes.each do |a|
+        id    = a[1].value.to_sym if a[1].name == 'ProductID__ID'
         key   = a[0].to_sym
         value = a[1].value
         attrs[key] = value
       end
-      products << attrs
+      products[id] = attrs
     end
     products
   end
 
   def build_categories
-    categories = []
+    categories = {}
     @doc.xpath([
       '/PFWeb:Database/PFWeb:ProductCatalogCategories__Table',
       '/PFWeb:ProductCatalogCategories__Row'
     ].join('')).each do |i|
-      attrs = {}
+      id, attrs = nil, {}
       i.attributes.each do |a|
+        id    = a[1].value.to_sym if a[1].name == 'ProductCategoryID__ID'
         key   = a[0].to_sym
         value = a[1].value
         attrs[key] = value
       end
-      categories << attrs
+      categories[id] = attrs
     end
     categories
   end
@@ -142,6 +144,7 @@ class PageflexReport < Array
     CSV.open(file_name, 'wb') do |csv|
       each { |row| csv << row }
     end
+    self
   end
 
   private
@@ -149,7 +152,7 @@ class PageflexReport < Array
   def filter_old_versions(products)
     puts 'Identifying current versions'
     buckets = {}
-    products.each do |p|
+    products.values.each do |p|
       if p.key? :MasterProductID__IDREF
         b = buckets.fetch p[:MasterProductID__IDREF].to_sym, []
         buckets[p[:MasterProductID__IDREF].to_sym] = b << p
@@ -166,7 +169,7 @@ class PageflexReport < Array
 
   def attach_metadata(products, metadata)
     puts 'Attaching metadata to products'
-    products.each do |p|
+    products.values.each do |p|
       p.merge! metadata.fetch p[:ProductID__ID].to_sym, {}
     end
     products
