@@ -132,26 +132,40 @@ class PageflexData
 end
 
 # Selects current versions of products and attaches data
-class CurrentProducts
-  def initialize(pf_data)
-    puts 'Attaching metadata to products'
-    @products = attach_metadata pageflex_data.products, pageflex_data.metadata
+class CurrentProducts < Hash
+  def initialize(pf_products, pf_metadata, pf_cat_entries, categories)
+    load_current_products pf_products, pf_cat_entries
+    attach_metadata pf_metadata
+    attach_categories pf_cat_entries, categories
   end
 
   private
 
-  def attach_metadata(products, metadata)
-    products.values.each do |p|
+  def load_current_products(pf_products, pf_cat_entries)
+    pf_products.each do |p|
+      self[p[0]] = p[1] if pf_cat_entries.key? p[0]
+    end
+  end
+
+  def attach_metadata(metadata)
+    values.each do |p|
       p.merge! metadata.fetch p[:ProductID__ID].to_sym, {}
     end
-    products
+  end
+
+  def attach_categories(pf_cat_entries, categories)
+    pf_cat_entries.each do |e|
+      e[1].each_with_index do |c, i|
+        self[e[0]]["Category#{i}".to_sym] = categories[c.to_sym][:Path]
+      end
+    end
   end
 end
 
 # Builds full category path strings
 class Categories < Hash
-  def initialize(pf_data)
-    get_all_paths! pf_data.categories
+  def initialize(pf_cats)
+    get_all_paths! pf_cats
   end
 
   private
@@ -251,8 +265,9 @@ end
 
 # rubocop: disable all
 a = PageflexData.new
-b = Categories.new a
-puts b.class
+b = Categories.new a.categories
+c = CurrentProducts.new a.products, a.metadata, a.cat_entries, b
+puts c.class
 binding.pry
 
 PageflexReport.new(PageflexData.new, columns).write_csv
