@@ -22,7 +22,7 @@ require 'csv'
 
 # Extracts the information from the XML
 class PageflexData
-  attr_reader :names, :metadata, :products
+  attr_reader :names, :metadata, :products, :categories, :cat_entries
 
   def initialize
     puts 'Parsing XML document'
@@ -36,7 +36,7 @@ class PageflexData
     puts 'Extracting categories table'
     @categories = build_categories
     puts 'Extracting catalog entries table'
-    @catalog_entries = build_catalog_entries
+    @cat_entries = build_catalog_entries
   end
 
   private
@@ -138,11 +138,42 @@ class CurrentProducts
     @products = attach_metadata pageflex_data.products, pageflex_data.metadata
   end
 
+  private
+
   def attach_metadata(products, metadata)
     products.values.each do |p|
       p.merge! metadata.fetch p[:ProductID__ID].to_sym, {}
     end
     products
+  end
+end
+
+# Builds full category path strings
+class Categories < Hash
+  def initialize(pf_data)
+    get_all_paths! pf_data.categories
+  end
+
+  private
+
+  def get_all_paths!(cats)
+    cats.each do |c|
+      c[1][:Path] = get_path!(cats, c[1]) unless c[1][:Path]
+      self[c[0]] = c[1]
+    end
+  end
+
+  def get_path!(cats, c)
+    if c[:Path]
+      c[:Path]
+    elsif c[:ParentCategoryID__IDREF]
+      c[:Path] = [
+        get_path!(cats, cats[(c[:ParentCategoryID__IDREF].to_sym)]),
+        c[:DisplayName__STR]
+      ].join ' > '
+    else
+      c[:Path] = c[:DisplayName__STR]
+    end
   end
 end
 
@@ -220,7 +251,8 @@ end
 
 # rubocop: disable all
 a = PageflexData.new
-puts a.class
+b = Categories.new a
+puts b.class
 binding.pry
 
 PageflexReport.new(PageflexData.new, columns).write_csv
