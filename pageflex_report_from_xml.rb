@@ -7,10 +7,10 @@ require 'pry' # FIXME
 columns = [
   ['Code', :Code__STR],
   ['DisplayName', :HTML_DisplayName__STR],
-  ['Expiry Date', :"Expiry Date"],
-  ['Document Type', :"Document Type"],
-  ['Team', :Team],
-  ['Contact', :Contact],
+  ['Expiry Date', :"metadata_Expiry Date"],
+  ['Document Type', :"metadata_Document Type"],
+  ['Team', :metadata_Team],
+  ['Contact', :metadata_Contact],
   ['Key Words', :Keywords__STR],
   ['Retired?', :b_IsRetired],
   ['Archived?', :b_IsArchived],
@@ -29,7 +29,7 @@ class PageflexData
     @doc      = parse_xml_doc
     puts 'Extracting field names table'
     @names    = build_names
-    puts 'Extracting metadata table'
+    puts 'Extracting metadata table, resolving names'
     @metadata = build_metadata
     puts 'Extracting products table'
     @products = build_products
@@ -71,7 +71,8 @@ class PageflexData
       '/PFWeb:ProductMetadataFieldValues__Row'
     ].join('')).each do |i|
       key   = i.attributes['ProductID__IDREF'].value.to_sym
-      name  = @names[i.attributes['FieldNameID__IDREF'].value.to_sym].to_sym
+      name  = @names[i.attributes['FieldNameID__IDREF'].value.to_sym]
+      name  = ('metadata_' + name).to_sym
       value = i.attributes['FieldValue__STR']
       value = value ? value.value : '' # Handle nil values
       a = metadata.fetch key, {}
@@ -130,6 +131,21 @@ class PageflexData
   end
 end
 
+# Selects current versions of products and attaches data
+class CurrentProducts
+  def initialize(pf_data)
+    puts 'Attaching metadata to products'
+    @products = attach_metadata pageflex_data.products, pageflex_data.metadata
+  end
+
+  def attach_metadata(products, metadata)
+    products.values.each do |p|
+      p.merge! metadata.fetch p[:ProductID__ID].to_sym, {}
+    end
+    products
+  end
+end
+
 # Builds our report CSV
 class PageflexReport < Array
   def initialize(pageflex_data, columns)
@@ -139,7 +155,7 @@ class PageflexReport < Array
   end
 
   def write_csv
-    file_name = "axa_mmstore_report_#{Time.new.strftime '%Y_%m_%d'}.csv"
+    file_name = "mmstore_report_#{Time.new.strftime '%Y_%m_%d'}.csv"
     puts "Writing to '#{file_name}'"
     CSV.open(file_name, 'wb') do |csv|
       each { |row| csv << row }
@@ -201,6 +217,11 @@ class PageflexReport < Array
     map! { |row| row.map! { |cell| cell.sub(/ *<.*>.*<\/.*>/, '') } }
   end
 end
+
+# rubocop: disable all
+a = PageflexData.new
+puts a.class
+binding.pry
 
 PageflexReport.new(PageflexData.new, columns).write_csv
 puts "\t...done!"
