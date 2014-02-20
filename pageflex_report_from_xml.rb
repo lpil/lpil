@@ -14,7 +14,11 @@ columns = [
   ['Key Words', :Keywords__STR],
   ['Retired?', :b_IsRetired],
   ['Archived?', :b_IsArchived],
-  ['Deleted?', :b_IsDeleted]
+  ['Deleted?', :b_IsDeleted],
+  ['Category 0', :Category0],
+  ['Category 1', :Category1],
+  ['Category 2', :Category2],
+  ['Category 3', :Category3]
 ]
 
 require 'nokogiri'
@@ -134,6 +138,7 @@ end
 # Selects current versions of products and attaches data
 class CurrentProducts < Hash
   def initialize(pf_products, pf_metadata, pf_cat_entries, categories)
+    puts 'Identifying current products, adding metadata and categories'
     load_current_products pf_products, pf_cat_entries
     attach_metadata pf_metadata
     attach_categories pf_cat_entries, categories
@@ -193,10 +198,8 @@ end
 
 # Builds our report CSV
 class PageflexReport < Array
-  def initialize(pageflex_data, columns)
-    @products = attach_metadata pageflex_data.products, pageflex_data.metadata
-    @products = filter_old_versions @products
-    build_report @products, columns
+  def initialize(current_products, columns)
+    build_report current_products, columns
   end
 
   def write_csv
@@ -210,44 +213,29 @@ class PageflexReport < Array
 
   private
 
-  def filter_old_versions(products)
-    puts 'Identifying current versions'
-    buckets = {}
-    products.values.each do |p|
-      if p.key? :MasterProductID__IDREF
-        b = buckets.fetch p[:MasterProductID__IDREF].to_sym, []
-        buckets[p[:MasterProductID__IDREF].to_sym] = b << p
-      else
-        b = buckets.fetch p[:ProductID__ID].to_sym, []
-        buckets[p[:ProductID__ID].to_sym] = b << p
-      end
-    end
-    date_key = :DateTimeModified__ISO8601
-    buckets.map do |b|
-      b[1].sort { |x, y| y[date_key] <=> x[date_key] }.first
-    end
-  end
-
-  def attach_metadata(products, metadata)
-    puts 'Attaching metadata to products'
-    products.values.each do |p|
-      p.merge! metadata.fetch p[:ProductID__ID].to_sym, {}
-    end
-    products
-  end
-
   def build_report(products, columns)
-    puts 'Building report arrays'
     products.each do |p|
       row = []
-      columns.each { |c| row << (p.fetch c[1], '') }
+      columns.each { |c| row << (p[1].fetch c[1], '') }
       self << row
     end
+    # Add header
+    unshift columns.reduce([]) { |a, e| a << e[0] }
+  end
+end
+
+# Report with our custom changes
+class CustomPageflexReport < PageflexReport
+  def initialize(current_products, columns)
+    super
+    shift # Remove header
     strip_html
     sort_by_uk_date
     # Add header
     unshift columns.reduce([]) { |a, e| a << e[0] }
   end
+
+  private
 
   def sort_by_uk_date
     # Sort by the third column, after formatting the date to be sortable
@@ -267,8 +255,6 @@ end
 a = PageflexData.new
 b = Categories.new a.categories
 c = CurrentProducts.new a.products, a.metadata, a.cat_entries, b
-puts c.class
-binding.pry
-
-PageflexReport.new(PageflexData.new, columns).write_csv
+a, b = nil
+CustomPageflexReport.new(c, columns).write_csv
 puts "\t...done!"
