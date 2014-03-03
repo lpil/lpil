@@ -1,0 +1,9 @@
+nnoremap : ;
+nnoremap ; :
+
+nnoremap j 5j
+nnoremap k 5k
+
+nnoremap D :undo<CR>
+
+set editor="terminator -x vim"

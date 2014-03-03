@@ -1,7 +1,7 @@
 .vimrc
 ======
 
-My .vimrc
+My .vimrc (and vimperatorrc)
 
 # Installation Instructions
 1. Clone this repo into a directory, such as `~/dotfiles/vimrc`.  
