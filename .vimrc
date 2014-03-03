@@ -1,6 +1,6 @@
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vundle package manager
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 filetype off
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
@@ -21,9 +21,9 @@ Bundle 'wting/rust.vim'
 filetype plugin indent on
 filetype plugin on
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Generic crap
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Allow switching buffers without saving current buffer
 set hidden
@@ -66,34 +66,37 @@ set autoread
 " Colours
 set t_Co=256
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" don't redraw when performing macros (for performance)
+set lazyredraw
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Indentation, Tabs, Space, Etc
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Line wrapping
 set wrap
 
-set tabstop=8                   "A tab is 8 spaces
-set expandtab                   "Always uses spaces instead of tabs
-set softtabstop=2               "Insert 2 spaces when tab is pressed
-set shiftwidth=2                "An indent is 2 spaces
-set smarttab                    "Indent instead of tab at start of line
-set shiftround                  "Round spaces to nearest shiftwidth multiple
-set nojoinspaces                "Don't convert spaces to tabs
+set tabstop=8       "A tab is 8 spaces
+set expandtab       "Always uses spaces instead of tabs
+set softtabstop=2   "Insert 2 spaces when tab is pressed
+set shiftwidth=2    "An indent is 2 spaces
+set smarttab        "Indent instead of tab at start of line
+set shiftround      "Round spaces to nearest shiftwidth multiple
+set nojoinspaces    "Don't convert spaces to tabs
 
 set autoindent
 set smartindent
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Highlighting
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Highlight chars in col 81 (long lines)
-2mat ErrorMsg '\%81v.'
+2mat ErrorMsg '\%80v.'
     " clear with :2mat
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Remapping keys
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 let mapleader = ","
 
@@ -103,37 +106,18 @@ nnoremap : ;
 vnoremap ; :
 vnoremap : ;
 
+" Have Y behave like D, C, etc (until end of line, not entire line)
+nnoremap Y y$
+
 " Have spacebar insert a space in normal mode
 nnoremap <space> i<space><esc>l
 
 " Turn off paste on leaving insert mode
-" (only useful on machines with -clipboard as you have to use set paste)
+" (only useful on machines with -clipboard where you have to use 'set paste')
 au InsertLeave * set nopaste
 
-" Nicer location list navigation. Calls the function below.
-nnoremap <leader>[ :call WrapLnext("up")<CR>
-nnoremap <leader>] :call WrapLnext("down")<CR>
-
-" This function is a replacement for :lnext and :lprevious. It allows you to
-" wrap around from last to first (and back again)
-function! WrapLnext(direction)
-  if a:direction == "up"
-    try
-      lprevious
-    catch /^Vim\%((\a\+)\)\=:E553/
-      llast
-    endtry
-  elseif a:direction == "down"
-    try
-      lnext
-    catch /^Vim\%((\a\+)\)\=:E553/
-      lfirst
-    endtry
-  endif
-endfunction
-
 " I've got used to the switched " and @ for buffers and macros on OSX.
-" So lets swap those two feature mappings on other platforms
+" So lets swap those two feature mappings on other platforms (for UK keyboards)
 if ! has('macunix')
   nnoremap @ "
   nnoremap " @
@@ -162,6 +146,34 @@ nnoremap - <C-x>
 " Go away ex mode, you suck
 nnoremap Q <Nop>
 
+
+"""""""""""""""""""""""""""""""""""
+" Nicer location list navigation! "
+"""""""""""""""""""""""""""""""""""
+nnoremap <leader>[ :call WrapLnext("up")<CR>
+nnoremap <leader>] :call WrapLnext("down")<CR>
+
+" This function is a replacement for :lnext and :lprevious. It allows you to
+" wrap around from last to first (and back again)
+function! WrapLnext(direction)
+  if a:direction == "up"
+    try
+      lprevious
+    catch /^Vim\%((\a\+)\)\=:E553/
+      llast
+    endtry
+  elseif a:direction == "down"
+    try
+      lnext
+    catch /^Vim\%((\a\+)\)\=:E553/
+      lfirst
+    endtry
+  endif
+endfunction
+
+"""""""""""""""""""
+" Toggling stuff! "
+"""""""""""""""""""
 " Toggle Search result highlighting
 nnoremap <F1> :set hlsearch!<CR>
 " Toggle textwidth automatic new line insertion
@@ -170,11 +182,12 @@ nnoremap <silent> <F2> :exe "set textwidth=" . (&tw ? 0 : 79)<CR> <Bar> :echo ":
 noremap <F3> :set list!<CR>
 " Toggle spell check
 noremap <F4> :setlocal spell!<CR>
+" Toggle syntax check
+noremap <F5> :SyntasticToggleMode<CR>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" HTML char escaping
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
+""""""""""""""""""""""
+" HTML char escaping "
+""""""""""""""""""""""
 " This will escape HTML chars from the last pasted block
 nnoremap <Leader>h :'[,']call HtmlEscape()<CR>
 " This will do it for the visually selected block
@@ -188,16 +201,9 @@ function HtmlEscape()
   silent s/\ /\%20;/eg  " space
 endfunction
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Macros
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" don't redraw when performing macros (for performance)
-set lazyredraw
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " plugin: Syntastic syntax checking behaviour
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " error highlighting
 let g:syntastic_enable_highlighting = 0
