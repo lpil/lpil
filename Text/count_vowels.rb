@@ -1,13 +1,11 @@
-#!/usr/bin/ruby
+#!/usr/bin/env ruby
 
+# I'm bad at comments
 class String
   def count_vowels
     counts = {}
-    vowels = ['a','e','i','o','u']
-    self.each_char do |c|
-      dc = c.downcase
-      is_vowel = vowels.any? { |v| dc == v }
-      counts[dc.to_sym] = counts[dc.to_sym].to_i + 1 if is_vowel
+    %w(a e i o u).each do |vowel|
+      counts[vowel.to_sym] = count vowel
     end
     counts
   end
@@ -15,14 +13,13 @@ end
 
 # If a string is passed, count the vowels
 if ARGV.any?
-  counts = ARGV.first.count_vowels
-  total = 0
+  counts = ARGV.join.count_vowels
   counts.each do |i|
-    puts i[0].to_s + "\t" + i[1].to_s
-    total += i[1]
+    puts "#{i[0]}\t#{i[1]}"
   end
-  puts "Total\t" + total.to_s
+  puts "Total\t#{counts.values.reduce(:+)}"
 else
   # Else display help
-  puts "Please pass some text, like this:\n\truby count_vowels.rb 'Hello World'"
+  puts 'Please pass some text, like this:'
+  puts "\truby count_vowels.rb Hello World"
 end

@@ -4,8 +4,8 @@
 class String
   def my_reverse
     reved = []
-    (self.length - 1).downto(0).each do |i|
-      reved<<self[i]
+    (length - 1).downto(0).each do |i|
+      reved << self[i]
     end
     reved.join
   end
@@ -13,12 +13,13 @@ end
 
 # If a string is passed, reverse it and return it
 if ARGV.any?
-  puts ARGV.first.my_reverse
+  puts ARGV.join(' ').my_reverse
   exit
 end
 
 # Else, start the interactive mode
-puts "Hello! :)\nEnter some text, and I'll reverse it! You can type '/exit' to exit.\n"
+puts 'Hello! :)'
+puts "Enter some text, and I'll reverse it! You can type '/exit' to exit.\n"
 loop do
   usr_str = gets.chomp
   exit if usr_str == '/exit'
