@@ -1,0 +1,7 @@
+*.swp
+
+# Ignore extensionless files. (Probably binaries)
+*
+!*.*
+!*/
+!*/*
