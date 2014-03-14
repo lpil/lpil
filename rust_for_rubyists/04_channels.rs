@@ -15,5 +15,5 @@ fn main() {
 
 #[test]
 fn channel_thing_test() {
-  assert!(channel_thing() == "Hello!", "channel_thing should return Hello!")
+  assert!(channel_thing() == ~"Hello!", ~"channel_thing should return Hello!");
 }
