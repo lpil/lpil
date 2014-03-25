@@ -134,10 +134,6 @@ language game. To create the Pig Latin form of an English word the initial
 consonant sound is transposed to the end of the word and an ay is affixed (Ex.:
 "banana" would yield anana-bay). Read Wikipedia for more information on rules.
 
-**Count Words in a String** - Counts the number of individual words in a
-string. For added complexity read these strings in from a text file and
-generate a summary.
-
 **Text Editor** - Notepad style application that can open, edit, and save text
 documents. *Optional: Add syntax highlighting and other features.*
 
