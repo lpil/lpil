@@ -7,6 +7,7 @@
 # Demoninations are in pence
 class ChangeFinder
   def self.calculate(cost, payment, denominations)
+    abort 'Payment must be larger than cost!' if payment < cost
     cal(to_ele(payment) - to_ele(cost), denominations, {}).each do |x|
       puts x[0].to_s << "\t" << x[1].to_s
     end
@@ -20,7 +21,9 @@ class ChangeFinder
 
   def self.cal(money, denoms, change)
     return change if money == 0
-    change[denoms[0][0].to_sym] = money / denoms[0][1] if money > denoms[0][1]
+    unless money < denoms[0][1]
+      change[denoms[0][0].to_sym] = money / denoms[0][1]
+    end
     cal money % denoms[0][1], denoms[1..-1], change
   end
 end
