@@ -1,6 +1,6 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Vundle package manager
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""
+" Vundle package manager "
+""""""""""""""""""""""""""
 filetype off
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
@@ -21,9 +21,9 @@ Bundle 'wting/rust.vim'
 filetype plugin indent on
 filetype plugin on
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Generic crap
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""
+" Generic crap "
+""""""""""""""""
 
 " Allow switching buffers without saving current buffer
 set hidden
@@ -69,9 +69,9 @@ set t_Co=256
 " don't redraw when performing macros (for performance)
 set lazyredraw
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Indentation, Tabs, Space, Etc
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""
+" Indentation, Tabs, Space, Etc "
+"""""""""""""""""""""""""""""""""
 
 " Line wrapping
 set wrap
@@ -87,16 +87,24 @@ set nojoinspaces    "Don't convert spaces to tabs
 set autoindent
 set smartindent
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Highlighting
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""
+" Persistent Undo "
+"""""""""""""""""""
+set undofile                " Save undo's after file closes
+set undodir=~/.vim/undo     " where to save undo histories
+set undolevels=1000         " How many undos
+set undoreload=10000        " number of lines to save for undo
+
+""""""""""""""""
+" Highlighting "
+""""""""""""""""
 " Highlight chars in col 81 (long lines)
 2mat ErrorMsg '\%80v.'
     " clear with :2mat
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Remapping keys
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""
+" Remapping keys "
+""""""""""""""""""
 
 let mapleader = ","
 
@@ -201,9 +209,9 @@ function HtmlEscape()
   silent s/\ /\%20;/eg  " space
 endfunction
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" plugin: Syntastic syntax checking behaviour
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""
+" plugin: Syntastic syntax checking behaviour "
+"""""""""""""""""""""""""""""""""""""""""""""""
 
 " error highlighting
 let g:syntastic_enable_highlighting = 0
