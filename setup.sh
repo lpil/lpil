@@ -20,6 +20,9 @@ echo Creating Symlinks
 ln -sv "$VIMRCPATH/.vimrc" ~/.vimrc
 ln -sv "$VIMRCPATH/.vimperatorrc" ~/.vimperatorrc
 
+# Make the undo history dir. Vim ought to do this.
+mkdir -p ~/.vim/undo
+
 # Get the plugin package manager, vundle
 if ! [ ~/.vim/bundle/vundle ]; then
   echo
