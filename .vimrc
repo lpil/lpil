@@ -10,6 +10,7 @@ Bundle 'gmarik/vundle'
 
 Bundle 'garbas/vim-snipmate'
 Bundle 'honza/vim-snippets'
+Bundle 'kien/ctrlp.vim'
 Bundle 'marcweber/vim-addon-mw-utils'
 Bundle 'scrooloose/syntastic'
 Bundle 'tomtom/tlib_vim'
