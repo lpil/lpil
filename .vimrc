@@ -231,3 +231,11 @@ let g:syntastic_check_on_wq = 0
 
 " Ruby: mri syntax, rubocop style
 let g:syntastic_ruby_checkers=['mri', 'rubocop']
+
+""""""""""""""""
+" ctrlp plugin "
+""""""""""""""""
+
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/](\.git|\.hg|\.svn|_site)$',
+  \ }
