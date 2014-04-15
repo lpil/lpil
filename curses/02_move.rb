@@ -18,7 +18,7 @@ begin
   loop do
     Curses.mvadd i % Curses.stdscr.maxy, i % Curses.stdscr.maxx, i.to_s
     Curses.refresh
-    i = i + 1
+    i -= 1
     sleep 0.01
   end
 rescue Interrupt => _

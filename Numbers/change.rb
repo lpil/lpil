@@ -13,8 +13,6 @@ class ChangeFinder
     end
   end
 
-  private
-
   def self.to_ele(num, elem_per_unit)
     (num * elem_per_unit).to_i
   end
@@ -39,8 +37,6 @@ class BritishChangeFinder < ChangeFinder
     ]
     super cost, payment, denominations
   end
-
-  private
 
   def self.to_ele(num, *_)
     super num, 100

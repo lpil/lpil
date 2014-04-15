@@ -51,7 +51,7 @@ class RouletteGame
     end
     while bullets > 0
       # If the gun loads successfully decrement bullets
-      bullets = bullets - 1 if @gun.load!
+      bullets -= 1 if @gun.load!
       @gun.spin!
     end
   end
