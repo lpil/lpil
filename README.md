@@ -1,7 +1,7 @@
 pageflex_product_report
 =======================
 
-Generate a CSV of products from an XML dump of a Pageflex Storefront database
+Generate a CSV of products from an XML dump of a Pageflex Storefront 8 database
 
 # Notes
 
