@@ -17,7 +17,3 @@ These values are...
 
 There are also some other funky non-generic features that you may want to
 change, such as the sort_by_uk_date and strip_html methods.
-
-# Dependencies
-
-* **nokogiri** - for parsing XML
