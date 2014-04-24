@@ -1,111 +1,99 @@
-require 'nokogiri'
-
 # Extracts the information from the XML
 class PageflexData
   attr_reader :names, :metadata, :products, :categories, :cat_entries
 
   def initialize
     puts 'Parsing XML document'
-    @doc      = parse_xml_doc
+    tables = parse_xml_doc ARGV.join ' '
     puts 'Extracting field names table'
-    @names    = build_names
+    @names = build_names tables['Names__Row']
     puts 'Extracting metadata table, resolving names'
-    @metadata = build_metadata
+    @metadata = build_metadata tables['ProductMetadataFieldValues__Row']
     puts 'Extracting products table'
-    @products = build_products
+    @products = build_products tables['Products__Row']
     puts 'Extracting categories table'
-    @categories = build_categories
+    @categories = build_cats tables['ProductCatalogCategories__Row']
     puts 'Extracting catalog entries table'
-    @cat_entries = build_catalog_entries
+    @cat_entries = build_cat_entries tables['ProductCatalogEntries__Row']
   end
 
   private
 
-  def parse_xml_doc
-    # Get the xml location from the CLI args
-    if ARGV.any?
-      a_xml = File.read(ARGV.join(' '))
-      doc   = Nokogiri::XML(a_xml)
-    else
-      abort 'Pass the location of the MMStore XML to run script'
+  # Get all attributes from a line
+  def build_all_attrs(table)
+    hash = {}
+    table.each do |line|
+      id, attrs = nil, {}
+      line.sub(" />\n", '').split(' PFWeb:').drop(1).each.with_index do |e, i|
+        match = e.match(/(?<name>\S*)="?(?<val>.*)"/)
+        id = match[:val].to_sym if i == 0
+        attrs[match[:name].to_sym] = match[:val]
+      end
+      hash[id] = attrs
     end
-    doc
+    hash
   end
 
-  def build_names
+  # extract desired tables from XML
+  def parse_xml_doc(xml_file_name)
+    table_names = %w(
+      Names__Row ProductMetadataFieldValues__Row Products__Row
+      ProductCatalogCategories__Row ProductCatalogEntries__Row)
+    tables = {}
+    table_names.each { |e| tables[e] = [] }
+    File.open(xml_file_name) do |f|
+      f.lazy.each.with_index do |line, i|
+        type = table_names.find { |e| line.include? e }
+        tables[type] << line if type
+      end
+    end
+    tables
+  end
+
+  # Build names
+  def build_names(names_table)
     names = {}
-    @doc.xpath(
-      '/PFWeb:Database/PFWeb:Names__Table/PFWeb:Names__Row'
-    ).each do |i|
-      n_key   = i.attributes['NameID__ID'].value.to_sym
-      n_value = i.attributes['StringValue__STR'].value
-      names[n_key] = n_value
+    names_table.each do |line|
+      x = line.match(/NameID__ID="(.*?)".*StringValue__STR="(.*?)"/)
+      names[x[1].to_sym] = x[2] if x
     end
     names
   end
 
-  def build_metadata
-    metadata = {}
-    @doc.xpath([
-      '/PFWeb:Database', '/PFWeb:ProductMetadataFieldValues__Table',
-      '/PFWeb:ProductMetadataFieldValues__Row'
-    ].join('')).each do |i|
-      key   = i.attributes['ProductID__IDREF'].value.to_sym
-      name  = @names[i.attributes['FieldNameID__IDREF'].value.to_sym]
-      name  = ('metadata_' + name).to_sym
-      value = i.attributes['FieldValue__STR']
-      value = value ? value.value : '' # Handle nil values
-      a = metadata.fetch key, {}
-      a[name] = value
-      metadata[key] = a
+  # Build metadata
+  def build_metadata(metadata_table)
+    meta = {}
+    metadata_table.each do |line|
+      match = line.match(
+        /ProductID__IDREF="(?<prod>.*?)"
+        .*FieldNameID__IDREF="(?<field>.*?)"
+        (.*FieldValue__STR="(?<val>.*?)")?/x)
+      name = "metadata_#{names[match[:field].to_sym]}".to_sym
+      x = meta.fetch match[:prod].to_sym, {}
+      x[name] = match[:val] ? match[:val] : ''
+      meta[match[:prod].to_sym] = x
     end
-    metadata
+    meta
   end
 
-  def build_products
-    products = {}
-    @doc.xpath(
-      '/PFWeb:Database/PFWeb:Products__Table/PFWeb:Products__Row'
-    ).each do |i|
-      id, attrs = nil, {}
-      i.attributes.each do |a|
-        id    = a[1].value.to_sym if a[1].name == 'ProductID__ID'
-        key   = a[0].to_sym
-        value = a[1].value
-        attrs[key] = value
-      end
-      products[id] = attrs
-    end
-    products
+  # Build products
+  def build_products(prods_table)
+    build_all_attrs prods_table
   end
 
-  def build_categories
-    categories = {}
-    @doc.xpath([
-      '/PFWeb:Database/PFWeb:ProductCatalogCategories__Table',
-      '/PFWeb:ProductCatalogCategories__Row'
-    ].join('')).each do |i|
-      id, attrs = nil, {}
-      i.attributes.each do |a|
-        id    = a[1].value.to_sym if a[1].name == 'ProductCategoryID__ID'
-        key   = a[0].to_sym
-        value = a[1].value
-        attrs[key] = value
-      end
-      categories[id] = attrs
-    end
-    categories
+  # Build categories
+  def build_cats(cats_table)
+    build_all_attrs cats_table
   end
 
-  def build_catalog_entries
+  # Build catalog entries
+  def build_cat_entries(entries_table)
     entries = {}
-    @doc.xpath([
-      '/PFWeb:Database/PFWeb:ProductCatalogEntries__Table',
-      '/PFWeb:ProductCatalogEntries__Row'
-    ].join('')).each do |i|
-      key   = i.attributes['ProductID__IDREF'].value.to_sym
-      value = i.attributes['ParentCategoryID__IDREF'].value
-      entries[key] = (entries.fetch key, []) << value
+    entries_table.each do |line|
+      match = line.match(/ProductID__IDREF="(?<prod>\S*?)".*
+                         ParentCategoryID__IDREF="(?<parent>\S*?)"/x)
+      key = match[:prod].to_sym
+      entries[key] = (entries.fetch key, []) << match[:parent]
     end
     entries
   end
