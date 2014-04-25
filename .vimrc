@@ -236,6 +236,9 @@ let g:syntastic_ruby_checkers=['mri', 'rubocop']
 " ctrlp plugin "
 """"""""""""""""
 
+" Start in regexp mode
+let g:ctrlp_regexp = 1
+
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/](\.git|\.hg|\.svn|_site)$',
   \ }
