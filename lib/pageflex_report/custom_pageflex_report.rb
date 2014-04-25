@@ -15,6 +15,7 @@ class CustomPageflexReport < PageflexReport
     puts "Writing to '#{file_name}'"
     book = Spreadsheet::Workbook.new
     write_sheets book
+    style_sheets book
     header = @columns.reduce([]) { |a, e| a << e[0] }
     book.sheet_count.times { |n| book.worksheet(n).replace_row 0, *header }
     book.write file_name
@@ -42,6 +43,20 @@ class CustomPageflexReport < PageflexReport
       else
         sheet_mo.insert_row sheet_ex.count + 1, row
       end
+    end
+  end
+
+  def style_sheets(book)
+    colors = [45, 43, 42, 15]
+    book.worksheets.each.with_index do |sheet, i|
+      fmt = Spreadsheet::Format.new weight: :bold
+      sheet.row(0).default_format = fmt
+      sheet.column_count.times { |e| sheet.column(e).width = 20 }
+      sheet.column(1).width = 50
+      fmt = Spreadsheet::Format.new(
+        pattern: 1,
+        pattern_fg_color: "xls_color_#{colors[i]}".to_sym)
+      sheet.column(2).default_format = fmt
     end
   end
 
