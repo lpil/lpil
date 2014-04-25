@@ -10,6 +10,8 @@ require 'categories.rb'
 require 'current_products.rb'
 require 'pageflex_report/custom_pageflex_report.rb'
 
+# Currently CustomPageflexReport.write expects Expiry Date to be 3rd
+# If it is not you will need to modify that class.
 columns = [
   ['Code', :Code__STR],
   ['DisplayName', :HTML_DisplayName__STR],
@@ -30,5 +32,5 @@ columns = [
 a = PageflexData.new
 b = Categories.new a.categories
 c = CurrentProducts.new a.products, a.metadata, a.cat_entries, b
-CustomPageflexReport.new(c, columns).write_csv
+CustomPageflexReport.new(c, columns).write
 puts "\t...done!"
