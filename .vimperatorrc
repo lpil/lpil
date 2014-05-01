@@ -7,3 +7,5 @@ nnoremap k 5k
 nnoremap D :undo<CR>
 
 set editor="x-terminal-emulator -e vim"
+
+nnoremap <F1> :nohlsearch<CR>
