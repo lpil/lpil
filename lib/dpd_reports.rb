@@ -26,6 +26,12 @@ class DpdReports
     end
   end
 
+  def save_to_db
+    @reports.map do |report|
+      Mailing.create report
+    end
+  end
+
   private
 
   def parse_report(report)
