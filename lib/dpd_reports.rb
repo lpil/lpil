@@ -21,7 +21,7 @@ class DpdReports
         @reports << parse_report(File.read("../tmp/#{file}")
           ).merge(date_sent: ftp.mtime(file))
         ftp.rename(file, "parsed_files/#{file}")
-        File.delete "../tmp/#{file}"
+        File.delete "../tmp/#{file}" unless development?
       end
     end
   end
