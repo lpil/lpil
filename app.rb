@@ -41,6 +41,7 @@ end
 
 # The page with this form is located in public/deliveries.html
 post '/deliveries' do
+  @dpd_url = 'http://www.dpd.co.uk/apps/tracking/?reference='
   @mailing = Mailing.find_by(order_ref: params[:order_ref])
   slim :deliveries
 end
