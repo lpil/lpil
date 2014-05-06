@@ -1,0 +1,9 @@
+-if @mailing
+  - if @mailing[:is_post]
+    p Your package was sent by post on #{@mailing[:date_sent]}
+  - else
+    p Your package was sent by DPD on #{@mailing[:date_sent]}
+    p Your DPD tracking reference is #{@mailing[:dpd_ref]}
+- else
+  p No package found with that reference.
+  p Either your reference is incorrect, or your package has not yet been sent.

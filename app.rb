@@ -24,7 +24,7 @@ class Mailing < ActiveRecord::Base
 end
 
 get '/' do
-  'Hello World!'
+  "The time at the server is #{Time.now.strftime '%l:%M %P'}."
 end
 
 # Deliveries.
@@ -39,10 +39,8 @@ Thread.new do
   end
 end
 
-get '/deliveries' do
-  send_file 'views/deliveries.html'
-end
-
+# The page with this form is located in public/deliveries.html
 post '/deliveries' do
-  'Deliveries!'
+  @mailing = Mailing.find_by(order_ref: params[:order_ref])
+  slim :deliveries
 end
