@@ -6,15 +6,15 @@ class PageflexData
     puts 'Parsing XML document'
     tables = parse_xml_doc ARGV.join ' '
     puts 'Extracting field names table'
-    @names = build_names tables['Names__Row']
+    @names = build_names tables[:Names__Row]
     puts 'Extracting metadata table, resolving names'
-    @metadata = build_metadata tables['ProductMetadataFieldValues__Row']
+    @metadata = build_metadata tables[:ProductMetadataFieldValues__Row]
     puts 'Extracting products table'
-    @products = build_products tables['Products__Row']
+    @products = build_products tables[:Products__Row]
     puts 'Extracting categories table'
-    @categories = build_cats tables['ProductCatalogCategories__Row']
+    @categories = build_cats tables[:ProductCatalogCategories__Row]
     puts 'Extracting catalog entries table'
-    @cat_entries = build_cat_entries tables['ProductCatalogEntries__Row']
+    @cat_entries = build_cat_entries tables[:ProductCatalogEntries__Row]
   end
 
   private
@@ -40,11 +40,11 @@ class PageflexData
       Names__Row ProductMetadataFieldValues__Row Products__Row
       ProductCatalogCategories__Row ProductCatalogEntries__Row)
     tables = {}
-    table_names.each { |e| tables[e] = [] }
+    table_names.each { |e| tables[e.to_sym] = [] }
     File.open(xml_file_name) do |f|
       f.lazy.each.with_index do |line, i|
         type = table_names.find { |e| line.include? e }
-        tables[type] << line if type
+        tables[type.to_sym] << line if type
       end
     end
     tables
