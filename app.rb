@@ -34,8 +34,8 @@ require 'dpd_reports.rb'
 
 Thread.new do
   loop do
+    DpdReports.new.fetch_reports.save_to_db
     sleep 10_800 # 3 hours
-    DpdReports.new.save_to_db
   end
 end
 

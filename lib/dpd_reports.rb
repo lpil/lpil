@@ -10,10 +10,13 @@ class DpdReports
   attr_reader :reports
 
   def initialize
-    site, login, pass, @reports =
+    @site, @login, @pass, @reports =
       `echo $ftp_dpd_site`.chomp, `echo $ftp_dpd_login`.chomp,
       `echo $ftp_dpd_pass`.chomp, []
-    Net::FTP.open(site, login, pass) do |ftp|
+  end
+
+  def fetch_reports
+    Net::FTP.open(@site, @login, @pass) do |ftp|
       files = ftp.nlst
       ftp.mkdir 'parsed_files' unless files.include? 'parsed_files'
       files.select { |e| e.match(/\.OUT$/) }.each do |file|
@@ -24,6 +27,7 @@ class DpdReports
         File.delete "../tmp/#{file}" unless development?
       end
     end
+    self
   end
 
   def save_to_db
