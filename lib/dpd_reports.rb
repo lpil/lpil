@@ -15,21 +15,30 @@ class DpdReports
       `echo $ftp_dpd_pass`.chomp, []
   end
 
+  # Fetches the DPD report files from the FTP specified by the ftp_dpd_site,
+  # ftp_dpd_login, and ftp_dpd_pass enviroment variables.
+  #
+  # If production? the reports are moved to the 'parsed_reports' dir within the
+  # ftp after being read.
   def fetch_reports
     Net::FTP.open(@site, @login, @pass) do |ftp|
       files = ftp.nlst
-      ftp.mkdir 'parsed_files' unless files.include? 'parsed_files'
+      ftp.mkdir 'parsed_reports' unless files.include? 'parsed_reports'
       files.select { |e| e.match(/\.OUT$/) }.each do |file|
         ftp.gettextfile(file, "#{File.expand_path('../tmp/')}/#{file}")
         @reports << parse_report(File.read("../tmp/#{file}")
           ).merge(date_sent: ftp.mtime(file))
         ftp.rename(file, "parsed_files/#{file}")
-        File.delete "../tmp/#{file}" unless development?
+        File.delete "../tmp/#{file}" if production?
       end
     end
     self
   end
 
+  # Saves the reports to the database. Nothing will happen unless the
+  # {#fetch_reports} method is called beforehand.
+  #
+  # @return [Array] The return values from each Mailing.create
   def save_to_db
     @reports.map do |report|
       Mailing.create report
