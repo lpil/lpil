@@ -31,6 +31,6 @@ columns = [
 
 a = PageflexData.new
 b = Categories.new a.categories
-c = CurrentProducts.new a.products, a.metadata, a.cat_entries, b
+c = CurrentProducts.new a.products, a.metadata, a.cat_entries, b, a.assets
 CustomPageflexReport.new(c, columns).write
 puts "\t...done!"

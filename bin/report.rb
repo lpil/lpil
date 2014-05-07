@@ -14,6 +14,7 @@ columns = [
   ['Code', :Code__STR],
   ['DisplayName', :HTML_DisplayName__STR],
   ['Key Words', :Keywords__STR],
+  ['File Name', :assets_ShortName__STR],
   ['Retired?', :b_IsRetired],
   ['Archived?', :b_IsArchived],
   ['Deleted?', :b_IsDeleted],
@@ -25,6 +26,6 @@ columns = [
 
 a = PageflexData.new
 b = Categories.new a.categories
-c = CurrentProducts.new a.products, a.metadata, a.cat_entries, b
+c = CurrentProducts.new a.products, a.metadata, a.cat_entries, b, a.assets
 PageflexReport.new(c, columns).write
 puts "\t...done!"

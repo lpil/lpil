@@ -1,6 +1,6 @@
 # Extracts the information from the XML
 class PageflexData
-  attr_reader :names, :metadata, :products, :categories, :cat_entries
+  attr_reader :names, :metadata, :products, :categories, :cat_entries, :assets
 
   def initialize
     puts 'Parsing XML document'
@@ -15,9 +15,28 @@ class PageflexData
     @categories = build_cats tables[:ProductCatalogCategories__Row]
     puts 'Extracting catalog entries table'
     @cat_entries = build_cat_entries tables[:ProductCatalogEntries__Row]
+    puts 'Extracting digital assets table'
+    @assets = build_all_attrs tables[:DigitalAssets__Row]
   end
 
   private
+
+  # extract desired tables from XML
+  def parse_xml_doc(xml_file_name)
+    table_names = %w(
+      Names__Row ProductMetadataFieldValues__Row Products__Row
+      ProductCatalogCategories__Row ProductCatalogEntries__Row
+      DigitalAssets__Row)
+    tables = {}
+    table_names.each { |e| tables[e.to_sym] = [] }
+    File.open(xml_file_name) do |f|
+      f.lazy.each.with_index do |line, i|
+        type = table_names.find { |e| line.include? e }
+        tables[type.to_sym] << line if type
+      end
+    end
+    tables
+  end
 
   # Get all attributes from a line
   def build_all_attrs(table)
@@ -32,22 +51,6 @@ class PageflexData
       hash[id] = attrs
     end
     hash
-  end
-
-  # extract desired tables from XML
-  def parse_xml_doc(xml_file_name)
-    table_names = %w(
-      Names__Row ProductMetadataFieldValues__Row Products__Row
-      ProductCatalogCategories__Row ProductCatalogEntries__Row)
-    tables = {}
-    table_names.each { |e| tables[e.to_sym] = [] }
-    File.open(xml_file_name) do |f|
-      f.lazy.each.with_index do |line, i|
-        type = table_names.find { |e| line.include? e }
-        tables[type.to_sym] << line if type
-      end
-    end
-    tables
   end
 
   # Build names
