@@ -2,7 +2,7 @@
 " Vundle package manager "
 """"""""""""""""""""""""""
 filetype off
-set rtp+=~/.vim/bundle/vundle/
+set rtp+=~/.vim/bundle/vundle.vim
 call vundle#rc()
 
 " let Vundle manage Vundle
