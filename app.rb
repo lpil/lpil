@@ -4,6 +4,7 @@
 require 'sinatra'
 require 'sinatra/activerecord'
 require 'sinatra/reloader' if development?
+require 'slim'
 
 # Add out application's lib dir to the require LOAD_PATH
 lib_path = File.expand_path('lib', File.dirname(__FILE__))

@@ -1,3 +1,4 @@
 *.xls
 doc/
 .yardoc/
+tmp/*
