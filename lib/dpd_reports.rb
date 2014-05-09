@@ -11,8 +11,7 @@ class DpdReports
 
   def initialize
     @site, @login, @pass, @reports =
-      `echo $ftp_dpd_site`.chomp, `echo $ftp_dpd_login`.chomp,
-      `echo $ftp_dpd_pass`.chomp, []
+      ENV['ftp_dpd_site'], ENV['ftp_dpd_login'], ENV['ftp_dpd_pass'], []
   end
 
   # Fetches the DPD report files from the FTP specified by the ftp_dpd_site,
@@ -21,6 +20,7 @@ class DpdReports
   # If production? the reports are moved to the 'parsed_reports' dir within the
   # ftp after being read.
   def fetch_reports
+    return self unless @site && @login && @pass
     Net::FTP.open(@site, @login, @pass) do |ftp|
       files = ftp.nlst
       ftp.mkdir 'parsed_reports' unless files.include? 'parsed_reports'
