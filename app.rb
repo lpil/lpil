@@ -36,6 +36,7 @@ require 'dpd_reports.rb'
 Thread.new do
   loop do
     DpdReports.new.fetch_reports.save_to_db
+    Mailing.delete_all(['date_sent < ?', Time.now - 7_776_000]) # 90 days
     sleep 10_800 # 3 hours
   end
 end
