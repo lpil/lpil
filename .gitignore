@@ -1,4 +1,4 @@
 *.xls
 doc/
 .yardoc/
-tmp/*
+*.sqlite3

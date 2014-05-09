@@ -11,9 +11,9 @@ lib_path = File.expand_path('lib', File.dirname(__FILE__))
 $LOAD_PATH.unshift lib_path unless $LOAD_PATH.include? lib_path
 
 db_path = {
-  development: 'sqlite3:../data/db.sqlite3',
-  production:  'sqlite3:../data/db.sqlite3',
-  test:        'sqlite3:../data/test.sqlite3'
+  production:  'sqlite3:tmp/db.sqlite3',
+  development: 'sqlite3:tmp/dev.sqlite3',
+  test:        'sqlite3:tmp/test.sqlite3'
 }
 set :database, db_path[settings.environment]
 
