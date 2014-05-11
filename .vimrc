@@ -2,11 +2,11 @@
 " Vundle package manager "
 """"""""""""""""""""""""""
 filetype off
-set rtp+=~/.vim/bundle/vundle.vim
+set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#rc()
 
 " let Vundle manage Vundle
-Bundle 'gmarik/vundle'
+Bundle 'gmarik/Vundle.vim'
 
 Bundle 'garbas/vim-snipmate'
 Bundle 'honza/vim-snippets'
