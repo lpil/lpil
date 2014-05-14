@@ -5,6 +5,7 @@ require 'sinatra'
 require 'sinatra/activerecord'
 require 'sinatra/reloader' if development?
 require 'slim'
+require 'logger'
 
 # Add out application's lib dir to the require LOAD_PATH
 lib_path = File.expand_path('lib', File.dirname(__FILE__))
@@ -16,6 +17,9 @@ db_path = {
   test:        'sqlite3:tmp/test.sqlite3'
 }
 set :database, db_path[settings.environment]
+
+# Logger, logs kept for 2 days
+$log = Logger.new('tmp/app.log', 2, 'daily')
 
 # Mailings model
 class Mailing < ActiveRecord::Base
