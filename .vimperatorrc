@@ -1,19 +1,19 @@
-# Nicer ex mapping
+" Nicer ex mapping
 nnoremap : ;
 nnoremap ; :
 
-# Larger scroll step increment
+" Larger scroll step increment
 nnoremap j 5j
 nnoremap k 5k
 
-# D reopens closed tabs
+" D reopens closed tabs
 nnoremap D :undo<CR>
 
-# F1 clears search. I can type :help myself.
+" F1 clears search. I can type :help myself.
 nnoremap <F1> :nohlsearch<CR>
 
-# Vim external editor (linux only)
+" Vim external editor (linux only)
 set editor="x-terminal-emulator -e vim"
 
-# Remove navigation bar
+" Remove navigation bar
 set gui=nonavigation
