@@ -51,9 +51,9 @@ class DpdReports
   def parse_report(report)
     report = CSV.parse_line(report)
     {
-      order_ref: report[1],
+      order_ref: report[1].force_encoding('UTF-8'),
       is_post:   false,
-      dpd_ref:   report[11]
+      dpd_ref:   report[11].force_encoding('UTF-8')
     }
   end
 end
