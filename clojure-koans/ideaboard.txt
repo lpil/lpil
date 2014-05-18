@@ -1,0 +1,30 @@
+Concepts / Language Features
+=====
+
+Quoting
+
+new record syntax
+Agents
+Vars
+state identity lifetime
+Metadata
+immutability / side effects
+type hints
+Pre and Post conditions of functions
+
+Particular Functions
+=====
+fnil - creating_a_function
+juxt - creating_a_function
+constantly - creating_a_function
+flatten
+
+frequencies
+reductions
+keep
+keep-indexed
+map-indexed
+partition-all
+partition-by
+repeatedly
+

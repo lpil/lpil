@@ -1,10 +1,11 @@
 bin
 classes
-.DS_Store
-*.jar
-.lein-deps-sum
-.lein-plugins
-.lein-repl-history
 lib
 releases
 target
+*.jar
+.DS_Store
+.lein-deps-sum
+.lein-plugins
+.lein-repl-history
+
