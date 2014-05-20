@@ -8,7 +8,9 @@ call vundle#rc()
 " let Vundle manage Vundle
 Bundle 'gmarik/Vundle.vim'
 
+" Bundle 'wting/rust.vim'
 Bundle 'garbas/vim-snipmate'
+Bundle 'guns/vim-clojure-static'
 Bundle 'honza/vim-snippets'
 Bundle 'kien/ctrlp.vim'
 Bundle 'marcweber/vim-addon-mw-utils'
@@ -17,12 +19,10 @@ Bundle 'scrooloose/syntastic'
 Bundle 'slim-template/vim-slim'
 Bundle 'tomtom/tlib_vim'
 Bundle 'tpope/vim-commentary'
+Bundle 'tpope/vim-fireplace'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
 Bundle 'vim-scripts/matchit.zip'
-Bundle 'guns/vim-clojure-static'
-Bundle 'tpope/vim-fireplace'
-" Bundle 'wting/rust.vim'
 
 filetype plugin indent on
 filetype plugin on
@@ -259,6 +259,8 @@ let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/](\.git|\.hg|\.svn|_site)$',
   \ }
 
-" vim-commentary plugin
+"""""""""""""""""""""""""
+" vim-commentary plugin "
+"""""""""""""""""""""""""
 
 autocmd FileType slim set commentstring=/\ %s
