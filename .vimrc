@@ -248,9 +248,9 @@ let g:syntastic_check_on_wq = 0
 " Ruby: mri syntax, rubocop style
 let g:syntastic_ruby_checkers=['mri', 'rubocop']
 
-""""""""""""""""
-" ctrlp plugin "
-""""""""""""""""
+""""""""""""""""""
+" plugin: ctrlp "
+""""""""""""""""""
 
 " Start in regexp mode
 let g:ctrlp_regexp = 1
@@ -259,8 +259,17 @@ let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/](\.git|\.hg|\.svn|_site)$',
   \ }
 
-"""""""""""""""""""""""""
-" vim-commentary plugin "
-"""""""""""""""""""""""""
+"""""""""""""""""""""""""""
+" plugin : vim-commentary "
+"""""""""""""""""""""""""""
 
 autocmd FileType slim set commentstring=/\ %s
+
+"""""""""""""""""""""""""""""""""""""
+" And finally, per-project .vimrc's "
+"""""""""""""""""""""""""""""""""""""
+
+" Disable unsafe commands in local .vimrc files
+set secure
+" Enable reading of a .vimrc found in the current dir
+set exrc
