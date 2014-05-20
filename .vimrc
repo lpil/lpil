@@ -195,7 +195,7 @@ function! StripWhitespace()
   call setpos('.', save_cursor)
   call setreg('/', old_query)
 endfunction
-noremap d<space> :call StripWhitespace()<CR>
+noremap <leader>d<space> :call StripWhitespace()<CR>
 
 """""""""""""""""""
 " Toggling stuff! "
