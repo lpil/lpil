@@ -20,7 +20,9 @@ Bundle 'tpope/vim-commentary'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
 Bundle 'vim-scripts/matchit.zip'
-Bundle 'wting/rust.vim'
+Bundle 'guns/vim-clojure-static'
+Bundle 'tpope/vim-fireplace'
+" Bundle 'wting/rust.vim'
 
 filetype plugin indent on
 filetype plugin on
@@ -182,6 +184,18 @@ function! WrapLnext(direction)
     endtry
   endif
 endfunction
+
+"""""""""""""""""""""""""""""
+" Strip trailing whitespace "
+"""""""""""""""""""""""""""""
+function! StripWhitespace()
+  let save_cursor = getpos(".")
+  let old_query = getreg('/')
+  :%s/\s\+$//e
+  call setpos('.', save_cursor)
+  call setreg('/', old_query)
+endfunction
+noremap d<space> :call StripWhitespace()<CR>
 
 """""""""""""""""""
 " Toggling stuff! "
