@@ -19,10 +19,13 @@ Bundle 'scrooloose/syntastic'
 Bundle 'slim-template/vim-slim'
 Bundle 'tomtom/tlib_vim'
 Bundle 'tpope/vim-commentary'
+Bundle 'tpope/vim-endwise'
 Bundle 'tpope/vim-fireplace'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
 Bundle 'vim-scripts/matchit.zip'
+Bundle 'guns/vim-sexp'
+Bundle 'tpope/vim-sexp-mappings-for-regular-people'
 
 filetype plugin indent on
 filetype plugin on
