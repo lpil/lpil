@@ -12,9 +12,9 @@ lib_path = File.expand_path('lib', File.dirname(__FILE__))
 $LOAD_PATH.unshift lib_path unless $LOAD_PATH.include? lib_path
 
 db_path = {
-  production:  'sqlite3:tmp/db.sqlite3',
-  development: 'sqlite3:tmp/dev.sqlite3',
-  test:        'sqlite3:tmp/test.sqlite3'
+  production:  'sqlite3:db/db.sqlite3',
+  development: 'sqlite3:db/dev.sqlite3',
+  test:        'sqlite3:db/test.sqlite3'
 }
 set :database, db_path[settings.environment]
 
@@ -48,6 +48,6 @@ end
 # The page with this form is located in public/deliveries.html
 post '/deliveries' do
   @dpd_url = 'http://www.dpd.co.uk/apps/tracking/?reference='
-  @mailing = Mailing.find_by(order_ref: params[:order_ref])
+  @mailing = Mailing.find_by_order_ref(params[:order_ref])
   slim :deliveries
 end
