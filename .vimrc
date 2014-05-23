@@ -14,7 +14,7 @@ Bundle 'guns/vim-clojure-static'
 Bundle 'honza/vim-snippets'
 Bundle 'kien/ctrlp.vim'
 Bundle 'marcweber/vim-addon-mw-utils'
-Bundle 'rainbow_parentheses.vim'
+Bundle 'oblitum/rainbow'
 Bundle 'scrooloose/syntastic'
 Bundle 'slim-template/vim-slim'
 Bundle 'tomtom/tlib_vim'
@@ -112,19 +112,17 @@ set undoreload=10000        " number of lines to save for undo
 " Remapping keys "
 """"""""""""""""""
 
-let mapleader = ","
+let mapleader = " "
 
 " Easier : commands!
 nnoremap ; :
 nnoremap : ;
 vnoremap ; :
 vnoremap : ;
+nnoremap q; q:
 
 " Have Y behave like D, C, etc (until end of line, not entire line)
 nnoremap Y y$
-
-" Have spacebar insert a space in normal mode
-nnoremap <space> i<space><esc>l
 
 " Turn off paste on leaving insert mode
 " (only useful on machines with -clipboard where you have to use 'set paste')
@@ -139,7 +137,7 @@ if ! has('macunix')
   vnoremap " @
 endif
 
-" Nicer split navigation 
+" Nicer split navigation
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
@@ -264,6 +262,16 @@ let g:ctrlp_custom_ignore = {
 """""""""""""""""""""""""""
 
 autocmd FileType slim set commentstring=/\ %s
+
+""""""""""""""""""""
+" plugin : rainbow "
+""""""""""""""""""""
+
+" Off by default
+let g:rainbow_active = 0
+
+" On for these filetypes
+au FileType clojure call rainbow#load()
 
 """""""""""""""""""""""""""""""""""""
 " And finally, per-project .vimrc's "
