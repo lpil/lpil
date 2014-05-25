@@ -8,9 +8,9 @@ call vundle#rc()
 " let Vundle manage Vundle
 Bundle 'gmarik/Vundle.vim'
 
-" Bundle 'wting/rust.vim'
 Bundle 'garbas/vim-snipmate'
 Bundle 'guns/vim-clojure-static'
+Bundle 'guns/vim-sexp'
 Bundle 'honza/vim-snippets'
 Bundle 'kien/ctrlp.vim'
 Bundle 'marcweber/vim-addon-mw-utils'
@@ -22,10 +22,10 @@ Bundle 'tpope/vim-commentary'
 Bundle 'tpope/vim-endwise'
 Bundle 'tpope/vim-fireplace'
 Bundle 'tpope/vim-repeat'
+Bundle 'tpope/vim-sexp-mappings-for-regular-people'
 Bundle 'tpope/vim-surround'
 Bundle 'vim-scripts/matchit.zip'
-Bundle 'guns/vim-sexp'
-Bundle 'tpope/vim-sexp-mappings-for-regular-people'
+Bundle 'wting/rust.vim'
 
 filetype plugin indent on
 filetype plugin on
