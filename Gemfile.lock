@@ -18,10 +18,14 @@ GEM
     atomic (1.1.16)
     backports (3.6.0)
     builder (3.1.4)
+    httparty (0.13.1)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     i18n (0.6.9)
     json (1.8.1)
     minitest (5.3.3)
     multi_json (1.9.3)
+    multi_xml (0.5.5)
     rack (1.5.2)
     rack-protection (1.5.3)
       rack
@@ -56,6 +60,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  httparty
   sinatra
   sinatra-activerecord
   sinatra-contrib

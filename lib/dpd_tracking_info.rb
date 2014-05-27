@@ -20,6 +20,7 @@ class DpdTrackingInfo
   </trackingnumbers>
 </trackingrequest>
     HEREDOC
+
     JSON.parse(HTTParty.post(
       'https://test-apps.geopostuk.com/tracking-core/dpd/parcels',
       headers: {
