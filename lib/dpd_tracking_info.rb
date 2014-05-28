@@ -32,6 +32,6 @@ class DpdTrackingInfo
   end
 end
 
-puts DpdTrackingInfo.lookup('1355440686')
+# puts DpdTrackingInfo.lookup('1355440686')
 
 # FIXME: username and password in the XML
