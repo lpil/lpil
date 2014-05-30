@@ -24,6 +24,7 @@ class AxaUpload
     validations.each do |v|
       invalid << v[2] unless params[v[0]] =~ v[1]
     end
+    invalid << 'File to be uploaded' unless params[:Upload]
 
     params[:invalid], params[:failed] = invalid, true if invalid.any?
     params.delete :Upload if invalid.any?
