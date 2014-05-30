@@ -28,6 +28,13 @@ require 'routes.rb'
 require 'models/mailing.rb'
 require 'models/axa_upload.rb'
 
+# Helpers
+helpers do
+  def html_escape(text)
+    Rack::Utils.escape_html(text)
+  end
+end
+
 # DPD + post delivery tracking
 #
 # Every 3 hours:

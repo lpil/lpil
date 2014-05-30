@@ -1,3 +1,127 @@
+<%
+  # First string in row  = value
+  # second string in row = display name
+
+  teams = [
+    ['Advisor Comparison', 'Advisor Comparison'],
+    ['AWI Propositions', 'AWI Propositions'],
+    ['Elevate Marketing', 'Elevate Marketing'],
+    ['Investment Operations', 'Investment Operations'],
+    ['Specialist Products', 'Specialist Products'],
+    ['Strategic Pursuits', 'Strategic Pursuits'],
+    ['Technical Consultancy', 'Technical Consultancy'],
+    ['Business Consultancy', 'Business Consultancy'],
+    ['Other', 'Other (Specify in notes)']
+  ]
+
+  doctypes = [
+    ['Brochures', 'Brochures'],
+    ['Charge Information', 'Charge Information'],
+    ['Forms', 'Forms'],
+    ['Fund Information', 'Fund Information'],
+    ['Fund Lists', 'Fund Lists'],
+    ['Guide', 'Guide'],
+    ['Investments', 'Investments'],
+    ['Key Features', 'Key Features'],
+    ['Other', 'Other'],
+    ['Policy', 'Policy'],
+    ['Presentations (Add to Presentations Category)', 'Presentations'],
+    ['Sales Aids (Add to Sales Aids Category)', 'Sales Aids'],
+    ["T&amp;C's", "T&amp;C's"],
+    ['Technical Information', 'Technical Information'],
+    ['Template', 'Template'],
+    ['Other', 'Other (Specify in notes)']
+  ]
+
+  categories = [
+    'AXA Wealth > Awards & Ratings',
+    'AXA Wealth > About Us',
+    'Elevate > Platform Literature',
+    'Elevate > Elevate Sales Aids',
+    'Elevate > GIA & ISA',
+    'Elevate > PIA^Retirement > Elevate PIA',
+    'Elevate > Non-Advised ISA',
+    'Elevate > Investments',
+    'Elevate > Trusts and Offshore Bond',
+    'Elevate > Discretionary Manager',
+    'Elevate > Risk Profiling',
+    'Elevate > Voyant',
+    'Elevate > Back Office',
+    'Elevate > Loyalty Offer',
+    'Elevate > Help Guides',
+    'Elevate > Releases',
+    'Elevate > Account Contact Forms',
+    'Funds & Investments > International Investments',
+    'Funds & Investments > Fund Information',
+    'Funds & Investments > Investment Guides',
+    'Funds & Investments > OBSR',
+    'Consultancy > Technical Consultancy > Calculators',
+    'Consultancy > Technical Consultancy > Client Auditor',
+    'Consultancy > Technical Consultancy > Client Auditor > Bonds',
+    'Consultancy > Technical Consultancy > Client Auditor > Collectives',
+    'Consultancy > Technical Consultancy > Client Auditor > IHT',
+    'Consultancy > Technical Consultancy > Client Auditor > Other',
+    'Consultancy > Technical Consultancy > Client Auditor > Post Retirement',
+    'Consultancy > Technical Consultancy > Client Auditor > Pre-Retirement',
+    'Consultancy > Technical Consultancy > Client Migration',
+    'Consultancy > Technical Consultancy > Client Migration > Bonds',
+    'Consultancy > Technical Consultancy > Client Migration > ISA',
+    'Consultancy > Technical Consultancy > Client Migration > OEIC',
+    'Consultancy > Technical Consultancy > Client Migration > Pension',
+    'Consultancy > Technical Consultancy > Family Suntrust',
+    'Consultancy > Technical Consultancy > Financial Planning Forums',
+    'Consultancy > Technical Consultancy > Holistic Financial Planning',
+    'Consultancy > Technical Consultancy > Ian Butler Will Trust',
+    'Consultancy > Technical Consultancy > IHT Masterclass',
+    'Consultancy > Technical Consultancy > Investment Wrappers',
+    'Consultancy > Technical Consultancy > Investment Wrappers > Collectives',
+    'Consultancy > Technical Consultancy > Investment Wrappers > Combined',
+    'Consultancy > Technical Consultancy > Investment Wrappers > Bonds',
+    'Consultancy > Technical Consultancy > Kings Castles',
+    'Consultancy > Technical Consultancy > Pensions Pre-Retirement',
+    'Consultancy > Technical Consultancy > Pensions Post Retirement',
+    'Consultancy > Technical Consultancy > Trust Masterclass',
+    'Consultancy > Advisor Comparison Tools',
+    'Consultancy > Advisor Comparison Tools > Defaqto',
+    'Consultancy > Advisor Comparison Tools > Adviser Asset',
+    'Consultancy > Advisor Comparison Tools > Elevate Reprice',
+    'Consultancy > Advisor Comparison Tools > O and M',
+    'Consultancy > Advisor Comparison Tools > Platform',
+    'Consultancy > Advisor Comparison Tools > Select a Pension',
+    'Consultancy > Advisor Comparison Tools > Synpatic',
+    'Consultancy > Advisor Comparison Tools > Team',
+    'Consultancy > Business Support > Transitioning your Business',
+    'Retirement > FST',
+    'Retirement > RWA',
+    'Retirement > Trustee Investment Plan',
+    'Retirement > Annuity',
+    'Retirement > Elevate PIA^Elevate > PIA',
+    'Onshore > Investment Bond',
+    'Onshore > Trusts',
+    'International > AWI Guides',
+    'International > Estate Planning Bond',
+    'International > Evolution',
+    'International > Selection',
+    'International > Delegation',
+    'International > Fund Literature',
+    'International > Trusts',
+    'International > Elevate',
+    'International > Closed Products &amp; Pre-RDR',
+    'International > Sales Aids',
+    'Closed Products > Executive Pension',
+    'Closed Products > Section 32',
+    'Closed Products > Personal Pension',
+    'Sales Aids',
+    'Presentations',
+    'Current Campaigns > Stockbroking Comms',
+    'Current Campaigns > FNZ Comms',
+    'Current Campaigns > RWA Campaign',
+    'Current Campaigns > RDR2',
+    'Current Campaigns > RDR2 > Customer Comms',
+    'Current Campaigns > RDR2 > Adviser Communications'
+  ]
+%>
+
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -16,6 +140,9 @@ label { cursor: pointer; }
 </head>
 <body>
 <div id="PageDiv">
+        <% if @info[:failed] %>
+        <p>Please enter a valid value for <%= @info[:invalid].to_sentence %></p>
+        <% end %>
 	<div id="PageImage"><img src="https://perivansolutions.co.uk/Axa_form/Resources/uploadimage2.jpeg" border=0 width=520 height=720 alt="Uploadimage2" style="float:left">
 </div>
 	<div id="Formarea"><form name="axa_upload" action="axa_upload" method="post" enctype="multipart/form-data">
@@ -26,7 +153,7 @@ label { cursor: pointer; }
 		<p class="field"><br>Your name: </p>
 		</td>
 		<td width=450 valign=top>
-		<p class="field"><br><input type="text" name="Name" style="width: 250px;"></p>
+		<p class="field"><br><input type="text" name="Name" value="<%= @info[:Name] %>" style="width: 250px;"></p>
 		</td>
 	</tr>
 	<tr>
@@ -34,7 +161,7 @@ label { cursor: pointer; }
 		<p class="field">Your email: </p>
 		</td>
 		<td width=450 valign=top>
-		<p class="field"><input type="text" name="Email" style="width: 250px;"></p>
+		<p class="field"><input type="text" name="Email" value="<%= @info[:Email] %>" style="width: 250px;"></p>
 		</td>
 	</tr>
 	<tr>
@@ -45,7 +172,7 @@ label { cursor: pointer; }
 		<p class="field">Document Name: </p>
 		</td>
 		<td width=450 valign=top>
-		<p class="field"><input type="text" name="Productname" style="width: 250px;"></p>
+		<p class="field"><input type="text" name="Productname" value="<%= @info[:Productname] %>" style="width: 250px;"></p>
 		</td>
 	</tr>
 	<tr>
@@ -53,7 +180,7 @@ label { cursor: pointer; }
 		<p class="field">Code:<br>(If none leave empty) </p>
 		</td>
 		<td width=450 valign=top>
-		<p class="field"><input type="text" name="Code" style="width: 250px;"></p>
+		<p class="field"><input type="text" name="Code" value="<%= @info[:Code] %>" style="width: 250px;"></p>
 		</td>
 	</tr>
 	<tr>
@@ -62,16 +189,10 @@ label { cursor: pointer; }
 		</td>
 		<td width=450 valign=top>
 		<p class="field"><select type="text" name="Team" style="width: 150px;">
-		<option selected>Select</option>
-			<option value="Advisor Comparison">Advisor Comparison</option>
-			<option value="AWI Propositions">AWI Propositions</option>
-			<option value="Elevate Marketing">Elevate Marketing</option>
-			<option value="Investment Operations">Investment Operations</option>
-			<option value="Specialist Products">Specialist Products</option>
-			<option value="Strategic Pursuits">Strategic Pursuits</option>
-			<option value="Technical Consultancy">Technical Consultancy</option>
-			<option value="Business Consultancy">Business Consultancy</option>
-			<option value="Other">Other (Specify in notes)</option>
+                        <option <% unless @info[:Team] %>selected<% end %>>Select</option>
+                        <% teams.each do |team| %>
+                        <option value="<%= team[0] %>"<% if @info[:Team] == team[0] %> selected<% end %>  ><%= team[1] %></option>
+                        <% end %>
 		</select></p>
 		</td>
 	</tr>
@@ -81,23 +202,10 @@ label { cursor: pointer; }
 		</td>
 		<td width=450 valign=top>
 		<p class="field"><select type="text" name="Doctype" style="width: 150px;">
-			<option selected>Select</option>
-			<option value="Brochures">Brochures</option>
-			<option value="Charge Information">Charge Information</option>
-			<option value="Forms">Forms</option>
-			<option value="Fund Information">Fund Information</option>
-			<option value="Fund Lists">Fund Lists</option>
-			<option value="Guide">Guide</option>
-			<option value="Investments">Investments</option>
-			<option value="Key Features">Key Features</option>
-			<option value="Other">Other</option>
-			<option value="Policy">Policy</option>
-			<option value="Presentations (Add to Presentations Category)">Presentations</option>
-			<option value="Sales Aids (Add to Sales Aids Category)">Sales Aids</option>
-			<option value="T&amp;C's">T&amp;C's</option>
-			<option value="Technical Information">Technical Information</option>
-			<option value="Template">Template</option>
-			<option value="Other">Other (Specify in notes)</option>
+                        <option <% unless @info[:Doctype] %>selected<% end %>>Select</option>
+                        <% doctypes.each do |type| %>
+                        <option value="<%= type[0] %>"<% if @info[:Doctype] == type[0] %> selected<% end %>  ><%= type[1] %></option>
+                        <% end %>
 			</select></p>
 		</td>
 	</tr>
@@ -106,7 +214,7 @@ label { cursor: pointer; }
 		<p class="field">Document owner: </p>
 		</td>
 		<td width=450 valign=top>
-		<p class="field"><input type="text" name="Contact" style="width: 250px;"></p>
+		<p class="field"><input type="text" value="<%= @info[:Contact] %>" name="Contact" style="width: 250px;"></p>
 		</td>
 	</tr>
 	<tr>
@@ -114,7 +222,7 @@ label { cursor: pointer; }
 		<p class="field">Expiry Date: </p>
 		</td>
 		<td width=450 valign=top>
-		<p class="field"><input type="text" name="Review" value="00/00/0000" style="width: 250px;"></p>
+                  <p class="field"><input type="text" name="Review" value="<%= @info[:Review] %>" style="width: 250px;"></p>
 		</td>
 	</tr>
 	<tr>
@@ -123,92 +231,10 @@ label { cursor: pointer; }
 		</td>
 		<td width=450 valign=top>
 		<p class="field"><select type="text" name="Category" style="width: 255px;">
-					<option>Select</option>
-					<option value="AXA Wealth &gt; Awards &amp; Ratings">AXA Wealth &gt; Awards &amp; Ratings</option>
-					<option value="AXA Wealth &gt; About Us">AXA Wealth &gt; About Us</option>
-					<option value="Elevate &gt; Platform Literature">Elevate &gt; Platform Literature</option>
-					<option value="Elevate &gt; Elevate Sales Aids">Elevate &gt; Elevate Sales Aids</option>
-					<option value="Elevate &gt; GIA &amp; ISA">Elevate &gt; GIA &amp; ISA</option>
-					<option value="Elevate &gt; PIA^Retirement &gt; Elevate PIA">Elevate &gt; PIA</option>
-					<option value="Elevate &gt; Non-Advised ISA">Elevate &gt; Non-Advised ISA</option>
-					<option value="Elevate &gt; Investments">Elevate &gt; Investments</option>
-					<option value="Elevate &gt; Trusts and Offshore Bond">Elevate &gt; Trusts and Offshore Bond</option>
-					<option value="Elevate &gt; Discretionary Manager">Elevate &gt; Discretionary Manager</option>
-					<option value="Elevate &gt; Risk Profiling">Elevate &gt; Risk Profiling</option>
-					<option value="Elevate &gt; Voyant">Elevate &gt; Voyant</option>
-					<option value="Elevate &gt; Back Office">Elevate &gt; Back Office</option>
-					<option value="Elevate &gt; Loyalty Offer">Elevate &gt; Loyalty Offer</option>
-					<option value="Elevate &gt; Help Guides">Elevate &gt; Help Guides</option>
-					<option value="Elevate &gt; Releases">Elevate &gt; Releases</option>
-					<option value="Elevate &gt; Account Contact Forms">Elevate &gt; Account Contact Forms</option>
-					<option value="Funds &amp; Investments &gt; International Investments">Funds &amp; Investments &gt; International Investments</option>
-					<option value="Funds &amp; Investments &gt; Fund Information">Funds &amp; Investments &gt; Fund Information</option>
-					<option value="Funds &amp; Investments &gt; Investment Guides">Funds &amp; Investments &gt; Investment Guides</option>
-					<option value="Funds &amp; Investments &gt; OBSR">Funds &amp; Investments &gt; OBSR</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; Calculators">Consultancy &gt; Technical Consultancy &gt; Calculators</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; Client Auditor">Consultancy &gt; Technical Consultancy &gt; Client Auditor</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; Client Auditor &gt; Bonds">Consultancy &gt; Technical Consultancy &gt; Client Auditor &gt; Bonds</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; Client Auditor &gt; Collectives">Consultancy &gt; Technical Consultancy &gt; Client Auditor &gt; Collectives</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; Client Auditor &gt; IHT">Consultancy &gt; Technical Consultancy &gt; Client Auditor &gt; IHT</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; Client Auditor &gt; Other">Consultancy &gt; Technical Consultancy &gt; Client Auditor &gt; Other</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; Client Auditor &gt; Post Retirement">Consultancy &gt; Technical Consultancy &gt; Client Auditor &gt; Post Retirement</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; Client Auditor &gt; Pre-Retirement">Consultancy &gt; Technical Consultancy &gt; Client Auditor &gt; Pre-Retirement</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; Client Migration">Consultancy &gt; Technical Consultancy &gt; Client Migration</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; Client Migration &gt; Bonds">Consultancy &gt; Technical Consultancy &gt; Client Migration &gt; Bonds</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; Client Migration &gt; ISA">Consultancy &gt; Technical Consultancy &gt; Client Migration &gt; ISA</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; Client Migration &gt; OEIC">Consultancy &gt; Technical Consultancy &gt; Client Migration &gt; OEIC</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; Client Migration &gt; Pension">Consultancy &gt; Technical Consultancy &gt; Client Migration &gt; Pension</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; Family Suntrust">Consultancy &gt; Technical Consultancy &gt; Family Suntrust</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; Financial Planning Forums">Consultancy &gt; Technical Consultancy &gt; Financial Planning Forums</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; Holistic Financial Planning">Consultancy &gt; Technical Consultancy &gt; Holistic Financial Planning</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; Ian Butler Will Trust">Consultancy &gt; Technical Consultancy &gt; Ian Butler Will Trust</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; IHT Masterclass">Consultancy &gt; Technical Consultancy &gt; IHT Masterclass</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; Investment Wrappers">Consultancy &gt; Technical Consultancy &gt; Investment Wrappers</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; Investment Wrappers &gt; Collectives">Consultancy &gt; Technical Consultancy &gt; Investment Wrappers &gt; Collectives</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; Investment Wrappers &gt; Combined">Consultancy &gt; Technical Consultancy &gt; Investment Wrappers &gt; Combined</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; Investment Wrappers &gt; Bonds">Consultancy &gt; Technical Consultancy &gt; Investment Wrappers &gt; Bonds</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; Kings Castles">Consultancy &gt; Technical Consultancy &gt; Kings Castles</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; Pensions Pre-Retirement">Consultancy &gt; Technical Consultancy &gt; Pensions Pre-Retirement</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; Pensions Post Retirement">Consultancy &gt; Technical Consultancy &gt; Pensions Post Retirement</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; Trust Masterclass">Consultancy &gt; Technical Consultancy &gt; Trust Masterclass</option>
-					<option value="Consultancy &gt; Advisor Comparison Tools">Consultancy &gt; Advisor Comparison Tools</option>
-					<option value="Consultancy &gt; Advisor Comparison Tools &gt; Defaqto">Consultancy &gt; Advisor Comparison Tools &gt; Defaqto</option>
-					<option value="Consultancy &gt; Advisor Comparison Tools &gt; Adviser Asset">Consultancy &gt; Advisor Comparison Tools &gt; Adviser Asset</option>
-					<option value="Consultancy &gt; Advisor Comparison Tools &gt; Elevate Reprice">Consultancy &gt; Advisor Comparison Tools &gt; Elevate Reprice</option>
-					<option value="Consultancy &gt; Advisor Comparison Tools &gt; O and M">Consultancy &gt; Advisor Comparison Tools &gt; O and M</option>
-					<option value="Consultancy &gt; Advisor Comparison Tools &gt; Platform">Consultancy &gt; Advisor Comparison Tools &gt; Platform</option>
-					<option value="Consultancy &gt; Advisor Comparison Tools &gt; Select a Pension">Consultancy &gt; Advisor Comparison Tools &gt; Select a Pension</option>
-					<option value="Consultancy &gt; Advisor Comparison Tools &gt; Synpatic">Consultancy &gt; Advisor Comparison Tools &gt; Synpatic</option>
-					<option value="Consultancy &gt; Advisor Comparison Tools &gt; Team">Consultancy &gt; Advisor Comparison Tools &gt; Team</option>
-					<option value="Consultancy &gt; Business Support &gt; Transitioning your Business">Consultancy &gt; Business Support &gt; Transitioning your Business</option>
-					<option value="Retirement &gt; FST">Retirement &gt; FST</option>
-					<option value="Retirement &gt; RWA">Retirement &gt; RWA</option>
-					<option value="Retirement &gt; Trustee Investment Plan">Retirement &gt; Trustee Investment Plan</option>
-					<option value="Retirement &gt; Annuity">Retirement &gt; Annuity</option>
-					<option value="Retirement &gt; Elevate PIA^Elevate &gt; PIA">Retirement &gt; Elevate PIA</option>
-					<option value="Onshore &gt; Investment Bond">Onshore &gt; Investment Bond</option>
-					<option value="Onshore &gt; Trusts">Onshore &gt; Trusts</option>
-					<option value="International &gt; AWI Guides">International &gt; AWI Guides</option>
-					<option value="International &gt; Estate Planning Bond">International &gt; Estate Planning Bond</option>
-					<option value="International &gt; Evolution">International &gt; Evolution</option>
-					<option value="International &gt; Selection">International &gt; Selection</option>
-					<option value="International &gt; Delegation">International &gt; Delegation</option>
-					<option value="International &gt; Fund Literature">International &gt; Fund Literature</option>
-					<option value="International &gt; Trusts">International &gt; Trusts</option>
-					<option value="International &gt; Elevate">International &gt; Elevate</option>
-					<option value="International &gt; Closed Products &amp; Pre-RDR">International &gt; Closed Products &amp; Pre-RDR</option>
-					<option value="International &gt; Sales Aids">International &gt; Sales Aids</option>
-					<option value="Closed Products &gt; Executive Pension">Closed Products &gt; Executive Pension</option>
-					<option value="Closed Products &gt; Section 32">Closed Products &gt; Section 32</option>
-					<option value="Closed Products &gt; Personal Pension">Closed Products &gt; Personal Pension</option>
-					<option value="Sales Aids">Sales Aids</option>
-					<option value="Presentations">Presentations</option>
-					<option value="Current Campaigns &gt; Stockbroking Comms">Current Campaigns &gt; Stockbroking Comms</option>
-					<option value="Current Campaigns &gt; FNZ Comms">Current Campaigns &gt; FNZ Comms</option>
-					<option value="Current Campaigns &gt; RWA Campaign">Current Campaigns &gt; RWA Campaign</option>
-					<option value="Current Campaigns &gt; RDR2">Current Campaigns &gt; RDR2</option>
-					<option value="Current Campaigns &gt; RDR2 &gt; Customer Comms">Current Campaigns &gt; RDR2 &gt; Customer Comms</option>
-					<option value="Current Campaigns &gt; RDR2 &gt; Adviser Communications">Current Campaigns &gt; RDR2 &gt; Adviser Communications</option>
+                        <option <% unless @info[:Category] %>selected<% end %>>Select</option>
+                        <% categories.each do |cat| %>
+                        <option value="<%= html_escape cat %>"<% if @info[:Category] == cat %> selected<% end %>  ><%= cat %></option>
+                        <% end %>
 				</select></p>
 		</td>
 	</tr>
@@ -218,92 +244,10 @@ label { cursor: pointer; }
 		</td>
 		<td width=450 valign=top>
 		<p class="field"><select type="text" name="Category2" style="width: 255px;">
-					<option value="">Optional</option>
-					<option value="AXA Wealth &gt; Awards &amp; Ratings">AXA Wealth &gt; Awards &amp; Ratings</option>
-					<option value="AXA Wealth &gt; About Us">AXA Wealth &gt; About Us</option>
-					<option value="Elevate &gt; Platform Literature">Elevate &gt; Platform Literature</option>
-					<option value="Elevate &gt; Elevate Sales Aids">Elevate &gt; Elevate Sales Aids</option>
-					<option value="Elevate &gt; GIA &amp; ISA">Elevate &gt; GIA &amp; ISA</option>
-					<option value="Elevate &gt; PIA^Retirement &gt; Elevate PIA">Elevate &gt; PIA</option>
-					<option value="Elevate &gt; Non-Advised ISA">Elevate &gt; Non-Advised ISA</option>
-					<option value="Elevate &gt; Investments">Elevate &gt; Investments</option>
-					<option value="Elevate &gt; Trusts and Offshore Bond">Elevate &gt; Trusts and Offshore Bond</option>
-					<option value="Elevate &gt; Discretionary Manager">Elevate &gt; Discretionary Manager</option>
-					<option value="Elevate &gt; Risk Profiling">Elevate &gt; Risk Profiling</option>
-					<option value="Elevate &gt; Voyant">Elevate &gt; Voyant</option>
-					<option value="Elevate &gt; Back Office">Elevate &gt; Back Office</option>
-					<option value="Elevate &gt; Loyalty Offer">Elevate &gt; Loyalty Offer</option>
-					<option value="Elevate &gt; Help Guides">Elevate &gt; Help Guides</option>
-					<option value="Elevate &gt; Releases">Elevate &gt; Releases</option>
-					<option value="Elevate &gt; Account Contact Forms">Elevate &gt; Account Contact Forms</option>
-					<option value="Funds &amp; Investments &gt; International Investments">Funds &amp; Investments &gt; International Investments</option>
-					<option value="Funds &amp; Investments &gt; Fund Information">Funds &amp; Investments &gt; Fund Information</option>
-					<option value="Funds &amp; Investments &gt; Investment Guides">Funds &amp; Investments &gt; Investment Guides</option>
-					<option value="Funds &amp; Investments &gt; OBSR">Funds &amp; Investments &gt; OBSR</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; Calculators">Consultancy &gt; Technical Consultancy &gt; Calculators</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; Client Auditor">Consultancy &gt; Technical Consultancy &gt; Client Auditor</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; Client Auditor &gt; Bonds">Consultancy &gt; Technical Consultancy &gt; Client Auditor &gt; Bonds</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; Client Auditor &gt; Collectives">Consultancy &gt; Technical Consultancy &gt; Client Auditor &gt; Collectives</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; Client Auditor &gt; IHT">Consultancy &gt; Technical Consultancy &gt; Client Auditor &gt; IHT</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; Client Auditor &gt; Other">Consultancy &gt; Technical Consultancy &gt; Client Auditor &gt; Other</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; Client Auditor &gt; Post Retirement">Consultancy &gt; Technical Consultancy &gt; Client Auditor &gt; Post Retirement</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; Client Auditor &gt; Pre-Retirement">Consultancy &gt; Technical Consultancy &gt; Client Auditor &gt; Pre-Retirement</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; Client Migration">Consultancy &gt; Technical Consultancy &gt; Client Migration</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; Client Migration &gt; Bonds">Consultancy &gt; Technical Consultancy &gt; Client Migration &gt; Bonds</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; Client Migration &gt; ISA">Consultancy &gt; Technical Consultancy &gt; Client Migration &gt; ISA</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; Client Migration &gt; OEIC">Consultancy &gt; Technical Consultancy &gt; Client Migration &gt; OEIC</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; Client Migration &gt; Pension">Consultancy &gt; Technical Consultancy &gt; Client Migration &gt; Pension</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; Family Suntrust">Consultancy &gt; Technical Consultancy &gt; Family Suntrust</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; Financial Planning Forums">Consultancy &gt; Technical Consultancy &gt; Financial Planning Forums</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; Holistic Financial Planning">Consultancy &gt; Technical Consultancy &gt; Holistic Financial Planning</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; Ian Butler Will Trust">Consultancy &gt; Technical Consultancy &gt; Ian Butler Will Trust</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; IHT Masterclass">Consultancy &gt; Technical Consultancy &gt; IHT Masterclass</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; Investment Wrappers">Consultancy &gt; Technical Consultancy &gt; Investment Wrappers</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; Investment Wrappers &gt; Collectives">Consultancy &gt; Technical Consultancy &gt; Investment Wrappers &gt; Collectives</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; Investment Wrappers &gt; Combined">Consultancy &gt; Technical Consultancy &gt; Investment Wrappers &gt; Combined</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; Investment Wrappers &gt; Bonds">Consultancy &gt; Technical Consultancy &gt; Investment Wrappers &gt; Bonds</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; Kings Castles">Consultancy &gt; Technical Consultancy &gt; Kings Castles</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; Pensions Pre-Retirement">Consultancy &gt; Technical Consultancy &gt; Pensions Pre-Retirement</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; Pensions Post Retirement">Consultancy &gt; Technical Consultancy &gt; Pensions Post Retirement</option>
-					<option value="Consultancy &gt; Technical Consultancy &gt; Trust Masterclass">Consultancy &gt; Technical Consultancy &gt; Trust Masterclass</option>
-					<option value="Consultancy &gt; Advisor Comparison Tools">Consultancy &gt; Advisor Comparison Tools</option>
-					<option value="Consultancy &gt; Advisor Comparison Tools &gt; Defaqto">Consultancy &gt; Advisor Comparison Tools &gt; Defaqto</option>
-					<option value="Consultancy &gt; Advisor Comparison Tools &gt; Adviser Asset">Consultancy &gt; Advisor Comparison Tools &gt; Adviser Asset</option>
-					<option value="Consultancy &gt; Advisor Comparison Tools &gt; Elevate Reprice">Consultancy &gt; Advisor Comparison Tools &gt; Elevate Reprice</option>
-					<option value="Consultancy &gt; Advisor Comparison Tools &gt; O and M">Consultancy &gt; Advisor Comparison Tools &gt; O and M</option>
-					<option value="Consultancy &gt; Advisor Comparison Tools &gt; Platform">Consultancy &gt; Advisor Comparison Tools &gt; Platform</option>
-					<option value="Consultancy &gt; Advisor Comparison Tools &gt; Select a Pension">Consultancy &gt; Advisor Comparison Tools &gt; Select a Pension</option>
-					<option value="Consultancy &gt; Advisor Comparison Tools &gt; Synpatic">Consultancy &gt; Advisor Comparison Tools &gt; Synpatic</option>
-					<option value="Consultancy &gt; Advisor Comparison Tools &gt; Team">Consultancy &gt; Advisor Comparison Tools &gt; Team</option>
-					<option value="Consultancy &gt; Business Support &gt; Transitioning your Business">Consultancy &gt; Business Support &gt; Transitioning your Business</option>
-					<option value="Retirement &gt; FST">Retirement &gt; FST</option>
-					<option value="Retirement &gt; RWA">Retirement &gt; RWA</option>
-					<option value="Retirement &gt; Trustee Investment Plan">Retirement &gt; Trustee Investment Plan</option>
-					<option value="Retirement &gt; Annuity">Retirement &gt; Annuity</option>
-					<option value="Retirement &gt; Elevate PIA^Elevate &gt; PIA">Retirement &gt; Elevate PIA</option>
-					<option value="Onshore &gt; Investment Bond">Onshore &gt; Investment Bond</option>
-					<option value="Onshore &gt; Trusts">Onshore &gt; Trusts</option>
-					<option value="International &gt; AWI Guides">International &gt; AWI Guides</option>
-					<option value="International &gt; Estate Planning Bond">International &gt; Estate Planning Bond</option>
-					<option value="International &gt; Evolution">International &gt; Evolution</option>
-					<option value="International &gt; Selection">International &gt; Selection</option>
-					<option value="International &gt; Delegation">International &gt; Delegation</option>
-					<option value="International &gt; Fund Literature">International &gt; Fund Literature</option>
-					<option value="International &gt; Trusts">International &gt; Trusts</option>
-					<option value="International &gt; Elevate">International &gt; Elevate</option>
-					<option value="International &gt; Closed Products &amp; Pre-RDR">International &gt; Closed Products &amp; Pre-RDR</option>
-					<option value="International &gt; Sales Aids">International &gt; Sales Aids</option>
-					<option value="Closed Products &gt; Executive Pension">Closed Products &gt; Executive Pension</option>
-					<option value="Closed Products &gt; Section 32">Closed Products &gt; Section 32</option>
-					<option value="Closed Products &gt; Personal Pension">Closed Products &gt; Personal Pension</option>
-					<option value="Sales Aids">Sales Aids</option>
-					<option value="Presentations">Presentations</option>
-					<option value="Current Campaigns &gt; Stockbroking Comms">Current Campaigns &gt; Stockbroking Comms</option>
-					<option value="Current Campaigns &gt; FNZ Comms">Current Campaigns &gt; FNZ Comms</option>
-					<option value="Current Campaigns &gt; RWA Campaign">Current Campaigns &gt; RWA Campaign</option>
-					<option value="Current Campaigns &gt; RDR2">Current Campaigns &gt; RDR2</option>
-					<option value="Current Campaigns &gt; RDR2 &gt; Customer Comms">Current Campaigns &gt; RDR2 &gt; Customer Comms</option>
-					<option value="Current Campaigns &gt; RDR2 &gt; Adviser Communications">Current Campaigns &gt; RDR2 &gt; Adviser Communications</option>
+                        <option <% unless @info[:Category2] %>selected<% end %>>Optional</option>
+                        <% categories.each do |cat| %>
+                        <option value="<%= html_escape cat %>"<% if @info[:Category2] == cat %> selected<% end %>  ><%= cat %></option>
+                        <% end %>
 				</select></p>
 		</td>
 	</tr>
@@ -312,7 +256,7 @@ label { cursor: pointer; }
 		<p class="field">Keywords: </p>
 		</td>
 		<td width=450 valign=top>
-		<p class="field"><textarea type="text" rows=3 name="Keywords" style="width: 250px; height: 40px"></textarea></p>
+		<p class="field"><textarea type="text" rows=3 name="Keywords" style="width: 250px; height: 40px"><%= @info[:Keywords] %></textarea></p>
 		</td>
 	</tr>
 	<tr>
@@ -320,7 +264,7 @@ label { cursor: pointer; }
 		<p class="field2">Additional notes:<br>i.e Specify new team or document type or if product is new/replacement etc</p>
 		</td>
 		<td width=450 valign=top>
-		<p class="field"><textarea type="text" rows=3 name="AddNotes" style="width: 250px; height: 60px"></textarea></p>
+		<p class="field"><textarea type="text" rows=3 name="AddNotes" style="width: 250px; height: 60px"><%= @info[:AddNotes] %></textarea></p>
 		</td>
 	</tr>
 	<tr>
@@ -328,7 +272,7 @@ label { cursor: pointer; }
 		<p class="field2">The document will appear within 24 hours. Set a specific date/time if needed:</p>
 		</td>
 		<td width=450 valign=top>
-		<p class="field"><textarea type="text" rows=3 name="datetime" style="width: 250px; height: 40px"></textarea></p>
+		<p class="field"><textarea type="text" rows=3 name="datetime" style="width: 250px; height: 40px"><%= @info[:datetime] %></textarea></p>
 		</td>
 	</tr>
 	<tr>

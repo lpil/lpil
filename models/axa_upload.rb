@@ -12,12 +12,17 @@ require 'pony'
 class AxaUpload
   def self.check(params)
     params.symbolize_keys!
-    validations = [[:Name, /.+/], [:Email, /.+@.+\..+/], [:Productname, /.+/],
-                   [:Team, /.+/], [:Doctype, /.+/], [:Contact, /.+/],
-                   [:Review, %r{[0-3]\d/[01]\d/2\d\d\d}], [:Category, /.+/]]
+    validations = [[:Name, /.+/, 'Name'],
+                   [:Email, /.+@.+\..+/, 'Email'],
+                   [:Productname, /.+/, 'Product Name'],
+                   [:Team, /.+/, 'Team'],
+                   [:Doctype, /.+/, 'Document Type'],
+                   [:Contact, /.+/, 'Document Owner'],
+                   [:Review, %r{[0-3]\d/[01]\d/2\d\d\d}, 'Expiry Date'],
+                   [:Category, /.+/, 'Main Category']]
     invalid = []
     validations.each do |v|
-      invalid << v[0] unless params[v[0]] =~ v[1]
+      invalid << v[2] unless params[v[0]] =~ v[1]
     end
 
     params[:invalid], params[:failed] = invalid, true if invalid.any?
