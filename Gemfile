@@ -7,3 +7,4 @@ gem 'sinatra-activerecord'
 gem 'slim'
 
 gem 'httparty'
+gem 'pony'

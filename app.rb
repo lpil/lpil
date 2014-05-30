@@ -8,8 +8,8 @@ require 'slim'
 require 'logger'
 
 # Add out application dir to the require LOAD_PATH
-lib_path = File.expand_path(File.dirname(__FILE__))
-$LOAD_PATH.unshift lib_path unless $LOAD_PATH.include? lib_path
+path = File.expand_path(File.dirname(__FILE__))
+$LOAD_PATH.unshift path unless $LOAD_PATH.include? path
 
 db_path = {
   production:  'sqlite3:db/db.sqlite3',
@@ -26,6 +26,7 @@ require 'routes.rb'
 
 # Models
 require 'models/mailing.rb'
+require 'models/axa_upload.rb'
 
 # DPD + post delivery tracking
 #
