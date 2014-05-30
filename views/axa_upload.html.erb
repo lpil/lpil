@@ -127,27 +127,29 @@
 <head>
 <title>Axa Upload Form</title>
 <style type="text/css">
-.field { color: #0f2a70; font-family:Arial; font-size:13px; text-align:left; margin-bottom:5px; margin-top:0px }
+.field { color: #0f2a70; font-family:Arial; font-size:13px; text-align:left; margin-bottom:3px; margin-top:0px }
 .field2 { color: #0f2a70; font-family:Arial; font-size:12px; text-align:left; margin-bottom:5px; margin-top:0px }
 .upload { cursor:hand; font-family:Arial; font-size:12px; text-align:left; margin-bottom:5px; margin-top:0px }
+.errormsg { color: #c20e1a; width: 400px; font-family:Arial; font-size:13px; }
 #PageDiv { position:relative; max-width:960px; min-height:100% }
 #PageImage { position:absolute; left:15px; top:15px; width:478px; height:639px; z-index:1 }
 #Formarea { position:absolute; left:25px; top:25px; width:599px; z-index:2 }
 #SubmitOrderImage { position:relative; width:105px; height:30px }
 select { border-color: #0f2a70; border-width: 1px; background-image:url('https://www.axawealthmarketingstore.co.uk/Custom/Themes/Axa/CSS/Images/FormDropMenuBackground.gif'); background-repeat:repeat-x  }
 label { cursor: pointer; }
+input { width: 237px; }
 </style>
 </head>
 <body>
 <div id="PageDiv">
-        <% if @info[:failed] %>
-        <p>Please enter a valid value for <%= @info[:invalid].to_sentence %></p>
-        <% end %>
 	<div id="PageImage"><img src="https://perivansolutions.co.uk/Axa_form/Resources/uploadimage2.jpeg" border=0 width=520 height=720 alt="Uploadimage2" style="float:left">
 </div>
 	<div id="Formarea"><form name="axa_upload" action="axa_upload" method="post" enctype="multipart/form-data">
 		<p class="field"><b>COMPLETE THE FORM BELOW:</b></p>
-<table border=0 cellspacing=5 cellpadding=0>
+		<% if @info[:failed] %>
+        <p class="errormsg">Please enter a valid value for <%= @info[:invalid].to_sentence %></p>
+        <% end %>
+<table border=0 cellspacing=2 cellpadding=0>
 	<tr>
 		<td width=200 valign=middle>
 		<p class="field"><br>Your name: </p>
@@ -293,5 +295,8 @@ label { cursor: pointer; }
 	</tr>
 </table>	
 </form>
+		<% if @info[:failed] %>
+        <p class="errormsg">Please enter a valid value for <%= @info[:invalid].to_sentence %></p>
+        <% end %>
 </body>
 </html>
