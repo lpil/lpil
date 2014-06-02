@@ -18,6 +18,9 @@ db_path = {
 }
 set :database, db_path[settings.environment]
 
+# Allow embedding in iframes
+set :protection, :except => :frame_options
+
 # Logger
 $log = Logger.new('tmp/app.log', 2, 1_024_000)
 
