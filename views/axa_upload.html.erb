@@ -292,8 +292,10 @@ input { width: 237px; }
 	</tr>
 </table>	
 </form>
-		<% if @info[:failed] %>
+        <% if @info[:failed] %>
         <p class="errormsg">Please enter a valid value for <%= @info[:invalid].to_sentence %></p>
+        <% elsif @info[:success] %>
+        <p>Document successfully uploaded</p>
         <% end %>
 </body>
 </html>

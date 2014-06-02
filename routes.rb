@@ -30,6 +30,6 @@ end
 post '/axa_upload' do
   result = AxaUpload.check params
   AxaUpload.email result unless result[:failed]
-  @info = result[:failed] ? result : { Review: '00/00/0000' }
+  @info = result[:failed] ? result : { Review: '00/00/0000', success: true }
   erb :'axa_upload.html'
 end

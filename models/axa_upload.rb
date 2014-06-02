@@ -1,10 +1,3 @@
-# post '/axa_upload' do
-#   result = AxaUpload.parse_form params
-#   AxaUpload.email result if result[:success]
-#   @info = result
-#   erb :'axa_upload.html'
-# end
-
 require 'yaml'
 require 'pony'
 
