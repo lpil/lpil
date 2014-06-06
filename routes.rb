@@ -33,3 +33,11 @@ post '/axa_upload' do
   @info = result[:failed] ? result : { Review: '00/00/0000', success: true }
   erb :'axa_upload.html'
 end
+
+#
+# Status info
+#
+
+get '/status' do
+  slim :status
+end

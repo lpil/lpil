@@ -19,10 +19,13 @@ db_path = {
 set :database, db_path[settings.environment]
 
 # Allow embedding in iframes
-set :protection, :except => :frame_options
+set :protection, except: :frame_options
 
 # Logger
 $log = Logger.new('tmp/app.log', 2, 1_024_000)
+
+# Threads
+$threads = {}
 
 # Routes
 require 'routes.rb'
@@ -45,7 +48,8 @@ end
 #   Delete mailings more than 90 days old from the database
 
 require 'lib/dpd_reports.rb'
-Thread.new do
+
+$threads[:mailings] = Thread.new do
   loop do
     DpdReports.new.fetch_reports.save_to_db
     Mailing.delete_all(['date_sent < ?', Time.now - 7_776_000]) # 90 days
