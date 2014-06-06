@@ -1,0 +1,2396 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AcquireDatabase/Area/Title" xml:space="preserve">
+    <value>Data List: Acquire a Data List</value>
+  </data>
+  <data name="AcquireDatabase/Button/Preview" xml:space="preserve">
+    <value>Preview</value>
+  </data>
+  <data name="AcquireDatabase/Message/Caption" xml:space="preserve">
+    <value>Specify the search criteria, then click Submit</value>
+  </data>
+  <data name="AcquireDatabase/Message/CountingRecords" xml:space="preserve">
+    <value>Counting records...</value>
+  </data>
+  <data name="AcquireDatabase/Message/NoInfoAvailable" xml:space="preserve">
+    <value>No information is available about your query result set</value>
+  </data>
+  <data name="AcquireDatabase/Message/NoRecordsSelected" xml:space="preserve">
+    <value>No records are selected.</value>
+  </data>
+  <data name="AcquireDatabase/Message/Records" xml:space="preserve">
+    <value>Record(s)</value>
+  </data>
+  <data name="AcquireDatabase/Message/UnknownNumberOfRows" xml:space="preserve">
+    <value>Number of rows cannot be computed</value>
+  </data>
+  <data name="AcquireDatabase/Message/UnknownPrice" xml:space="preserve">
+    <value>Price estimate cannot be computed</value>
+  </data>
+  <data name="AcquireDatabase/Window/Title" xml:space="preserve">
+    <value>Data List: Acquire a Data List</value>
+  </data>
+  <data name="Approvals/Area/Comment" xml:space="preserve">
+    <value>Orders submitted for your approval are shown here</value>
+  </data>
+  <data name="AddressBook/AreaEdit/Comment" xml:space="preserve">
+    <value>Edit your address book</value>
+  </data>
+  <data name="AddressBook/AreaEdit/Title" xml:space="preserve">
+    <value>Address Book</value>
+  </data>
+  <data name="AddressBook/AreaReadOnly/Comment" xml:space="preserve">
+    <value>View your address book</value>
+  </data>
+  <data name="AddressBook/AreaReadOnly/Title" xml:space="preserve">
+    <value>Address Book</value>
+  </data>
+  <data name="AddressBook/Button/AddNew" xml:space="preserve">
+    <value>Add New</value>
+  </data>
+  <data name="AddressBook/Button/BackToProfile" xml:space="preserve">
+    <value>Back to Profile</value>
+  </data>
+  <data name="AddressBook/Button/BackToShipping" xml:space="preserve">
+    <value>Back to Delivery Step</value>
+  </data>
+  <data name="AddressBook/Button/Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="AddressBook/Button/View" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="AddressBook/Label/AddressesLabel" xml:space="preserve">
+    <value>Addresses:</value>
+  </data>
+  <data name="AddressBook/Label/EmptyAddresses" xml:space="preserve">
+    <value>Your Address Book is empty.&lt;br /&gt;Click "Add New" to make new entries.</value>
+  </data>
+  <data name="AddressBook/Window/Title" xml:space="preserve">
+    <value>Address Book</value>
+  </data>
+  <data name="AddressBookItem/AreaEdit/Comment" xml:space="preserve">
+    <value>Make your edits. Click Accept to confirm your edits or Cancel to ignore them.</value>
+  </data>
+  <data name="AddressBookItem/AreaEdit/Title" xml:space="preserve">
+    <value>Edit Address</value>
+  </data>
+  <data name="AddressBookItem/AreaReadOnly/Comment" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AddressBookItem/AreaReadOnly/Title" xml:space="preserve">
+    <value>View Address</value>
+  </data>
+  <data name="AddressBookItem/Button/Accept" xml:space="preserve">
+    <value>Save Changes</value>
+  </data>
+  <data name="AddressBookItem/Button/BackToAddressBook" xml:space="preserve">
+    <value>Back to Address Book</value>
+  </data>
+  <data name="AddressBookItem/Button/Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="AddressBookItem/Button/Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="AddressBookItem/Window/Title" xml:space="preserve">
+    <value>Address Book</value>
+  </data>
+  <data name="AddressBookItem/Label/Description" xml:space="preserve">
+    <value>Address Title:</value>
+  </data>
+  <data name="AddressBookItem/Warning/DuplicateDescription" xml:space="preserve">
+    <value>Address Book Label must be Unique.</value>
+  </data>
+  <data name="AddressBookItem/Label/DefaultLabel" xml:space="preserve">
+    <value>New Address</value>
+  </data>
+  <data name="Approvals/Area/Title" xml:space="preserve">
+    <value>Approvals</value>
+  </data>
+  <data name="Approvals/ColumnHeader/ByUser" xml:space="preserve">
+    <value>By User</value>
+  </data>
+  <data name="Approvals/ColumnHeader/Items" xml:space="preserve">
+    <value>Items</value>
+  </data>
+  <data name="Approvals/ColumnHeader/Options" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="Approvals/ColumnHeader/Order" xml:space="preserve">
+    <value>Order</value>
+  </data>
+  <data name="Approvals/ColumnHeader/OrderStatus" xml:space="preserve">
+    <value>Order Status</value>
+  </data>
+  <data name="Approvals/ColumnHeader/Placed" xml:space="preserve">
+    <value>Created</value>
+  </data>
+  <data name="Approvals/ColumnHeader/ReviewStatus" xml:space="preserve">
+    <value>Review Status</value>
+  </data>
+  <data name="Approvals/ColumnHeader/TotalCost" xml:space="preserve">
+    <value>Total Price</value>
+  </data>
+  <data name="Approvals/ComboLabel/Future" xml:space="preserve">
+    <value>All Orders Pending Another Reviewer's Action</value>
+  </data>
+  <data name="Approvals/ComboLabel/Past" xml:space="preserve">
+    <value>All Orders Reviewed</value>
+  </data>
+  <data name="Approvals/ComboLabel/PastMe" xml:space="preserve">
+    <value>All Orders Reviewed By Me</value>
+  </data>
+  <data name="Approvals/ComboLabel/Pending" xml:space="preserve">
+    <value>All Orders Pending My Approval</value>
+  </data>
+  <data name="Approvals/Message/CommentFormat" xml:space="preserve">
+    <value>\r\n{0} said at {1}:\r\n{2}</value>
+  </data>
+  <data name="Approvals/Message/NoOrdersFuture" xml:space="preserve">
+    <value>No orders pending another reviewers action</value>
+  </data>
+  <data name="Approvals/Message/NoOrdersPast" xml:space="preserve">
+    <value>No orders have been reviewed.</value>
+  </data>
+  <data name="Approvals/Message/NoOrdersPastYou" xml:space="preserve">
+    <value>No orders have been reviewed by you.</value>
+  </data>
+  <data name="Approvals/Message/NoOrdersPending" xml:space="preserve">
+    <value>No orders are currently pending your approval.</value>
+  </data>
+  <data name="Approvals/Option/Review" xml:space="preserve">
+    <value>Review</value>
+  </data>
+  <data name="Approvals/Option/View" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="Approvals/Warning/ApprovalConflict" xml:space="preserve">
+    <value>Order has already been disposed of by another reviewer.</value>
+  </data>
+  <data name="Approvals/Window/Title" xml:space="preserve">
+    <value>Approvals</value>
+  </data>
+  <data name="ApprovalsReview/Area/Comment" xml:space="preserve">
+    <value>Click Approve to allow the order to be fulfilled, or Decline to prevent it.</value>
+  </data>
+  <data name="ApprovalsReview/Area/CommentReviewed" xml:space="preserve">
+    <value>Order approval summary.</value>
+  </data>
+  <data name="ApprovalsReview/Area/CommentsBox" xml:space="preserve">
+    <value>Order Review Comments:</value>
+  </data>
+  <data name="ApprovalsReview/Area/Title" xml:space="preserve">
+    <value>Review Order</value>
+  </data>
+  <data name="ApprovalsReview/Button/Update" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="ApprovalsReview/ColumnHeader/Comments" xml:space="preserve">
+    <value>Comments</value>
+  </data>
+  <data name="ApprovalsReview/ColumnHeader/Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="ApprovalsReview/ColumnHeader/ID_Product" xml:space="preserve">
+    <value>ID and Product</value>
+  </data>
+  <data name="ApprovalsReview/ColumnHeader/Options" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="ApprovalsReview/ColumnHeader/Thumbnail" xml:space="preserve">
+    <value>Thumbnail</value>
+  </data>
+  <data name="ApprovalsReview/Message/ConfirmUpdate" xml:space="preserve">
+    <value>Please confirm the approval of {0} document(s) and decline of {1} document(s).</value>
+  </data>
+  <data name="ApprovalsReview/Message/NoFeedbackOnAllDocuments" xml:space="preserve">
+    <value>You must Approve or Decline all documents your review is needed for.</value>
+  </data>
+  <data name="ApprovalsReview/Option/Proof" xml:space="preserve">
+    <value>View Your Proof</value>
+  </data>
+  <data name="ApprovalsReview/Option/ProofHtml" xml:space="preserve">
+    <value>HTML Preview...</value>
+  </data>
+  <data name="ApprovalsReview/Text/ByUser" xml:space="preserve">
+    <value>By User</value>
+  </data>
+  <data name="Assets/Annotations/MultipleUsesRemain" xml:space="preserve">
+    <value>{0} uses remain</value>
+  </data>
+  <data name="Assets/Annotations/Purchased" xml:space="preserve">
+    <value>Acquired</value>
+  </data>
+  <data name="Assets/Annotations/SingleUseRemains" xml:space="preserve">
+    <value>Single Use</value>
+  </data>
+  <data name="Assets/Annotations/UseByDeadline" xml:space="preserve">
+    <value>Use until {0}</value>
+  </data>
+  <data name="Assets/Annotations/ZeroUsesRemain" xml:space="preserve">
+    <value>All used up</value>
+  </data>
+  <data name="Authorize/Error/Declined" xml:space="preserve">
+    <value>Authorization has been declined.</value>
+  </data>
+  <data name="Authorize/Error/FailedAddress" xml:space="preserve">
+    <value>The address given does not match the account information.</value>
+  </data>
+  <data name="Authorize/Error/FailedSecurityCode" xml:space="preserve">
+    <value>The security code does not match the account information.</value>
+  </data>
+  <data name="Authorize/Error/InvalidAccount" xml:space="preserve">
+    <value>The account number is invalid.</value>
+  </data>
+  <data name="Authorize/Error/InvalidExpiration" xml:space="preserve">
+    <value>The expiration date is invalid.</value>
+  </data>
+  <data name="Authorize/Error/SystemBusy" xml:space="preserve">
+    <value>System is busy, please try later.</value>
+  </data>
+  <data name="ChangePassword/Area/Comment" xml:space="preserve">
+    <value>Change your password. Click Accept to confirm your updates or Cancel to ignore them.</value>
+  </data>
+  <data name="ChangePassword/Area/Title" xml:space="preserve">
+    <value>Change My Password</value>
+  </data>
+  <data name="ChangePassword/ErrorMessage/DatabaseError" xml:space="preserve">
+    <value>Database error has occurred</value>
+  </data>
+  <data name="ChangePassword/ErrorMessage/InvalidPassword" xml:space="preserve">
+    <value>Incorrect existing password</value>
+  </data>
+  <data name="ChangePassword/ErrorMessage/NewPasswordInvalid" xml:space="preserve">
+    <value>New password is invalid</value>
+  </data>
+  <data name="ChangePassword/ErrorMessage/NewPasswordMistyped" xml:space="preserve">
+    <value>New password mistyped</value>
+  </data>
+  <data name="ChangePassword/Label/ConfirmPassword" xml:space="preserve">
+    <value>Confirm new password</value>
+  </data>
+  <data name="ChangePassword/Label/CurrentPassword" xml:space="preserve">
+    <value>Current password</value>
+  </data>
+  <data name="ChangePassword/Label/NewPassword" xml:space="preserve">
+    <value>New password</value>
+  </data>
+  <data name="ChangePassword/Window/Title" xml:space="preserve">
+    <value>Change Password</value>
+  </data>
+  <data name="CheckoutOrder/Area/Comment" xml:space="preserve">
+    <value>Review and place your order for production</value>
+  </data>
+  <data name="CheckoutOrder/Button/PlaceOrder" xml:space="preserve">
+    <value>Place Order</value>
+  </data>
+  <data name="CheckoutOrder/ErrorMessage/NoPrices" xml:space="preserve">
+    <value>Unable to display prices</value>
+  </data>
+  <data name="CheckoutOrder/ErrorMessage/Payment" xml:space="preserve">
+    <value>Some required payment option fields were not correctly filled in</value>
+  </data>
+  <data name="CheckoutOrder/ErrorMessage/PleaseFill" xml:space="preserve">
+    <value>Please fill in the fields correctly before placing your order</value>
+  </data>
+  <data name="CheckoutOrder/ErrorMessage/Shipping" xml:space="preserve">
+    <value>Some required delivery option fields were not correctly filled in</value>
+  </data>
+  <data name="CheckoutOrder/Warning/errorCommittingOrder" xml:space="preserve">
+    <value>Your order was placed but there were internal errors. ([1])</value>
+  </data>
+  <data name="CheckoutOrder/Warning/errorSubmittingOrder" xml:space="preserve">
+    <value>Your order could not be placed. ([1])</value>
+  </data>
+  <data name="CheckoutOrder/Warning/header" xml:space="preserve">
+    <value>Warnings:</value>
+  </data>
+  <data name="CheckoutOrder/Warning/orderInvalidatedByExtension" xml:space="preserve">
+    <value>Your order could not be placed due to an internal error. Please contact a system administrator.</value>
+  </data>
+  <data name="CheckoutOrder/Warning/orderPriceOverflow" xml:space="preserve">
+    <value>An error occurred computing order price.</value>
+  </data>
+  <data name="CheckoutOrder/Window/Title" xml:space="preserve">
+    <value>Review and Place Order</value>
+  </data>
+  <data name="CheckoutPayment/Area/Comment" xml:space="preserve">
+    <value>Set Payment Options</value>
+  </data>
+  <data name="CheckoutPayment/Message/NoPaymentsOptions" xml:space="preserve">
+    <value>No payment options have been defined</value>
+  </data>
+  <data name="CheckoutPayment/Message/NoPaymentsCost" xml:space="preserve">
+    <value>Your total cost is zero.  No payment required.</value>
+  </data>
+  <data name="CheckoutPayment/Window/Title" xml:space="preserve">
+    <value>Payment Options</value>
+  </data>
+  <data name="CheckoutShipping/Area/Comment" xml:space="preserve">
+    <value>Confirmation</value>
+  </data>
+  <data name="CheckoutShippingMulti/Area/Comment" xml:space="preserve">
+    <value>Choose delivery destinations for products</value>
+  </data>
+  <data name="CheckoutShipping/Button/ShipMultiple" xml:space="preserve">
+    <value>DELIVER TO MULTIPLE DESTINATIONS</value>
+  </data>
+  <data name="CheckoutShipping/Button/ShipSingle" xml:space="preserve">
+    <value>DELIVER TO A SINGLE DESTINATION</value>
+  </data>
+  <data name="CheckoutShipping/StepLabel/DestinationX" xml:space="preserve">
+    <value>Destination {0}</value>
+  </data>
+  <data name="CheckoutShipping/Image/AddressBook" xml:space="preserve">
+    <value>Edit Address</value>
+  </data>
+  <data name="CheckoutShipping/Label/ShipmentX" xml:space="preserve">
+    <value>Shipment {0}</value>
+  </data>
+  <data name="CheckoutShippingDestination/Area/ShippingDestinationX" xml:space="preserve">
+    <value>Delivery Destination {0}</value>
+  </data>
+  <data name="CheckoutShippingDestination/Area/ShippingDestinationOfY" xml:space="preserve">
+    <value>(of {0})</value>
+  </data>
+  <data name="CheckoutShippingDestination/Area/Comment" xml:space="preserve">
+    <value>Set Delivery Options for this destination</value>
+  </data>
+  <data name="CheckoutShippingDestination/Label/ProductsInShipment" xml:space="preserve">
+    <value>Products in this delivery:</value>
+  </data>
+  <data name="CheckoutShipping/Button/UpdateDeliveryCost" xml:space="preserve">
+    <value>Update Delivery Cost Estimates</value>
+  </data>
+  <data name="CheckoutShipping/Button/UpdateShippingCharges" xml:space="preserve">
+    <value>UPDATE SHIPPING CHARGES</value>
+  </data>
+  <data name="CheckoutShipping/GridColumn/Destination" xml:space="preserve">
+    <value>Destination</value>
+  </data>
+  <data name="CheckoutShipping/GridColumn/DestinationAddress" xml:space="preserve">
+    <value>Destination Address</value>
+  </data>
+  <data name="CheckoutShipping/Label/ShipTo" xml:space="preserve">
+    <value>Deliver to</value>
+  </data>
+  <data name="CheckoutShipping/Link/AddNewAddress" xml:space="preserve">
+    <value>Add New Address</value>
+  </data>
+  <data name="CheckoutShipping/Message/NoShippingOptions" xml:space="preserve">
+    <value>No delivery options have been defined</value>
+  </data>
+  <data name="CheckoutShipping/Tip/AddressBookEmpty" xml:space="preserve">
+    <value>Your Address Book is empty. Please click on the link above to add a delivery address.</value>
+  </data>
+  <data name="CheckoutShipping/Tip/AddressBookLink" xml:space="preserve">
+    <value>Click to add or edit delivery addresses</value>
+  </data>
+  <data name="CheckoutShipping/Warning/shippingWeightOverflow" xml:space="preserve">
+    <value>The weight for this order could not be computed.</value>
+  </data>
+  <data name="CheckoutShipping/Address/OnlineDelivery" xml:space="preserve">
+    <value>ONLINE DELIVERY</value>
+  </data>
+  <data name="CheckoutShipping/Window/Title" xml:space="preserve">
+    <value>Delivery Options</value>
+  </data>
+  <data name="CheckoutShipping/Link/AddressBookItem" xml:space="preserve">
+    <value>Click to edit.</value>
+  </data>
+  <data name="CheckoutShipping/ErrorMessage/AddressInvalid" xml:space="preserve">
+    <value>Some address book item fields are invalid. </value>
+  </data>
+  <data name="CheckoutSteps/Area/Title" xml:space="preserve">
+    <value>Delivery</value>
+  </data>
+  <data name="CheckoutSteps/Button/CancelCheckout" xml:space="preserve">
+    <value>Cancel Checkout</value>
+  </data>
+  <data name="CheckoutSteps/PriceEstimate/CannotCompute" xml:space="preserve">
+    <value>Please specify delivery options so that a price estimate can be calculated.</value>
+  </data>
+  <data name="CheckoutSteps/PriceEstimate/CannotComputeShipmentN" xml:space="preserve">
+    <value>Could not compute price for Shipment {0} due to invalid delivery information.</value>
+  </data>
+  <data name="CheckoutSteps/PriceEstimate/Header" xml:space="preserve">
+    <value>Price Estimate:</value>
+  </data>
+  <data name="CheckoutSteps/PriceEstimateShipment/Header" xml:space="preserve">
+    <value>Price Estimate for this shipment:</value>
+  </data>
+  <data name="CheckoutSteps/StepControls/Title" xml:space="preserve">
+    <value>Checkout Steps</value>
+  </data>
+  <data name="CheckoutSteps/StepLabel/Order" xml:space="preserve">
+    <value>Order</value>
+  </data>
+  <data name="CheckoutSteps/StepLabel/Payment" xml:space="preserve">
+    <value>Payments</value>
+  </data>
+  <data name="CheckoutSteps/StepLabel/Shipping" xml:space="preserve">
+    <value>Delivery</value>
+  </data>
+  <data name="Common/AreaHeader/Help" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Common/AreaHeader/Next" xml:space="preserve">
+    <value>Next Step</value>
+  </data>
+  <data name="Common/AreaHeader/Previous" xml:space="preserve">
+    <value>Previous</value>
+  </data>
+  <data name="Common/Button/Accept" xml:space="preserve">
+    <value>Save Changes</value>
+  </data>
+  <data name="Common/Button/Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Common/Button/EditCurrentDocument" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Common/Button/GoBack" xml:space="preserve">
+    <value>Go Back</value>
+  </data>
+  <data name="Common/Button/OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Common/Button/Proof" xml:space="preserve">
+    <value>View your proof</value>
+  </data>
+  <data name="Common/Button/ProofHtml" xml:space="preserve">
+    <value>HTML Preview...</value>
+  </data>
+  <data name="Common/Button/Reset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="Common/Button/SendLink" xml:space="preserve">
+    <value>Send Link</value>
+  </data>
+  <data name="Common/Button/Submit" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="Common/ErrorMessage/NoProof" xml:space="preserve">
+    <value>Unable to generate PDF preview. If this problem persists please contact support.</value>
+  </data>
+  <data name="Common/NavigationBar/Approvals" xml:space="preserve">
+    <value>My Stationery Approvals</value>
+  </data>
+  <data name="Common/NavigationBar/Library" xml:space="preserve">
+    <value>My Library</value>
+  </data>
+  <data name="Common/NavigationBar/Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Common/NavigationBar/Logout" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="Common/NavigationBar/Orders" xml:space="preserve">
+    <value>Order History</value>
+  </data>
+  <data name="Common/NavigationBar/Profile" xml:space="preserve">
+    <value>My Profile</value>
+  </data>
+  <data name="Common/NavigationBar/ShoppingCart" xml:space="preserve">
+    <value>View Basket</value>
+  </data>
+  <data name="Common/NavigationBar/Start" xml:space="preserve">
+    <value>Create an Order</value>
+  </data>
+  <data name="Common/NavigationBar/Welcome" xml:space="preserve">
+    <value>Welcome,</value>
+  </data>
+  <data name="Common/TitleBar/Missing" xml:space="preserve">
+    <value>SJP Connect</value>
+  </data>
+  <data name="Common/TitleBar/Staged" xml:space="preserve">
+    <value>** STAGED CONTENT **  </value>
+  </data>
+  <data name="DownloadOutput/Area/Comment" xml:space="preserve">
+    <value>Final output resulted in multiple files. Click each file individually to download.</value>
+  </data>
+  <data name="DownloadOutput/Area/Title" xml:space="preserve">
+    <value>Download Output</value>
+  </data>
+  <data name="DownloadOutput/Button/GoBack" xml:space="preserve">
+    <value>Go Back</value>
+  </data>
+  <data name="DownloadOutput/Window/Title" xml:space="preserve">
+    <value>Download Output</value>
+  </data>
+  <data name="EditDataMerge/Area/Comment" xml:space="preserve">
+    <value>Provide a data list to drive individualized output</value>
+  </data>
+  <data name="EditDataMerge/Area/CommentMailingList" xml:space="preserve">
+    <value>Provide the Mailing List data for this product</value>
+  </data>
+  <data name="EditDataMerge/Button/Acquire" xml:space="preserve">
+    <value>Acquire a Data List...</value>
+  </data>
+  <data name="EditDataMerge/Button/Clear" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="EditDataMerge/Button/Download" xml:space="preserve">
+    <value>Download a Sample Data List...</value>
+  </data>
+  <data name="EditDataMerge/Button/Preview" xml:space="preserve">
+    <value>PDF Preview with {0} Records...</value>
+  </data>
+  <data name="EditDataMerge/Button/Select" xml:space="preserve">
+    <value>Select Data List from Library...</value>
+  </data>
+  <data name="EditDataMerge/Button/Upload" xml:space="preserve">
+    <value>Upload a Data List...</value>
+  </data>
+  <data name="EditDataMerge/ErrorMessage/ColumnNameTooLong" xml:space="preserve">
+    <value>Invalid uploaded file--column name longer than 64 characters</value>
+  </data>
+  <data name="EditDataMerge/ErrorMessage/FileNotCSV" xml:space="preserve">
+    <value>Uploaded file is not a valid CSV file</value>
+  </data>
+  <data name="EditDataMerge/ErrorMessage/NoDatabase" xml:space="preserve">
+    <value>You must specify a database to merge</value>
+  </data>
+  <data name="EditDataMerge/ErrorMessage/SchemaMismatch" xml:space="preserve">
+    <value>Uploaded file does not match schema</value>
+  </data>
+  <data name="EditDataMerge/Instructions/NoData" xml:space="preserve">
+    <value>The specified data list contains no records.</value>
+  </data>
+  <data name="EditDataMerge/Instructions/PleaseSpecify" xml:space="preserve">
+    <value>Please specify a data list.</value>
+  </data>
+  <data name="EditDataMerge/Instructions/Select" xml:space="preserve">
+    <value>Select a database to merge:</value>
+  </data>
+  <data name="EditDataMerge/Message/ListNameLabel" xml:space="preserve">
+    <value>Data List to Merge:</value>
+  </data>
+  <data name="EditDataMerge/Message/ListNameLabelIfMailingList" xml:space="preserve">
+    <value>Data List:</value>
+  </data>
+  <data name="EditDataMerge/Message/NoList" xml:space="preserve">
+    <value>(None Specified)</value>
+  </data>
+  <data name="EditDataMerge/Message/Record" xml:space="preserve">
+    <value> Record</value>
+  </data>
+  <data name="EditDataMerge/Message/Records" xml:space="preserve">
+    <value> Records</value>
+  </data>
+  <data name="EditDataMerge/Window/Title" xml:space="preserve">
+    <value>Data List</value>
+  </data>
+  <data name="EditFinish/Area/Comment" xml:space="preserve">
+    <value>Save your work by adding this document to your basket</value>
+  </data>
+  <data name="EditFinish/Button/AddToShoppingCart" xml:space="preserve">
+    <value>Add to Basket</value>
+  </data>
+  <data name="EditFinish/Button/Quit" xml:space="preserve">
+    <value>Quit Without Saving</value>
+  </data>
+  <data name="EditFinish/Button/SaveChanges" xml:space="preserve">
+    <value>Save Changes</value>
+  </data>
+  <data name="EditFinish/ErrorLabel/Other" xml:space="preserve">
+    <value>Other Warnings</value>
+  </data>
+  <data name="EditFinish/ErrorLabel/Printing" xml:space="preserve">
+    <value>Print Options</value>
+  </data>
+  <data name="EditFinish/ErrorMessage/DataMerge" xml:space="preserve">
+    <value>No database file has been specified</value>
+  </data>
+  <data name="EditFinish/ErrorMessage/FormFilling" xml:space="preserve">
+    <value>Some required form fields were not correctly filled in</value>
+  </data>
+  <data name="EditFinish/ErrorMessage/FreeEdit" xml:space="preserve">
+    <value>Some free edit steps were incorrect</value>
+  </data>
+  <data name="EditFinish/ErrorMessage/Other" xml:space="preserve">
+    <value>The project had a server error</value>
+  </data>
+  <data name="EditFinish/ErrorMessage/Printing" xml:space="preserve">
+    <value>Some required printing options were not correctly specified</value>
+  </data>
+  <data name="EditFinish/FieldLabel/Description" xml:space="preserve">
+    <value>Name and Code</value>
+  </data>
+  <data name="EditFinish/FieldLabel/ID" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="EditFinish/FieldLabel/Product" xml:space="preserve">
+    <value>Product</value>
+  </data>
+  <data name="EditFinish/Label/Warnings" xml:space="preserve">
+    <value>Warnings</value>
+  </data>
+  <data name="EditFinish/Window/Title" xml:space="preserve">
+    <value>Finish</value>
+  </data>
+  <data name="EditFormFilling/Area/Comment" xml:space="preserve">
+    <value>Fill out the form to change the document. Click on 'Update' or 'View your proof' to view changes.</value>
+  </data>
+  <data name="EditFormFilling/Area/CommentDescription" xml:space="preserve">
+    <value>Read about the product and view a large preview.</value>
+  </data>
+  <data name="EditFormFilling/Area/CommentHtml" xml:space="preserve">
+    <value>Fill out the form to change the document. Click on 'Update' or 'HTML Preview' to view changes.</value>
+  </data>
+  <data name="EditFormFilling/Area/CommentNoProof" xml:space="preserve">
+    <value>Fill out the form to change the document. Click on 'Update' to view changes.</value>
+  </data>
+  <data name="EditFormFilling/Area/CommentUpload" xml:space="preserve">
+    <value>Upload the PDF format document you wish to print.</value>
+  </data>
+  <data name="EditFormFilling/Button/Clear" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="EditFormFilling/Button/Reset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="EditFormFilling/Button/Select" xml:space="preserve">
+    <value>Select...</value>
+  </data>
+  <data name="EditFormFilling/Button/Update" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="EditFormFilling/Button/Upload" xml:space="preserve">
+    <value>Upload...</value>
+  </data>
+  <data name="EditFormFilling/Fragment/Of" xml:space="preserve">
+    <value>of</value>
+  </data>
+  <data name="EditFormFilling/Fragment/Page" xml:space="preserve">
+    <value>Page</value>
+  </data>
+  <data name="EditFormFilling/Fragment/Pages" xml:space="preserve">
+    <value>Pages</value>
+  </data>
+  <data name="EditFormFilling/Fragment/PleaseWait" xml:space="preserve">
+    <value>Preview Loading...</value>
+  </data>
+  <data name="EditFormFilling/Message/UnableToDisplayDocument" xml:space="preserve">
+    <value>Unable to display document. If this problem persists please contact support.</value>
+  </data>
+  <data name="EditFormFilling/Window/Title" xml:space="preserve">
+    <value>Form Filling</value>
+  </data>
+  <data name="EditFree/Alert/GeneratingOutput" xml:space="preserve">
+    <value>Your output is being generated...</value>
+  </data>
+  <data name="EditFree/Alert/PleaseEnableSignedApplets" xml:space="preserve">
+    <value>If you wish to Copy and Paste to and from the System clipboard: please open a new Tab, type about:config in the address bar and hit Enter. Then set the user preference 'signed.applets.codebase_principal_support' to 'true'.</value>
+  </data>
+  <data name="EditFree/Alert/UploadingImage" xml:space="preserve">
+    <value>Uploading my Image</value>
+  </data>
+  <data name="EditFree/Area/Comment" xml:space="preserve">
+    <value>Use this editor to make adjustments directly</value>
+  </data>
+  <data name="EditFree/Button/Bold" xml:space="preserve">
+    <value>Bold</value>
+  </data>
+  <data name="EditFree/Button/BorderColor" xml:space="preserve">
+    <value>Border Color</value>
+  </data>
+  <data name="EditFree/Button/BulletCharacter" xml:space="preserve">
+    <value>Insert Bullet Character</value>
+  </data>
+  <data name="EditFree/Button/CenterAlign" xml:space="preserve">
+    <value>Center Align</value>
+  </data>
+  <data name="EditFree/Button/Circle" xml:space="preserve">
+    <value>New Circle</value>
+  </data>
+  <data name="EditFree/Button/Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="EditFree/Button/CopyrightSymbol" xml:space="preserve">
+    <value>Insert Copyright Symbol</value>
+  </data>
+  <data name="EditFree/Button/EmDashCharacter" xml:space="preserve">
+    <value>Insert Em Dash</value>
+  </data>
+  <data name="EditFree/Button/EnDashCharacter" xml:space="preserve">
+    <value>Insert En Dash</value>
+  </data>
+  <data name="EditFree/Button/FillColor" xml:space="preserve">
+    <value>Fill Color</value>
+  </data>
+  <data name="EditFree/Button/Find" xml:space="preserve">
+    <value>Find</value>
+  </data>
+  <data name="EditFree/Button/FirstPage" xml:space="preserve">
+    <value>First Page</value>
+  </data>
+  <data name="EditFree/Button/ImageFrame" xml:space="preserve">
+    <value>New Image Frame</value>
+  </data>
+  <data name="EditFree/Button/Italic" xml:space="preserve">
+    <value>Italic</value>
+  </data>
+  <data name="EditFree/Button/Justify" xml:space="preserve">
+    <value>Justify</value>
+  </data>
+  <data name="EditFree/Button/LastPage" xml:space="preserve">
+    <value>Last Page</value>
+  </data>
+  <data name="EditFree/Button/LeftAlign" xml:space="preserve">
+    <value>Left Align</value>
+  </data>
+  <data name="EditFree/Button/NextPage" xml:space="preserve">
+    <value>Next Page</value>
+  </data>
+  <data name="EditFree/Button/PDFPreview" xml:space="preserve">
+    <value>View Your Proof</value>
+  </data>
+  <data name="EditFree/Button/PreviousPage" xml:space="preserve">
+    <value>Previous Page</value>
+  </data>
+  <data name="EditFree/Button/Rectangle" xml:space="preserve">
+    <value>New Rectangle</value>
+  </data>
+  <data name="EditFree/Button/RegisteredTrademarkSymbol" xml:space="preserve">
+    <value>Insert Registered Trademark Symbol</value>
+  </data>
+  <data name="EditFree/Button/Replace" xml:space="preserve">
+    <value>Replace</value>
+  </data>
+  <data name="EditFree/Button/RightAlign" xml:space="preserve">
+    <value>Right Align</value>
+  </data>
+  <data name="EditFree/Button/Select" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="EditFree/Button/TextColor" xml:space="preserve">
+    <value>Text Color</value>
+  </data>
+  <data name="EditFree/Button/TextFrame" xml:space="preserve">
+    <value>New Text Frame</value>
+  </data>
+  <data name="EditFree/Button/TrademarkSymbol" xml:space="preserve">
+    <value>Insert Trademark Symbol</value>
+  </data>
+  <data name="EditFree/Button/Underline" xml:space="preserve">
+    <value>Underline</value>
+  </data>
+  <data name="EditFree/Button/Zoom" xml:space="preserve">
+    <value>Zoom</value>
+  </data>
+  <data name="EditFree/MenuArrange/Title" xml:space="preserve">
+    <value>Arrange</value>
+  </data>
+  <data name="EditFree/MenuEdit/BringForward" xml:space="preserve">
+    <value>Bring Forward</value>
+  </data>
+  <data name="EditFree/MenuEdit/BringToFront" xml:space="preserve">
+    <value>Bring To Front</value>
+  </data>
+  <data name="EditFree/MenuEdit/CheckSpelling" xml:space="preserve">
+    <value>Check Spelling...</value>
+  </data>
+  <data name="EditFree/MenuEdit/Copy" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="EditFree/MenuEdit/Cut" xml:space="preserve">
+    <value>Cut</value>
+  </data>
+  <data name="EditFree/MenuEdit/Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="EditFree/MenuEdit/FindReplace" xml:space="preserve">
+    <value>Find/Replace...</value>
+  </data>
+  <data name="EditFree/MenuEdit/FindReplaceEllipsis" xml:space="preserve">
+    <value>Find/Replace...</value>
+  </data>
+  <data name="EditFree/MenuEdit/Paste" xml:space="preserve">
+    <value>Paste</value>
+  </data>
+  <data name="EditFree/MenuEdit/Redo" xml:space="preserve">
+    <value>Redo</value>
+  </data>
+  <data name="EditFree/MenuEdit/SendBackward" xml:space="preserve">
+    <value>Send Backward</value>
+  </data>
+  <data name="EditFree/MenuEdit/SendToBack" xml:space="preserve">
+    <value>Send To Back</value>
+  </data>
+  <data name="EditFree/MenuEdit/Spelling" xml:space="preserve">
+    <value>Spelling...</value>
+  </data>
+  <data name="EditFree/MenuEdit/Title" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="EditFree/MenuEdit/Undo" xml:space="preserve">
+    <value>Undo</value>
+  </data>
+  <data name="EditFree/MenuTools/Title" xml:space="preserve">
+    <value>Tools</value>
+  </data>
+  <data name="EditFree/MenuView/FitPage" xml:space="preserve">
+    <value>Fit Page</value>
+  </data>
+  <data name="EditFree/MenuView/ShowHidden" xml:space="preserve">
+    <value>Show Hidden Chars</value>
+  </data>
+  <data name="EditFree/MenuView/ShowOutlines" xml:space="preserve">
+    <value>Show Outlines</value>
+  </data>
+  <data name="EditFree/MenuView/ShowVariables" xml:space="preserve">
+    <value>Show Variables</value>
+  </data>
+  <data name="EditFree/MenuView/Title" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="EditFree/MenuView/ZoomIn" xml:space="preserve">
+    <value>Zoom In</value>
+  </data>
+  <data name="EditFree/MenuView/ZoomOut" xml:space="preserve">
+    <value>Zoom Out</value>
+  </data>
+  <data name="EditFree/Message/PleaseWait" xml:space="preserve">
+    <value>Please wait...</value>
+  </data>
+  <data name="EditFree/Message/SelectImage" xml:space="preserve">
+    <value>Select an image.</value>
+  </data>
+  <data name="EditFree/PanelColor/Title" xml:space="preserve">
+    <value>Color</value>
+  </data>
+  <data name="EditFree/PanelColorLabel/BorderThickness" xml:space="preserve">
+    <value>Thickness</value>
+  </data>
+  <data name="EditFree/PanelColorLabel/BorderTint" xml:space="preserve">
+    <value>Border Tint</value>
+  </data>
+  <data name="EditFree/PanelColorLabel/FillTint" xml:space="preserve">
+    <value>Fill Tint</value>
+  </data>
+  <data name="EditFree/PanelColorLabel/TextTint" xml:space="preserve">
+    <value>Text Tint</value>
+  </data>
+  <data name="EditFree/PanelColorMessage/NothingSelected" xml:space="preserve">
+    <value>Select text or an object</value>
+  </data>
+  <data name="EditFree/PanelColors/Title" xml:space="preserve">
+    <value>Colors</value>
+  </data>
+  <data name="EditFree/PanelColorSubtitle/BorderColor" xml:space="preserve">
+    <value>Set Border Color</value>
+  </data>
+  <data name="EditFree/PanelColorSubtitle/FillColor" xml:space="preserve">
+    <value>Set Fill Color</value>
+  </data>
+  <data name="EditFree/PanelColorSubtitle/TextColor" xml:space="preserve">
+    <value>Set Text Color</value>
+  </data>
+  <data name="EditFree/PanelFind/Title" xml:space="preserve">
+    <value>Find/Replace</value>
+  </data>
+  <data name="EditFree/PanelFindLabel/FindWhat" xml:space="preserve">
+    <value>Find What</value>
+  </data>
+  <data name="EditFree/PanelFindLabel/ReplaceWith" xml:space="preserve">
+    <value>Replace With</value>
+  </data>
+  <data name="EditFree/PanelGeometry/Title" xml:space="preserve">
+    <value>Size and Position</value>
+  </data>
+  <data name="EditFree/PanelGeometryLabel/Angle" xml:space="preserve">
+    <value>Angle</value>
+  </data>
+  <data name="EditFree/PanelGeometryLabel/Height" xml:space="preserve">
+    <value>Height</value>
+  </data>
+  <data name="EditFree/PanelGeometryLabel/Left" xml:space="preserve">
+    <value>Left</value>
+  </data>
+  <data name="EditFree/PanelGeometryLabel/ShapeHeight" xml:space="preserve">
+    <value>H:</value>
+  </data>
+  <data name="EditFree/PanelGeometryLabel/ShapeWidth" xml:space="preserve">
+    <value>W:</value>
+  </data>
+  <data name="EditFree/PanelGeometryLabel/ShapeXPosition" xml:space="preserve">
+    <value>X:</value>
+  </data>
+  <data name="EditFree/PanelGeometryLabel/ShapeYPosition" xml:space="preserve">
+    <value>Y:</value>
+  </data>
+  <data name="EditFree/PanelGeometryLabel/Top" xml:space="preserve">
+    <value>Top</value>
+  </data>
+  <data name="EditFree/PanelGeometryLabel/Width" xml:space="preserve">
+    <value>Width</value>
+  </data>
+  <data name="EditFree/PanelImage/Title" xml:space="preserve">
+    <value>Images</value>
+  </data>
+  <data name="EditFree/PanelImageButton/CancelImageEdit" xml:space="preserve">
+    <value>Cancel Image Edit</value>
+  </data>
+  <data name="EditFree/PanelImageButton/CancelImageUpload" xml:space="preserve">
+    <value>Cancel Image Upload</value>
+  </data>
+  <data name="EditFree/PanelImageButton/EditImage" xml:space="preserve">
+    <value>Edit Image...</value>
+  </data>
+  <data name="EditFree/PanelImageButton/UploadImage" xml:space="preserve">
+    <value>Upload Image...</value>
+  </data>
+  <data name="EditFree/PanelImageMessage/SelectAnImage" xml:space="preserve">
+    <value>Select an image</value>
+  </data>
+  <data name="EditFree/PanelImageMessage/SelectANonVariableImage1" xml:space="preserve">
+    <value>This image will be filled by </value>
+  </data>
+  <data name="EditFree/PanelImageMessage/SelectANonVariableImage2" xml:space="preserve">
+    <value>a variable value. </value>
+  </data>
+  <data name="EditFree/PanelImageMessage/SelectANonVariableImage3" xml:space="preserve">
+    <value>Please select another.</value>
+  </data>
+  <data name="EditFree/PanelImageMessage/SelectANonVariableImage4" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EditFree/PanelImageSubtitle/GlobalLibrary" xml:space="preserve">
+    <value>Global Library</value>
+  </data>
+  <data name="EditFree/PanelImageSubtitle/MyLibrary" xml:space="preserve">
+    <value>My Library</value>
+  </data>
+  <data name="EditFree/PanelImageSubtitle/ProductLibrary" xml:space="preserve">
+    <value>Product Library</value>
+  </data>
+  <data name="EditFree/PanelImport/Title" xml:space="preserve">
+    <value>Import Text</value>
+  </data>
+  <data name="EditFree/PanelImportMessage/Line1" xml:space="preserve">
+    <value>Click in the text field below.</value>
+  </data>
+  <data name="EditFree/PanelImportMessage/Line2" xml:space="preserve">
+    <value>then use Ctrl-V or Cmd-V to</value>
+  </data>
+  <data name="EditFree/PanelImportMessage/Line3" xml:space="preserve">
+    <value>paste text copied from an</value>
+  </data>
+  <data name="EditFree/PanelImportMessage/Line4" xml:space="preserve">
+    <value>external source here:</value>
+  </data>
+  <data name="EditFree/PanelImportTip/Line1" xml:space="preserve">
+    <value>TIP:</value>
+  </data>
+  <data name="EditFree/PanelImportTip/Line2" xml:space="preserve">
+    <value>You can use Ctrl-V or Cmd-V</value>
+  </data>
+  <data name="EditFree/PanelImportTip/Line3" xml:space="preserve">
+    <value>(but not the Paste menu item)</value>
+  </data>
+  <data name="EditFree/PanelImportTip/Line4" xml:space="preserve">
+    <value>to insert text directly into a text</value>
+  </data>
+  <data name="EditFree/PanelImportTip/Line5" xml:space="preserve">
+    <value>selection in the document</value>
+  </data>
+  <data name="EditFree/PanelNewElement/Title" xml:space="preserve">
+    <value>Add New Element</value>
+  </data>
+  <data name="EditFree/PanelSpelling/Title" xml:space="preserve">
+    <value>Check Spelling</value>
+  </data>
+  <data name="EditFree/PanelSpellingButton/Change" xml:space="preserve">
+    <value>Change</value>
+  </data>
+  <data name="EditFree/PanelSpellingButton/Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="EditFree/PanelSpellingButton/Ignore" xml:space="preserve">
+    <value>Ignore</value>
+  </data>
+  <data name="EditFree/PanelSpellingButton/Resume" xml:space="preserve">
+    <value>Resume Spelling Check</value>
+  </data>
+  <data name="EditFree/PanelSpellingButton/Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="EditFree/PanelSpellingLabel/ChangeTo" xml:space="preserve">
+    <value>Change To</value>
+  </data>
+  <data name="EditFree/PanelSpellingLabel/MisspelledWord" xml:space="preserve">
+    <value>Misspelled Word</value>
+  </data>
+  <data name="EditFree/PanelSpellingLabel/Suggestions" xml:space="preserve">
+    <value>Suggestions</value>
+  </data>
+  <data name="EditFree/PanelSpellingMessage/CheckComplete" xml:space="preserve">
+    <value>Check complete.</value>
+  </data>
+  <data name="EditFree/PanelText/Title" xml:space="preserve">
+    <value>Text</value>
+  </data>
+  <data name="EditFree/PanelTextLabel/Alignment" xml:space="preserve">
+    <value>Alignment</value>
+  </data>
+  <data name="EditFree/PanelTextLabel/FontName" xml:space="preserve">
+    <value>Font Name</value>
+  </data>
+  <data name="EditFree/PanelTextLabel/FontSize" xml:space="preserve">
+    <value>Font Size</value>
+  </data>
+  <data name="EditFree/PanelTextLabel/FontStyles" xml:space="preserve">
+    <value>Font Styles</value>
+  </data>
+  <data name="EditFree/PanelTextLabel/InsertCharacters" xml:space="preserve">
+    <value>Insert Characters</value>
+  </data>
+  <data name="EditFree/PanelTextLabel/Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="EditFree/PanelTextLabel/Leading" xml:space="preserve">
+    <value>Leading</value>
+  </data>
+  <data name="EditFree/PanelTextLabel/ParagraphStyle" xml:space="preserve">
+    <value>Paragraph Style</value>
+  </data>
+  <data name="EditFree/PanelTextLanguageChoice/French" xml:space="preserve">
+    <value>French</value>
+  </data>
+  <data name="EditFree/PanelTextLanguageChoice/German" xml:space="preserve">
+    <value>German</value>
+  </data>
+  <data name="EditFree/PanelTextLanguageChoice/Spanish" xml:space="preserve">
+    <value>Spanish</value>
+  </data>
+  <data name="EditFree/PanelTextLanguageChoice/UKEnglish" xml:space="preserve">
+    <value>U.K. English</value>
+  </data>
+  <data name="EditFree/PanelTextLanguageChoice/USEnglish" xml:space="preserve">
+    <value>U.S. English</value>
+  </data>
+  <data name="EditFree/PanelTextLeadingChoice/Loose" xml:space="preserve">
+    <value>Loose</value>
+  </data>
+  <data name="EditFree/PanelTextLeadingChoice/Normal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="EditFree/PanelTextLeadingChoice/VeryLoose" xml:space="preserve">
+    <value>Very Loose</value>
+  </data>
+  <data name="EditFree/Warning/BadJVM" xml:space="preserve">
+    <value>Sun Java is required for this step, version 1.4.x or later.&lt;br&gt;(Installed version is [1]).&lt;br&gt;&lt;a href="http://java.com/download"&gt;Click here to download now&lt;/a&gt;</value>
+  </data>
+  <data name="EditFree/Warning/ErrorCreatingTemplate" xml:space="preserve">
+    <value>An error occurred while preparing your document.</value>
+  </data>
+  <data name="EditFree/Warning/JavaDisabled" xml:space="preserve">
+    <value>
+            Sun Java
+            is required for this step, version 1.4.x or later.&lt;br&gt;(Java is not enabled for this browser).&lt;br&gt;&lt;a href="http://java.com/download"&gt;Click here to download now&lt;/a&gt;
+        </value>
+  </data>
+  <data name="EditFree/Window/Title" xml:space="preserve">
+    <value>Free Edit</value>
+  </data>
+  <data name="EditImageEditor/Area/Title" xml:space="preserve">
+    <value>Edit Image</value>
+  </data>
+  <data name="EditImageEditor/Error/CantLoad" xml:space="preserve">
+    <value>Unable to load image!</value>
+  </data>
+  <data name="EditImageEditor/Window/Title" xml:space="preserve">
+    <value>Edit Image: Crop and Scale Your Image</value>
+  </data>
+  <data name="EditingSteps/Area/SubstepHtmlPrefix" xml:space="preserve">
+    <value>&amp;nbsp;&amp;nbsp;&amp;gt;&amp;nbsp;&amp;nbsp;</value>
+  </data>
+  <data name="EditingSteps/Area/StepNumberIndicator" xml:space="preserve">
+    <value>Step {0} of {1}</value>
+  </data>
+  <data name="EditingSteps/Area/Title" xml:space="preserve">
+    <value>Create a Document</value>
+  </data>
+  <data name="EditingSteps/StepControls/Title" xml:space="preserve">
+    <value>Editing Steps</value>
+  </data>
+  <data name="EditingSteps/StepLabel/DataMerge" xml:space="preserve">
+    <value>Data List</value>
+  </data>
+  <data name="EditingSteps/StepLabel/Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="EditingSteps/StepLabel/Finish" xml:space="preserve">
+    <value>Finish</value>
+  </data>
+  <data name="EditingSteps/StepLabel/FormFilling" xml:space="preserve">
+    <value>Form Filling</value>
+  </data>
+  <data name="EditingSteps/StepLabel/FreeEdit" xml:space="preserve">
+    <value>Free Edit</value>
+  </data>
+  <data name="EditingSteps/StepLabel/MailingList" xml:space="preserve">
+    <value>Mailing List</value>
+  </data>
+  <data name="EditingSteps/StepLabel/Printing" xml:space="preserve">
+    <value>Printing</value>
+  </data>
+  <data name="EditingSteps/StepLabel/Upload" xml:space="preserve">
+    <value>Upload</value>
+  </data>
+  <data name="EditPrinting/Area/Comment" xml:space="preserve">
+    <value>Set printing options</value>
+  </data>
+  <data name="EditPrinting/PriceEstimate/CannotCompute" xml:space="preserve">
+    <value>Could not compute price.</value>
+  </data>
+  <data name="EditPrinting/PriceEstimate/DataCosts" xml:space="preserve">
+    <value>Data Costs:</value>
+  </data>
+  <data name="EditPrinting/PriceEstimate/Header" xml:space="preserve">
+    <value>Price Estimate:</value>
+  </data>
+  <data name="EditPrinting/PriceEstimate/InvalidOptions" xml:space="preserve">
+    <value>Please complete all mandatory fields to obtain a quote.</value>
+  </data>
+  <data name="EditPrinting/PriceEstimate/Note" xml:space="preserve">
+    <value>For the options you have chosen.</value>
+  </data>
+  <data name="EditPrinting/PriceEstimate/ProductionCosts" xml:space="preserve">
+    <value>Production Costs:</value>
+  </data>
+  <data name="EditPrinting/PriceEstimate/UnfilledForm" xml:space="preserve">
+    <value>Please complete all mandatory fields to obtain a quote.</value>
+  </data>
+  <data name="EditPrinting/Window/Title" xml:space="preserve">
+    <value>Printing Options</value>
+  </data>
+  <data name="FieldFilling/CheckboxReadMode/Checked" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="FieldFilling/CheckboxReadMode/Unchecked" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="FieldFilling/EnumeratedControl/BadValue" xml:space="preserve">
+    <value>The previously selected value is no longer available. Please select a different value</value>
+  </data>
+  <data name="FieldFilling/EnumeratedControl/NoValue" xml:space="preserve">
+    <value>Please select a value</value>
+  </data>
+  <data name="FieldFilling/IncludeBox/Add" xml:space="preserve">
+    <value>&amp;lt; Add</value>
+  </data>
+  <data name="FieldFilling/IncludeBox/Exclude" xml:space="preserve">
+    <value>Exclude:</value>
+  </data>
+  <data name="FieldFilling/IncludeBox/Include" xml:space="preserve">
+    <value>Include:</value>
+  </data>
+  <data name="FieldFilling/IncludeBox/Remove" xml:space="preserve">
+    <value>Remove &amp;gt;</value>
+  </data>
+  <data name="FieldFilling/PasswordFieldType/Text" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="FieldFilling/SecureField/Text" xml:space="preserve">
+    <value>[Value Set]</value>
+  </data>
+  <data name="FieldFilling/Validation/FallbackMessage" xml:space="preserve">
+    <value>Please provide a valid value for this field.</value>
+  </data>
+  <data name="FinanceItem/Names/Adjustment" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="FinanceItem/Names/BalanceDue" xml:space="preserve">
+    <value>Balance Due</value>
+  </data>
+  <data name="FinanceItem/Names/Handling" xml:space="preserve">
+    <value>Handling</value>
+  </data>
+  <data name="FinanceItem/Names/Received" xml:space="preserve">
+    <value>Payment Received</value>
+  </data>
+  <data name="FinanceItem/Names/Shipping" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="FinanceItem/Names/ShippingNTotal" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="FinanceItem/Names/Subtotal" xml:space="preserve">
+    <value>Subtotal</value>
+  </data>
+  <data name="FinanceItem/Names/Tax" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="FinanceItem/Names/TaxableAdjustment" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="FinanceItem/Names/Total" xml:space="preserve">
+    <value>Total Price</value>
+  </data>
+  <data name="ForgotPassword/Area/Comment" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="ForgotPassword/Area/Title" xml:space="preserve">
+    <value>Please enter your email address so that we can send you a link to retrieve your user name and reset your password.</value>
+  </data>
+  <data name="ForgotPassword/EmailAddress" xml:space="preserve">
+    <value>Email Address</value>
+  </data>
+  <data name="ForgotPassword/EmailSent" xml:space="preserve">
+    <value>Please check your email.  You should receive an email that contains a link, which will allow you to reset your password.</value>
+  </data>
+  <data name="ForgotPassword/ErrorMessage/EmailAddress" xml:space="preserve">
+    <value>Entry not found. Please enter the email address of your user account.</value>
+  </data>
+  <data name="ForgotPassword/ErrorMessage/SendError" xml:space="preserve">
+    <value>Error sending the Forgot Password notification.</value>
+  </data>
+  <data name="ForgotPasswordReset/Area/Comment" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="ForgotPasswordReset/Area/Title" xml:space="preserve">
+    <value>Enter a new password and click Accept to reset your password. Click Cancel to go right to the normal login screen.</value>
+  </data>
+  <data name="ForgotPasswordReset/ConfirmPassword" xml:space="preserve">
+    <value>Confirm New Password</value>
+  </data>
+  <data name="ForgotPasswordReset/NewPassword" xml:space="preserve">
+    <value>New Password</value>
+  </data>
+  <data name="ForgotPasswordReset/Username" xml:space="preserve">
+    <value>Your User Name is</value>
+  </data>
+  <data name="GetProof/Message/DocIdMissing" xml:space="preserve">
+    <value>Proof failed because doc id missing from request.</value>
+  </data>
+  <data name="GetProof/Message/DocId_Invalid" xml:space="preserve">
+    <value>Proof failed because document id {0} invalid.</value>
+  </data>
+  <data name="GetProof/Message/ErrorGenerating" xml:space="preserve">
+    <value>An error occurred generating your proof.</value>
+  </data>
+  <data name="GetProof/Message/NoSession" xml:space="preserve">
+    <value>There is no current session.</value>
+  </data>
+  <data name="GetProof/Message/NotLoggedOn" xml:space="preserve">
+    <value>You are not logged on.</value>
+  </data>
+  <data name="GetProof/Message/NotOwner" xml:space="preserve">
+    <value>You are not this document's owner.</value>
+  </data>
+  <data name="GetProof/Message/NotPermitted" xml:space="preserve">
+    <value>You do not have permission to view this document.</value>
+  </data>
+  <data name="Help/Area/Title" xml:space="preserve">
+    <value>Help</value>
+  </data>
+  <data name="Help/ErrorMessage/NoHelpAvailable" xml:space="preserve">
+    <value>No help is available for this topic</value>
+  </data>
+  <data name="Help/Sidebar/Title" xml:space="preserve">
+    <value>Help Topics</value>
+  </data>
+  <data name="Help/Topic/Approvals" xml:space="preserve">
+    <value>My Approvals</value>
+  </data>
+  <data name="Help/Topic/Checkout" xml:space="preserve">
+    <value>Checkout</value>
+  </data>
+  <data name="Help/Topic/DataMerge" xml:space="preserve">
+    <value>Data List</value>
+  </data>
+  <data name="Help/Topic/EditDocument" xml:space="preserve">
+    <value>Edit Document</value>
+  </data>
+  <data name="Help/Topic/Finish" xml:space="preserve">
+    <value>Finish</value>
+  </data>
+  <data name="Help/Topic/FormFilling" xml:space="preserve">
+    <value>Form Filling</value>
+  </data>
+  <data name="Help/Topic/FreeEdit" xml:space="preserve">
+    <value>Free Edit</value>
+  </data>
+  <data name="Help/Topic/Library" xml:space="preserve">
+    <value>My Library</value>
+  </data>
+  <data name="Help/Topic/Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Help/Topic/Order" xml:space="preserve">
+    <value>Order</value>
+  </data>
+  <data name="Help/Topic/Orders" xml:space="preserve">
+    <value>Orders</value>
+  </data>
+  <data name="Help/Topic/OrderSummary" xml:space="preserve">
+    <value>Order Summary</value>
+  </data>
+  <data name="Help/Topic/Payment" xml:space="preserve">
+    <value>Payment</value>
+  </data>
+  <data name="Help/Topic/Printing" xml:space="preserve">
+    <value>Printing Options</value>
+  </data>
+  <data name="Help/Topic/Profile" xml:space="preserve">
+    <value>My Profile</value>
+  </data>
+  <data name="Help/Topic/Shipping" xml:space="preserve">
+    <value>Delivery</value>
+  </data>
+  <data name="Help/Topic/ShoppingCart" xml:space="preserve">
+    <value>Basket</value>
+  </data>
+  <data name="Help/Topic/Start" xml:space="preserve">
+    <value>Start a New Document</value>
+  </data>
+  <data name="Help/Window/Title" xml:space="preserve">
+    <value>Help</value>
+  </data>
+  <data name="InternalError/Warning/InternalError" xml:space="preserve">
+    <value>An internal error occurred</value>
+  </data>
+  <data name="InternalError/Window/Title" xml:space="preserve">
+    <value>Internal Error</value>
+  </data>
+  <data name="Library/AreaHidden/Comment" xml:space="preserve">
+    <value>Images and databases listed below were previously hidden from your library. Click Restore to add them back to your library.</value>
+  </data>
+  <data name="Library/AreaHidden/Title" xml:space="preserve">
+    <value>Hidden Library Items</value>
+  </data>
+  <data name="Library/AreaMain/Comment" xml:space="preserve">
+    <value>Content you have uploaded.</value>
+  </data>
+  <data name="Library/AreaMain/Title" xml:space="preserve">
+    <value>My Library</value>
+  </data>
+  <data name="Library/Button/Done" xml:space="preserve">
+    <value>Done</value>
+  </data>
+  <data name="Library/Button/UploadDatabase" xml:space="preserve">
+    <value>Upload Database...</value>
+  </data>
+  <data name="Library/Button/UploadImage" xml:space="preserve">
+    <value>Upload Image...</value>
+  </data>
+  <data name="Library/Button/UploadPdfDocument" xml:space="preserve">
+    <value>Upload PDF Document...</value>
+  </data>
+  <data name="Library/Button/ViewHiddenItems" xml:space="preserve">
+    <value>View Hidden Items...</value>
+  </data>
+  <data name="Library/Message/ConfirmDelete" xml:space="preserve">
+    <value>Delete this asset? Any items/documents in unproduced orders that use this asset will become invalid. Also, you cannot re-order any items that used this asset.</value>
+  </data>
+  <data name="Library/Message/HiddenEmpty" xml:space="preserve">
+    <value>There are no hidden library items</value>
+  </data>
+  <data name="Library/Message/LibraryEmpty" xml:space="preserve">
+    <value>The library is empty</value>
+  </data>
+  <data name="Library/Option/Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Library/Option/Download" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="Library/Option/Hide" xml:space="preserve">
+    <value>Hide</value>
+  </data>
+  <data name="Library/Option/Rename" xml:space="preserve">
+    <value>Rename</value>
+  </data>
+  <data name="Library/Option/Restore" xml:space="preserve">
+    <value>Restore</value>
+  </data>
+  <data name="Library/Option/UsedInUploadDoc" xml:space="preserve">
+    <value>(in use)</value>
+  </data>
+  <data name="Library/Option/View" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="Library/Window/Title" xml:space="preserve">
+    <value>My Library</value>
+  </data>
+  <data name="Login/AreaMain/Title" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Login/AreaNoSite/Title" xml:space="preserve">
+    <value>Site is not available</value>
+  </data>
+  <data name="Login/Button/Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Login/Button/CreateAccount" xml:space="preserve">
+    <value>Create Account</value>
+  </data>
+  <data name="Login/Button/CreateAccountContinue" xml:space="preserve">
+    <value>Continue &gt;</value>
+  </data>
+  <data name="Login/Button/Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Login/ErrorMessage/InvalidLogin" xml:space="preserve">
+    <value>Sorry, that combination is not valid.</value>
+  </data>
+  <data name="Login/ErrorMessage/NewUserLoginNameContainsInvalidCharacters" xml:space="preserve">
+    <value>Sorry, that login name contains illegal characters.</value>
+  </data>
+  <data name="Login/ErrorMessage/NewUserLoginNameInUse" xml:space="preserve">
+    <value>Sorry, that login name is already in use.</value>
+  </data>
+  <data name="Login/ErrorMessage/NewUserLoginNameInvalid" xml:space="preserve">
+    <value>Sorry, you must specify a valid login name.</value>
+  </data>
+  <data name="Login/ErrorMessage/NewUserLoginNameMissing" xml:space="preserve">
+    <value>Sorry, you must specify a login name.</value>
+  </data>
+  <data name="Login/ErrorMessage/NewUserPasswordInvalid" xml:space="preserve">
+    <value>Sorry, you must specify a valid password.</value>
+  </data>
+  <data name="Login/ErrorMessage/NewUserPasswordMismatch" xml:space="preserve">
+    <value>Sorry, your two password entries didn't match.</value>
+  </data>
+  <data name="Login/ErrorMessage/NoSite" xml:space="preserve">
+    <value>Sorry, the site is not currently available</value>
+  </data>
+  <data name="Login/Label/AutoLogin" xml:space="preserve">
+    <value>Next time log me in automatically</value>
+  </data>
+  <data name="Login/Label/ConfirmPassword" xml:space="preserve">
+    <value>Confirm Password</value>
+  </data>
+  <data name="Login/Label/ExistingUsers" xml:space="preserve">
+    <value>Existing Users</value>
+  </data>
+  <data name="Login/Label/ForgotPassword" xml:space="preserve">
+    <value>Reset Your Password?</value>
+  </data>
+  <data name="Login/Label/NewUsers" xml:space="preserve">
+    <value>New Users</value>
+  </data>
+  <data name="Login/Label/Password" xml:space="preserve">
+    <value>Partner code e.g. 123456A (Capital Letters)</value>
+  </data>
+  <data name="Login/Label/UserName" xml:space="preserve">
+    <value>Enter your email address e.g. michael.edwards@sjpp.co.uk</value>
+  </data>
+  <data name="Login/Message/CreateAccount" xml:space="preserve">
+    <value>Please enter a new user name and password and click "Create Account".</value>
+  </data>
+  <data name="Login/Message/CreateAccountContinue" xml:space="preserve">
+    <value>Please enter a new user name and password and click "Continue".</value>
+  </data>
+  <data name="Login/Message/NoMoreAnonymous" xml:space="preserve">
+    <value>You must be logged in to proceed to the page you have requested.</value>
+  </data>
+  <data name="Login/Message/PleaseLogin" xml:space="preserve">
+    <value>Please enter your email and partner code</value>
+  </data>
+  <data name="Login/Message/ShoppingCartsMerged" xml:space="preserve">
+    <value>New items in your basket have been combined with items previously saved there for this account.</value>
+  </data>
+  <data name="Login/Window/Title" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="LoginPopUp/Message/NoMoreAnonymous" xml:space="preserve">
+    <value>You must log in to proceed with this action.</value>
+  </data>
+  <data name="OneMoment/Warning/Text" xml:space="preserve">
+    <value>One moment, please...</value>
+  </data>
+  <data name="OneMoment/Warning/Title" xml:space="preserve">
+    <value>Redirecting to Form Filling step</value>
+  </data>
+  <data name="OrderItemDetails/Area/Comment" xml:space="preserve">
+    <value>Item details for this ordered document</value>
+  </data>
+  <data name="OrderItemDetails/Area/Title" xml:space="preserve">
+    <value>Item Details</value>
+  </data>
+  <data name="OrderItemDetails/Label/Cost" xml:space="preserve">
+    <value>Data Costs</value>
+  </data>
+  <data name="OrderItemDetails/Label/DataList" xml:space="preserve">
+    <value>Data List</value>
+  </data>
+  <data name="OrderItemDetails/Label/DataListDetails" xml:space="preserve">
+    <value>Data List</value>
+  </data>
+  <data name="OrderItemDetails/Label/Header" xml:space="preserve">
+    <value>Item Information</value>
+  </data>
+  <data name="OrderItemDetails/Label/ID" xml:space="preserve">
+    <value>Document ID</value>
+  </data>
+  <data name="OrderItemDetails/Label/NumberOfRecords" xml:space="preserve">
+    <value>Number of Records</value>
+  </data>
+  <data name="OrderItemDetails/Label/PriceTip" xml:space="preserve">
+    <value>Does not include tax, delivery, or handling.</value>
+  </data>
+  <data name="OrderItemDetails/Label/PrintingOptions" xml:space="preserve">
+    <value>Printing Options</value>
+  </data>
+  <data name="OrderItemDetails/Label/ProductionCosts" xml:space="preserve">
+    <value>Production Costs</value>
+  </data>
+  <data name="OrderItemDetails/Label/TotalPrice" xml:space="preserve">
+    <value>Item Price</value>
+  </data>
+  <data name="OrderItemDetails/Window/Title" xml:space="preserve">
+    <value>Item Details</value>
+  </data>
+  <data name="Orders/Area/Comment" xml:space="preserve">
+    <value>Prices in the table below are production costs to St. James's Place, where applicable, allowances will then be deducted from this price and the net amount charged to your Partner Summary.</value>
+  </data>
+  <data name="Orders/Area/Continued" xml:space="preserve">
+    <value>Orders (continued)</value>
+  </data>
+  <data name="Orders/Area/Title" xml:space="preserve">
+    <value>Orders</value>
+  </data>
+  <data name="Orders/Button/Next" xml:space="preserve">
+    <value>Next &gt;</value>
+  </data>
+  <data name="Orders/Button/Previous" xml:space="preserve">
+    <value>&lt; Previous</value>
+  </data>
+  <data name="Orders/ColumnHeader/Items" xml:space="preserve">
+    <value>Products</value>
+  </data>
+  <data name="Orders/ColumnHeader/Options" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="Orders/ColumnHeader/Order" xml:space="preserve">
+    <value>Order Ref</value>
+  </data>
+  <data name="Orders/ColumnHeader/Placed" xml:space="preserve">
+    <value>Date Placed</value>
+  </data>
+  <data name="Orders/ColumnHeader/Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Orders/ColumnHeader/TotalCost" xml:space="preserve">
+    <value>Price (before allowance where applicable) </value>
+  </data>
+  <data name="Orders/ComboLabel/AllOrders" xml:space="preserve">
+    <value>All Orders</value>
+  </data>
+  <data name="Orders/ComboLabel/Completed" xml:space="preserve">
+    <value>Completed Orders</value>
+  </data>
+  <data name="Orders/ComboLabel/InProcess" xml:space="preserve">
+    <value>Orders In Process</value>
+  </data>
+  <data name="Orders/ComboLabel/Pending" xml:space="preserve">
+    <value>Orders Pending Review</value>
+  </data>
+  <data name="Orders/ComboLabel/Placed" xml:space="preserve">
+    <value>Placed Orders</value>
+  </data>
+  <data name="Orders/ComboLabel/Unapproved" xml:space="preserve">
+    <value>Orders with Declined Items</value>
+  </data>
+  <data name="Orders/Message/NoOrders" xml:space="preserve">
+    <value>No orders have been placed.</value>
+  </data>
+  <data name="Orders/Message/NoOrdersCompleted" xml:space="preserve">
+    <value>No orders are Completed.</value>
+  </data>
+  <data name="Orders/Message/NoOrdersInProcess" xml:space="preserve">
+    <value>No orders are In Process.</value>
+  </data>
+  <data name="Orders/Message/NoOrdersPending" xml:space="preserve">
+    <value>No orders are pending.</value>
+  </data>
+  <data name="Orders/Message/NoOrdersPlaced" xml:space="preserve">
+    <value>No orders are Placed.</value>
+  </data>
+  <data name="Orders/Message/NoOrdersUnapproved" xml:space="preserve">
+    <value>No orders are Declined.</value>
+  </data>
+  <data name="Orders/Option/Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="Orders/Option/Download" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="Orders/Option/Reorder" xml:space="preserve">
+    <value>Reorder</value>
+  </data>
+  <data name="Orders/Option/View" xml:space="preserve">
+    <value>View:</value>
+  </data>
+  <data name="Orders/Option/ViewDetails" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="Orders/OrderGroupHeader/Order" xml:space="preserve">
+    <value>Order Ref</value>
+  </data>
+  <data name="Orders/OrderGroupHeader/Placed" xml:space="preserve">
+    <value>created</value>
+  </data>
+  <data name="Orders/Status/Approved" xml:space="preserve">
+    <value>Approved</value>
+  </data>
+  <data name="Orders/Status/By" xml:space="preserve">
+    <value>by</value>
+  </data>
+  <data name="Orders/Status/Completed" xml:space="preserve">
+    <value>Completed</value>
+  </data>
+  <data name="Orders/Status/Declined" xml:space="preserve">
+    <value>Declined</value>
+  </data>
+  <data name="Orders/Status/InProcess" xml:space="preserve">
+    <value>In Process</value>
+  </data>
+  <data name="Orders/Status/InProcessDownloadable" xml:space="preserve">
+    <value>In Process: Available for Download</value>
+  </data>
+  <data name="Orders/Status/NeedsNoApproval" xml:space="preserve">
+    <value>Ordered, did not need approval</value>
+  </data>
+  <data name="Orders/Status/PendingApproval" xml:space="preserve">
+    <value>Pending Approval</value>
+  </data>
+  <data name="Orders/Status/Placed" xml:space="preserve">
+    <value>Placed</value>
+  </data>
+  <data name="Orders/Status/Rejected" xml:space="preserve">
+    <value>Rejected</value>
+  </data>
+  <data name="Orders/Warning/cantReorder" xml:space="preserve">
+    <value>This document cannot be reordered because its product is no longer available.</value>
+  </data>
+  <data name="Orders/Warning/cantReorderBecauseRetired" xml:space="preserve">
+    <value>This item cannot be reordered.</value>
+  </data>
+  <data name="Orders/Warning/newOrder" xml:space="preserve">
+    <value>Your order has been placed. Check the status below to follow its progress.</value>
+  </data>
+  <data name="Orders/Warning/newOrderNeedingApproval" xml:space="preserve">
+    <value>Your order has been submitted for approval.</value>
+  </data>
+  <data name="Orders/Warning/newOrderWithDownload" xml:space="preserve">
+    <value>Your order has been placed and output is being generated. Refreshing this page will show an active link in the "Items" column for any items with completed output.</value>
+  </data>
+  <data name="Orders/Window/Title" xml:space="preserve">
+    <value>Orders</value>
+  </data>
+  <data name="OrderSummary/ApprovalInfo/Comment" xml:space="preserve">
+    <value>Order Review Comments:</value>
+  </data>
+  <data name="OrderSummary/ApprovalInfo/Reviewer" xml:space="preserve">
+    <value>Reviewer:</value>
+  </data>
+  <data name="OrderSummary/ApprovalInfo/Status" xml:space="preserve">
+    <value>Status:</value>
+  </data>
+  <data name="OrderSummary/ApprovalInfo/Title" xml:space="preserve">
+    <value>Approval Information:</value>
+  </data>
+  <data name="OrderSummary/Area/Comment" xml:space="preserve">
+    <value>Order summary</value>
+  </data>
+  <data name="OrderSummary/ColumnHeader/Comments" xml:space="preserve">
+    <value>Comments</value>
+  </data>
+  <data name="OrderSummary/ColumnHeader/Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="OrderSummary/ColumnHeader/ID_Product" xml:space="preserve">
+    <value>ID and Product</value>
+  </data>
+  <data name="OrderSummary/ColumnHeader/Options" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="OrderSummary/ColumnHeader/Price" xml:space="preserve">
+    <value>Price (before allowance where applicable) </value>
+  </data>
+  <data name="OrderSummary/ColumnHeader/Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="OrderSummary/ColumnHeader/Thumbnail" xml:space="preserve">
+    <value>Thumbnail</value>
+  </data>
+  <data name="OrderSummary/Header/OrderInformation" xml:space="preserve">
+    <value>(STRING NOT USED)</value>
+  </data>
+  <data name="OrderSummary/Header/PaymentInformation" xml:space="preserve">
+    <value>Payment Information</value>
+  </data>
+  <data name="OrderSummary/Header/ShippingInformation" xml:space="preserve">
+    <value>Delivery Information</value>
+  </data>
+  <data name="OrderSummary/Header/ShippingDestinationInformation" xml:space="preserve">
+    <value>Delivery Information for Destination {0}</value>
+  </data>
+  <data name="OrderSummary/Header/Shipping" xml:space="preserve">
+    <value>Delivery Destination</value>
+  </data>
+  <data name="OrderSummary/Header/ShippingDestination" xml:space="preserve">
+    <value>Delivery Destination #{0}:</value>
+  </data>
+  <data name="OrderSummary/Label/Date" xml:space="preserve">
+    <value>Created</value>
+  </data>
+  <data name="OrderSummary/Label/OrderID" xml:space="preserve">
+    <value>Order ID</value>
+  </data>
+  <data name="OrderSummary/Label/ReviewersComment" xml:space="preserve">
+    <value>Reviewer's Comment: </value>
+  </data>
+  <data name="OrderSummary/Label/SystemMessage" xml:space="preserve">
+    <value>System Message: </value>
+  </data>
+  <data name="OrderSummary/Status/InProcess" xml:space="preserve">
+    <value>In Process</value>
+  </data>
+  <data name="OrderSummary/Status/Ordered" xml:space="preserve">
+    <value>Ordered</value>
+  </data>
+  <data name="OrderSummary/Status/Rejected" xml:space="preserve">
+    <value>Rejected</value>
+  </data>
+  <data name="OrderSummary/Status/Shipped" xml:space="preserve">
+    <value>Shipped</value>
+  </data>
+  <data name="OrderSummary/Status/Unreviewed" xml:space="preserve">
+    <value>In Review</value>
+  </data>
+  <data name="OrderSummary/Window/Title" xml:space="preserve">
+    <value>Order Summary</value>
+  </data>
+  <data name="Profile/AreaEdit/Comment" xml:space="preserve">
+    <value>Edit your personal information. Click Save Changes to confirm your updates.</value>
+  </data>
+  <data name="Profile/AreaEdit/Title" xml:space="preserve">
+    <value>Edit My Profile</value>
+  </data>
+  <data name="Profile/AreaReadOnly/Comment" xml:space="preserve">
+    <value>Review your personal information. Click 'Edit Profile' to make changes.</value>
+  </data>
+  <data name="Profile/AreaReadOnly/CommentReadOnly" xml:space="preserve">
+    <value>Review your personal information.</value>
+  </data>
+  <data name="Profile/AreaReadOnly/Title" xml:space="preserve">
+    <value>My Profile</value>
+  </data>
+  <data name="Profile/Button/AddressBook" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Profile/Button/ChangePassword" xml:space="preserve">
+    <value>Change Password</value>
+  </data>
+  <data name="Profile/Button/EditProfile" xml:space="preserve">
+    <value>Edit Profile</value>
+  </data>
+  <data name="Profile/FieldLabel/EmailAddress" xml:space="preserve">
+    <value>E-mail Address</value>
+  </data>
+  <data name="Profile/FieldLabel/FirstName" xml:space="preserve">
+    <value>First Name</value>
+  </data>
+  <data name="Profile/FieldLabel/LastName" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
+  <data name="Profile/Window/Title" xml:space="preserve">
+    <value>My Profile</value>
+  </data>
+  <data name="QueryError/Button/ContinueAnyway" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="QueryError/Button/CorrectErrors" xml:space="preserve">
+    <value>Correct Errors</value>
+  </data>
+  <data name="QueryError/Warning/InvalidFields" xml:space="preserve">
+    <value>WARNING: Some fields have invalid values</value>
+  </data>
+  <data name="QueryError/Window/Title" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="QueryTempDoc/Button/Continue" xml:space="preserve">
+    <value>Start a New Order</value>
+  </data>
+  <data name="QueryTempDoc/Button/EditDoc" xml:space="preserve">
+    <value>EDIT CURRENT DOCUMENT</value>
+  </data>
+  <data name="QueryTempDoc/Warning/ChangesWillBeLost" xml:space="preserve">
+    <value>Selecting a new item will mean that this order will be lost. What would you like to do..</value>
+  </data>
+  <data name="QueryTempDoc/Warning/DocumentEditOnCheckout" xml:space="preserve">
+    <value>Warning: The current document is still being edited.  Please click Continue to continue anyway, abandoning document changes, or Edit Current Document to return to the current document.</value>
+  </data>
+  <data name="QueryTempDoc/Warning/DocumentInUse" xml:space="preserve">
+    <value>Warning: The current document is still being edited in another browser!</value>
+  </data>
+  <data name="QueryTempDoc/Warning/DocumentLockBroken" xml:space="preserve">
+    <value>*The document you were editing has been taken over by another browser window.</value>
+  </data>
+  <data name="QueryTempDoc/Warning/DocumentNotSaved" xml:space="preserve">
+    <value>Warning: You are in the process of creating an order that has not been added to your Basket</value>
+  </data>
+  <data name="QueryTempDoc/Warning/EditAnyway" xml:space="preserve">
+    <value>Do you want to abandon any changes made in the other browser and begin editing the document in this browser window?</value>
+  </data>
+  <data name="RenameAsset/Area/Comment" xml:space="preserve">
+    <value>Edit the item name. Click Accept to confirm your update or Cancel to ignore it.</value>
+  </data>
+  <data name="RenameAsset/Area/Title" xml:space="preserve">
+    <value>Rename Library Element</value>
+  </data>
+  <data name="RenameAsset/Label/Name" xml:space="preserve">
+    <value>Name:</value>
+  </data>
+  <data name="RenameAsset/Window/Title" xml:space="preserve">
+    <value>My Library: Rename</value>
+  </data>
+  <data name="SelectDatabase/Area/Title" xml:space="preserve">
+    <value>Data List: Select Data List from Library</value>
+  </data>
+  <data name="SelectDatabase/Message/Caption" xml:space="preserve">
+    <value>Select the file to be used as a data list, then click Submit</value>
+  </data>
+  <data name="SelectDatabase/Message/MyLibrary" xml:space="preserve">
+    <value>My Library Files</value>
+  </data>
+  <data name="SelectDatabase/Message/NoFiles" xml:space="preserve">
+    <value>No database files available.</value>
+  </data>
+  <data name="SelectDatabase/Message/NoMatchingFiles" xml:space="preserve">
+    <value>No database files match the required schema.</value>
+  </data>
+  <data name="SelectDatabase/Message/SchemaTip" xml:space="preserve">
+    <value>TIP: Only files which match a required schema are shown.</value>
+  </data>
+  <data name="SelectDatabase/Message/Shared" xml:space="preserve">
+    <value>Shared Library Files</value>
+  </data>
+  <data name="SelectDatabase/Window/Title" xml:space="preserve">
+    <value>Data List: Select Data List</value>
+  </data>
+  <data name="SelectImage/Area/Title" xml:space="preserve">
+    <value>Select Image</value>
+  </data>
+  <data name="SelectImage/Area/TitlePdfDocument" xml:space="preserve">
+    <value>Select PDF Document</value>
+  </data>
+  <data name="SelectImage/Message/Instructions" xml:space="preserve">
+    <value>Select an image by clicking one of the pictures.</value>
+  </data>
+  <data name="SelectImage/Message/MeetRequirements" xml:space="preserve">
+    <value>Only files that meet size and page count requirements for this product are shown.</value>
+  </data>
+  <data name="SelectImage/Window/Title" xml:space="preserve">
+    <value>Select Image</value>
+  </data>
+  <data name="SelectImage/Window/TitlePdfDocument" xml:space="preserve">
+    <value>Select PDF Document</value>
+  </data>
+  <data name="Shipping/Error/InvalidPostalCode" xml:space="preserve">
+    <value>Invalid postal code</value>
+  </data>
+  <data name="Shipping/Error/PostalCodeMismatch" xml:space="preserve">
+    <value>Postal code does not match state/province</value>
+  </data>
+  <data name="ShoppingCart/AreaHold/Comment" xml:space="preserve">
+    <value>Items to order later: click 'Move to Basket' to move an item back to the basket for ordering</value>
+  </data>
+  <data name="ShoppingCart/AreaHold/Title" xml:space="preserve">
+    <value>Hold for Later - Requires your further attention</value>
+  </data>
+  <data name="ShoppingCart/AreaMain/Comment" xml:space="preserve">
+    <value>Items to order now: click 'Proceed to Checkout' to order the contents of your basket</value>
+  </data>
+  <data name="ShoppingCart/AreaMain/Title" xml:space="preserve">
+    <value>My Basket</value>
+  </data>
+  <data name="ShoppingCart/Button/Checkout" xml:space="preserve">
+    <value>Proceed to Checkout</value>
+  </data>
+  <data name="ShoppingCart/Button/Continue" xml:space="preserve">
+    <value>Continue Shopping</value>
+  </data>
+  <data name="ShoppingCart/ColumnHeader/Date" xml:space="preserve">
+    <value>Date Modified</value>
+  </data>
+  <data name="ShoppingCart/ColumnHeader/Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="ShoppingCart/ColumnHeader/ID" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="ShoppingCart/ColumnHeader/Item" xml:space="preserve">
+    <value>Item</value>
+  </data>
+  <data name="ShoppingCart/ColumnHeader/Options" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="ShoppingCart/ColumnHeader/Price" xml:space="preserve">
+    <value>Price (before allowance where applicable) </value>
+  </data>
+  <data name="ShoppingCart/ColumnHeader/Product" xml:space="preserve">
+    <value>Product</value>
+  </data>
+  <data name="ShoppingCart/ColumnHeader/ProductDescription" xml:space="preserve">
+    <value>Product / Description</value>
+  </data>
+  <data name="ShoppingCart/ColumnHeader/Quantity" xml:space="preserve">
+    <value>Quantity</value>
+  </data>
+  <data name="ShoppingCart/ColumnHeader/Thumbnail" xml:space="preserve">
+    <value>Thumbnail</value>
+  </data>
+  <data name="ShoppingCart/Message/CartEmpty" xml:space="preserve">
+    <value>The basket is empty</value>
+  </data>
+  <data name="ShoppingCart/Message/ConfirmDelete" xml:space="preserve">
+    <value>Delete this item permanently?</value>
+  </data>
+  <data name="ShoppingCart/Message/Loading" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="ShoppingCart/Message/One" xml:space="preserve">
+    <value>One</value>
+  </data>
+  <data name="ShoppingCart/Message/UnableToDisplayPrices" xml:space="preserve">
+    <value>Unable to display prices</value>
+  </data>
+   <data name="ShoppingCart/Option/Hold" xml:space="preserve">
+    <value>Hold for ordering later</value>
+  </data>
+  <data name="ShoppingCart/Option/Duplicate" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="ShoppingCart/Option/Edit" xml:space="preserve">
+    <value>Amend Your Order</value>
+  <br/>
+  </data>
+   <data name="ShoppingCart/Option/Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="ShoppingCart/Option/MoveToCart" xml:space="preserve">
+    <value>Move to Basket</value>
+  </data>
+  <data name="ShoppingCart/Option/Proof" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="ShoppingCart/Option/ProofHtml" xml:space="preserve">
+    <value>HTML Preview...</value>
+  </data>
+  <data name="ShoppingCart/Option/Update" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="ShoppingCart/Pricing/Subtotal" xml:space="preserve">
+    <value>Subtotal: </value>
+  </data>
+  <data name="ShoppingCart/Pricing/Total" xml:space="preserve">
+    <value>Total: </value>
+  </data>
+  <data name="ShoppingCart/Quantity/EachOfRecords" xml:space="preserve">
+    <value> each of {0} records</value>
+  </data>
+  <data name="ShoppingCart/Warning/cantAssignExternID" xml:space="preserve">
+    <value>Order could not be processed because of an internal error.</value>
+  </data>
+  <data name="ShoppingCart/Warning/cantCheckoutFileInUse" xml:space="preserve">
+    <value>Documents cannot be ordered because one of them is being edited.</value>
+  </data>
+  <data name="ShoppingCart/Warning/cantDeleteDoc" xml:space="preserve">
+    <value>The selected document cannot be deleted.</value>
+  </data>
+  <data name="ShoppingCart/Warning/cantDeleteDocNotOurs" xml:space="preserve">
+    <value>The selected document cannot be deleted because it is in use by another browser.</value>
+  </data>
+  <data name="ShoppingCart/Warning/cantDupeDoc" xml:space="preserve">
+    <value>The selected document cannot be duplicated.</value>
+  </data>
+  <data name="ShoppingCart/Warning/docWasAlreadyOrdered" xml:space="preserve">
+    <value>The document has already been ordered.</value>
+  </data>
+  <data name="ShoppingCart/Warning/errorDocInUse" xml:space="preserve">
+    <value>Sorry, that document is being modified. Please select another document or try again later.</value>
+  </data>
+  <data name="ShoppingCart/Warning/invalidatedDocSavedInHold" xml:space="preserve">
+    <value>Some documents have become no longer valid and have been saved in Hold.</value>
+  </data>
+  <data name="ShoppingCart/Warning/invalidDocSavedInHold" xml:space="preserve">
+    <value>Your document '[1]' has been placed in the Hold area because of errors. When you fix the errors it can be ordered.</value>
+  </data>
+  <data name="ShoppingCart/Warning/orderInvalidatedByExtension" xml:space="preserve">
+    <value>Your order could not be placed due to an internal error. Please contact a system administrator.</value>
+  </data>
+  <data name="ShoppingCart/Warning/orderInvalidPriceConflict" xml:space="preserve">
+    <value>Your order could not be placed due to a pricing conflict.</value>
+  </data>
+  <data name="ShoppingCart/Warning/orderPriceOverflow" xml:space="preserve">
+    <value>An error occurred computing order price.</value>
+  </data>
+  <data name="ShoppingCart/Warning/reorderedDocCouldNotReuseDataSource" xml:space="preserve">
+    <value>Document cannot re-use data list and has been saved in Hold. Edit document to specify a data list.</value>
+  </data>
+  <data name="ShoppingCart/Warning/savedToShoppingCart" xml:space="preserve">
+    <value>'[1]' has been added to the Basket.</value>
+  </data>
+  <data name="ShoppingCart/Warning/sxiErrorOnShoppingCart" xml:space="preserve">
+    <value>An internal error has occurred. Please contact a system administrator.</value>
+  </data>
+  <data name="ShoppingCart/Window/Title" xml:space="preserve">
+    <value>Basket</value>
+  </data>
+  <data name="Start/AccountInfo/ADocumentIsOpen" xml:space="preserve">
+    <value>A document is open</value>
+  </data>
+  <data name="Start/AccountInfo/IncompleteOrder" xml:space="preserve">
+    <value> incomplete order</value>
+  </data>
+  <data name="Start/AccountInfo/IncompleteOrders" xml:space="preserve">
+    <value> incomplete orders</value>
+  </data>
+  <data name="Start/AccountInfo/Item" xml:space="preserve">
+    <value> item</value>
+  </data>
+  <data name="Start/AccountInfo/Items" xml:space="preserve">
+    <value> items</value>
+  </data>
+  <data name="Start/AccountInfo/Order" xml:space="preserve">
+    <value> order</value>
+  </data>
+  <data name="Start/AccountInfo/Orders" xml:space="preserve">
+    <value> orders</value>
+  </data>
+  <data name="Start/AccountInfo/Pending" xml:space="preserve">
+    <value>pending</value>
+  </data>
+  <data name="Start/AccountInfo/Welcome" xml:space="preserve">
+    <value>Welcome,</value>
+  </data>
+  <data name="Start/AccountInfo/WelcomePhrase" xml:space="preserve">
+    <value>Welcome, {0}!</value>
+  </data>
+  <data name="Start/AccountInfo/YouHave" xml:space="preserve">
+    <value>You have</value>
+  </data>
+  <data name="Start/AccountInfo/YourShoppingCartHas" xml:space="preserve">
+    <value>Your basket has</value>
+  </data>
+  <data name="Start/AccountInfoLabel/EditDocument" xml:space="preserve">
+    <value>Edit Current Document</value>
+  </data>
+  <data name="Start/AccountInfoLabel/EditProfile" xml:space="preserve">
+    <value>Edit my personal profile</value>
+  </data>
+  <data name="Start/AccountInfoLabel/ViewOrders" xml:space="preserve">
+    <value>View my orders</value>
+  </data>
+  <data name="Start/AccountInfoLabel/ViewShoppingCart" xml:space="preserve">
+    <value>View my basket</value>
+  </data>
+  <data name="Start/AreaMain/Comment" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Start/AreaMain/Title" xml:space="preserve">
+    <value>Create an Order</value>
+  </data>
+  <data name="Start/Button/Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="Start/CategorySidebar/Title" xml:space="preserve">
+    <value>Products</value>
+  </data>
+  <data name="Start/Label/ListView" xml:space="preserve">
+    <value>Show List View</value>
+  </data>
+  <data name="Start/Label/MapView" xml:space="preserve">
+    <value>Index</value>
+  </data>
+  <data name="Start/Label/ThumbnailView" xml:space="preserve">
+    <value>Show Thumbnail View</value>
+  </data>
+  <data name="Start/Message/NoProductSearchResults" xml:space="preserve">
+    <value>This product cannot be found, this could be a Print on Demand item or Intranet only. Which can only be found on your Intranet. Contact marketing support for any further details. Tel: 01285 878 912</value>
+  </data>
+  <data name="Start/Message/NoProductsInCategory" xml:space="preserve">
+    <value>Please click the + symbol next to the Category name to view available products</value>
+  </data>
+  <data name="Start/SearchResults/Title" xml:space="preserve">
+    <value>Search Results for</value>
+  </data>
+  <data name="Start/Warning/cantAssignExternDocID" xml:space="preserve">
+    <value>Unable to create document because of an internal error.</value>
+  </data>
+  <data name="Start/Warning/EditStepLicense" xml:space="preserve">
+    <value>Unable to edit document</value>
+  </data>
+  <data name="Start/Window/Title" xml:space="preserve">
+    <value>SJP Connect</value>
+  </data>
+  <data name="StepArea/StepLabel/Separator" xml:space="preserve">
+    <value>:</value>
+  </data>
+  <data name="UploadDatabase/Area/Comment" xml:space="preserve">
+    <value>Browse for a Comma Separated Value (.csv) format file, then click Submit</value>
+  </data>
+  <data name="UploadDatabase/Area/Title" xml:space="preserve">
+    <value>Data List: Upload a Data List</value>
+  </data>
+  <data name="UploadDatabase/ErrorMessage/IvalidDatabase" xml:space="preserve">
+    <value>Cannot validate specified database file. Please ensure that you upload a valid database file.</value>
+  </data>
+  <data name="UploadDatabase/Message/Browse" xml:space="preserve">
+    <value>Browse for the CSV file to upload, then click Submit</value>
+  </data>
+  <data name="UploadDatabase/Message/IncludeHeaders" xml:space="preserve">
+    <value>TIP: The uploaded file should include Field Names in the first row</value>
+  </data>
+  <data name="UploadDatabase/Message/Library" xml:space="preserve">
+    <value>Add this file to My Library</value>
+  </data>
+  <data name="UploadDatabase/Message/MustMatchSchema" xml:space="preserve">
+    <value>TIP: The uploaded file must match a required schema</value>
+  </data>
+  <data name="UploadDatabase/Window/Title" xml:space="preserve">
+    <value>Data List: Upload a Data List</value>
+  </data>
+  <data name="UploadImage/Area/Title" xml:space="preserve">
+    <value>Upload Image</value>
+  </data>
+  <data name="UploadImage/Area/TitlePdfDocument" xml:space="preserve">
+    <value>Upload PDF Document</value>
+  </data>
+  <data name="UploadImage/Checkbox/Library" xml:space="preserve">
+    <value>Add this file to My Library</value>
+  </data>
+  <data name="UploadImage/Message/Browse" xml:space="preserve">
+    <value>Browse for an image file to upload, then click Submit</value>
+  </data>
+  <data name="UploadImage/Message/BrowsePdfDocument" xml:space="preserve">
+    <value>Browse for a PDF document file to upload, then click Submit</value>
+  </data>
+  <data name="UploadImage/Message/InvalidImage" xml:space="preserve">
+    <value>Uploaded file is not a valid image</value>
+  </data>
+  <data name="UploadImage/Message/InvalidPdfDocument" xml:space="preserve">
+    <value>Uploaded file is not a valid PDF document</value>
+  </data>
+  <data name="UploadImage/Message/Pages" xml:space="preserve">
+    <value>pages</value>
+  </data>
+  <data name="UploadImage/Message/RejectedPdfDocument" xml:space="preserve">
+    <value>The file you have selected does not meet the size&lt;br&gt;and page count requirements set for this document.&lt;br&gt;&lt;br&gt; Your document must fit within:</value>
+  </data>
+  <data name="UploadImage/Message/RejectedPdfDocumentJoiner" xml:space="preserve">
+    <value>, or</value>
+  </data>
+  <data name="UploadImage/Window/Title" xml:space="preserve">
+    <value>Upload Image</value>
+  </data>
+  <data name="UploadImage/Window/TitlePdfDocument" xml:space="preserve">
+    <value>Upload PDF Document</value>
+  </data>
+  <data name="UserProfile/Warning/profileChangeInvalidatedByExtension" xml:space="preserve">
+    <value>The requested changes could not be made. Please contact your system administrator.</value>
+  </data>
+  <data name="UserProfile/Warning/SelfRegistrationInvalidatedByExtension" xml:space="preserve">
+    <value>Self-registration could not take place. Please contact your system administrator.</value>
+  </data>
+  <data name="UserRegistration/Area/Comment" xml:space="preserve">
+    <value>Please enter required information and click the Create Account button</value>
+  </data>
+  <data name="UserRegistration/Area/Title" xml:space="preserve">
+    <value>Create New Account</value>
+  </data>
+  <data name="ApprovalsReview/Button/MarkAllAsApproved" xml:space="preserve">
+    <value>Mark All As Approved</value>
+  </data>
+  <data name="ApprovalsReview/Button/MarkAllAsDeclined" xml:space="preserve">
+    <value>Mark All As Declined</value>
+  </data>
+  <data name="UserModalDialog/Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="OrderItemDetails/Label/ReviewerComments" xml:space="preserve">
+    <value>Reviewer Comments:</value>
+  </data>
+  <data name="ApprovalsReview/Button/AllItems" xml:space="preserve">
+    <value>Show all items in this order</value>
+  </data>
+  <data name="ApprovalsReview/Button/Approve" xml:space="preserve">
+    <value>Approve</value>
+  </data>
+  <data name="ApprovalsReview/Button/Decline" xml:space="preserve">
+    <value>Decline</value>
+  </data>
+  <data name="ApprovalsReview/Button/PricingInfo" xml:space="preserve">
+    <value>Show pricing info</value>
+  </data>
+  <data name="ApprovalsReview/Labels/PricingInfo" xml:space="preserve">
+    <value>Pricing Information:</value>
+  </data>
+  <data name="AddressBookItem/Warning/EmptyDescription" xml:space="preserve">
+    <value>Address Book Label cannot be blank.</value>
+  </data>
+  <data name="Shipment/Comments" xml:space="preserve">
+    <value>Comments:</value>
+  </data>
+  <data name="Shipment/Description" xml:space="preserve">
+    <value>Description:</value>
+  </data>
+  <data name="Shipment/ID" xml:space="preserve">
+    <value>ID:</value>
+  </data>
+  <data name="Shipment/Price" xml:space="preserve">
+    <value>Price:</value>
+  </data>
+  <data name="Shipment/Product" xml:space="preserve">
+    <value>Product:</value>
+  </data>
+  <data name="Shipment/Quantity" xml:space="preserve">
+    <value>Quantity:</value>
+  </data>
+  <data name="ApprovalsReview/Window/Title" xml:space="preserve">
+    <value>Review Order</value>
+  </data>
+    <data name="ProductList_Label_CostHeader" xml:space="preserve">
+    <value>Cost</value>
+      </data>
+    <data name="ProductList_Label_ItemHeader" xml:space="preserve">
+    <value>Code</value>
+          </data>
+    <data name="ProductList_Label_ThumbnailHeader" xml:space="preserve">
+    <value>Thumbnail</value>
+  </data>
+      <data name="ProductList_Label_VersionHeader" xml:space="preserve">
+    <value>Version</value>
+  </data>
+        <data name="ProductList_Label_PacksToOrderHeader" xml:space="preserve">
+    <value>Units to Order</value>
+  </data>
+          <data name="ProductList_Label_DescriptionHeader" xml:space="preserve">
+    <value>Allowance Category</value>
+  </data>
+     <data name="ProductList_Label_PDF" xml:space="preserve"><value>PDF</value></data>
+</root>

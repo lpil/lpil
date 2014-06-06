@@ -1,0 +1,1224 @@
+html {
+  height: 100%;
+  font-family: Arial, Sans-Serif;
+  font-size: 12px;
+  color: #444;
+}
+input, p, form {
+  margin: 0px;
+}
+
+td.basic {
+  vertical-align: top;
+}
+/* Entire Page */
+
+body.page {
+  background: url('Images/bg_repeater.gif') repeat-x scroll left top #0C2A4A;
+  margin: 0px;
+}
+td.pageContent {
+  background: url('Images/bg_content_repeater.gif') repeat-x scroll left top #fff;
+  padding: 15px 0px 0px 0px;
+}
+img.pageMinimumWidth {
+  width: 700px;
+}
+td.navBar {
+  color: #fff;
+  width: 100%;
+}
+td.navBarLeft {
+  padding-left: 10px;
+  font-size: 14px;
+}
+td.navBarRight {
+  font-size: 12px;
+  padding-right: 20px;
+}
+td.navBarSeparator {
+  display: none;
+}
+div.navBarButton,
+div.navBarButtonSelected {
+  text-transform: none;
+  background: none;
+  padding: 0px 10px;
+  margin-right: 5px;
+  height: 32px;
+  line-height: 32px; /* Must match height! */
+  border: 1px solid #61A8C4;
+  border-bottom: none;
+  border-radius: 6px 6px 0 0;
+}
+td.navBarCell {
+  height: 20px;
+  line-height: 20px; /* Must match height! */
+  /* clear: both; */
+}
+div.navBarButton {
+  background: url('Images/tab_repeater.png') repeat-x scroll left top;
+}
+a.navBarButtonSelected {
+  color: #001838;
+  font-family: "Book Antiqua", "Palatino Linotype", Palatino, serif;
+  font-size: 14px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+div.navBarButtonSelected {
+  background: #dfeef3;
+}
+
+a.navBarButton,
+a.navBarButtonRight,
+div.navBarMessage {
+  font-family: "Book Antiqua", "Palatino Linotype", Palatino, serif;
+  font-size: 13px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+a.navBarButton,
+a.navBarButtonRight,
+div.navBarMessage {
+  color: #ffffff;
+}
+a.navBarButtonRight {
+  text-decoration: none;
+  font-weight: bold;
+  margin-left: 16px;
+}
+a.navBarButton:hover,
+a.navBarButtonRight:hover,
+a.navBarButtonSelected:hover,
+a.navBarButtonRight:hover {
+}
+
+div.navBarMessage {
+  font-size: 12px;
+  font-weight: normal;
+  color: #ffffff;
+  padding: 0px 3px 0px 3px;
+}
+div.navBarButton:hover {
+  color: #1b8b75;
+}
+/* Areas *
+ * Areas are major graphical regions surrounding page content. There are three
+ * kinds: Simple Area - bordered region with a title bar. (Example: Login page)
+ * List Area - adds optional icon, "comment" line, optional help link,
+ * full-width. (Example: Shopping Cart) Step Area - adds next/previous links
+ * and optional left-side step controls. (Example: checkout steps)
+ *
+ * Each area is composed of 3 or 4 horizontal slices:
+ *   areaHeader:   title bar
+ *   areaComment:  "comment" line
+ *   area:         actual area content
+ *   areaFooter
+ *
+ * Each horizontal slice is built using 3 table cells. For example, the header:
+ *   td.areaHeader-l:  the left edge of the header
+ *   td.areaHeader  :  the content of the header
+ *   td.areaHeader-r:  the right edge of the header
+ *
+ * Most areas have flexible width, growing either to accommodate their
+ * content or to fit the browser window. This flexibility is implemented in
+ * many cases using a cell with width=100%, which can cause other cells to
+ * shrink to zero width if you're not careful. If cells used for area edges
+ * shrink to zero width, use "padding-left" rather than "width" to specify
+ * their width.
+ */
+td.areaHeader-l { }
+td.areaHeader-r { }
+td.areaHeader {
+  background: #0069aa;
+  vertical-align: middle;
+  padding: 10px 1px 5px 5px;
+  width: 100%;
+  border-bottom: 1px solid #005991; /* Dent line */
+}
+
+td.simpleAreaHeader-l { }
+td.simpleAreaHeader-r { }
+
+td.simpleAreaHeader {
+  background: #E8EBEA repeat-x;
+  vertical-align: middle;
+  padding: 2px 1px 5px 0px;
+}
+td.dxpcControl_custom {
+  border: 1px solid #ffffff;
+}
+td.popupArea {
+  background: none;
+  padding: 13px 15px 10px 0px;
+}
+td.area-l { }
+td.area-r { }
+img.area-l {  }
+img.area-r {  }
+
+td.areaComment-l { }
+td.areaComment-r { }
+td.areaComment {
+  background: #0069aa;
+  height: 33px;
+  width: 100%;
+  padding: 2px 1px 6px 0px;
+  border-top: 1px solid #1c79b3;    /* Line dent */
+  border-bottom: 1px solid #005991; /* Line dent */
+}
+td.area {
+  background: none;
+  padding: 11px 0px 11px 0px;
+}
+td.stepArea {
+  background: #ffffff;
+  padding: 11px 13px 11px 13px;
+}
+td.areaFooter-l { }
+td.areaFooter-r { }
+td.areaFooter   { }
+td.stepAreaFooter-l {
+  background: #e8ebea;
+  width: 9px;
+  height: 44px;
+}
+td.stepAreaFooter-r {
+  background: #e8ebea;
+  width: 5px;
+  height: 44px;
+}
+td.stepAreaFooter   {
+  background: #e8ebea;
+  vertical-align: middle;
+}
+/* Text styles for area header and "comment" lines */
+
+div.areaTitle {
+  text-transform: none;
+  padding: 5px 5px 5px 15px;
+  font-size: 15px;
+  font-weight: bold;
+  color: #FFFFFF;
+  white-space: nowrap;
+}
+div.areaTitleLink {
+  font-size: 10px;
+  padding-top: 6px;
+}
+a.areaTitleLink,
+a.areaTitleLinkRollover { /* Because pageflex doesn't understand :hover */
+  font-size: 10px;
+  color: #FFFFFF;
+  text-decoration: none;
+  text-transform: none;
+  padding: 0px 15px 0px 5px;
+}
+a.areaTitleLinkRollover { /* Because pageflex doesn't understand :hover */
+  color: #7B235D;
+}
+
+div.areaComment,
+div.areaCommentRight {
+  font-size: 10px;
+  font-weight: bold;
+  color: white;
+  text-transform:none;
+  padding: 3px 15px 0px 15px;
+}
+div.areaEmptyMessage {
+  text-align: center;
+  padding: 12px 0px 16px 0px;
+}
+/* Area title icons */
+
+div.areaIconCheckout        { }
+div.areaIconOrders          { }
+div.areaIconEditDocument    { }
+div.areaIconHelp            { }
+div.areaIconLibrary         { }
+div.areaIconProfile         { }
+div.areaIconShoppingCart    { }
+div.areaIconStartDocument   { }
+
+#InputFields_InputFields,
+#ReadOnlyFields_InputFields {
+  padding-left: 20px;
+}
+
+/* Step Area */
+
+span.stepLabel {
+  font-weight: bold;
+}
+span.currentStepIndicator {
+  font-size: 10px;
+  font-weight: bold;
+  color: white;
+  padding-left: 5px;
+}
+
+div.stepAreaHeaderNextPrevControls,
+div.stepAreaFooterNextPrevControls {
+  border-style: solid;
+  border-color: #cccccc;
+  border-width:  0px 1px 0px 1px;
+  padding: 0px 4px 0px 4px;
+  background: url(Images/StepNextPrevBackground.gif) repeat-x;
+}
+td.stepNextPrevLabel {
+  height: 26px;
+  font-size: 9px;
+  padding-top: 4px;
+  vertical-align: middle;
+}
+a.stepNextPrevLabel,
+a.stepNextPrevLabelRollover {
+  font-size: 9px;
+  font-weight: bold;
+  text-transform: none;
+  white-space: nowrap;
+  color: #000000;
+  text-decoration: none;
+  padding: 0px 5px 0px 5px;
+}
+a.stepNextPrevLabelRollover {
+  color: #0069aa;
+  cursor: pointer;
+}
+td.areaGraphicNextStep,
+td.areaGraphicNextStepRollover {
+  background: url(Images/StepNext.gif) no-repeat;
+  height: 27px;
+  width: 22px;
+}
+td.areaGraphicPreviousStep,
+td.areaGraphicPreviousStepRollover {
+  background: url(Images/StepPrevious.gif) no-repeat;
+  height: 27px;
+  width: 22px;
+}
+td.areaGraphicNextPrevSeparatorLine {
+  background: url(Images/StepNextPrevSeparator.gif) no-repeat;
+  height: 27px;
+  width: 28px;
+}
+td.categorySidebarHeader-l,
+td.helpSidebarHeader-l,
+td.stepControlsHeader-l {
+  background: #0069aa;
+  height: 38px;
+  padding-left: 0px; /* instead of width, to prevent collapse */
+}
+td.categorySidebarHeader-r,
+td.helpSidebarHeader-r,
+td.stepControlsHeader-r {
+  background: #0069aa;
+  height: 32px;
+  padding-left: 0px; /* instead of width, to prevent collapse */
+}
+td.categorySidebarHeader,
+td.helpSidebarHeader,
+td.stepControlsHeader   {
+  background-repeat: repeat-x;
+  background-color: #0069aa;
+  background-position: top left;
+  height: 38px;
+  vertical-align: top;
+}
+
+td.categorySidebarHeader,
+td.categorySidebarHeader-l,
+td.categorySidebarHeader-r {
+  display: none;
+}
+td.categorySidebar-l,
+td.helpSidebar-l,
+td.stepControls-l {
+  background: #333333;
+  padding-left: 0px; /* instead of width, to prevent collapse */
+}
+td.categorySidebar-r,
+td.helpSidebar-r,
+td.stepControls-r {
+  background: #333333;
+  padding-left: 0px; /* instead of width, to prevent collapse */
+}
+td.categorySidebarFooter-l,
+td.helpSidebarFooter-l,
+td.stepControlsFooter-l {
+  background: #333333;
+  height: 24px;
+  padding-left: 0px; /* instead of width, to prevent collapse */
+}
+td.categorySidebarFooter-r,
+td.helpSidebarFooter-r,
+td.stepControlsFooter-r {
+  background: #333333;
+  height: 24px;
+  padding-left: 0px; /* instead of width, to prevent collapse */
+}
+td.categorySidebarFooter,
+td.helpSidebarFooter,
+td.stepControlsFooter {
+  vertical-align: top;
+}
+div.categorySidebarTitle {}
+div.helpSidebarTitle,
+div.stepControlsTitle {
+  padding-top: 12px;
+  padding-left: 20px;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: none;
+  color: #ffffff;
+}
+td.categorySidebar,
+td.helpSidebar,
+td.stepControls {
+  background-color: #80a1b6;
+  vertical-align: top;
+}
+td.categorySidebar {
+  background-repeat: repeat-x;
+}
+td.stepControls {
+  padding-right:30px;
+}
+
+img.categorySidebarMarginRight { width: 15px; } /* sep cat from catalog */
+img.helpSidebarMarginRight     { width: 15px; } /* sep help from content */
+img.stepControlsMarginRight    { width: 15px; } /* sep step from step area */
+
+td.categorySidebarSearch {
+  border-top: 1px solid #1c79b3;    /* Line dent */
+  border-bottom: 1px solid #005991; /* Line dent */
+  background: #0069aa url(images/icon_search.png) no-repeat;
+  background-position: 95% 87%;
+  padding: 14px 17px;
+}
+div.categorySidebarSearchTextBox {
+  padding-bottom: 8px;
+}
+input.searchInput {
+  background: #ffffff;
+  height: 22px;
+  border: 1px;
+  font-size: 13px;
+  color: #000000;
+  padding: 2px 3px;
+  border-radius: 1px;
+}
+td.categorySidebarSearchRule {
+  background: #ffffff;
+  height: 15px;
+}
+td.categorySidebarLabel,
+td.categorySidebarLabelSelected {
+  font-size: 14px;
+  text-transform: none;
+  padding: 10px 5px; /* categorySidebarLabelLevel1 for padding-left */
+  border-bottom: 1px solid #668091;
+  border-top: 1px solid #a6bdcb;
+}
+td.categorySidebarLabelSelected { }
+
+td.categorySidebarLabelLevel1 {
+  padding-left: 15px;
+  background-position: 0px 5px;
+}
+td.categorySidebarLabelLevel2 {
+  padding-left: 40px;
+  background-position: 0px 5px;
+}
+td.categorySidebarLabelLevel3 {
+  padding-left: 55px;
+  background-position: 0px 5px;
+}
+td.categorySidebarLabelLevel4 {
+  padding-left: 70px;
+  background-position: 0px 5px;
+}
+td.categorySidebarLabelLevel5 {
+  padding-left: 85px;
+  background-position: 0px 5px;
+}
+td.categorySidebarLabelLevel6 {
+  padding-left: 100px;
+  background-position: 0px 5px;
+}
+td.categorySidebarLabelLevel7 {
+  padding-left: 115px;
+  background-position: 0px 5px;
+}
+td.categorySidebarLabelLevel8 {
+  padding-left: 130px;
+  background-position: 0px 5px;
+}
+td.categorySidebarLabelLevel9 {
+  padding-left: 145px;
+  background-position: 0px 5px;
+}
+a.categorySidebarLabel,
+a.categorySidebarLabelSelected {
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 12px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+a.categorySidebarLabelSelected {
+  color: #7b235d;
+  font-size: 13px;
+}
+a.categorySidebarLabel:hover {
+  color: #7b235d;
+}
+td.helpTopic,
+td.helpTopicSelected {
+  font-size: 11px;
+  padding: 1px 8px 3px 0px;
+}
+td.helpTopicSelected {
+  background: #1B8B75;
+}
+td.helpTopicLevel1 { padding-left: 8px; }
+td.helpTopicLevel2 { padding-left: 20px; }
+td.helpTopicLevel3 { padding-left: 32px; }
+a.helpTopic,
+a.helpTopicSelected {
+  font-size: 11px;
+  color: #ccd9e5;
+  text-decoration: none;
+  white-space: nowrap;
+}
+a.helpTopic:hover {
+  color: pink;
+  text-decoration: underline;
+}
+a.helpTopicSelected {
+  color: pink;
+}
+a.helpTopicLevel1 {
+  font-weight: bold;
+}
+td.stepControl {
+  background: #333333;
+  vertical-align: top;
+  padding: 3px 0px 16px 0px;
+  border-left:18px solid #333333;
+  height:20px;
+}
+td.stepControlNumber,
+td.stepControlNumberRollover,
+td.stepControlNumberSelected {
+  font-size: 14px;
+  font-weight: bold;
+  background: #ffffff;
+  width: 31px;
+  height: 21px;
+  color: #0069aa;
+  vertical-align: middle;
+  padding: 0px 10px 0px 31px;
+}
+td.stepControlNumber {
+}
+td.stepControlNumberRollover
+{
+  background-position: top left;
+  background-repeat: no-repeat;
+  background-color:#ededea;
+}
+td.stepControlNumberSelected {
+  background-position: top left;
+  background-repeat: no-repeat;
+  background-color: #ededea;
+  color: #1b8b75;
+}
+td.stepControlLabel,
+td.stepControlLabelRollover,
+td.stepControlLabelSelected {
+  font-size: 14px;
+  font-weight: bold;
+  padding: 0px 10px 0px 8px;
+  vertical-align: middle;
+}
+a.stepControlLabel,
+a.stepControlLabelSelected {
+  font-size: 14px;
+  font-weight: bold;
+  color: #ffffff;
+  text-decoration: none;
+  text-transform: none;
+  white-space: nowrap;
+}
+a.stepControlLabelSelected {
+  color: #ffffff;
+}
+a.stepControlLabel:hover,
+a.stepControlLabelSelected:hover {
+  color: #ffffff;
+}
+
+/* Start page */
+div.poweredByPageflex {
+  display: none;
+}
+div.viewSwitcher {
+  font-size: 10px;
+  padding: 3px 15px 0px 0px;
+}
+a.viewSwitcher {
+  font-size: 10px;
+  color: #ffffff;
+  text-decoration: none;
+  text-transform:none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+a.viewSwitcher:hover {
+  color: #7B235D;
+}
+div.categoryPath {
+  color: #ca690a;
+  padding-bottom: 15px;
+  padding-left: 24px;
+}
+div.categoryPath a {
+  color: #7b235d;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: none;
+  text-decoration: none;
+  vertical-align: middle;
+}
+
+div.catalogItemOuter,
+div.catalogFolderOuter {
+  margin: 0px 15px 15px 0px;
+}
+td.catalogItemHeader-l,
+td.catalogItemHeader-r,
+td.catalogFolderHeader-l,
+td.catalogFolderHeader-r,
+td.catalogItem-l,
+td.catalogItem-r,
+td.catalogFolder-l,
+td.catalogFolder-r,
+td.catalogItemRule-l,
+td.catalogItemRule-r,
+td.catalogFolderRule-l,
+td.catalogItemHeader,
+td.catalogFolderHeader,
+td.catalogItemRule,
+td.catalogFolderRule-r,
+td.catalogFolderRule {
+  display: none;
+}
+td.catalogFolderFooter,
+td.catalogItemFooter {
+  background: #80a1b6;
+  vertical-align: top;
+}
+td.catalogFolderFooter-r { }
+td.catalogItemFooter-l { }
+td.catalogItemFooter-r { }
+td.catalogFolderFooter-l { }
+
+td.catalogItem {
+  background: #ffffff;
+  height: 158px;
+  text-align: center;
+  padding: 15px 15px 15px 15px;
+  border: 1px solid #80a1b6;
+}
+td.catalogFolder {
+  background: #ffffff;
+  height: 158px;
+  text-align: center;
+  padding: 2px 0px 6px 0px;
+}
+img.catalogThumbnail {
+  border: 0px;
+}
+div.catalogItemFooter,
+div.catalogFolderFooter {
+  text-align: center;
+  vertical-align: top;
+  padding: 4px 0px 4px 0px;
+}
+a.catalogFolderFooter,
+a.catalogItemFooter {
+  color: #ffffff;
+  font-size: 13px;
+  text-decoration: none;
+}
+a.catalogFolderFooter:hover,
+a.catalogItemFooter:hover {
+  color: #7b235d;
+}
+
+tr.catalogRow {
+}
+div.catalogRowThumbnail {
+  float:right;
+  margin-bottom: 12px;
+}
+img.catalogRowThumbnail {
+  border: 1px solid black;
+}
+div.catalogRowHeadline {
+  text-align: left;
+  font-weight: bold;
+}
+div.catalogRowDescription {
+  text-align:left;
+}
+div.catalogFolderIcon {
+  background: url(Images/CatalogFolderIcon.gif) no-repeat;
+  height: 18px;
+  padding-left: 22px;
+}
+
+div.smallButton,
+div.siteButton,
+div.searchButton {
+  border: 1px solid #a6bdcb;
+  border-bottom: 1px solid #80a1b6;
+  border-right: 1px solid #80a1b6;
+  border-radius: 1px;
+  color: #ffffff;
+  background: #80a1b6;
+  padding: 5px 8px;
+}
+div.smallButton,
+div.siteButton {
+  margin-left: 10px;
+}
+
+div.searchButton-inner,
+div.siteButton-inner,
+div.smallButton-inner { }
+
+div.searchButton-l { }
+div.searchButton-r { }
+div.siteButton-l { }
+div.siteButton-r { }
+div.smallButton-l { }
+div.smallButton-r { }
+
+a.siteButton,
+a.smallButton,
+a.searchButton {
+  font-size: 11px;
+  color: #ffffff;
+  text-decoration: none;
+  white-space: nowrap;
+  text-transform: none;
+  cursor: pointer;
+}
+a.siteButton:hover,
+a.smallButton:hover,
+a.searchButton:hover {
+  color: #7b235d;
+}
+p.endOfButtons {
+  clear: both;
+  margin: 0px;
+  font-size: 0px;
+}
+
+td.warningAreaInlineInfo,
+td.warningAreaInlineWarning {
+  background: #0069aa;
+  border: 1px solid #0069aa;
+  padding: 14px 14px 14px 14px;
+
+}
+td.warningAreaInlineInfo {
+  background: #698e26;
+  border: 1px solid #afd4a9;
+}
+td.warningIconWarning {
+  background: url(Images/IconWarning.gif) no-repeat left top;
+  width: 55px;
+  padding-left: 55px;
+  height: 55px;
+}
+td.warningIconInfo {
+  background: url(Images/IconInfo.gif) no-repeat left center;
+  width: 49px;
+  padding-left: 50px;
+  height: 49px;
+}
+div.warningAreaMessageInfo,
+div.warningAreaMessageWarning {
+  font-weight: bold;
+  font-size: 13px;
+  color: #ffffff;
+  vertical-align: middle;
+  margin-left: 25px;
+}
+div.warningAreaMessageWarning p {
+  color: #ffffff;
+}
+div.warningAreaMessageInfo {
+  color: #ffffff;
+}
+
+/* Login page */
+td.loginExistingUsers {
+  vertical-align: top;
+  padding-right: 20px;
+}
+td.loginNewUsers {
+  vertical-align: top;
+  border-left: 1px solid #DA710b;
+  padding-left: 20px;
+}
+div.loginSubhead {
+  font-weight: bold;
+}
+/* Form Filling
+ */
+
+td.formFilling-form {
+  vertical-align: top;
+}
+img.formMinWidth {
+  height: 1px;
+  width: 210px;
+}
+td.formFilling-preview {
+  vertical-align: top;
+  width: 100%;
+  text-align: center;
+  padding-left: 2px;
+}
+td.previewButtonFirst    { background: url(Images/PreviewButtonFirst.gif   ) no-repeat; }
+td.previewButtonPrevious { background: url(Images/PreviewButtonPrevious.gif) no-repeat; }
+td.previewButtonNext     { background: url(Images/PreviewButtonNext.gif    ) no-repeat; }
+td.previewButtonLast     { background: url(Images/PreviewButtonLast.gif    ) no-repeat; }
+img.previewButtonSizer {
+  width: 24px;
+  height: 22px;
+  border: none;
+  display: block;
+  margin-right: 4px;
+}
+div.previewPageNumberText {
+  padding: 1px 7px 0px 3px;
+}
+span.previewWaitMessage {
+}
+img.formFillingPreview {
+  border: 1px solid #DA710b;
+}
+/* Printing Options */
+
+td.childAreaHeader-l { }
+td.childAreaHeader-r { }
+td.childAreaHeader   { }
+td.childArea   {
+  padding: 13px 15px 18px 15px;
+  background: #efefef;
+  border: 1px solid #0069aa;
+}
+td.childArea-l,
+td.childArea-r {
+  width: 0px;
+}
+td.childAreaFooter-l { }
+td.childAreaFooter-r { }
+td.childAreaFooter   { }
+div.priceEstimate {
+}
+/* Order summary page */
+
+td.orderSummaryCell {
+  border: 1px solid #DA710b;
+  padding: 4px 0px 4px 8px;
+}
+/* AssetCell
+ * For "My Library" and the "Select Image" page (via "Form Filling" page)
+ */
+
+td.assetThumbnail {  /* for "Select Image" page */
+  background: #ffffff;
+  height: 120px;
+  width: 150px;
+  text-align: center;
+  padding-top: 20px;
+  border-left: 1px solid #666666;
+  border-right: 1px solid #666666;
+  border-top: 1px solid #666666;
+}
+td.assetThumbnailWithOptions {  /* for "My Library" */
+  background: #ffffff;
+  height: 115px;
+  padding: 15px 0px 0px 15px;
+  border-left: 1px solid #666666;
+  border-top: 1px solid #666666;
+}
+img.assetThumbnail {
+  border: 0px;
+  vertical-align: top;
+}
+td.assetOptions {
+  background: #ffffff;
+  padding: 0 10px 0 10px;
+  border-top: 1px solid #666666;
+  border-right: 1px solid #666666;
+}
+td.assetCaption {
+  border-bottom: 1px solid #666666;
+  border-right: 1px solid #666666;
+  border-left: 1px solid #666666;
+  background: #ffffff;
+  height: 30px;
+  font-size: 10px;
+  text-align: left;
+  padding: 0px 6px 0px 15px;
+}
+span.assetCaption,
+a.assetCaption,
+a.assetCaption:hover {
+  font-size: 12px;
+  color: #0069aa;
+  font-weight: bold;
+  text-decoration: none;
+}
+a.assetCaption:hover {
+  text-decoration: underline;
+  color: pink;
+}
+/* Common classes for content inside areas */
+
+div.block {
+  padding-bottom: 10px;
+}
+div.subhead {
+  font-weight: bold;
+  padding-bottom: 3px;
+}
+span.subheadDetail {
+  font-weight: normal;
+}
+a.siteLink {
+  color: #0069aa;
+}
+span.tip
+{
+  font-weight: normal;
+  font-style: italic;
+  color: #0069aa;
+}
+
+div.fieldLabel {
+}
+div.textField {
+  padding-bottom: 2px;
+}
+input.textField {
+  width: 225px;
+}
+div.fieldSpacer {   /* for editable form fields */
+  margin-top: 2px;
+}
+td.fieldHeader {
+  vertical-align: top;
+  font-weight: bold;
+  padding: 12px 0px 3px 0px;
+}
+td.fieldCell { /* for read-only form fields */
+  vertical-align: top;
+  padding: 0px 15px 3px 0px;
+}
+select.multiSelectIncludeBox {
+  margin-bottom: 3px;
+}
+p.error, span.error {
+  color: red;
+}
+.validationError {
+  display: block;
+  color: red;
+  font-weight: bold;
+}
+/* Final step warnings */
+
+div.finalStepWarningsHeader {
+  font-weight: bold;
+}
+div.finalStepWarningsFooter {
+  font-size: 10px;
+  padding: 10px 0px 5px 20px;
+}
+/* Tables of orders and items */
+
+table.itemTable,
+td.itemTable,
+td.itemTableHeader {
+  vertical-align:top;
+  background: #ffffff;
+  border: 1px solid;
+  padding: 5px;
+}
+td.itemTableHeader {
+  background: #474747;
+  font-size: 13px;
+  font-weight: bold;
+  color: #ffffff;
+}
+td.itemTable-Thumbnail {
+  text-align: center;
+  height: 112px;
+}
+img.itemTableThumbnail {
+  border: 1px solid white;
+}
+td.itemTable-Id {
+  font-size: 12px;
+  color: #1b8b75;
+}
+td.itemTable-Description,
+td.itemTable-Options {
+  font-size: 11px;
+  color: #1b8b75;
+}
+td.itemTable-Product {
+  font-size: 11px;
+  font-weight: bold;
+  color: #1b8b75;
+}
+td.itemTable-Date {
+  font-size: 12px;
+  font-weight: bold;
+  color: #1b8b75;
+}
+td.itemTable-Price {
+  white-space: nowrap;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: right;
+  color: #1b8b75;
+}
+td.itemTableSummary {
+  text-align: right;
+  padding: 5px 5px 0px 0px;
+}
+td.itemTableSummaryRule {
+  border-bottom: 1px solid #DA710b;
+  line-height: 3px;
+}
+td.itemTableSummaryLine {
+  font-size: 14px;
+  font-weight: bold;
+  color: #1b8b75;
+  padding-top: 3px;
+}
+p.itemTableLabelWithIcon {
+  text-indent: -23px;
+  margin-left: 23px;
+  color: #1b8b75;
+}
+
+td.dataListChoicesHeader,
+td.dataListChoices {
+  border-bottom: 1px solid #DA710b;
+  padding: 0px 15px 2px 0px;
+}
+td.dataListChoicesHeader {
+  font-weight: bold;
+}
+td.simpleTableHeader {
+  font-weight: bold;
+  padding: 0px 15px 2px 0px;
+}
+td.simpleTable {
+  padding: 0px 15px 2px 0px;
+}
+/** 7.6 additions ***************/
+div.MultiShippingButton {
+  margin-bottom: 5px;
+  height:27px;
+}
+div.ShippingAddressBlock {
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+div.ShippingAddressBlockCart {
+  margin: 10px;
+}
+table.listPreviewTable {
+  border: 1px solid #ffffff;
+  padding: 10px;
+  background-color: #ffffff;
+}
+tr.listPreviewTableHeader {
+  background: #eeeeee;
+  font-size: 8px;
+  font-weight: bold;
+  padding: 0px 15px 2px 0px;
+}
+tr.listPreviewRow { }
+tr.listPreviewAlternatingRow { }
+
+td.areaGraphicCartStep,
+td.areaGraphicCartStepRollover {
+  height: 15px;
+  width: 20px;
+  padding-top: 1px;
+  padding-left: 5px;
+} 
+td.areaGraphicCartStep div,
+td.areaGraphicCartStepRollover div {
+  background: url(Images/cart_iconx2.gif) no-repeat;
+  height: 13px;
+  width: 20px;
+  margin-bottom:3px;
+}
+td.areaGraphicCartStepRollover div {
+background-position:0px -13px;
+}
+td.areaGraphicNextCartSeparatorLine {
+  height: 15px;
+  width: 50px;
+}
+td.areaGraphicCancelStep div,
+td.areaGraphicCancelStepRollover div {
+  background: url(Images/CartCancel.gif) no-repeat;
+  height: 11px;
+  width: 13px;
+  margin-left: 4px;
+  margin-bottom: 2px;
+}
+td.areaGraphicCancelStepRollover div {
+  background-position: 0px -11px;
+}
+td.stepCart {
+  padding-right: 2px;
+}
+td.stepCancel {
+  padding-right: 3px;
+}
+/* new add to cart button in step content area */
+div.CartButtons {
+  float: right;
+}
+/* Price Estimate wrapping container */
+td.priceHint {
+  padding-left: 100px;
+  width: 100%;
+}
+/* Scroll Image list used in form fill kit parts */
+div.scrollButton {
+  width: 25px;
+  height: 84px;
+  float: left;
+  margin-top: 3px;
+}
+div.scrollLeft {
+  background-image: url('./Images/scrollLeft.gif');
+  margin-right: 5px;
+}
+div.scrollRight {
+  background-image: url('./Images/scrollRight.gif');
+  margin-left: 5px;
+}
+div.scrollWrapper {
+  width: 300px;
+  height: 89px;
+  float: left;
+  overflow: hidden;
+  border: 1px solid #b7b7b7;
+  position: relative; /* IE 6 7 bug fix */
+}
+div.scrollList {
+  width: 365px;
+}
+table.scrollData {
+  position: relative;
+  left: 0px;
+}
+table.scrollData td {
+  width: 50px;
+  padding: 0px 2px;
+}
+table.scrollData img {
+  height: expression( this.scrollHeight > 79 ? "80px" : "auto" ); /* IE */
+  max-height: 80px; /* Good browsers */
+}
+/* Address Book Upload Download PopUps */
+div.AddressBookPopUpArea {
+  width: 325px;
+}
+div.AddressTile {
+  float: left;
+  width: 175px;
+  height: 115px;
+  background-color: #F5F5F5;
+  border-color: #838282;
+  border-style: solid;
+  border-width: 1px;
+  margin: 10px;
+  padding: 7px;
+  overflow: auto;
+}
+div.AddressTileHeader {
+  font-weight:bold;
+  margin-bottom:15px;
+}
+div.AddressTileDisplay { }
+.scrollData {
+  left: 850px;
+  margin-left: 100px;
+}
+
+/* Product list */
+table#roiProdList_gridViewProducts th {
+  background: #80a1b6;
+}
+table#roiProdList_gridViewProducts th a,
+table#roiProdList_gridViewProducts th {
+  color: #FFFFFF;
+  text-transform: none;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 2px 10px;
+}
+table#roiProdList_gridViewProducts,
+table#roiProdList_gridViewProducts tbody,
+table#roiProdList_gridViewProducts td {
+  border: 1px solid #80a1b6;
+  background: rgba(256, 256, 256, 0.3);
+}
+table#roiProdList_gridViewProducts td input {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  min-width: 75%;
+}
+#roiProdList_pnlStaticProducts {
+  padding-right: 15px;
+}
+
+/* Sidebar credit text */
+TD.categorySidebarFooter:after {
+  content: "Powered by Perivan";
+  color: #aaaaaa;
+  padding-left: 2px;
+  font-size: 85%;
+}
+
+#LoginArea {
+  display: block;
+  padding: 0px 30px;
+}
+#LoginArea > table:first-child > tbody:first-child > tr:first-child > td:first-child > table:first-child {
+  display: none;
+}
+#LoginArea .checkbox > label:nth-child(2) {
+  padding-left: 5px;
+}
