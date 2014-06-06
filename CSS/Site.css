@@ -4,7 +4,9 @@ html {
   font-size: 12px;
   color: #444;
 }
-
+a {
+  text-decoration: none;
+}
 input, p, form {
   margin: 0;
 }
@@ -87,7 +89,7 @@ div.navBarMessage {
   padding: 0 3px;
 }
 
-div.navBarButton: hover {
+div.navBarButton:hover {
   color: #1b8b75;
 }
 
@@ -418,7 +420,7 @@ a.helpTopicSelected {
   white-space: nowrap;
 }
 
-a.helpTopic: hover {
+a.helpTopic:hover {
   color: #FFC0CB;
   text-decoration: underline;
 }
@@ -761,14 +763,14 @@ td.assetCaption {
 
 span.assetCaption,
 a.assetCaption,
-a.assetCaption: hover {
+a.assetCaption:hover {
   font-size: 12px;
   color: #0069aa;
   font-weight: 700;
   text-decoration: none;
 }
 
-a.assetCaption: hover {
+a.assetCaption:hover {
   text-decoration: underline;
   color: #FFC0CB;
 }
@@ -837,6 +839,33 @@ span.error {
 div.finalStepWarningsFooter {
   font-size: 10px;
   padding: 10px 0 5px 20px;
+}
+
+.itemTableHeader th {
+  line-height: 3em;
+  border: none !important;
+}
+table#impersonateList1_grdUsers,
+table#impersonateList1_grdUsers tbody,
+table#impersonateList1_grdUsers tr,
+table#impersonateList1_grdUsers td {
+  border: none !important;
+}
+table#impersonateList1_grdUsers td > a,
+table#impersonateList1_grdUsers td {
+  padding: 0.3em;
+  font-size: 13px !important;
+}
+
+table#impersonateList1_grdUsers tr:nth-child(odd) {
+  background: none !important;
+}
+table#impersonateList1_grdUsers tr:nth-child(even) {
+  border-radius: 3px;
+  background-color: #e7f0f3 !important;
+}
+table#impersonateList1_grdUsers input {
+  margin-top: 3px;
 }
 
 table.itemTable,
@@ -1118,7 +1147,7 @@ table#roiProdList_gridViewProducts td input {
   padding-right: 15px;
 }
 
-TD.categorySidebarFooter: after {
+td.categorySidebarFooter:after {
   content: "Powered by Perivan";
   color: #aaa;
   padding-left: 2px;
@@ -1130,7 +1159,7 @@ TD.categorySidebarFooter: after {
   padding: 0 30px;
 }
 
-#LoginArea .checkbox > label: nth-child(2) {
+#LoginArea .checkbox > label:nth-child(2) {
   padding-left: 5px;
 }
 
@@ -1168,7 +1197,7 @@ td.catalogFolderRule,
 }
 
 a.areaTitleLinkRollover,
-a.viewSwitcher: hover {
+a.viewSwitcher:hover {
   color: #7B235D;
 }
 
@@ -1213,18 +1242,18 @@ img.stepControlsMarginRight {
   width: 15px;
 }
 
-a.categorySidebarLabel: hover,
-a.catalogFolderFooter: hover,
-a.catalogItemFooter: hover,
-a.siteButton: hover,
-a.smallButton: hover,
-a.searchButton: hover {
+a.categorySidebarLabel:hover,
+a.catalogFolderFooter:hover,
+a.catalogItemFooter:hover,
+a.siteButton:hover,
+a.smallButton:hover,
+a.searchButton:hover {
   color: #7b235d;
 }
 
 a.stepControlLabelSelected,
-a.stepControlLabel: hover,
-a.stepControlLabelSelected: hover,
+a.stepControlLabel:hover,
+a.stepControlLabelSelected:hover,
 div.warningAreaMessageWarning p,
 div.warningAreaMessageInfo {
   color: #fff;
