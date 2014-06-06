@@ -51,8 +51,13 @@ require 'lib/dpd_reports.rb'
 
 $threads[:mailings] = Thread.new do
   loop do
-    DpdReports.new.fetch_reports.save_to_db
-    Mailing.delete_all(['date_sent < ?', Time.now - 7_776_000]) # 90 days
-    sleep 3_600 # 1 hour
+    begin
+      DpdReports.new.fetch_reports.save_to_db
+      Mailing.delete_all(['date_sent < ?', Time.now - 7_776_000]) # 90 days
+      sleep 3_600 # 1 hour
+    rescue StandardError, ScriptError => e
+      $logger.error { "Mailing Thread => #{e}" }
+      sleep 60
+    end
   end
 end
