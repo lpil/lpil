@@ -39,24 +39,19 @@ td.navBarRight {
 td.navBarSeparator {
   display: none;
 }
-div.navBarButton,
-div.navBarButtonSelected {
+a.navBarButton,
+a.navBarButtonSelected {
+  display: inline-block;
   text-transform: none;
   background: none;
   padding: 0px 10px;
   margin-right: 5px;
-  height: 32px;
-  line-height: 32px; /* Must match height! */
-  border: 1px solid #61A8C4;
+  line-height: 32px;
+  border: 1px solid #508aa1;
   border-bottom: none;
   border-radius: 6px 6px 0 0;
 }
-td.navBarCell {
-  height: 20px;
-  line-height: 20px; /* Must match height! */
-  /* clear: both; */
-}
-div.navBarButton {
+a.navBarButton {
   background: url('Images/tab_repeater.png') repeat-x scroll left top;
 }
 a.navBarButtonSelected {
@@ -65,8 +60,6 @@ a.navBarButtonSelected {
   font-size: 14px;
   text-decoration: none;
   white-space: nowrap;
-}
-div.navBarButtonSelected {
   background: #dfeef3;
 }
 
