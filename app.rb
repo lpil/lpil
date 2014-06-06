@@ -43,7 +43,7 @@ end
 
 # DPD + post delivery tracking
 #
-# Every 3 hours:
+# Every hour:
 #   Check the DPD report FTP for new reports, and add them to the database
 #   Delete mailings more than 90 days old from the database
 
@@ -53,6 +53,6 @@ $threads[:mailings] = Thread.new do
   loop do
     DpdReports.new.fetch_reports.save_to_db
     Mailing.delete_all(['date_sent < ?', Time.now - 7_776_000]) # 90 days
-    sleep 10_800 # 3 hours
+    sleep 3_600 # 1 hour
   end
 end

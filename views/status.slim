@@ -1,2 +1,12 @@
-p
-  = "DPD thread => #{$threads[:mailings].status}"
+h3 Threads
+ul
+ li
+  | Mailings Thread
+  ul
+   li
+    - mailing = $threads[:mailings]
+    = "Thread => #{mailing.inspect}"
+   li
+    = "Status => #{mailing.status}"
+   li
+    = "Alive? => #{mailing.alive?}"
