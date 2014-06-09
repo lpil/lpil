@@ -21,12 +21,14 @@ void Page_Load(object sender, EventArgs e) {
 </script>
 
 <style type="text/css">
-aside.page_right {
+aside#page_right {
   width: 160px;
-  margin-left: 20px;
+  margin-left: 10px;
   font-size: 12px;
+  position: relative;
+  top: -12px;
 }
-.page_right > aside {
+#page_right > aside {
   display: block;
   margin: 10px 5px;
   padding: 10px;
@@ -34,7 +36,7 @@ aside.page_right {
 #quick_links  {
   background: url(Custom/Themes/sjp_2014_06/CSS/Images/blue_box_repeater.gif) repeat-x scroll left bottom #E6F2F6;
 }
-.page_right > aside > p {
+#page_right > aside > p {
   margin: 0 0 10px 0;
 }
 #quick_links > p:after {
@@ -45,10 +47,9 @@ aside.page_right {
 #quick_links > h2 {
   margin: 5px 0 10px 0;
 }
-
 </style>
 
-<aside class="page_right">
+<aside id="page_right">
   <aside id="right_basket" class="group">
     <p>
       You have <asp:Label id="numCart" style="color:#ad9f96;" CssClass="numCart" runat="server"/> <asp:Label id="ItemOrItems" runat="server"/> in your basket.

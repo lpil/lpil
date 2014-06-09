@@ -55,7 +55,7 @@ a.navBarButtonSelected {
   display: inline-block;
   text-transform: none;
   background: none;
-  margin-right: 5px;
+  margin-right: 4px;
   line-height: 32px;
   border: 1px solid #508aa1;
   border-bottom: none;
@@ -235,7 +235,6 @@ td.areaGraphicNextPrevSeparatorLine {
   width: 28px;
 }
 
-td.categorySidebarHeader-l,
 td.helpSidebarHeader-l,
 td.stepControlsHeader-l {
   background: #0069aa;
@@ -243,7 +242,6 @@ td.stepControlsHeader-l {
   padding-left: 0;
 }
 
-td.categorySidebarHeader-r,
 td.helpSidebarHeader-r,
 td.stepControlsHeader-r {
   background: #0069aa;
@@ -251,7 +249,11 @@ td.stepControlsHeader-r {
   padding-left: 0;
 }
 
-td.categorySidebarHeader,
+td.categorySidebarHeader-l,
+td.categorySidebarHeader-r,
+td.categorySidebarHeader {
+  display: none;
+}
 td.helpSidebarHeader,
 td.stepControlsHeader {
   background-repeat: repeat-x;
@@ -274,12 +276,7 @@ div.stepControlsTitle {
 td.categorySidebar,
 td.helpSidebar,
 td.stepControls {
-  background-color: #80a1b6;
   vertical-align: top;
-}
-
-td.categorySidebar {
-  background-repeat: repeat-x;
 }
 
 td.stepControls {
@@ -287,98 +284,82 @@ td.stepControls {
 }
 
 td.categorySidebarSearch {
-  border-top: 1px solid #1c79b3;
-  border-bottom: 1px solid #005991;
-  background: #0069aa url(images/icon_search.png) no-repeat;
-  background-position: 95% 87%;
-  padding: 14px 17px;
-}
-
-div.categorySidebarSearchTextBox {
-  padding-bottom: 8px;
+  padding: 10px;
 }
 
 input.searchInput {
+  width: 200px;
   background: #fff;
-  height: 22px;
-  border: 1px;
+  border: 1px solid #999;
   font-size: 13px;
-  color: #000;
   border-radius: 1px;
   padding: 2px 3px;
-}
-
-td.categorySidebarSearchRule {
-  background: #fff;
-  height: 15px;
+  margin-bottom: 10px;
 }
 
 td.categorySidebarLabel,
 td.categorySidebarLabelSelected {
+  background: url(Images/bg_content_repeater.gif) repeat-x scroll left top #275370;
   font-size: 14px;
   text-transform: none;
-  border-bottom: 1px solid #668091;
-  border-top: 1px solid #a6bdcb;
-  padding: 10px 5px;
+  padding: 6px 5px;
+}
+td.categorySidebarLabelSelected {
+  background: url(Images/blue_box_repeater.gif) repeat-x scroll left bottom #e6f2f6;
+}
+td.categorySidebarLabel img {
+  cursor: pointer;
 }
 
 td.categorySidebarLabelLevel1 {
-  padding-left: 15px;
-  background-position: 0 5px;
+  padding-left: 5px;
 }
 
 td.categorySidebarLabelLevel2 {
-  padding-left: 40px;
-  background-position: 0 5px;
+  padding-left: 20px;
 }
 
 td.categorySidebarLabelLevel3 {
-  padding-left: 55px;
-  background-position: 0 5px;
+  padding-left: 25px;
 }
 
 td.categorySidebarLabelLevel4 {
-  padding-left: 70px;
-  background-position: 0 5px;
+  padding-left: 30px;
 }
 
 td.categorySidebarLabelLevel5 {
-  padding-left: 85px;
-  background-position: 0 5px;
+  padding-left: 35px;
 }
 
 td.categorySidebarLabelLevel6 {
-  padding-left: 100px;
-  background-position: 0 5px;
+  padding-left: 40px;
 }
 
 td.categorySidebarLabelLevel7 {
-  padding-left: 115px;
-  background-position: 0 5px;
+  padding-left: 45px;
 }
 
 td.categorySidebarLabelLevel8 {
-  padding-left: 130px;
-  background-position: 0 5px;
+  padding-left: 50px;
 }
 
 td.categorySidebarLabelLevel9 {
-  padding-left: 145px;
-  background-position: 0 5px;
+  padding-left: 55px;
 }
 
 a.categorySidebarLabel,
 a.categorySidebarLabelSelected {
-  color: #fff;
-  font-weight: 700;
-  font-size: 12px;
+  color: #444;
+  font-size: 13px;
   text-decoration: none;
   white-space: nowrap;
 }
-
+a.categorySidebarLabel:hover,
 a.categorySidebarLabelSelected {
-  color: #7b235d;
-  font-size: 13px;
+  color: #182b49;
+}
+a.categorySidebarLabelSelected {
+  font-weight: bold;
 }
 
 td.helpTopic,
@@ -1140,7 +1121,7 @@ td.categorySidebarFooter:after {
   content: "Powered by Perivan";
   color: #aaa;
   padding-left: 2px;
-  font-size: 85%;
+  font-size: 10.5px;
 }
 
 #LoginArea {
