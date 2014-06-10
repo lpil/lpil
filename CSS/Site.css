@@ -14,7 +14,7 @@ h2 {
   font-size: 19px;
   font-weight: normal;
 }
-a:hover; {
+a:hover {
   text-decoration: underline;
 }
 input, p, form {
@@ -67,6 +67,9 @@ a.navBarButton {
   background: url(Images/tab_repeater.png) repeat-x scroll left top;
 }
 
+a.navBarButton[href="UserSExternalHTML_3.aspx"] {
+  display: none;
+}
 a.navBarButtonSelected {
   color: #001838;
   font-family: "Book Antiqua", "Palatino Linotype", Palatino, serif;
@@ -487,12 +490,12 @@ a.viewSwitcher {
 
 div.catalogItemOuter,
 div.catalogFolderOuter {
-  margin: 0 15px 15px 0;
+  margin: 10px;
 }
 
 td.catalogFolderFooter,
 td.catalogItemFooter {
-  background: #80a1b6;
+  background: #dfeef3;
   vertical-align: top;
 }
 
@@ -500,8 +503,8 @@ td.catalogItem {
   background: #fff;
   height: 158px;
   text-align: center;
-  border: 1px solid #80a1b6;
-  padding: 15px;
+  border: 2px solid #dfeef3;
+  padding: 10px;
 }
 
 td.catalogFolder {
@@ -524,9 +527,11 @@ div.catalogFolderFooter {
 
 a.catalogFolderFooter,
 a.catalogItemFooter {
-  color: #fff;
-  font-size: 13px;
+  font-family: "Book Antiqua","Palatino Linotype",Palatino,serif;
+  color: #182b49;
+  font-size: 14px;
   text-decoration: none;
+  font-weight: bold;
 }
 
 div.catalogRowThumbnail {
@@ -564,6 +569,7 @@ a.searchButton {
   white-space: nowrap;
   text-transform: none;
   padding: 3px 5px;
+  margin: 4px 4px 4px 1px;
 }
 a.siteButton:after,
 a.smallButton:after,
@@ -1055,7 +1061,6 @@ table.scrollData td {
 }
 
 table.scrollData img {
-  height: expression(this.scrollHeight>79?"80px": "auto");
   max-height: 80px;
 }
 
@@ -1087,29 +1092,38 @@ div.AddressTileHeader {
 }
 
 table#roiProdList_gridViewProducts th {
-  background: #80a1b6;
+  background: url(Images/bg_content_repeater.gif) repeat-x;
+  background-size: auto 100%;
 }
 
 table#roiProdList_gridViewProducts th a,
 table#roiProdList_gridViewProducts th {
-  color: #FFF;
+  font-family: "Book Antiqua","Palatino Linotype",Palatino,serif;
+  color: #182B49;
   text-transform: none;
   text-decoration: none;
   font-weight: 700;
-  padding: 2px 10px;
+  font-size: 14px;
+  padding: 5px 11px 6px;
+  border: none;
 }
 
 table#roiProdList_gridViewProducts,
 table#roiProdList_gridViewProducts tbody,
 table#roiProdList_gridViewProducts td {
-  border: 1px solid #80a1b6;
-  background: rgba(256,256,256,0.3);
+  border: none;
+  border-bottom: 2px solid #dfeef3;
+  padding: 10px 3px;
 }
 
+table#roiProdList_gridViewProducts td img,
 table#roiProdList_gridViewProducts td input {
   margin-left: auto;
   margin-right: auto;
   display: block;
+  max-width: 200px;
+}
+table#roiProdList_gridViewProducts td input {
   min-width: 75%;
 }
 
@@ -1162,7 +1176,7 @@ td.catalogFolderHeader,
 td.catalogItemRule,
 td.catalogFolderRule-r,
 td.catalogFolderRule,
-#LoginArea > table: first-child > tbody: first-child > tr: first-child > td: first-child > table: first-child {
+#LoginArea > table:first-child > tbody:first-child > tr:first-child > td:first-child > table:first-child {
   display: none;
 }
 
