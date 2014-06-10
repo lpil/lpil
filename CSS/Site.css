@@ -22,13 +22,13 @@ input, p, form {
 }
 
 body.page {
-  background: url(Images/bg_repeater.gif) repeat-x scroll left top #0C2A4A;
+  background: url(Images/bg_repeater.gif) repeat-x scroll left top #fff;
   margin: 0;
 }
 
 td.pageContent {
   background: url(Images/bg_content_repeater.gif) repeat-x scroll left top #fff;
-  padding: 15px 0 0;
+  padding: 10px 10px 0 10px; !important
 }
 
 img.pageMinimumWidth {
@@ -143,21 +143,9 @@ td.stepArea {
   padding: 11px 13px;
 }
 
-td.stepAreaFooter-l {
-  background: #e8ebea;
-  width: 9px;
-  height: 44px;
-}
-
+td.stepAreaFooter-l,
 td.stepAreaFooter-r {
-  background: #e8ebea;
-  width: 5px;
-  height: 44px;
-}
-
-td.stepAreaFooter {
-  background: #e8ebea;
-  vertical-align: middle;
+  display: none;
 }
 
 div.areaTitleLink {
@@ -186,50 +174,16 @@ span.currentStepIndicator {
   padding-left: 5px;
 }
 
-div.stepAreaHeaderNextPrevControls,
-div.stepAreaFooterNextPrevControls {
-  background: url(Images/StepNextPrevBackground.gif) repeat-x;
-  border-color: #ccc;
-  border-style: solid;
-  border-width: 0 1px;
-  padding: 0 4px;
-}
-
-td.stepNextPrevLabel {
-  height: 26px;
-  font-size: 9px;
-  padding-top: 4px;
-  vertical-align: middle;
-}
-
-a.stepNextPrevLabel,
-a.stepNextPrevLabelRollover {
-  font-size: 9px;
-  font-weight: 700;
-  text-transform: none;
-  white-space: nowrap;
-  color: #000;
-  text-decoration: none;
-  padding: 0 5px;
-}
-
 a.stepNextPrevLabelRollover {
   color: #0069aa;
   cursor: pointer;
 }
 
 td.areaGraphicNextStep,
-td.areaGraphicNextStepRollover {
-  background: url(Images/StepNext.gif) no-repeat;
-  height: 27px;
-  width: 22px;
-}
-
+td.areaGraphicNextStepRollover,
 td.areaGraphicPreviousStep,
 td.areaGraphicPreviousStepRollover {
-  background: url(Images/StepPrevious.gif) no-repeat;
-  height: 27px;
-  width: 22px;
+  display: none;
 }
 
 td.areaGraphicNextPrevSeparatorLine {
@@ -558,6 +512,8 @@ div.catalogFolderIcon {
   padding-left: 22px;
 }
 
+a.stepNextPrevLabel,
+a.stepNextPrevLabelRollover,
 a.siteButton,
 a.smallButton,
 a.searchButton {
@@ -571,30 +527,43 @@ a.searchButton {
   padding: 3px 5px;
   margin: 4px 4px 4px 1px;
 }
+
+#ctl00_ctl00_ContentPlaceHolderBody_StepArea1_StepNextP1_TheLabelButton:before,
+#ctl00_ctl00_ContentPlaceHolderBody_StepArea1_StepNextP2_TheLabelButton:before,
+#StepArea_StepNextP1_TheLabelButton:before,
+#StepArea_StepNextP2_TheLabelButton:before,
+#ctl00_ctl00_ContentPlaceHolderBody_StepArea1_StepNextN1_TheLabelButton:after,
+#ctl00_ctl00_ContentPlaceHolderBody_StepArea1_StepNextN2_TheLabelButton:after,
+#StepArea_StepNextN1_TheLabelButton:after,
+#StepArea_StepNextN2_TheLabelButton:after,
+a.siteButton:after,
+a.smallButton:after,
+a.searchButton:after {
+  background: url(Images/button_repeater.gif) repeat-x scroll left top #766D63;
+}
+
+#ctl00_ctl00_ContentPlaceHolderBody_StepArea1_StepNextN1_TheLabelButton:after,
+#ctl00_ctl00_ContentPlaceHolderBody_StepArea1_StepNextN2_TheLabelButton:after,
+#StepArea_StepNextN1_TheLabelButton:after,
+#StepArea_StepNextN2_TheLabelButton:after,
 a.siteButton:after,
 a.smallButton:after,
 a.searchButton:after {
   padding: 0 2px 0 4px;
   content: url(Images/white_arrow.png);
-  background: url(Images/button_repeater.gif) repeat-x scroll left top #766D63;
+}
+#ctl00_ctl00_ContentPlaceHolderBody_StepArea1_StepNextP1_TheLabelButton:before,
+#ctl00_ctl00_ContentPlaceHolderBody_StepArea1_StepNextP2_TheLabelButton:before,
+#StepArea_StepNextP1_TheLabelButton:before,
+#StepArea_StepNextP2_TheLabelButton:before {
+  padding: 0 4px 0 2px;
+  content: url(Images/white_arrow_rev.png);
 }
 
 p.endOfButtons {
   clear: both;
   font-size: 0;
   margin: 0;
-}
-
-td.warningAreaInlineInfo,
-td.warningAreaInlineWarning {
-  background: #0069aa;
-  border: 1px solid #0069aa;
-  padding: 14px;
-}
-
-td.warningAreaInlineInfo {
-  background: #698e26;
-  border: 1px solid #afd4a9;
 }
 
 td.warningIconWarning {
@@ -817,26 +786,26 @@ div.finalStepWarningsFooter {
   line-height: 3em;
   border: none !important;
 }
-table#impersonateList1_grdUsers,
-table#impersonateList1_grdUsers tbody,
-table#impersonateList1_grdUsers tr,
-table#impersonateList1_grdUsers td {
+#impersonateList1_grdUsers,
+#impersonateList1_grdUsers tbody,
+#impersonateList1_grdUsers tr,
+#impersonateList1_grdUsers td {
   border: none !important;
 }
-table#impersonateList1_grdUsers td > a,
-table#impersonateList1_grdUsers td {
+#impersonateList1_grdUsers td > a,
+#impersonateList1_grdUsers td {
   padding: 0.3em;
   font-size: 13px !important;
 }
 
-table#impersonateList1_grdUsers tr:nth-child(odd) {
+#impersonateList1_grdUsers tr:nth-child(odd) {
   background: none !important;
 }
-table#impersonateList1_grdUsers tr:nth-child(even) {
+#impersonateList1_grdUsers tr:nth-child(even) {
   border-radius: 3px;
   background-color: #e7f0f3 !important;
 }
-table#impersonateList1_grdUsers input {
+#impersonateList1_grdUsers input {
   margin-top: 3px;
 }
 #impersonateList1_LabelLocation,
@@ -853,13 +822,6 @@ td.itemTableHeader {
   padding: 5px;
 }
 
-td.itemTableHeader {
-  background: #474747;
-  font-size: 13px;
-  font-weight: 700;
-  color: #fff;
-}
-
 td.itemTable-Thumbnail {
   text-align: center;
   height: 112px;
@@ -867,37 +829,6 @@ td.itemTable-Thumbnail {
 
 img.itemTableThumbnail {
   border: 1px solid #FFF;
-}
-
-td.itemTable-Id {
-  font-size: 12px;
-  color: #1b8b75;
-}
-
-td.itemTable-Description,
-td.itemTable-Options {
-  font-size: 11px;
-  color: #1b8b75;
-}
-
-td.itemTable-Product {
-  font-size: 11px;
-  font-weight: 700;
-  color: #1b8b75;
-}
-
-td.itemTable-Date {
-  font-size: 12px;
-  font-weight: 700;
-  color: #1b8b75;
-}
-
-td.itemTable-Price {
-  white-space: nowrap;
-  font-size: 14px;
-  font-weight: 700;
-  text-align: right;
-  color: #1b8b75;
 }
 
 td.itemTableSummary {
@@ -915,12 +846,6 @@ td.itemTableSummaryLine {
   font-weight: 700;
   color: #1b8b75;
   padding-top: 3px;
-}
-
-p.itemTableLabelWithIcon {
-  text-indent: -23px;
-  margin-left: 23px;
-  color: #1b8b75;
 }
 
 td.dataListChoicesHeader,
@@ -1091,13 +1016,14 @@ div.AddressTileHeader {
   margin-left: 100px;
 }
 
-table#roiProdList_gridViewProducts th {
+#StepArea_ShoppingCart_ShoppingCart tr:first-child td,
+#OrdersList tr:first-child td,
+#OrdersDataGrid tr:first-child td,
+#ShoppingCart_ShoppingCart tr:first-child td,
+#roiProdList_gridViewProducts th a,
+#roiProdList_gridViewProducts th {
   background: url(Images/bg_content_repeater.gif) repeat-x;
   background-size: auto 100%;
-}
-
-table#roiProdList_gridViewProducts th a,
-table#roiProdList_gridViewProducts th {
   font-family: "Book Antiqua","Palatino Linotype",Palatino,serif;
   color: #182B49;
   text-transform: none;
@@ -1108,22 +1034,34 @@ table#roiProdList_gridViewProducts th {
   border: none;
 }
 
-table#roiProdList_gridViewProducts,
-table#roiProdList_gridViewProducts tbody,
-table#roiProdList_gridViewProducts td {
+#StepArea_ShoppingCart_ShoppingCart,
+#StepArea_ShoppingCart_ShoppingCart tbody,
+#StepArea_ShoppingCart_ShoppingCart td,
+#OrdersList,
+#OrdersList tbody,
+#OrdersList td,
+#OrdersDataGrid,
+#OrdersDataGrid tbody,
+#OrdersDataGrid td,
+#ShoppingCart_ShoppingCart,
+#ShoppingCart_ShoppingCart tbody,
+#ShoppingCart_ShoppingCart td,
+#roiProdList_gridViewProducts,
+#roiProdList_gridViewProducts tbody,
+#roiProdList_gridViewProducts td {
   border: none;
   border-bottom: 2px solid #dfeef3;
   padding: 10px 3px;
 }
 
-table#roiProdList_gridViewProducts td img,
-table#roiProdList_gridViewProducts td input {
+#roiProdList_gridViewProducts td img,
+#roiProdList_gridViewProducts td input {
   margin-left: auto;
   margin-right: auto;
   display: block;
   max-width: 200px;
 }
-table#roiProdList_gridViewProducts td input {
+#roiProdList_gridViewProducts td input {
   min-width: 75%;
 }
 
@@ -1199,27 +1137,6 @@ td.dataListChoicesHeader {
   font-weight: 700;
 }
 
-td.categorySidebar-l,
-td.helpSidebar-l,
-td.stepControls-l,
-td.categorySidebar-r,
-td.helpSidebar-r,
-td.stepControls-r {
-  background: #333;
-  padding-left: 0;
-}
-
-td.categorySidebarFooter-l,
-td.helpSidebarFooter-l,
-td.stepControlsFooter-l,
-td.categorySidebarFooter-r,
-td.helpSidebarFooter-r,
-td.stepControlsFooter-r {
-  background: #333;
-  height: 24px;
-  padding-left: 0;
-}
-
 img.categorySidebarMarginRight,
 img.helpSidebarMarginRight,
 img.stepControlsMarginRight {
@@ -1231,7 +1148,7 @@ a.stepControlLabel:hover,
 a.stepControlLabelSelected:hover,
 div.warningAreaMessageWarning p,
 div.warningAreaMessageInfo {
-  color: #fff;
+  color: #000;
 }
 .categorySidebarSearch > input {
   display: none;
