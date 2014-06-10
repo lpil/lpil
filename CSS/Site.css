@@ -5,18 +5,22 @@ html {
   color: #444;
   line-height: 140%;
 }
+
 a {
   text-decoration: none;
   color: #61A8C4;
 }
+
 h2 {
   font-family: "Book Antiqua", "Palatino Linotype", Palatino, serif;
   font-size: 19px;
   font-weight: normal;
 }
+
 a:hover {
   text-decoration: underline;
 }
+
 input, p, form {
   margin: 0;
 }
@@ -28,7 +32,7 @@ body.page {
 
 td.pageContent {
   background: url(Images/bg_content_repeater.gif) repeat-x scroll left top #fff;
-  padding: 10px 10px 0 10px !important;
+  padding: 10px 10px 0 !important;
 }
 
 img.pageMinimumWidth {
@@ -67,9 +71,6 @@ a.navBarButton {
   background: url(Images/tab_repeater.png) repeat-x scroll left top;
 }
 
-a.navBarButton[href="UserSExternalHTML_3.aspx"] {
-  display: none;
-}
 a.navBarButtonSelected {
   color: #001838;
   font-family: "Book Antiqua", "Palatino Linotype", Palatino, serif;
@@ -105,17 +106,15 @@ div.navBarMessage {
 td.areaHeader,
 td.areaComment {
   color: #182B49;
-  padding: 8px 1px 5px 5px;
   vertical-align: middle;
   white-space: nowrap;
   width: 100%;
+  padding: 8px 1px 5px 5px;
 }
+
 div.areaTitle {
   font-family: "Book Antiqua", "Palatino Linotype", Palatino, serif;
   font-size: 24px;
-}
-div.areaComment {
-  font-size: 12px;
 }
 
 td.simpleAreaHeader {
@@ -141,11 +140,6 @@ td.area {
 td.stepArea {
   background: #fff;
   padding: 11px 13px;
-}
-
-td.stepAreaFooter-l,
-td.stepAreaFooter-r {
-  display: none;
 }
 
 div.areaTitleLink {
@@ -179,13 +173,6 @@ a.stepNextPrevLabelRollover {
   cursor: pointer;
 }
 
-td.areaGraphicNextStep,
-td.areaGraphicNextStepRollover,
-td.areaGraphicPreviousStep,
-td.areaGraphicPreviousStepRollover {
-  display: none;
-}
-
 td.areaGraphicNextPrevSeparatorLine {
   background: url(Images/StepNextPrevSeparator.gif) no-repeat;
   height: 27px;
@@ -206,11 +193,6 @@ td.stepControlsHeader-r {
   padding-left: 0;
 }
 
-td.categorySidebarHeader-l,
-td.categorySidebarHeader-r,
-td.categorySidebarHeader {
-  display: none;
-}
 td.helpSidebarHeader,
 td.stepControlsHeader {
   background-repeat: repeat-x;
@@ -230,12 +212,6 @@ div.stepControlsTitle {
   color: #fff;
 }
 
-td.categorySidebar,
-td.helpSidebar,
-td.stepControls {
-  vertical-align: top;
-}
-
 td.stepControls {
   padding-right: 30px;
 }
@@ -250,8 +226,8 @@ input.searchInput {
   border: 1px solid #999;
   font-size: 13px;
   border-radius: 1px;
-  padding: 2px 3px;
   margin-bottom: 10px;
+  padding: 2px 3px;
 }
 
 td.categorySidebarLabel,
@@ -261,19 +237,13 @@ td.categorySidebarLabelSelected {
   text-transform: none;
   padding: 6px 5px;
 }
+
 td.categorySidebarLabelSelected {
   background: url(Images/blue_box_repeater.gif) repeat-x scroll left bottom #e6f2f6;
 }
+
 td.categorySidebarLabel img {
   cursor: pointer;
-}
-
-td.categorySidebarLabelLevel1 {
-  padding-left: 5px;
-}
-
-td.categorySidebarLabelLevel2 {
-  padding-left: 20px;
 }
 
 td.categorySidebarLabelLevel3 {
@@ -311,10 +281,12 @@ a.categorySidebarLabelSelected {
   text-decoration: none;
   white-space: nowrap;
 }
+
 a.categorySidebarLabel:hover,
 a.categorySidebarLabelSelected {
   color: #182b49;
 }
+
 a.categorySidebarLabelSelected {
   font-weight: bold;
 }
@@ -426,6 +398,7 @@ a.viewSwitcher {
   padding-bottom: 15px;
   padding-left: 24px;
 }
+
 #divCategoryPath > a:after {
   position: relative;
   left: 7px;
@@ -438,13 +411,9 @@ a.viewSwitcher {
   cursor: text;
   text-decoration: none;
 }
+
 #divCategoryPath > a:last-child:after {
   content: none;
-}
-
-div.catalogItemOuter,
-div.catalogFolderOuter {
-  margin: 10px;
 }
 
 td.catalogFolderFooter,
@@ -524,8 +493,8 @@ a.searchButton {
   text-decoration: none;
   white-space: nowrap;
   text-transform: none;
-  padding: 3px 5px;
   margin: 4px 4px 4px 1px;
+  padding: 3px 5px;
 }
 
 #ctl00_ctl00_ContentPlaceHolderBody_StepArea1_StepNextP1_TheLabelButton:before,
@@ -549,15 +518,16 @@ a.searchButton:after {
 a.siteButton:after,
 a.smallButton:after,
 a.searchButton:after {
-  padding: 0 2px 0 4px;
   content: url(Images/white_arrow.png);
+  padding: 0 2px 0 4px;
 }
+
 #ctl00_ctl00_ContentPlaceHolderBody_StepArea1_StepNextP1_TheLabelButton:before,
 #ctl00_ctl00_ContentPlaceHolderBody_StepArea1_StepNextP2_TheLabelButton:before,
 #StepArea_StepNextP1_TheLabelButton:before,
 #StepArea_StepNextP2_TheLabelButton:before {
-  padding: 0 4px 0 2px;
   content: url(Images/white_arrow_rev.png);
+  padding: 0 4px 0 2px;
 }
 
 p.endOfButtons {
@@ -786,31 +756,31 @@ div.finalStepWarningsFooter {
   line-height: 3em;
   border: none !important;
 }
+
 #impersonateList1_grdUsers,
 #impersonateList1_grdUsers tbody,
 #impersonateList1_grdUsers tr,
 #impersonateList1_grdUsers td {
   border: none !important;
 }
+
 #impersonateList1_grdUsers td > a,
 #impersonateList1_grdUsers td {
-  padding: 0.3em;
   font-size: 13px !important;
+  padding: .3em;
 }
 
 #impersonateList1_grdUsers tr:nth-child(odd) {
   background: none !important;
 }
+
 #impersonateList1_grdUsers tr:nth-child(even) {
   border-radius: 3px;
   background-color: #e7f0f3 !important;
 }
+
 #impersonateList1_grdUsers input {
   margin-top: 3px;
-}
-#impersonateList1_LabelLocation,
-#impersonateList1_LabelSearch {
-  font-size: 12px;
 }
 
 table.itemTable,
@@ -871,10 +841,6 @@ div.MultiShippingButton {
 div.ShippingAddressBlock {
   margin-bottom: 20px;
   margin-top: 20px;
-}
-
-div.ShippingAddressBlockCart {
-  margin: 10px;
 }
 
 table.listPreviewTable {
@@ -1030,8 +996,8 @@ div.AddressTileHeader {
   text-decoration: none;
   font-weight: 700;
   font-size: 14px;
-  padding: 5px 11px 6px;
   border: none;
+  padding: 5px 11px 6px;
 }
 
 #StepArea_ShoppingCart_ShoppingCart,
@@ -1061,6 +1027,7 @@ div.AddressTileHeader {
   display: block;
   max-width: 200px;
 }
+
 #roiProdList_gridViewProducts td input {
   min-width: 75%;
 }
@@ -1081,52 +1048,9 @@ td.categorySidebarFooter:after {
   padding: 0 30px;
 }
 
-#LoginArea .checkbox > label:nth-child(2) {
-  padding-left: 5px;
-}
-
-td.basic,
-td.categorySidebarFooter,
-td.helpSidebarFooter,
-td.stepControlsFooter,
-td.formFilling-form {
-  vertical-align: top;
-}
-
-td.navBarSeparator,
-td.categorySidebarHeader,
-td.categorySidebarHeader-l,
-td.categorySidebarHeader-r,
-div.poweredByPageflex,
-td.catalogItemHeader-l,
-td.catalogItemHeader-r,
-td.catalogFolderHeader-l,
-td.catalogFolderHeader-r,
-td.catalogItem-l,
-td.catalogItem-r,
-td.catalogFolder-l,
-td.catalogFolder-r,
-td.catalogItemRule-l,
-td.catalogItemRule-r,
-td.catalogFolderRule-l,
-td.catalogItemHeader,
-td.catalogFolderHeader,
-td.catalogItemRule,
-td.catalogFolderRule-r,
-td.catalogFolderRule,
-#LoginArea > table:first-child > tbody:first-child > tr:first-child > td:first-child > table:first-child {
-  display: none;
-}
-
 a.areaTitleLinkRollover,
 a.viewSwitcher:hover {
   color: #7B235D;
-}
-
-#InputFields_InputFields,
-#ReadOnlyFields_InputFields,
-td.helpTopicLevel2 {
-  padding-left: 20px;
 }
 
 span.stepLabel,
@@ -1150,12 +1074,80 @@ div.warningAreaMessageWarning p,
 div.warningAreaMessageInfo {
   color: #000;
 }
-.categorySidebarSearch > input {
-  display: none;
-}
 
 .warningAreaMessageInfo table,
 .warningAreaMessageInfo td {
   background-color: #fff !important;
-  color: #202c4c !important;  
+  color: #202c4c !important;
+}
+
+a.navBarButton[href=UserSExternalHTML_3.aspx],
+td.stepAreaFooter-l,
+td.stepAreaFooter-r,
+td.areaGraphicNextStep,
+td.areaGraphicNextStepRollover,
+td.areaGraphicPreviousStep,
+td.areaGraphicPreviousStepRollover,
+td.categorySidebarHeader-l,
+td.categorySidebarHeader-r,
+td.categorySidebarHeader,
+td.navBarSeparator,
+td.categorySidebarHeader,
+td.categorySidebarHeader-l,
+td.categorySidebarHeader-r,
+div.poweredByPageflex,
+td.catalogItemHeader-l,
+td.catalogItemHeader-r,
+td.catalogFolderHeader-l,
+td.catalogFolderHeader-r,
+td.catalogItem-l,
+td.catalogItem-r,
+td.catalogFolder-l,
+td.catalogFolder-r,
+td.catalogItemRule-l,
+td.catalogItemRule-r,
+td.catalogFolderRule-l,
+td.catalogItemHeader,
+td.catalogFolderHeader,
+td.catalogItemRule,
+td.catalogFolderRule-r,
+td.catalogFolderRule,
+#LoginArea > table:first-child > tbody:first-child > tr:first-child > td:first-child > table:first-child,
+.categorySidebarSearch > input {
+  display: none;
+}
+
+div.areaComment,
+#impersonateList1_LabelLocation,
+#impersonateList1_LabelSearch {
+  font-size: 12px;
+}
+
+td.categorySidebar,
+td.helpSidebar,
+td.stepControls,
+td.basic,
+td.categorySidebarFooter,
+td.helpSidebarFooter,
+td.stepControlsFooter,
+td.formFilling-form {
+  vertical-align: top;
+}
+
+td.categorySidebarLabelLevel1,
+#LoginArea .checkbox > label:nth-child(2) {
+  padding-left: 5px;
+}
+
+td.categorySidebarLabelLevel2,
+#InputFields_InputFields,
+#ReadOnlyFields_InputFields,
+td.helpTopicLevel2 {
+  padding-left: 20px;
+}
+
+div.catalogItemOuter,
+div.catalogFolderOuter,
+div.ShippingAddressBlockCart {
+  margin: 10px;
 }
