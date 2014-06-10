@@ -622,7 +622,7 @@
     <value>SJP Connect</value>
   </data>
   <data name="Common/TitleBar/Staged" xml:space="preserve">
-    <value>** STAGED CONTENT **  </value>
+    <value>[Staged Content] </value>
   </data>
   <data name="DownloadOutput/Area/Comment" xml:space="preserve">
     <value>Final output resulted in multiple files. Click each file individually to download.</value>
@@ -2234,7 +2234,7 @@
     <value>This product cannot be found, this could be a Print on Demand item or Intranet only. Which can only be found on your Intranet. Contact marketing support for any further details. Tel: 01285 878 912</value>
   </data>
   <data name="Start/Message/NoProductsInCategory" xml:space="preserve">
-    <value>Please click the + symbol next to the Category name to view available products</value>
+    <value></value>
   </data>
   <data name="Start/SearchResults/Title" xml:space="preserve">
     <value>Search Results for</value>

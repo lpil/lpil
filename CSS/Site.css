@@ -28,7 +28,7 @@ body.page {
 
 td.pageContent {
   background: url(Images/bg_content_repeater.gif) repeat-x scroll left top #fff;
-  padding: 10px 10px 0 10px; !important
+  padding: 10px 10px 0 10px !important;
 }
 
 img.pageMinimumWidth {
@@ -1152,4 +1152,10 @@ div.warningAreaMessageInfo {
 }
 .categorySidebarSearch > input {
   display: none;
+}
+
+.warningAreaMessageInfo table,
+.warningAreaMessageInfo td {
+  background-color: #fff !important;
+  color: #202c4c !important;  
 }
