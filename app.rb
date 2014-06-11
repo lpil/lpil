@@ -47,16 +47,14 @@ end
 #   Check the DPD report FTP for new reports, and add them to the database
 #   Delete mailings more than 90 days old from the database
 
-require 'lib/dpd_reports.rb'
-
 $threads[:mailings] = Thread.new do
   loop do
     begin
-      DpdReports.new.fetch_reports.save_to_db
+      Mailing.fetch_new_reports!
       Mailing.delete_all(['date_sent < ?', Time.now - 7_776_000]) # 90 days
       sleep 3_600 # 1 hour
     rescue StandardError, ScriptError => e
-      $logger.error { "Mailing Thread => #{e}" }
+      $logger.error { "Mailing Thread => #{e.backtrace.join "\n"}" }
       sleep 60
     end
   end
