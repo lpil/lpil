@@ -622,7 +622,7 @@
     <value>SJP Connect</value>
   </data>
   <data name="Common/TitleBar/Staged" xml:space="preserve">
-    <value>[Staged Content] </value>
+    <value>[Development] </value>
   </data>
   <data name="DownloadOutput/Area/Comment" xml:space="preserve">
     <value>Final output resulted in multiple files. Click each file individually to download.</value>
@@ -748,7 +748,7 @@
     <value>Finish</value>
   </data>
   <data name="EditFormFilling/Area/Comment" xml:space="preserve">
-    <value>Fill out the form to change the document. Click on 'Update' or 'View your proof' to view changes.</value>
+    <value>Fill out the form to change the document. Click on 'Refresh' or 'View your proof' to view changes.</value>
   </data>
   <data name="EditFormFilling/Area/CommentDescription" xml:space="preserve">
     <value>Read about the product and view a large preview.</value>
@@ -796,7 +796,7 @@
     <value>Form Filling</value>
   </data>
   <data name="EditFree/Alert/GeneratingOutput" xml:space="preserve">
-    <value>Your output is being generated...</value>
+    <value>Your proof is being generated...</value>
   </data>
   <data name="EditFree/Alert/PleaseEnableSignedApplets" xml:space="preserve">
     <value>If you wish to Copy and Paste to and from the System clipboard: please open a new Tab, type about:config in the address bar and hit Enter. Then set the user preference 'signed.applets.codebase_principal_support' to 'true'.</value>
@@ -1921,7 +1921,7 @@
     <value>My Profile</value>
   </data>
   <data name="QueryError/Button/ContinueAnyway" xml:space="preserve">
-    <value></value>
+    <value>Continue Anyway</value>
   </data>
   <data name="QueryError/Button/CorrectErrors" xml:space="preserve">
     <value>Correct Errors</value>
