@@ -12,9 +12,13 @@ function createScriptTag(source) {
 function getMailInfo(order_ref) {
   console.log(order_ref);
   mail_info = null;
-  var url = "http://info.perivansolutions.co.uk/delivery.json?order_ref="
-  url = url + order_ref + "&callback=printMailInfo"
+  var url = 'http://info.perivansolutions.co.uk/delivery.json?order_ref=';
+  url = url + order_ref + '&callback=printMailInfo';
   createScriptTag(url);
+
+  // Clear existing results
+  var result_div = document.getElementById('mail_result');
+  result_div.innerHTML = '';
   return false;
 }
 
@@ -25,15 +29,15 @@ function printMailInfo(jsonp){
   var result_div = document.getElementById('mail_result');
 
   var para = document.createElement('p');
-  if (jsonp['is_post']) {
-    para.innerHTML = 'Your order was sent by post on ' + jsonp['date_sent'];
+  if (jsonp.is_post) {
+    para.innerHTML = 'Your order was sent by post on ' + jsonp.date_sent;
     result_div.appendChild(para);
   } else {
-    para.innerHTML = 'Your order was sent by DPD on ' + jsonp['date_sent'];
+    para.innerHTML = 'Your order was sent by DPD on ' + jsonp.date_sent;
     result_div.appendChild(para);
 
     var link = document.createElement('a');
-    link.href = jsonp['url'];
+    link.href = jsonp.url;
     link.innerHTML = 'Track on DPD.co.uk';
     result_div.appendChild(link);
   }
