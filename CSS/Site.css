@@ -54,8 +54,8 @@ td.navBarRight {
   padding-right: 20px;
 }
 
-a.navBarButton,
-a.navBarButtonSelected {
+.navBarButton-inner,
+.navBarButtonSelected-inner {
   display: inline-block;
   text-transform: none;
   background: none;
@@ -67,16 +67,17 @@ a.navBarButtonSelected {
   padding: 0 10px;
 }
 
-a.navBarButton {
+.navBarButton-inner {
   background: url(Images/tab_repeater.png) repeat-x scroll left top;
 }
-
 a.navBarButtonSelected {
   color: #001838;
   font-family: "Book Antiqua", "Palatino Linotype", Palatino, serif;
   font-size: 14px;
   text-decoration: none;
   white-space: nowrap;
+}
+.navBarButtonSelected-inner {
   background: #dfeef3;
 }
 
@@ -377,20 +378,6 @@ a.stepControlLabelSelected {
   text-decoration: none;
   text-transform: none;
   white-space: nowrap;
-}
-
-div.viewSwitcher {
-  font-size: 10px;
-  padding: 3px 15px 0 0;
-}
-
-a.viewSwitcher {
-  font-size: 10px;
-  color: #fff;
-  text-decoration: none;
-  text-transform: none;
-  white-space: nowrap;
-  cursor: pointer;
 }
 
 #divCategoryPath {
@@ -1048,11 +1035,6 @@ td.categorySidebarFooter:after {
   padding: 0 30px;
 }
 
-a.areaTitleLinkRollover,
-a.viewSwitcher:hover {
-  color: #7B235D;
-}
-
 span.stepLabel,
 a.helpTopicLevel1,
 div.loginSubhead,
@@ -1081,6 +1063,14 @@ div.warningAreaMessageInfo {
   color: #202c4c !important;
 }
 
+div.viewSwitcher,
+a.viewSwitcher,
+a.areaTitleLinkRollover,
+a.viewSwitcher:hover,
+#ctl00_shoppingCart_anchor_div,
+#ctl04_shoppingCart_anchor_div,
+#ctl01_shoppingCart_anchor_div,
+#Pageheader1_shoppingCart_anchor_div,
 a.navBarButton[href="UserSExternalHTML_3.aspx"],
 td.stepAreaFooter-l,
 td.stepAreaFooter-r,
@@ -1115,7 +1105,6 @@ td.catalogFolderRule,
 #LoginArea > table:first-child > tbody:first-child > tr:first-child > td:first-child > table:first-child,
 .categorySidebarSearch > input {
   display: none;
-  visibility: hidden;
 }
 
 div.areaComment,
@@ -1161,4 +1150,32 @@ input[type="radio"] {
 /* Makes the hardcoded mail links in notes metadata > product list the right size */
 #roiProdList_gridViewProducts td:nth-child(4) a span {
   font-size: 12px !important;
+}
+
+#ctl01_profile_anchor {
+  color: #fff;
+  font-size: 13px;
+}
+#Pageheader1_profile_anchor_div .navBarButton-inner,
+#ctl01_profile_anchor_div .navBarButtonSelected-inner,
+#ctl00_profile_anchor_div .navBarButton-inner,
+#ctl04_profile_anchor_div .navBarButton-inner {
+  background: none;
+  border: none;
+}
+
+#Pageheader1_profile_anchor_div,
+#ctl01_profile_anchor_div,
+#ctl00_profile_anchor_div,
+#ctl04_profile_anchor_div {
+  right: 4px;
+}
+
+#Pageheader1_profile_anchor_div,
+#ctl01_profile_anchor_div,
+#ctl00_profile_anchor_div,
+#ctl04_profile_anchor_div {
+  position: absolute;
+  top: 4px;
+  z-index: 5;
 }
