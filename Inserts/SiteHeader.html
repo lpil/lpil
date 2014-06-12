@@ -38,28 +38,37 @@ $(document).ready(function() {
 .poweredBy,
 .PowerText,
 .poweredByPageflex { display: none; }
-#store_logo {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 20px 0px;
-  border-style: none;
-}
 </style>
-<a href="http://www.sjpconnect.co.uk/">
-  <img
-  id='store_logo'
-  src="Custom/Themes/sjp_2014_06/Inserts/Images/sjp_logo.png"
-  alt="SJP Connect"
-  />
-</a>
+<img
+id='store_logo'
+src="Custom/Themes/sjp_2014_06/Inserts/Images/sjp_logo.png"
+alt="SJP Connect"
+/>
 
 <!-- Hidden contact us button, to be moved to the top right -->
-<nav id="topRightLinks">
+<div id="topRightLinks">
   <a href="http://www.sjpconnect.co.uk/UserContentStart.aspx?category=590">
     Contact Us
   </a>
+  <span>|</span>
   <a href="javascript:__doPostBack('Pageheader1$profile$anchor','')">
     My Profile
   </a>
-</nav>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+var j;
+
+function bar(jsonp){
+  j = jsonp;
+
+  console.log("hello!");
+  console.log(jsonp);
+  console.log("goodbye!");
+
+}
+</script>
+<script src="http://info.perivansolutions.co.uk/delivery.json?order_ref=test&callback=bar"
+        type="text/javascript"
+        charset="utf-8">
+</script>
