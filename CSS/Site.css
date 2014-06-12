@@ -1147,35 +1147,43 @@ input[type="radio"] {
   margin-right: 10px;
 }
 
-/* Makes the hardcoded mail links in notes metadata > product list the right size */
+/* Makes the hardcoded mail links in notes metadata > product list the right
+ * size */
 #roiProdList_gridViewProducts td:nth-child(4) a span {
   font-size: 12px !important;
 }
 
-#ctl01_profile_anchor {
-  color: #fff;
-  font-size: 13px;
-}
-#Pageheader1_profile_anchor_div .navBarButton-inner,
-#ctl01_profile_anchor_div .navBarButtonSelected-inner,
-#ctl00_profile_anchor_div .navBarButton-inner,
-#ctl04_profile_anchor_div .navBarButton-inner {
-  background: none;
-  border: none;
-}
-
+#Pageheader1_profile_anchor_div,
+#ctl01_profile_anchor_div,
+#ctl00_profile_anchor_div,
+#ctl04_profile_anchor_div,
 #Pageheader1_profile_anchor_div,
 #ctl01_profile_anchor_div,
 #ctl00_profile_anchor_div,
 #ctl04_profile_anchor_div {
-  right: 4px;
+  display: none;
 }
 
-#Pageheader1_profile_anchor_div,
-#ctl01_profile_anchor_div,
-#ctl00_profile_anchor_div,
-#ctl04_profile_anchor_div {
+#topRightLinks {
   position: absolute;
-  top: 4px;
+  top: 9px;
+  right: 10px;
   z-index: 5;
+}
+
+#topRightLinks a {
+  font-family: "Book Antiqua", "Palatino Linotype", Palatino, serif;
+  color: white;
+  font-size: 12px;
+  display: inline-block;
+  padding: 0 10px;
+}
+
+#topRightLinks a:not(:last-child):after {
+  padding-left: 7px;
+  position: absolute;
+  font-size: 135%;
+  cursor: default;
+  content: "|";
+  color: #61a8c4;
 }
