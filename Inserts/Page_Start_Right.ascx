@@ -21,14 +21,14 @@ void Page_Load(object sender, EventArgs e) {
 </script>
 
 <style type="text/css">
-aside#page_right {
+div#page_right {
   width: 160px;
   margin-left: 10px;
   font-size: 12px;
   position: relative;
   top: -12px;
 }
-#page_right > aside {
+#page_right > div {
   display: block;
   margin: 10px 5px;
   padding: 10px;
@@ -36,7 +36,7 @@ aside#page_right {
 #quick_links  {
   background: url(Custom/Themes/sjp_2014_06/CSS/Images/blue_box_repeater.gif) repeat-x scroll left bottom #E6F2F6;
 }
-#page_right > aside > p {
+#page_right > div > p {
   margin: 0 0 10px 0;
 }
 #quick_links > p:after {
@@ -49,15 +49,15 @@ aside#page_right {
 }
 </style>
 
-<aside id="page_right">
-  <aside id="right_basket" class="group">
+<div id="page_right">
+  <div id="right_basket" class="group">
     <p>
       You have <asp:Label id="numCart" style="color:#ad9f96;" CssClass="numCart" runat="server"/> <asp:Label id="ItemOrItems" runat="server"/> in your basket.
     </p>
     <PFWeb:LinkButton id="btnViewCart" name="btnViewCart" runat="server" CssClass="siteButton" UseTrueLink="true" Link="UserContentShoppingCart.aspx" Text="View Your Basket" />
-  </aside>
+  </div>
 
-  <aside id="quick_links">
+  <div id="quick_links">
     <h2>Quick Links</h2>
     <p>
       <a href="http://www.sjpconnect.co.uk/sjp_pdfs/Track%20Your%20deliveries.pdf">
@@ -74,5 +74,14 @@ aside#page_right {
         Stationery Approvals Guide
       </a> (PDF)
     </p>
-  </aside>
-</aside>
+  </div>
+
+  <h2>Track Your Order</h2>
+  <form >
+    <input type="text" value="" name="order_ref">
+    <input type="submit" value="submit"
+           onclick="return getMailInfo(this.form.order_ref.value);">
+  </form>
+  <div id="mail_result">
+  </div>
+</div>
