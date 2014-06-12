@@ -8,3 +8,4 @@ gem 'slim'
 
 gem 'httparty'
 gem 'pony'
+gem 'json'

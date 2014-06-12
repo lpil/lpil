@@ -18,6 +18,18 @@ get '/delivery' do
   end
 end
 
+get '/delivery.json' do
+  m = Mailing.find_by_order_ref(params[:order_ref])
+  return unless m
+  m = m.attributes
+  if m['dpd_ref']
+    m['url'] = "http://www.dpd.co.uk/apps/tracking/?reference=#{m['dpd_ref']}"
+  end
+  m = m.to_json
+  m = "#{params[:callback]}(#{m})" if params[:callback]
+  m
+end
+
 #
 # AXA Upload
 #

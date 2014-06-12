@@ -6,6 +6,7 @@ require 'sinatra/activerecord'
 require 'sinatra/reloader' if development?
 require 'slim'
 require 'logger'
+require 'json'
 
 # Add out application dir to the require LOAD_PATH
 path = File.expand_path(File.dirname(__FILE__))
