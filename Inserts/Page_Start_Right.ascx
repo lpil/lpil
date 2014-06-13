@@ -76,12 +76,18 @@ div#page_right {
     </p>
   </div>
 
-  <h2>Track Your Order</h2>
-  <form >
-    <input type="text" value="" name="order_ref">
-    <input type="submit" value="submit"
-           onclick="return getMailInfo(this.form.order_ref.value);">
-  </form>
-  <div id="mail_result">
+  <div id="track_order_div">
+    <h2>Track Your Order</h2>
+    <input type="text" value="" name="order_ref" id="track_order_input"
+           placeholder="Order Ref"
+           onKeydown="javascript:if (event.which == 13) {
+             return getMailInfo(
+               document.getElementById('track_order_input').value);}">
+    <a onclick="javascript:getMailInfo(
+      document.getElementById('track_order_input'
+      ).value)"
+      href="javascript:void(0)" class="siteButton">Go</a>
+    <div id="mail_result">
+    </div>
   </div>
 </div>

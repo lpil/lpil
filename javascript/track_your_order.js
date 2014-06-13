@@ -29,15 +29,21 @@ function printMailInfo(jsonp){
   var result_div = document.getElementById('mail_result');
 
   var para = document.createElement('p');
-  if (jsonp.is_post) {
+  if (jsonp === null) {
+    para.innerHTML = 'No record found for this order reference';
+    result_div.appendChild(para);
+
+  } else if (jsonp.is_post) {
     para.innerHTML = 'Your order was sent by post on ' + jsonp.date_sent;
     result_div.appendChild(para);
+
   } else {
     para.innerHTML = 'Your order was sent by DPD on ' + jsonp.date_sent;
     result_div.appendChild(para);
 
     var link = document.createElement('a');
     link.href = jsonp.url;
+    link.target = '_blank';
     link.innerHTML = 'Track on DPD.co.uk';
     result_div.appendChild(link);
   }
