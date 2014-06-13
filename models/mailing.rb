@@ -16,7 +16,7 @@ class Mailing < ActiveRecord::Base
     m = Mailing.find_by_order_ref(order_ref)
     return nil unless m
     m = m.attributes.symbolize_keys
-    return unless m[:dpd_ref]
+    return m unless m[:dpd_ref]
     m.merge url: "http://www.dpd.co.uk/apps/tracking/?reference=#{m[:dpd_ref]}"
   end
 
