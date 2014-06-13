@@ -71,6 +71,7 @@ PLATFORMS
 
 DEPENDENCIES
   httparty
+  json
   pony
   sinatra
   sinatra-activerecord

@@ -153,7 +153,7 @@ input { width: 237px; }
 		<p class="field"><br>Your name: </p>
 		</td>
 		<td width=450 valign=top>
-		<p class="field"><br><input type="text" name="Name" value="<%= @info[:Name] %>" style="width: 250px;" required></p>
+		<p class="field"><br><input type="text" name="Name" value="<%= @data[:Name] %>" style="width: 250px;" required></p>
 		</td>
 	</tr>
 	<tr>
@@ -161,7 +161,7 @@ input { width: 237px; }
 		<p class="field">Your email: </p>
 		</td>
 		<td width=450 valign=top>
-		<p class="field"><input type="text" name="Email" value="<%= @info[:Email] %>" style="width: 250px;" required></p>
+		<p class="field"><input type="text" name="Email" value="<%= @data[:Email] %>" style="width: 250px;" required></p>
 		</td>
 	</tr>
 	<tr>
@@ -172,7 +172,7 @@ input { width: 237px; }
 		<p class="field">Document Name: </p>
 		</td>
 		<td width=450 valign=top>
-		<p class="field"><input type="text" name="Productname" value="<%= @info[:Productname] %>" style="width: 250px;" required></p>
+		<p class="field"><input type="text" name="Productname" value="<%= @data[:Productname] %>" style="width: 250px;" required></p>
 		</td>
 	</tr>
 	<tr>
@@ -180,7 +180,7 @@ input { width: 237px; }
 		<p class="field">Code:<br>(If none leave empty) </p>
 		</td>
 		<td width=450 valign=top>
-		<p class="field"><input type="text" name="Code" value="<%= @info[:Code] %>" style="width: 250px;"></p>
+		<p class="field"><input type="text" name="Code" value="<%= @data[:Code] %>" style="width: 250px;"></p>
 		</td>
 	</tr>
 	<tr>
@@ -189,9 +189,9 @@ input { width: 237px; }
 		</td>
 		<td width=450 valign=top>
 		<p class="field"><select type="text" name="Team" style="width: 150px;">
-                        <option <% unless @info[:Team] %>selected<% end %>>Select</option>
+                        <option <% unless @data[:Team] %>selected<% end %>>Select</option>
                         <% teams.each do |team| %>
-                        <option value="<%= team[0] %>"<% if @info[:Team] == team[0] %> selected<% end %>  ><%= team[1] %></option>
+                        <option value="<%= team[0] %>"<% if @data[:Team] == team[0] %> selected<% end %>  ><%= team[1] %></option>
                         <% end %>
 		</select></p>
 		</td>
@@ -202,9 +202,9 @@ input { width: 237px; }
 		</td>
 		<td width=450 valign=top>
 		<p class="field"><select type="text" name="Doctype" style="width: 150px;">
-                        <option <% unless @info[:Doctype] %>selected<% end %>>Select</option>
+                        <option <% unless @data[:Doctype] %>selected<% end %>>Select</option>
                         <% doctypes.each do |type| %>
-                        <option value="<%= type[0] %>"<% if @info[:Doctype] == type[0] %> selected<% end %>  ><%= type[1] %></option>
+                        <option value="<%= type[0] %>"<% if @data[:Doctype] == type[0] %> selected<% end %>  ><%= type[1] %></option>
                         <% end %>
 			</select></p>
 		</td>
@@ -214,7 +214,7 @@ input { width: 237px; }
 		<p class="field">Document owner: </p>
 		</td>
 		<td width=450 valign=top>
-		<p class="field"><input type="text" value="<%= @info[:Contact] %>" name="Contact" style="width: 250px;" required></p>
+		<p class="field"><input type="text" value="<%= @data[:Contact] %>" name="Contact" style="width: 250px;" required></p>
 		</td>
 	</tr>
 	<tr>
@@ -222,7 +222,7 @@ input { width: 237px; }
 		<p class="field">Expiry Date: </p>
 		</td>
 		<td width=450 valign=top>
-                  <p class="field"><input type="text" name="Review" value="<%= @info[:Review] %>" style="width: 250px;" required></p>
+                  <p class="field"><input type="text" name="Review" value="<%= @data[:Review] %>" style="width: 250px;" required></p>
 		</td>
 	</tr>
 	<tr>
@@ -231,9 +231,9 @@ input { width: 237px; }
 		</td>
 		<td width=450 valign=top>
 		<p class="field"><select type="text" name="Category" style="width: 255px;">
-                        <option <% unless @info[:Category] %>selected<% end %>>Select</option>
+                        <option <% unless @data[:Category] %>selected<% end %>>Select</option>
                         <% categories.each do |cat| %>
-                        <option value="<%= html_escape cat %>"<% if @info[:Category] == cat %> selected<% end %>  ><%= cat %></option>
+                        <option value="<%= html_escape cat %>"<% if @data[:Category] == cat %> selected<% end %>  ><%= cat %></option>
                         <% end %>
 				</select></p>
 		</td>
@@ -244,9 +244,9 @@ input { width: 237px; }
 		</td>
 		<td width=450 valign=top>
 		<p class="field"><select type="text" name="Category2" style="width: 255px;">
-                        <option <% unless @info[:Category2] %>selected<% end %>>Optional</option>
+                        <option <% unless @data[:Category2] %>selected<% end %>>Optional</option>
                         <% categories.each do |cat| %>
-                        <option value="<%= html_escape cat %>"<% if @info[:Category2] == cat %> selected<% end %>  ><%= cat %></option>
+                        <option value="<%= html_escape cat %>"<% if @data[:Category2] == cat %> selected<% end %>  ><%= cat %></option>
                         <% end %>
 				</select></p>
 		</td>
@@ -256,7 +256,7 @@ input { width: 237px; }
 		<p class="field">Keywords: </p>
 		</td>
 		<td width=450 valign=top>
-		<p class="field"><textarea type="text" rows=3 name="Keywords" style="width: 250px; height: 40px"><%= @info[:Keywords] %></textarea></p>
+		<p class="field"><textarea type="text" rows=3 name="Keywords" style="width: 250px; height: 40px"><%= @data[:Keywords] %></textarea></p>
 		</td>
 	</tr>
 	<tr>
@@ -264,7 +264,7 @@ input { width: 237px; }
 		<p class="field2">Additional notes:<br>i.e Specify new team or document type or if product is new/replacement etc</p>
 		</td>
 		<td width=450 valign=top>
-		<p class="field"><textarea type="text" rows=3 name="AddNotes" style="width: 250px; height: 60px"><%= @info[:AddNotes] %></textarea></p>
+		<p class="field"><textarea type="text" rows=3 name="AddNotes" style="width: 250px; height: 60px"><%= @data[:AddNotes] %></textarea></p>
 		</td>
 	</tr>
 	<tr>
@@ -272,7 +272,7 @@ input { width: 237px; }
 		<p class="field2">The document will appear within 24 hours. Set a specific date/time if needed:</p>
 		</td>
 		<td width=450 valign=top>
-		<p class="field"><textarea type="text" rows=3 name="datetime" style="width: 250px; height: 40px"><%= @info[:datetime] %></textarea></p>
+		<p class="field"><textarea type="text" rows=3 name="datetime" style="width: 250px; height: 40px"><%= @data[:datetime] %></textarea></p>
 		</td>
 	</tr>
 	<tr>
@@ -293,9 +293,9 @@ input { width: 237px; }
 	</tr>
 </table>	
 </form>
-        <% if @info[:failed] %>
-        <p class="errormsg">Please enter a valid value for <%= @info[:invalid].to_sentence %></p>
-        <% elsif @info[:success] %>
+        <% if @data[:failed] %>
+        <p class="errormsg">Please enter a valid value for <%= @data[:invalid].to_sentence %></p>
+        <% elsif @data[:success] %>
         <p>Document successfully uploaded</p>
         <% end %>
 </body>

@@ -5,58 +5,49 @@ end
 #
 # DPD + post delivery tracking
 #
+get '/delivery.?:format?' do
+  return slim :deliveries_form unless params['order_ref']
 
-get '/delivery' do
-  if params['order_ref']
-    @dpd_url = 'http://www.dpd.co.uk/apps/tracking/?reference='
-    @mailing = Mailing.find_by_order_ref(params[:order_ref])
-    slim :deliveries_result
+  @data = Mailing.lookup params[:order_ref]
+
+  case params[:format]
+  when /json/i
+    content_type 'application/json'
+    @data.to_json
   else
-    slim :deliveries_form
+    slim :deliveries_result
   end
-end
-
-get '/delivery.json' do
-  content_type 'application/javascript'
-  m = Mailing.find_by_order_ref(params[:order_ref])
-  return unless m
-  m = m.attributes
-  if m['dpd_ref']
-    m['url'] = "http://www.dpd.co.uk/apps/tracking/?reference=#{m['dpd_ref']}"
-  end
-  m.to_json
 end
 
 #
 # AXA Upload
 #
-
 get '/axa_upload' do
-  @info = { Review: '00/00/0000' }
+  @data = { Review: '00/00/0000' }
   erb :'axa_upload.html'
 end
 
 post '/axa_upload' do
   result = AxaUpload.check params
   AxaUpload.email result unless result[:failed]
-  @info = result[:failed] ? result : { Review: '00/00/0000', success: true }
+  @data = result[:failed] ? result : { Review: '00/00/0000', success: true }
   erb :'axa_upload.html'
 end
 
 #
 # Status info
 #
-
 get '/status' do
   slim :status
 end
 
 #
-# JSON filter
+# JSONP callback filter
+# This should be the final body altering filter for JSON
 #
-# This should probably go last.
-
 after '*.json' do
-  @response.body =
-    "#{params[:callback]}(#{@response.body.first});" if params[:callback]
+  return unless params[:callback]
+
+  content_type 'application/javascript'
+  @response.body = "#{params[:callback]}(#{@response.body.first});"
 end
