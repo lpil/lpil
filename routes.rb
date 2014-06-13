@@ -1,5 +1,3 @@
-require 'yaml'
-
 get '/' do
   "The time at the server is #{Time.now.strftime '%l:%M %P'}."
 end
@@ -26,9 +24,7 @@ get '/delivery.json' do
   if m['dpd_ref']
     m['url'] = "http://www.dpd.co.uk/apps/tracking/?reference=#{m['dpd_ref']}"
   end
-  m = m.to_json
-  m = "#{params[:callback]}(#{m})" if params[:callback]
-  m
+  m.to_json
 end
 
 #
@@ -53,4 +49,14 @@ end
 
 get '/status' do
   slim :status
+end
+
+#
+# JSON filter
+#
+# This should probably go last.
+
+after '*.json' do
+  @response.body =
+    "#{params[:callback]}(#{@response.body.first});" if params[:callback]
 end
