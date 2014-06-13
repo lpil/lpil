@@ -1,6 +1,9 @@
 // Cross site JSON request (JSONP)
 // Fetch the mailing information from Perivan Infocloud
 
+// IE sucks hard
+if (!window.console) console = {log: function() {}};
+
 function createScriptTag(source) {
   var head= document.getElementsByTagName('head')[0];
   var script = document.createElement('script');
@@ -11,7 +14,6 @@ function createScriptTag(source) {
 
 function getMailInfo(order_ref) {
   console.log(order_ref);
-  mail_info = null;
   var url = 'http://info.perivansolutions.co.uk/delivery.json?order_ref=';
   url = url + order_ref + '&callback=printMailInfo';
   createScriptTag(url);
