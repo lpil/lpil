@@ -19,6 +19,7 @@ get '/delivery' do
 end
 
 get '/delivery.json' do
+  content_type 'application/javascript'
   m = Mailing.find_by_order_ref(params[:order_ref])
   return unless m
   m = m.attributes
