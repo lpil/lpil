@@ -444,7 +444,9 @@ div.catalogItemFooter,
 div.catalogFolderFooter {
   text-align: center;
   vertical-align: top;
-  padding: 4px 0;
+  padding: 4px;
+  margin : 0 auto;
+  width: 150px;
 }
 
 a.catalogFolderFooter,
@@ -1028,7 +1030,7 @@ div.AddressTileHeader {
 }
 
 #roiProdList_gridViewProducts td input {
-  min-width: 75%;
+  min-width: 25%;
 }
 
 #roiProdList_pnlStaticProducts {
@@ -1045,6 +1047,24 @@ td.categorySidebarFooter:after {
 #LoginArea {
   display: block;
   padding: 0 30px;
+}
+
+/*
+ * Login page box body
+ */
+#LoginArea .area {
+    background-color: #dfeef3;
+    background-image: url('Images/sjpLoginKey.png');
+    background-repeat: no-repeat;
+    background-position: right 20px bottom 0px;
+    border-style: dotted none none none;
+    border-color: #182b49;
+    border-width: 2px;
+    padding: 15px 15px 0px 15px
+}
+/* Login page box body */
+#LoginArea .areaTitle {
+    padding: 10px 20px 5px 45px;
 }
 
 span.stepLabel,
@@ -1122,7 +1142,7 @@ td.catalogFolderRule,
 div.areaComment,
 #impersonateList1_LabelLocation,
 #impersonateList1_LabelSearch {
-  font-size: 12px;
+  font-size: 14px;
 }
 
 td.categorySidebar,
@@ -1157,6 +1177,7 @@ div.ShippingAddressBlockCart {
 input[type="checkbox"],
 input[type="radio"] {
   margin-right: 10px;
+  margin-top: 5px;
 }
 
 /* Makes the hardcoded mail links in notes metadata > product list the right
@@ -1203,17 +1224,25 @@ input[type="radio"] {
 }
 
 #page_right #track_order_div h2 {
-  margin: 15px 0 5px 0;
+  margin: 5px 0 5px 0;
+  font-size: 15px;
 }
+
+#page_right #track_order_div h2 img {
+  margin: 5px 0px 0px 4px;
+  height: 22px;
+  width: 22px;
+  background-repeat: no-repeat;
+}
+
 #page_right #track_order_div div,
 #page_right #track_order_div {
-  margin: 10px 0;
   padding: 0;
 }
 #page_right #track_order_input {
-  position: relative;
-  top: 1px;
-  width: 110px;
+  position: relative; 
+  top: -6px;
+  width: 75px;
 }
 #page_right #mail_result {
   text-align: center;

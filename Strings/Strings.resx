@@ -2246,7 +2246,7 @@
     <value>Unable to edit document</value>
   </data>
   <data name="Start/Window/Title" xml:space="preserve">
-    <value>SJP Connect</value>
+    <value>sjpconnect</value>
   </data>
   <data name="StepArea/StepLabel/Separator" xml:space="preserve">
     <value>:</value>
