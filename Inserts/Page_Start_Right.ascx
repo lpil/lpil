@@ -54,50 +54,30 @@ div#page_right {
   background-repeat: no-repeat;
   padding-bottom: 5px;
 }
-
-/* Information tooltip style */
-.tooltip {
-  color: #182B49;
-  cursor: help; text-decoration: none;
-  position: relative;
-  font-family: Arial, sans-serif;
-  font-size: 14px; font-weight: normal;
-  top: 6px;
-}
-.tooltip span {
-  margin-left: -999em;
-  position: absolute; left: 0em; top: 2em; z-index: 99;
-  decoration:	
-}
-.tooltip:hover span {
-  border-radius: 5px 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; 
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1); -webkit-box-shadow: 5px 5px rgba(0, 0, 0, 0.1); -moz-box-shadow: 5px 5px rgba(0, 0, 0, 0.1);
-  font-family: Arial, sans-serif;
-  position: absolute; left: 0em; top: 2em; z-index: 99;
-  margin-left: 0; width: 125px; height: 250px;
-  font-family: Arial, sans-serif; font-size: 13px; font-weight: normal;
-  display:block;
-}
-.tooltip img {
-  width: 22px;
-  height: 22px;
-  padding-right: 3px;
-  text-decoration:none;
-}
-.custom { padding: 0.5em 0.8em 0.5em 0.5em; }
-* html a:hover { background: transparent; }
-.info { background: #dfeef3; border: 1px solid #182B49;	}
 </style>
 
 <div id="page_right">
   <div id="right_basket" class="group">
     <p>
-      You have <asp:Label id="numCart" style="color:#ad9f96;" CssClass="numCart" runat="server"/> <asp:Label id="ItemOrItems" runat="server"/> in your basket.
+    You have <asp:Label id="numCart" style="color:#ad9f96;" CssClass="numCart" runat="server"/> <asp:Label id="ItemOrItems" runat="server"/> in your basket.
     </p>
-    <div><table>
-  <tbody><tr>
-    <td><a id="ctl17_ctl01_ctl00_btnViewCart" class="siteButton" name="btnViewCart" href="javascript:__doPostBack('ctl17$ctl01$ctl00$btnViewCart','')">View Your Basket</a></td>
-    <td><img id="basketIcon" src="http://www.sjpconnect.co.uk/Custom/Themes/sjp_2014_06/Inserts/Images/sjpbasket.png" alt="basket">	</td></tr></tbody></table></div>
+    <table>
+      <tbody>
+      <tr>
+        <td>
+          <a id="ctl17_ctl01_ctl00_btnViewCart"
+            name="btnViewCart" class="siteButton"
+            href="javascript:__doPostBack('ctl17$ctl01$ctl00$btnViewCart','')">
+            View Your Basket
+          </a>
+        </td>
+        <td>
+          <img src="Custom/Themes/sjp_2014_06/Inserts/Images/sjpbasket.png"
+          alt="basket" id="basketIcon">
+        </td>
+      </tr>
+      </tbody>
+    </table>
   </div>
 
   <div id="quick_links">
@@ -120,13 +100,16 @@ div#page_right {
   </div>
 
   <div id="track_order_div">
-    <h2>Track Your Order<img src="http://www.sjpconnect.co.uk/Custom/Themes/sjp_2014_06/Inserts/Images/sjpdeliverytruck.png" alt="truck"></h2>
-        <a class="tooltip" href="#"><img src="http://www.sjpconnect.co.uk/Custom/Themes/sjp_2014_06/Inserts/Images/Info.png" alt="Information"/><span class="custom info">No record found may be due to one of the following reasons:</span>
+    <h2>
+      Track Your Order
+      <img src="Custom/Themes/sjp_2014_06/Inserts/Images/sjpdeliverytruck.png"
+      alt="truck">
+    </h2>
     <input type="text" value="" name="order_ref" id="track_order_input"
-           placeholder="Order Ref"
-           onKeydown="javascript:if (event.which == 13) {
-             return getMailInfo(
-               document.getElementById('track_order_input').value);}">
+    placeholder="Order Ref"
+    onKeydown="javascript:if (event.which == 13) {
+    return getMailInfo( document.getElementById('track_order_input').value);}">
+
     <a onclick="javascript:getMailInfo(
       document.getElementById('track_order_input'
       ).value)"
