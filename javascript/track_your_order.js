@@ -13,14 +13,29 @@ function createScriptTag(source) {
 }
 
 function getMailInfo(order_ref) {
-  console.log(order_ref);
+  // Clear any existing results
+  var result_div = document.getElementById('mail_result');
+  result_div.innerHTML = '';
+
+  // Display help message
+  var link = document.createElement('a');
+  link.href = 'http://info.perivansolutions.co.uk/delivery';
+  link.target = '_blank';
+  link.innerHTML = 'Slow response? Try here instead';
+  var spinner = document.createElement('img');
+  spinner.src = 'Images/AjaxWait.gif';
+
+  result_div.appendChild(spinner);
+  result_div.appendChild(document.createElement('br'));
+  result_div.appendChild(link);
+
+  // Send request
+  console.log('Querying Perivan Infocloud for order_ref: ' + order_ref);
   var url = 'http://info.perivansolutions.co.uk/delivery.json?order_ref=';
   url = url + order_ref + '&callback=printMailInfo';
   createScriptTag(url);
 
-  // Clear existing results
-  var result_div = document.getElementById('mail_result');
-  result_div.innerHTML = '';
+  // Prevent the form from submitting
   return false;
 }
 
@@ -29,6 +44,7 @@ function printMailInfo(jsonp){
   console.log(jsonp);
 
   var result_div = document.getElementById('mail_result');
+  result_div.innerHTML = '';
 
   var para = document.createElement('p');
   if (jsonp === null) {
