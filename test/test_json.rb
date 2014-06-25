@@ -8,7 +8,7 @@ class TestJSON < Minitest::Test
     Sinatra::Application
   end
 
-  def test_jsonp_callback
+  def test_jsonp_callback_string_format
     get '/delivery.json?order_ref=foo&callback=bar'
     assert last_response.ok?
     assert_match(/\Abar(.*);\z/, last_response.body)

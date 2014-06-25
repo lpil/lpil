@@ -25,6 +25,8 @@ db_path = {
 }
 set :database, db_path[settings.environment]
 
+puts settings.environment
+
 # Allow embedding in iframes
 set :protection, except: [:frame_options, :json_csrf]
 
