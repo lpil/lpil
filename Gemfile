@@ -9,3 +9,7 @@ gem 'slim'
 gem 'httparty'
 gem 'pony'
 gem 'json'
+
+group :development, :test do
+  gem 'minitest'
+end

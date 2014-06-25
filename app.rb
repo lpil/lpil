@@ -23,7 +23,7 @@ set :database, db_path[settings.environment]
 set :protection, except: [:frame_options, :json_csrf]
 
 # Logger
-$log = Logger.new('tmp/app.log', 2, 1_024_000)
+$logger = Logger.new('tmp/app.log', 2, 1_024_000)
 
 # Threads
 $threads = {}
@@ -55,7 +55,7 @@ $threads[:mailings] = Thread.new do
       Mailing.delete_all(['date_sent < ?', Time.now - 7_776_000]) # 90 days
       sleep 3_600 # 1 hour
     rescue StandardError, ScriptError => e
-      $logger.error { "Mailing Thread => #{e}\n#{e.backtrace.join "\t\n"}" }
+      $logger.error { "Mailing Thread => #{e}\n#{e.backtrace.join "\n-> "}" }
       sleep 60
     end
   end
