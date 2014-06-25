@@ -29,15 +29,15 @@ class Mailing < ActiveRecord::Base
   # Parsed reports are saved to the database
   def self.fetch_new_reports!
     Mailing.each_new_dpd_ftp_report do |ftp, file|
-      ftp.gettextfile(file, "#{File.expand_path('tmp/')}/#{file}")
+      ftp.gettextfile(file, $d[:tmp] + file)
 
       Mailing.create(
         Mailing.parse_dpd_report(
-          File.read("tmp/#{file}").force_encoding('BINARY')
+          File.read($d[:tmp] + file).force_encoding('BINARY')
         ).merge(date_sent: ftp.mtime(file))
       )
       ftp.rename(file, "parsed_reports/#{file}")
-      File.delete "tmp/#{file}"
+      File.delete($d[:tmp] + file)
     end
   end
 
@@ -61,6 +61,8 @@ class Mailing < ActiveRecord::Base
     end
 
     Net::FTP.open(site, login, pass) do |ftp|
+      ftp.passive = true
+
       files = ftp.nlst
       ftp.mkdir 'parsed_reports' unless files.include? 'parsed_reports'
 

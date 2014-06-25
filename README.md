@@ -1,6 +1,6 @@
 # Solutions Infocloud
 
-Deployable on openshift (with the openshift branch)
+Deployable on openshift
 
 ## Enviroment Variables
 
