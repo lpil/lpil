@@ -13,7 +13,7 @@ class TestApp < Minitest::Test
   end
 
   def test_rack_env_is_test
-    assert_equal 'test', app.settings.environment
+    assert_equal 'test', ENV['RACK_ENV']
   end
 
   def test_get_root_ok?
