@@ -4,3 +4,4 @@ doc/
 *.sqlite3
 tmp/*
 .DS_Store
+*.log
