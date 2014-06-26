@@ -12,6 +12,7 @@ Bundle 'garbas/vim-snipmate'
 Bundle 'guns/vim-clojure-static'
 Bundle 'guns/vim-sexp'
 Bundle 'honza/vim-snippets'
+Bundle 'justinmk/vim-sneak'
 Bundle 'kien/ctrlp.vim'
 Bundle 'marcweber/vim-addon-mw-utils'
 Bundle 'oblitum/rainbow'
@@ -275,6 +276,12 @@ let g:rainbow_active = 0
 
 " On for these filetypes
 au FileType clojure call rainbow#load()
+
+"""""""""""""""""
+" Plugin: Sneak "
+"""""""""""""""""
+
+let g:sneak#s_next = 1
 
 """""""""""""""""""""""""""""""""""""
 " And finally, per-project .vimrc's "
