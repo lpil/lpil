@@ -41,6 +41,9 @@ require 'routes.rb'
 require 'models/mailing.rb'
 require 'models/axa_upload.rb'
 
+# Periodic tasks
+require 'lib/every.rb'
+
 # Helpers
 helpers do
   def html_escape(text)
@@ -48,21 +51,16 @@ helpers do
   end
 end
 
-# DPD + post delivery tracking
 #
-# Every hour:
-#   Check the DPD report FTP for new reports, and add them to the database
-#   Delete mailings more than 90 days old from the database
+# Periodic Tasks
+#
 
-$threads[:mailings] = Thread.new do
-  loop do
-    begin
-      Mailing.fetch_new_reports!
-      Mailing.delete_all(['date_sent < ?', 90.days.ago])
-      sleep 1.hour
-    rescue StandardError, ScriptError => e
-      $logger.error { "Mailing Thread => #{e}\n#{e.backtrace.join "\n-> "}" }
-      sleep 2.minutes
-    end
-  end
+# Check the DPD report FTP for new reports, and add them to the database
+$threads[:fetch_dpd_reports] = every 1.hour do
+  Mailing.fetch_new_reports!
+end
+
+#  Delete mailings more than 90 days old from the database
+$threads[:delete_old_mailings] = every 1.hour do
+  Mailing.delete_all(['date_sent < ?', 90.days.ago])
 end

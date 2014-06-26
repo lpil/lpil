@@ -34,7 +34,7 @@ class TestApp < Minitest::Test
   def test_status_mentions_all_threads
     get '/status'
     $threads.keys.each do |name|
-      assert_match(/#{name} Thread/, last_response.body)
+      assert_match(/#{name}/, last_response.body)
     end
   end
 
@@ -44,7 +44,11 @@ class TestApp < Minitest::Test
                  last_response.body)
   end
 
-  def test_mailing_thread_alive?
-    assert $threads[:mailings].alive?
+  def test_fetch_dpd_reports_thread_alive?
+    assert $threads[:fetch_dpd_reports].alive?
+  end
+
+  def test_fetch_dpd_reports_thread_alive?
+    assert $threads[:delete_old_mailings].alive?
   end
 end
