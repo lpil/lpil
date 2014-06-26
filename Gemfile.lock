@@ -38,6 +38,7 @@ GEM
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
+    rake (10.3.2)
     sinatra (1.4.5)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -74,6 +75,7 @@ DEPENDENCIES
   json
   minitest
   pony
+  rake
   sinatra
   sinatra-activerecord
   sinatra-contrib
