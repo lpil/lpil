@@ -51,4 +51,10 @@ class TestApp < Minitest::Test
   def test_fetch_dpd_reports_thread_alive?
     assert $threads[:delete_old_mailings].alive?
   end
+
+  def test_d_dirs_end_with_slash
+    $d.values.each do |dir|
+      assert_match(/\/\z/, dir)
+    end
+  end
 end

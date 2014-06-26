@@ -1,17 +1,23 @@
+<style>*{font-family:monospace;}</style>
 h3 Threads
 ul
- - $threads.each do |name, thread|
-  li
-   = name
-   ul
+  - $threads.each do |name, thread|
     li
-     = "Thread => #{thread.inspect}"
-    li
-     = "Status => #{thread.status}"
-    li
-     = "Alive? => #{thread.alive?}"
+      = name
+      ul
+        li
+          = "Thread => #{thread.inspect}"
+        li
+          = "Status => #{thread.status}"
+        li
+          = "Alive? => #{thread.alive?}"
 
-h3 Etc
+h3 Env
 p
- | Sinatra::Application Enviroment: 
- = Sinatra::Application.settings.environment
+  | Sinatra::Application Enviroment =>
+  = ' ' << Sinatra::Application.settings.environment.to_s
+
+ul
+- $d.each do |name, path|
+  li
+    == "#{name.to_s.rjust(5).gsub(/ /, '&nbsp;')} dir => #{path}"

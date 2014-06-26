@@ -14,9 +14,9 @@ $LOAD_PATH.unshift path unless $LOAD_PATH.include? path
 
 # Directories
 $d = {}
-$d[:log] = ENV['OPENSHIFT_LOG_DIR'] || File.expand_path('tmp/')
-$d[:tmp] = ENV['OPENSHIFT_TMP_DIR'] || File.expand_path('tmp/')
-$d[:db]  = ENV['OPENSHIFT_DATA_DIR'] || File.expand_path('db/')
+$d[:log] = ENV['OPENSHIFT_LOG_DIR'] || File.expand_path('tmp/') << '/'
+$d[:tmp] = ENV['OPENSHIFT_TMP_DIR'] || File.expand_path('tmp/') << '/'
+$d[:db]  = ENV['OPENSHIFT_DATA_DIR'] || File.expand_path('db/') << '/'
 
 db_path = {
   production:  "sqlite3:#{$d[:db]}db.sqlite3",
