@@ -1,0 +1,143 @@
+
+#investor_insert > div {
+	font-family:Arial,sans-serif;
+	color:#0C2A4A;
+	text-align:center;
+
+	margin:0;
+	font-size:12px;
+	min-width: 750px;
+}
+
+#investor_insert .wrapper {
+	padding:0;
+	padding-bottom:20px;
+	padding-top:15px;
+}
+
+#investor_insert.header.img1 { float:left; }
+
+#investor_insert a img { border: none; }
+
+#investor_insert.container {
+	margin:0 10px;
+	width:800px;
+}
+
+.column {
+	width:33%;
+	margin:0;
+	float:left;
+}
+
+.section-box {
+	margin-bottom:20px;
+	text-align:left;
+	line-height: 150%;
+	padding: 3px 5px 3px 5px;
+}
+
+.section-box h2 {
+	font-family:Arial,sans-serif;
+	background: url('Images/bg_content_repeater.gif') repeat-x ;
+	font-size: 14px;
+	text-align:center;
+	height: 17px;
+	padding: 2px 5px 4px 5px;
+}
+
+ul.questions {
+	list-style-position:outside;
+	padding-left:30px;
+	padding-bottom:20px;
+}
+
+.questions > li {
+	text-decoration:underline;
+	cursor:pointer;
+	padding:8px 3px 8px 0;
+}
+
+#accor_content05 { text-decoration: none; }
+
+ul.questions div {
+	color:#ff0000;
+	display:none;
+}
+
+.generalcontact {
+	clear:both;
+	background-color:#e8e9ed;
+	width:250px;
+	margin:20px auto;
+	padding:10px 5px;
+	border:1px solid #0c2a4a;
+	border-radius:10px;
+}
+
+.enquirieslinks {
+
+	float:left;
+	margin-right:10px;
+}
+
+#selectMenu {
+	text-align: left;
+}
+
+#GeneralEnquiriesHeading h2 { text-align: left;	}
+
+#GeneralEnquiriesHeading {
+    display: inline-block;
+    margin-right: 15px;
+    min-width:700px;
+    text-align: left;
+    float: left;
+
+}
+
+#accor_content06 li {
+	font-size: 13px;
+	line-height:150%;
+	color: #d90011;
+}
+
+#MessageNoEntries { visibility: hidden }
+#divCategoryPath  { visibility: hidden }
+
+/* Accordion CSS */
+#investor_insert .accor_toggle {
+  cursor: pointer;
+  margin: 0px;
+  padding: 0px 0px 10px;
+  text-align: left;
+  line-height: 150%;
+  }
+
+
+#accor_toggle00, #accor_toggle01, #accor_toggle02,
+#accor_toggle03, #accor_toggle04, #accor_toggle05,
+#accor_toggle06, #accor_toggle07, #accor_toggle08,
+#accor_toggle09, #accor_toggle10, #accor_toggle11,
+#accor_toggle12, #accor_toggle13, #accor_toggle14,
+#accor_toggle15, #accor_toggle16, #accor_toggle17,
+#accor_toggle18, #accor_toggle19, #accor_toggle20,
+#accor_toggle21, #accor_toggle22, #accor_toggle23,
+#accor_toggle24, #accor_toggle25,#accor_toggle26,
+#accor_toggle27, #accor_toggle28, #accor_toggle29,
+#accor_toggle30, #accor_toggle31, #accor_toggle32,
+#accor_toggle33, #accor_toggle34, #accor_toggle35,
+#accor_toggle36, #accor_toggle37, #accor_toggle38,
+#accor_toggle39, #accor_toggle40, #accor_toggle41,
+#accor_toggle42, #accor_toggle43, #accor_toggle44,
+#accor_toggle45, #accor_toggle46, #accor_toggle47{
+	margin: 0px;
+	padding: 0px;
+	cursor: pointer;
+	line-height:150%;
+}
+#investor_insert .accor_content          { display: none; }
+#investor_insert .accor_content.default  { display: block; }
+
+
+
