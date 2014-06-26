@@ -13,5 +13,6 @@ gem 'json'
 
 group :development, :test do
   gem 'minitest'
+  gem 'factory_girl'
   gem 'pry'
 end
