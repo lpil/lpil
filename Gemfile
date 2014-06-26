@@ -13,4 +13,5 @@ gem 'json'
 
 group :development, :test do
   gem 'minitest'
+  gem 'pry'
 end

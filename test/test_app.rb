@@ -29,7 +29,19 @@ class TestApp < Minitest::Test
   def test_get_status_ok?
     get '/status'
     assert last_response.ok?
-    assert_match(/Threads/, last_response.body)
+  end
+
+  def test_status_mentions_all_threads
+    get '/status'
+    $threads.keys.each do |name|
+      assert_match(/#{name} Thread/, last_response.body)
+    end
+  end
+
+  def test_status_displays_sinatra_enviroment
+    get '/status'
+    assert_match(/Sinatra::Application Enviroment: test/,
+                 last_response.body)
   end
 
   def test_mailing_thread_alive?

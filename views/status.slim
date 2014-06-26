@@ -1,12 +1,17 @@
 h3 Threads
 ul
- li
-  | Mailings Thread
-  ul
-   li
-    - mailing = $threads[:mailings]
-    = "Thread => #{mailing.inspect}"
-   li
-    = "Status => #{mailing.status}"
-   li
-    = "Alive? => #{mailing.alive?}"
+ - $threads.each do |name, thread|
+  li
+   = "#{name} Thread"
+   ul
+    li
+     = "Thread => #{thread.inspect}"
+    li
+     = "Status => #{thread.status}"
+    li
+     = "Alive? => #{thread.alive?}"
+
+h3 Etc
+p
+ | Sinatra::Application Enviroment: 
+ = Sinatra::Application.settings.environment
