@@ -58,11 +58,11 @@ $threads[:mailings] = Thread.new do
   loop do
     begin
       Mailing.fetch_new_reports!
-      Mailing.delete_all(['date_sent < ?', Time.now - 7_776_000]) # 90 days
-      sleep 3_600 # 1 hour
+      Mailing.delete_all(['date_sent < ?', 90.days.ago])
+      sleep 1.hour
     rescue StandardError, ScriptError => e
       $logger.error { "Mailing Thread => #{e}\n#{e.backtrace.join "\n-> "}" }
-      sleep 60
+      sleep 2.minutes
     end
   end
 end
