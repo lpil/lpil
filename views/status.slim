@@ -15,7 +15,7 @@ ul
 h3 Env
 p
   | Sinatra::Application Enviroment =>
-  = ' ' << Sinatra::Application.settings.environment.to_s
+  = " #{Sinatra::Application.settings.environment}"
 
 ul
 - $d.each do |name, path|

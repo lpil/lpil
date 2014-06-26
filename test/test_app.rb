@@ -40,7 +40,7 @@ class TestApp < Minitest::Test
 
   def test_status_displays_sinatra_enviroment
     get '/status'
-    assert_match(/Sinatra::Application Enviroment: test/,
+    assert_match(/Sinatra::Application Enviroment => test/,
                  last_response.body)
   end
 
