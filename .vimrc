@@ -15,7 +15,6 @@ Bundle 'honza/vim-snippets'
 Bundle 'justinmk/vim-sneak'
 Bundle 'kien/ctrlp.vim'
 Bundle 'marcweber/vim-addon-mw-utils'
-Bundle 'oblitum/rainbow'
 Bundle 'scrooloose/syntastic'
 Bundle 'slim-template/vim-slim'
 Bundle 'tomtom/tlib_vim'
@@ -266,16 +265,6 @@ let g:ctrlp_custom_ignore = {
 """""""""""""""""""""""""""
 
 autocmd FileType slim set commentstring=/\ %s
-
-""""""""""""""""""""
-" plugin : rainbow "
-""""""""""""""""""""
-
-" Off by default
-let g:rainbow_active = 0
-
-" On for these filetypes
-au FileType clojure call rainbow#load()
 
 """""""""""""""""
 " Plugin: Sneak "
