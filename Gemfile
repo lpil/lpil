@@ -11,8 +11,13 @@ gem 'httparty'
 gem 'pony'
 gem 'json'
 
+group :development do
+  gem 'pry'
+  gem 'guard-livereload'
+  gem 'rack-livereload'
+end
+
 group :development, :test do
   gem 'minitest'
   gem 'factory_girl'
-  gem 'pry'
 end

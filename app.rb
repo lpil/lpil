@@ -4,9 +4,12 @@
 require 'sinatra'
 require 'sinatra/activerecord'
 require 'sinatra/reloader' if development?
+require 'rack-livereload' if development?
 require 'slim'
 require 'logger'
 require 'json'
+
+use Rack::LiveReload if development?
 
 # Add out application dir to the require LOAD_PATH
 path = File.expand_path(File.dirname(__FILE__))

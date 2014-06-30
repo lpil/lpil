@@ -1,23 +1,27 @@
-<style>*{font-family:monospace;}</style>
-h3 Threads
-ul
-  - $threads.each do |name, thread|
-    li
-      = name
-      ul
-        li
-          = "Thread => #{thread.inspect}"
-        li
-          = "Status => #{thread.status}"
-        li
-          = "Alive? => #{thread.alive?}"
+doctype html
+head
+  <style>*{font-family:monospace;}</style>
+  <style>body { background: white; }</style>
+body
+  h3 Threads
+  ul
+    - $threads.each do |name, thread|
+      li
+        = name
+        ul
+          li
+            = "Thread => #{thread.inspect}"
+          li
+            = "Status => #{thread.status}"
+          li
+            = "Alive? => #{thread.alive?}"
 
-h3 Env
-p
-  | Sinatra::Application Enviroment =>
-  = " #{Sinatra::Application.settings.environment}"
+  h3 Env
+  p
+    | Sinatra::Application Enviroment =>
+    = " #{Sinatra::Application.settings.environment}"
 
-ul
-- $d.each do |name, path|
-  li
-    == "#{name.to_s.rjust(5).gsub(/ /, '&nbsp;')} dir => #{path}"
+  ul
+    - $d.each do |name, path|
+      li
+        == "#{name.to_s.rjust(5).gsub(/ /, '&nbsp;')} dir => #{path}"
