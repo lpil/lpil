@@ -1240,10 +1240,11 @@ input[type="radio"] {
   padding: 0;
 }
 #page_right #track_order_input {
-  position: relative;
-  top: 1px;
-  width: 110px;
+  width: 100px;
 }
 #page_right #mail_result {
   text-align: center;
+}
+.search_in_cat_result {
+  border: 5px solid hotpink;
 }
