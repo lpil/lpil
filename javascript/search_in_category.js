@@ -1,5 +1,21 @@
-function searchInCat(searchTerm) {
+$('document').ready(function() {
+  // Exit if we're not on a product list category
+  if (document.getElementById('roiProdList_gridViewProducts') === null) {
+    return;
+  }
+  // Insert search in category button
+  var button = document.createElement('a');
+  button.innerHTML = 'Search in category';
+  button.className = 'searchButton';
+  button.id = 'btnSearchCat';
+  button.href = 'javascript:searchInCat();void(0)';
+  document.querySelector('.searchButton-inner').appendChild(button);
+});
+
+function searchInCat() {
+  var searchTerm = document.getElementById('txtSearch').value;
   var prodSelector = '#roiProdList_gridViewProducts > tbody > tr';
+
   // Use the array slice method to drop the first row (header) from nodelist
   var products = [].slice.call(document.querySelectorAll(prodSelector), 1);
   searchTerm = searchTerm.toLowerCase();
@@ -26,6 +42,9 @@ function searchInCat(searchTerm) {
             // Add result class to this one
             products[i].className =
               products[i].className + ' search_in_cat_result';
+
+            // Scroll into view
+            products[i].previousSibling.scrollIntoView();
 
             return i;
           }
