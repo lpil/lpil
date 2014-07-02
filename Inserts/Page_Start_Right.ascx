@@ -31,9 +31,10 @@ div#page_right {
 }
 #page_right > div {
   display: block;
-  margin: 10px 3px;
+  margin: 5px 3px;
   padding: 10px;
 }
+#search_in_cat_popup,
 #quick_links  {
   background: url(Custom/Themes/sjp_2014_06/CSS/Images/blue_box_repeater.gif) repeat-x scroll left bottom #E6F2F6;
 }
@@ -45,14 +46,38 @@ div#page_right {
   top: 1px;
   content: url(Custom/Themes/sjp_2014_06/CSS/Images/breadcrumb_arrow.png);
 }
-#quick_links > h2 {
-  margin: 5px 0 10px 0;
+#page_right h2 {
+  margin: 10px 0 10px 0;
 }
 #basketIcon {
   height: 22px;
   width: 22px;
   background-repeat: no-repeat;
   padding-bottom: 5px;
+}
+#search_in_cat_popup {
+  position: fixed;
+  bottom: 10px;
+  right: 8px;
+  width: 140px;
+  height: 0px;
+  text-align: center;
+  overflow: hidden;
+  padding: 0 10px 0 5px !important;
+}
+#search_in_cat_popup a {
+  font-size: 135%;
+  margin: 0 10px 10px 10px;
+}
+#search_in_cat_popup #close_search_in_cat_popup {
+  position: absolute;
+  top: 3px;
+  right: -4px;
+  color: #333;
+  font-size: 1em;
+}
+#search_in_cat_popup #close_search_in_cat_popup:hover {
+  text-decoration: none;
 }
 </style>
 
@@ -116,5 +141,13 @@ div#page_right {
       href="javascript:void(0)" class="siteButton">Go</a>
     <div id="mail_result">
     </div>
+  </div>
+
+  <!-- Popup search in category section -->
+  <div id="search_in_cat_popup">
+    <h2>Search in category</h2>
+    <a href='javascript:searchInCat();void(0)' class='siteButton'>Next</a>
+    <a href='javascript:slideSearchPopup(90,0);void(0);'
+       id='close_search_in_cat_popup'>[x]</a>
   </div>
 </div>

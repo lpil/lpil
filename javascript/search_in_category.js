@@ -8,9 +8,31 @@ $('document').ready(function() {
   button.innerHTML = 'Search in category';
   button.className = 'searchButton';
   button.id = 'btnSearchCat';
-  button.href = 'javascript:searchInCat();void(0)';
+  button.href = 'javascript:slideSearchPopup(0,90);searchInCat();void(0)';
   document.querySelector('.searchButton-inner').appendChild(button);
 });
+
+function slideSearchPopup(fromHeight, toHeight) {
+  var popup = document.getElementById('search_in_cat_popup');
+  currentHeight = fromHeight;
+  popup.style.height = currentHeight;
+
+  var round;
+  if (fromHeight < toHeight) {
+    round = function(num) { return Math.ceil(num); };
+  } else {
+    round = function(num) { return Math.floor(num); };
+  }
+
+  var interval = setInterval(function() {
+    if (currentHeight === toHeight) {
+      clearInterval(interval);
+    } else {
+      currentHeight += round((toHeight - currentHeight) / 20);
+      popup.style.height = currentHeight + 'px';
+    }
+  }, 10);
+}
 
 function searchInCat() {
   var searchTerm = document.getElementById('txtSearch').value;
