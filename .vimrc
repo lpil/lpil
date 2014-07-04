@@ -158,6 +158,9 @@ nnoremap k gk
 nnoremap + <C-a>
 nnoremap - <C-x>
 
+" Fast buffer switching
+nnoremap , :bn<CR>
+
 " Go away ex mode, you suck
 nnoremap Q <Nop>
 
