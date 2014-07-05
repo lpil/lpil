@@ -8,6 +8,7 @@ call vundle#rc()
 " let Vundle manage Vundle
 Bundle 'gmarik/Vundle.vim'
 
+Bundle 'dag/vim2hs'
 Bundle 'garbas/vim-snipmate'
 Bundle 'guns/vim-clojure-static'
 Bundle 'guns/vim-sexp'
