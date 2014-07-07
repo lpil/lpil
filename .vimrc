@@ -27,6 +27,7 @@ Bundle 'tpope/vim-sexp-mappings-for-regular-people'
 Bundle 'tpope/vim-surround'
 Bundle 'vim-scripts/matchit.zip'
 Bundle 'wting/rust.vim'
+Bundle 'kchmck/vim-coffee-script'
 
 filetype plugin indent on
 filetype plugin on
