@@ -263,6 +263,9 @@ let g:syntastic_ruby_checkers=['mri', 'rubocop']
 " Start in regexp mode
 let g:ctrlp_regexp = 1
 
+" Space inserts a wildcard
+let g:ctrlp_prompt_mappings = { 'PrtAdd(".*")': ['<space>'] }
+
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/](\.git|\.hg|\.svn|_site)$',
   \ }
