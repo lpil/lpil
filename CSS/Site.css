@@ -1245,9 +1245,6 @@ input[type="radio"] {
 #page_right #mail_result {
   text-align: center;
 }
-.search_in_cat_result {
-  box-shadow: 0 0 5px 0 #508AA1;
-}
 div#page_right {
   width: 160px;
   margin-left: 5px;
@@ -1305,4 +1302,8 @@ div#page_right {
 }
 #search_in_cat_popup #close_search_in_cat_popup:hover {
   text-decoration: none;
+}
+.search_in_cat_result {
+  font-weight: bold;
+  border: 2px solid #DFEEF3;
 }
