@@ -42,4 +42,11 @@ gem 'bcrypt', '~> 3.1.7'
 group :test do
   gem 'minitest'
   gem 'capybara'
+  gem 'minitest-rails'
+  gem 'minitest-rails-capybara'
+  gem 'factory_girl'
+end
+
+group :development, :test do
+  gem 'pry'
 end
