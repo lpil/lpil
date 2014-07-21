@@ -30,4 +30,16 @@ class UserTest < ActiveSupport::TestCase
         "#{e} shouldn't be valid"
     end
   end
+
+  def test_dont_allow_duplicate_emails
+    user = FactoryGirl.create(:user)
+    refute user.dup.valid?
+  end
+
+  def test_dont_allow_duplicate_case_insensitive_emails
+    user = FactoryGirl.create(:user)
+    dup_user = user.dup
+    dup_user.email = dup_user.email.upcase
+    refute dup_user.valid?
+  end
 end

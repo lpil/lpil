@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
-  attr_accessor :first_name, :last_name, :email, :reporter, :uploader
+  # Emails should be donwcase
+  before_save { |user| user.email.downcase! }
 
   validates :email, presence: true,
-    format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
+    format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i },
+    uniqueness: { case_sensitive: false }
 end
