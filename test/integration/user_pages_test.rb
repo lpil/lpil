@@ -44,8 +44,13 @@ class UserPagesTest < Capybara::Rails::TestCase
     assert_equal user.last_name, db_user.last_name
   end
 
-  def test_new_user_page_should_show_users_page
+  def test_after_new_user_page_should_show_that_users_page
     user = create_new_user_via_page
     assert page.has_content? user[:email]
+  end
+
+  def test_after_new_user_page_should_not_show_all_users_page
+    create_new_user_via_page
+    refute page.has_selector?('h1', 'Users')
   end
 end

@@ -1,9 +1,9 @@
 <% provide :title, 'Sign up' %>
 <h1>Create new user</h1>
 
-<%= form_for @user do |f| %>
-  <%= render 'error_messages' %>
+<%= render 'error_messages' %>
 
+<%= form_for @user do |f| %>
   <%= f.label :email %>
   <%= f.text_field :email %>
 

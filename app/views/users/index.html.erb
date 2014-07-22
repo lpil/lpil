@@ -1,7 +1,9 @@
 <% provide :title, 'Users' %>
 <h1>Users</h1>
+<ol>
 <% @users.each do |user| %>
-  <p>
+  <li>
     <%= user.first_name %> <%= user.last_name %>, <%= user.email %>
-  </p>
+  </li>
 <% end %>
+</ol>

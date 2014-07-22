@@ -15,9 +15,9 @@ class UsersController < ApplicationController
     @user = User.new params[:user].permit %i(email first_name last_name
       password password_confirmation reporter uploader)
     if @user.save
-      redirect_to users_path @user
+      redirect_to @user
     else
-      render 'new'
+      render :new
     end
   end
 end
