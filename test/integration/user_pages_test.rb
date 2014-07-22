@@ -30,7 +30,7 @@ class UserPagesTest < Capybara::Rails::TestCase
     fill_in 'Last name', with: user.last_name
     fill_in 'Email', with: user.email
     fill_in 'Password', with: user.password
-    fill_in 'Password confirmation', with: user.password_confirmation
+    fill_in 'Confirmation', with: user.password_confirmation
     click_button 'Create new user'
 
     user
@@ -52,5 +52,11 @@ class UserPagesTest < Capybara::Rails::TestCase
   def test_after_new_user_page_should_not_show_all_users_page
     create_new_user_via_page
     refute page.has_selector?('h1', 'Users')
+  end
+
+  def test_flash_message_should_show_after_new_user_creation
+    create_new_user_via_page
+    assert page.has_selector?(
+      '.alert-success', 'New user successfully created')
   end
 end

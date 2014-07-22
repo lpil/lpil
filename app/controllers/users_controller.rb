@@ -15,6 +15,7 @@ class UsersController < ApplicationController
     @user = User.new params[:user].permit %i(email first_name last_name
       password password_confirmation reporter uploader)
     if @user.save
+      flash[:success] = 'New user successfully created'
       redirect_to @user
     else
       render :new
