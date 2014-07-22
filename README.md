@@ -2,7 +2,10 @@
 
 ## Features
 
-* Application is divided into Collections. One per client.
+* Collections
+  * Application is divided into Collections. One per client.
+  * Members of collections cannot view the data of other collections
+  * Collections can have their own site themes
 
 * Categories
   * Categories can contain documents
@@ -39,6 +42,10 @@
     * Spreadsheet format
     * HTML format?
   * A report of all users can be generated
+
+* Front end
+  * Site should be mobile device friendly
+  * ~~Use CSS framework such as Foundation~~
 
 ## Notes
 
