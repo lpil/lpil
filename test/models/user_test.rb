@@ -4,7 +4,8 @@ class UserTest < ActiveSupport::TestCase
 
   def test_user_responds_to_correct_fields
     user = FactoryGirl.build(:user)
-    %i(first_name last_name email reporter uploader).each do |field|
+    %i(first_name last_name email reporter uploader password
+       password_confirmation).each do |field|
       assert user.respond_to?(field), "User should respond to #{field}"
     end
   end
@@ -41,5 +42,34 @@ class UserTest < ActiveSupport::TestCase
     dup_user = user.dup
     dup_user.email = dup_user.email.upcase
     refute dup_user.valid?
+  end
+
+  def test_user_has_authenticate_method
+    assert FactoryGirl.build(:user).respond_to?(:authenticate),
+      'User should have authenticate method'
+  end
+
+  def test_passwords_must_be_longish
+    user = FactoryGirl.build(:user)
+    user.password = user.password_confirmation = 'a' * 7
+    refute user.valid?, 'passwords must be longish'
+  end
+
+  def test_valid_user_authenticate_returns_user
+    user = FactoryGirl.build(:user)
+    assert_equal user, user.authenticate(user.password)
+  end
+
+  def test_invalid_user_authenticate_returns_false
+    user = FactoryGirl.build(:user)
+    refute user.authenticate('this is not the right password')
+  end
+
+  def test_user_invalid_without_password
+    refute FactoryGirl.build(:user, password: '').valid?
+  end
+
+  def test_user_invalid_without_password_confirmation
+    refute FactoryGirl.build(:user, password_confirmation: '').valid?
   end
 end

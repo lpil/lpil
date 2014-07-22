@@ -6,5 +6,7 @@ FactoryGirl.define do
     sequence(:email) { |n| "lpilfold#{n}@email.co.uk" }
     reporter false
     uploader false
+    password 'foobarbaz'
+    password_confirmation 'foobarbaz'
   end
 end
