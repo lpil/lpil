@@ -72,4 +72,10 @@ class UserTest < ActiveSupport::TestCase
   def test_user_invalid_without_password_confirmation
     refute FactoryGirl.build(:user, password_confirmation: '').valid?
   end
+
+  def test_emails_should_be_lowercase_after_save
+    assert_equal 'uppercase@email.co.uk',
+      FactoryGirl.create(:user, email: 'UPPERCASE@EMAIL.CO.UK').email,
+      'Emails should be downcase'
+  end
 end

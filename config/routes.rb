@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
-  get 'users/new'
 
-  get '/signup', to: 'users#new'
+  # TODO: wrap users resources in admin scope
+  # scope '/admin' do
+  #   resources :users
+  # end
+  resources :users
 
   # The priority is based upon order of creation: first created -> highest
   # priority.

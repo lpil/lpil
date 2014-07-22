@@ -2,7 +2,7 @@
 <html>
 <head>
   <title>RaisinDocs</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
@@ -10,5 +10,7 @@
 
 <%= yield %>
 
+<%= debug params if Rails.env.development? %>
+<%= debug flash if Rails.env.development? %>
 </body>
 </html>
