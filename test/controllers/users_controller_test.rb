@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class UsersControllerTest < ActionController::TestCase
-  test "should get new" do
+  def test_should_get_new
     get :new
     assert_response :success
   end

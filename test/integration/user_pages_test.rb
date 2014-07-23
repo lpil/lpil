@@ -37,7 +37,7 @@ class UserPagesTest < Capybara::Rails::TestCase
     fill_in 'Email', with: user.email
     fill_in 'Password', with: user.password
     fill_in 'Confirmation', with: user.password_confirmation
-    click_button 'Create new user'
+    click_button 'Save user'
 
     user
   end
@@ -153,5 +153,35 @@ class UserPagesTest < Capybara::Rails::TestCase
     visit user_path admin
     refute page.has_selector?('a', text: 'Delete'),
       "Delete button should not be present on admin's own page"
+  end
+
+  def test_admin_can_update_users
+   admin = FactoryGirl.create :admin
+   sign_in admin
+   user = FactoryGirl.create :user
+   visit edit_user_path user
+   fill_in 'First name', with: 'Thomas'
+   click_button 'Save user'
+   assert page.has_selector?('.alert', "#{user.email} successfully edited"),
+     'Page after successful edit should have success alert message'
+  end
+
+  def test_failed_user_edit_shows_error_message
+   admin = FactoryGirl.create :admin
+   sign_in admin
+   user = FactoryGirl.create :user
+   visit edit_user_path user
+   fill_in 'Email', with: ''
+   fill_in 'Password', with: 'no'
+   fill_in 'Confirmation', with: "something that doesn't match"
+   click_button 'Save user'
+   assert page.has_selector?('li', 't be blank'),
+     "Email can't be blank alert is missing"
+   assert page.has_selector?('li', 'Email is invalid'),
+     'Email is invalid alert is missing'
+   assert page.has_selector?('li', 'too short'),
+     'Password is too short alert is missing'
+   assert page.has_selector?('li', 'Password confirmation doesn'),
+     "Confirmation doesn't match alert is missing"
   end
 end
