@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   # TODO: wrap users resources in admin scope
   # scope '/admin' do
   #   resources :users
@@ -11,12 +10,11 @@ Rails.application.routes.draw do
   get '/signin',  to: 'sessions#new'
   delete '/signout', to: 'sessions#destroy'
 
+  root 'sessions#new'
+
   # The priority is based upon order of creation: first created -> highest
   # priority.
   # See how all your routes lay out with "rake routes".
-
-  # You can have the root of your site routed with "root"
-  # root 'welcome#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

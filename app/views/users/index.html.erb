@@ -1,9 +1,38 @@
 <% provide :title, 'Users' %>
 <h1>Users</h1>
-<ol>
+<table>
+  <tr>
+    <th>Email</th>
+    <th>First name</th>
+    <th>Last name</th>
+    <% if current_user && current_user.uploader %>
+    <th>Uploader</th>
+    <% end %>
+    <% if current_user && current_user.reporter %>
+    <th>Reporter</th>
+    <% end %>
+  </tr>
 <% @users.each do |user| %>
-  <li>
-    <%= user.first_name %> <%= user.last_name %>, <%= user.email %>
-  </li>
+  <tr>
+    <td>
+      <%= user.email %>
+    </td>
+    <td>
+      <%= user.first_name %>
+    </td>
+    <td>
+      <%= user.last_name %>
+    </td>
+    <% if current_user && current_user.uploader %>
+    <td>
+      <%= user.uploader ? 'True' : '' %>
+    </td>
+    <% end %>
+    <% if current_user && current_user.reporter %>
+    <td>
+      <%= user.reporter ? 'True' : '' %>
+    </td>
+    <% end %>
+  </tr>
 <% end %>
-</ol>
+</table>

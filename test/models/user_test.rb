@@ -83,4 +83,16 @@ class UserTest < ActiveSupport::TestCase
     user = FactoryGirl.create :user
     assert user.remember_token
   end
+
+  def test_blank_reporter_attr_defaults_to_false
+    user = FactoryGirl.create :user, reporter: nil
+    assert user.reporter == false,
+      "Blank user reporter attr doesn't become false"
+  end
+
+  def test_blank_uploader_attr_defaults_to_false
+    user = FactoryGirl.create :user, uploader: nil
+    assert user.uploader == false,
+      "Blank user uploader attr doesn't become false"
+  end
 end
