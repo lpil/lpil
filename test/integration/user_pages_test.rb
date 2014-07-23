@@ -51,12 +51,21 @@ class UserPagesTest < Capybara::Rails::TestCase
 
   def test_after_new_user_page_should_not_show_all_users_page
     create_new_user_via_page
-    refute page.has_selector?('h1', 'Users')
+    refute page.has_selector?('h1', 'Users'),
+      'Page after new user create has the Users header'
   end
 
   def test_flash_message_should_show_after_new_user_creation
     create_new_user_via_page
     assert page.has_selector?(
-      '.alert-success', 'New user successfully created')
+      'div.alert.alert-success', 'New user successfully created'),
+      'Success message missing'
   end
+
+  def test_flash_message_should_show_error_after_failed_new_user_creation
+    create_new_user_via_page FactoryGirl.build :user, password: 'no'
+    refute page.has_selector?('div.alert.alert-error'),
+      'Error message missing'
+  end
+
 end

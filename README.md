@@ -47,6 +47,9 @@
   * Site should be mobile device friendly
   * ~~Use CSS framework such as Foundation~~
 
+* Security
+  * HTTPS should probably be used
+
 ## Notes
 
 ### Storing the category tree in the db
