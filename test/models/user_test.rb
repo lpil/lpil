@@ -5,7 +5,7 @@ class UserTest < ActiveSupport::TestCase
   def test_user_responds_to_correct_fields
     user = FactoryGirl.build(:user)
     %i(first_name last_name email reporter uploader password
-       password_confirmation).each do |field|
+       password_confirmation remember_token).each do |field|
       assert user.respond_to?(field), "User should respond to #{field}"
     end
   end
@@ -77,5 +77,10 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 'uppercase@email.co.uk',
       FactoryGirl.create(:user, email: 'UPPERCASE@EMAIL.CO.UK').email,
       'Emails should be downcase'
+  end
+
+  def test_saved_user_should_have_remember_token
+    user = FactoryGirl.create :user
+    assert user.remember_token
   end
 end

@@ -1,9 +1,9 @@
 require "test_helper"
 
 class UserPagesTest < Capybara::Rails::TestCase
-  def test_users_index_has_title
+  def test_users_index_has_h1
     visit 'users'
-    assert page.has_selector? 'h1', 'Users'
+    assert page.has_selector? 'h1', text: 'Users'
   end
 
   def test_users_index_shows_users
@@ -17,15 +17,18 @@ class UserPagesTest < Capybara::Rails::TestCase
     end
   end
 
-  def test_new_user_page_has_title
-    visit 'users#new'
-    assert page.has_selector? 'h1', 'Create new user'
+  def test_new_user_page_has_correct_content
+    visit 'users/new'
+    assert page.has_selector? 'h1', text: 'Create new user'
+    %w(Email First Last Password Confirmation).each do |label|
+      assert page.has_selector?('label', text: label),
+        "New user page should have label '#{label}'"
+    end
   end
 
   def create_new_user_via_page(user = nil)
     user ||= FactoryGirl.build :user
     visit 'users/new'
-    assert page.has_content?('Create new user'), 'foo'
     fill_in 'First name', with: user.first_name
     fill_in 'Last name', with: user.last_name
     fill_in 'Email', with: user.email
@@ -51,14 +54,14 @@ class UserPagesTest < Capybara::Rails::TestCase
 
   def test_after_new_user_page_should_not_show_all_users_page
     create_new_user_via_page
-    refute page.has_selector?('h1', 'Users'),
+    refute page.has_selector?('h1', text: 'Users'),
       'Page after new user create has the Users header'
   end
 
   def test_flash_message_should_show_after_new_user_creation
     create_new_user_via_page
     assert page.has_selector?(
-      'div.alert.alert-success', 'New user successfully created'),
+      'div.alert.alert-success', text: 'New user successfully created'),
       'Success message missing'
   end
 

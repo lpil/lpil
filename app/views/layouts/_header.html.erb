@@ -1,0 +1,15 @@
+<header class="navbar navbar-fixed-top">
+  <h1>
+    <%= link_to 'RaisinDocs', '#', class: 'navbar--logo' %>
+  </h1>
+  <ul>
+  <% if signed_in? %>
+    <li>
+      <%= link_to 'Profile', current_user %>
+      <%= link_to 'Sign out', signout_path, method: :delete %>
+    </li>
+  <% else %>
+      <%= link_to 'Sign in', signin_path %>
+  <% end %>
+  </ul>
+</header>
