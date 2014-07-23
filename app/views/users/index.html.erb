@@ -11,27 +11,23 @@
     <% if current_user && current_user.reporter %>
     <th>Reporter</th>
     <% end %>
+    <% if current_user && current_user.admin %>
+    <th>Admin</th>
+    <% end %>
   </tr>
 <% @users.each do |user| %>
   <tr>
-    <td>
-      <%= user.email %>
-    </td>
-    <td>
-      <%= user.first_name %>
-    </td>
-    <td>
-      <%= user.last_name %>
-    </td>
+    <td><%= link_to user.email, user %></td>
+    <td><%= user.first_name %></td>
+    <td><%= user.last_name %></td>
     <% if current_user && current_user.uploader %>
-    <td>
-      <%= user.uploader ? 'True' : '' %>
-    </td>
+    <td><%= 'True' if user.uploader %></td>
     <% end %>
     <% if current_user && current_user.reporter %>
-    <td>
-      <%= user.reporter ? 'True' : '' %>
-    </td>
+    <td><%= 'True' if user.reporter %></td>
+    <% end %>
+    <% if current_user && current_user.admin %>
+    <td><%= 'True' if user.admin %></td>
     <% end %>
   </tr>
 <% end %>

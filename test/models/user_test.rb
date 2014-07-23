@@ -85,13 +85,17 @@ class UserTest < ActiveSupport::TestCase
   end
 
   def test_blank_reporter_attr_defaults_to_false
-    user = FactoryGirl.create :user, reporter: nil
+    user_attrs = FactoryGirl.attributes_for :user
+    user_attrs.delete :reporter
+    user = User.create user_attrs
     assert user.reporter == false,
       "Blank user reporter attr doesn't become false"
   end
 
   def test_blank_uploader_attr_defaults_to_false
-    user = FactoryGirl.create :user, uploader: nil
+    user_attrs = FactoryGirl.attributes_for :user
+    user_attrs.delete :uploader
+    user = User.create user_attrs
     assert user.uploader == false,
       "Blank user uploader attr doesn't become false"
   end

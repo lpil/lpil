@@ -6,10 +6,14 @@
   <% if signed_in? %>
     <li>
       <%= link_to 'Profile', current_user %>
+    </li>
+    <li>
       <%= link_to 'Sign out', signout_path, method: :delete %>
     </li>
   <% else %>
+    <li>
       <%= link_to 'Sign in', signin_path %>
+    </li>
   <% end %>
   </ul>
 </header>

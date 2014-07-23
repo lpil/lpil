@@ -17,4 +17,11 @@ class SessionsHelperTest < ActionView::TestCase
   def test_signed_in_returns_false_if_not_signed_in
     refute signed_in?, 'signed_in? should return false if not signed in'
   end
+
+  def test_current_user?
+    user = FactoryGirl.create :admin
+    sign_in user
+    assert current_user?(user),
+      "current_user? doesn't return true for signed on user"
+  end
 end
