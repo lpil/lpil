@@ -98,7 +98,7 @@ class UserPagesTest < Capybara::Rails::TestCase
       assert page.has_selector?('label', text: label),
         "Edit user page should have label '#{label}'"
     end
-    assert page.has_title(text: "Edit #{user.email}"),
+    assert page.has_title?("Edit #{user.email}"),
       "Title should include 'Edit #{user.email}'"
     assert page.has_selector?('h1', text: "Edit #{user.email}"),
       "A h1 should include 'Edit #{user.email}'"
@@ -130,11 +130,28 @@ class UserPagesTest < Capybara::Rails::TestCase
       'Edit button should not be present on user page different user'
   end
 
-  def test_no_edit_button_on_user_page_for_same_admin
+  def test_delete_button_on_user_page_for_admin
+    admin = FactoryGirl.create :admin
+    sign_in admin
+    user = FactoryGirl.create :user
+    visit user_path user
+    assert page.has_selector?('a', text: 'Delete'),
+      'Delete buttons should be present on user list for admin'
+  end
+
+  def test_edit_buttons_on_user_index_for_admin
+    admin = FactoryGirl.create :admin
+    sign_in admin
+    visit users_path
+    assert page.has_selector?('a', text: 'Edit'),
+      'Delete button should be present on user page for admin'
+  end
+
+  def test_no_delete_button_on_user_page_for_same_admin
     admin = FactoryGirl.create :admin
     sign_in admin
     visit user_path admin
-    refute page.has_selector?('a', text: 'Edit'),
-      "Edit button should not be present on admin's own page"
+    refute page.has_selector?('a', text: 'Delete'),
+      "Delete button should not be present on admin's own page"
   end
 end

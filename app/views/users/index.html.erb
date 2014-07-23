@@ -29,6 +29,9 @@
     <% if current_user && current_user.admin %>
     <td><%= 'True' if user.admin %></td>
     <% end %>
+    <% if current_user && current_user.admin %>
+    <td><%= link_to 'Edit', edit_user_path(user) %></td>
+    <% end %>
   </tr>
 <% end %>
 </table>
