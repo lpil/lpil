@@ -99,4 +99,10 @@ class UserTest < ActiveSupport::TestCase
     assert user.uploader == false,
       "Blank user uploader attr doesn't become false"
   end
+
+  def test_users_can_be_updated_without_password_given
+    user = FactoryGirl.create :user
+    assert user.update(first_name: 'John'),
+      'User should be able to be updated without updating the password'
+  end
 end
