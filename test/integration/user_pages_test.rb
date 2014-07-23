@@ -18,9 +18,12 @@ class UserPagesTest < Capybara::Rails::TestCase
   end
 
   def test_new_user_page_has_correct_content
-    visit 'users/new'
+    admin = FactoryGirl.create :admin
+    sign_in admin
+    visit new_user_path
     assert page.has_selector? 'h1', text: 'Create new user'
-    %w(Email First Last Password Confirmation).each do |label|
+    %w(Email First Last Password Confirmation Reporter Uploader Admin
+    ).each do |label|
       assert page.has_selector?('label', text: label),
         "New user page should have label '#{label}'"
     end
@@ -37,6 +40,20 @@ class UserPagesTest < Capybara::Rails::TestCase
     click_button 'Create new user'
 
     user
+  end
+
+  def test_failed_user_creation_should_repopulate_fields
+    user = FactoryGirl.build :user, password: 'no'
+    create_new_user_via_page user
+    assert page.has_selector?('#user_first_name', visible: user.first_name),
+      'First name field not repopulated upon incorrect submission'
+    assert page.has_selector?('#user_last_name', visible: user.last_name),
+      'Last name field not repopulated upon incorrect submission'
+    assert page.has_selector?('#user_password', visible: user.password),
+      'Password name field not repopulated upon incorrect submission'
+    assert page.has_selector?('#user_password_confirmation',
+                              visible: user.password_confirmation),
+      'Password confirmation field not repopulated upon incorrect submission'
   end
 
   def test_new_user_page_should_save_to_db
@@ -71,4 +88,53 @@ class UserPagesTest < Capybara::Rails::TestCase
       'Error message missing'
   end
 
+  def test_user_edit_path_has_correct_content
+    admin = FactoryGirl.create :admin
+    sign_in admin
+    user = FactoryGirl.create :user
+    visit edit_user_path user
+    %w(Email First Last Password Confirmation Uploader Reporter Admin
+    ).each do |label|
+      assert page.has_selector?('label', text: label),
+        "Edit user page should have label '#{label}'"
+    end
+    assert page.has_title(text: "Edit #{user.email}"),
+      "Title should include 'Edit #{user.email}'"
+    assert page.has_selector?('h1', text: "Edit #{user.email}"),
+      "A h1 should include 'Edit #{user.email}'"
+  end
+
+  def test_edit_button_on_user_page_for_admin
+    admin = FactoryGirl.create :admin
+    sign_in admin
+    user = FactoryGirl.create :user
+    visit user_path user
+    assert page.has_selector?('a', text: 'Edit'),
+      'Edit button missing from user page for admin viewer'
+  end
+
+  def test_edit_button_on_user_page_for_same_user
+    user = FactoryGirl.create :user
+    sign_in user
+    visit user_path user
+    assert page.has_selector?('a', text: 'Edit'),
+      'Edit button missing from user page for same user viewer'
+  end
+
+  def test_no_edit_button_on_user_page_for_non_same_regular_user
+    user = FactoryGirl.create :user
+    sign_in user
+    other_user = FactoryGirl.create :user
+    visit user_path other_user
+    refute page.has_selector?('a', text: 'Edit'),
+      'Edit button should not be present on user page different user'
+  end
+
+  def test_no_edit_button_on_user_page_for_same_admin
+    admin = FactoryGirl.create :admin
+    sign_in admin
+    visit user_path admin
+    refute page.has_selector?('a', text: 'Edit'),
+      "Edit button should not be present on admin's own page"
+  end
 end

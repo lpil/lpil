@@ -1,0 +1,32 @@
+<%= form_for @user do |f| %>
+  <%= f.label :email %>
+  <%= f.text_field :email %>
+
+  <%= f.label :first_name %>
+  <%= f.text_field :first_name %>
+
+  <%= f.label :last_name %>
+  <%= f.text_field :last_name %>
+
+  <%= f.label :password %>
+  <%= f.password_field :password %>
+
+  <%= f.label :password_confirmation, 'Confirmation' %>
+  <%= f.password_field :password_confirmation %>
+
+  <% if current_user && current_user.admin? %>
+  <%= f.label :uploader %>
+  <%= f.check_box :uploader %><br/>
+
+  <%= f.label :reporter %>
+  <%= f.check_box :reporter %><br/>
+
+  <section class="danger">
+    <h5>Danger Zone!</h5>
+    <%= f.label :admin %>
+    <%= f.check_box :admin %><br/>
+  </section>
+  <% end %>
+
+  <%= f.submit 'Create new user', class: 'btn' %>
+<% end %>

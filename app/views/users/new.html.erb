@@ -2,22 +2,4 @@
 <h1>Create new user</h1>
 
 <%= render 'error_messages' %>
-
-<%= form_for @user do |f| %>
-  <%= f.label :email %>
-  <%= f.text_field :email %>
-
-  <%= f.label :first_name %>
-  <%= f.text_field :first_name %>
-
-  <%= f.label :last_name %>
-  <%= f.text_field :last_name %>
-
-  <%= f.label :password %>
-  <%= f.password_field :password %>
-
-  <%= f.label :password_confirmation, 'Confirmation' %>
-  <%= f.password_field :password_confirmation %>
-
-  <%= f.submit 'Create new user', class: 'btn' %>
-<% end %>
+<%= render 'user_form' %>

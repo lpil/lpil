@@ -27,6 +27,11 @@
     <% if @user.admin %>
     <td>True</td>
     <% end %>
+    <% if @user == current_user || (current_user && current_user.admin?) %>
+    <td>
+      <%= link_to 'Edit', edit_user_path(@user) %>
+    </td>
+    <% end %>
   </tr>
 </table>
 <% if current_user && current_user.admin? && !current_user?(@user) %>
