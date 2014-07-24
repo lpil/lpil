@@ -10,5 +10,12 @@ class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 
-  # Add more helper methods to be used by all tests here...
+end
+
+class Capybara::Rails::TestCase
+  def new_signed_in_user
+    user = FactoryGirl.create :user
+    sign_in user
+    user
+  end
 end

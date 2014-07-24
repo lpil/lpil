@@ -40,4 +40,8 @@ class UsersController < ApplicationController
       render 'edit'
     end
   end
+
+  def current
+    redirect_to user_path current_user
+  end
 end

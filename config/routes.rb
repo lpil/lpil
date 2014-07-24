@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
-  # TODO: wrap users resources in admin scope
-  # scope '/admin' do
-  #   resources :users
-  # end
+  get '/users/current', to: 'users#current'
+
   resources :users
 
   # Authentication

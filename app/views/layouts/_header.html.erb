@@ -3,10 +3,14 @@
     <li class="name">
       <h1><%= link_to 'RaisinDocs', root_path %></h1>
     </li>
+    <%# Menu button for small screens %>
+    <li class="toggle-topbar menu-icon">
+      <a href="#"><span></span></a>
+    </li>
   </ul>
 
   <section class="top-bar-section">
-    <!-- Right Nav Section -->
+    <%# Right Nav Section %>
     <ul class="right">
     <% if signed_in? %>
       <% if current_user.admin? %>
