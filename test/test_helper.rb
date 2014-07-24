@@ -7,15 +7,20 @@ require 'minitest/rails/capybara'
 FactoryGirl.find_definitions
 
 class ActiveSupport::TestCase
-  # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
+  # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical
+  # order.
   fixtures :all
-
 end
 
 class Capybara::Rails::TestCase
-  def new_signed_in_user
-    user = FactoryGirl.create :user
-    sign_in user
-    user
+  # Metaprogram a handy method for various user types
+  #   i.e. new_signed_in_user
+  # Creates a new user (or other), signs them in, and returns the someone
+  %i(user admin uploader reporter).each do |type|
+    define_method("new_signed_in_#{type}") do
+      someone = FactoryGirl.create type
+      sign_in someone
+      someone
+    end
   end
 end

@@ -29,8 +29,7 @@ class UserPagesTest < Capybara::Rails::TestCase
   end
 
   def test_signin_page_should_redirect_if_signed_in
-    user = FactoryGirl.create :user
-    sign_in user
+    new_signed_in_user
     visit signin_path
     refute page.has_selector?('h1', text: 'Sign in'),
       "Visiting signin_path when signed in should not show 'Sign in' h1"
@@ -70,8 +69,7 @@ class UserPagesTest < Capybara::Rails::TestCase
 
   def test_user_delete_button_does_not_show_for_non_admins
     user = FactoryGirl.create :user
-    non_admin = FactoryGirl.create :user
-    sign_in non_admin
+    new_signed_in_user
     visit user_path(user)
     refute page.has_selector?('a', text: 'Delete user'),
       'User page should not have delete link for non-admin'
