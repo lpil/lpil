@@ -76,4 +76,27 @@ class UserPagesTest < Capybara::Rails::TestCase
     refute page.has_selector?('a', text: 'Delete user'),
       'User page should not have delete link for non-admin'
   end
+
+  def admins_can_edit_user_status_of(attribute)
+    admin = FactoryGirl.create :admin
+    user = FactoryGirl.create :user, attribute.downcase => false
+    sign_in admin
+    visit edit_user_path(user)
+    check attribute
+    click_button 'Save user'
+    user.reload
+    assert user[attribute.downcase]
+  end
+
+  def test_admins_can_edit_user_status_of_reporter
+    admins_can_edit_user_status_of 'Reporter'
+  end
+
+  def test_admins_can_edit_user_status_of_admin
+    admins_can_edit_user_status_of 'Admin'
+  end
+
+  def test_admins_can_edit_user_status_of_uploader
+    admins_can_edit_user_status_of 'Uploader'
+  end
 end
