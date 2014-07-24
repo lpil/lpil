@@ -39,7 +39,7 @@ class UserPagesTest < Capybara::Rails::TestCase
   def test_flash_for_signin_with_incorrect_email
     visit signin_path
     click_button 'Sign in'
-    assert page.has_selector?('div.alert-box.error', text: 'Unknown email'),
+    assert page.has_selector?('.alert-box.error', text: 'Unknown email'),
       "'Unknown email' flash message missing after incorrect login email"
   end
 
@@ -48,14 +48,14 @@ class UserPagesTest < Capybara::Rails::TestCase
     visit signin_path
     fill_in 'Email', with: user.email
     click_button 'Sign in'
-    assert page.has_selector?('div.alert-box.error',
+    assert page.has_selector?('.alert-box.error',
                               text: 'Incorrect password'),
       "'Incorrect password' flash message missing after incorrect password"
   end
 
   def test_signout_has_flash_after
     page.driver.submit :delete, signout_path, {}
-    assert page.has_selector?('div.alert-box.success', text: 'Signed out'),
+    assert page.has_selector?('.alert-box.success', text: 'Signed out'),
       "Page after sign out is missing flash message"
   end
 

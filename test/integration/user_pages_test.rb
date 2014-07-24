@@ -78,7 +78,7 @@ class UserPagesTest < Capybara::Rails::TestCase
   def test_flash_message_should_show_after_new_user_creation
     create_new_user_via_page
     assert page.has_selector?(
-      'div.alert-box.success', text: 'New user successfully created'),
+      '.alert-box.success', text: 'New user successfully created'),
       'Success message missing'
   end
 
