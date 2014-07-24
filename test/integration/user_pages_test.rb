@@ -149,7 +149,7 @@ class UserPagesTest < Capybara::Rails::TestCase
   end
 
   def test_admin_can_update_users
-    new_signed_in_admin 
+    new_signed_in_admin
     user = FactoryGirl.create :user
     visit edit_user_path user
     fill_in 'First name', with: 'Thomas'

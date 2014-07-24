@@ -1,0 +1,9 @@
+<% flash.each do |key, value| %>
+  <aside class="row">
+    <article class="columns small-centered small-6 alert-box <%= key %> flash"
+      data-alert>
+      <%= value %>
+      <a href="#" class="close">&times;</a>
+    </article>
+  </aside>
+<% end %>
