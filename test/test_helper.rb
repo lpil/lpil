@@ -13,6 +13,14 @@ class ActiveSupport::TestCase
 end
 
 class Capybara::Rails::TestCase
+  def sign_in(user)
+    visit signin_path
+    fill_in 'Email', with: user.email
+    fill_in 'Password', with: user.password
+    click_button 'Sign in'
+    user
+  end
+
   # Metaprogram a handy method for various user types
   #   i.e. new_signed_in_user
   # Creates a new user (or other), signs them in, and returns the someone
@@ -20,7 +28,6 @@ class Capybara::Rails::TestCase
     define_method("new_signed_in_#{type}") do
       someone = FactoryGirl.create type
       sign_in someone
-      someone
     end
   end
 end

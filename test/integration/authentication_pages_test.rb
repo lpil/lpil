@@ -1,13 +1,6 @@
 require 'test_helper'
 
-class UserPagesTest < Capybara::Rails::TestCase
-  def sign_in(user)
-    visit signin_path
-    fill_in 'Email', with: user.email
-    fill_in 'Password', with: user.password
-    click_button 'Sign in'
-  end
-
+class AuthenticationTest < Capybara::Rails::TestCase
   def test_signin_page_content
     visit signin_path
     assert page.has_selector?('h1', text: 'Sign in'),
