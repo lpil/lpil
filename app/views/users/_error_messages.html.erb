@@ -1,7 +1,7 @@
 <aside class="row">
   <% if @user.errors.any? %>
     <% @user.errors.full_messages.each do |error| %>
-    <article class="middle-centered middle-6 alert-box alert">
+    <article class="middle-centered middle-6 alert-box alert" data-alert>
       <%= error %>
       <a href="#" class="close">&times;</a>
     </article>

@@ -1,5 +1,6 @@
 <% provide :title, "Edit #{@user.email}" %>
-<h1>Edit <%= @user.email %></h1>
+<section class="row">
+  <h1 class="columns medium-12 small-centered">Edit <%= @user.email %></h1>
+</section>
 
-<%= render 'error_messages' %>
 <%= render 'user_form' %>

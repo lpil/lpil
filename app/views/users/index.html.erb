@@ -1,37 +1,39 @@
 <% provide :title, 'Users' %>
-<h1>Users</h1>
-<table>
-  <tr>
-    <th>Email</th>
-    <th>First name</th>
-    <th>Last name</th>
-    <% if current_user && current_user.uploader %>
-    <th>Uploader</th>
-    <% end %>
-    <% if current_user && current_user.reporter %>
-    <th>Reporter</th>
-    <% end %>
-    <% if current_user && current_user.admin %>
-    <th>Admin</th>
-    <% end %>
-  </tr>
-<% @users.each do |user| %>
-  <tr>
-    <td><%= link_to user.email, user %></td>
-    <td><%= user.first_name %></td>
-    <td><%= user.last_name %></td>
-    <% if current_user && current_user.uploader %>
-    <td><%= 'True' if user.uploader %></td>
-    <% end %>
-    <% if current_user && current_user.reporter %>
-    <td><%= 'True' if user.reporter %></td>
-    <% end %>
-    <% if current_user && current_user.admin %>
-    <td><%= 'True' if user.admin %></td>
-    <% end %>
-    <% if current_user && current_user.admin %>
-    <td><%= link_to 'Edit', edit_user_path(user) %></td>
-    <% end %>
-  </tr>
-<% end %>
-</table>
+<section class="row">
+  <h1 class="columns medium-12 small-centered">Users</h1>
+  <table class="columns medium-12 small-centered">
+    <tr>
+      <th>Email</th>
+      <th>First name</th>
+      <th>Last name</th>
+      <% if current_user && current_user.uploader %>
+      <th>Uploader</th>
+      <% end %>
+      <% if current_user && current_user.reporter %>
+      <th>Reporter</th>
+      <% end %>
+      <% if current_user && current_user.admin %>
+      <th>Admin</th>
+      <% end %>
+    </tr>
+  <% @users.each do |user| %>
+    <tr>
+      <td><%= link_to user.email, user %></td>
+      <td><%= user.first_name %></td>
+      <td><%= user.last_name %></td>
+      <% if current_user && current_user.uploader %>
+      <td><%= 'True' if user.uploader %></td>
+      <% end %>
+      <% if current_user && current_user.reporter %>
+      <td><%= 'True' if user.reporter %></td>
+      <% end %>
+      <% if current_user && current_user.admin %>
+      <td><%= 'True' if user.admin %></td>
+      <% end %>
+      <% if current_user && current_user.admin %>
+      <td><%= link_to 'Edit', edit_user_path(user) %></td>
+      <% end %>
+    </tr>
+  <% end %>
+  </table>
+</section>

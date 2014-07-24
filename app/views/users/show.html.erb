@@ -1,40 +1,43 @@
 <% provide :title, "User #{@user.email}" %>
-<table>
-  <tr>
-    <th>Email</th>
-    <th>First name</th>
-    <th>Last name</th>
-    <% if @user.uploader %>
-    <th>Uploader</th>
-    <% end %>
-    <% if @user.reporter %>
-    <th>Reporter</th>
-    <% end %>
-    <% if @user.admin %>
-    <th>Admin</th>
-    <% end %>
-  </tr>
-  <tr>
-    <td><%= @user.email %></td>
-    <td><%= @user.first_name %></td>
-    <td><%= @user.last_name %></td>
-    <% if @user.uploader %>
-    <td>True</td>
-    <% end %>
-    <% if @user.reporter %>
-    <td>True</td>
-    <% end %>
-    <% if @user.admin %>
-    <td>True</td>
-    <% end %>
-    <% if @user == current_user || (current_user && current_user.admin?) %>
-    <td>
-      <%= link_to 'Edit', edit_user_path(@user) %>
-    </td>
-    <% end %>
-  </tr>
-</table>
-<% if current_user && current_user.admin? && !current_user?(@user) %>
-  <%= link_to 'Delete user', @user, method: :delete,
-    confirm: 'Are you sure?' %>
-<% end %>
+<section class="row">
+  <h1 class="columns medium-12 small-centered"><%= @user.email %></h1>
+  <table class="columns medium-12 small-centered">
+    <tr>
+      <th>Email</th>
+      <th>First name</th>
+      <th>Last name</th>
+      <% if @user.uploader %>
+      <th>Uploader</th>
+      <% end %>
+      <% if @user.reporter %>
+      <th>Reporter</th>
+      <% end %>
+      <% if @user.admin %>
+      <th>Admin</th>
+      <% end %>
+    </tr>
+    <tr>
+      <td><%= @user.email %></td>
+      <td><%= @user.first_name %></td>
+      <td><%= @user.last_name %></td>
+      <% if @user.uploader %>
+      <td>True</td>
+      <% end %>
+      <% if @user.reporter %>
+      <td>True</td>
+      <% end %>
+      <% if @user.admin %>
+      <td>True</td>
+      <% end %>
+      <% if @user == current_user || (current_user && current_user.admin?) %>
+      <td>
+        <%= link_to 'Edit', edit_user_path(@user) %>
+      </td>
+      <% end %>
+    </tr>
+  </table>
+  <% if current_user && current_user.admin? && !current_user?(@user) %>
+    <%= link_to 'Delete user', @user, method: :delete,
+      confirm: 'Are you sure?', class: 'columns medium-12 small-centered' %>
+  <% end %>
+</section.
