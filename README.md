@@ -24,8 +24,8 @@
 * Users
   * ~~Users can be created~~
   * Users can be removed
-  * Users can change their passwords
-  * Users can change their emails
+  * ~~Users can change their passwords~~
+  * ~~Users can change their emails~~
   * Users can either have upload permissions or not
   * Users can either have reporter permissions or not
 
@@ -44,7 +44,7 @@
   * A report of all users can be generated
 
 * Front end
-  * Site should be mobile device friendly
+  * ~~Site should be mobile device friendly~~
   * ~~Use CSS framework such as Foundation~~
 
 * Security
