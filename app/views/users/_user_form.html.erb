@@ -1,32 +1,43 @@
-<%= form_for @user do |f| %>
-  <%= f.label :email %>
-  <%= f.text_field :email %>
+<article class="row clearfix">
+  <%= form_for @user, class: 'row middle-centered middle-6' do |f| %>
+    <div class="columns">
+      <%= f.label :email %>
+      <%= f.text_field :email %>
+    </div>
 
-  <%= f.label :first_name %>
-  <%= f.text_field :first_name %>
+    <div class="columns medium-6">
+      <%= f.label :first_name %>
+      <%= f.text_field :first_name %>
+    </div>
+    <div class="columns medium-6">
+      <%= f.label :last_name %>
+      <%= f.text_field :last_name %>
+    </div>
 
-  <%= f.label :last_name %>
-  <%= f.text_field :last_name %>
+    <div class="columns medium-6">
+      <%= f.label :password %>
+      <%= f.password_field :password %>
+    </div>
+    <div class="columns medium-6">
+      <%= f.label :password_confirmation, 'Confirmation' %>
+      <%= f.password_field :password_confirmation %>
+    </div>
 
-  <%= f.label :password %>
-  <%= f.password_field :password %>
+    <% if current_user && current_user.admin? %>
+      <div class="columns">
+        <%= f.check_box :uploader %>
+        <%= f.label :uploader %>
 
-  <%= f.label :password_confirmation, 'Confirmation' %>
-  <%= f.password_field :password_confirmation %>
+        <%= f.check_box :reporter %>
+        <%= f.label :reporter %>
 
-  <% if current_user && current_user.admin? %>
-  <%= f.label :uploader %>
-  <%= f.check_box :uploader %><br/>
+        <%= f.check_box :admin %>
+        <%= f.label :admin %>
+      </div>
+    <% end %>
 
-  <%= f.label :reporter %>
-  <%= f.check_box :reporter %><br/>
-
-  <section class="danger">
-    <h5>Danger Zone!</h5>
-    <%= f.label :admin %>
-    <%= f.check_box :admin %><br/>
-  </section>
-  <% end %>
-
-  <%= f.submit 'Save user', class: 'btn' %>
-<% end %>
+    <div class="column">
+      <%= f.submit 'Save user', class: 'button' %>
+    </div>
+    <% end %>
+</article>

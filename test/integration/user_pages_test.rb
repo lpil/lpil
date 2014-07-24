@@ -78,13 +78,13 @@ class UserPagesTest < Capybara::Rails::TestCase
   def test_flash_message_should_show_after_new_user_creation
     create_new_user_via_page
     assert page.has_selector?(
-      'div.alert.alert-success', text: 'New user successfully created'),
+      'div.alert-box.success', text: 'New user successfully created'),
       'Success message missing'
   end
 
   def test_flash_message_should_show_error_after_failed_new_user_creation
     create_new_user_via_page FactoryGirl.build :user, password: 'no'
-    refute page.has_selector?('div.alert.alert-error'),
+    refute page.has_selector?('div.alert-box.error'),
       'Error message missing'
   end
 
@@ -162,7 +162,8 @@ class UserPagesTest < Capybara::Rails::TestCase
    visit edit_user_path user
    fill_in 'First name', with: 'Thomas'
    click_button 'Save user'
-   assert page.has_selector?('.alert', "#{user.email} successfully edited"),
+   assert page.has_selector?('.alert-box',
+                             "#{user.email} successfully edited"),
      'Page after successful edit should have success alert message'
   end
 

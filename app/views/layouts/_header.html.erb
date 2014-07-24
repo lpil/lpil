@@ -1,19 +1,25 @@
-<header class="navbar navbar-fixed-top">
-  <h1>
-    <%= link_to 'RaisinDocs', '#', class: 'navbar--logo' %>
-  </h1>
-  <ul>
-  <% if signed_in? %>
-    <li>
-      <%= link_to 'Profile', current_user %>
+<header class="top-bar" data-topbar>
+  <ul class="title-area">
+    <li class="name">
+      <h1><%= link_to 'RaisinDocs', root_path %></h1>
     </li>
-    <li>
-      <%= link_to 'Sign out', signout_path, method: :delete %>
-    </li>
-  <% else %>
-    <li>
-      <%= link_to 'Sign in', signin_path %>
-    </li>
-  <% end %>
   </ul>
+
+  <section class="top-bar-section">
+    <!-- Right Nav Section -->
+    <ul class="right">
+    <% if signed_in? %>
+      <li>
+        <%= link_to 'Profile', current_user %>
+      </li>
+      <li>
+        <%= link_to 'Sign out', signout_path, method: :delete %>
+      </li>
+    <% else %>
+      <li>
+        <%= link_to 'Sign in', signin_path %>
+      </li>
+    <% end %>
+    </ul>
+  </section>
 </header>

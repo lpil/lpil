@@ -19,13 +19,24 @@
   <%= render 'layouts/header' %>
 
   <% flash.each do |key, value| %>
-    <%= content_tag :div, value, class: "alert alert-#{key}" %>
+    <aside class="row">
+      <article class="middle-centered middle-6 alert-box <%= key %>" data-alert>
+        <%= value %>
+        <a href="#" class="close">&times;</a>
+      </article>
+    </aside>
   <% end %>
 
   <%= yield %>
 
-  <%= debug params if Rails.env.development? %>
-  <%= debug flash if Rails.env.development? %>
+  <% if Rails.env.development? %>
+    <section class="row">
+      <article class="panel middle-centered middle-6">
+        <%= debug params %>
+        <%= debug flash %>
+      </article>
+    </section>
+  <% end %>
 
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 </body>

@@ -1,9 +1,10 @@
-<% if @user.errors.any? %>
-  <div class="errors">
-    <ul>
+<aside class="row">
+  <% if @user.errors.any? %>
     <% @user.errors.full_messages.each do |error| %>
-      <li><%= error %></li>
+    <article class="middle-centered middle-6 alert-box alert">
+      <%= error %>
+      <a href="#" class="close">&times;</a>
+    </article>
     <% end %>
-    </ul>
-  </div>
-<% end %>
+  <% end %>
+</aside>
