@@ -28,7 +28,7 @@ class UsersController < ApplicationController
 
   def update
     safe_fields = %i(email first_name last_name password password_confirmation)
-    safe_fields + %i(reporter uploader admin) if current_user.admin?
+    safe_fields += %i(reporter uploader admin) if current_user.admin?
 
     @user = User.find params[:id]
     if @user.update_attributes params[:user].permit safe_fields
