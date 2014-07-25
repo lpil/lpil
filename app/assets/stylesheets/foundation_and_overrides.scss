@@ -12,18 +12,23 @@
 // Allows the use of rem-calc() or lower-bound() in your settings
 @import "foundation/functions";
 
-// The default font-size is set to 100% of the browser style sheet (usually 16px)
+// The default font-size is set to 100% of the browser style sheet
+// (usually 16px)
 // for compatibility with browser-based text zoom or user-set defaults.
 
-// Since the typical default browser font-size is 16px, that makes the calculation for grid size.
-// If you want your base font-size to be different and not have it affect the grid breakpoints,
-// set $rem-base to $base-font-size and make sure $base-font-size is a px value.
+// Since the typical default browser font-size is 16px, that makes the
+// calculation for grid size.
+// If you want your base font-size to be different and not have it affect the
+// grid breakpoints,
+// set $rem-base to $base-font-size and make sure $base-font-size is a px
+// value.
 // $base-font-size: 100%;
 
 // The $base-font-size is 100% while $base-line-height is 150%
 // $base-line-height: 150%;
 
-// We use this to control whether or not CSS classes come through in the gem files.
+// We use this to control whether or not CSS classes come through in the gem
+// files.
 $include-html-classes: true;
 // $include-print-styles: true;
 $include-html-global-classes: $include-html-classes;
@@ -342,10 +347,10 @@ $alert-padding-top: rem-calc(8);
 // $include-html-button-classes: $include-html-classes;
 
 // We use these to build padding for buttons.
-$button-tny: rem-calc(4);
-$button-sml: rem-calc(8);
-$button-med: rem-calc(10);
-$button-lrg: rem-calc(12);
+$button-tny: rem-calc(2);
+$button-sml: rem-calc(6);
+$button-med: rem-calc(8);
+$button-lrg: rem-calc(10);
 
 // We use this to control the display property.
 // $button-display: inline-block;
@@ -355,10 +360,10 @@ $button-lrg: rem-calc(12);
 // $button-font-family: $body-font-family;
 // $button-font-color: #fff;
 // $button-font-color-alt: #333;
-// $button-font-tny: rem-calc(11);
-// $button-font-sml: rem-calc(13);
-// $button-font-med: rem-calc(16);
-// $button-font-lrg: rem-calc(20);
+$button-font-tny: rem-calc(8);
+$button-font-sml: rem-calc(11);
+$button-font-med: rem-calc(13);
+$button-font-lrg: rem-calc(17);
 // $button-font-weight: $font-weight-normal;
 // $button-font-align: center;
 
@@ -382,7 +387,8 @@ $button-function-factor: -10%;
 
 // $include-html-button-classes: $include-html-classes;
 
-// Sets the margin for the right side by default, and the left margin if right-to-left direction is used
+// Sets the margin for the right side by default, and the left margin if
+// right-to-left direction is used
 // $button-bar-margin-opposite: rem-calc(10);
 // $button-group-border-width: 1px;
 
@@ -1319,4 +1325,41 @@ $sub-nav-active-cursor: default;
 // $range-slider-handle-bg-hover-color: scale-color($primary-color, $lightness: -12%);
 // $range-slider-handle-cursor: pointer;
 
-@import 'foundation';
+@import
+  "foundation/components/grid",
+  // "foundation/components/accordion",
+  "foundation/components/alert-boxes",
+  "foundation/components/block-grid",
+  "foundation/components/breadcrumbs",
+  // "foundation/components/button-groups",
+  "foundation/components/buttons",
+  "foundation/components/clearing",
+  "foundation/components/dropdown",
+  // "foundation/components/dropdown-buttons",
+  // "foundation/components/flex-video",
+  "foundation/components/forms",
+  // "foundation/components/icon-bar",
+  "foundation/components/inline-lists",
+  // "foundation/components/joyride",
+  // "foundation/components/keystrokes",
+  "foundation/components/labels",
+  // "foundation/components/magellan",
+  // "foundation/components/orbit",
+  // "foundation/components/pagination",
+  "foundation/components/panels",
+  // "foundation/components/pricing-tables",
+  "foundation/components/progress-bars",
+  // "foundation/components/range-slider",
+  "foundation/components/reveal",
+  "foundation/components/side-nav",
+  // "foundation/components/split-buttons",
+  // "foundation/components/sub-nav",
+  // "foundation/components/switches",
+  "foundation/components/tables",
+  "foundation/components/tabs",
+  // "foundation/components/thumbs",
+  "foundation/components/tooltips",
+  "foundation/components/top-bar",
+  "foundation/components/type",
+  // "foundation/components/offcanvas",
+  "foundation/components/visibility";
