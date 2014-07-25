@@ -40,7 +40,7 @@ class UserPagesTest < ActionDispatch::IntegrationTest
     fill_in 'Email', with: user.email
     fill_in 'Password', with: user.password
     fill_in 'Confirmation', with: user.password_confirmation
-    click_button 'Save user'
+    click_button 'Save'
 
     user
   end
@@ -157,7 +157,7 @@ class UserPagesTest < ActionDispatch::IntegrationTest
     user = FactoryGirl.create :user
     visit edit_user_path user
     fill_in 'First name', with: 'Thomas'
-    click_button 'Save user'
+    click_button 'Save'
     assert page.has_selector?('.alert-box',
                               "#{user.email} successfully edited"),
     'Page after successful edit should have success alert message'
@@ -170,7 +170,7 @@ class UserPagesTest < ActionDispatch::IntegrationTest
     fill_in 'Email', with: ''
     fill_in 'Password', with: 'no'
     fill_in 'Confirmation', with: "something that doesn't match"
-    click_button 'Save user'
+    click_button 'Save'
     assert page.has_selector?('li', 't be blank'),
       "Email can't be blank alert is missing"
     assert page.has_selector?('li', 'Email is invalid'),

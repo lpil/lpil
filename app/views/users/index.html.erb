@@ -1,7 +1,11 @@
 <% provide :title, 'Users' %>
 <section class="row">
-  <h1 class="columns medium-12 small-centered">Users</h1>
+  <h1 class="columns medium-6">Users</h1>
 
   <%= render partial: 'user_table', locals: { users: @users } %>
+
+  <% if current_user.admin? %>
+  <%= link_to 'Create new user', new_user_path, class: 'button right'  %>
+  <% end %>
 
 </section>

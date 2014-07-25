@@ -38,7 +38,10 @@
     <% end %>
 
     <div class="column">
-      <%= f.submit 'Save user', class: 'button' %>
+      <%= f.submit 'Save', class: 'button' %>
+      <input type="button" value="Cancel" class='button'
+        onclick="history.back()">
     </div>
-    <% end %>
+  <% end %>
+
 </article>

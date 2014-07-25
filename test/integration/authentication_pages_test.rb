@@ -74,7 +74,7 @@ class AuthenticationTest < ActionDispatch::IntegrationTest
     sign_in admin
     visit edit_user_path(user)
     check attribute
-    click_button 'Save user'
+    click_button 'Save'
     user.reload
     assert user[attribute.downcase]
   end
