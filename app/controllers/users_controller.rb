@@ -1,4 +1,19 @@
 class UsersController < ApplicationController
+  # Only signed in users can access the user resources
+  before_filter :only_allow_signed_in_user
+
+  # Allow admins to see and edit all user pages.
+  # Allow regular users to see and edit their own user page
+  before_filter only: [:show, :edit, :update] do
+    block_access unless current_user.admin? ||
+                        User.find(params[:id]) == current_user
+  end
+
+  # Only allow admins to create users, and view all users
+  before_filter only: [:new, :create, :index] do
+    block_access unless current_user.admin?
+  end
+
   def index
     @users = User.all
   end

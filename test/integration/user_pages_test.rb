@@ -1,12 +1,15 @@
-require "test_helper"
+require 'test_helper'
 
 class UserPagesTest < ActionDispatch::IntegrationTest
   def test_users_index_has_h1
+    new_signed_in_admin
     visit '/users'
-    assert page.has_selector? 'h1', text: 'Users'
+    assert page.has_selector?('h1', text: 'Users'),
+      "Users index page missing 'Users' h1"
   end
 
   def test_users_index_shows_users
+    new_signed_in_admin
     emails = []
     3.times do
       emails << FactoryGirl.create(:user).email
