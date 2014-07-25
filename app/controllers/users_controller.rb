@@ -16,8 +16,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new params[:user].permit %i(email first_name last_name
-      password password_confirmation reporter uploader admin)
+    @user = User.new params[:user].permit allowed_fields_for current_user
     if @user.save
       flash[:success] = 'New user successfully created'
       redirect_to @user
@@ -27,11 +26,10 @@ class UsersController < ApplicationController
   end
 
   def update
-    safe_fields = %i(email first_name last_name password password_confirmation)
-    safe_fields += %i(reporter uploader admin) if current_user.admin?
-
     @user = User.find params[:id]
-    if @user.update_attributes params[:user].permit safe_fields
+    if @user.update_attributes(
+      params[:user].permit allowed_fields_for current_user)
+
       editing_self = @user == current_user
       flash[:success] = "#{@user.email} updated"
       sign_in @user if editing_self
@@ -43,5 +41,14 @@ class UsersController < ApplicationController
 
   def current
     redirect_to user_path current_user
+  end
+
+  private
+
+  def allowed_fields_for(current_user)
+    return unless current_user
+    fields = %i(email first_name last_name password password_confirmation)
+    fields += %i(reporter uploader admin) if current_user.admin?
+    fields
   end
 end

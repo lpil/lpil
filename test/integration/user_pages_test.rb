@@ -1,8 +1,8 @@
 require "test_helper"
 
-class UserPagesTest < Capybara::Rails::TestCase
+class UserPagesTest < ActionDispatch::IntegrationTest
   def test_users_index_has_h1
-    visit 'users'
+    visit '/users'
     assert page.has_selector? 'h1', text: 'Users'
   end
 
@@ -11,7 +11,7 @@ class UserPagesTest < Capybara::Rails::TestCase
     3.times do
       emails << FactoryGirl.create(:user).email
     end
-    visit 'users'
+    visit '/users'
     emails.each do |email|
       assert page.has_content? email
     end
@@ -29,8 +29,9 @@ class UserPagesTest < Capybara::Rails::TestCase
   end
 
   def create_new_user_via_page(user = nil)
+    sign_in FactoryGirl.create :admin
     user ||= FactoryGirl.build :user
-    visit 'users/new'
+    visit '/users/new'
     fill_in 'First name', with: user.first_name
     fill_in 'Last name', with: user.last_name
     fill_in 'Email', with: user.email

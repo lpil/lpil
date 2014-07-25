@@ -6,13 +6,19 @@ require 'minitest/rails/capybara'
 
 FactoryGirl.find_definitions
 
+class MiniTest::Unit::TestCase
+  include FactoryGirl::Syntax::Methods
+end
+
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical
   # order.
   fixtures :all
 end
 
-class Capybara::Rails::TestCase
+class ActionDispatch::IntegrationTest
+  include Capybara::DSL
+
   def sign_in(user)
     visit signin_path
     fill_in 'Email', with: user.email

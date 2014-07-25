@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class AuthenticationTest < Capybara::Rails::TestCase
+class AuthenticationTest < ActionDispatch::IntegrationTest
   def test_signin_page_content
     visit signin_path
     assert page.has_selector?('h1', text: 'Sign in'),

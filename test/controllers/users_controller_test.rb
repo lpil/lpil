@@ -6,7 +6,3 @@ class UsersControllerTest < ActionController::TestCase
     assert_response :success
   end
 end
-
-class MiniTest::Unit::TestCase
-  include FactoryGirl::Syntax::Methods
-end
