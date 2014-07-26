@@ -180,4 +180,21 @@ class UserPagesTest < ActionDispatch::IntegrationTest
     assert page.has_selector?('li', 'Password confirmation doesn'),
       "Confirmation doesn't match alert is missing"
   end
+
+  def test_userscurrent_redirect
+    user = new_signed_in_user
+    visit '/users/current'
+    assert page.has_selector?('h1', user.email),
+      'Did not redirect to user page- cannot see email'
+  end
+
+  def test_admins_can_delete_users
+    new_signed_in_admin
+    user = FactoryGirl.create :user
+    visit user_path user
+    click_on 'Delete user'
+    assert_raises ActiveRecord::RecordNotFound do
+      user.reload
+    end
+  end
 end
