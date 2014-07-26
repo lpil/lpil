@@ -1,6 +1,12 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    ParseTree (3.0.8)
+      RubyInline (>= 3.7.0)
+      sexp_processor (>= 3.0.0)
+    RubyInline (3.12.3)
+      ZenTest (~> 4.3)
+    ZenTest (4.10.1)
     actionmailer (4.1.4)
       actionpack (= 4.1.4)
       actionview (= 4.1.4)
@@ -29,6 +35,14 @@ GEM
       tzinfo (~> 1.1)
     arel (5.0.1.20140414130214)
     bcrypt (3.1.7)
+    brakeman (1.5.3)
+      activesupport
+      erubis (~> 2.6)
+      haml (~> 3.0)
+      i18n
+      ruby2ruby (~> 1.2)
+      ruport (~> 1.6)
+      sass (~> 3.0)
     builder (3.2.2)
     capybara (2.4.1)
       mime-types (>= 1.16)
@@ -45,19 +59,31 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.7.1)
+    color (1.7.1)
     compass (0.12.7)
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
       sass (~> 3.2.19)
+    docile (1.1.5)
     erubis (2.7.0)
     execjs (2.2.1)
     factory_girl (4.4.0)
       activesupport (>= 3.0.0)
+    fastercsv (1.5.5)
+    flay (2.4.0)
+      ruby_parser (~> 3.0)
+      sexp_processor (~> 4.0)
+    flog (4.2.1)
+      ruby_parser (~> 3.1, > 3.1.0)
+      sexp_processor (~> 4.4)
     foundation-rails (5.3.1.0)
       railties (>= 3.1.0)
       sass (>= 3.2.0)
     fssm (0.2.10)
+    haml (3.1.8)
     hike (1.2.3)
+    hoe (3.12.0)
+      rake (>= 0.8, < 11.0)
     i18n (0.6.11)
     jbuilder (2.1.3)
       activesupport (>= 3.0.0, < 5)
@@ -90,6 +116,9 @@ GEM
     multi_json (1.10.1)
     nokogiri (1.6.3)
       mini_portile (= 0.6.0)
+    pdf-writer (1.1.8)
+      color (>= 1.4.0)
+      transaction-simple (~> 1.3)
     polyglot (0.3.5)
     pry (0.10.0)
       coderay (~> 1.1.0)
@@ -118,6 +147,14 @@ GEM
     rake (10.3.2)
     rdoc (4.1.1)
       json (~> 1.4)
+    ruby2ruby (1.2.2)
+      ParseTree (~> 3.0)
+      hoe (>= 1.8.2)
+    ruby_parser (3.6.2)
+      sexp_processor (~> 4.1)
+    ruport (1.6.3)
+      fastercsv
+      pdf-writer (= 1.1.8)
     sass (3.2.19)
     sass-rails (4.0.3)
       railties (>= 4.0.0, < 5.0)
@@ -127,6 +164,12 @@ GEM
     sdoc (0.4.0)
       json (~> 1.8)
       rdoc (~> 4.0, < 5.0)
+    sexp_processor (4.4.3)
+    simplecov (0.9.0)
+      docile (~> 1.1.0)
+      multi_json
+      simplecov-html (~> 0.8.0)
+    simplecov-html (0.8.0)
     slop (3.6.0)
     spring (1.1.3)
     sprockets (2.11.0)
@@ -142,6 +185,7 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.4)
     tilt (1.4.1)
+    transaction-simple (1.4.0.2)
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
@@ -160,10 +204,13 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt (~> 3.1.7)
+  brakeman
   capybara
   coffee-rails (~> 4.0.0)
   compass
   factory_girl
+  flay
+  flog
   foundation-rails
   jbuilder (~> 2.0)
   jquery-rails
@@ -175,6 +222,7 @@ DEPENDENCIES
   rails (= 4.1.4)
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
+  simplecov
   spring
   sqlite3
   turbolinks
