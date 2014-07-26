@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140723181744) do
+ActiveRecord::Schema.define(version: 20140726135032) do
+
+  create_table "collections", force: true do |t|
+    t.string   "name"
+    t.boolean  "locked",     default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "first_name"
@@ -24,8 +31,10 @@ ActiveRecord::Schema.define(version: 20140723181744) do
     t.string   "password_digest"
     t.string   "remember_token"
     t.boolean  "admin",           default: false
+    t.integer  "collection_id"
   end
 
+  add_index "users", ["collection_id"], name: "index_users_on_collection_id"
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["remember_token"], name: "index_users_on_remember_token"
 

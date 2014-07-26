@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
-  get '/users/current', to: 'users#current'
+  resources :collections 
 
+  get '/users/current', to: 'users#current'
   resources :users
 
   # Authentication

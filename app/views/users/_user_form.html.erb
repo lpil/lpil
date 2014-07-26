@@ -25,7 +25,11 @@
     </div>
 
     <% if current_user && current_user.admin? %>
-      <div class="columns">
+      <div class="columns medium-6">
+        <%= f.collection_select :collection_id,
+            Collection.order(:name), :id, :name %>
+      </div>
+      <div class="columns medium-6">
         <%= f.check_box :uploader %>
         <%= f.label :uploader %>
 
@@ -34,6 +38,7 @@
 
         <%= f.check_box :admin %>
         <%= f.label :admin %>
+
       </div>
     <% end %>
 

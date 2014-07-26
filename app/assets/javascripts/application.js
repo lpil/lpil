@@ -17,11 +17,11 @@
 //= require_tree .
 
 //= require foundation/foundation
+//= require foundation/foundation.alert
 //= require foundation/foundation.topbar
 
 // no= require foundation/foundation.abide
 // no= require foundation/foundation.accordion
-// no= require foundation/foundation.alert
 // no= require foundation/foundation.clearing
 // no= require foundation/foundation.dropdown
 // no= require foundation/foundation.equalizer

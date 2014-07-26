@@ -5,7 +5,7 @@ class UserTest < ActiveSupport::TestCase
   def test_user_responds_to_correct_fields
     user = FactoryGirl.build(:user)
     %i(first_name last_name email reporter uploader password
-       password_confirmation remember_token).each do |field|
+       password_confirmation remember_token collection_id).each do |field|
       assert user.respond_to?(field), "User should respond to #{field}"
     end
   end
