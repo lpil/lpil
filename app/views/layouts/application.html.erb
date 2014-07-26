@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>
-    Raisin Docs
+    <%= signed_in? ? current_user.collection.name : 'Raisin Docs' %>
     <%= ' - ' << yield(:title) if content_for?(:title) %>
   </title>
 

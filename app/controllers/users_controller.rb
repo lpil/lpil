@@ -69,7 +69,8 @@ class UsersController < ApplicationController
 
   def allowed_fields_for(current_user)
     return unless current_user
-    fields = %i(email first_name last_name password password_confirmation)
+    fields = %i(email first_name last_name password password_confirmation
+      collection_id)
     fields += %i(reporter uploader admin) if current_user.admin?
     fields
   end

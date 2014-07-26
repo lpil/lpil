@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-  resources :collections 
   get '/collections/:id/users', to: 'collections#users'
+  get '/collections/archive', to: 'collections#archive'
+  patch '/collections/:id/restore', to: 'collections#restore'
+  resources :collections
 
   get '/users/current', to: 'users#current'
   resources :users

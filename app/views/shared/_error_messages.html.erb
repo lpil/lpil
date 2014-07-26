@@ -1,6 +1,6 @@
 <aside class="row">
-  <% if @user.errors.any? %>
-    <% @user.errors.full_messages.each do |error| %>
+  <% if object.errors.any? %>
+    <% object.errors.full_messages.each do |error| %>
       <article class="columns small-centered small-6 alert-box alert"
         data-alert>
       <%= error %>

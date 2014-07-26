@@ -1,5 +1,14 @@
 <% provide :title, 'Collections' %>
-<h1>Collections</h1>
-<pre>
-  <%= @collections.to_yaml %>
-</pre>
+<section class="row">
+  <h1>Collections</h1>
+
+  <nav class="right">
+    <%= link_to 'View achived collections', "#{collections_path}/archive",
+      class: 'button' %>
+    <%= link_to 'Create new collection', new_collection_path,
+      class: 'button' %>
+  </nav>
+
+  <%= render partial: 'display_collections',
+        locals: { collections: @collections } %>
+</section>

@@ -1,0 +1,29 @@
+<article class="row clearfix">
+  <%= form_for @collection, class: 'row middle-centered middle-6' do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
+
+    <div class="columns medium-12">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+
+    <div class="columns">
+      <%= f.submit 'Save', class: 'button' %>
+      <input type="button" value="Cancel" class='button'
+        onclick="history.back()">
+
+      <% if editing %>
+        <% if @collection.locked %>
+          <%= link_to 'Restore collection',
+            "#{collection_path(@collection)}/restore", method: :patch,
+            class: 'right button alert' %>
+        <% else %>
+          <%= link_to 'Archive collection', collection_path(@collection),
+            method: :delete, class: 'right button alert', data: {
+            confirm: 'This will disable this collection. Do you wish to continue?'
+          } %>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+</article>

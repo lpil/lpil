@@ -1,8 +1,10 @@
 <% provide :title, "Edit #{@collection.name}" %>
-<div class="row">
-  <h1 class="columns small-8">
+<section class="row">
+  <h1>
     <%= "Edit #{@collection.name}" %>
-</h1>
-</div>
+  </h1>
 
-<%# <%= render 'collection_form' %1> %>
+  <%# <%= render 'collection_form', locals: { editing: true } %1> %>
+  <%= render partial: 'collection_form',
+        locals: { editing: true } %>
+</section>

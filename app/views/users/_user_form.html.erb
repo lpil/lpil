@@ -1,6 +1,7 @@
-<%= render 'error_messages' %>
 <article class="row clearfix">
   <%= form_for @user, class: 'row middle-centered middle-6' do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
+
     <div class="columns">
       <%= f.label :email %>
       <%= f.text_field :email %>
@@ -36,7 +37,7 @@
         <%= f.check_box :reporter %>
         <%= f.label :reporter %>
 
-        <%= f.check_box :admin %>
+        <%= f.check_box :admin, disabled: (f.object == current_user) %>
         <%= f.label :admin %>
 
       </div>
