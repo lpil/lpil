@@ -35,7 +35,6 @@ class CollectionsController < ApplicationController
   end
 
   def update
-    require 'pry'; binding.pry
     @collection = Collection.find params[:id]
     if @collection.update_attributes(
       params[:collection].permit :name)

@@ -1,3 +1,4 @@
+<% editing ||= false %>
 <article class="row clearfix">
   <%= form_for @collection, class: 'row middle-centered middle-6' do |f| %>
     <%= render 'shared/error_messages', object: f.object %>

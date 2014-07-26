@@ -6,10 +6,15 @@ class AuthorisationTest < ActionDispatch::IntegrationTest
   # access that page.
   all_disallowed_paths = {
     # User pages
-    all_users_page: "visit '/users'",
-    new_user_page:  "visit '/users/new'",
-    user_view_page: 'visit user_path FactoryGirl.create :user',
-    user_edit_page: 'visit edit_user_path FactoryGirl.create :user'
+    all_users: "visit '/users'",
+    new_user: "visit '/users/new'",
+    view_user: 'visit user_path FactoryGirl.create :user',
+    edit_user: 'visit edit_user_path FactoryGirl.create :user',
+    # Collection pages
+    collections: "visit '/collections'",
+    new_collection: "visit '/collections/new'",
+    view_collection: 'visit collection_path FactoryGirl.create :collection',
+    edit_collection: 'visit edit_collection_path FactoryGirl.create :collection'
   }
 
   user_allowed_paths = [
@@ -23,7 +28,9 @@ class AuthorisationTest < ActionDispatch::IntegrationTest
 
   admin_allowed_paths = [
     # Users pages
-    :all_users_page, :new_user_page, :user_view_page, :user_edit_page
+    :all_users, :new_user, :view_user, :edit_user,
+    # Collections pages
+    :collections, :new_collection, :view_collection, :edit_collection
   ]
 
   #
