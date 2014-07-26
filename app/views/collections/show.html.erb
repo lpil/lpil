@@ -1,2 +1,7 @@
-<h1>Collections#show</h1>
-<p>Find me in app/views/collections/show.html.erb</p>
+<% provide :title, @collection.name %>
+<h1>
+  <%= @collection.name %>
+</h1>
+<pre>
+  <%= @collection.to_yaml %>
+</pre>

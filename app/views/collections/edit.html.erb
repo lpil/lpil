@@ -1,2 +1,8 @@
-<h1>Collections#edit</h1>
-<p>Find me in app/views/collections/edit.html.erb</p>
+<% provide :title, "Edit #{@collection.name}" %>
+<div class="row">
+  <h1 class="columns small-8">
+    <%= "Edit #{@collection.name}" %>
+</h1>
+</div>
+
+<%# <%= render 'collection_form' %1> %>
