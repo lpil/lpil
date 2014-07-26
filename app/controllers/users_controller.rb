@@ -9,8 +9,8 @@ class UsersController < ApplicationController
                         User.find(params[:id]) == current_user
   end
 
-  # Only allow admins to create users, and view all users
-  before_filter only: [:new, :create, :index] do
+  # Only allow admins to create, destroy, and view all users
+  before_filter only: [:new, :create, :index, :destroy] do
     block_access unless current_user.admin?
   end
 
@@ -52,6 +52,13 @@ class UsersController < ApplicationController
     else
       render 'edit'
     end
+  end
+
+  def destroy
+    user = User.find(params[:id])
+    user.destroy
+    flash[:success] = "User #{user.email} destroyed"
+    redirect_to users_path
   end
 
   def current

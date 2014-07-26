@@ -6,6 +6,7 @@
 
   <% if current_user && current_user.admin? && !current_user?(@user) %>
     <%= link_to 'Delete user', @user, method: :delete,
-      confirm: 'Are you sure?', class: 'right button alert' %>
+      class: 'right button alert', data: {
+        confirm: 'This action is irreversible. Do you wish to continue?' } %>
   <% end %>
 </section>
