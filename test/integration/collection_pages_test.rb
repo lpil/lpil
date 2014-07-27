@@ -20,11 +20,11 @@ class CollectionPagesTest < ActionDispatch::IntegrationTest
       'Site title is not Raisin Docs'
   end
 
-  def test_when_logged_out_site_topbar_title_is_static
+  def test_when_logged_out_site_topbar_title_is_collection_name
     user = new_signed_in_user
     visit '/'
     assert page.has_selector?('.top-bar .name', text: user.collection.name),
-      'Site topbar title is not Raisin Docs'
+      'Site topbar title is not collection name'
   end
 
   def test_admin_topbar_has_link_to_collections
@@ -103,11 +103,26 @@ class CollectionPagesTest < ActionDispatch::IntegrationTest
 
   def test_admin_can_view_achived_collections
     new_signed_in_admin
-    col = FactoryGirl.create :collection
-    col.locked = true
+    col = FactoryGirl.create :collection, locked: true
     visit collections_path
     click_on 'View archived collections'
     assert page.has_content?(col.name),
       'Archived collections page does not have collection name'
+  end
+
+  def test_admin_can_view_a_collections_user_list
+    new_signed_in_admin
+    col = FactoryGirl.create :collection
+    users = []
+    2.times { users << FactoryGirl.create(:user, collection: col) }
+    visit "#{collection_path col}/users"
+    users.each do |user|
+      assert page.has_content?(user.first_name),
+        'Collection user page does not contain user first name'
+      assert page.has_content?(user.last_name),
+        'Collection user page does not contain user last name'
+      assert page.has_content?(user.email),
+        'Collection user page does not contain user emails'
+    end
   end
 end
