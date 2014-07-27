@@ -3,7 +3,7 @@
 ## Features
 
 * Collections
-  * Application is divided into Collections. One per client.
+  * ~~Application is divided into Collections. One per client.~~
   * Members of collections cannot view the data of other collections
   * Collections can have their own site themes
 
@@ -15,7 +15,8 @@
 * Documents
   * Have metadata fields that can be set per collection
   * Have an expiry date, after which they are to be removed automatically
-  * Can be uploaded by users with permission to
+  * Can be uploaded by users
+    * with permission to
   * Can be searched for
   * PDF docs have a thumbnail image
   * Documents can be downloaded (downloads recorded)
@@ -23,11 +24,11 @@
 
 * Users
   * ~~Users can be created~~
-  * Users can be removed
+  * ~~Users can be removed~~
   * ~~Users can change their passwords~~
   * ~~Users can change their emails~~
-  * Users can either have upload permissions or not
-  * Users can either have reporter permissions or not
+  * ~~Users can either have upload permissions or not~~
+  * ~~Users can either have reporter permissions or not~~
 
 * Admins
   * Can edit documents
@@ -37,6 +38,7 @@
   * Can change user passwords (email it to them?)
 
 * Reports
+  * Reports can be accessed by users with permissions
   * A report of all documents can be generated
     * Grouped by expiry date (expired, soon to expire, etc)
     * Spreadsheet format
