@@ -1,0 +1,17 @@
+<% provide :title, @category.name %>
+<section class="row">
+  <h1>
+    <%= @category.name %>
+  </h1>
+
+  <% @tree.values.each do |tree| %>
+    <%= render 'navigation_tree',
+      categories: tree %>
+  <% end %>
+
+  <% @category.children.each do |child| %>
+    <div>
+      <%= link_to child.name, child %>
+    </div>
+  <% end %>
+</section>

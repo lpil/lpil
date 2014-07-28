@@ -23,7 +23,7 @@ module SessionsHelper
   # If we've already identified the current user, return the user. Otherwise,
   # search for the use using the remember token in their cookie
   def current_user
-    @current_user ||= User.includes(:collection).find_by(
+    @current_user ||= User.includes(:collection).includes(:categories).find_by(
       remember_token: cookies[:remember_token])
   end
 

@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password])
       sign_in user
       flash[:success] = 'Successfully signed in'
-      redirect_to user
+      redirect_to categories_path
     elsif user.nil?
       flash.now[:error] = 'Unknown email address!'
       render :new

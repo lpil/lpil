@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   has_secure_password
   belongs_to :collection
+  has_many :categories, through: :collection
 
   # Emails should be lowercase
   before_save { |user| user.email.downcase! }

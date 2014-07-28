@@ -2,9 +2,11 @@
   <ul class="title-area">
     <li class="name">
       <h1>
-        <% store_name =
-          signed_in? ? current_user.collection.name : 'Raisin Docs' %>
-        <%= link_to store_name, root_path %>
+        <% if signed_in? %>
+          <%= link_to current_user.collection.name, '/categories' %>
+        <% else %>
+          <%= link_to 'Raisin Docs', '/signin' %>
+        <% end %>
       </h1>
     </li>
     <%# Menu button for small screens %>
