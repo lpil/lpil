@@ -133,3 +133,7 @@ client side, using coffeescript
 ### Admin
 
 * `http://railscasts.com/episodes/284-active-admin?autoplay=true`
+
+### Domains
+
+* `http://stackoverflow.com/questions/4871035/rails-heroku-and-subdomains-is-my-special-case-scenario-feasible`
