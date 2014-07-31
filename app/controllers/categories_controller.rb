@@ -20,16 +20,17 @@ class CategoriesController < ApplicationController
       current_user.collection == @category.collection
   end
 
-  def edit
-    @user = User.find params[:id]
-  end
-
+  # FIXME: list and view cause *a lot* of DB queries.
   def list
     @categories = current_user.categories locked: false
   end
 
   def archive
-    @collections = current_user.where locked: true
+    @collections = current_user.categories.where locked: true
+  end
+
+  def edit
+    @category = Category.find params[:id]
   end
 
   def new
@@ -54,12 +55,21 @@ class CategoriesController < ApplicationController
   end
 
   def update
-    @category = category.find params[:id]
-    if @category.update_attributes(
-      params[:category].permit [:name, :parent_id])
+    @category = Category.find params[:id]
 
-      flash[:success] = "#{@category.email} updated"
-      redirect_to @category
+    # Don't allow a non-root category to become a root category
+    if !@category.root? && params[:category][:parent_id] == ''
+      require 'pry'; binding.pry
+      flash[:alert] = 'Non-root categories cannot become root!'
+      render 'edit'
+      return
+    end
+
+    if @category.update_attributes(
+      params[:category].permit [:name, :parent_id]
+    )
+      flash[:success] = "#{@category.name} updated"
+      redirect_to '/categories/list'
     else
       render 'edit'
     end
@@ -70,7 +80,7 @@ class CategoriesController < ApplicationController
     category.locked = true
     category.save!
     flash[:success] = 'Category successfully archived'
-    redirect_to categories_path
+    redirect_to '/categories/list'
   end
 
   def restore
@@ -78,6 +88,6 @@ class CategoriesController < ApplicationController
     category.locked = false
     category.save!
     flash[:success] = 'Category successfully restored'
-    redirect_to categories_path
+    redirect_to '/categories/list'
   end
 end

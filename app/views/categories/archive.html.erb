@@ -1,0 +1,8 @@
+<% provide :title, "Archived #{current_user.collection.name} categories" %>
+<div class="row">
+  <h1 class="columns">
+    <%= "Archived #{current_user.collection.name} categories" %>
+  </h1>
+</div>
+
+<%= render partial: 'category_list' %>

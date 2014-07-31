@@ -1,0 +1,17 @@
+<% provide :title, "Current #{current_user.collection.name} categories" %>
+<section class="row">
+  <h1 class="columns">
+    <%= "Current #{current_user.collection.name} categories" %>
+  </h1>
+
+  <nav class="right">
+    <%= link_to 'View archived categories', '/categories/archive',
+      class: 'button' %>
+    <%= link_to 'Create new category', new_category_path,
+      class: 'button' %>
+  </nav>
+</section>
+
+<section class="row">
+  <%= render partial: 'category_list' %>
+</section>

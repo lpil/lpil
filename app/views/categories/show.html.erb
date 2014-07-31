@@ -14,4 +14,9 @@
       <%= link_to child.name, child %>
     </div>
   <% end %>
+
+  <% if current_user.admin? %>
+    <%= link_to 'Edit category', edit_category_path(@category),
+      class: 'button' %>
+  <% end %>
 </section>
