@@ -8,9 +8,11 @@
   * Collections can have their own site themes
 
 * Categories
-  * Categories can contain documents
-  * Categories can be nested
-  * Categories can be added and removed
+  * Can contain documents
+  * ~~Can be nested~~
+  * ~~Can be added and removed~~
+  * ~~Can be renamed~~
+  * ~~Position in the category tree can be changed~~
 
 * Documents
   * Have metadata fields that can be set per collection
@@ -23,12 +25,12 @@
   * Documents can be emailed (emails recorded)
 
 * Users
-  * ~~Users can be created~~
-  * ~~Users can be removed~~
-  * ~~Users can change their passwords~~
-  * ~~Users can change their emails~~
-  * ~~Users can either have upload permissions or not~~
-  * ~~Users can either have reporter permissions or not~~
+  * ~~Can be created~~
+  * ~~Can be removed~~
+  * ~~Can change their passwords~~
+  * ~~Can change their emails~~
+  * ~~Can either have upload permissions or not~~
+  * ~~Can either have reporter permissions or not~~
 
 * Admins
   * Can edit documents
@@ -38,7 +40,7 @@
   * Can change user passwords (email it to them?)
 
 * Reports
-  * Reports can be accessed by users with permissions
+  * Can be accessed by users with permissions
   * A report of all documents can be generated
     * Grouped by expiry date (expired, soon to expire, etc)
     * Spreadsheet format
@@ -54,39 +56,6 @@
 
 ## Notes
 
-### Storing the category tree in the db
-
-    # model
-    class Category < ActiveRecord::Base
-      has_many :children, class_name: 'Category',
-        foreign_key: 'parent_id'
-
-      belongs_to :parent, class_name: 'Category'
-    end
-
-      # Migration
-        class CreateCategories < ActiveRecord::Migration
-      def change
-        create_table :categories do |t|
-          t.string :name
-          t.references :parent
-
-          t.timestamps
-        end
-      end
-    end
-
-      # De-serialise the tree
-    def get_tree(node)
-      return node.attributes if node.children.empty?
-      hash = node.attributes
-      hash[:children] = node.children.map { |n| get_tree(n) }
-      hash
-    end
-
-Better idea- query the entire table, convert it to json, and rebuild the tree
-client side, using coffeescript
-
 ### Document upload + storage
 
 * Use Rackspace Cloud files for storage
@@ -99,14 +68,14 @@ client side, using coffeescript
 
 ### Document Expiry
 
-* Periodic task using Heroku scheduler
+* Periodic task using Heroku scheduler (Dan recommends this)
   * `https://devcenter.heroku.com/articles/scheduler`
 * Or periodic code block using sleep with date maths
   * `http://stackoverflow.com/questions/19448091/ruby-sleep-to-specific-time`
 
 ### Document metadata
 
-* `http://railscasts.com/episodes/302-in-place-editing`
+* Postgresql pstore
 
 ### Database
 
@@ -118,12 +87,11 @@ client side, using coffeescript
 
 ### Searching
 
-* `http://texticle.github.io/texticle/`
+* Postgresql text search
 
 ### Exception monitoring
 
 * `https://addons.heroku.com/rollbar#free`
-* `http://railscasts.com/episodes/402-better-errors-railspanel`
 
 ### Security
 
