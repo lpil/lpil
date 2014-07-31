@@ -102,7 +102,7 @@ class UserPagesTest < ActionDispatch::IntegrationTest
     end
     assert page.has_title?("Edit #{user.email}"),
       "Title should include 'Edit #{user.email}'"
-    assert page.has_selector?('h1', text: "Edit #{user.email}"),
+    assert page.has_selector?('h1', text: "Edit user: #{user.email}"),
       "A h1 should include 'Edit #{user.email}'"
   end
 
