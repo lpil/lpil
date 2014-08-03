@@ -1,18 +1,17 @@
 # Site settings
 title: lpil
 email: louis@lpil.uk
-description: lpil / Louis Pilfold's website
+description: The personal website of Louis Pilfold
 baseurl: ""
 
 # Build settings
 markdown: kramdown
-permalink: pretty
+permalink: /blog/:title
 
-# exclude: ["dev_serve.sh"]
 exclude:
   - dev_serve.sh
   - Guardfile
 
 sass:
   style: :compact
-  sass_dir: css
+  sass_dir: _scss
