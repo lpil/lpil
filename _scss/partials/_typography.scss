@@ -1,0 +1,29 @@
+* {
+  @import url(http://fonts.googleapis.com/css?family=PT+Sans|Oxygen+Mono);
+
+  color: $text-colour;
+}
+
+a, p, h1, h2, h3, h4, h5, h6 {
+  font-family: $font-family;
+}
+
+a {
+  color: $link-colour;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+  color: lighten($link-colour, 7)
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  // Fix the character spacing for headings
+  text-rendering: optimizeLegibility;
+}
+
+pre, code {
+  font-size: 0.9em;
+  font-family: $monospace-font-family;
+}

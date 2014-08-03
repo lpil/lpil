@@ -4,10 +4,15 @@
 @import 'vendor/bourbon/bourbon';
 @import 'vendor/neat/neat';
 
+@import 'modules/variables';
+
+@import 'partials/base';
+@import 'partials/typography';
 @import 'partials/syntax_highlighting';
 
 @import 'partials/site-header';
 
 .content {
   @include outer-container;
+  padding: 0.6em;
 }

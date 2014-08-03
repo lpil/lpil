@@ -1,5 +1,14 @@
 .highlight  {
-  background: #fff;
+  background: #f0f0f0;
+
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 45em;
+  overflow: auto;
+
+  pre {
+    padding: 0 0.7em;
+  }
 
   // Comment
   .c { color: #999988; font-style: italic }

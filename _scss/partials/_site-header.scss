@@ -2,11 +2,21 @@
   @include outer-container;
   $mobile: new-breakpoint(max-width 500px 6);
 
-  padding: 1em 0 0.2em 0;
+  padding: 2em 1em;
+  margin-bottom: 1em;
+  border-bottom: 1px solid #ddd;
 
-  .site-header__home {
+  a.site-header__home {
+    color: $text-colour;
     font-size: 1.3em;
     font-weight: bold;
+
+    span {
+      font-size: 0.01em;
+    }
+  }
+  a.site-header__home:hover {
+    text-decoration: none;
   }
 
   .site-header__nav {
