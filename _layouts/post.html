@@ -1,15 +1,15 @@
 ---
 layout: default
 ---
-<div class="post">
+<article class="post">
 
-  <header class="post-header">
+  <header class="post__header">
     <h1>{{ page.title }}</h1>
-    <p class="meta">{{ page.date | date: "%b %-d, %Y" }}{% if page.author %} • {{ page.author }}{% endif %}{% if page.meta %} • {{ page.meta }}{% endif %}</p>
+    <p class="post__date">{{ page.date | date: "%b %-d, %Y" }}</p>
   </header>
 
-  <article class="post-content">
-  {{ content }}
-  </article>
+  <section class="post__content">
+    {{ content }}
+  </section>
 
-</div>
+</article>

@@ -1,0 +1,26 @@
+.site-header {
+  @include outer-container;
+  $mobile: new-breakpoint(max-width 500px 6);
+
+  padding: 1em 0 0.2em 0;
+
+  .site-header__home {
+    font-size: 1.3em;
+    font-weight: bold;
+  }
+
+  .site-header__nav {
+    text-align: right;
+  }
+
+  .site-header__home,
+  .site-header__nav {
+    @include span-columns(6);
+
+    @include media($mobile) {
+      @include span-columns(6);
+      text-align: center;
+      margin: 0.5em 0;
+    }
+  }
+}

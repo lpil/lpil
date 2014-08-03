@@ -5,3 +5,9 @@
 @import 'vendor/neat/neat';
 
 @import 'partials/syntax_highlighting';
+
+@import 'partials/site-header';
+
+.content {
+  @include outer-container;
+}
