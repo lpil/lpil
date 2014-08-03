@@ -1,0 +1,6 @@
+@import 'vendor/neat/neat-helpers';
+
+$max-width: em(850);
+
+// Breakpoint definitions
+$mobile: new-breakpoint(max-width 500px 6);

@@ -1,6 +1,5 @@
 .site-header {
   @include outer-container;
-  $mobile: new-breakpoint(max-width 500px 6);
 
   padding: 2em 1em;
   margin-bottom: 1em;
@@ -21,6 +20,16 @@
 
   .site-header__nav {
     text-align: right;
+  }
+
+  .site-header__nav a {
+    margin: 0 0 0 1em;
+    display: inline-block;
+
+    @include media($mobile) {
+      margin: 0 1em 0 0;
+      display: block;
+    }
   }
 
   .site-header__home,
