@@ -2,7 +2,7 @@
 title: lpil
 email: louis@lpil.uk
 description: The personal website of Louis Pilfold
-baseurl: ""
+url: lpil.uk
 
 # Build settings
 markdown: kramdown

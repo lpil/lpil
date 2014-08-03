@@ -1,12 +1,10 @@
 <header class="site-header">
-  <a class="site-header__home" href="{{ site.baseurl }}/">
+  <a class="site-header__home" href="{{ site.url }}/">
     lpil: Louis<span> </span>Pilfold
   </a>
 
   <nav class="site-header__nav">
-    <a href="{{ site.baseurl }}">Blog</a>
-    {% for page in site.pages %}
-      {% if page.title %}<a href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a>{% endif %}
-    {% endfor %}
+    <a href="{{ site.url }}">Blog</a>
+    {% for page in site.pages %}{% if page.title %}<a href="{{ page.url | prepend: site.url }}">{{ page.title }}</a>{% endif %}{% endfor %}
   </nav>
 </header>
