@@ -1,2 +1,4 @@
 .sass-cache
 _site
+files/*
+!*.gitkeep
