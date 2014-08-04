@@ -25,6 +25,7 @@
     margin: 0 1.3em;
     display: inline-block;
     @include media($mobile) {
+      width: 90%;
       margin: 0.5em 0;
       text-align: left;
       display: block;
