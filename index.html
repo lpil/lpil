@@ -10,16 +10,18 @@ layout: default
     <a href="mailto:my-first-name@this-domain" class="js-muddled-email"
       target="_blank">email</a> if you fancy a chat.
   </p>
-
+  <hr />
   <ul class="posts">
     {% for post in site.posts %}
       <li>
-        <span class="post-date">{{ post.date | date: "%b %-d, %Y" }}</span>
-        <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+        <span class="posts__date">{{ post.date | date: "%y.%m.%d" }}</span>
+        <a class="posts__link" href="{{ post.url | prepend: site.baseurl }}">
+          {{ post.title }}
+        </a>
       </li>
     {% endfor %}
   </ul>
-
-  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
-
+  <a class="posts__rss" href="{{ "/feed.xml" | prepend: site.baseurl }}">
+    RSS feed
+  </a>
 </div>
