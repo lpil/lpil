@@ -5,4 +5,4 @@ defaults:
     scope:
       path: "" # all
     values:
-      livereload: true
+      development: true
