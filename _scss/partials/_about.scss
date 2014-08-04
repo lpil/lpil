@@ -1,0 +1,33 @@
+.about__intro {
+  @include clearfix;
+}
+.about__gravatar-image {
+  border-radius: 0.5em;
+  margin: 0 2em 0 0;
+  float: left;
+  @include media($mobile) {
+    margin: 0 auto 1em auto;
+    display: block;
+    float: none;
+    max-width: 80%;
+  }
+}
+.about__links {
+  padding: 0;
+  list-style-type: none;
+  text-align: center;
+  @include media($mobile) {
+    width: 90%;
+  }
+  li {
+    position: relative;
+    left: 1em;
+    margin: 0 1.3em;
+    display: inline-block;
+    @include media($mobile) {
+      margin: 0.5em 0;
+      text-align: left;
+      display: block;
+    }
+  }
+}

@@ -11,9 +11,10 @@
 @import 'partials/typography';
 @import 'partials/syntax_highlighting';
 
-@import 'partials/site-header';
-@import 'partials/posts';
+@import 'partials/about';
 @import 'partials/post';
+@import 'partials/posts';
+@import 'partials/site-header';
 
 .content {
   @include outer-container;

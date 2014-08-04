@@ -10,7 +10,6 @@ layout: default
     <a href="mailto:my-first-name@this-domain" class="js-muddled-email"
       target="_blank">email</a> if you fancy a chat.
   </p>
-  <hr />
   <ul class="posts">
     {% for post in site.posts %}
       <li>
@@ -22,6 +21,7 @@ layout: default
     {% endfor %}
   </ul>
   <a class="posts__rss" href="{{ "/feed.xml" | prepend: site.baseurl }}">
+    <i class="fa fa-rss"></i>
     RSS feed
   </a>
 </div>

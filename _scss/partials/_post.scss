@@ -1,3 +1,7 @@
+.post__content {
+  @include outer-container;
+  margin: 2em 0;
+}
 .post__nav {
   font-size: 0.9em;
   text-align: center;
