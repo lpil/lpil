@@ -1,7 +1,9 @@
 @import url(http://fonts.googleapis.com/css?family=PT+Sans|PT+Mono);
+* {
+  color: $text-colour;
+}
 
 html {
-  color: $text-colour;
   font-family: $font-family;
   font-size: 1.1em;
 }
