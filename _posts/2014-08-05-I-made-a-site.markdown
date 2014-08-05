@@ -13,9 +13,9 @@ Awesome.
 
 ## Toys used
 
-At the heart of the [Jekyll][jekyll], a static site generator from the Github
-team. Static sites are great! They're *really fast*, there's no database to
-fiddle about with, and deploying the site is as easy as `git pull; jekyll
+At the heart of the site is [Jekyll][jekyll], a static site generator from the
+Github team. Static sites are great! They're *really fast*, there's no database
+to fiddle about with, and deploying the site is as easy as `git pull; jekyll
 build`. Jekyll also has support for [SCSS][scss] and
 [Coffeescript][coffeescript], compiling them to CSS and Javascript when it
 compiles the site. What's not to like? 
