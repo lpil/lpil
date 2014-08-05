@@ -53,7 +53,7 @@ aside   { @include span-columns(6); }
 article { @include span-columns(6); }
 {% endhighlight %}
 
-Yup- we get to keep our styling in the stylesheets, again!
+Yup- now we get to keep our styling in the stylesheets!
 
 Next I'm using [Guard::LiveReload][guard-livereload] to refresh my web browser
 when I save a file in development- no more alt-tabbing to see my changes! I run
