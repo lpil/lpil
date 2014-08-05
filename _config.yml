@@ -15,3 +15,6 @@ exclude:
 sass:
   style: :compact
   sass_dir: _scss
+
+gems:
+  - jekyll-sitemap

@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'jekyll'
 gem 'guard-livereload'
+gem 'jekyll'
+gem 'jekyll-sitemap'
 gem 'neat'
