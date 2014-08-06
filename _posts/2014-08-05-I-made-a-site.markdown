@@ -58,7 +58,7 @@ Yup- now we get to keep our styling in the stylesheets!
 Next I'm using [Guard::LiveReload][guard-livereload] to refresh my web browser
 when I save a file in development- no more alt-tabbing to see my changes! I run
 `jekyll serve --watch` to start a webserver that'll serve the compiled site,
-and recompile said site each time I make a change. I than start Guard with
+and recompile said site each time I make a change. I then start Guard with
 Guard::LiveReload, which monitors my file system, and uses Javascript voodoo to
 refresh my browser each time Jekyll recompiles the site.
 
