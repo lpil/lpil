@@ -1,3 +1,12 @@
+@include keyframes(fade-intro) {
+  from {
+    opacity: 0;
+  }
+  to { 
+    opacity: 1;
+  }
+}
+
 .site-header {
   @include outer-container;
 
@@ -10,7 +19,33 @@
     font-size: 1.3em;
     font-weight: bold;
 
+    // Fade in 'logo' text on page load
     span {
+      opacity: 0; // reset for IE in the IE fixes include
+      @include animation(fade-intro, ease-in, 1);
+      @include animation-fill-mode(forwards);
+      @include animation-duration(1.0s);
+    }
+    span:nth-child(1)  { @include animation-delay(0.10s); }
+    span:nth-child(2)  { @include animation-delay(0.13s); }
+    span:nth-child(3)  { @include animation-delay(0.16s); }
+    span:nth-child(4)  { @include animation-delay(0.19s); }
+    span:nth-child(5)  { @include animation-delay(0.22s); }
+    span:nth-child(6)  { @include animation-delay(0.25s); }
+    span:nth-child(7)  { @include animation-delay(0.28s); }
+    span:nth-child(8)  { @include animation-delay(0.31s); }
+    span:nth-child(9)  { @include animation-delay(0.34s); }
+    span:nth-child(10) { @include animation-delay(0.37s); }
+    span:nth-child(11) { @include animation-delay(0.40s); }
+    span:nth-child(12) { @include animation-delay(0.44s); }
+    span:nth-child(13) { @include animation-delay(0.47s); }
+    span:nth-child(14) { @include animation-delay(0.50s); }
+    span:nth-child(15) { @include animation-delay(0.53s); }
+    span:nth-child(16) { @include animation-delay(0.56s); }
+    span:nth-child(17) { @include animation-delay(0.59s); }
+    span:nth-child(18) { @include animation-delay(0.62s); }
+
+    i {
       font-size: 0.01em;
     }
   }

@@ -13,7 +13,7 @@ exclude:
   - Guardfile
 
 sass:
-  style: :compact
+  style: :compressed
   sass_dir: _scss
 
 gems:
