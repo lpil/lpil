@@ -8,12 +8,14 @@ call vundle#rc()
 " let Vundle manage Vundle
 Bundle 'gmarik/Vundle.vim'
 
+Bundle 'chrisbra/Colorizer'
 Bundle 'dag/vim2hs'
 Bundle 'garbas/vim-snipmate'
 Bundle 'guns/vim-clojure-static'
 Bundle 'guns/vim-sexp'
 Bundle 'honza/vim-snippets'
 Bundle 'justinmk/vim-sneak'
+Bundle 'kchmck/vim-coffee-script'
 Bundle 'kien/ctrlp.vim'
 Bundle 'marcweber/vim-addon-mw-utils'
 Bundle 'scrooloose/syntastic'
@@ -27,7 +29,6 @@ Bundle 'tpope/vim-sexp-mappings-for-regular-people'
 Bundle 'tpope/vim-surround'
 Bundle 'vim-scripts/matchit.zip'
 Bundle 'wting/rust.vim'
-Bundle 'kchmck/vim-coffee-script'
 
 filetype plugin indent on
 filetype plugin on
@@ -281,6 +282,12 @@ autocmd FileType slim set commentstring=/\ %s
 """""""""""""""""
 
 let g:sneak#s_next = 1
+
+""""""""""""""""""""""""""""""""""""""""
+" Plugin: Colorizer (terrible spelling "
+""""""""""""""""""""""""""""""""""""""""
+
+let g:colorizer_auto_filetype='css,scss'
 
 """""""""""""""""""""""""""""""""""""
 " And finally, per-project .vimrc's "
