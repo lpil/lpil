@@ -15,6 +15,10 @@ $fade-intro-start-opacity: 0.35;
   margin-bottom: 1em;
   border-bottom: 1px solid #ddd;
 
+  @include media($mobile) {
+    padding: 1.5em 1em 1em 1em;
+  }
+
   a.site-header__home {
     color: $text-colour;
     font-size: 1.3em;
@@ -66,8 +70,9 @@ $fade-intro-start-opacity: 0.35;
     display: inline-block;
 
     @include media($mobile) {
-      margin: 0 1em 0 0;
+      margin: 0;
       display: block;
+      line-height: 2em;
     }
   }
 
