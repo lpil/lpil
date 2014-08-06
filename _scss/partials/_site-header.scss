@@ -1,8 +1,9 @@
+$fade-intro-start-opacity: 0.35;
 @include keyframes(fade-intro) {
   from {
-    opacity: 0;
+    opacity: $fade-intro-start-opacity;
   }
-  to { 
+  to {
     opacity: 1;
   }
 }
@@ -21,29 +22,32 @@
 
     // Fade in 'logo' text on page load
     span {
-      opacity: 0; // reset for IE in the IE fixes include
+      // reset for IE in the IE fixes include
+      opacity: $fade-intro-start-opacity;
       @include animation(fade-intro, ease-in, 1);
       @include animation-fill-mode(forwards);
       @include animation-duration(1.0s);
     }
-    span:nth-child(1)  { @include animation-delay(0.10s); }
-    span:nth-child(2)  { @include animation-delay(0.13s); }
-    span:nth-child(3)  { @include animation-delay(0.16s); }
-    span:nth-child(4)  { @include animation-delay(0.19s); }
-    span:nth-child(5)  { @include animation-delay(0.22s); }
-    span:nth-child(6)  { @include animation-delay(0.25s); }
-    span:nth-child(7)  { @include animation-delay(0.28s); }
-    span:nth-child(8)  { @include animation-delay(0.31s); }
-    span:nth-child(9)  { @include animation-delay(0.34s); }
-    span:nth-child(10) { @include animation-delay(0.37s); }
-    span:nth-child(11) { @include animation-delay(0.40s); }
-    span:nth-child(12) { @include animation-delay(0.44s); }
-    span:nth-child(13) { @include animation-delay(0.47s); }
-    span:nth-child(14) { @include animation-delay(0.50s); }
-    span:nth-child(15) { @include animation-delay(0.53s); }
-    span:nth-child(16) { @include animation-delay(0.56s); }
-    span:nth-child(17) { @include animation-delay(0.59s); }
-    span:nth-child(18) { @include animation-delay(0.62s); }
+    $step:  0.025s;
+    $delay: 0.03s;
+    span:nth-child(1)  { @include animation-delay($delay +  1 * $step); }
+    span:nth-child(2)  { @include animation-delay($delay +  2 * $step); }
+    span:nth-child(3)  { @include animation-delay($delay +  3 * $step); }
+    span:nth-child(4)  { @include animation-delay($delay +  4 * $step); }
+    span:nth-child(5)  { @include animation-delay($delay +  5 * $step); }
+    span:nth-child(6)  { @include animation-delay($delay +  6 * $step); }
+    span:nth-child(7)  { @include animation-delay($delay +  7 * $step); }
+    span:nth-child(8)  { @include animation-delay($delay +  8 * $step); }
+    span:nth-child(9)  { @include animation-delay($delay +  9 * $step); }
+    span:nth-child(10) { @include animation-delay($delay + 10 * $step); }
+    span:nth-child(11) { @include animation-delay($delay + 11 * $step); }
+    span:nth-child(12) { @include animation-delay($delay + 12 * $step); }
+    span:nth-child(13) { @include animation-delay($delay + 13 * $step); }
+    span:nth-child(14) { @include animation-delay($delay + 14 * $step); }
+    span:nth-child(15) { @include animation-delay($delay + 15 * $step); }
+    span:nth-child(16) { @include animation-delay($delay + 16 * $step); }
+    span:nth-child(17) { @include animation-delay($delay + 17 * $step); }
+    span:nth-child(18) { @include animation-delay($delay + 18 * $step); }
 
     i {
       font-size: 0.01em;
