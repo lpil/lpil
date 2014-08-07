@@ -7,7 +7,7 @@ FactoryGirl.define do
     uploader false
     password 'foobarbaz'
     password_confirmation 'foobarbaz'
-    collection
+    association :collection, factory: :collection
 
     factory :reporter do
       reporter true
@@ -17,7 +17,7 @@ FactoryGirl.define do
       uploader true
     end
 
-    factory :uploaderReporter do
+    factory :uploader_reporter do
       uploader true
       reporter true
 

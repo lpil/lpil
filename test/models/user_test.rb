@@ -2,16 +2,15 @@ require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
 
-  def test_user_responds_to_correct_fields
-    user = FactoryGirl.build(:user)
-    %i(first_name last_name email reporter uploader password
-       password_confirmation remember_token collection_id).each do |field|
-      assert user.respond_to?(field), "User should respond to #{field}"
+  %i(first_name last_name email reporter uploader password created_at
+     updated_at password_confirmation remember_token collection_id
+     ).each do |field|
+    class_eval %{
+    def test_user_responds_to_#{field}
+        assert User.new.respond_to?(:#{field}),
+          'Users should respond to #{field}'
     end
-  end
-
-  def test_user_factory_default_valid
-    assert FactoryGirl.build(:user).valid?
+    }
   end
 
   def test_user_invalid_without_email
