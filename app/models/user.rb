@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   # Password validation for creation
   validates :password, presence: true,
     length: { minimum: 8 }, on: :create
+  validates :password_confirmation, presence: true, on: :create
 
   # Password validation for future updates
   # We allow nil values, because we don't always want to have to enter the
@@ -21,6 +22,8 @@ class User < ActiveRecord::Base
   # admin making the changes- they won't know the password
   validates :password, presence: true,
     length: { minimum: 8 }, allow_nil: true, on: :update
+
+  validates :collection, presence: true
 
   private
 

@@ -51,17 +51,18 @@ class AuthorisationTest < ActionDispatch::IntegrationTest
 
   ensure_path_inaccessable = ->(visitor, path_name, path_setup) do
     class_eval %{
-def test_#{visitor}_cant_visit_#{path_name}
-  #{path_setup}
-  assert page.has_selector?('h1', text: 'Sign in'),
-    'Did not redirect to sign in page. Sign in h1 missing'
-  assert page.has_selector?('input', visible: 'Sign in'),
-    'Did not redirect to sign in page. Sign in button missing'
-  assert page.has_selector?('label', text: 'Email'),
-    'Did not redirect to sign in page. Email label missing'
-  assert page.has_selector?('label', text: 'Password'),
-    'Did not redirect to sign in page. Password label missing'
-end}
+      def test_#{visitor}_cant_visit_#{path_name}
+        #{path_setup}
+        assert page.has_selector?('h1', text: 'Sign in'),
+          'Did not redirect to sign in page. Sign in h1 missing'
+        assert page.has_selector?('input', visible: 'Sign in'),
+          'Did not redirect to sign in page. Sign in button missing'
+        assert page.has_selector?('label', text: 'Email'),
+          'Did not redirect to sign in page. Email label missing'
+        assert page.has_selector?('label', text: 'Password'),
+          'Did not redirect to sign in page. Password label missing'
+      end
+}
   end
 
   # Admin visitor
