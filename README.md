@@ -105,3 +105,7 @@
 ### Domains
 
 * `http://stackoverflow.com/questions/4871035/rails-heroku-and-subdomains-is-my-special-case-scenario-feasible`
+
+### Testing rake tasks
+
+* `http://sideshowcoder.com/post/54177933873/testing-rake-tasks`
