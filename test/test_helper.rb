@@ -15,7 +15,7 @@ end
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical
   # order.
-  fixtures :all
+  # fixtures :all
 end
 
 class ActionDispatch::IntegrationTest
