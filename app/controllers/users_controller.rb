@@ -41,7 +41,7 @@ class UsersController < ApplicationController
     @user = User.new params[:user].permit allowed_fields_for current_user
     if @user.save
       flash[:success] = 'New user successfully created'
-      redirect_to @user, status: 201
+      redirect_to @user
     else
       render :new
     end
@@ -56,7 +56,7 @@ class UsersController < ApplicationController
       editing_self = @user == current_user
       flash[:success] = "#{@user.email} updated"
       sign_in @user if editing_self
-      redirect_to @user, status: 200
+      redirect_to @user
     else
       render 'edit'
     end
@@ -67,12 +67,12 @@ class UsersController < ApplicationController
     user = User.find(params[:id])
     user.destroy
     flash[:success] = "User #{user.email} destroyed"
-    redirect_to users_path, status: 200
+    redirect_to users_path
   end
 
   # GET /users/current
   def current
-    redirect_to user_path(current_user), status: 200
+    redirect_to user_path(current_user)
   end
 
   private

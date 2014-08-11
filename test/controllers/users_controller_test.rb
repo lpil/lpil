@@ -23,7 +23,8 @@ class UsersControllerAsAdminTest < ActionController::TestCase
     class_eval %{
       def test_admin_can_#{action}
         #{visit_method}
-        assert response.success?, '#{action} should be successful for admin'
+        assert ['200', '302'].include?(response.code),
+          '#{action} should be successful for admin'
       end
     }
   end
@@ -97,7 +98,7 @@ class UsersControllerAsUserTest < ActionController::TestCase
 
   def test_user_can_current
     get :current
-    assert response.success?, 'Current should be successful'
+    assert_redirected_to user_path(@user), 'Current should be successful'
   end
 end
 
