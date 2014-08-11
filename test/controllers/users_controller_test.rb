@@ -6,55 +6,46 @@ class UsersControllerAsAdminTest < ActionController::TestCase
   def setup
     @user  = FactoryGirl.create :admin
     @other = FactoryGirl.create :user
+    @new   = FactoryGirl.attributes_for :user
+    @new[:collection_id] = @user.collection_id
     @request.cookies[:remember_token] = @user.remember_token
   end
 
-  def test_write_some_damn_admin_tests
-    fail NotImplementedError
+  { index:   'get :index',
+    new:     'get :new',
+    show:    'get :new, id: @user.id',
+    edit:    'get :edit, id: @user.id',
+    create:  'post :create, user: @new',
+    update:  "patch :update, id: @user.id, user: { first_name: 'foo' }",
+    destroy: 'delete :destroy, id: @user.id',
+    current: 'get :current'
+  }.each do |action, visit_method|
+    class_eval %{
+      def test_admin_can_#{action}
+        #{visit_method}
+        assert response.success?, '#{action} should be successful for admin'
+      end
+    }
+  end
+
+  def test_index_sets_user_to_all_users
+    get :index
+    assert assigns[:users] == User.all,
+      'get index should assign all users to the @users var'
+  end
+
+  def test_create_should_create_user
+    assert_difference 'User.count', 1 do
+      post :create, user: @new
+    end
+  end
+
+  def test_destroy_should_archive_user
+    assert_difference 'User.count', -1 do
+      delete :destroy, id: @other.id
+    end
   end
 end
-
-  # test "should get index" do
-  #   get :index
-  #   assert_response :success
-  #   assert_not_nil assigns(:things)
-  # end
-
-  # test "should get new" do
-  #   get :new
-  #   assert_response :success
-  # end
-
-  # test "should create thing" do
-  #   assert_difference('Thing.count') do
-  #     post :create, thing: {  }
-  #   end
-
-  #   assert_redirected_to thing_path(assigns(:thing))
-  # end
-
-  # test "should show thing" do
-  #   get :show, id: @thing
-  #   assert_response :success
-  # end
-
-  # test "should get edit" do
-  #   get :edit, id: @thing
-  #   assert_response :success
-  # end
-
-  # test "should update thing" do
-  #   patch :update, id: @thing, thing: {  }
-  #   assert_redirected_to thing_path(assigns(:thing))
-  # end
-
-  # test "should destroy thing" do
-  #   assert_difference('Thing.count', -1) do
-  #     delete :destroy, id: @thing
-  #   end
-
-  #   assert_redirected_to things_path
-  # end
 
 class UsersControllerAsUserTest < ActionController::TestCase
   tests UsersController
@@ -62,16 +53,18 @@ class UsersControllerAsUserTest < ActionController::TestCase
   def setup
     @user  = FactoryGirl.create :user
     @other = FactoryGirl.create :user
+    @new   = FactoryGirl.attributes_for :user
+    @new[:collection_id] = @user.collection_id
     @request.cookies[:remember_token] = @user.remember_token
   end
 
   { index:   'get :index',
     new:     'get :new',
-    show:    'get :show, { id: @other.id }',
-    edit:    'get :edit, { id: @other.id }',
-    create:  'post :create, { user: FactoryGirl.attributes_for(:user) }',
-    update:  "patch :update, { id: @other.id, user: { first_name: 'foo' } }",
-    destroy: 'delete :destroy, { id: @user.id }',
+    show:    'get :show, id: @other.id',
+    edit:    'get :edit, id: @other.id',
+    create:  'post :create, user: @new',
+    update:  "patch :update, id: @other.id, user: { first_name: 'foo' }",
+    destroy: 'delete :destroy, id: @user.id',
   }.each do |action, visit_method|
     class_eval %{
       def test_user_cant_#{action}
@@ -104,8 +97,7 @@ class UsersControllerAsUserTest < ActionController::TestCase
 
   def test_user_can_current
     get :current
-    assert_redirected_to "/users/#{@user.id}",
-      'Current should redirect to signed in user'
+    assert response.success?, 'Current should be successful'
   end
 end
 
