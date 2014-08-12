@@ -76,7 +76,7 @@ class CollectionsControllerAsAdminTest < ActionController::TestCase
   def test_show_assigns_collection_with_same_id
     get :show, id: @collection.id
     assert_equal assigns[:collection].id, @collection.id
-      'Show should assign collectin with the correct id'
+      'Show should assign collection with the correct id'
   end
 
   def test_create_without_params_renders_new
@@ -92,7 +92,7 @@ class CollectionsControllerAsAdminTest < ActionController::TestCase
   end
 
   def test_create_can_create
-    assert_difference 'Collection.count' do
+    assert_difference 'Collection.count', 1 do
       post :create, collection: @new
     end
   end
@@ -131,7 +131,7 @@ class CollectionsControllerAsAdminTest < ActionController::TestCase
   def test_restore_unlocks_collections
     @collection.update locked: true
     patch :restore, id: @collection.id
-    refute @collection.reload.locked, 'Destroyed collection should be locked'
+    refute @collection.reload.locked, 'Restored collection should be unlocked'
   end
 
   def test_users_assigns_users

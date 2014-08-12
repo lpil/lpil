@@ -7,12 +7,19 @@ class CategoriesController < ApplicationController
     block_access unless current_user.admin?
   end
 
+  # GET /categories
   def index
     @category = current_user.categories.first.root
     @tree = @category.subtree.arrange
     render :show
   end
 
+  # GET /categories/new
+  def new
+    @category = Category.new
+  end
+
+  # GET /categories/1
   def show
     @category = Category.find_by id: params[:id]
     @tree = @category.root.subtree.arrange
@@ -21,32 +28,30 @@ class CategoriesController < ApplicationController
   end
 
   # FIXME: list and view cause *a lot* of DB queries.
+  # GET /categories/list
   def list
-    @categories = current_user.categories locked: false
+    @categories = current_user.categories.where locked: false
   end
 
+  # GET /categories/archive
   def archive
-    @collections = current_user.categories.where locked: true
+    @categories = current_user.categories.where locked: true
   end
 
+  # GET /categories/1/edit
   def edit
     @category = Category.find params[:id]
   end
 
-  def new
-    @category = Category.new
-  end
-
+  # POST /categories
   def create
-    unless params[:category][:parent_id].present?
-      flash[:alert] = 'Please specify a parent'
-      render :new
-    end
-
     @category = Category.new params[:category].permit [:name, :parent_id]
     @category.collection = current_user.collection
     @category.locked = false
-    if @category.save
+    if params[:category][:parent_id].nil?
+      flash[:alert] = 'Please specify a parent'
+      render :new, status: 400
+    elsif @category.save
       flash[:success] = 'New category successfully created'
       redirect_to @category
     else
@@ -54,12 +59,12 @@ class CategoriesController < ApplicationController
     end
   end
 
+  # PATCH /categories/1
   def update
     @category = Category.find params[:id]
 
     # Don't allow a non-root category to become a root category
     if !@category.root? && params[:category][:parent_id] == ''
-      require 'pry'; binding.pry
       flash[:alert] = 'Non-root categories cannot become root!'
       render 'edit'
       return
@@ -75,6 +80,7 @@ class CategoriesController < ApplicationController
     end
   end
 
+  # DELETE /categories/1
   def destroy
     category = Category.find params[:id]
     category.locked = true
@@ -83,6 +89,7 @@ class CategoriesController < ApplicationController
     redirect_to '/categories/list'
   end
 
+  # PATCH /categories/1/restore
   def restore
     category = Category.find params[:id]
     category.locked = false
