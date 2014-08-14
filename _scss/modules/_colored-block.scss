@@ -1,0 +1,9 @@
+@mixin colored-block() {
+  padding: 0.5em 1.5em;
+  background: $col-brand-red;
+  border-radius: 4px;
+  li, a, p, h1, h2, h3, h4, h5 { color: #ffffff; }
+  @include media($break-small) {
+    border-radius: 0;
+  }
+}

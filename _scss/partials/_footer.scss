@@ -1,0 +1,29 @@
+.footer {
+  height: $footer-height;
+  background: $col-text;
+  padding: 1em 0;
+  .footer__links, .footer__details {
+    @include outer-container;
+    padding: 0.3em;
+    color: #fff;
+  }
+  .footer__links {
+    h4 {
+      color: #fff;
+    }
+    aside {
+      color: #fff;
+      @include span-columns(3);
+      @include media($break-mid) {
+        @include span-columns(6);
+        margin-bottom: 1em;
+        width: 47%;
+      }
+    }
+  }
+  hr {
+    height: 1px;
+    border: none;
+    border-top: 3px dotted #fff;
+  }
+}

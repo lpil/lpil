@@ -1,0 +1,13 @@
+@import 'vendor/neat/neat-helpers';
+
+$max-width: 970px;
+
+// Breakpoint definitions
+$break-mid: new-breakpoint(max-width 767px 12);
+$break-small: new-breakpoint(max-width 500px 6);
+
+// // Show visual grid
+// $visual-grid: true;
+// $visual-grid-color: orange;
+// $visual-grid-index: front;
+// $visual-grid-opacity: 0.2;

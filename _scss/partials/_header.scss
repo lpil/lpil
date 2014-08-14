@@ -1,0 +1,98 @@
+.header {
+  margin-bottom: 1em;
+
+  .header__banner {
+    position: relative;
+    padding: 2em 0 1em 0;
+    // Logo
+    img {
+      display: inline-block;
+      max-width: 90%;
+    }
+    // Give us a call on...
+    aside {
+      float: right;
+      display: table-cell;
+      vertical-align: middle;
+      max-width: 50%;
+      text-align: center;
+      font-size: 1.2em;
+      display: inline-block;
+      span {
+        white-space: nowrap;
+      }
+    }
+    @include media($break-mid) {
+      aside {
+        float: none;
+        max-width: 100%;
+        text-align: center;
+        position: initial;
+        display: block;
+        padding: 0.5em 0 0 0;
+      }
+      text-align: center;
+    }
+  }
+}
+.header__nav {
+  @include colored-block;
+  @include outer-container;
+  position: relative;
+  // padding: 0.5em 1.5em;
+  li {
+    margin-right: 1.5em;
+    font-size: 0.93em;
+    white-space: nowrap;
+  }
+  > ul > li:last-child {
+    float: right;
+    margin-right: 0;
+  }
+  @include media($break-mid) {
+    text-align: center;
+    li, a {
+      margin: 1.1em;
+    }
+    > ul > li:last-child {
+      float: none;
+      margin: inherit;
+    }
+  }
+  ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    li {
+      display: inline-block;
+    }
+  }
+  // Drop down
+  li:focus,
+  li:hover {
+  }
+  li:focus > .header__nav__dropdown,
+  li:hover > .header__nav__dropdown,
+  li:focus > .header__nav__dropdown,
+  li:hover > .header__nav__dropdown {
+    display: block;
+    position: absolute;
+    top: 100%;
+    padding: 0.2em 1em;
+  }
+  .header__nav__dropdown {
+    display: none;
+    background: $col-brand-grey-dk;
+      padding: 0;
+      margin: 0;
+    a, li {
+      display: block;
+      margin: 0;
+    }
+  }
+  @include media($break-small) {
+    a {
+      line-height: 2.2em;
+    }
+  }
+}

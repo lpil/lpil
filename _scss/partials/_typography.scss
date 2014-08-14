@@ -1,0 +1,25 @@
+* {
+  color: $col-text;
+}
+html {
+  font-family: $font-family;
+  font-size: 0.95em;
+}
+a, p {
+  line-height: 1.6em;
+}
+a {
+  color: $col-link;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+  color: $col-link-hover;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-weight: normal;
+  font-family: $font-family-serif;
+  margin: 0.5em 0 0 0;
+  // Fix the character spacing for headings
+  text-rendering: optimizeLegibility;
+}

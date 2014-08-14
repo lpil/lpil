@@ -1,0 +1,20 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+.page-content {
+  @include outer-container;
+  padding: 0.3em;
+  // For moving footer to bottm
+  min-height: 100%;
+  margin-bottom: -$footer-height;
+  @include media($break-small) {
+    padding: 0;
+  }
+}
+.page-content:after {
+  height: $footer-height;
+  content: "";
+  display: block;
+}

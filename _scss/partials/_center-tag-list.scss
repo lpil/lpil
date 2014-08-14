@@ -1,0 +1,28 @@
+.center-tag-list {
+  margin-bottom: 1em;
+  padding: 1.5em 0;
+  text-align: center;
+  border-bottom: 3px dotted $col-brand-grey-lt;
+  border-top: 3px dotted $col-brand-grey-lt;
+  span {
+    font-family: $font-family-serif;
+    font-size: 2.2em;
+    padding: 0 0.9em;
+    white-space: nowrap;
+  }
+  span:nth-child(2) {
+    border-left: 3px solid $col-brand-red;
+    border-right: 3px solid $col-brand-red;
+    @include media($break-mid) {
+      border: none;
+      line-height: 1.3em;
+    }
+    @include media($break-small) {
+      line-height: 2em;
+    }
+  }
+}
+
+.center-tag-list.on-index {
+  border-top: none;
+}
