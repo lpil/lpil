@@ -39,8 +39,9 @@
   @include colored-block;
   @include outer-container;
   position: relative;
-  // padding: 0.5em 1.5em;
+  padding: 0 1.2em;
   li {
+    line-height: 2.5em;
     margin-right: 1.5em;
     font-size: 0.93em;
     white-space: nowrap;
@@ -68,17 +69,13 @@
     }
   }
   // Drop down
-  li:focus,
-  li:hover {
-  }
-  li:focus > .header__nav__dropdown,
-  li:hover > .header__nav__dropdown,
   li:focus > .header__nav__dropdown,
   li:hover > .header__nav__dropdown {
     display: block;
+    padding: 0.3em 1em;
     position: absolute;
     top: 100%;
-    padding: 0.2em 1em;
+    border-radius: 0 0 $corner-radius $corner-radius;
   }
   .header__nav__dropdown {
     display: none;
@@ -88,6 +85,7 @@
     a, li {
       display: block;
       margin: 0;
+      line-height: 2.0em;
     }
   }
   @include media($break-small) {
