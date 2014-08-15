@@ -2,4 +2,37 @@
 layout: page
 title: Contact Us
 ---
-<!-- TODO -->
+<table>
+  <tr>
+    <td>
+      Tel:
+    </td>
+    <td>
+      {{ site.telephone }}
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Fax:
+    </td>
+    <td>
+      {{ site.fax }}
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Email:
+    </td>
+    <td>
+      {{ site.email }}
+    </td>
+  </tr>
+  <tr>
+</table>
+<p>
+  {{ site.address1 }}<br />
+  {{ site.address2 }}<br />
+  {{ site.address3 }}
+</p>
+<iframe src="{{ site.url }}/map.html" allowtransparency="true" width="100%" height="300px" type="text/html" frameborder="0" scrolling="no" style="border:0"></iframe>
+<iframe src="http://www.dotapprove.co.uk/map.html" allowtransparency="true" width="100%" height="300px" type="text/html" frameborder="0" scrolling="no" style="border:0"></iframe>
