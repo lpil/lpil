@@ -1,6 +1,8 @@
 ## Notes
 
-http://stackoverflow.com/questions/17118551/generating-a-list-of-pages-not-posts-in-a-given-category
+Sorting posts
+
+http://stackoverflow.com/questions/13266369/how-to-change-the-default-order-pages-in-jekyll
 
 ## Improvements over Bracket's
 
