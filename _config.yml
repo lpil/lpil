@@ -29,6 +29,9 @@ permalink: /news/:title
 exclude:
   - dev_serve.sh
   - Guardfile
+  - Gemfile
+  - Gemfile.lock
+  - README.md
 
 sass:
   style: :compressed

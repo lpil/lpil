@@ -12,7 +12,8 @@
         <a href="{{ site.url }}">Home</a>
       </li>
       <!-- snap -->
-{% for section in site.nav-sections %}
+{% assign nav-sections = site.nav-sections | sort:"name" %}
+{% for section in nav-sections %}
       <li>
         {{ section }}
         <ul class="header__nav__dropdown">
