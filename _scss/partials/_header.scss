@@ -6,25 +6,28 @@
     padding: 2em 0 1em 0;
     // Logo
     img {
+      max-width: 48%;
       display: inline-block;
-      max-width: 90%;
     }
     // Give us a call on...
     aside {
-      float: right;
+      position: absolute;
+      top: calc(50% - 0.9em);
+      right: 0;
       display: table-cell;
       vertical-align: middle;
-      max-width: 50%;
+      max-width: 48%;
       text-align: center;
       font-size: 1.2em;
-      display: inline-block;
       span {
         white-space: nowrap;
       }
     }
     @include media($break-mid) {
+      img {
+        max-width: 90%;
+      }
       aside {
-        float: none;
         max-width: 100%;
         text-align: center;
         position: initial;
