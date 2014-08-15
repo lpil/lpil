@@ -50,8 +50,9 @@
     white-space: nowrap;
   }
   > ul > li:last-child {
-    float: right;
-    margin-right: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
   }
   @include media($break-mid) {
     text-align: center;
@@ -59,8 +60,7 @@
       margin: 1.1em;
     }
     > ul > li:last-child {
-      float: none;
-      margin: inherit;
+      position: inherit;
     }
   }
   ul {
