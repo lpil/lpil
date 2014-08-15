@@ -1,37 +1,13 @@
 <header class="header">
   <section class="header__banner">
-    <img src="{{ site.url }}/images/logo.svg" alt="{{ site.title }}" />
+    <a href="{{ site.url }}">
+      <img src="{{ site.url }}/images/logo.svg" alt="{{ site.title }}" />
+    </a>
     <aside>
       <span>To book a demo, call</span> <span><b>{{ site.telephone }}</b> or 
         <a href="mailto:{{ site.email }}">email us</a></span>
     </aside>
   </section>
-  <nav class="header__nav">
-    <ul>
-      <li>
-        <a href="{{ site.url }}">Home</a>
-      </li>
-      <!-- snap -->
-{% assign nav-sections = site.nav-sections | sort:"name" %}
-{% for section in nav-sections %}
-      <li>
-        {{ section }}
-        <ul class="header__nav__dropdown">
-  {% for page in site.pages %}
-    {% if page.nav-section == section %}
-        <li>
-          <a href="{{ page.url }}">
-            {{ page.title }}
-          </a>
-        </li>
-    {% endif %}
-  {% endfor %}
-        </ul>
-      </li>
-{% endfor %}
-      <li>
-        <a href="{{ site.url }}/contact-us.html">Contact Us</a>
-      </li>
-    </ul>
-  </nav>
+  {% include header-nav.html %}
+  {% include header-nav-mobile.html %}
 </header>

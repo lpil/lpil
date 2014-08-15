@@ -9,10 +9,10 @@
       max-width: 48%;
       display: inline-block;
     }
-    // Give us a call on...
+    // Contact text to right of logo
     aside {
       position: absolute;
-      top: calc(50% - 0.9em);
+      top: calc(50% - 0.6em);
       right: 0;
       display: table-cell;
       vertical-align: middle;
@@ -38,6 +38,8 @@
     }
   }
 }
+
+// The drop down nav for desktops
 .header__nav {
   @include colored-block;
   @include outer-container;
@@ -45,9 +47,10 @@
   padding: 0 1.2em;
   li {
     line-height: 2.5em;
-    margin-right: 1.5em;
+    padding-right: 1.5em;
     font-size: 0.93em;
     white-space: nowrap;
+    cursor: pointer;
   }
   > ul > li:last-child {
     position: absolute;
@@ -55,13 +58,7 @@
     top: 0;
   }
   @include media($break-mid) {
-    text-align: center;
-    li, a {
-      margin: 1.1em;
-    }
-    > ul > li:last-child {
-      position: inherit;
-    }
+    display: none;
   }
   ul {
     padding: 0;
@@ -91,9 +88,22 @@
       line-height: 2.0em;
     }
   }
-  @include media($break-small) {
-    a {
-      line-height: 2.2em;
+}
+
+// The select nav for mobiles
+.header__nav--mobile {
+  display: none;
+  @include media($break-mid) {
+    width: 100%;
+    display: inherit;
+    select {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      min-width: 75%;
+      border-radius: 0;
+      height: 2em;
+      border: 1px solid #555;
     }
   }
 }

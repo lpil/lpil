@@ -1,0 +1,15 @@
+<nav class="header__nav--mobile">
+  <select onchange="if (this.value) window.location.href=this.value">
+    <option value="">Navigate the site…</option>
+    <option value="{{ site.url }}">{{ site.title }} Home</option>
+{% for section in nav-sections %}
+    <optgroup label="{{ section }}">
+  {% for page in site.pages %}
+    {% if page.nav-section == section %}
+    <option value="{{ site.url }}{{ page.url }}">{{ page.title }}</option>
+    {% endif %}
+  {% endfor %}
+    </optgroup>
+{% endfor %}
+  </select>
+</nav>
