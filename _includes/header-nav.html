@@ -7,16 +7,12 @@
 {% for section in nav-sections %}
     <li>
       {{ section }}
-      <ul class="header__nav__dropdown">
-  {% for page in site.pages %}
-    {% if page.nav-section == section %}
-      <li>
+      <ul class="header__nav__dropdown">{% for page in site.pages %}{% if page.nav-section == section %}
+        <li>
         <a href="{{ page.url }}">
           {{ page.title }}
         </a>
-      </li>
-    {% endif %}
-  {% endfor %}
+      </li>{% endif %}{% endfor %}
       </ul>
     </li>
 {% endfor %}
