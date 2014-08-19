@@ -3,10 +3,13 @@
 }
 html {
   font-family: $font-family;
-  font-size: 0.95em;
+  font-size: 0.90em;
 }
-a, p {
+a, p, li {
   line-height: 1.6em;
+}
+p {
+  margin: 0.5em 0 1em 0;
 }
 a {
   color: $col-link;

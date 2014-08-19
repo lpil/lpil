@@ -2,23 +2,28 @@
   height: $footer-height;
   background: $col-text;
   padding: 1em 0;
-  .footer__links, .footer__details {
+  .footer__nav, .footer__details {
     @include outer-container;
     padding: 0.3em;
     color: #fff;
   }
-  .footer__links {
+  .footer__nav {
+    display: block;
     h4 {
       color: #fff;
+      display: inline-block;
     }
     aside {
-      color: #fff;
-      @include span-columns(3);
-      @include media($break-mid) {
-        @include span-columns(6);
-        margin-bottom: 1em;
-        width: 47%;
+      ul {
+        color: #fff;
+        padding: 0;
+        margin-top: 0;
+        display: inline-block;
+        @include span-columns(3);
       }
+    }
+    @include media($break-mid) {
+      display: none;
     }
   }
   hr {

@@ -6,6 +6,10 @@
   h2 {
     font-size: 2.4em;
   }
+  h4 {
+    color: $col-brand-red;
+    font-weight: bold;
+  }
   @include media($break-mid) {
     @include span-columns(12);
     padding: 0 0.5em;
