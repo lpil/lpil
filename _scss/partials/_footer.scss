@@ -1,7 +1,10 @@
 .footer {
   height: $footer-height;
+  @include media($break-mid) {
+    height: $footer-height--break-mid;
+  }
   background: $col-text;
-  padding: 1em 0;
+  margin-top: $footer-margin-top;
   .footer__nav, .footer__details {
     @include outer-container;
     padding: 0.3em;
@@ -9,7 +12,7 @@
   }
   .footer__nav {
     display: block;
-    h4 {
+    h3 {
       color: #fff;
       display: inline-block;
     }
@@ -20,6 +23,9 @@
         margin-top: 0;
         display: inline-block;
         @include span-columns(3);
+        a {
+          color: #fff;
+        }
       }
     }
     @include media($break-mid) {
@@ -30,5 +36,16 @@
     height: 1px;
     border: none;
     border-top: 3px dotted #fff;
+  }
+  .footer__details {
+    text-align: center;
+    p {
+      margin: 0;
+      color: #fff;
+      display: inline-block;
+      @include media($break-mid) {
+        display: block;
+      }
+    }
   }
 }

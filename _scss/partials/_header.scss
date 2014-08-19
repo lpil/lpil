@@ -89,21 +89,3 @@
     }
   }
 }
-
-// The select nav for mobiles
-.header__nav--mobile {
-  display: none;
-  @include media($break-mid) {
-    width: 100%;
-    display: inherit;
-    select {
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-      min-width: 75%;
-      border-radius: 0;
-      height: 2em;
-      border: 1px solid #555;
-    }
-  }
-}

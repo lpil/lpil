@@ -1,3 +1,7 @@
+.index {
+  padding-bottom: 0.6em;
+  @include clearfix;
+}
 .index__mural {
   @include colored-block;
 }
@@ -9,6 +13,9 @@
   h4 {
     color: $col-brand-red;
     font-weight: bold;
+  }
+  img {
+    display: block;
   }
   @include media($break-mid) {
     @include span-columns(12);

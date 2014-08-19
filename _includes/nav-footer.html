@@ -3,7 +3,7 @@
 {% for section in nav-sections %}
 <aside>
   <ul>
-    <li><h4>{{ section }}</h4></li>{% for page in site.pages %}{% if page.nav-section == section %}
+    <li><h3>{{ section }}</h3></li>{% for page in site.pages %}{% if page.nav-section == section %}
     <li>
     <a href="{{ page.url }}">
       {{ page.title }}
