@@ -2,6 +2,7 @@
   padding: 0.5em 1.5em;
   background: $col-brand-red;
   border-radius: $corner-radius; 
+  color: #ffffff;
   *, a:hover { color: #ffffff; }
   @include media($break-small) {
     border-radius: 0;
