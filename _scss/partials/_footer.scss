@@ -17,12 +17,12 @@
       display: inline-block;
     }
     aside {
+      @include span-columns(3);
       ul {
         color: #fff;
         padding: 0;
         margin-top: 0;
         display: inline-block;
-        @include span-columns(3);
         a {
           color: #fff;
         }
