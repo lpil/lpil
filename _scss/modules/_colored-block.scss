@@ -5,5 +5,8 @@
   *, a:hover { color: #ffffff; }
   @include media($break-small) {
     border-radius: 0;
+    width: calc(100% + #{2 * $page-content-horizontal-padding});
+    position: relative;
+    right: $page-content-horizontal-padding;
   }
 }

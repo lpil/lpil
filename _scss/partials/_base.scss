@@ -3,20 +3,17 @@ html, body {
   padding: 0;
   height: 100%;
 }
-.page-content {
+.page {
   @include outer-container;
-  padding: 0.3em;
+  padding: 0 $page-content-horizontal-padding;
   // For moving footer to bottm
   min-height: 100%;
   margin-bottom: -$footer-height - $footer-margin-top;
   @include media($break-mid) {
     margin-bottom: -$footer-height--break-mid - $footer-margin-top;
   }
-  @include media($break-small) {
-    padding: 0;
-  }
 }
-.page-content:after {
+.page:after {
   height: $footer-height;
   @include media($break-mid) {
     height: $footer-height--break-mid;
