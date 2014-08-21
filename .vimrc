@@ -213,11 +213,11 @@ nnoremap <F1> :set hlsearch!<CR>
 " Toggle textwidth automatic new line insertion
 nnoremap <silent> <F2> :exe "set textwidth=" . (&tw ? 0 : 79)<CR> <Bar> :echo ":set textwidth=" . &tw<CR>
 " Toggle show hidden chars
-noremap <F3> :set list!<CR>
+nnoremap <F3> :set list!<CR>
 " Toggle spell check
-noremap <F4> :setlocal spell!<CR>
+nnoremap <F4> :setlocal spell!<CR>
 " Toggle syntax check
-noremap <F5> :SyntasticToggleMode<CR>
+nnoremap <F5> :SyntasticToggleMode<CR>
 
 """"""""""""""""""""""
 " HTML char escaping "
@@ -262,6 +262,9 @@ let g:syntastic_ruby_checkers=['mri', 'rubocop']
 
 " Start in regexp mode
 let g:ctrlp_regexp = 1
+
+" Search MRU, buffers, and files
+nnoremap <C-o> :CtrlPMixed<CR>
 
 " Space inserts a wildcard
 let g:ctrlp_prompt_mappings = { 'PrtAdd(".*")': ['<space>'] }
