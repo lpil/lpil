@@ -35,7 +35,7 @@
   hr {
     height: 1px;
     border: none;
-    border-top: 3px dotted #fff;
+    @include dotted-border(top);
   }
   .footer__details {
     text-align: center;

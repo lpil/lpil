@@ -2,8 +2,7 @@
   margin-bottom: 1em;
   padding: 1.5em 0;
   text-align: center;
-  border-bottom: 3px dotted $col-brand-grey-lt;
-  border-top: 3px dotted $col-brand-grey-lt;
+  @include dotted-border(topBottom);
   span {
     font-family: $font-family-serif;
     font-size: 2.2em;
@@ -24,5 +23,5 @@
 }
 
 .center-tag-list.on-index {
-  border-top: none;
+  @include dotted-border(bottom);
 }

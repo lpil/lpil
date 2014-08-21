@@ -1,6 +1,6 @@
 .page__title {
+  @include dotted-border(bottom);
   padding-bottom: 0.2em;
-  border-bottom: 3px dotted $col-brand-grey-lt;
   @include media($break-mid) {
     @include colored-block;
     border: none;
