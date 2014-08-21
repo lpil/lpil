@@ -8,8 +8,10 @@ call vundle#rc()
 " let Vundle manage Vundle
 Bundle 'gmarik/Vundle.vim'
 
+Bundle 'Shougo/neocomplcache.vim'
 Bundle 'chrisbra/Colorizer'
 Bundle 'dag/vim2hs'
+Bundle 'derekwyatt/vim-scala'
 Bundle 'garbas/vim-snipmate'
 Bundle 'honza/vim-snippets'
 Bundle 'justinmk/vim-sneak'
