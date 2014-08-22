@@ -1,11 +1,20 @@
-## Notes
+# Example reactive pages
 
-Sorting posts
+Index
+Our people
+The buying process
 
-http://stackoverflow.com/questions/13266369/how-to-change-the-default-order-pages-in-jekyll
+# Improvements
 
-## Improvements over Bracket's
-
-Vector logo used
-* Smaller file size
-* Doesn't look fuzzy on iPads & Macbook Airs
+* Mobile compatible design
+  * SEO
+  * Mobile devices estimated to be 25% of all traffic
+* Jekyll static site
+  * Can be edited and previewed offline
+  * Easier to deploy
+  * No maintainence
+  * Faster page loading
+* Vector logo used
+  * Faster page loading
+  * Less server load
+  * Doesn't look fuzzy on iPads & Macbook Airs
