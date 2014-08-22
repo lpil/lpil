@@ -1,0 +1,28 @@
+blockquote {
+  font-family: $font-family-serif;
+  p {
+    font-size: 1.5em;
+    color: $col-brand-red;
+    margin: 0.4em 0;
+  }
+  p:first-of-type:before,
+  p:last-of-type:after {
+    font-size: 1.5em;
+    line-height: 0;
+    letter-spacing: -0.1em;
+    position: relative;
+    top: 0.11em;
+  }
+  p:first-of-type:before {
+    content: "“"
+  }
+  p:last-of-type:after {
+    content: "”";
+    right: 0.1em;
+  }
+  cite {
+    font-size: 1.1em;
+    display: inline-block;
+    margin: 0.3em 0 1.2em 0;
+  }
+}

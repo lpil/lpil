@@ -10,6 +10,9 @@ a, p, li {
 }
 p {
   margin: 0.5em 0 1em 0;
+  a {
+    font-weight: bold;
+  }
 }
 a {
   color: $col-link;
@@ -26,9 +29,13 @@ h1, h2, h3, h4, h5, h6 {
   // Fix the character spacing for headings
   text-rendering: optimizeLegibility;
 }
-h3 {
-  font-size: 1.3em;
+h1 { font-size: 3em; }
+h2 { font-size: 2em; }
+h3 { font-size: 1.5em; }
+h4 {
+  font-size: 1.1em;
+  font-weight: bold;
 }
-h1 {
-  font-size: 3em;
+h2, h3, h4 {
+  color: $col-brand-red;
 }

@@ -1,10 +1,9 @@
-# Example reactive pages
+# TODO notes
 
-Index
-Our people
-The buying process
+* Use solid line on index images with text, rather than the gradient.
+* Replace image for quotes on financial pages with both.
 
-# Improvements
+# Improvements made
 
 * Mobile compatible design
   * SEO
