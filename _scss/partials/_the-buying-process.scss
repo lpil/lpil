@@ -1,0 +1,49 @@
+$buying-bg-col: lighten($col-brand-grey-lt, 15);
+
+.buying__container {
+  @include outer-container;
+  position: relative;
+  padding-bottom: 80px;
+  margin: 1em 0;
+  z-index: -5;
+}
+
+.buying__bubble {
+  @include span-columns(3);
+  z-index: -5;
+  background: $col-brand-blue-lt;
+  border-radius: 1.0em;
+  padding: 1em;
+  line-height: 1.5em;
+  margin-top: 20px;
+  @include media($break-mid) {
+    @include span-columns(6);
+    @include omega(3);
+  }
+  @include media($break-small) {
+    @include span-columns(6);
+  }
+}
+
+.buying__bg {
+  border-radius: 1em;
+  position: absolute;
+  z-index: -10;
+  left: 5%;
+  background: $buying-bg-col;
+  height: calc(100% - 55px);
+  width: 90%;
+}
+// Arrow
+.buying__bg:after {
+  position: absolute;
+  top: 100%;
+  right: calc(50% - 40px);
+  content: "";
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 50px 80px 0 0px;
+  border-color: $buying-bg-col transparent transparent transparent;
+  -webkit-transform: rotate(360deg); // better webkit aliasing
+}
