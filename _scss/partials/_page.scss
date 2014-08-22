@@ -9,6 +9,7 @@
   }
 }
 .page__content {
+  @include clearfix;
   padding-bottom: 1em;
   > ul, > p {
     max-width: 70%;

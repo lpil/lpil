@@ -17,3 +17,13 @@
   * Faster page loading
   * Less server load
   * Doesn't look fuzzy on iPads & Macbook Airs
+
+# Sites todo
+
+DotApprove
+Electrum Multimedia
+Marketing Store
+Perivan Financial
+Perivan Financial POD
+Perivan Solutions
+Virtual Boardroom
