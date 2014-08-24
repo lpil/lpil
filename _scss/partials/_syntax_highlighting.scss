@@ -1,23 +1,21 @@
-code,
-.highlight {
+pre {
   background: #f0f0f0;
-}
-
-p code {
-  padding: .1em .2em;
-}
-
-.highlight {
+  border-radius: 2px;
   margin: .5em;
   margin-left: auto;
   margin-right: auto;
   max-width: 45em;
   overflow: auto;
+  padding: .7em 1em;
+}
 
-  pre {
-    padding: 0 .7em;
-  }
+li code,
+p code {
+  background: #f0f0f0;
+  padding: .1em .2em;
+}
 
+.highlight {
   // Comment
   .c { color: #998; font-style: italic; }
   // Error
@@ -33,7 +31,7 @@ p code {
   // Comment.Single
   .c1 { color: #998; font-style: italic; }
   // Comment.Special
-  .cs { color: #999; font-weight: bold; font-style: italic; }
+  .cs { color: #999; font-style: italic; font-weight: bold; }
   // Generic.Deleted
   .gd { background-color: #fdd; color: #000; }
   // Generic.Deleted.Specific
