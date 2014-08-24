@@ -9,10 +9,10 @@ call vundle#rc()
 Bundle 'gmarik/Vundle.vim'
 
 Bundle 'Shougo/neocomplcache.vim'
+Bundle 'SirVer/ultisnips'
 Bundle 'chrisbra/Colorizer'
 Bundle 'dag/vim2hs'
 Bundle 'derekwyatt/vim-scala'
-Bundle 'garbas/vim-snipmate'
 Bundle 'honza/vim-snippets'
 Bundle 'justinmk/vim-sneak'
 Bundle 'kchmck/vim-coffee-script'
@@ -285,11 +285,17 @@ autocmd FileType slim set commentstring=/\ %s
 
 let g:sneak#s_next = 1
 
-""""""""""""""""""""""""""""""""""""""""
-" Plugin: Colorizer (terrible spelling "
-""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""
+" Plugin: Colorizer (terrible spelling) "
+"""""""""""""""""""""""""""""""""""""""""
 
 let g:colorizer_auto_filetype='css,scss'
+
+"""""""""""""""""""""""""
+" Plugin: neocomplcache "
+"""""""""""""""""""""""""
+
+let g:neocomplcache_enable_at_startup = 1
 
 """""""""""""""""""""""""""""""""""""
 " And finally, per-project .vimrc's "
