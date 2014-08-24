@@ -51,7 +51,7 @@ your IRC client. Any application where you would want to quickly summon it up
 and give it your full attention for a few seconds this would be ideal for.
 
 Hope you've found this useful. If you've got any other tricks to share, shoot
-me an email. :)
+me an email :)
 
 Cheers,  
 Louis
