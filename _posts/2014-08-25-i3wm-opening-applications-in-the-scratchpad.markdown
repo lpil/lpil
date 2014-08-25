@@ -39,8 +39,8 @@ Lets break this down.
   I'm using, urxvt, does not support this
 * `urxvt` is the terminal emulator I'm using
 * `-name scratchpad` causes the terminal window to have the instance of
-  "scratchpad", which is what we specified behavour for earlier. I expect
-  there is a similar flag avalible for other terminal emulators
+  "scratchpad", which is what we specified behaviour for earlier. I expect
+  there is a similar flag available for other terminal emulators
 * `-e ncmpcpp` causes the application I desire to run in the spawned terminal
 
 And there we have it! If we change the key combination and swapping `ncmpcpp`
