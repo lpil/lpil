@@ -1,22 +1,27 @@
 .index {
-  padding-bottom: 0.6em;
+  padding-bottom: .6em;
   @include clearfix;
 }
+
 .index__mural {
   @include colored-block;
 }
+
 .index__columns {
   @include span-columns(4);
   h1 {
     font-size: 2.4em;
   }
+
   img {
     display: block;
   }
+
   @include media($break-mid) {
     @include span-columns(12);
-    padding: 0 0.5em;
     margin: 0;
+    padding: 0 .5em;
+
     h2 {
       margin-top: 0;
     }

@@ -1,27 +1,11 @@
 ---
 ---
-@import 'vendor/bourbon/bourbon';
-@import 'modules/neat-grid-settings';
-@import 'vendor/neat/neat';
-
 @import 'modules/variables';
 
-// Mixins
-@import 'modules/colored-block';
-@import 'modules/dotted-border';
-
-// Generic
-@import 'partials/base';
-@import 'partials/typography';
-@import 'partials/quote';
-@import 'partials/header';
-@import 'partials/footer';
-@import 'partials/page';
-@import 'partials/nav-mobile';
-@import 'partials/center-tag-list';
+// SCSS shared by all sites
+@import 'theme/main';
 
 // Specific pages
-@import 'partials/index';
 @import 'partials/contact-us';
 @import 'partials/our-people';
 @import 'partials/the-buying-process';

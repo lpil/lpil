@@ -9,19 +9,31 @@ $col-brand-green-lt: #abbab0;
 $col-brand-mint: #b2bca2;
 $col-brand-grey-lt: #bfbab0;
 
-$col-text: #111111;
-$col-link: $col-brand-red;
-$col-link-hover: $col-brand-plum;
+$col-black: #111;
 
-$font-family: sans-serif;
-$font-family-serif: Georgia, Times, "Times New Roman", serif;
+//
+// Top level colours
+// These need to be edited with each new colour scheme
+//
+$col-primary:        $col-brand-red;
+$col-primary-darker: $col-brand-plum;
+$col-nav-dropdown:   $col-brand-grey-dk;
 
-// Keeping the footer at the bottom of the page
-$footer-margin-top: 10px;
-$footer-height: 270px;
-$footer-height--break-mid: 200px;
+//
+// Second level colours
+// These will inherit from top level
+//
+// Typography colours
+$col-text:       $col-black;
+$col-link:       $col-primary;
+$col-link-hover: $col-primary-darker;
+$col-h2h3h4:     $col-primary;
 
-// Border for the page content
-$page-content-horizontal-padding: 12px;
+// Major layout colours
+$col-colored-block: $col-primary;
+$col-footer-bg:     $col-text;
 
-$corner-radius: 4px;
+// Misc bits colours
+$col-quote:                $col-primary;
+$col-page-first-paragraph: $col-primary-darker;
+$col-center-tag-separator: $col-primary;

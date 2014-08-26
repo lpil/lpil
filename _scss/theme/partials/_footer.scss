@@ -3,7 +3,7 @@
   @include media($break-mid) {
     height: $footer-height--break-mid;
   }
-  background: $col-text;
+  background: $col-footer-bg;
   margin-top: $footer-margin-top;
   .footer__nav, .footer__details {
     @include outer-container;

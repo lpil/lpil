@@ -10,8 +10,8 @@
     white-space: nowrap;
   }
   span:nth-child(2) {
-    border-left: 3px solid $col-brand-red;
-    border-right: 3px solid $col-brand-red;
+    border-left: 3px solid $col-center-tag-separator;
+    border-right: 3px solid $col-center-tag-separator;
     @include media($break-mid) {
       border: none;
       line-height: 1.3em;
