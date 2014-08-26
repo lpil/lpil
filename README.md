@@ -1,28 +1,21 @@
-# TODO notes
+# TODO notes (against bracket's)
 
 * Use solid line on index images with text, rather than the gradient.
 * Replace image for quotes on financial pages with both.
 
-# Improvements made
+# Managing the `_scss/theme` SCSS submodule
 
-* Mobile compatible design
-  * SEO
-  * Mobile devices estimated to be 25% of all traffic
-* Jekyll static site
-  * Can be edited and previewed offline
-  * Easier to deploy
-  * No maintainence
-  * Faster page loading
-* Vector logo used
-  * Faster page loading
-  * Less server load
-  * Doesn't look fuzzy on iPads & Macbook Airs
+Updating
+    git submodule foreach git pull
+
+Cloning
+    git clone --recursive git://github.com/foo/bar.git
 
 # Sites todo
 
 DotApprove
 Electrum Multimedia
-Marketing Store
+Marketing Store (Maybe?)
 Perivan Financial
 Perivan Financial POD
 Perivan Solutions
