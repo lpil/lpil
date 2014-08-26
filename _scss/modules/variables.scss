@@ -17,6 +17,7 @@ $col-primary:        $col-brand-red;
 $col-primary-darker: $col-brand-plum;
 $col-nav-dropdown:   $col-brand-grey-dk;
 $col-black: #111;
+$col-white: #fff;
 
 //
 // Second level colours
@@ -29,8 +30,10 @@ $col-link-hover: $col-primary-darker;
 $col-h2h3h4:     $col-primary;
 
 // Major layout colours
-$col-colored-block: $col-primary;
-$col-footer-bg:     $col-text;
+$col-colored-block:      $col-primary;
+$col-colored-block-text: $col-white;
+$col-footer-bg:          $col-black;
+$col-footer-fg:          $col-white;
 
 // Misc bits colours
 $col-quote:                $col-primary;

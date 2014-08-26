@@ -6,3 +6,6 @@ defaults:
       path: "" # all
     values:
       development: true
+
+sass:
+  style: :expanded
