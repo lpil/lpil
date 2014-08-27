@@ -25,11 +25,26 @@
     display: block;
     margin-bottom: 1em;
     padding-bottom: .3em;
+
+    @include media($break-mid) {
+      @include span-columns(12);
+      img {
+        min-width: 60%;
+      }
+    }
+  }
+
+  img {
+    max-width: 100%;
   }
 
   a:last-child {
     @include shift(4);
     margin-bottom: 0;
+
+    @include media($break-mid) {
+      @include shift(0);
+    }
   }
 
 
