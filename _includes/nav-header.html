@@ -9,7 +9,7 @@
       {{ section }}
       <ul class="header__nav__dropdown">{% for page in site.pages %}{% if page.nav-section == section %}
         <li>
-        <a href="{{ page.url }}">
+        <a href="{{ site.url }}{{ page.url }}">
           {{ page.title }}
         </a>
       </li>{% endif %}{% endfor %}
