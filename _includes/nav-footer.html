@@ -1,15 +1,87 @@
 <nav class="footer__nav">
-{% assign nav-sections = site.nav-sections | sort:"name" %}
-{% for section in nav-sections %}
-<aside>
-  <ul>
-    <li><h3>{{ section }}</h3></li>{% for page in site.pages %}{% if page.nav-section == section %}
-    <li>
-    <a href="{{ page.url }}">
-      {{ page.title }}
-    </a>
-    </li>{% endif %}{% endfor %}
-  </ul>
-</aside>
-{% endfor %}
+  <aside>
+    <ul>
+      <li><h3>About</h3></li>
+    </ul>
+  </aside>
+  <aside>
+    <ul>
+      <li><h3>Divisions</h3></li>
+      <li>
+        <a href="http://www.perivanfinancialpod.co.uk" target="_blank">
+          Perivan Financial Print On Demand
+        </a>
+      <li>
+      </li>
+        <a href="http://www.perivansolutions.co.uk" target="_blank">
+          Perivan Solutions
+        </a>
+      <li>
+      </li>
+        <a href="http://www.perivandesign.co.uk" target="_blank">
+          Perivan Design
+        </a>
+      <li>
+      </li>
+        <a href="http://www.virtualboardroom.co.uk" target="_blank">
+          Virtual Boardroom
+        </a>
+      <li>
+      </li>
+        <a href="http://www.dotapprove.co.uk" target="_blank">
+          DotApprove
+        </a>
+      <li>
+      </li>
+        <a href="http://www.perivanfinancial.co.uk" target="_blank">
+          Perivan Financial
+        </a>
+      <li>
+      </li>
+        <a href="http://www.electrum.co.uk" target="_blank">
+          Electrum Multimedia
+        </a>
+      </li>
+    </ul>
+  </aside>
+  <aside>
+    <ul>
+      <li><h3>Contact</h3></li>
+      <li>
+        <a href="http://www.perivanfinancialpod.co.uk/contact-us.html" target="_blank">
+          Perivan Financial Print On Demand
+        </a>
+      <li>
+      </li>
+        <a href="http://www.perivansolutions.co.uk/contact-us.html" target="_blank">
+          Perivan Solutions
+        </a>
+      <li>
+      </li>
+        <a href="http://www.perivandesign.co.uk/contact-us.html" target="_blank">
+          Perivan Design
+        </a>
+      <li>
+      </li>
+        <a href="http://www.virtualboardroom.co.uk/contact-us.html" target="_blank">
+          Virtual Boardroom
+        </a>
+      <li>
+      </li>
+        <a href="http://www.dotapprove.co.uk/contact-us.html" target="_blank">
+          DotApprove
+        </a>
+      <li>
+      </li>
+        <a href="http://www.perivanfinancial.co.uk/contact-us.html" target="_blank">
+          Perivan Financial
+        </a>
+      <li>
+      </li>
+        <a href="http://www.electrum.co.uk/contact-us.html" target="_blank">
+          Electrum Multimedia
+        </a>
+      </li>
+    </ul>
+  </aside>
 </nav>
