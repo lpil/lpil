@@ -1,26 +1,25 @@
 # Site settings
-title: Virtual Boardroom
+title: Perivan
 url: http://178.62.13.11
 # url: http://www.virtualboardroom.co.uk
 description: >
   Virtualboardroom&reg; is a board portal which allows you to securely
   collaborate with others in the compilation of the board pack and then to
-  share that and other key board information with directors.
+  share that and other key board information with directors. TODO
 
 # Contact
-email: info@virtualboardroom.co.uk
-telephone: +44 (0)20 7562 2247
-fax: +44 (0)20 7562 2203
+email: info@virtualboardroom.co.uk # TODO
+telephone: +44 (0)20 7562 2200
+fax: +44 (0)20 7562 2203 # TODO
 address1: 21 Worship Street
 address2: London
 address3: EC2A 2DW
 
 # Navigation sections
 nav-sections:
-  - Who we are
-  - What we do
-  - How we do it
-  - Why VBR?
+  - History
+  - Management & Administration
+  - Policies & The Environment
 
 # Build settings
 markdown: kramdown

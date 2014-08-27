@@ -1,0 +1,68 @@
+.index__text {
+  color: darken($col-group-warm-grey, 15);
+  font-family: $font-family-serif;
+  font-size: 1.1em;
+  line-height: 1.5em;
+}
+
+.index__group {
+  @include clearfix();
+  @include outer-container();
+  border: 2px solid $col-black;
+  border-radius: $corner-radius * 2;
+  margin: 1em 0;
+  padding: 2em;
+
+  h1 {
+    @include dotted-border(bottom);
+    margin: 0 0 .4em;
+    padding: 0 0 .2em;
+  }
+
+  img {
+    @include span-columns(4);
+    @include omega(3n);
+    margin-bottom: 1em;
+    padding-bottom: .3em;
+  }
+
+  img:last-child {
+    @include shift(4);
+    margin-bottom: 0;
+  }
+
+
+  @mixin divi-bottom-block($color) {
+    border-bottom: 8px solid $color;
+  }
+
+
+  // Division logos
+  .ppod {
+    @include divi-bottom-block($col-pod);
+  }
+
+  .psol {
+    @include divi-bottom-block($col-sol);
+  }
+
+  .pdes {
+    @include divi-bottom-block($col-des);
+  }
+
+  .vbr {
+    @include divi-bottom-block($col-vbr);
+  }
+
+  .da {
+    @include divi-bottom-block($col-da);
+  }
+
+  .pf {
+    @include divi-bottom-block($col-fin);
+  }
+
+  .elec {
+    @include divi-bottom-block($col-elec);
+  }
+}
