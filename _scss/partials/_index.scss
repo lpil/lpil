@@ -19,14 +19,15 @@
     padding: 0 0 .2em;
   }
 
-  img {
+  a {
     @include span-columns(4);
     @include omega(3n);
+    display: block;
     margin-bottom: 1em;
     padding-bottom: .3em;
   }
 
-  img:last-child {
+  a:last-child {
     @include shift(4);
     margin-bottom: 0;
   }
