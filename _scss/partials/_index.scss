@@ -24,7 +24,6 @@
     @include omega(3n);
     display: block;
     margin-bottom: 1em;
-    padding-bottom: .3em;
 
     @include media($break-mid) {
       @include span-columns(12);
