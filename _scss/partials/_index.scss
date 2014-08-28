@@ -27,14 +27,19 @@
 
     @include media($break-mid) {
       @include span-columns(12);
-      img {
-        min-width: 60%;
-      }
     }
   }
 
   img {
-    max-width: 100%;
+    width: 100%;
+
+    @include media($break-mid) {
+      width: 70%;
+    }
+
+    @include media($break-small) {
+      width: 100%;
+    }
   }
 
   a:last-child {
