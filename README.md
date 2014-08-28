@@ -1,4 +1,4 @@
-# AXA Marketing Store as a Ruby on Rails application
+# AXA style document store as a Ruby on Rails application
 
 ## Features
 
