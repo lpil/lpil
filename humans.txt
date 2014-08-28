@@ -6,4 +6,4 @@
 /* SITE */
 	Standards: HTML5, CSS3
         Software: Jekyll, SCSS, Guard, Livereload, Bourbon, Bourbon Neat
-        Repository: https://github.com/PerivanSolutions/VirtualBoardroom
+        Repository: https://github.com/PerivanSolutions/PerivanFinancial
