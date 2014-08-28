@@ -3,19 +3,17 @@
     <li>
       <a href="{{ site.url }}">Home</a>
     </li>
-{% assign nav-sections = site.nav-sections | sort:"name" %}
-{% for section in nav-sections %}
     <li>
-      {{ section }}
-      <ul class="header__nav__dropdown">{% for page in site.pages %}{% if page.nav-section == section %}
-        <li>
-        <a href="{{ site.url }}{{ page.url }}">
-          {{ page.title }}
-        </a>
-      </li>{% endif %}{% endfor %}
-      </ul>
+      <a href="{{ site.url }}/history.html">History</a>
     </li>
-{% endfor %}
+    <li>
+      <a href="{{ site.url }}/management-and-administration.html">
+        Management &amp; Administration</a>
+    </li>
+    <li>
+      <a href="{{ site.url }}/policies-and-the-environment.html">
+        Policies &amp; The Environment</a>
+    </li>
     <li>
       <a href="{{ site.url }}/contact-us.html">Contact Us</a>
     </li>

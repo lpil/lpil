@@ -1,0 +1,13 @@
+.footer__nav {
+  @include outer-container;
+  padding-top: .9em;
+
+  a {
+    @include span-columns(4);
+    @include omega(2n);
+  }
+
+  a:nth-child(2n-1) {
+    @include shift(2);
+  }
+}
