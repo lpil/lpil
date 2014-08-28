@@ -1,13 +1,13 @@
 .footer__nav {
-  @include outer-container;
+  margin: 0 auto;
   padding-top: .9em;
+  text-align: justify;
+  -moz-text-align-last: justify;
+  text-align-last: justify;
+  width: 600px;
 
   a {
-    @include span-columns(4);
-    @include omega(2n);
-  }
-
-  a:nth-child(2n-1) {
-    @include shift(2);
+    display: inline-block;
+    padding: 0 .5em;
   }
 }
