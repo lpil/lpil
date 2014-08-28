@@ -1,5 +1,5 @@
 // Keeping the footer at the bottom of the page
-$footer-height: 270px;
+$footer-height: 249px;
 $footer-height--break-mid: 200px;
 
 //
@@ -7,23 +7,17 @@ $footer-height--break-mid: 200px;
 //
 
 // Brand colours
-$col-brand-red: #b1093d;
-$col-brand-plum: #511b35;
-$col-brand-grey-dk: #978a80;
-$col-brand-cream: #c7b996;
-$col-brand-flesh: #d5bdae;
-$col-brand-blue-lt: #b2bfbf;
-$col-brand-green-lt: #abbab0;
-$col-brand-mint: #b2bca2;
-$col-brand-grey-lt: #bfbab0;
+$col-brand-blue:      #002c48;
+$col-brand-blue-lt:   #789fa5;
+$col-brand-grey-warm: #9b9188;
 
 //
 // Top level colours
 // These need to be edited with each new colour scheme
 //
-$col-primary:        $col-brand-red;
-$col-primary-darker: $col-brand-plum;
-$col-nav-dropdown:   $col-brand-grey-dk;
+$col-primary:        $col-brand-blue;
+$col-primary-darker: $col-brand-blue;
+$col-nav-dropdown:   $col-brand-grey-warm;
 $col-black: #111;
 $col-white: #fff;
 
@@ -46,4 +40,4 @@ $col-footer-fg:          $col-white;
 // Misc bits colours
 $col-quote:                $col-primary;
 $col-page-first-paragraph: $col-primary-darker;
-$col-center-tag-separator: $col-primary;
+$col-center-tag-separator: $col-brand-blue-lt;

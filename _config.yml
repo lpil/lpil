@@ -1,26 +1,24 @@
 # Site settings
-title: Virtual Boardroom
-url: http://178.62.13.11/virtualboardroom
-# url: http://www.virtualboardroom.co.uk
+title: Perivan Financial
+url: http://178.62.13.11/perivanfinancial
+# url: http://www.perivanfinancial.co.uk
 description: >
-  Virtualboardroom&reg; is a board portal which allows you to securely
-  collaborate with others in the compilation of the board pack and then to
-  share that and other key board information with directors.
+  Perivan Financial is the UK’s leading independent financial printer. We are
+  entirely owned and run by people who work for the company and our core team
+  is without question the most well established in the marketplace.
 
 # Contact
-email: info@virtualboardroom.co.uk
-telephone: +44 (0)20 7562 2247
-fax: +44 (0)20 7562 2203
+email: financial@perivan.co.uk
+telephone: +44 (0)20 7562 2278
+fax: +44 (0)20 7562 2201
 address1: 21 Worship Street
 address2: London
 address3: EC2A 2DW
 
 # Navigation sections
 nav-sections:
-  - Who we are
-  - What we do
-  - How we do it
-  - Why VBR?
+  - About
+  - Sectors
 
 # Build settings
 markdown: kramdown
