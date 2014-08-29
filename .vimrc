@@ -134,13 +134,11 @@ nnoremap Y y$
 au InsertLeave * set nopaste
 
 " I've got used to the switched " and @ for buffers and macros on OSX.
-" So lets swap those two feature mappings on other platforms (for UK keyboards)
-if ! has('macunix')
-  nnoremap @ "
-  nnoremap " @
-  vnoremap @ "
-  vnoremap " @
-endif
+" So lets swap those two mappings. Use a UK keymap for OSX
+nnoremap @ "
+nnoremap " @
+vnoremap @ "
+vnoremap " @
 
 " Nicer split navigation
 nnoremap <C-h> <C-w>h
@@ -238,6 +236,10 @@ endfunction
 """""""""""""""""""""""""""""""""""""""""""""""
 " plugin: Syntastic syntax checking behaviour "
 """""""""""""""""""""""""""""""""""""""""""""""
+
+" On by default, except for html
+let g:syntastic_mode_map = { 'mode': 'active',
+                           \ 'passive_filetypes': ['html'] }
 
 " error highlighting
 let g:syntastic_enable_highlighting = 0
