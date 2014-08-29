@@ -1,5 +1,5 @@
 .footer__nav {
-  margin: 0 auto;
+  margin: 0 auto -1.1em;
   padding-top: .9em;
   text-align: justify;
   -moz-text-align-last: justify;
@@ -11,10 +11,11 @@
     padding: 0 .5em;
   }
 
-  // hack for cross browser last line justify
-  :after {
-    content: '';
-    display: inline-block;
-    width: 100%;
-  }
+}
+
+// hack for cross browser last line justify
+.footer__nav:after {
+  content: '';
+  display: inline-block;
+  width: 100%;
 }
