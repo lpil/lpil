@@ -5,25 +5,29 @@ title: People
 permalink: about/anytime-anywhere.html
 ---
 <p>
-  With Virtualboardroom you can keep on top of your board responsibilities from
-  wherever you are in the world, whenever you need to.
+  Our core team is without question the most well established and experienced
+  in the marketplace.
 </p>
 <p>
-  It gives you the flexibility to work in the way that best suits you, giving
-  you access to your information in real time, via whichever device you choose
-  can house all your current and archived board documents, allowing you to
-  search for exactly what you need at the touch of a button. With synchronised
-  calendars and inter-board communication facilities your board’s corporate
-  governance will be transformed.
+  We have specialists in all areas of a project life cycle ensuring they are
+  handled efficiently and economically with care, attention to detail and
+  dedication. No request is too much.
 </p>
 <p>
-  It can be used on any computer or mobile device, including a PC, laptop,
-  smartphone, iPad or other tablet computer. All you need is an internet
-  connection to download your documents, and then you can read and annotate
-  them offline just like any other PDF.
+  All our staff are fully trained in all aspects of the products we provide and
+  can help in an innovative consultancy capacity with any project, including
+  advice on e-comms, complex mailings and alternative methods of communication.
+  Of course you will expect us to treat any information with sensitivity. Our
+  staff are fully aware of their responsibilities in this respect and we are
+  happy to sign NDA's prior to the commencement of any project.
 </p>
-<p>
-  If using an iPad, the Virtualboardroom app provides all the functionality you
-  need to work offline, for further information on our app
-  <a href="{{ site.url }}/why-vbr/vbr-ipad-app.html">click here</a>.
-</p>
+<article class="our-people">
+  {% for department in site.data.our-people %}
+  <section>
+    <h3>{{ department[0] }}</h3>
+      {% for person in department[1] %}
+      <p>{{ person }}</p>
+      {% endfor %}
+  </section>
+  {% endfor %}
+</article>

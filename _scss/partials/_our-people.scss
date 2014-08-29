@@ -1,25 +1,39 @@
 .our-people {
   @include clearfix;
+
+  p {
+    margin: .1em;
+  }
+
   section {
     padding-bottom: 1.1em;
     @include span-columns(4);
-    @include omega(3);
+    @include omega(3n);
     @include media($break-mid) {
       @include span-columns(12);
       text-align: center;
+
       p {
         display: inline-block;
+        margin: 0;
         white-space: nowrap;
       }
+
       p:after {
-        content: ","
+        content: ',';
       }
+
       p:last-child:after {
-        content: ""
+        content: '';
       }
-    }
-    p {
-      margin: 0.1em;
+
+      p:last-child:before {
+        content: 'and ';
+      }
+
+      p:first-of-type:before {
+        content: '';
+      }
     }
   }
 }

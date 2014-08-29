@@ -2,8 +2,14 @@
   <select onchange="if (this.value) window.location.href=this.value">
     <option value="">Navigate the site…</option>
     <optgroup label="{{ site.title }}">
-      <option value="{{ site.url }}">Home</option>
-      <option value="{{ site.url }}/contact-us.html">Contact us</option>
+      <option value="{{ site.url }}">
+        Home</option>
+      <option value="{{ site.url }}/products.html">
+        Products</option>
+      <option value="{{ site.url }}/software-solutions.html">
+        Software Solutions</option>
+      <option value="{{ site.url }}/contact-us.html">
+        Contact us</option>
 {% for section in nav-sections %}
     <optgroup label="{{ section }}">{% for page in site.pages %}{% if page.nav-section == section %}
       <option value="{{ site.url }}{{ page.url }}">{{ page.title }}</option>{% endif %}{% endfor %}
