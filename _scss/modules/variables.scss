@@ -7,23 +7,17 @@ $footer-height--break-mid: 200px;
 //
 
 // Brand colours
-$col-brand-red: #b1093d;
-$col-brand-plum: #511b35;
-$col-brand-grey-dk: #978a80;
-$col-brand-cream: #c7b996;
-$col-brand-flesh: #d5bdae;
-$col-brand-blue-lt: #b2bfbf;
-$col-brand-green-lt: #abbab0;
-$col-brand-mint: #b2bca2;
-$col-brand-grey-lt: #bfbab0;
+$col-brand-green: #637120;
+$col-brand-brown: #8a8655;
 
 //
 // Top level colours
 // These need to be edited with each new colour scheme
 //
-$col-primary:        $col-brand-red;
-$col-primary-darker: $col-brand-plum;
-$col-nav-dropdown:   $col-brand-grey-dk;
+$col-primary:      $col-brand-green;
+$col-primary-dk:   darken($col-brand-green, 5);
+$col-primary-lt:   lighten($col-brand-green, 5);
+$col-nav-dropdown: $col-brand-brown;
 $col-black: #111;
 $col-white: #fff;
 
@@ -33,8 +27,8 @@ $col-white: #fff;
 //
 // Typography colours
 $col-text:       $col-black;
-$col-link:       $col-primary;
-$col-link-hover: $col-primary-darker;
+$col-link:       $col-primary-dk;
+$col-link-hover: $col-primary-lt;
 $col-h2h3h4:     $col-primary;
 
 // Major layout colours
@@ -46,5 +40,5 @@ $footer-dot-col:         wht;
 
 // Misc bits colours
 $col-quote:                $col-primary;
-$col-page-first-paragraph: $col-primary-darker;
+$col-page-first-paragraph: $col-primary-dk;
 $col-center-tag-separator: $col-primary;
