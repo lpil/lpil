@@ -7,17 +7,16 @@ $footer-height--break-mid: 200px;
 //
 
 // Brand colours
-$col-brand-green: #637120;
-$col-brand-brown: #8a8655;
+$col-brand-brown:     #8a8655;
 
 //
 // Top level colours
 // These need to be edited with each new colour scheme
 //
-$col-primary:      $col-brand-green;
-$col-primary-dk:   darken($col-brand-green, 5);
-$col-primary-lt:   lighten($col-brand-green, 5);
-$col-nav-dropdown: $col-brand-brown;
+$col-primary:      $col-brand-brown;
+$col-primary-dk:   darken($col-brand-brown, 5);
+$col-primary-lt:   lighten($col-brand-brown, 10);
+$col-nav-dropdown: $col-primary-lt;
 $col-black: #111;
 $col-white: #fff;
 

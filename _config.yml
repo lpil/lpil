@@ -1,7 +1,7 @@
 # Site settings
 title: Perivan Solutions
-url: http://178.62.13.11/perivansolutions
-# url: http://www.perivansolutions.co.uk
+url: http://178.62.13.11/marketingstore
+# url: http://www.marketingstore.co.uk
 description: >
   Perivan Solutions is a division of the Perivan Group. We start by questioning
   why things are done a certain way and then find ways of doing them better.
@@ -16,8 +16,6 @@ address3: EC2A 2DW
 
 # Navigation sections
 nav-sections:
-  - Software Solutions
-  - Communications Management
   - About Us
 
 # Build settings
