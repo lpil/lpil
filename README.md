@@ -1,6 +1,6 @@
 .vimrc
 ======
 
-My .vimrc (and other dev dotfiles)
+My .(n)vimrc (and other dev dotfiles)
 
 Enjoy!
