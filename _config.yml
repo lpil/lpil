@@ -1,14 +1,12 @@
 # Site settings
 title: Perivan
-url: http://178.62.13.11/perivan
+url: http://perivan.lpil.uk
 # url: http://www.perivan.co.uk
 description: >
-  Virtualboardroom&reg; is a board portal which allows you to securely
-  collaborate with others in the compilation of the board pack and then to
-  share that and other key board information with directors. TODO
+  TODO
 
 # Contact
-email: financial@perivan.co.uk
+email: financial@perivan.co.uk # TODO
 telephone: +44 (0)20 7562 2200
 fax: +44 (0)20 7562 2201
 address1: 21 Worship Street
