@@ -7,19 +7,6 @@ class Mailing < ActiveRecord::Base
   validates_presence_of :order_ref, :date_sent
   validates_inclusion_of :is_post, in: [true, false]
 
-  # Look up an order ref in the database.
-  # Returns nil if not found.
-  #
-  # @param order_ref [String] The order reference to find in the DB
-  # @return [hash] The information accociated with that reference in the DB
-  def self.lookup(order_ref)
-    m = Mailing.find_by_order_ref(order_ref)
-    return nil unless m
-    m = m.attributes.symbolize_keys
-    return m unless m[:dpd_ref]
-    m.merge url: "http://www.dpd.co.uk/apps/tracking/?reference=#{m[:dpd_ref]}"
-  end
-
   # Fetches the DPD report files from the FTP specified by the ftp_dpd_site,
   # ftp_dpd_login, and ftp_dpd_pass enviroment variables.
   #

@@ -1,16 +1,20 @@
-require 'sinatra/activerecord/rake'
-require 'sinatra/activerecord'
+require 'active_record'
+require 'sqlite3'
+require 'yaml'
 
-# Run all tests
-task :test do
-  ENV['RACK_ENV'] = 'test'
+# task :default => :migrate
 
-  # These tasks are invoked rather than specified as dependancies as we need
-  # them to inherit the test enviroment. Is there a better way to do this?
-  Rake::Task['db:drop'].invoke
-  Rake::Task['db:create'].invoke
-  Rake::Task['db:schema:load'].invoke
+namespace :db do
+  desc 'Migrate the database, Target specific version with VERSION=x'
+  task migrate: :environment do
+    ActiveRecord::Migrator.migrate('db/migrate',
+                                   ENV['VERSION'] ? ENV['VERSION'].to_i : nil)
+  end
+end
 
-  require './app.rb'
-  Dir.glob('test/**/test_*.rb').each { |file| require file }
+task :environment do
+  ActiveRecord::Base.establish_connection(
+    adapter:  'sqlite3',
+    database: 'orders.sqlite3'
+  )
 end
