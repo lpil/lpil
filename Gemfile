@@ -8,7 +8,6 @@ gem 'slim'
 gem 'rake'
 
 gem 'httparty'
-gem 'pony'
 gem 'json'
 
 group :development do

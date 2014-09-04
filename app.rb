@@ -42,7 +42,6 @@ require 'routes.rb'
 
 # Models
 require 'models/mailing.rb'
-require 'models/axa_upload.rb'
 
 # Periodic tasks
 require 'lib/every.rb'

@@ -20,21 +20,6 @@ get '/delivery.?:format?' do
 end
 
 #
-# AXA Upload
-#
-get '/axa_upload' do
-  @data = { Review: '00/00/0000' }
-  erb :'axa_upload.html'
-end
-
-post '/axa_upload' do
-  result = AxaUpload.check params
-  AxaUpload.email result unless result[:failed]
-  @data = result[:failed] ? result : { Review: '00/00/0000', success: true }
-  erb :'axa_upload.html'
-end
-
-#
 # Status info
 #
 get '/status' do
