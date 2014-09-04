@@ -1,3 +1,0 @@
-pushd ${OPENSHIFT_REPO_DIR} > /dev/null
-bundle exec rake db:migrate RACK_ENV="production"
-popd > /dev/null
