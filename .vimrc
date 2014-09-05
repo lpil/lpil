@@ -282,6 +282,7 @@ let g:ctrlp_custom_ignore = {
 """""""""""""""""""""""""""
 
 autocmd FileType slim set commentstring=/\ %s
+autocmd FileType javascript set commentstring=//\ %s
 
 """""""""""""""""
 " Plugin: Sneak "
@@ -300,6 +301,14 @@ let g:colorizer_auto_filetype='css,scss'
 """""""""""""""""""""""""
 
 let g:neocomplcache_enable_at_startup = 1
+
+""""""""""""""""""""""""
+" Plugin: vim-snipmate "
+""""""""""""""""""""""""
+
+let g:snipMate = {}
+let g:snipMate.scope_aliases = {}
+let g:snipMate.scope_aliases['html'] = 'html'
 
 """""""""""""""""""""""""""""""""""""
 " And finally, per-project .vimrc's "
