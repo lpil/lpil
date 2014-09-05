@@ -17,7 +17,7 @@ var createScriptTag = function createScriptTag(source) {
 // Cross site JSON request (JSONP)
 var getMailInfo = function getMailInfo(order_ref) {
   // Clear any existing results
-  var result_div = document.getElementById('mail_result');
+  var result_div = document.getElementById('js-mail_result');
   result_div.innerHTML = '';
 
   // Display help message
@@ -45,7 +45,7 @@ var getMailInfo = function getMailInfo(order_ref) {
 var printMailInfo = function printMailInfo(jsonp){
   console.log('Reply from Perivan: ' + jsonp);
 
-  var result_div = document.getElementById('mail_result');
+  var result_div = document.getElementById('js-mail_result');
   result_div.innerHTML = '';
 
   var para = document.createElement('p');
