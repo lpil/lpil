@@ -1,11 +1,25 @@
 <?php
+$dpd_url = 'http://www.dpd.co.uk/apps/tracking/?reference=';
 
-$data = [
-  'url' => 'http://whatever.com',
-  'date_sent' => '2013-01-01',
-  'is_post' => false,
-  'dpd_ref' => '123456'
-  ];
+try {
+  $dbh = new PDO("sqlite:orders.sqlite3");
+} catch(PDOException $e) {
+    echo $e->getMessage();
+    return;
+}
+$prepared_query = $dbh->prepare(
+  'SELECT * FROM mailings WHERE order_ref = ?'
+);
+
+$prepared_query->execute([$_GET['order_ref']]);
+$data = $prepared_query->fetchAll()[0];
+if ($data) {
+  $data['url'] = $dpd_url . $data['dpd_ref'];
+}
+
+/*
+ * We've got the data. Time to build the response.
+ */
 
 /* If they asked for JSON */
 if ($_GET['json']) {
@@ -36,9 +50,9 @@ if ($_GET['json']) {
 </head>
 <body>
 
-<?php 
+<?php
 /*
- * If nothing has been found 
+ * If nothing has been found
  */
 if (!$data) {
 ?>
@@ -48,14 +62,14 @@ if (!$data) {
 <p>
   Either your reference is incorrect, or your package has not yet been sent.
 </p>
-<?php 
+<?php
   return;
 }
 
-/* 
+/*
  * If it has been sent by post
  */
-if ($data['is_post']) { 
+if ($data['is_post'] == 't') {
 ?>
   <p>
     Your package was sent by post on <?php echo $data['date_sent']; ?>
