@@ -5,3 +5,5 @@ doc/
 tmp/*
 .DS_Store
 *.log
+reports/*
+setup_env_vars.sh
