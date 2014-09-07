@@ -244,10 +244,10 @@ let g:syntastic_mode_map = { 'mode': 'active',
                            \ 'passive_filetypes': ['html'] }
 
 " error highlighting
-let g:syntastic_enable_highlighting = 0
+let g:syntastic_enable_highlighting = 1
 
 " signs (markers on the left)
-let g:syntastic_enable_signs = 1
+let g:syntastic_enable_signs = 0
 let g:syntastic_error_symbol = 'XX'
 let g:syntastic_warning_symbol = '??'
 
