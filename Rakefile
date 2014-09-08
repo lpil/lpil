@@ -22,7 +22,7 @@ end
 
 namespace :orders do
   desc 'Fetch new DPD reports from FTP and place in ./reports/'
-  task :fetch_new do
+  task :fetch do
     parsed_files = Dir.glob("#{this_dir}/reports/parsed/").map do |f|
       File.basename f
     end
@@ -50,18 +50,12 @@ namespace :orders do
   end
 
   desc 'Parse reports in ./reports/ and add to db'
-  task parse_fetched: [:check_db_exists, :environment] do
+  task parse: [:check_db_exists, :environment] do
     Dir.glob("#{this_dir}/reports/*.OUT").each do |f|
       Mailing.add_dpd_report(File.read f)
       File.rename f, "#{File.dirname f}/parsed/#{File.basename f}"
     end
   end
-end
-
-task :check_db_exists do
-  fail 'No db! Run migrations to create db' unless File.exist?(
-    "#{this_dir}/orders.sqlite3"
-  )
 end
 
 task :environment do
