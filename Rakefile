@@ -1,5 +1,11 @@
+this_dir = File.dirname(
+  File.symlink?(__FILE__) ? File.readlink(__FILE__) : __FILE__
+)
+$LOAD_PATH << this_dir
+
 require 'active_record'
 require 'csv'
+require 'mailing'
 require 'net/ftp'
 require 'sqlite3'
 
@@ -8,15 +14,11 @@ site  = ENV['perivan_ordertracking_site']
 login = ENV['perivan_ordertracking_login']
 pass  = ENV['perivan_ordertracking_pass']
 
-this_dir = File.dirname(
-  File.symlink?(__FILE__) ? File.readlink(__FILE__) : __FILE__
-)
-
 namespace :db do
   desc 'Migrate the database, Target specific version with VERSION=x'
   task migrate: :environment do
-    ActiveRecord::Migrator.migrate('migrations',
-                                   ENV['VERSION'] ? ENV['VERSION'].to_i : nil)
+    ActiveRecord::Migrator.migrate(
+      'migrations', ENV['VERSION'] ? ENV['VERSION'].to_i : nil)
   end
 end
 
@@ -56,6 +58,17 @@ namespace :orders do
       File.rename f, "#{File.dirname f}/parsed/#{File.basename f}"
     end
   end
+
+  desc 'Remove reports older than 6 months in db and parsed dir'
+  task clean: [:check_db_exists, :environment] do
+    # Remove old reports from db
+    Mailing.delete_all(['date_sent < ?', 3.months.ago])
+
+    # Remove old report files
+    Dir.glob("#{this_dir}/reports/parsed/*").each do |report|
+      File.delete report if File.mtime(report) < 3.months.ago
+    end
+  end
 end
 
 task :environment do
@@ -65,31 +78,8 @@ task :environment do
   )
 end
 
-# The Mailing model for the DPD + post deliveries.
-class Mailing < ActiveRecord::Base
-  validates_uniqueness_of :order_ref
-  validates_presence_of :order_ref, :date_sent
-  validates_inclusion_of :is_post, in: [true, false]
-
-  def self.add_dpd_report(report)
-    Mailing.create(
-      Mailing.parse_dpd_report_string report.force_encoding('BINARY')
-    )
-  end
-
-  # Used by fetch_new_reports
-  def self.parse_dpd_report_string(report)
-    report = CSV.parse_line(report)
-
-    # TODO
-    # FIXME
-    fail "The report format isn't standardised! Talk to Dave"
-
-    {
-      order_ref: report[1].force_encoding('UTF-8'),
-      is_post:   false,
-      dpd_ref:   report[11].force_encoding('UTF-8'),
-      date_sent: Time.parse(report[12])
-    }
-  end
+task :check_db_exists do
+  fail 'No db! Run migrations to create db' unless File.exist?(
+    "#{this_dir}/orders.sqlite3"
+  )
 end
