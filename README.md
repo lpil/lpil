@@ -10,7 +10,7 @@ The PHP script can be used in three ways:
 * The user can access the PHP script directly, passing their order reference as
   the URL parameter called `order_ref`.
 * The PHP script can return the tracking information as a JSON string by
-  passing `t` as the URL paramter `json`.
+  passing `t` as the URL parameter `json`.
 * The PHP script can optionally return the JSON object inside a callback in a
   Javascript string by passing the name of the callback as the URL parameter
   `callback`. This is useful for JSONP cross-site requests. See the front-end
