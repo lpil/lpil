@@ -34,9 +34,9 @@ var getMailInfo = function getMailInfo(order_ref) {
 
   // Send request
   console.log('Querying Perivan for order_ref: ' + order_ref);
-  var url = trackUrl + '?json=t&order_ref=';
-  url = url + order_ref + '&callback=printMailInfo';
-  createScriptTag(url);
+  createScriptTag(
+    trackUrl + '?json=t&order_ref=' + order_ref + '&callback=printMailInfo'
+    );
 
   // Prevent the form from submitting
   return false;
