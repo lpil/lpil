@@ -16,7 +16,7 @@ namespace :db do
       'migrations', ENV['VERSION'] ? ENV['VERSION'].to_i : nil)
   end
 
-  task clear: :environment do
+  task clear: [:check_db_exists, :environment] do
     puts 'This will remove all existing investor records from this db.'
     puts 'Are you sure? (Y/n)'
     abort 'Aborted' unless STDIN.gets.chomp.downcase == 'y'
