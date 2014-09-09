@@ -64,7 +64,14 @@ namespace :orders do
     # Remove old reports from db
     Mailing.delete_all(['date_sent < ?', 3.months.ago])
 
-    # Remove old report files
+    # Remove old report files from FTP
+    Net::FTP.open(site, login, pass) do |ftp|
+      ftp.nlst.each do |report|
+        ftp.delete report if ftp.mtime(report) < 3.months.ago
+      end
+    end
+
+    # Remove old report files from local dir
     Dir.glob("#{this_dir}/reports/parsed/*").each do |report|
       File.delete report if File.mtime(report) < 3.months.ago
     end

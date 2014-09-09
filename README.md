@@ -43,11 +43,9 @@ The PHP script can be used in three ways:
 7. **TODO- setup FTP passwords**
 8. Populate the database with reports for the first time by running the
    following:
-
-    `bundle exec rake orders:clean
-    bundle exec rake orders:fetch
-    bundle exec rake orders:parse`
-
+   * `bundle exec rake orders:clean`
+   * `bundle exec rake orders:fetch`
+   * `bundle exec rake orders:parse`
 9. Now we need to use [Cron](https://en.wikipedia.org/wiki/Cron) to
    periodically add new reports and to remove old ones. We shall do this
    indirectly using the `whenever` Ruby gem, rather than by directly editing
