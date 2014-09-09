@@ -8,6 +8,6 @@ class CreateMailings < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :mailings, :order_ref
+    add_index :mailings, :order_ref, unique: true
   end
 end
