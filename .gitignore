@@ -1,0 +1,10 @@
+*.csv
+*.log
+*.sqlite3
+*.xls
+*.xlsx
+.DS_Store
+.yardoc/
+doc/
+reports/*
+tmp/*
