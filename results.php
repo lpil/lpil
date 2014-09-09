@@ -41,6 +41,15 @@ if ($_GET['json']) {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <title>Perivan Solutions Investor Order Lookup</title>
+  <style media="screen" type="text/css">
+* {
+  font-family: Verdana, Helvetica, sans-serif;
+  font-size:80%;
+}
+td:first-child {
+  padding-right: 15px;
+}
+  </style>
 </head>
 <body>
 
@@ -63,15 +72,100 @@ if (count($data) == 0) {
 /*
  * If we've found something
  */
-/* Loop over the table here */
 ?>
-
-TODO: Table goes here
-
+<h3>
+  Investor & Investment CD order summary
+</h3>
+<p>
+  This summary shows the order placed for the last edition. The details will
+  not reflect any changes you may have made for the next edition.
+</p>
 <?php
-
-var_dump($data);
-
+/* Loop over the table here */
+foreach ($data as $index=>$order) {
 ?>
+<h2>
+  Address <?php echo $index + 1; ?> of <?php echo count($data); ?>
+</h2>
+<table>
+  <tr>
+    <td>Name</td>
+    <td><?php echo $order['name']; ?></td>
+  </tr>
+  <tr>
+    <td>Partner Code</td>
+    <td><?php echo $order['partner_code']; ?></td>
+  </tr>
+  <tr><td><br></td></tr>
+  <tr>
+    <td>Investor Delivery Address</td>
+    <td><?php echo $order['address0']; ?></td>
+  </tr>
+  <tr>
+    <td><i>Please note for Personalised Only</i></td>
+    <td><?php echo $order['address1']; ?></td>
+  </tr>
+  <tr>
+    <td><i>this may differ to your inside front cover</i></td>
+    <td><?php echo $order['address2']; ?></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><?php echo $order['address3']; ?></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><?php echo $order['post_code']; ?></td>
+  </tr>
+  <tr><td><br></td></tr>
+  <tr>
+    <td>Personalised Investor</td>
+    <td><?php echo $order['pim_quantity']; ?></td>
+  </tr>
+  <tr>
+    <td>Investment Review</td>
+    <td><?php echo $order['qir_quantity']; ?></td>
+  </tr>
+  <tr>
+    <td>Generic Investor</td>
+    <td><?php echo $order['gim_quantity']; ?></td>
+  </tr>
+  <tr><td><br></td></tr>
+  <tr>
+    <td><b>CDs - Spring & Autumn Editions ONLY</b></td>
+  </tr>
+  <tr>
+    <td>Investment CD</td>
+  </tr>
+  <tr>
+    <td>&bull; Generic CD &amp; Wallet</td>
+    <td><?php echo $order['cd_wallet']; ?></td>
+  </tr>
+  <tr>
+    <td>&bull; Generic CD &amp; Personalised Wallet</td>
+    <td><?php echo $order['cd_custom_wallet']; ?></td>
+  </tr>
+  <tr>
+    <td>&bull; Personalised Wallet &amp; Recording</td>
+    <td><?php echo $order['cd_custom_wallet_rec']; ?></td>
+  </tr>
+  <tr><td><br></td></tr>
+  <tr>
+    <td>Trustee CD</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>&bull; Generic</td>
+    <td><?php echo $order['trust_cd_generic']; ?></td>
+  </tr>
+  <tr>
+    <td>&bull; Personalised</td>
+    <td><?php echo $order['trust_cd_personal']; ?></td>
+  </tr>
+</table>
+<p>
+  If you do not make any changes this order will continue for future editions.
+</p>
+<?php } ?>
 </body>
 </html>
