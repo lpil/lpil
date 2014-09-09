@@ -7,5 +7,7 @@ class CreateMailings < ActiveRecord::Migration
       t.date :date_sent
       t.timestamps
     end
+
+    add_index :mailings, :order_ref
   end
 end
