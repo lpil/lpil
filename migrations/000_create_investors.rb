@@ -10,16 +10,16 @@ class CreateInvestors < ActiveRecord::Migration
       t.string :address3
       t.string :post_code
 
-      t.integer :pim_quantity, null: false, default: 0
-      t.integer :qir_quantity, null: false, default: 0
-      t.integer :gim_quantity, null: false, default: 0
+      t.integer :pim_quantity, default: 0
+      t.integer :qir_quantity, default: 0
+      t.integer :gim_quantity, default: 0
 
-      t.integer :cd_wallet,            null: false, default: 0
-      t.integer :cd_custom_wallet,     null: false, default: 0
-      t.integer :cd_custom_wallet_rec, null: false, default: 0
+      t.integer :cd_wallet,            default: 0
+      t.integer :cd_custom_wallet,     default: 0
+      t.integer :cd_custom_wallet_rec, default: 0
 
-      t.integer :trust_cd_generic,  null: false, default: 0
-      t.integer :trust_cd_personal, null: false, default: 0
+      t.integer :trust_cd_generic,  default: 0
+      t.integer :trust_cd_personal, default: 0
 
       t.string :pdf
 
