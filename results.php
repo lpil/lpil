@@ -166,6 +166,10 @@ foreach ($data as $index=>$order) {
 <p>
   If you do not make any changes this order will continue for future editions.
 </p>
-<?php } ?>
+<?php
+  if ($order['pdf']) {
+    echo "<a href=" . $order['pdf'] . " target='_blank'>Click here to view your personalisation for your Investor order</a><br><br>";
+  }
+} ?>
 </body>
 </html>

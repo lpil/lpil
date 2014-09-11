@@ -33,8 +33,7 @@ end
 namespace :investor do
   desc "Upload a new investor csv spreadsheet to the database.\n"\
   'csv=/path/to/csv'
-  # task upload: :environment, :'db:clear' do
-  task upload: :environment do
+  task upload: [:environment, :'db:clear'] do
     fail 'Pass arg: csv=/path/to/csv' unless ENV['csv']
 
     header_map = {
@@ -65,6 +64,16 @@ namespace :investor do
           acc[header_map[attribute.first]] = attribute.last if attribute.last
         end
       )
+    end
+  end
+
+  desc ''
+  task pdfs: :environment do
+    pdfs = Dir.glob 'pdfs/*'
+    Investor.find_each(batch_size: 100) do |investor|
+      pdf_path = pdfs.find { |pdf| pdf.match(/#{investor[:partner_code]}/) }
+      puts pdf_path if pdf_path
+      investor.update pdf: pdf_path if pdf_path
     end
   end
 end
