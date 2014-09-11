@@ -42,7 +42,7 @@ if ($_GET['json']) {
   <meta name="viewport" content="width=device-width">
   <title>Perivan Solutions Investor Order Lookup</title>
   <style media="screen" type="text/css">
-* {
+body {
   font-family: Verdana, Helvetica, sans-serif;
   font-size: 80%;
 }
