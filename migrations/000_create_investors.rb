@@ -21,6 +21,8 @@ class CreateInvestors < ActiveRecord::Migration
       t.integer :trust_cd_generic,  null: false, default: 0
       t.integer :trust_cd_personal, null: false, default: 0
 
+      t.string :pdf
+
       t.timestamps
     end
 

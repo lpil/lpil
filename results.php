@@ -6,7 +6,7 @@ try {
     return;
 }
 $prepared_query = $dbh->prepare(
-  'SELECT * FROM mailings WHERE partner_code = ?'
+  'SELECT * FROM investors WHERE partner_code = ?'
 );
 $prepared_query->execute([$_GET['partner_code']]);
 $data = $prepared_query->fetchAll();
@@ -44,7 +44,7 @@ if ($_GET['json']) {
   <style media="screen" type="text/css">
 * {
   font-family: Verdana, Helvetica, sans-serif;
-  font-size:80%;
+  font-size: 80%;
 }
 td:first-child {
   padding-right: 15px;
