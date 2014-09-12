@@ -31,16 +31,16 @@ The PHP script can be used in three ways:
    [here](https://www.digitalocean.com/community/tutorials/how-to-install-linux-nginx-mysql-php-lemp-stack-on-debian-7).
    We are using an sqlite3 database, so the MySQL section can be safely
    skipped.
-2. Install [RVM](https://rvm.io/) or similar, along with a suitable version of
+2. Install the php5 sqlite3 adapter.
+3. Install [RVM](https://rvm.io/) or similar, along with a suitable version of
    Ruby.
-3. Clone this repository into the Nginx webroot directory, or another directory
-   Nginx will serve content from.
-4. Install the Ruby dependancies by running `bundle install` from the project
+4. Clone this repository on the server, and configure the Nginx server
+   appropriately. An existing config can be found in another repo.
+5. Install the Ruby dependancies by running `bundle install` from the project
    directory.
-5. **TODO- setup Nginx permissions for this dir**
-6. From the project directory run `bundle exec rake db:migrate` to create the
+6. **TODO- setup Nginx permissions for this dir**
+7. From the project directory run `bundle exec rake db:migrate` to create the
    sqlite3 database.
-7. **TODO- setup FTP passwords**
 8. **TODO- the rest**
 
 ## Uploading a new spreadsheet to the DB

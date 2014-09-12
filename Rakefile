@@ -67,11 +67,11 @@ namespace :investor do
     end
   end
 
-  desc ''
+  desc 'Scan ./pdfs/ for filenames containing partner codes and match to db'
   task pdfs: :environment do
     pdfs = Dir.glob 'pdfs/*'
     Investor.find_each(batch_size: 100) do |investor|
-      pdf_path = pdfs.find { |pdf| pdf.match(/#{investor[:partner_code]}/) }
+      pdf_path = pdfs.find { |pdf| pdf.match(/_#{investor[:partner_code]}_/) }
       puts pdf_path if pdf_path
       investor.update pdf: pdf_path if pdf_path
     end
