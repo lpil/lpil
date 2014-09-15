@@ -1,49 +1,53 @@
-$buying-bg-col: lighten($col-brand-grey-lt, 15);
+$buying-bg-col: lighten($col-brand-grey-lt, 5);
+$buying-fg-col: lighten($col-brand-blue-lt, 15);
 
 .buying__container {
   @include outer-container;
-  position: relative;
-  padding-bottom: 80px;
   margin: 1em 0;
+  padding-bottom: 80px;
+  position: relative;
   z-index: 1;
 }
 
 .buying__bubble {
   @include span-columns(3);
-  z-index: 2;
-  background: $col-brand-blue-lt;
-  border-radius: 1.0em;
-  padding: 1em;
+  background: $buying-fg-col;
+  border-radius: 1em;
   line-height: 1.5em;
   margin-top: 20px;
+  padding: 1em;
+  z-index: 2;
+
   @include media($break-mid) {
     @include span-columns(6);
     @include omega(3);
   }
+
   @include media($break-small) {
     @include span-columns(6);
   }
 }
 
 .buying__bg {
-  border-radius: 1em;
-  position: absolute;
-  z-index: -10;
-  left: 5%;
   background: $buying-bg-col;
+  border-radius: 1em;
   height: calc(100% - 55px);
+  left: 5%;
+  position: absolute;
   width: 90%;
+  z-index: -10;
 }
+
 // Arrow
 .buying__bg:after {
-  position: absolute;
-  top: 100%;
-  right: calc(50% - 40px);
-  content: "";
-  width: 0;
-  height: 0;
+  -webkit-transform: rotate(360deg); // better webkit aliasing
+  border-color: $buying-bg-col transparent transparent;
   border-style: solid;
   border-width: 50px 80px 0 0px;
-  border-color: $buying-bg-col transparent transparent transparent;
-  -webkit-transform: rotate(360deg); // better webkit aliasing
+  content: '';
+  height: 0;
+  position: absolute;
+  right: calc(50% - 40px);
+  top: 100%;
+  width: 0;
 }

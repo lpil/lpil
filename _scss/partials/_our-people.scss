@@ -9,9 +9,18 @@
     padding-bottom: 1.1em;
     @include span-columns(4);
     @include omega(3n);
+
+    img {
+      width: 100%;
+    }
+
     @include media($break-mid) {
       @include span-columns(12);
       text-align: center;
+
+      img {
+        max-width: 400px;
+      }
 
       p {
         display: inline-block;
