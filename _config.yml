@@ -5,6 +5,8 @@ url: http://perivan.lpil.uk
 description: >
   TODO
 
+static: http://perivan.lpil.uk/static
+
 # Contact
 email: financial@perivan.co.uk # TODO
 telephone: +44 (0)20 7562 2200
