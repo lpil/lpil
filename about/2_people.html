@@ -4,6 +4,7 @@ nav-section: About
 title: People
 permalink: about/anytime-anywhere.html
 ---
+<img src="{{ site.static }}/pf-people.jpg" alt="People" />
 <p>
   Our core team is without question the most well established and experienced
   in the marketplace.
@@ -21,7 +22,7 @@ permalink: about/anytime-anywhere.html
   staff are fully aware of their responsibilities in this respect and we are
   happy to sign NDA's prior to the commencement of any project.
 </p>
-<article class="our-people">
+<article style="clear: both" class="our-people">
   {% for department in site.data.our-people %}
   <section>
     <h3>{{ department[0] }}</h3>
