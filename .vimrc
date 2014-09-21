@@ -8,8 +8,6 @@ call vundle#rc()
 " let Vundle manage Vundle
 Bundle 'gmarik/Vundle.vim'
 
-" Bundle 'SirVer/ultisnips'
-
 Bundle 'Shougo/neocomplcache.vim'
 Bundle 'chrisbra/Colorizer'
 Bundle 'dag/vim2hs'
@@ -20,6 +18,7 @@ Bundle 'justinmk/vim-sneak'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'kien/ctrlp.vim'
 Bundle 'marcweber/vim-addon-mw-utils'
+Bundle 'sbl/scvim'
 Bundle 'scrooloose/syntastic'
 Bundle 'slim-template/vim-slim'
 Bundle 'tomtom/tlib_vim'
