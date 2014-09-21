@@ -1,6 +1,12 @@
 "Hello World".postln;
 
 s.boot;
+s.quit;
+// This shows a silly little server control window
+s.makeWindow;
+// This starts and stops recording
+s.record;
+s.stopRecording;
 
 { SinOsc.ar }.play;
 
@@ -19,13 +25,6 @@ s.boot;
 
 10.do( {"Print this line over and over...".postln} );
 10.do( {"Print this line over and over...".scramble.postln} );
-
-// This shows a silly little server control window
-s.makeWindow;
-
-// This starts and stops recording
-s.record;
-s.stopRecording;
 
 { Saw.ar(LFNoise0.kr([2,3]).range(100,2000),
         LFPulse.kr([4,5]) * 0.1
