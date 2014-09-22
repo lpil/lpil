@@ -1,0 +1,252 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Classicthesis-Styled CV
+% LaTeX Template
+% Version 1.0 (22/2/13)
+%
+% This template from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Alessandro Plasmati
+%
+% Modified by:
+% Louis Pilfold
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%--------------------------------------------%
+% Packages and other document configurations %
+%--------------------------------------------%
+
+\documentclass{scrartcl}
+
+% Move the margin to the left of the page
+\reversemarginpar
+
+% New command defining the margin text style
+\newcommand{\MarginText}[1]{\marginpar{\raggedleft\itshape\small#1}}
+
+% Use the classicthesis style for the style of the document
+\usepackage[nochapters]{classicthesis}
+% Use the currvita style for the layout of the document
+\usepackage[LabelsAligned]{currvita}
+
+% Font color of your name at the top
+\renewcommand{\cvheadingfont}{\color{Maroon}}
+
+% Required for adding links and customizing them
+\usepackage{hyperref}
+% Set link colors
+\hypersetup{colorlinks, breaklinks, urlcolor=Maroon, linkcolor=Maroon}
+
+% Set the width of the date box in each block
+\newlength{\datebox}\settowidth{\datebox}{04 2014-Present}
+
+\newcommand{\NewEntry}[3]{\noindent\hangindent=2em\hangafter=0
+  \parbox{\datebox}{\small \textit{#1}}\hspace{0.3em} #2 #3
+% Define a command for each new block - change spacing and font sizes here:
+%   #1 is the left margin
+%   #2 is the italic date field and 
+%   #3 is the position/employer/location field
+
+% Add some white space after each new entry
+\vspace{0.5em}}
+
+% Define a command for descriptions of each entry
+% - change spacing and font sizes here
+\newcommand{\Description}[1]{\hangindent=2em\hangafter=0\noindent\raggedright
+  \footnotesize{#1}\par\normalsize\vspace{1em}}
+
+\usepackage[utf8]{inputenc}
+%------------------------------------------------------------------------------
+
+% Remove date from end of document
+\date{}
+
+\begin{document}
+
+% Stop the page count at the bottom of the first page
+\thispagestyle{empty}
+
+%----------------------------%
+% Name & contact information %
+%----------------------------%
+
+% name
+\begin{cv}{\spacedallcaps{Louis Adam Pilfold}}\vspace{1.5em}
+
+% Personal information heading
+\noindent\spacedlowsmallcaps{Personal Information}\vspace{0.5em}
+
+% Phone number
+\NewEntry{phone}{+44 (0)7886 601 653}
+
+% Email address
+\NewEntry{email}{\href{mailto:louis@lpil.uk}{louis@lpil.uk}}
+
+% Personal website
+\NewEntry{website}{\href{http://lpil.uk}{lpil.uk}}
+
+% Portfolio website
+\NewEntry{projects}{\href{http://github.com/lpil}{github.com/lpil}}
+
+% Birthdate
+\NewEntry{birthdate}{5 January 1991}
+
+% Extra white space between the personal information section and goal
+\vspace{1.0em}
+
+% Goal heading, could be used for a quotation or short profile instead
+\noindent\spacedlowsmallcaps{Goal}\vspace{1em}
+
+% Goal text
+\Description{To acquire a junior developer role through which I can learn and
+  further my skills as a software engineer.}
+\vspace{0.5em}
+
+%--------------%
+% Technologies %
+%--------------%
+
+\spacedlowsmallcaps{Technologies}\vspace{1em}
+
+\Description{\MarginText{Languages}Ruby, Javascript, SCSS, Scala (beginner)}
+
+\Description{\MarginText{Systems \& Tools}Linux, OSX, Vim, Git, Nginx, Rails}
+
+\Description{\MarginText{Interests}Functional programming, Web development,
+  Algorithmic music composition, Libre software}
+
+%------------------------------------------------
+
+\vspace{0.5em} % Extra space between major sections
+
+%-----------------%
+% Work experience %
+%-----------------%
+
+\noindent\spacedlowsmallcaps{Work Experience}\vspace{1em}
+
+\NewEntry{04.2013-Present}{Software Product Developer}
+
+\Description{\MarginText{Perivan Solutions}Front end engineer for Perivan's
+  'Marketing Store' applications; Renovating stylesheets and Javascript of
+  existing stores, while taking the lead role in the styling of new stores.
+  \newline
+  I reimplemented and optimised our existing websites as Jekyll static sites,
+  simplifying maintenance while adding mobile device compatibility to the
+  existing design. Non-static features were reimplemented with periodic Ruby
+  tasks and PHP. Sites are deployed to an Linux Nginx webserver configured and
+  administered by myself.
+
+% \\
+% Reference: John \textsc{McDonald}\ \ $\cdotp$\ \ +1 (000) 111 1111\ \ $\cdotp$\
+% \ \href{mailto:john@lehman.com}{john@lehman.com}
+}
+
+%------------------------------------------------
+
+\vspace{0.5em} % Extra space between major sections
+
+%---------%
+% Courses %
+%---------%
+
+\spacedlowsmallcaps{Courses}\vspace{1em}
+
+%------------------------------------------------
+
+\NewEntry{Ongoing}{Coursera \textsc{progfun}}
+
+\Description{\MarginText{EPFL}Functional Programming Principles in Scala $\cdotp$\ Scala
+}
+
+%------------------------------------------------
+
+\NewEntry{Summer 2014}{edX \textsc{CS169.2x}}
+
+\Description{\MarginText{BerkeleyX}Engineering Software as a Service Part 2
+  $\cdotp$\ Ruby, Rails, Coffeescript
+}
+
+%------------------------------------------------
+
+\NewEntry{Spring 2014}{edX \textsc{CS169.1x}}
+
+\Description{\MarginText{BerkeleyX}Engineering Software as a Service Part 1
+  $\cdotp$\ Ruby, Rails
+}
+
+%------------------------------------------------
+
+\vspace{0.5em} % Extra space between major sections
+
+%------------------%
+% Formal Education %
+%------------------%
+
+\spacedlowsmallcaps{Formal Education}\vspace{1em}
+
+\Description{\MarginText{The University of Brighton}2010-2013 $\cdotp$\
+  Certificate of Higher Education $\cdotp$\ Biological Sciences}
+
+%------------------------------------------------
+
+\vspace{0.5em} % Extra space between major sections
+
+%-------------------%
+% Other information %
+%-------------------%
+
+\spacedlowsmallcaps{Other Information}\vspace{1em}
+
+% \Description{\MarginText{Awards}2011\ \ $\cdotp$\ \ School of Business Postgraduate Scholarship}
+
+% \vspace{-0.5em} % Negative vertical space to counteract the vertical space between every \Description command
+
+% \Description{2010\ \ $\cdotp$\ \ Top Achiever Award -- Commerce}
+
+% %------------------------------------------------
+
+% \vspace{1em}
+
+% \Description{\MarginText{Communication Skills}2010\ \ $\cdotp$\ \ Oral Presentation at the California Business Conference}
+
+% \vspace{-0.5em} % Negative vertical space to counteract the vertical space between every \Description command
+
+% \Description{2009\ \ $\cdotp$\ \ Poster at the Annual Business Conference in Oregon}
+
+% %------------------------------------------------
+
+% \vspace{1em}
+
+% \newlength{\langbox} % Create a new length for the length of languages to keep them equally spaced
+% \settowidth{\langbox}{English} % Length equals the length of "English" - if you have a longer language in your list put it here
+
+% \Description{\MarginText{Languages}\parbox{\langbox}{\textsc{English}}\ \ $\cdotp$\ \ \ Mothertongue}
+
+% \vspace{-0.5em} % Negative vertical space to counteract the vertical space between every \Description command
+
+% \Description{\parbox{\langbox}{\textsc{Spanish}}\ \ $\cdotp$\ \ \ Intermediate (conversationally fluent)}
+
+% \vspace{-0.5em} % Negative vertical space to counteract the vertical space between every \Description command
+
+% \Description{\parbox{\langbox}{\textsc{Dutch}}\ \ $\cdotp$\ \ \ Basic (simple words and phrases only)}
+
+% \vspace{1em} % Negative vertical space to counteract the vertical space between every \Description command
+
+%------------------------------------------------
+
+\Description{\MarginText{Interests}Collecting music
+  \ $\cdotp$\ \ Digital \& social ethics
+  \ $\cdotp$\ \ Enthusiastic bad dancing
+}
+
+%----------------------------------------------------------------------------------------
+
+\end{cv}
+
+\end{document}
