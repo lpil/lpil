@@ -116,6 +116,12 @@ set undoreload=10000        " number of lines to save for undo
     " clear with :2mat
 
 """"""""""""""""""
+" Filetype stuff "
+""""""""""""""""""
+
+autocmd BufNewFile,BufRead *.md set filetype=markdown
+
+""""""""""""""""""
 " Remapping keys "
 """"""""""""""""""
 
