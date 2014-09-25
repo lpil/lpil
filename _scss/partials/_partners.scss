@@ -1,0 +1,35 @@
+.partners {
+  > * {
+    @include omega(2);
+
+    margin-bottom: 3em;
+  }
+
+  img {
+    @include span-columns(3);
+
+    @include media($break-mid) {
+      @include span-columns(4);
+    }
+
+    @include media($break-small) {
+      @include span-columns(6);
+    }
+  }
+
+  aside {
+    @include span-columns(9);
+
+    @include media($break-mid) {
+      @include span-columns(8);
+    }
+
+    @include media($break-small) {
+      @include span-columns(6);
+    }
+
+    h3 {
+      margin-top: 0;
+    }
+  }
+}
