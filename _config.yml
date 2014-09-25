@@ -1,11 +1,10 @@
 # Site settings
 title: Perivan
-url: http://perivan.lpil.uk
-# url: http://www.perivan.co.uk
+url: http://www.perivan.co.uk
 description: >
   TODO
 
-static: http://perivan.lpil.uk/static
+static: http://www.perivan.co.uk/static
 
 # Contact
 email: financial@perivan.co.uk # TODO
