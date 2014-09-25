@@ -1,20 +1,26 @@
 .partners {
-  > * {
-    @include omega(2);
+  section {
+    @include clearfix();
 
-    margin-bottom: 3em;
+    padding-bottom: 1.5em;
+
+    > * {
+      @include omega(2);
+    }
   }
 
   img {
     @include span-columns(3);
 
     @include media($break-mid) {
-      @include span-columns(5);
+      @include span-columns(4);
     }
 
     @include media($break-small) {
       @include span-columns(4);
       @include shift(1);
+
+      padding: 1em 0;
     }
   }
 
@@ -23,7 +29,7 @@
     padding-top: 2em;
 
     @include media($break-mid) {
-      @include span-columns(7);
+      @include span-columns(8);
     }
 
     @include media($break-small) {
