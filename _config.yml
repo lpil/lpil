@@ -4,7 +4,8 @@ url: http://www.perivan.co.uk
 description: >
   TODO
 
-static: http://www.perivan.co.uk/static
+# static: http://www.perivan.co.uk/static
+static: http:/178.62.13.11/static
 
 # Contact
 email: financial@perivan.co.uk # TODO
