@@ -1,30 +1,5 @@
 .footer__nav {
-  margin: 0 auto -1.1em;
-  text-align: center;
-  width: 600px;
-
-  div {
-    position: relative;
-
-    a:first-child,
-    a:last-child {
-      position: absolute;
-    }
-
-    a:first-child { left: 0; }
-    a:last-child { right: 0; }
+  aside {
+    @include span-columns(4);
   }
-
-  a {
-    display: inline-block;
-    padding: 0 1.7em;
-  }
-
-}
-
-// hack for cross browser last line justify
-.footer__nav:after {
-  content: '';
-  display: inline-block;
-  width: 100%;
 }
