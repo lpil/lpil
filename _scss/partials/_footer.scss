@@ -1,14 +1,23 @@
 .footer__nav {
   margin: 0 auto -1.1em;
-  padding-top: .9em;
-  text-align: justify;
-  -moz-text-align-last: justify;
-  text-align-last: justify;
+  text-align: center;
   width: 600px;
+
+  div {
+    position: relative;
+
+    a:first-child,
+    a:last-child {
+      position: absolute;
+    }
+
+    a:first-child { left: 0; }
+    a:last-child { right: 0; }
+  }
 
   a {
     display: inline-block;
-    padding: 0 .5em;
+    padding: 0 1.7em;
   }
 
 }
