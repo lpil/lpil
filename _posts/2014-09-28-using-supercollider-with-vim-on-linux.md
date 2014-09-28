@@ -34,13 +34,13 @@ out the name of our audio interface.
     2 [UDJ6           ]: USB-Audio - UDJ6
                       ESI Audiotechnik GmbH UDJ6...
 
-Here we can see the name of my ESI UDJ6 USD audio interface is `UDJ6`. We can
+Here we can see the name of my ESI UDJ6 USB audio interface is `UDJ6`. We can
 now write the command that will launch the JACK server. Here's mine:
 
     /usr/bin/jackd -R -P 95 -d alsa -d hw:UDJ6 -r 44100 -p 256
 
 Once you've written your command, and ensured that it works save it in
-`~/.jackdrc`; This will result in JACK automatically starting when required.
+`~/.jackdrc`- this will result in JACK automatically starting when required.
 
 Check out the `jackd` man page for more info on the flags used in the command
 above.
