@@ -1,26 +1,28 @@
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
 }
 
-hr{
-  margin-top: 1.7em;
-  margin-bottom: 1.7em;
-  padding: 0;
-  border: none;
+hr {
+  border: 0;
   border-top: 1px solid #ddd;
   color: #ddd;
+  margin-bottom: 1.7em;
+  margin-top: 1.7em;
+  max-width: 20em;
+  padding: 0;
   text-align: center;
   width: 80%;
-  max-width: 20em;
 }
+
 hr:after {
-  content: "lpil";
-  display: inline-block;
-  position: relative;
-  top: -1.5em;
   background: #fff;
+  content: 'lpil';
   cursor: default;
+  display: inline-block;
   font-size: 9px;
-  padding: 0 0.25em;
+  padding: 0 .25em;
+  position: relative;
+  top: -1.7em;
 }

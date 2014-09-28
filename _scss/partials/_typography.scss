@@ -1,4 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=PT+Sans|PT+Mono);
+
 * {
   color: $text-colour;
 }
@@ -7,7 +8,9 @@ html {
   font-family: $font-family;
   font-size: 1.1em;
 }
-a, p {
+
+a,
+p {
   line-height: 1.6em;
 }
 
@@ -15,18 +18,32 @@ a {
   color: $link-colour;
   text-decoration: none;
 }
+
 a:hover {
+  color: lighten($link-colour, 7);
   text-decoration: underline;
-  color: lighten($link-colour, 7)
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin: 0;
   // Fix the character spacing for headings
   text-rendering: optimizeLegibility;
 }
 
-pre, code {
+h3,
+h4,
+h5,
+h6 {
+  margin: 1em;
+}
+
+pre,
+code {
   font-family: $monospace-font-family;
-  font-size: 0.91em;
+  font-size: .91em;
 }
