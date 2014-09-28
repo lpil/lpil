@@ -289,6 +289,7 @@ let g:ctrlp_custom_ignore = {
 
 autocmd FileType slim set commentstring=/\ %s
 autocmd FileType javascript set commentstring=//\ %s
+autocmd FileType supercollider set commentstring=//\ %s
 
 """""""""""""""""
 " Plugin: Sneak "
