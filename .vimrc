@@ -87,19 +87,22 @@ set lazyredraw
 " Indentation, Tabs, Space, Etc "
 """""""""""""""""""""""""""""""""
 
-" Line wrapping
 set wrap
-
-set tabstop=8       "A tab is 8 spaces
-set expandtab       "Always uses spaces instead of tabs
-set softtabstop=2   "Insert 2 spaces when tab is pressed
-set shiftwidth=2    "An indent is 2 spaces
-set smarttab        "Indent instead of tab at start of line
-set shiftround      "Round spaces to nearest shiftwidth multiple
-set nojoinspaces    "Don't convert spaces to tabs
 
 set autoindent
 set smartindent
+
+set expandtab       "Always uses spaces instead of tabs
+set nojoinspaces    "Don't convert spaces to tabs
+set shiftround      "Round spaces to nearest shiftwidth multiple
+set smarttab        "Indent instead of tab at start of line
+
+set shiftwidth=2    "An indent is 2 spaces
+set softtabstop=2   "Insert 2 spaces when tab is pressed
+set tabstop=2       "A tab is 2 spaces
+
+" Lang specific
+autocmd FileType python setlocal ts=4 sw=4
 
 """""""""""""""""""
 " Persistent Undo "
