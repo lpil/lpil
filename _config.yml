@@ -1,5 +1,5 @@
 # Site settings
-title: Perivan Financial
+title: Perivan Financial Print On Demand
 url: http://perivanfinancialpod.lpil.uk
 # url: http://www.perivanfinancialpod.co.uk
 description: >
@@ -8,7 +8,7 @@ description: >
   work for the company and our core team is without question the most
   established in the marketplace.
 
-static: http://perivan.lpil.uk/static
+static: http://www.perivan.co.uk/static
 
 # Contact
 email: financial@perivan.co.uk
