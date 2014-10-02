@@ -55,7 +55,7 @@ The PHP script can be used in three ways:
    the crontab. From the project directory run `bundle exec whenever -w`.
    Ensure that the crontab has been written to with `crontab -l`.
 
-# Nginx config
+## Nginx config
 
 Here is an example server block for nginx
 
