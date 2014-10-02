@@ -1,4 +1,5 @@
 (function() {
+  'use strict';
   var trackUrl =
     'http://info.perivansolutions.co.uk/order-tracking/results.php';
 
