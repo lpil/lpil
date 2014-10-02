@@ -1,9 +1,10 @@
-*.xls
-doc/
-.yardoc/
-*.sqlite3
-tmp/*
-.DS_Store
 *.log
+*.sqlite3
+*.xls
+.DS_Store
+.yardoc/
+config/ftp.yml
+doc/
 reports/*
 setup_env_vars.sh
+tmp/*

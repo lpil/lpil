@@ -8,11 +8,14 @@ require 'csv'
 require 'mailing'
 require 'net/ftp'
 require 'sqlite3'
+require 'yaml'
 
-# task :default => :migrate
-site  = ENV['perivan_ordertracking_site']
-login = ENV['perivan_ordertracking_login']
-pass  = ENV['perivan_ordertracking_pass']
+ftp_config = YAML.load_file "#{this_dir}/config/ftp.yml"
+ftp_config = [
+  ftp_config[:site],
+  ftp_config[:user],
+  ftp_config[:pass]
+]
 
 namespace :db do
   desc 'Migrate the database, Target specific version with VERSION=x'
@@ -29,7 +32,7 @@ namespace :orders do
       File.basename f
     end
 
-    Net::FTP.open(site, login, pass) do |ftp|
+    Net::FTP.open(*ftp_config) do |ftp|
       ftp.passive = true
 
       ftp.nlst.select do |f|
@@ -65,7 +68,7 @@ namespace :orders do
     Mailing.delete_all(['date_sent < ?', 3.months.ago])
 
     # Remove old report files from FTP
-    Net::FTP.open(site, login, pass) do |ftp|
+    Net::FTP.open(*ftp_config) do |ftp|
       ftp.nlst.each do |report|
         ftp.delete report if ftp.mtime(report) < 3.months.ago
       end
