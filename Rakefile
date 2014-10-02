@@ -35,11 +35,10 @@ namespace :orders do
     Net::FTP.open(*ftp_config) do |ftp|
       ftp.passive = true
 
-      ftp.nlst.select do |f|
-        f.match(/\.OUT\z/)
-      end.reject do |f|
-        parsed_files.include? f
-      end.each do |f|
+      ftp.nlst.each do |f|
+        next unless f.match(/\.OUT\z/)
+        next if parsed_files.include? f
+
         write_file = "#{this_dir}/reports/#{f}"
         ftp.gettextfile f, write_file
 
