@@ -37,10 +37,13 @@ The PHP script can be used in three ways:
    Nginx will serve content from.
 4. Install the Ruby dependancies by running `bundle install` from the project
    directory.
-5. **TODO- setup Nginx permissions for this dir**
+5. Set up your webserver not to serve anything but HTML and CSS files from the
+   project directory, so that users cannot download the code or database. See
+   below for an example.
 6. From the project directory run `bundle exec rake db:migrate` to create the
    sqlite3 database.
-7. **TODO- setup FTP passwords**
+7. Make a yaml file at `config/ftp.yml` with the details of the FTP site to
+   read the reports from. You can find an example at `config/ftp.yml.example`.
 8. Populate the database with reports for the first time by running the
    following:
    * `bundle exec rake orders:clean`
@@ -51,3 +54,39 @@ The PHP script can be used in three ways:
    indirectly using the `whenever` Ruby gem, rather than by directly editing
    the crontab. From the project directory run `bundle exec whenever -w`.
    Ensure that the crontab has been written to with `crontab -l`.
+
+# Nginx config
+
+Here is an example server block for nginx
+
+    server {
+      server_name www.perivansolutions.co.uk perivansolutions.co.uk;
+
+      root /usr/share/nginx/www/perivansolutions/;
+      index index.html index.htm;
+
+      location ~ /order-tracking {
+        root /usr/share/nginx/www/;
+
+        # Whitelist. Serve these files extensions only
+        if ($request_filename !~* \.(css|js|php|html)$ ) {
+          return 403;
+          break;
+        }
+
+        location ~ \.php$ {
+          try_files $uri =404;
+          fastcgi_pass unix:/var/run/php5-fpm.sock;
+          fastcgi_index index.php;
+          fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+          include fastcgi_params;
+        }
+      }
+
+      location / {
+        try_files $uri $uri/ index.html;
+      }
+    }
+
+For more examples see [this
+repo](https://github.com/PerivanSolutions/nginx.conf)
