@@ -4,16 +4,14 @@ var input, output;
 
 input = require('fs')
         .readFileSync('./input.txt', 'utf8')
-        .split(' ')
-        .slice(1)
+        .split('\n')
+        .slice(1, -1)
         .map(function(num) {
-          return parseInt(num, 10);
+          return parseFloat(num);
         });
 
-output = input.map(function(fahrenheit) {
-  return Math.round(
-      (fahrenheit - 32) * (5/9)
-      );
+output = input.map(function(num) {
+  return Math.floor(num * 6) + 1;
 }).join(' ');
 
 console.log(output);
