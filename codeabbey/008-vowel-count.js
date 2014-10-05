@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-
 var input, output;
 
 input = require('fs')
