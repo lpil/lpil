@@ -1,19 +1,21 @@
-#!/usr/bin/env node
+#! /usr/bin/env node
 
-var input, max, min;
+var input, output;
 
 input = require('fs')
         .readFileSync('./input.txt', 'utf8')
-         .split(' ').map(function(num) {
+        .split('\n')
+        .slice(1, -1)
+        .map(function(e) { 
+          return e.split(' ').map(function(num) {
             return parseInt(num, 10);
           });
+        });
 
-max = input.reduce(function(acc, num) {
-    return (acc < num) ? num : acc;
-  });
-
-min = input.reduce(function(acc, num) {
+output = input.map(function(nums) {
+  return nums.reduce(function(acc, num) {
     return (acc > num) ? num : acc;
   });
+}).join(' ');
 
-console.log(max + ' ' + min);
+console.log(output);
