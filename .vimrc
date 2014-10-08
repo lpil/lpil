@@ -320,6 +320,8 @@ let g:neocomplcache_enable_at_startup = 1
 let g:snipMate = {}
 let g:snipMate.scope_aliases = {}
 let g:snipMate.scope_aliases['html'] = 'html'
+let g:snipMate.scope_aliases['scss'] = 'scss,css'
+let g:snipMate.scope_aliases['less'] = 'scss,less'
 
 """""""""""""""""""""""""""""""""""""
 " And finally, per-project .vimrc's "
