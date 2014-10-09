@@ -8,11 +8,9 @@ call vundle#rc()
 " let Vundle manage Vundle
 Bundle 'gmarik/Vundle.vim'
 
-Bundle 'Shougo/neocomplcache.vim'
 Bundle 'chrisbra/Colorizer'
 Bundle 'dag/vim2hs'
 Bundle 'derekwyatt/vim-scala'
-Bundle 'garbas/vim-snipmate'
 Bundle 'honza/vim-snippets'
 Bundle 'justinmk/vim-sneak'
 Bundle 'kchmck/vim-coffee-script'
@@ -21,6 +19,8 @@ Bundle 'lpil/my-vim-snippets'
 Bundle 'marcweber/vim-addon-mw-utils'
 Bundle 'sbl/scvim'
 Bundle 'scrooloose/syntastic'
+Bundle 'Shougo/neocomplcache.vim'
+Bundle 'SirVer/ultisnips'
 Bundle 'slim-template/vim-slim'
 Bundle 'tomtom/tlib_vim'
 Bundle 'tpope/vim-commentary'
@@ -312,6 +312,15 @@ let g:colorizer_auto_filetype='css,scss'
 """""""""""""""""""""""""
 
 let g:neocomplcache_enable_at_startup = 1
+
+"""""""""""""""""""""
+" Plugin: ultisnips "
+"""""""""""""""""""""
+
+" Simulate textmate field selection behaviour
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 """"""""""""""""""""""""
 " Plugin: vim-snipmate "
