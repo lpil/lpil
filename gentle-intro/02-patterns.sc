@@ -156,3 +156,189 @@ Pbind(
   \note, Pseq([[0,3,7], [2,5,8], [3,7,10], [5,8,12]], 4),
   \dur, Pgeom(0.2, 1.15, inf)
 ).trace.play;
+
+// Strum
+// Doesn't seem to work?
+Pbind(
+  \note, Pseq([-7,3,7,10], [0,3,5,8], 2),
+  \dur, 0.7,
+  \legato, 0.4,
+  \strum, 0.9
+).trace.play
+
+// Scales!
+// These only work with \scale
+Pbind(
+  \scale, Scale.harmonicMinor,
+  \degree, Pseq([0,1,2,3,4,5,6,7], 1),
+  \dur, 0.15
+).play;
+// Evalute this to get a list of scales
+Scale.directory;
+
+// If you need a note that is outside of the scale you can do this
+Pbind(
+  \scale, Scale.harmonicMinor,
+  \degree, Pseq([0,1,2,3,3.1,4], 1),
+  //                     ^^^ .1 means 1 chromatic step up
+  \dur, 0.15
+).play;
+// Without \scale Scale.major is assumed
+
+// Transposition
+// You can get chromatic transposition like this. Won't work with \freq
+Pbind(
+  \degree, Pseq([0,1,2,3,4,5,6,7], 1),
+  \ctranspose, 12, // transpose up an octave (12 semitones)
+  \dur, 0.15
+).play;
+
+// Microtones
+// With \note and \midinote
+Pbind( \note, Pseq([0,0.5,1,1.5,1.75,2], 1),).play;
+Pbind( \midinote, Pseq([60,69,68.5,60.25,70], 1),).play;
+
+// Tempo!
+// The default bpm is 60
+Pbind(
+  \degree, Pseq([0,1,2,3,4,5,6,7], 2)
+).play(TempoClock(120/60)); // 120 beats in 60 seconds, aka 120BPM
+
+Pbind(
+  \degree, Pseq([0,1,2,3,4,5,6,7]) // <=
+  // Hey look, we skipped the second arg. It has a default value
+).play;
+
+// Rests
+Pbind(
+  \degree, Pwhite(0,10),
+  \dur, Pseq([0.1, 0.1, 0.3, 0.6, Rest(0.3), 0.25], inf)
+).play;
+// They can be used anywhere in a Pbind, not just in \dur
+
+s.record;
+s.stopRecording;
+// To play 2 Pbinds at once, enclose them in a block
+(
+  Pbind(
+    \freq, Pn(Pseries(110, 111, 10), 2),
+    \dur, 1/2,
+    \legato, Pwhite(0.1, 1)
+  ).play;
+  Pbind(
+    \freq, Pn(Pseries(220, 222, 10), 4),
+    \dur, 1/4,
+    \legato, Pwhite(0.1, 1)
+  ).play;
+  Pbind(
+    \freq, Pn(Pseries(330, 333, 10), 6),
+    \dur, 1/6,
+    \legato, 0.1
+  ).play;
+)
+
+// In order to play Pbinds in a time ordered fashion you can use {}.fork
+(
+  {
+    "one".postln;
+    2.wait;
+    "two".postln;
+    2.wait;
+    "three".postln;
+  }.fork;
+)
+
+(
+  t = TempoClock(64/60);
+  {
+    Pbind(
+      \note, Pseq([[4,11],[6,9]], 32),
+      \dur, 1/6,
+      \amp, Pseq([0.1,0.06], inf)
+    ).play(t);
+
+    2.wait;
+
+    Pbind(
+      \note, Pseq([[-25,-13,-1],[-20,-8,4], \rest], 3),
+      \dur, Pseq([1,1,Rest(1)], inf),
+      \amp, 0.2,
+      \legato, Pseq([0.4,0.7,\rest], inf)
+    ).play(t);
+
+    2.75.wait;
+
+    Pbind(
+      \note, Pseq([23,21,25,23,21,20,18,16,20,21,23,21], inf),
+      \dur, Pseq([0.25,0.75,0.25,1.75,0.125,0.125,0.80,0.20,0.125,0.125,1], 1),
+      \amp, 0.2,
+      \legato, 0.5
+    ).play(t);
+  }.fork(t);
+)
+
+// Using the same sequence of numbers a lot? Save it in a variable
+c = [0,2,3,5,7,8,11,12]
+
+Pbind(\note, Pseq(c, 1), \dur, 0.15).play;
+Pbind(\note, Prand(c, 6), \dur, 0.15).play;
+Pbind(\note, Pslide(c, 5,3,1), \dur, 0.15).play;
+
+~scale = [0,1,2,3,4,5,6,7];
+~durs = [0.4, 0.2, 0.2, 0.4, 0.8, 0.2, 0.2, 0.2];
+(
+  // Play major scale
+  Pbind(
+    \degree, Pseq(~scale),
+    \dur,    Pseq(~durs)
+  ).play;
+  // Play the same scale one octave higher, in reverse
+  Pbind(
+    \degree, Pseq(~scale.reverse + 7),
+    \dur,    Pseq(~durs)
+  ).play;
+)
+
+//
+// Starting and stopping Pbinds independently
+//
+
+p = Pbind(
+    \midinote, Pseq([57,62,65,67,69], inf),
+    \dur, 1/7
+  );
+p.play; // This results in an EventStreamPlayer
+        // Think of it as a musician playing the score (the Pbind) you eval'd
+// To change a playing sound we need to call methods on the EventStreamPlayer
+~myPlayer = p.play;
+~myPlayer.stop;
+~myPlayer.resume;
+~myPlayer.stop.reset;
+~myPlayer.start;
+~myPlayer.stop;
+
+// Top melody is from Tchaikovsky's Album for the Youth
+// A lower melody is added in couterpoint
+// Gentle intro page 38 + 39
+(
+  // This variable is local to the scope of this block
+  var myDurs = Pseq([Pn(1,5),3,Pn(1,5),3,Pn(1,6),1/2,1/2,1,1,3,1,3], inf);
+
+  // These ones are not
+  ~upperMelody = Pbind(
+    \midinote, Pseq([69,74,76,77,79,81,Pseq([81,79,81,82,79,81], 2),82,81,79,
+                     77,76,74,74], inf),
+    \dur, myDurs
+  );
+  ~lowerMelody = Pbind(
+    \midinote, Pseq([57,62,61,60,59,58,57,55,53,52,50,49,50,52,50,55,53,55,57,
+                     58,61,62,62], inf),
+    \dur, myDurs
+  );
+)
+(
+  ~player1 = ~upperMelody.play;
+  ~player2 = ~lowerMelody.play;
+)
+~player1.stop.reset;
+~player2.stop.reset;
