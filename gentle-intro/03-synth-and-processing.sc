@@ -46,8 +46,36 @@ s.boot;
 { LFNoise0.kr(1).range(500,1500).poll }.play;
 { LFNoise0.kr(10).range(500,1500).poll }.play;
 // See how .range is scaling the output of the UGen
-// You could also do it with mul: and +
+// You could also do it with mul: and add:
+//  mul: multiply
+//  add: add
 { SinOsc.kr(1).range(100, 200).poll }.play;
 { SinOsc.kr(1, mul: 50, add: 150).poll }.play;
 
-// Page 70
+// linlin: convert a linear range to a linear range
+// linexp: linear to exponential
+// explin: exponential to linear
+// expexp: exponential to exponential
+a = [1,2,3,4,5,6,7];
+// Rescale 0-127, linear to linear
+a.linlin(1, 7, 0, 127).round(1);
+// Rescale 0-127, linear to exponential
+a.linexp(1, 7, 0.1, 127).round(1); // Don't use 0 for exp lower bound
+
+// Stopping individual synths
+a = { Saw.ar(LFNoise2.kr(8).range(1000, 2000), mul: 0.2) }.play;
+b = { Saw.ar(LFNoise2.kr(7).range(100, 1000), mul: 0.2) }.play;
+c = { Saw.ar(LFNoise0.kr(15).range(2000, 3000), mul: 0.2) }.play;
+a.free;
+b.free;
+c.free;
+
+// You can change synth/function params while the synth is running with set
+x = { |freq = 440, amp = 0.1| SinOsc.ar(freq, 0, amp) }.play;
+x.set(\freq, 778);
+x.set(\amp, 0.5);
+x.set(\freq, 920, \amp, 0.2);
+x.free;
+
+// page 72
+// stopped to listen to hardcore. Awh yeah.
