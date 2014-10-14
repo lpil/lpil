@@ -2,7 +2,7 @@ module.exports = function(grunt) {
 
   // Load all grunt taks matching grunt-*
   require('load-grunt-tasks')(grunt);
-  
+
   // Project config
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -31,19 +31,19 @@ module.exports = function(grunt) {
       }
     },
 
-    // Deploy to FTP test group
-    'ftp-deploy': {
-      build: {
-        auth: {
-          host: 'FIXME',
-          port: 'FIXME',
-          authPath: 'ftppass.json'
-        },
-        src: 'output',
-        dest: 'FIXME',
-        exclusions: ['*.DS_Store', '*.keep']
-      }
-    },
+    // // Deploy to FTP test group
+    // 'ftp-deploy': {
+    //   build: {
+    //     auth: {
+    //       host: 'FIXME',
+    //       port: 'FIXME',
+    //       authPath: 'ftppass.json'
+    //     },
+    //     src: 'output',
+    //     dest: 'FIXME',
+    //     exclusions: ['*.DS_Store', '*.keep']
+    //   }
+    // },
 
     // Watch for changes and rerun tasks
     watch: {
