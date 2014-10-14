@@ -15,6 +15,13 @@ module.exports = function(grunt) {
       }
     },
 
+    watch: {
+      sass: {
+        files: ['scss/*'],
+        tasks: ['sass']
+      }
+    },
+
     'ftp-deploy': {
       build: {
         auth: {
@@ -29,5 +36,6 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.registerTask('default', 'Compile SCSS', ['sass']);
+  grunt.registerTask(
+      'default', 'Compile SCSS and watch', ['sass', 'watch']);
 };
