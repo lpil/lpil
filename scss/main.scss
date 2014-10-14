@@ -1,0 +1,9 @@
+p {
+  $col: #123;
+
+  padding: 2px + 5px;
+
+  div {
+    color: $col;
+  }
+}
