@@ -15,13 +15,23 @@ module.exports = function(grunt) {
       }
     },
 
-    watch: {
-      sass: {
-        files: ['scss/**/*'],
-        tasks: ['sass']
+    // Lint JS for mistakes
+    jshint: {
+      files: 'js/**/*.js',
+      options: {
+        force: true
       }
     },
 
+    // Concat JS into one file
+    concat: {
+      dist: {
+        src: '<%- jshint.files %>',
+        dest: 'output/main.js'
+      }
+    },
+
+    // Deploy to FTP test group
     'ftp-deploy': {
       build: {
         auth: {
@@ -30,12 +40,26 @@ module.exports = function(grunt) {
           authPath: 'ftppass.json'
         },
         src: 'output',
-        dest: 'TODO',
+        dest: 'FIXME',
         exclusions: ['*.DS_Store', '*.keep']
+      }
+    },
+
+    // Watch for changes and rerun tasks
+    watch: {
+      sass: {
+        files: 'scss/**/*',
+        tasks: 'sass'
+      },
+      js: {
+        files: '<%= jshint.files %>',
+        tasks: ['jshint', 'concat']
       }
     }
   });
 
   grunt.registerTask(
-      'default', 'Compile SCSS and watch', ['sass', 'watch']);
+      'default',
+      'Compile files and watch',
+      ['sass', 'jshint', 'concat', 'watch']);
 };
