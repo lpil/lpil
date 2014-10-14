@@ -1,4 +1,4 @@
-# MM Russel Skin
+# MM Russell Skin
 
 ## Setup
 

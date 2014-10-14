@@ -90,6 +90,7 @@ module.exports = function(grunt) {
     ['sass:dev', 'jshint:dev', 'concat', 'watch']);
 
   grunt.registerTask(
+    // TODO: Change to deploy
     'build',
     'Compile files ready for deployment',
     ['sass:prod', 'jshint:prod', 'concat', 'uglify']);
