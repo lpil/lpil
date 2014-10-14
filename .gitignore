@@ -1,3 +1,4 @@
+*.log
 .ftppass
-output/*
 node_modules
+output/*

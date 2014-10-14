@@ -1,4 +1,5 @@
 module.exports = function(grunt) {
+  var jsFiles = 'js/**/*.js';
 
   // Load all grunt taks matching grunt-*
   require('load-grunt-tasks')(grunt);
@@ -8,26 +9,51 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
 
     sass: {
-      dist: {
+      dev: {
         files: {
           'output/Site.css': 'scss/main.scss'
+        }
+      },
+      prod: {
+        files: {
+          'output/Site.css': 'scss/main.scss'
+        },
+        options: {
+          outputStyle: 'compressed'
         }
       }
     },
 
     // Lint JS for mistakes
     jshint: {
-      files: 'js/**/*.js',
-      options: {
-        force: true
+      dev: {
+        src: jsFiles,
+        options: {
+          force: true
+        }
+      },
+      prod: {
+        src: jsFiles,
+        options: {
+          force: false
+        }
       }
     },
 
     // Concat JS into one file
     concat: {
       dist: {
-        src: '<%- jshint.files %>',
+        src: jsFiles,
         dest: 'output/main.js'
+      }
+    },
+
+    // Minify JS
+    uglify: {
+      prod: {
+        files: {
+          'output/main.min.js': 'output/main.js'
+        }
       }
     },
 
@@ -52,14 +78,19 @@ module.exports = function(grunt) {
         tasks: 'sass'
       },
       js: {
-        files: '<%= jshint.files %>',
-        tasks: ['jshint', 'concat']
+        files: jsFiles,
+        tasks: ['jshint:dev', 'concat']
       }
     }
   });
 
   grunt.registerTask(
-      'default',
-      'Compile files and watch',
-      ['sass', 'jshint', 'concat', 'watch']);
+    'default',
+    'Compile files and watch',
+    ['sass:dev', 'jshint:dev', 'concat', 'watch']);
+
+  grunt.registerTask(
+    'build',
+    'Compile files ready for deployment',
+    ['sass:prod', 'jshint:prod', 'concat', 'uglify']);
 };
