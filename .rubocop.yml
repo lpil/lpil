@@ -1,3 +1,20 @@
-# Up from 10
 MethodLength:
   Max: 20
+
+GlobalVars:
+  Description: 'Do not introduce global variables.'
+  Enabled: false
+
+# Multiline block chaining
+MultilineBlockChain:
+  Description: 'Avoid multi-line chains of blocks.'
+  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#single-line-blocks'
+  Enabled: false
+
+Style/ColonMethodCall:
+  Description: 'Do not use :: for method call.'
+  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#double-colons'
+  Enabled: false
+
+Documentation:
+  Enabled: false
