@@ -13,6 +13,19 @@ module.exports = function(grunt) {
           'output/main.css': 'scss/main.scss'
         }
       }
+    },
+
+    'ftp-deploy': {
+      build: {
+        auth: {
+          host: 'FIXME',
+          port: 'FIXME',
+          authPath: 'ftppass.json'
+        },
+        src: 'output',
+        dest: 'TODO',
+        exclusions: ['*.DS_Store', '*.keep']
+      }
     }
   });
 
