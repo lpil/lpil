@@ -1,11 +1,24 @@
-html {
-  height: 100%;
-}
-
-input,
-p,
-form {
-  margin: 0;
+.catalogItemHeader-l,
+.catalogItemHeader-r,
+.catalogFolderHeader-l,
+.catalogFolderHeader-r,
+.catalogItem-l,
+.catalogItem-r,
+.catalogFolder-l,
+.catalogFolder-r,
+.catalogItemRule-l,
+.catalogItemRule-r,
+.catalogFolderRule-l,
+.catalogItemHeader,
+.catalogFolderHeader,
+.catalogItemRule,
+.catalogFolderRule-r,
+.catalogFolderRule,
+.categorySidebarHeader-l,
+.categorySidebarHeader-r,
+.poweredByPageflex,
+.navBarSeparator {
+  display: none;
 }
 
 td.basic {
@@ -14,43 +27,38 @@ td.basic {
 
 // Entire Page
 
-body.page {
+.page {
   background: #fff;
-  background-attachment: fixed;
   margin: 0;
 }
 
-td.pageContent {
-  padding: 15px000;
+.pageContent {
+  padding: 15px;
 }
 
-img.pageMinimumWidth {
+.pageMinimumWidth {
   width: 700px;
 }
 
-td.navBar {
+.navBar {
   background: #80a1b6;
   background-repeat: repeat-x;
   height: 39px;
   width: 100%;
 }
 
-td.navBarLeft {
+.navBarLeft {
   font-size: 14px;
   padding-left: 10px;
 }
 
-td.navBarRight {
+.navBarRight {
   font-size: 12px;
   padding-right: 20px;
 }
 
-td.navBarSeparator {
-  display: none;
-}
-
-div.navBarButton,
-div.navBarButtonSelected {
+.navBarButton,
+.navBarButtonSelected {
   background: none;
   height: 39px;
   line-height: 39px; // Must match height!
@@ -58,42 +66,42 @@ div.navBarButtonSelected {
   text-transform: none;
 }
 
-td.navBarCell {
+.navBarCell {
   height: 20px;
   line-height: 20px; // Must match height!
 }
 
-a.navBarButton,
-a.navBarButtonRight,
-a.navBarButtonSelected,
-div.navBarMessage {
+.navBarButton,
+.navBarButtonRight,
+.navBarButtonSelected,
+.navBarMessage {
   color: #fff;
   font-size: 13px;
   text-decoration: none;
   white-space: nowrap;
 }
 
-a.navBarButtonRight {
+.navBarButtonRight {
   font-weight: bold;
   margin-left: 16px;
   text-decoration: none;
 }
 
-a.navBarButton:hover,
-a.navBarButtonRight:hover,
-a.navBarButtonSelected:hover,
-a.navBarButtonRight:hover {
+.navBarButton:hover,
+.navBarButtonRight:hover,
+.navBarButtonSelected:hover,
+.navBarButtonRight:hover {
   color: #7a255e;
 }
 
-div.navBarMessage {
+.navBarMessage {
   color: #fff;
   font-size: 12px;
   font-weight: normal;
   padding: 0 3px0 3px;
 }
 
-div.navBarButton:hover {
+.navBarButton:hover {
   color: #1b8b75;
 }
 
@@ -122,61 +130,49 @@ div.navBarButton:hover {
 // shrink to zero width, use "padding-left" rather than "width" to specify
 // their width.
 
-td.areaHeader {
+.areaHeader {
   background: #0069aa;
   padding: 10px 1px 5px 5px;
   vertical-align: middle;
   width: 100%;
 }
 
-td.simpleAreaHeader {
+.simpleAreaHeader {
   background: #e8ebea repeat-x;
   padding: 2px 1px 5px 0;
   vertical-align: middle;
 }
 
-td.popupArea {
+.popupArea {
   background: none;
   padding: 13px 15px 10px0;
 }
 
-td.areaComment {
+.areaComment {
   background: #0069aa;
   height: 33px;
   padding: 2px 1px 6px0;
   width: 100%;
 }
 
-td.area {
+.area {
   background: none;
   padding: 11px 0;
 }
 
-td.stepArea {
+.stepArea {
   background: #fff;
   padding: 11px 13px;
 }
 
-td.stepAreaFooter-l {
-  background: #e8ebea;
-  height: 44px;
-  width: 9px;
-}
-
-td.stepAreaFooter-r {
-  background: #e8ebea;
-  height: 44px;
-  width: 5px;
-}
-
-td.stepAreaFooter {
+.stepAreaFooter {
   background: #e8ebea;
   vertical-align: middle;
 }
 
 // Text styles for area header and "comment" lines
 
-div.areaTitle {
+.areaTitle {
   color: #fff;
   font-size: 15px;
   font-weight: bold;
@@ -185,13 +181,13 @@ div.areaTitle {
   white-space: nowrap;
 }
 
-div.areaTitleLink {
+.areaTitleLink {
   font-size: 10px;
   padding-top: 6px;
 }
 
-a.areaTitleLink,
-a.areaTitleLinkRollover { // Because pageflex doesn't understand :hover
+.areaTitleLink,
+.areaTitleLinkRollover { // Because pageflex doesn't understand :hover
   color: #fff;
   font-size: 10px;
   padding: 0 15px 0 5px;
@@ -199,12 +195,12 @@ a.areaTitleLinkRollover { // Because pageflex doesn't understand :hover
   text-transform: none;
 }
 
-a.areaTitleLinkRollover { // Because pageflex doesn't understand :hover
+.areaTitleLinkRollover { // Because pageflex doesn't understand :hover
   color: #7b235d;
 }
 
-div.areaComment,
-div.areaCommentRight {
+.areaComment,
+.areaCommentRight {
   color: #fff;
   font-size: 10px;
   font-weight: bold;
@@ -212,7 +208,7 @@ div.areaCommentRight {
   text-transform: none;
 }
 
-div.areaEmptyMessage {
+.areaEmptyMessage {
   padding: 12px0 16px0;
   text-align: center;
 }
@@ -226,33 +222,33 @@ div.areaEmptyMessage {
 
 // Step Area
 
-span.stepLabel {
+.stepLabel {
   font-weight: bold;
 }
 
-span.currentStepIndicator {
+.currentStepIndicator {
   color: #fff;
   font-size: 10px;
   font-weight: bold;
   padding-left: 5px;
 }
 
-div.stepAreaHeaderNextPrevControls,
-div.stepAreaFooterNextPrevControls {
+.stepAreaHeaderNextPrevControls,
+.stepAreaFooterNextPrevControls {
   background: url('Images/StepNextPrevBackground.gif') repeat-x;
   border-width: 0 1px;
   padding: 0 4px;
 }
 
-td.stepNextPrevLabel {
+.stepNextPrevLabel {
   font-size: 9px;
   height: 26px;
   padding-top: 4px;
   vertical-align: middle;
 }
 
-a.stepNextPrevLabel,
-a.stepNextPrevLabelRollover {
+.stepNextPrevLabel,
+.stepNextPrevLabelRollover {
   color: #000;
   font-size: 9px;
   font-weight: bold;
@@ -262,101 +258,45 @@ a.stepNextPrevLabelRollover {
   white-space: nowrap;
 }
 
-a.stepNextPrevLabelRollover {
+.stepNextPrevLabelRollover {
   color: #0069aa;
   cursor: pointer;
 }
 
-td.areaGraphicNextStep,
-td.areaGraphicNextStepRollover {
+.areaGraphicNextStep,
+.areaGraphicNextStepRollover {
   background: url('Images/StepNext.gif') no-repeat;
   height: 27px;
   width: 22px;
 }
 
-td.areaGraphicPreviousStep,
-td.areaGraphicPreviousStepRollover {
+.areaGraphicPreviousStep,
+.areaGraphicPreviousStepRollover {
   background: url('Images/StepPrevious.gif') no-repeat;
   height: 27px;
   width: 22px;
 }
 
-td.areaGraphicNextPrevSeparatorLine {
+.areaGraphicNextPrevSeparatorLine {
   background: url('Images/StepNextPrevSeparator.gif') no-repeat;
   height: 27px;
   width: 28px;
 }
 
-td.categorySidebarHeader-l,
-td.helpSidebarHeader-l,
-td.stepControlsHeader-l {
-  background: #0069aa;
-  height: 38px;
-  padding-left: 0; // instead of width, to prevent collapse
-}
-
-td.categorySidebarHeader-r,
-td.helpSidebarHeader-r,
-td.stepControlsHeader-r {
-  background: #0069aa;
-  height: 32px;
-  padding-left: 0; // instead of width, to prevent collapse
-}
-
-td.categorySidebarHeader,
-td.helpSidebarHeader,
-td.stepControlsHeader {
+.helpSidebarHeader,
+.stepControlsHeader {
   background-color: #0069aa;
-  background-position: top left;
-  background-repeat: repeat-x;
-  height: 38px;
+  padding: 5px;
+}
+
+.categorySidebarFooter,
+.helpSidebarFooter,
+.stepControlsFooter {
   vertical-align: top;
 }
 
-td.categorySidebarHeader,
-td.categorySidebarHeader-l,
-td.categorySidebarHeader-r {
-  display: none;
-}
-
-td.categorySidebar-l,
-td.helpSidebar-l,
-td.stepControls-l {
-  background: #333;
-  padding-left: 0; // instead of width, to prevent collapse
-}
-
-td.categorySidebar-r,
-td.helpSidebar-r,
-td.stepControls-r {
-  background: #333;
-  padding-left: 0; // instead of width, to prevent collapse
-}
-
-td.categorySidebarFooter-l,
-td.helpSidebarFooter-l,
-td.stepControlsFooter-l {
-  background: #333;
-  height: 24px;
-  padding-left: 0; // instead of width, to prevent collapse
-}
-
-td.categorySidebarFooter-r,
-td.helpSidebarFooter-r,
-td.stepControlsFooter-r {
-  background: #333;
-  height: 24px;
-  padding-left: 0; // instead of width, to prevent collapse
-}
-
-td.categorySidebarFooter,
-td.helpSidebarFooter,
-td.stepControlsFooter {
-  vertical-align: top;
-}
-
-div.helpSidebarTitle,
-div.stepControlsTitle {
+.helpSidebarTitle,
+.stepControlsTitle {
   color: #fff;
   font-size: 14px;
   font-weight: bold;
@@ -365,36 +305,40 @@ div.stepControlsTitle {
   text-transform: none;
 }
 
-td.categorySidebar,
-td.helpSidebar,
-td.stepControls {
+.categorySidebar,
+.helpSidebar,
+.stepControls {
   background-color: #80a1b6;
   vertical-align: top;
 }
 
-td.categorySidebar {
+.categorySidebar {
   background-repeat: repeat-x;
 }
 
-td.stepControls {
+.stepControls {
   padding-right: 30px;
 }
 
-img.categorySidebarMarginRight { width: 15px; } // sep cat from catalog
-img.helpSidebarMarginRight { width: 15px; } // sep help from content
-img.stepControlsMarginRight { width: 15px; } // sep step from step area
+.categorySidebarMarginRight { width: 15px; } // sep cat from catalog
+.helpSidebarMarginRight { width: 15px; } // sep help from content
+.stepControlsMarginRight { width: 15px; } // sep step from step area
 
-td.categorySidebarSearch {
-  background: #0069aa url('images/icon_search.png') no-repeat;
-  background-position: 95% 87%;
-  padding: 14px 17px;
+.categorySidebarHeader,
+.categorySidebarSearch {
+  background: $col-sidebar-searchbox-bg;
+  padding: 15px;
 }
 
-div.categorySidebarSearchTextBox {
+.categorySidebarHeader {
+  padding-bottom: 0;
+}
+
+.categorySidebarSearchTextBox {
   padding-bottom: 8px;
 }
 
-input.searchInput {
+.searchInput {
   background: #fff;
   border: 1px;
   border-radius: 1px;
@@ -404,65 +348,65 @@ input.searchInput {
   padding: 2px 3px;
 }
 
-td.categorySidebarSearchRule {
+.categorySidebarSearchRule {
   background: #fff;
   height: 15px;
 }
 
-td.categorySidebarLabel,
-td.categorySidebarLabelSelected {
+.categorySidebarLabel,
+.categorySidebarLabelSelected {
   font-size: 14px;
   padding: 10px;
   text-transform: none;
 }
 
-td.categorySidebarLabelLevel1 {
+.categorySidebarLabelLevel1 {
   background-position: 0 5px;
   padding-left: 15px;
 }
 
-td.categorySidebarLabelLevel2 {
+.categorySidebarLabelLevel2 {
   background-position: 0 5px;
   padding-left: 40px;
 }
 
-td.categorySidebarLabelLevel3 {
+.categorySidebarLabelLevel3 {
   background-position: 0 5px;
   padding-left: 55px;
 }
 
-td.categorySidebarLabelLevel4 {
+.categorySidebarLabelLevel4 {
   background-position: 0 5px;
   padding-left: 70px;
 }
 
-td.categorySidebarLabelLevel5 {
+.categorySidebarLabelLevel5 {
   background-position: 0 5px;
   padding-left: 85px;
 }
 
-td.categorySidebarLabelLevel6 {
+.categorySidebarLabelLevel6 {
   background-position: 0 5px;
   padding-left: 100px;
 }
 
-td.categorySidebarLabelLevel7 {
+.categorySidebarLabelLevel7 {
   background-position: 0 5px;
   padding-left: 115px;
 }
 
-td.categorySidebarLabelLevel8 {
+.categorySidebarLabelLevel8 {
   background-position: 0 5px;
   padding-left: 130px;
 }
 
-td.categorySidebarLabelLevel9 {
+.categorySidebarLabelLevel9 {
   background-position: 0 5px;
   padding-left: 145px;
 }
 
-a.categorySidebarLabel,
-a.categorySidebarLabelSelected {
+.categorySidebarLabel,
+.categorySidebarLabelSelected {
   color: #fff;
   font-size: 12px;
   font-weight: bold;
@@ -470,50 +414,36 @@ a.categorySidebarLabelSelected {
   white-space: nowrap;
 }
 
-a.categorySidebarLabelSelected {
-  color: #7b235d;
-  font-size: 13px;
-}
-
-a.categorySidebarLabel:hover {
-  color: #7b235d;
-}
-
-td.helpTopic,
-td.helpTopicSelected {
-  font-size: 11px;
-  padding: 1px 8px 3px0;
-}
-
-td.helpTopicSelected {
+.helpTopicSelected {
   background: #1b8b75;
 }
 
-td.helpTopicLevel1 { padding-left: 8px; }
-td.helpTopicLevel2 { padding-left: 20px; }
-td.helpTopicLevel3 { padding-left: 32px; }
-a.helpTopic,
-a.helpTopicSelected {
+.helpTopicLevel1 { padding-left: 8px; }
+.helpTopicLevel2 { padding-left: 20px; }
+.helpTopicLevel3 { padding-left: 32px; }
+.helpTopic,
+.helpTopicSelected {
   color: #ccd9e5;
   font-size: 11px;
+  padding: 1px 8px 3px0;
   text-decoration: none;
   white-space: nowrap;
 }
 
-a.helpTopic:hover {
+.helpTopic:hover {
   color: #ffc0cb;
   text-decoration: underline;
 }
 
-a.helpTopicSelected {
+.helpTopicSelected {
   color: #ffc0cb;
 }
 
-a.helpTopicLevel1 {
+.helpTopicLevel1 {
   font-weight: bold;
 }
 
-td.stepControl {
+.stepControl {
   background: #333;
   border-left: 18px solid #333;
   height: 20px;
@@ -521,9 +451,9 @@ td.stepControl {
   vertical-align: top;
 }
 
-td.stepControlNumber,
-td.stepControlNumberRollover,
-td.stepControlNumberSelected {
+.stepControlNumber,
+.stepControlNumberRollover,
+.stepControlNumberSelected {
   background: #fff;
   color: #0069aa;
   font-size: 14px;
@@ -534,30 +464,30 @@ td.stepControlNumberSelected {
   width: 31px;
 }
 
-td.stepControlNumberRollover {
+.stepControlNumberRollover {
   background-color: #ededea;
   background-position: top left;
   background-repeat: no-repeat;
 }
 
-td.stepControlNumberSelected {
+.stepControlNumberSelected {
   background-color: #ededea;
   background-position: top left;
   background-repeat: no-repeat;
   color: #1b8b75;
 }
 
-td.stepControlLabel,
-td.stepControlLabelRollover,
-td.stepControlLabelSelected {
+.stepControlLabel,
+.stepControlLabelRollover,
+.stepControlLabelSelected {
   font-size: 14px;
   font-weight: bold;
   padding: 0 10px0 8px;
   vertical-align: middle;
 }
 
-a.stepControlLabel,
-a.stepControlLabelSelected {
+.stepControlLabel,
+.stepControlLabelSelected {
   color: #fff;
   font-size: 14px;
   font-weight: bold;
@@ -566,27 +496,22 @@ a.stepControlLabelSelected {
   white-space: nowrap;
 }
 
-a.stepControlLabelSelected {
+.stepControlLabelSelected {
   color: #fff;
 }
 
-a.stepControlLabel:hover,
-a.stepControlLabelSelected:hover {
+.stepControlLabel:hover,
+.stepControlLabelSelected:hover {
   color: #fff;
 }
 
 
-// Start page
-div.poweredByPageflex {
-  display: none;
-}
-
-div.viewSwitcher {
+.viewSwitcher {
   font-size: 10px;
   padding: 3px 15px00;
 }
 
-a.viewSwitcher {
+.viewSwitcher {
   color: #fff;
   cursor: pointer;
   font-size: 10px;
@@ -595,11 +520,11 @@ a.viewSwitcher {
   white-space: nowrap;
 }
 
-a.viewSwitcher:hover {
+.viewSwitcher:hover {
   color: #7b235d;
 }
 
-div.categoryPath {
+.categoryPath {
   color: #ca690a;
   padding-bottom: 15px;
   padding-left: 24px;
@@ -614,37 +539,18 @@ div.categoryPath {
   }
 }
 
-div.catalogItemOuter,
-div.catalogFolderOuter {
+.catalogItemOuter,
+.catalogFolderOuter {
   margin: 0 15px 15px0;
 }
 
-td.catalogItemHeader-l,
-td.catalogItemHeader-r,
-td.catalogFolderHeader-l,
-td.catalogFolderHeader-r,
-td.catalogItem-l,
-td.catalogItem-r,
-td.catalogFolder-l,
-td.catalogFolder-r,
-td.catalogItemRule-l,
-td.catalogItemRule-r,
-td.catalogFolderRule-l,
-td.catalogItemHeader,
-td.catalogFolderHeader,
-td.catalogItemRule,
-td.catalogFolderRule-r,
-td.catalogFolderRule {
-  display: none;
-}
-
-td.catalogFolderFooter,
-td.catalogItemFooter {
+.catalogFolderFooter,
+.catalogItemFooter {
   background: #80a1b6;
   vertical-align: top;
 }
 
-td.catalogItem {
+.catalogItem {
   background: #fff;
   border: 1px solid #80a1b6;
   height: 158px;
@@ -652,63 +558,60 @@ td.catalogItem {
   text-align: center;
 }
 
-td.catalogFolder {
+.catalogFolder {
   background: #fff;
   height: 158px;
   padding: 2px0 6px0;
   text-align: center;
 }
 
-img.catalogThumbnail {
+.catalogThumbnail {
   border: 0;
 }
 
-div.catalogItemFooter,
-div.catalogFolderFooter {
+.catalogItemFooter,
+.catalogFolderFooter {
   padding: 4px 0;
   text-align: center;
   vertical-align: top;
 }
 
-a.catalogFolderFooter,
-a.catalogItemFooter {
+.catalogFolderFooter,
+.catalogItemFooter {
   color: #fff;
   font-size: 13px;
   text-decoration: none;
 }
 
-a.catalogFolderFooter:hover,
-a.catalogItemFooter:hover {
+.catalogFolderFooter:hover,
+.catalogItemFooter:hover {
   color: #7b235d;
 }
 
-div.catalogRowThumbnail {
+.catalogRowThumbnail {
+  border: 1px solid #000;
   float: right;
   margin-bottom: 12px;
 }
 
-img.catalogRowThumbnail {
-  border: 1px solid #000;
-}
-
-div.catalogRowHeadline {
+.catalogRowHeadline {
   font-weight: bold;
   text-align: left;
 }
 
-div.catalogRowDescription {
+.catalogRowDescription {
   text-align: left;
 }
 
-div.catalogFolderIcon {
+.catalogFolderIcon {
   background: url('Images/CatalogFolderIcon.gif') no-repeat;
   height: 18px;
   padding-left: 22px;
 }
 
-div.smallButton,
-div.siteButton,
-div.searchButton {
+.smallButton,
+.siteButton,
+.searchButton {
   background: #80a1b6;
   border: 1px solid #a6bdcb;
   border-bottom: 1px solid #80a1b6;
@@ -718,14 +621,14 @@ div.searchButton {
   padding: 5px 8px;
 }
 
-div.smallButton,
-div.siteButton {
+.smallButton,
+.siteButton {
   margin-left: 10px;
 }
 
-a.siteButton,
-a.smallButton,
-a.searchButton {
+.siteButton,
+.smallButton,
+.searchButton {
   color: #fff;
   cursor: pointer;
   font-size: 11px;
@@ -734,46 +637,46 @@ a.searchButton {
   white-space: nowrap;
 }
 
-a.siteButton:hover,
-a.smallButton:hover,
-a.searchButton:hover {
+.siteButton:hover,
+.smallButton:hover,
+.searchButton:hover {
   color: #7b235d;
 }
 
-p.endOfButtons {
+.endOfButtons {
   clear: both;
   font-size: 0;
   margin: 0;
 }
 
-td.warningAreaInlineInfo,
-td.warningAreaInlineWarning {
+.warningAreaInlineInfo,
+.warningAreaInlineWarning {
   background: #0069aa;
   border: 1px solid #0069aa;
   padding: 14px;
 }
 
-td.warningAreaInlineInfo {
+.warningAreaInlineInfo {
   background: #698e26;
   border: 1px solid #afd4a9;
 }
 
-td.warningIconWarning {
+.warningIconWarning {
   background: url('Images/IconWarning.gif') no-repeat left top;
   height: 55px;
   padding-left: 55px;
   width: 55px;
 }
 
-td.warningIconInfo {
+.warningIconInfo {
   background: url('Images/IconInfo.gif') no-repeat left center;
   height: 49px;
   padding-left: 50px;
   width: 49px;
 }
 
-div.warningAreaMessageInfo,
-div.warningAreaMessageWarning {
+.warningAreaMessageInfo,
+.warningAreaMessageWarning {
   color: #fff;
   font-size: 13px;
   font-weight: bold;
@@ -781,66 +684,66 @@ div.warningAreaMessageWarning {
   vertical-align: middle;
 }
 
-div.warningAreaMessageWarning p {
+.warningAreaMessageWarning p {
   color: #fff;
 }
 
-div.warningAreaMessageInfo {
+.warningAreaMessageInfo {
   color: #fff;
 }
 
 // Login page
-td.loginExistingUsers {
+.loginExistingUsers {
   padding-right: 20px;
   vertical-align: top;
 }
 
-td.loginNewUsers {
+.loginNewUsers {
   border-left: 1px solid #da710b;
   padding-left: 20px;
   vertical-align: top;
 }
 
-div.loginSubhead {
+.loginSubhead {
   font-weight: bold;
 }
 
 // Form Filling
 
 
-td.formFilling-form {
+.formFilling-form {
   vertical-align: top;
 }
 
-img.formMinWidth {
+.formMinWidth {
   height: 1px;
   width: 210px;
 }
 
-td.formFilling-preview {
+.formFilling-preview {
   padding-left: 2px;
   text-align: center;
   vertical-align: top;
   width: 100%;
 }
 
-td.previewButtonFirst {
+.previewButtonFirst {
   background: url('Images/PreviewButtonFirst.gif') no-repeat;
 }
 
-td.previewButtonPrevious {
+.previewButtonPrevious {
   background: url('Images/PreviewButtonPrevious.gif') no-repeat;
 }
 
-td.previewButtonNext {
+.previewButtonNext {
   background: url('Images/PreviewButtonNext.gif') no-repeat;
 }
 
-td.previewButtonLast {
+.previewButtonLast {
   background: url('Images/PreviewButtonLast.gif') no-repeat;
 }
 
-img.previewButtonSizer {
+.previewButtonSizer {
   border: 0;
   display: block;
   height: 22px;
@@ -848,30 +751,25 @@ img.previewButtonSizer {
   width: 24px;
 }
 
-div.previewPageNumberText {
+.previewPageNumberText {
   padding: 1px 7px0 3px;
 }
 
-img.formFillingPreview {
+.formFillingPreview {
   border: 1px solid #da710b;
 }
 
 // Printing Options
 
-td.childArea {
+.childArea {
   background: #efefef;
   border: 1px solid #0069aa;
   padding: 13px 15px 18px;
 }
 
-td.childArea-l,
-td.childArea-r {
-  width: 0;
-}
-
 // Order summary page
 
-td.orderSummaryCell {
+.orderSummaryCell {
   border: 1px solid #da710b;
   padding: 4px0 4px 8px;
 }
@@ -880,18 +778,16 @@ td.orderSummaryCell {
 // For "My Library" and the "Select Image" page (via "Form Filling" page)
 
 
-td.assetThumbnail {  // for "Select Image" page
+.assetThumbnail {  // for "Select Image" page
   background: #fff;
-  border-left: 1px solid #666;
-  border-right: 1px solid #666;
-  border-top: 1px solid #666;
   height: 120px;
   padding-top: 20px;
   text-align: center;
+  vertical-align: top;
   width: 150px;
 }
 
-td.assetThumbnailWithOptions {  // for "My Library"
+.assetThumbnailWithOptions {  // for "My Library"
   background: #fff;
   border-left: 1px solid #666;
   border-top: 1px solid #666;
@@ -899,19 +795,14 @@ td.assetThumbnailWithOptions {  // for "My Library"
   padding: 15px00 15px;
 }
 
-img.assetThumbnail {
-  border: 0;
-  vertical-align: top;
-}
-
-td.assetOptions {
+.assetOptions {
   background: #fff;
   border-right: 1px solid #666;
   border-top: 1px solid #666;
   padding: 0 10px;
 }
 
-td.assetCaption {
+.assetCaption {
   background: #fff;
   border-bottom: 1px solid #666;
   border-left: 1px solid #666;
@@ -922,74 +813,71 @@ td.assetCaption {
   text-align: left;
 }
 
-span.assetCaption,
-a.assetCaption,
-a.assetCaption:hover {
+.assetCaption,
+.assetCaption,
+.assetCaption:hover {
   color: #0069aa;
   font-size: 12px;
   font-weight: bold;
   text-decoration: none;
 }
 
-a.assetCaption:hover {
+.assetCaption:hover {
   color: #ffc0cb;
   text-decoration: underline;
 }
 
 // Common classes for content inside areas
 
-div.block {
+.block {
   padding-bottom: 10px;
 }
 
-div.subhead {
+.subhead {
   font-weight: bold;
   padding-bottom: 3px;
 }
 
-span.subheadDetail {
+.subheadDetail {
   font-weight: normal;
 }
 
-a.siteLink {
+.siteLink {
   color: #0069aa;
 }
 
-span.tip {
+.tip {
   color: #0069aa;
   font-style: italic;
   font-weight: normal;
 }
 
-div.textField {
+.textField {
   padding-bottom: 2px;
-}
-
-input.textField {
   width: 225px;
 }
 
-div.fieldSpacer {   // for editable form fields
+.fieldSpacer {   // for editable form fields
   margin-top: 2px;
 }
 
-td.fieldHeader {
+.fieldHeader {
   font-weight: bold;
   padding: 12px0 3px0;
   vertical-align: top;
 }
 
-td.fieldCell { // for read-only form fields
+.fieldCell { // for read-only form fields
   padding: 0 15px 3px0;
   vertical-align: top;
 }
 
-select.multiSelectIncludeBox {
+.multiSelectIncludeBox {
   margin-bottom: 3px;
 }
 
-p.error,
-span.error {
+.error,
+.error {
   color: #f00;
 }
 
@@ -1001,66 +889,66 @@ span.error {
 
 // Final step warnings
 
-div.finalStepWarningsHeader {
+.finalStepWarningsHeader {
   font-weight: bold;
 }
 
-div.finalStepWarningsFooter {
+.finalStepWarningsFooter {
   font-size: 10px;
   padding: 10px0 5px 20px;
 }
 
 // Tables of orders and items
 
-table.itemTable,
-td.itemTable,
-td.itemTableHeader {
+.itemTable,
+.itemTable,
+.itemTableHeader {
   background: #fff;
   border: 1px solid;
   padding: 5px;
   vertical-align: top;
 }
 
-td.itemTableHeader {
+.itemTableHeader {
   background: #474747;
   color: #fff;
   font-size: 13px;
   font-weight: bold;
 }
 
-td.itemTable-Thumbnail {
+.itemTable-Thumbnail {
   height: 112px;
   text-align: center;
 }
 
-img.itemTableThumbnail {
+.itemTableThumbnail {
   border: 1px solid #fff;
 }
 
-td.itemTable-Id {
+.itemTable-Id {
   color: #1b8b75;
   font-size: 12px;
 }
 
-td.itemTable-Description,
-td.itemTable-Options {
+.itemTable-Description,
+.itemTable-Options {
   color: #1b8b75;
   font-size: 11px;
 }
 
-td.itemTable-Product {
+.itemTable-Product {
   color: #1b8b75;
   font-size: 11px;
   font-weight: bold;
 }
 
-td.itemTable-Date {
+.itemTable-Date {
   color: #1b8b75;
   font-size: 12px;
   font-weight: bold;
 }
 
-td.itemTable-Price {
+.itemTable-Price {
   color: #1b8b75;
   font-size: 14px;
   font-weight: bold;
@@ -1068,103 +956,103 @@ td.itemTable-Price {
   white-space: nowrap;
 }
 
-td.itemTableSummary {
+.itemTableSummary {
   padding: 5px 5px00;
   text-align: right;
 }
 
-td.itemTableSummaryRule {
+.itemTableSummaryRule {
   border-bottom: 1px solid #da710b;
   line-height: 3px;
 }
 
-td.itemTableSummaryLine {
+.itemTableSummaryLine {
   color: #1b8b75;
   font-size: 14px;
   font-weight: bold;
   padding-top: 3px;
 }
 
-p.itemTableLabelWithIcon {
+.itemTableLabelWithIcon {
   color: #1b8b75;
   margin-left: 23px;
   text-indent: -23px;
 }
 
-td.dataListChoicesHeader,
-td.dataListChoices {
+.dataListChoicesHeader,
+.dataListChoices {
   border-bottom: 1px solid #da710b;
   padding: 0 15px 2px0;
 }
 
-td.dataListChoicesHeader {
+.dataListChoicesHeader {
   font-weight: bold;
 }
 
-td.simpleTableHeader {
+.simpleTableHeader {
   font-weight: bold;
   padding: 0 15px 2px0;
 }
 
-td.simpleTable {
+.simpleTable {
   padding: 0 15px 2px0;
 }
 
  // 7.6 additions
-div.MultiShippingButton {
+.MultiShippingButton {
   height: 27px;
   margin-bottom: 5px;
 }
 
-div.ShippingAddressBlock {
+.ShippingAddressBlock {
   margin-bottom: 20px;
   margin-top: 20px;
 }
 
-div.ShippingAddressBlockCart {
+.ShippingAddressBlockCart {
   margin: 10px;
 }
 
-table.listPreviewTable {
+.listPreviewTable {
   background-color: #fff;
   border: 1px solid #fff;
   padding: 10px;
 }
 
-tr.listPreviewTableHeader {
+.listPreviewTableHeader {
   background: #eee;
   font-size: 8px;
   font-weight: bold;
   padding: 0 15px 2px0;
 }
 
-td.areaGraphicCartStep,
-td.areaGraphicCartStepRollover {
+.areaGraphicCartStep,
+.areaGraphicCartStepRollover {
   height: 15px;
   padding-left: 5px;
   padding-top: 1px;
   width: 20px;
 }
 
-td.areaGraphicCartStep div,
-td.areaGraphicCartStepRollover div {
+.areaGraphicCartStep div,
+.areaGraphicCartStepRollover div {
   background: url('Images/cart_iconx2.gif') no-repeat;
   height: 13px;
   margin-bottom: 3px;
   width: 20px;
 }
 
-td.areaGraphicCartStepRollover div {
+.areaGraphicCartStepRollover div {
   background-position: 0 -13px;
 }
 
-td.areaGraphicNextCartSeparatorLine {
+.areaGraphicNextCartSeparatorLine {
   height: 15px;
   width: 50px;
 }
 
-td.areaGraphicCancelStep div,
-td.areaGraphicCancelStepRollover div {
+.areaGraphicCancelStep div,
+.areaGraphicCancelStepRollover div {
   background: url('Images/CartCancel.gif') no-repeat;
   height: 11px;
   margin-bottom: 2px;
@@ -1172,48 +1060,48 @@ td.areaGraphicCancelStepRollover div {
   width: 13px;
 }
 
-td.areaGraphicCancelStepRollover div {
+.areaGraphicCancelStepRollover div {
   background-position: 0 -11px;
 }
 
-td.stepCart {
+.stepCart {
   padding-right: 2px;
 }
 
-td.stepCancel {
+.stepCancel {
   padding-right: 3px;
 }
 
 // new add to cart button in step content area
-div.CartButtons {
+.CartButtons {
   float: right;
 }
 
 // Price Estimate wrapping container
-td.priceHint {
+.priceHint {
   padding-left: 100px;
   width: 100%;
 }
 
 // Scroll Image list used in form fill kit parts
-div.scrollButton {
+.scrollButton {
   float: left;
   height: 84px;
   margin-top: 3px;
   width: 25px;
 }
 
-div.scrollLeft {
+.scrollLeft {
   background-image: url('./Images/scrollLeft.gif');
   margin-right: 5px;
 }
 
-div.scrollRight {
+.scrollRight {
   background-image: url('./Images/scrollRight.gif');
   margin-left: 5px;
 }
 
-div.scrollWrapper {
+.scrollWrapper {
   float: left;
   height: 89px;
   overflow: hidden;
@@ -1221,7 +1109,7 @@ div.scrollWrapper {
   width: 300px;
 }
 
-div.scrollList {
+.scrollList {
   width: 365px;
 
   img {
@@ -1230,8 +1118,9 @@ div.scrollList {
   }
 }
 
-table.scrollData {
-  left: 0;
+.scrollData {
+  left: 850px;
+  margin-left: 100px;
   position: relative;
 
   td {
@@ -1241,11 +1130,11 @@ table.scrollData {
 }
 
 // Address Book Upload Download PopUps
-div.AddressBookPopUpArea {
+.AddressBookPopUpArea {
   width: 325px;
 }
 
-div.AddressTile {
+.AddressTile {
   background-color: #f5f5f5;
   float: left;
   height: 115px;
@@ -1255,12 +1144,7 @@ div.AddressTile {
   width: 175px;
 }
 
-div.AddressTileHeader {
+.AddressTileHeader {
   font-weight: bold;
   margin-bottom: 15px;
-}
-
-.scrollData {
-  left: 850px;
-  margin-left: 100px;
 }
