@@ -1,4 +1,7 @@
 *.log
 .ftppass
+.ftppass.json
+ftppass
+ftppass.json
 node_modules
 output/*

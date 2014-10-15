@@ -1,9 +1,6 @@
-p {
-  $col: #123;
+@import 'vendor/base.scss';
 
-  padding: 2px + 5px;
+@import 'modules/colors';
 
-  div {
-    color: $col;
-  }
-}
+@import 'partials/typography';
+@import 'partials/powered-by-perivan';

@@ -11,12 +11,12 @@ module.exports = function(grunt) {
     sass: {
       dev: {
         files: {
-          'output/Site.css': 'scss/main.scss'
+          'output/CSS/Site.css': 'scss/main.scss'
         }
       },
       prod: {
         files: {
-          'output/Site.css': 'scss/main.scss'
+          'output/CSS/Site.css': 'scss/main.scss'
         },
         options: {
           outputStyle: 'compressed'
@@ -44,7 +44,7 @@ module.exports = function(grunt) {
     concat: {
       dist: {
         src: jsFiles,
-        dest: 'output/main.js'
+        dest: 'output/JS/main.js'
       }
     },
 
@@ -52,34 +52,35 @@ module.exports = function(grunt) {
     uglify: {
       prod: {
         files: {
-          'output/main.min.js': 'output/main.js'
+          'output/JS/main.min.js': 'output/JS/main.js'
         }
       }
     },
 
-    // // Deploy to FTP test group
-    // 'ftp-deploy': {
-    //   build: {
-    //     auth: {
-    //       host: 'FIXME',
-    //       port: 'FIXME',
-    //       authPath: 'ftppass.json'
-    //     },
-    //     src: 'output',
-    //     dest: 'FIXME',
-    //     exclusions: ['*.DS_Store', '*.keep']
-    //   }
-    // },
+    // Deploy to FTP test group
+    'ftp-deploy': {
+      dev: {
+        auth: {
+          host: 'russellinvestments.roi360.co.uk',
+          port: 21,
+          authPath: './ftppass.json',
+          authKey: 'site'
+        },
+        src: 'output',
+        dest: 'Themes/Russell-Skinning/',
+        exclusions: ['.DS_Store', '.keep']
+      }
+    },
 
     // Watch for changes and rerun tasks
     watch: {
       sass: {
         files: 'scss/**/*',
-        tasks: 'sass'
+        tasks: ['sass:dev', 'ftp-deploy:dev']
       },
       js: {
         files: jsFiles,
-        tasks: ['jshint:dev', 'concat']
+        tasks: ['jshint:dev', 'concat', 'ftp-deploy:dev']
       }
     }
   });
@@ -87,11 +88,10 @@ module.exports = function(grunt) {
   grunt.registerTask(
     'default',
     'Compile files and watch',
-    ['sass:dev', 'jshint:dev', 'concat', 'watch']);
+    ['sass:dev', 'jshint:dev', 'concat', 'ftp-deploy:dev', 'watch']);
 
   grunt.registerTask(
-    // TODO: Change to deploy
-    'build',
+    'deploy',
     'Compile files ready for deployment',
     ['sass:prod', 'jshint:prod', 'concat', 'uglify']);
 };
