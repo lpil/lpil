@@ -1,8 +1,10 @@
-$fade-intro-start-opacity: 0.35;
+$fade-intro-start-opacity: .35;
+
 @include keyframes(fade-intro) {
   from {
     opacity: $fade-intro-start-opacity;
   }
+
   to {
     opacity: 1;
   }
@@ -11,12 +13,12 @@ $fade-intro-start-opacity: 0.35;
 .site-header {
   @include outer-container;
 
-  padding: 2em 1em;
-  margin-bottom: 1em;
   border-bottom: 1px solid #ddd;
+  margin-bottom: 1em;
+  padding: 2em 1em;
 
   @include media($mobile) {
-    padding: 1.5em 1em 1em 1em;
+    padding: 1.5em 1em 1em;
   }
 
   a.site-header__home {
@@ -30,49 +32,39 @@ $fade-intro-start-opacity: 0.35;
       opacity: $fade-intro-start-opacity;
       @include animation(fade-intro, ease-in, 1);
       @include animation-fill-mode(forwards);
-      @include animation-duration(1.0s);
+      @include animation-duration(1s);
     }
-    $step:  0.025s;
-    $delay: 0.10s;
-    span:nth-child(1)  { @include animation-delay($delay +  1 * $step); }
-    span:nth-child(2)  { @include animation-delay($delay +  2 * $step); }
-    span:nth-child(3)  { @include animation-delay($delay +  3 * $step); }
-    span:nth-child(4)  { @include animation-delay($delay +  4 * $step); }
-    span:nth-child(5)  { @include animation-delay($delay +  5 * $step); }
-    span:nth-child(6)  { @include animation-delay($delay +  6 * $step); }
-    span:nth-child(7)  { @include animation-delay($delay +  7 * $step); }
-    span:nth-child(8)  { @include animation-delay($delay +  8 * $step); }
-    span:nth-child(9)  { @include animation-delay($delay +  9 * $step); }
-    span:nth-child(10) { @include animation-delay($delay + 10 * $step); }
-    span:nth-child(11) { @include animation-delay($delay + 11 * $step); }
-    span:nth-child(12) { @include animation-delay($delay + 12 * $step); }
-    span:nth-child(13) { @include animation-delay($delay + 13 * $step); }
-    span:nth-child(14) { @include animation-delay($delay + 14 * $step); }
-    span:nth-child(15) { @include animation-delay($delay + 15 * $step); }
-    span:nth-child(16) { @include animation-delay($delay + 16 * $step); }
-    span:nth-child(17) { @include animation-delay($delay + 17 * $step); }
-    span:nth-child(18) { @include animation-delay($delay + 18 * $step); }
+
+    $i: 18;
+    @while $i > 0 {
+      span:nth-child(#{$i}) {
+        @include animation-delay(.2s + $i * .025s);
+
+        $i: $i - 1;
+      }
+    }
 
     i {
-      font-size: 0.01em;
+      font-size: .01em;
     }
   }
+
   a.site-header__home:hover {
     text-decoration: none;
   }
 
   .site-header__nav {
     text-align: right;
-  }
 
-  .site-header__nav a {
-    margin: 0 0 0 1em;
-    display: inline-block;
+    a {
+      display: inline-block;
+      margin: 0 0 0 1em;
 
-    @include media($mobile) {
-      margin: 0;
-      display: block;
-      line-height: 2em;
+      @include media($mobile) {
+        display: block;
+        line-height: 2em;
+        margin: 0;
+      }
     }
   }
 
@@ -82,8 +74,8 @@ $fade-intro-start-opacity: 0.35;
 
     @include media($mobile) {
       @include span-columns(6);
+      margin: .5em 0;
       text-align: center;
-      margin: 0.5em 0;
     }
   }
 }
