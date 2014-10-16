@@ -176,6 +176,8 @@ nnoremap d, :bd<CR>
 
 " Go away ex mode, you suck
 nnoremap Q <Nop>
+" No, I don't want to look things up in the man pages
+nnoremap K <Nop>
 
 
 """""""""""""""""""""""""""""""""""
