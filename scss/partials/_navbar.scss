@@ -1,0 +1,50 @@
+.navBar {
+  background: #80a1b6;
+  height: 39px;
+  width: 100%;
+}
+
+.navBarLeft {
+  font-size: 14px;
+  padding-left: 10px;
+}
+
+.navBarRight {
+  font-size: 12px;
+  padding-right: 20px;
+}
+
+.navBarButton,
+.navBarButtonSelected {
+  background: none;
+  line-height: 39px;
+  padding: 0 10px;
+  text-transform: none;
+}
+
+.navBarCell {
+  line-height: 20px;
+}
+
+.navBarButton,
+.navBarButtonRight,
+.navBarButtonSelected,
+.navBarMessage {
+  color: #fff;
+  font-size: 13px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.navBarButtonRight {
+  font-weight: bold;
+  margin-left: 16px;
+  text-decoration: none;
+}
+
+.navBarMessage {
+  color: #fff;
+  font-size: 12px;
+  font-weight: normal;
+  padding: 0 3px0 3px;
+}

@@ -27,7 +27,7 @@ td.basic {
 
 // Entire Page
 
-.page {
+body.page {
   background: #fff;
   margin: 0;
 }
@@ -39,96 +39,6 @@ td.basic {
 .pageMinimumWidth {
   width: 700px;
 }
-
-.navBar {
-  background: #80a1b6;
-  background-repeat: repeat-x;
-  height: 39px;
-  width: 100%;
-}
-
-.navBarLeft {
-  font-size: 14px;
-  padding-left: 10px;
-}
-
-.navBarRight {
-  font-size: 12px;
-  padding-right: 20px;
-}
-
-.navBarButton,
-.navBarButtonSelected {
-  background: none;
-  height: 39px;
-  line-height: 39px; // Must match height!
-  padding: 0 10px;
-  text-transform: none;
-}
-
-.navBarCell {
-  height: 20px;
-  line-height: 20px; // Must match height!
-}
-
-.navBarButton,
-.navBarButtonRight,
-.navBarButtonSelected,
-.navBarMessage {
-  color: #fff;
-  font-size: 13px;
-  text-decoration: none;
-  white-space: nowrap;
-}
-
-.navBarButtonRight {
-  font-weight: bold;
-  margin-left: 16px;
-  text-decoration: none;
-}
-
-.navBarButton:hover,
-.navBarButtonRight:hover,
-.navBarButtonSelected:hover,
-.navBarButtonRight:hover {
-  color: #7a255e;
-}
-
-.navBarMessage {
-  color: #fff;
-  font-size: 12px;
-  font-weight: normal;
-  padding: 0 3px0 3px;
-}
-
-.navBarButton:hover {
-  color: #1b8b75;
-}
-
-// Areas
-// Areas are major graphical regions surrounding page content. There are three
-// kinds: Simple Area - bordered region with a title bar. (Example: Login page)
-// List Area - adds optional icon, "comment" line, optional help link,
-// full-width. (Example: Shopping Cart) Step Area - adds next/previous links
-// and optional left-side step controls. (Example: checkout steps)
-//
-// Each area is composed of 3 or 4 horizontal slices:
-//   areaHeader:   title bar
-//   areaComment:  "comment" line
-//   area:         actual area content
-//   areaFooter
-//
-// Each horizontal slice is built using 3 table cells. For example, the header:
-//   td.areaHeader-l:  the left edge of the header
-//   td.areaHeader  :  the content of the header
-//   td.areaHeader-r:  the right edge of the header
-//
-// Most areas have flexible width, growing either to accommodate their
-// content or to fit the browser window. This flexibility is implemented in
-// many cases using a cell with width=100%, which can cause other cells to
-// shrink to zero width if you're not careful. If cells used for area edges
-// shrink to zero width, use "padding-left" rather than "width" to specify
-// their width.
 
 .areaHeader {
   background: #0069aa;
@@ -169,51 +79,6 @@ td.basic {
   background: #e8ebea;
   vertical-align: middle;
 }
-
-// Text styles for area header and "comment" lines
-
-.areaTitle {
-  color: #fff;
-  font-size: 15px;
-  font-weight: bold;
-  padding: 5px 5px 5px 15px;
-  text-transform: none;
-  white-space: nowrap;
-}
-
-.areaTitleLink {
-  font-size: 10px;
-  padding-top: 6px;
-}
-
-.areaTitleLink,
-.areaTitleLinkRollover { // Because pageflex doesn't understand :hover
-  color: #fff;
-  font-size: 10px;
-  padding: 0 15px 0 5px;
-  text-decoration: none;
-  text-transform: none;
-}
-
-.areaTitleLinkRollover { // Because pageflex doesn't understand :hover
-  color: #7b235d;
-}
-
-.areaComment,
-.areaCommentRight {
-  color: #fff;
-  font-size: 10px;
-  font-weight: bold;
-  padding: 3px 15px0 15px;
-  text-transform: none;
-}
-
-.areaEmptyMessage {
-  padding: 12px0 16px0;
-  text-align: center;
-}
-
-// Area title icons
 
 #InputFields_InputFields,
 #ReadOnlyFields_InputFields {
@@ -355,13 +220,16 @@ td.basic {
 
 .categorySidebarLabel,
 .categorySidebarLabelSelected {
-  font-size: 14px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
   padding: 10px;
+  text-decoration: none;
   text-transform: none;
+  white-space: nowrap;
 }
 
 .categorySidebarLabelLevel1 {
-  background-position: 0 5px;
   padding-left: 15px;
 }
 
@@ -371,47 +239,31 @@ td.basic {
 }
 
 .categorySidebarLabelLevel3 {
-  background-position: 0 5px;
   padding-left: 55px;
 }
 
 .categorySidebarLabelLevel4 {
-  background-position: 0 5px;
   padding-left: 70px;
 }
 
 .categorySidebarLabelLevel5 {
-  background-position: 0 5px;
   padding-left: 85px;
 }
 
 .categorySidebarLabelLevel6 {
-  background-position: 0 5px;
   padding-left: 100px;
 }
 
 .categorySidebarLabelLevel7 {
-  background-position: 0 5px;
   padding-left: 115px;
 }
 
 .categorySidebarLabelLevel8 {
-  background-position: 0 5px;
   padding-left: 130px;
 }
 
 .categorySidebarLabelLevel9 {
-  background-position: 0 5px;
   padding-left: 145px;
-}
-
-.categorySidebarLabel,
-.categorySidebarLabelSelected {
-  color: #fff;
-  font-size: 12px;
-  font-weight: bold;
-  text-decoration: none;
-  white-space: nowrap;
 }
 
 .helpTopicSelected {
@@ -428,19 +280,6 @@ td.basic {
   padding: 1px 8px 3px0;
   text-decoration: none;
   white-space: nowrap;
-}
-
-.helpTopic:hover {
-  color: #ffc0cb;
-  text-decoration: underline;
-}
-
-.helpTopicSelected {
-  color: #ffc0cb;
-}
-
-.helpTopicLevel1 {
-  font-weight: bold;
 }
 
 .stepControl {
@@ -500,43 +339,14 @@ td.basic {
   color: #fff;
 }
 
-.stepControlLabel:hover,
-.stepControlLabelSelected:hover {
-  color: #fff;
-}
-
-
-.viewSwitcher {
-  font-size: 10px;
-  padding: 3px 15px00;
-}
-
 .viewSwitcher {
   color: #fff;
   cursor: pointer;
   font-size: 10px;
+  padding: 3px 15px00;
   text-decoration: none;
   text-transform: none;
   white-space: nowrap;
-}
-
-.viewSwitcher:hover {
-  color: #7b235d;
-}
-
-.categoryPath {
-  color: #ca690a;
-  padding-bottom: 15px;
-  padding-left: 24px;
-
-  a {
-    color: #7b235d;
-    font-size: 14px;
-    font-weight: bold;
-    text-decoration: none;
-    text-transform: none;
-    vertical-align: middle;
-  }
 }
 
 .catalogItemOuter,
@@ -571,21 +381,12 @@ td.basic {
 
 .catalogItemFooter,
 .catalogFolderFooter {
-  padding: 4px 0;
-  text-align: center;
-  vertical-align: top;
-}
-
-.catalogFolderFooter,
-.catalogItemFooter {
   color: #fff;
   font-size: 13px;
+  padding: 4px 0;
+  text-align: center;
   text-decoration: none;
-}
-
-.catalogFolderFooter:hover,
-.catalogItemFooter:hover {
-  color: #7b235d;
+  vertical-align: top;
 }
 
 .catalogRowThumbnail {
@@ -607,40 +408,6 @@ td.basic {
   background: url('Images/CatalogFolderIcon.gif') no-repeat;
   height: 18px;
   padding-left: 22px;
-}
-
-.smallButton,
-.siteButton,
-.searchButton {
-  background: #80a1b6;
-  border: 1px solid #a6bdcb;
-  border-bottom: 1px solid #80a1b6;
-  border-radius: 1px;
-  border-right: 1px solid #80a1b6;
-  color: #fff;
-  padding: 5px 8px;
-}
-
-.smallButton,
-.siteButton {
-  margin-left: 10px;
-}
-
-.siteButton,
-.smallButton,
-.searchButton {
-  color: #fff;
-  cursor: pointer;
-  font-size: 11px;
-  text-decoration: none;
-  text-transform: none;
-  white-space: nowrap;
-}
-
-.siteButton:hover,
-.smallButton:hover,
-.searchButton:hover {
-  color: #7b235d;
 }
 
 .endOfButtons {
@@ -807,55 +574,16 @@ td.basic {
   border-bottom: 1px solid #666;
   border-left: 1px solid #666;
   border-right: 1px solid #666;
-  font-size: 10px;
-  height: 30px;
-  padding: 0 6px0 15px;
-  text-align: left;
-}
-
-.assetCaption,
-.assetCaption,
-.assetCaption:hover {
   color: #0069aa;
   font-size: 12px;
   font-weight: bold;
+  height: 30px;
+  padding: 0 6px0 15px;
+  text-align: left;
   text-decoration: none;
 }
 
-.assetCaption:hover {
-  color: #ffc0cb;
-  text-decoration: underline;
-}
-
 // Common classes for content inside areas
-
-.block {
-  padding-bottom: 10px;
-}
-
-.subhead {
-  font-weight: bold;
-  padding-bottom: 3px;
-}
-
-.subheadDetail {
-  font-weight: normal;
-}
-
-.siteLink {
-  color: #0069aa;
-}
-
-.tip {
-  color: #0069aa;
-  font-style: italic;
-  font-weight: normal;
-}
-
-.textField {
-  padding-bottom: 2px;
-  width: 225px;
-}
 
 .fieldSpacer {   // for editable form fields
   margin-top: 2px;
@@ -872,21 +600,6 @@ td.basic {
   vertical-align: top;
 }
 
-.multiSelectIncludeBox {
-  margin-bottom: 3px;
-}
-
-.error,
-.error {
-  color: #f00;
-}
-
-.validationError {
-  color: #f00;
-  display: block;
-  font-weight: bold;
-}
-
 // Final step warnings
 
 .finalStepWarningsHeader {
@@ -896,87 +609,6 @@ td.basic {
 .finalStepWarningsFooter {
   font-size: 10px;
   padding: 10px0 5px 20px;
-}
-
-// Tables of orders and items
-
-.itemTable,
-.itemTable,
-.itemTableHeader {
-  background: #fff;
-  border: 1px solid;
-  padding: 5px;
-  vertical-align: top;
-}
-
-.itemTableHeader {
-  background: #474747;
-  color: #fff;
-  font-size: 13px;
-  font-weight: bold;
-}
-
-.itemTable-Thumbnail {
-  height: 112px;
-  text-align: center;
-}
-
-.itemTableThumbnail {
-  border: 1px solid #fff;
-}
-
-.itemTable-Id {
-  color: #1b8b75;
-  font-size: 12px;
-}
-
-.itemTable-Description,
-.itemTable-Options {
-  color: #1b8b75;
-  font-size: 11px;
-}
-
-.itemTable-Product {
-  color: #1b8b75;
-  font-size: 11px;
-  font-weight: bold;
-}
-
-.itemTable-Date {
-  color: #1b8b75;
-  font-size: 12px;
-  font-weight: bold;
-}
-
-.itemTable-Price {
-  color: #1b8b75;
-  font-size: 14px;
-  font-weight: bold;
-  text-align: right;
-  white-space: nowrap;
-}
-
-.itemTableSummary {
-  padding: 5px 5px00;
-  text-align: right;
-}
-
-.itemTableSummaryRule {
-  border-bottom: 1px solid #da710b;
-  line-height: 3px;
-}
-
-.itemTableSummaryLine {
-  color: #1b8b75;
-  font-size: 14px;
-  font-weight: bold;
-  padding-top: 3px;
-}
-
-.itemTableLabelWithIcon {
-  color: #1b8b75;
-  margin-left: 23px;
-  text-indent: -23px;
 }
 
 .dataListChoicesHeader,

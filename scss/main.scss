@@ -2,5 +2,20 @@
 
 @import 'vendor/base.scss';
 
+@import 'partials/base';
 @import 'partials/typography';
+@import 'partials/site-button';
+@import 'partials/error';
+
+@import 'partials/category-breadcrumbs';
+
+// Pageflex navbar at top of page (start, basket, etc)
+@import 'partials/navbar';
+// Area at top of content. i.e. 'Start a document'
+@import 'partials/area-header';
+
+// Tables of orders and items
+@import 'partials/item-table';
+
+// Remove Pageflex branding, replace with ours
 @import 'partials/powered-by-perivan';
