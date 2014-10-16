@@ -1,0 +1,77 @@
+.categorySidebarHeader,
+.categorySidebarSearch {
+  background: $col-sidebar-search-bg;
+  padding: 15px;
+}
+
+.categorySidebarHeader {
+  padding-bottom: 0;
+}
+
+.searchInput {
+  background: #fff;
+  border-radius: 1px;
+  border: 1px;
+  color: #000;
+  font-size: 13px;
+  height: 22px;
+  margin-bottom: .7em;
+  padding: 2px 3px;
+}
+
+.categorySidebarSearchRule {
+  background: #fff;
+  height: 15px;
+}
+
+.categorySidebar {
+  background-color: $col-sidebar-category-bg;
+}
+
+.categorySidebarLabel,
+.categorySidebarLabelSelected {
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 10px;
+  text-decoration: none;
+  text-transform: none;
+  white-space: nowrap;
+}
+
+.categorySidebarLabelLevel1 {
+  padding-left: 15px;
+}
+
+.categorySidebarLabelLevel2 {
+  background-position: 0 5px;
+  padding-left: 40px;
+}
+
+.categorySidebarLabelLevel3 {
+  padding-left: 55px;
+}
+
+.categorySidebarLabelLevel4 {
+  padding-left: 70px;
+}
+
+.categorySidebarLabelLevel5 {
+  padding-left: 85px;
+}
+
+.categorySidebarLabelLevel6 {
+  padding-left: 100px;
+}
+
+.categorySidebarLabelLevel7 {
+  padding-left: 115px;
+}
+
+.categorySidebarLabelLevel8 {
+  padding-left: 130px;
+}
+
+.categorySidebarLabelLevel9 {
+  padding-left: 145px;
+}

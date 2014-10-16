@@ -1,0 +1,60 @@
+.catalogItemOuter,
+.catalogFolderOuter {
+  margin: 0 15px 15px0;
+}
+
+.catalogFolderFooter,
+.catalogItemFooter {
+  background: #80a1b6;
+  vertical-align: top;
+}
+
+.catalogItem {
+  background: #fff;
+  border: 1px solid #80a1b6;
+  height: 158px;
+  padding: 15px;
+  text-align: center;
+}
+
+.catalogFolder {
+  background: #fff;
+  height: 158px;
+  padding: 2px0 6px0;
+  text-align: center;
+}
+
+.catalogThumbnail {
+  border: 0;
+}
+
+.catalogItemFooter,
+.catalogFolderFooter {
+  color: #fff;
+  font-size: 13px;
+  padding: 4px 0;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: top;
+}
+
+.catalogRowThumbnail {
+  border: 1px solid #000;
+  float: right;
+  margin-bottom: 12px;
+}
+
+.catalogRowHeadline {
+  font-weight: bold;
+  text-align: left;
+}
+
+.catalogRowDescription {
+  text-align: left;
+}
+
+.catalogFolderIcon {
+  background: url('Images/CatalogFolderIcon.gif') no-repeat;
+  height: 18px;
+  padding-left: 22px;
+}

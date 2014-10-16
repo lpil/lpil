@@ -1,0 +1,42 @@
+.warningAreaInlineInfo,
+.warningAreaInlineWarning {
+  background: #0069aa;
+  border: 1px solid #0069aa;
+  padding: 14px;
+}
+
+.warningAreaInlineInfo {
+  background: #698e26;
+  border: 1px solid #afd4a9;
+}
+
+.warningIconWarning {
+  background: url('Images/IconWarning.gif') no-repeat left top;
+  height: 55px;
+  padding-left: 55px;
+  width: 55px;
+}
+
+.warningIconInfo {
+  background: url('Images/IconInfo.gif') no-repeat left center;
+  height: 49px;
+  padding-left: 50px;
+  width: 49px;
+}
+
+.warningAreaMessageInfo,
+.warningAreaMessageWarning {
+  color: #fff;
+  font-size: 13px;
+  font-weight: bold;
+  margin-left: 25px;
+  vertical-align: middle;
+}
+
+.warningAreaMessageWarning p {
+  color: #fff;
+}
+
+.warningAreaMessageInfo {
+  color: #fff;
+}

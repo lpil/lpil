@@ -2,10 +2,17 @@
 
 @import 'vendor/base.scss';
 
-@import 'partials/base';
+@import 'partials/universal';
 @import 'partials/typography';
 @import 'partials/site-button';
+@import 'partials/separators';
+
 @import 'partials/error';
+@import 'partials/warning';
+
+//
+// Sections
+//
 
 @import 'partials/category-breadcrumbs';
 
@@ -14,8 +21,23 @@
 // Area at top of content. i.e. 'Start a document'
 @import 'partials/area-header';
 
-// Tables of orders and items
+// Sidebar search
+@import 'partials/sidebar-search';
+// Sidebar categories
+@import 'partials/sidebar-category';
+
+// Tables of orders and items (i.e. order history?)
 @import 'partials/item-table';
+
+// Login page
+@import 'partials/login';
+
+// ???????? FIXME
+@import 'partials/catalog';
+
+//
+// Misc
+//
 
 // Remove Pageflex branding, replace with ours
 @import 'partials/powered-by-perivan';
