@@ -1,4 +1,6 @@
-# MM Russell Skin
+# MS Russell Skin
+
+The HTML can't be edited, so lets go nuts with CSS and JS.
 
 ## Setup
 
@@ -33,3 +35,9 @@ will alert you to errors in your Javascript and SCSS.
 
 * Use spaces for indentation, not tabs.
 * Use 2 space indentation.
+
+### JS style
+
+* Don't polute the global namespace with variables. Wrap your code in
+  immediately invoked function expressions.
+* Obey grunt's jshint output.
