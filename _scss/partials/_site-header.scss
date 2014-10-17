@@ -35,12 +35,9 @@ $fade-intro-start-opacity: .35;
       @include animation-duration(1s);
     }
 
-    $i: 18;
-    @while $i > 0 {
+    @for $i from 1 through 18 {
       span:nth-child(#{$i}) {
         @include animation-delay(.2s + $i * .025s);
-
-        $i: $i - 1;
       }
     }
 
