@@ -82,6 +82,9 @@ set t_Co=256
 " don't redraw when performing macros (for performance)
 set lazyredraw
 
+" Default folds are no fun
+set nofoldenable
+
 """""""""""""""""""""""""""""""""
 " Indentation, Tabs, Space, Etc "
 """""""""""""""""""""""""""""""""
