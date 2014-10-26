@@ -260,19 +260,15 @@ let g:syntastic_mode_map = { 'mode': 'active',
 " error highlighting
 let g:syntastic_enable_highlighting = 1
 
-" signs (markers on the left)
 let g:syntastic_enable_signs = 0
-let g:syntastic_error_symbol = 'XX'
-let g:syntastic_warning_symbol = '??'
 
 " Have the error list automatically close
 let g:syntastic_auto_loc_list = 1
 
-" checking on :wq
 let g:syntastic_check_on_wq = 0
 
-" Ruby: mri syntax, rubocop style
 let g:syntastic_ruby_checkers=['mri', 'rubocop']
+let g:syntastic_haskell_checkers=['ghc_mod', 'hlint']
 
 """"""""""""""""""
 " plugin: ctrlp "
