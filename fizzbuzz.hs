@@ -1,7 +1,7 @@
-fizzbuzz :: (Show a, Integral a) => a -> [Char]
+fizzbuzz :: (Show a, Integral a) => a -> String
 fizzbuzz x = unlines $ map fb [1..x]
-  where fb x
-          | mod x 15 == 0 = "FizzBuzz"
-          | mod x  5 == 0 = "Fizz"
-          | mod x  3 == 0 = "Buzz"
+  where fb y
+          | mod y 15 == 0 = "FizzBuzz"
+          | mod y  5 == 0 = "Fizz"
+          | mod y  3 == 0 = "Buzz"
           | otherwise     = show x

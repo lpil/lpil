@@ -7,7 +7,7 @@ filter2 f (x:xs)
 
 -- Fold
 filter3 :: (a -> Bool) -> [a] -> [a]
-filter3 f xs = foldl fil [] xs
+filter3 f = foldl fil []
   where fil acc x
           | f x       = x : acc
           | otherwise = acc
