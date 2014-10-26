@@ -291,8 +291,9 @@ let g:ctrlp_custom_ignore = {
 " plugin : vim-commentary "
 """""""""""""""""""""""""""
 
-autocmd FileType slim set commentstring=/\ %s
 autocmd FileType javascript set commentstring=//\ %s
+autocmd FileType lhaskell set commentstring=>\ %s
+autocmd FileType slim set commentstring=/\ %s
 autocmd FileType supercollider set commentstring=//\ %s
 
 """""""""""""""""
