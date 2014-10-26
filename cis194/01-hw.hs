@@ -43,3 +43,26 @@ lastDigit n = mod n 10
 
 dropLastDigit :: Integer -> Integer
 dropLastDigit n = div n 10
+
+--
+-- Exercise 2
+--
+
+-- Now, we can break apart a number into its digits. Define the function
+
+-- toDigits :: Integer -> [Integer]
+
+-- toDigits should convert positive Integers to a list of digits.
+-- (For 0 or negative inputs, toDigits should return the empty list.)
+
+-- toDigits 1234 == [1,2,3,4]
+-- toDigits 0 == []
+-- toDigits (-17) == []
+
+toDigits :: Integer -> [Integer]
+toDigits n
+  | n < 1     = []
+  | otherwise = reverse $ split [] n
+    where split _   0 = []
+          split acc m = lastDigit m : split acc (dropLastDigit m)
+-- How do I do this without reversing?
