@@ -128,4 +128,5 @@ sumDigits = foldl calc 0
 -- validate 4012888888881882 = False
 
 validate :: Integer -> Bool
-validate x = rem (sumDigits . doubleEveryOther $ toDigits x) 10 == 0
+validate x = rem (sumDigits . doubleEveryOther $ toDigits x) 10
+             == 0
