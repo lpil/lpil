@@ -59,10 +59,36 @@ dropLastDigit n = div n 10
 -- toDigits 0 == []
 -- toDigits (-17) == []
 
+-- How do I do this without reversing?
 toDigits :: Integer -> [Integer]
 toDigits n
   | n < 1     = []
   | otherwise = reverse $ split [] n
     where split _   0 = []
           split acc m = lastDigit m : split acc (dropLastDigit m)
--- How do I do this without reversing?
+
+--
+-- Exercise 3
+--
+
+-- Once we have the digits in the proper order, we need to double every
+-- other one. Define a function
+
+-- doubleEveryOther :: [Integer] -> [Integer]
+
+-- Remember that doubleEveryOther should double every other number
+-- beginning from the right, that is, the second-to-last, fourth-to-last,
+-- ... numbers are doubled.
+
+-- Note that it’s much easier to perform this operation on a list of digits
+-- that’s in reverse order. You will likely need helper functions to make
+-- this work.
+
+-- doubleEveryOther [8,7,6,5] == [16,7,12,5]
+-- doubleEveryOther [1,2,3] == [1,4,3]
+
+doubleEveryOther :: [Integer] -> [Integer]
+doubleEveryOther xs = reverse $ calc xs
+  where calc []        = []
+        calc (y:[])    = [y * 2]
+        calc (y:y2:ys) = calc ys ++ [y2, y * 2]
