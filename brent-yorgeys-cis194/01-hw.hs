@@ -92,3 +92,22 @@ doubleEveryOther xs = reverse $ calc xs
   where calc []        = []
         calc (y:[])    = [y * 2]
         calc (y:y2:ys) = calc ys ++ [y2, y * 2]
+
+--
+-- Exercise 4
+--
+
+-- The output of doubleEveryOther has a mix of one-digit and two-digit
+-- numbers. Define the function
+
+-- sumDigits :: [Integer] -> Integer
+
+-- to calculate the sum of all digits.
+
+-- sumDigits [16,7,12,5] = 1 + 6 + 7 + 1 + 2 + 5 = 22
+
+sumDigits :: [Integer] -> Integer
+sumDigits = foldl calc 0
+  where calc acc x
+          | x < 10    = acc + x
+          | otherwise = acc + lastDigit x + dropLastDigit x
