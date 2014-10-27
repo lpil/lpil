@@ -111,3 +111,21 @@ sumDigits = foldl calc 0
   where calc acc x
           | x < 10    = acc + x
           | otherwise = acc + lastDigit x + dropLastDigit x
+
+--
+-- Exercise 5
+--
+
+-- Define the function
+
+-- validate :: Integer -> Bool
+
+-- that indicates whether an Integer could be a valid credit card number.
+-- This will use all functions defined in the previous exercises.
+
+-- validate 4012888888881881 = True
+
+-- validate 4012888888881882 = False
+
+validate :: Integer -> Bool
+validate x = rem (sumDigits . doubleEveryOther $ toDigits x) 10 == 0
