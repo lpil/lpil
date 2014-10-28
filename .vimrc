@@ -323,15 +323,11 @@ let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
-""""""""""""""""""""""""
-" Plugin: vim-snipmate "
-""""""""""""""""""""""""
+""""""""""""""""""
+" Plugin: vim2hs "
+""""""""""""""""""
 
-let g:snipMate = {}
-let g:snipMate.scope_aliases = {}
-let g:snipMate.scope_aliases['html'] = 'html'
-let g:snipMate.scope_aliases['scss'] = 'scss,css'
-let g:snipMate.scope_aliases['less'] = 'scss,less'
+au FileType haskell hi Conceal ctermbg=NONE guifg=NONE guibg=NONE
 
 """""""""""""""""""""""""""""""""""""
 " And finally, per-project .vimrc's "
