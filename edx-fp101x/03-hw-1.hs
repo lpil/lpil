@@ -1,3 +1,5 @@
+module HW where
+
 safetail1 :: [a] -> [a]
 safetail1 xs = if null xs then [] else tail xs
 

@@ -1,3 +1,5 @@
+module HW where
+
 import Prelude hiding ((||))
 
 (||) :: Bool -> Bool -> Bool

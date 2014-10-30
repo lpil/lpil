@@ -1,3 +1,5 @@
+module HW where
+
 -- halve1 :: [a] -> ([a], [a]) 
 -- halve1 xs = (take n xs, drop n xs)
 --   where n = length xs / 2
