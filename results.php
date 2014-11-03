@@ -8,7 +8,7 @@ try {
     return;
 }
 $prepared_query = $dbh->prepare(
-  'SELECT * FROM mailings WHERE order_ref = ?'
+  'SELECT * FROM mailings WHERE order_ref = ? COLLATE NOCASE'
 );
 
 $prepared_query->execute([$_GET['order_ref']]);
