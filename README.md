@@ -10,12 +10,9 @@ https://github.com/bitemyapp/learnhaskell
 * drop
 * dropWhile
 * elem
-* head
 * init
 * last
 * not
 * replicate
 * tail
-* zip
-* zipWith
 * ||
