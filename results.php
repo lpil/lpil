@@ -22,7 +22,7 @@ if ($data) {
  */
 
 /* If they asked for JSON */
-if ($_GET['json']) {
+if (array_key_exists('json', $_GET)) {
   $json = json_encode($data);
 
   /*
