@@ -4,13 +4,14 @@ Name: Louis
 
 module HW02 where
 
-import 02-Words
-import Data.List
+import Words
+-- import Data.List
 
 -- Though a Scrabble hand is the same Haskell type as a Scrabble word, they
 -- have different properties. Specifically, a hand is unordered whereas a word
 -- is ordered. We denote this distinction by using a type synonym to talk
 -- about hands, even though we could just say `String`.
+{-# ANN type Hand "HLint: ignore Use String" #-} -- Use [Char], not String
 type Hand = [Char]
 
 -- A `Template` is like a word, but it has '?' characters in some places as

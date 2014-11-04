@@ -1,3 +1,5 @@
+module Filter where
+
 -- Explicit recursion
 filter2 :: (a -> Bool) -> [a] -> [a]
 filter2 _ [] = []
@@ -8,6 +10,7 @@ filter2 f (x:xs)
 -- Fold
 filter3 :: (a -> Bool) -> [a] -> [a]
 filter3 f = foldl fil []
-  where fil acc x
-          | f x       = x : acc
-          | otherwise = acc
+  where
+    fil acc x
+      | f x       = x : acc
+      | otherwise = acc
