@@ -1,3 +1,7 @@
+-- NOTE!
+--  There is a better version of this in the FP101x 5 lab!
+
+
 -- http://www.seas.upenn.edu/~cis194/hw/01-intro.pdf
 
 module HW01 where         -- We'll learn more about this later
