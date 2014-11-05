@@ -5,23 +5,19 @@
 #### TODO
 
 * !!
-* !!
 * $
 * $!
 * &&
-* ++
 * ++
 * .
 * ^
 * ^^
 * all
 * and
-* and
 * any
 * appendFile
 * asTypeOf
 * break
-* concat
 * concat
 * concatMap
 * const
@@ -42,9 +38,6 @@
 * getChar
 * getContents
 * getLines
-* id
-* init
-* init
 * interact
 * iterate
 * lcm
@@ -54,11 +47,9 @@
 * maximum
 * minimum
 * not
-* not
 * notElem
 * null
 * odd
-* or
 * or
 * print
 * product
@@ -81,8 +72,6 @@
 * splitAt
 * subtract
 * sum
-* tail
-* tail
 * takedrop
 * undefined
 * unlines
@@ -103,9 +92,12 @@
 * ~~fizzbuzz~~
 * ~~flip~~
 * ~~head~~
+* ~~id~~
+* ~~init~~
 * ~~last~~
 * ~~length~~
 * ~~map~~
+* ~~tail~~
 * ~~takeWhile~~
 * ~~zipWith~~
 * ~~zip~~
