@@ -47,8 +47,6 @@
 * init
 * interact
 * iterate
-* last
-* last
 * lcm
 * length
 * lines
@@ -105,6 +103,7 @@
 * ~~fizzbuzz~~
 * ~~flip~~
 * ~~head~~
+* ~~last~~
 * ~~length~~
 * ~~map~~
 * ~~takeWhile~~
