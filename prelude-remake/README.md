@@ -7,7 +7,6 @@
 * !!
 * $
 * $!
-* &&
 * ++
 * .
 * ^
@@ -46,7 +45,6 @@
 * lookup
 * maximum
 * minimum
-* not
 * notElem
 * null
 * odd
@@ -81,13 +79,12 @@
 * unzip3
 * words
 * writeFile
-* zip
 * zip3
 * zipWith3
-* ||
 
 #### Done
 
+* ~~&&~~
 * ~~filter~~
 * ~~fizzbuzz~~
 * ~~flip~~
@@ -97,7 +94,9 @@
 * ~~last~~
 * ~~length~~
 * ~~map~~
+* ~~not~~
 * ~~tail~~
 * ~~takeWhile~~
 * ~~zipWith~~
 * ~~zip~~
+* ~~||~~
