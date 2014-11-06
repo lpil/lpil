@@ -1,0 +1,53 @@
+.index__mural {
+  background-image: url('/images/index-mural.jpg');
+  background-position: 100%;
+  background-repeat: no-repeat;
+  background-size: 47% auto;
+  min-height: 240px;
+  overflow: hidden;
+  padding-left: 0;
+  padding-right: 0;
+  position: relative;
+
+  @include media($break-small) {
+    $index-mural-image-height: 300px;
+
+    background-position: 50% 0;
+    background-size: auto 100%;
+    height: 500px;
+    padding-top: $index-mural-image-height;
+  }
+
+  .index__mural__credit {
+    font-family: $font-family-serif;
+    font-size: .9em;
+    position: absolute;
+    right: .3em;
+    top: .3em;
+  }
+
+  aside {
+    background-color: $col-colored-block;
+    background-color: rgba($col-colored-block, .9);
+    padding: .1em 1em;
+    width: 50%;
+
+    @include media($break-small) {
+      width: 100%;
+    }
+
+    section {
+      filter: Alpha(opacity=0);
+      opacity: 0;
+      position: absolute;
+      transition: opacity 1s ease-in;
+
+      &:first-of-type {
+        filter: Alpha(opacity=100);
+        opacity: 1;
+        position: static;
+        transition: opacity 1s ease-in;
+      }
+    }
+  }
+}

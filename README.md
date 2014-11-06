@@ -1,7 +1,13 @@
-## TODO notes (against bracket's)
+## TODO
 
-* Use solid line on index images with text, rather than the gradient.
-* Replace image for quotes on financial pages with both.
+* Create index graphic
+* Get blue tinted version of index image
+* Have history page content written
+* Clean up images where possible
+* Add cert link to policies and env
+* Remove text embedded in images and replace as actual text
+* Add Perivan cross links drop down section
+* Add Perivan cross links mobile nav section
 
 ## Managing the `_scss/theme` submodule
 
@@ -12,13 +18,3 @@ Updating
 Cloning
 
     git clone --recursive git://github.com/foo/bar.git
-
-## Sites todo
-
-* DotApprove
-* Electrum Multimedia (Maybe?)
-* Marketing Store
-* Perivan Financial
-* Perivan Financial POD
-* Perivan Solutions
-* Virtual Boardroom
