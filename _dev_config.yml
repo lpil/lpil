@@ -1,11 +1,6 @@
 url: 'http://0.0.0.0:4000'
 
-defaults:
-  -
-    scope:
-      path: "" # all
-    values:
-      development: true
+development: true
 
 sass:
   style: :expanded
