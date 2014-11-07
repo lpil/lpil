@@ -1,7 +1,9 @@
-# Ignore extensionless files. (Probably binaries)
-*
-!*.*
-!*/
-!*/*.*
-
 *.swp
+
+*.dll
+*.o
+*.rlib
+*.so
+
+/target/
+**/target/
