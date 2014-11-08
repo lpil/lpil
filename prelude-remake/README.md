@@ -25,9 +25,7 @@
 * dropWhile
 * dropWhile
 * elem
-* elem
 * error
-* even
 * foldl
 * foldl1
 * foldr
@@ -47,7 +45,6 @@
 * minimum
 * notElem
 * null
-* odd
 * or
 * print
 * product
@@ -69,7 +66,6 @@
 * span
 * splitAt
 * subtract
-* sum
 * takedrop
 * undefined
 * unlines
@@ -85,6 +81,7 @@
 #### Done
 
 * ~~&&~~
+* ~~even~~
 * ~~filter~~
 * ~~fizzbuzz~~
 * ~~flip~~
@@ -95,6 +92,8 @@
 * ~~length~~
 * ~~map~~
 * ~~not~~
+* ~~odd~~
+* ~~sum~~
 * ~~tail~~
 * ~~takeWhile~~
 * ~~zipWith~~
