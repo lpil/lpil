@@ -14,7 +14,7 @@ module.exports = function(counter) {
     counts[country] = (counts[country] || 0) + 1;
   };
 
-  end = function setCounts() {
+  end = function end() {
     counter.setCounts(counts);
     counts = {};
   };

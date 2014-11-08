@@ -8,7 +8,8 @@ var trumpet = require('trumpet'),
 loud = tr.select('.loud').createStream();
 
 loud.pipe(through(function(data) {
-  this.queue(data.toString().toUpperCase()); }))
+    this.queue(data.toString().toUpperCase());
+  }))
   .pipe(loud);
 
 process.stdin.pipe(tr).pipe(process.stdout);
