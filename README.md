@@ -1,7 +1,5 @@
 ## TODO
 
-* Add images (me)
-* Insert history image
 * Have history image made for mobile site (design)
 * Remove text embedded in images and replace as actual text (Martin, me)
 * Implement an order form (Martin, me)
