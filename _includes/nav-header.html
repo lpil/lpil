@@ -23,7 +23,17 @@
       <a href="{{ site.url }}/software-solutions.html">Software Solutions</a>
     </li>
     <li>
+      Perivan
+      <ul class="header__nav__dropdown">{% for link in site.data.group-sites %}
+        <li>
+          <a href="{{ link[1] }}">
+            {{ link[0] | replace:'-',' ' }}
+          </a>
+        </li>{% endfor %}
+      </ul>
+    <li>
       <a href="{{ site.url }}/contact-us.html">Contact Us</a>
+    </li>
     </li>
   </ul>
 </nav>
