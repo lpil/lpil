@@ -13,5 +13,10 @@
       <option value="{{ site.url }}{{ page.url }}">{{ page.title }}</option>{% endif %}{% endfor %}
     </optgroup>
 {% endfor %}
+    <optgroup label="Perivan">
+{% for link in site.data.group-sites %}
+      <option value="{{ link[1] }}">{{ link[0] | replace:'-',' ' }}</option>
+{% endfor %}
+    </optgroup>
   </select>
 </nav>
