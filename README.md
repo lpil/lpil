@@ -1,11 +1,10 @@
 ## TODO
 
-* Create index graphic
+* Add images (me)
 * Insert history image
-* Have history image made for mobile site
-* Add images
-* Remove text embedded in images and replace as actual text
-* Implement an order form
+* Have history image made for mobile site (design)
+* Remove text embedded in images and replace as actual text (Martin, me)
+* Implement an order form (Martin, me)
 
 ## Managing the `_scss/theme` submodule
 
