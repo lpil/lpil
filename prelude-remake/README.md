@@ -20,6 +20,7 @@
 * concat
 * concatMap
 * const
+* curry
 * cycle
 * drop
 * dropWhile
@@ -67,6 +68,7 @@
 * splitAt
 * subtract
 * takedrop
+* uncurry
 * undefined
 * unlines
 * until
