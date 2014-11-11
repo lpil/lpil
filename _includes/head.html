@@ -1,9 +1,10 @@
 <head>
-  {% if page.development %}<script src="http://localhost:35729/livereload.js?snipver=1"></script>{% endif %}<meta charset="utf-8">
+  {% if site.development %}<script src="http://localhost:35729/livereload.js?snipver=1"></script>{% endif %}<meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>{{ site.title }}{% if page.title %} | {{ page.title }}{% endif %}</title>
+  <title>{{ site.title | escape_html }}{% if page.title %} | {{ page.title | escape_html }}{% endif %}</title>
   <meta name="viewport" content="width=device-width">
-  <meta name="description" content="{{ site.description }}">
+{% if page.description %}  <meta name="description" content="{{ page.description | escape_html | strip_newlines }}">
+{% endif %}{% if site.data.keywords %}  {% include keywords.html %}{% endif %}
   <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.url }}">
   <link async rel="stylesheet" href="{{ "/main.css" | prepend: site.url }}">
 </head>
