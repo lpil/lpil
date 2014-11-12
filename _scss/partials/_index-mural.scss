@@ -5,17 +5,12 @@
   background-size: 47% auto;
   min-height: 240px;
   overflow: hidden;
-  padding-left: 0;
-  padding-right: 0;
   position: relative;
 
   @include media($break-small) {
-    $index-mural-image-height: 300px;
-
     background-position: 50% 0;
     background-size: auto 100%;
     height: 500px;
-    padding-top: $index-mural-image-height;
   }
 
   .index__mural__credit {
@@ -24,15 +19,24 @@
     position: absolute;
     right: .3em;
     top: .3em;
+
+    @include media($break-small) {
+      color: #555;
+      top: calc(100% - 1.1em);
+    }
   }
 
   aside {
-    background-color: $col-colored-block;
-    background-color: rgba($col-colored-block, .9);
     padding: .1em 1em;
+    position: absolute;
+    top: 20%;
     width: 50%;
 
     @include media($break-small) {
+      background-color: $col-colored-block;
+      background-color: rgba($col-colored-block, .9);
+      left: 0;
+      top: 60%;
       width: 100%;
     }
 
