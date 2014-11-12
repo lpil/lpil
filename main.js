@@ -1,3 +1,3 @@
 ---
 ---
-{% include js/index-mural-rotate.js %}
+{% include js/rotate.js %}
