@@ -7,4 +7,5 @@
 {% endif %}{% if site.data.keywords %}  {% include keywords.html %}{% endif %}
   <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.url }}">
   <link async rel="stylesheet" href="{{ "/main.css" | prepend: site.url }}">
+  {% include tracking.html %}
 </head>
