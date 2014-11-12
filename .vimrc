@@ -8,8 +8,8 @@ call vundle#rc()
 " let Vundle manage Vundle
 Bundle 'gmarik/Vundle.vim'
 
+Bundle 'cespare/vim-toml'
 Bundle 'chrisbra/Colorizer'
-Bundle 'dag/vim2hs'
 Bundle 'derekwyatt/vim-scala'
 Bundle 'editorconfig/editorconfig-vim'
 Bundle 'honza/vim-snippets'
@@ -17,6 +17,7 @@ Bundle 'jelera/vim-javascript-syntax'
 Bundle 'justinmk/vim-sneak'
 Bundle 'kien/ctrlp.vim'
 Bundle 'lpil/my-vim-snippets'
+Bundle 'lpil/vim2hs-flexible'
 Bundle 'marcweber/vim-addon-mw-utils'
 Bundle 'sbl/scvim'
 Bundle 'scrooloose/syntastic'
@@ -30,6 +31,7 @@ Bundle 'tpope/vim-eunuch.git'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
 Bundle 'vim-scripts/matchit.zip'
+Bundle 'wting/rust.vim'
 
 filetype plugin indent on
 filetype plugin on
@@ -105,6 +107,7 @@ set tabstop=2       "A tab is 2 spaces
 
 " Lang specific
 autocmd FileType python setlocal ts=4 sw=4
+autocmd FileType rust setlocal ts=2 sw=2 " rust.vim is aggressive
 
 """""""""""""""""""
 " Persistent Undo "
