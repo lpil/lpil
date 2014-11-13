@@ -1,19 +1,34 @@
 .index__mural {
-  background-image: url('/images/index-mural.jpg');
-  background-position: 100%;
+  background: none;
+  background-image: url('/images/index-mural.png');
+  background-position: 0 25%;
   background-repeat: no-repeat;
-  background-size: 47% auto;
-  min-height: 240px;
+  background-size: 100%;
+  min-height: 360px;
   overflow: hidden;
+  padding: 0;
   position: relative;
 
   @include media($break-small) {
-    background-position: 50% 0;
     background-size: auto 100%;
     height: 500px;
   }
 
+  aside {
+    background-color: $col-colored-block;
+    background-color: rgba($col-colored-block, .9);
+    bottom: 0;
+    padding: .8em 1em .4em;
+    position: absolute;
+    width: 100%;
+
+    @include media($break-small) {
+      min-height: 120px;
+    }
+  }
+
   .index__mural__credit {
+    color: #555;
     font-family: $font-family-serif;
     font-size: .9em;
     position: absolute;
@@ -21,37 +36,7 @@
     top: .3em;
 
     @include media($break-small) {
-      color: #555;
-      top: calc(100% - 1.1em);
-    }
-  }
-
-  aside {
-    padding: .8em 1em .4em;
-    position: absolute;
-    top: 20%;
-    width: 50%;
-
-    @include media($break-small) {
-      background-color: $col-colored-block;
-      background-color: rgba($col-colored-block, .9);
-      left: 0;
-      top: 60%;
-      width: 100%;
-    }
-
-    section {
-      filter: Alpha(opacity=0);
-      opacity: 0;
-      position: absolute;
-      transition: opacity 1s ease-in;
-
-      &:first-of-type {
-        filter: Alpha(opacity=100);
-        opacity: 1;
-        position: static;
-        transition: opacity 1s ease-in;
-      }
+      top: calc(100% - 1em);
     }
   }
 }
