@@ -27,7 +27,7 @@
   }
 
   aside {
-    padding: .1em 1em;
+    padding: .8em 1em .4em;
     position: absolute;
     top: 20%;
     width: 50%;
@@ -54,4 +54,8 @@
       }
     }
   }
+}
+
+.index__mural__h {
+  @extend h1;
 }

@@ -6,3 +6,5 @@ linters:
     convention: BEM
   NameFormat:
     enabled: false
+  PlaceholderInExtend:
+    enabled: false
