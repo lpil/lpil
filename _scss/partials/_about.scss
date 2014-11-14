@@ -1,34 +1,40 @@
 .about__intro {
   @include clearfix;
 }
+
 .about__gravatar-image {
-  border-radius: 0.5em;
-  margin: 0 2em 0 0;
+  border-radius: .5em;
   float: left;
+  margin: 0 2em 0 0;
+
   @include media($mobile) {
-    margin: 0 auto 1em auto;
     display: block;
     float: none;
+    margin: 0 auto 1em;
     max-width: 80%;
   }
 }
+
 .about__links {
-  padding: 0;
   list-style-type: none;
+  padding: 0;
   text-align: center;
+
   @include media($mobile) {
     width: 90%;
   }
+
   li {
-    position: relative;
+    display: inline-block;
     left: 1em;
     margin: 0 1.3em;
-    display: inline-block;
+    position: relative;
+
     @include media($mobile) {
-      width: 90%;
-      margin: 0.5em 0;
-      text-align: left;
       display: block;
+      margin: .5em 0;
+      text-align: left;
+      width: 90%;
     }
   }
 }

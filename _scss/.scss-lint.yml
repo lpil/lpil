@@ -1,0 +1,11 @@
+exclude:
+  - 'vendor/**'
+  - 'partials/_syntax_highlighting.scss'
+
+linters:
+  SelectorFormat:
+    convention: BEM
+  NameFormat:
+    enabled: false
+  PlaceholderInExtend:
+    enabled: false
