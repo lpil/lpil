@@ -5,11 +5,14 @@
 .about__gravatar-image {
   border-radius: .5em;
   float: left;
+  height: 300px;
   margin: 0 2em 0 0;
+  width: 300px;
 
   @include media($mobile) {
     display: block;
     float: none;
+    height: auto;
     margin: 0 auto 1em;
     max-width: 80%;
   }
