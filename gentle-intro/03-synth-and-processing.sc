@@ -240,3 +240,23 @@ w.free;
 x.free;
 y.free;
 z.free;
+
+// One thing that is annoying is that synths continue to exist on the server
+// even if they are have finished, and get just generating silence. They need
+// to be freed.
+
+// `doneAction: 2` solves this for us! It automatically frees the synth node
+// after it is finished.
+
+// Here it is applied to the Line, which is acting as an envelope
+{
+  WhiteNoise.ar(Line.kr(0.2, 0, 2, doneAction: 2))
+}.play;
+
+// Here it is applied to the playing audio buffer
+{
+  PlayBuf.ar(1, ~buf1, rate: 20, doneAction: 2)
+}.play;
+
+
+// SPEAKING OF ENVELOPES
