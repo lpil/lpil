@@ -186,3 +186,57 @@ p.free;
 x.free;
 
 // Page 81
+// Playing audio files
+
+// Load
+~buf1 = Buffer.read(s, "/home/louis/data/new-music/downtempo/Rena Jones - Indra's Web/01 Rena Jones - The Awe and the Wonder.flac");
+
+// Play
+{ Pan2.ar(in: PlayBuf.ar(1, ~buf1)) }.play;
+
+// Getting some info on the file
+[~buf1.bufnum, ~buf1.numChannels, ~buf1.path, ~buf1.numFrames];
+
+// Changing the playback speed with `rate`
+
+// Double speed
+{ Pan2.ar(
+  in: PlayBuf.ar(numChannels: 1, bufnum: ~buf1, rate: 2, loop: 1)
+) }.play;
+
+// Half speed
+{ Pan2.ar(
+  in: PlayBuf.ar(1, ~buf1, 0.5, 1)
+) }.play;
+
+// Speeding up
+{ Pan2.ar(
+  in: PlayBuf.ar(1, ~buf1, Line.kr(0.2, 2, 10), 1)
+) }.play;
+
+// Backwards
+{ Pan2.ar(
+  in: PlayBuf.ar(1, ~buf1, -1, loop: 1)
+) }.play;
+
+// Mouse control
+{ Pan2.ar(
+  in: PlayBuf.ar(1, ~buf1, MouseX.kr(-3, 3), 1)
+) }.play;
+
+s.meter;
+
+// Synth nodes
+s.plotTree;
+
+// Synths are represented in the server as nodes
+// Run each of these in series, and check out the node tree
+
+w = { SinOsc.ar(60.midicps, 0, 0.1) }.play;
+x = { SinOsc.ar(64.midicps, 0, 0.1) }.play;
+y = { SinOsc.ar(67.midicps, 0, 0.1) }.play;
+z = { SinOsc.ar(71.midicps, 0, 0.1) }.play;
+w.free;
+x.free;
+y.free;
+z.free;
