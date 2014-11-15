@@ -77,5 +77,112 @@ x.set(\amp, 0.5);
 x.set(\freq, 920, \amp, 0.2);
 x.free;
 
-// page 72
-// stopped to listen to hardcore. Awh yeah.
+// We can open metering.
+// The first 8 ins and outs are reserved for the audio interface
+// The rest (127 total) can be used by us for whatever we want
+s.meter;
+
+// Routing
+
+// Out Ugen is for routing
+//  arg 1: The target bus
+//  arg 2: The signal to send out
+{ Out.ar(0, SinOsc.ar(440, 0, 0.1)) }.play; // left channel
+{ Out.ar(1, SinOsc.ar(440, 0, 0.1)) }.play; // right channel
+{ Out.ar(2, SinOsc.ar(440, 0, 0.1)) }.play; // probably not connected
+
+{ Out.ar([0,1], SinOsc.ar(440, 0, 0.1)) }.play; // stereo!
+
+// In is also for routing!
+// The arg is the bus to take from
+
+// Set up the effect
+//   A band pass filter listening on bus 55
+f = {
+  Out.ar(0, BPF.ar(in: In.ar(55), freq: MouseY.kr(500,7000), rq: 0.1))
+}.play;
+
+// Set up the audio source
+n = { Out.ar(55, WhiteNoise.ar(0.5)) }.play;
+n.free;
+
+// You can't route the source before the effect.
+// We'll learn more about this later in section 42, "order of execution"
+
+// Multichannel expansion
+// Check this out in the meter window
+s.meter;
+{ Out.ar(0, Saw.ar(freq: [440, 570], mul: 0.2)) }.play;
+// Here we passed a list of two notes into the UGen synth, and we got stereo
+// audio out! This is _Multichannel Expansion_
+// It's magic.
+
+// If you use an array as one of the args of a UGen, the entire patch gets
+// duplicated, once for each item in the array.
+// These duplicated UGens are sent to adjacent buses.
+
+a = {
+  Out.ar(0, SinOsc.ar(freq: [800, 880],
+                      mul: LFPulse.ar([2,3]) * 0.2 ))
+}.play;
+a.free
+
+// We can have ins span multiple buses too. See the second arg to In
+r = {
+  Out.ar(0, FreeVerb.ar(In.ar(55,2), mix: 0.5, room: 0.9, mul: 0.4))
+}.play;
+
+a = {
+  Out.ar(55, SinOsc.ar(freq: [800, 880], mul: LFPulse.ar([2,3]) * 0.2 ))
+}.play;
+a.free;
+r.free;
+
+// So all this bus number stuff is really horrible. How on earth are you
+// supposed to remember what you connected where? Bring on the Bus object
+~reverbBus = Bus.audio(s, 2);
+r = {
+  Out.ar(
+    0, 
+    FreeVerb.ar(In.ar(~reverbBus,2), mix: 0.5, room: 0.9, mul: 0.4))
+}.play;
+
+a = {
+  Out.ar(
+    ~reverbBus,
+    SinOsc.ar(freq: [800, 880], mul: LFPulse.ar([2,3]) * 0.2 ))
+}.play;
+
+// Panning
+
+p = {
+  Pan2.ar(
+    in: PinkNoise.ar,
+    pos: SinOsc.kr(2), // Num between -1 and +1
+    level: 0.1
+  )
+}.play;
+// We can use SinOsc here as it's a bipolar UGen,
+// it outputs nums beteen -1 and +1
+p.free;
+
+(
+  x = {
+    var lfn = LFNoise0.kr(1);
+    var saw = Saw.ar(
+                freq: 30,
+                mul: LFPulse.kr(
+                        freq: LFNoise1.kr(1).range(1,10),
+                        width: 0.1));
+    var bpf = BPF.ar(
+                in: saw,
+                freq: lfn.range(500,2500),
+                rq: 0.01,
+                mul: 20);
+    
+    Pan2.ar(in: bpf, pos: lfn);
+  }.play;
+)
+x.free;
+
+// Page 81
