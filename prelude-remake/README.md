@@ -22,7 +22,6 @@
 * const
 * curry
 * cycle
-* drop
 * dropWhile
 * dropWhile
 * elem
@@ -83,6 +82,7 @@
 #### Done
 
 * ~~&&~~
+* ~~drop~~
 * ~~even~~
 * ~~filter~~
 * ~~fizzbuzz~~
