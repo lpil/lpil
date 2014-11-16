@@ -18,7 +18,6 @@
 * break
 * concatMap
 * const
-* curry
 * cycle
 * dropWhile
 * dropWhile
@@ -82,6 +81,7 @@
 * ~~&&~~
 * ~~all~~
 * ~~concat~~
+* ~~curry~~
 * ~~drop~~
 * ~~even~~
 * ~~filter~~
