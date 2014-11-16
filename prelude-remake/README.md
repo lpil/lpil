@@ -11,7 +11,6 @@
 * .
 * ^
 * ^^
-* all
 * and
 * any
 * appendFile
@@ -82,6 +81,7 @@
 #### Done
 
 * ~~&&~~
+* ~~all~~
 * ~~drop~~
 * ~~even~~
 * ~~filter~~
