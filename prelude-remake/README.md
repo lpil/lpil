@@ -16,7 +16,6 @@
 * appendFile
 * asTypeOf
 * break
-* concat
 * concatMap
 * const
 * curry
@@ -82,6 +81,7 @@
 
 * ~~&&~~
 * ~~all~~
+* ~~concat~~
 * ~~drop~~
 * ~~even~~
 * ~~filter~~
