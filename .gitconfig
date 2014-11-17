@@ -1,0 +1,26 @@
+[user]
+  name = Louis Pilfold
+  email = louis@lpil.uk
+
+[work]
+  email = lpilfold@perivan.co.uk
+
+[color]
+  ui = true
+
+[core]
+  excludesfile = /Users/louis/.gitignore
+
+[alias]
+  br = branch
+  ci = commit
+  co = checkout
+  dh = diff HEAD
+  lol = log --pretty=oneline --abbrev-commit --graph --decorate
+  st = status
+  g = grep --break --heading --line-number
+  workemail = !git config user.email `git config --get work.email`
+  worksubmodule = !git submodule foreach git workemail
+
+[push]
+  default = simple
