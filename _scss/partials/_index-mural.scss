@@ -1,0 +1,64 @@
+.index__mural {
+  $side-padding: 30px;
+
+  padding: 0;
+
+  .index__mural__image {
+    float: right;
+    margin: 1%;
+    max-height: 100%;
+    max-width: 48%;
+
+    img {
+      max-height: 100%;
+      max-width: 100%;
+      padding: 10px 15px 0;
+
+      @include media($break-mid) {
+        display: block;
+        margin: 10px auto 0;
+        padding: 15px 15px 0;
+      }
+    }
+
+    @include media($break-mid) {
+      float: none;
+      max-width: 100%;
+      position: static;
+    }
+  }
+
+  .index__mural__text {
+    padding: 20px $side-padding;
+    width: 48%;
+
+    @include media($break-mid) {
+      width: 100%;
+    }
+
+    h1 {
+      @include dotted-border(bottom, wht);
+
+      display: block;
+      font-size: 2.6em;
+      padding: 0 0 15px $side-padding;
+      position: relative;
+      right: $side-padding;
+      width: calc(100% + #{$side-padding * 2});
+
+      @include media($break-mid) {
+        padding-right: $side-padding;
+        text-align: center;
+        width: calc(100% + #{$side-padding} + #{$side-padding});
+      }
+
+      @include media($break-small) {
+        font-size: 2.2em;
+      }
+    }
+
+    @include media($break-small) {
+      width: 100%;
+    }
+  }
+}
