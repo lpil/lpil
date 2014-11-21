@@ -1,7 +1,6 @@
 ## TODO notes (against bracket's)
 
-* Use solid line on index images with text, rather than the gradient.
-* Replace image for quotes on financial pages with both.
+* Everything
 
 ## Managing the `_scss/theme` submodule
 
