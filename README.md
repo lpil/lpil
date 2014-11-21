@@ -1,8 +1,3 @@
-## TODO
-
-* Decide on a design for the home page graphic (old one won't work on mobile)
-* Add tracking
-
 ## Managing the `_scss/theme` submodule
 
 Updating
