@@ -16,6 +16,11 @@ Style/ColonMethodCall:
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#double-colons'
   Enabled: false
 
+Style/RescueModifier:
+  Description: 'Avoid using rescue in its modifier form.'
+  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-rescue-modifiers'
+  Enabled: false
+
 Documentation:
   Enabled: false
 
