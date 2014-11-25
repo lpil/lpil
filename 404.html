@@ -53,7 +53,11 @@ a {
           <a href="mailto:{{ site.email }}" target="_blank">
             {{ site.email }}</a>
         </p>
-        <a href="javascript:history.back()">Back</a>
+        <script type="text/javascript" charset="utf-8">
+if (history.length > 1) {
+  document.write('<a href="javascript:history.back()">Back</a>');
+}
+        </script>
       </article>
     </section>
   </body>
