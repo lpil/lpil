@@ -18,7 +18,7 @@
   dh = diff HEAD
   lol = log --pretty=oneline --abbrev-commit --graph --decorate
   st = status
-  g = grep --break --heading --line-number
+  g = grep --break --heading --line-number --ignore-case
   workemail = !git config user.email `git config --get work.email`
   worksubmodule = !git submodule foreach git workemail
 
