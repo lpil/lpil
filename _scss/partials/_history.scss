@@ -1,0 +1,13 @@
+.page__history__graphic {
+  max-width: 100%;
+  overflow: auto;
+
+  img {
+    width: 100%;
+
+    @include media($break-mid) {
+      height: 350px;
+      width: auto;
+    }
+  }
+}
