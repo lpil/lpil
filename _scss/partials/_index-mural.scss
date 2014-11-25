@@ -57,6 +57,10 @@
       }
     }
 
+    p {
+      font-size: 1.2em;
+    }
+
     @include media($break-small) {
       width: 100%;
     }
