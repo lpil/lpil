@@ -1,13 +1,11 @@
 # Site settings
 title: Perivan
 url: http://www.perivan.co.uk
-description: >
-  TODO
 
 static: http://www.perivan.co.uk/static
 
 # Contact
-email: financial@perivan.co.uk # TODO
+email: financial@perivan.co.uk
 telephone: +44 (0)20 7562 2200
 fax: +44 (0)20 7562 2201
 address1: 21 Worship Street
