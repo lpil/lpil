@@ -17,14 +17,13 @@
   aside {
     background-color: $col-colored-block;
     background-color: rgba($col-colored-block, .9);
-    border-top-right-radius: $corner-radius;
     bottom: 0;
-    min-height: 140px;
-    padding: .8em 1em .4em;
+    min-height: 100%;
+    padding: .8em 1.3em .4em;
     position: absolute;
-    width: 360px;
+    width: floor(100% - golden-ratio(100%, -1));
 
-    @include media($break-small) {
+    @include media($break-mid) {
       border-radius: 0;
       min-height: 110px;
       width: 100%;
