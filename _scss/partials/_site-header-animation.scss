@@ -1,0 +1,27 @@
+$fade-intro-start-opacity: .35;
+
+@keyframes fade-intro {
+  from {
+    opacity: $fade-intro-start-opacity;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+a.site-header__home {
+  span {
+    // reset for IE in the IE fixes include
+    opacity: $fade-intro-start-opacity;
+    animation: fade-intro ease-in 1;
+    animation-fill-mode: forwards;
+    animation-duration: 1s;
+  }
+
+  @for $i from 1 through 18 {
+    span:nth-child(#{$i}) {
+      animation-delay: .2s + $i * .025s;
+    }
+  }
+}

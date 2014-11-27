@@ -4,40 +4,35 @@
 
 .about__gravatar-image {
   border-radius: .5em;
-  float: left;
-  height: 300px;
-  margin: 0 2em 0 0;
-  width: 300px;
+  display: block;
+  float: none;
+  height: auto;
+  margin: 0 auto 1em;
+  max-width: 80%;
 
-  @include media($mobile) {
-    display: block;
-    float: none;
-    height: auto;
-    margin: 0 auto 1em;
-    max-width: 80%;
+
+  @media (min-width: 600px) {
+    float: left;
+    height: 300px;
+    margin: 0 2em 0 0;
+    width: 300px;
   }
 }
 
 .about__links {
-  list-style-type: none;
   padding: 0;
-  text-align: center;
-
-  @include media($mobile) {
-    width: 90%;
-  }
 
   li {
-    display: inline-block;
     left: 1em;
     margin: 0 1.3em;
     position: relative;
+  }
 
-    @include media($mobile) {
-      display: block;
-      margin: .5em 0;
-      text-align: left;
-      width: 90%;
+  @media (min-width: 400px) {
+    text-align: center;
+
+    li {
+      display: inline-block;
     }
   }
 }

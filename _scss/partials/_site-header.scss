@@ -1,45 +1,14 @@
-$fade-intro-start-opacity: .35;
-
-@include keyframes(fade-intro) {
-  from {
-    opacity: $fade-intro-start-opacity;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
 .site-header {
-  @include outer-container;
-
   border-bottom: 1px solid #ddd;
   margin-bottom: 1em;
   padding: 2em 1em;
+  text-align: center;
 
-  @include media($mobile) {
-    padding: 1.5em 1em 1em;
-  }
 
   a.site-header__home {
     color: $text-colour;
     font-size: 1.3em;
     font-weight: bold;
-
-    // Fade in 'logo' text on page load
-    span {
-      // reset for IE in the IE fixes include
-      opacity: $fade-intro-start-opacity;
-      @include animation(fade-intro, ease-in, 1);
-      @include animation-fill-mode(forwards);
-      @include animation-duration(1s);
-    }
-
-    @for $i from 1 through 18 {
-      span:nth-child(#{$i}) {
-        @include animation-delay(.2s + $i * .025s);
-      }
-    }
 
     i {
       font-size: .01em;
@@ -48,31 +17,5 @@ $fade-intro-start-opacity: .35;
 
   a.site-header__home:hover {
     text-decoration: none;
-  }
-
-  .site-header__nav {
-    text-align: right;
-
-    a {
-      display: inline-block;
-      margin: 0 0 0 1em;
-
-      @include media($mobile) {
-        display: block;
-        line-height: 2em;
-        margin: 0;
-      }
-    }
-  }
-
-  .site-header__home,
-  .site-header__nav {
-    @include span-columns(6);
-
-    @include media($mobile) {
-      @include span-columns(6);
-      margin: .5em 0;
-      text-align: center;
-    }
   }
 }

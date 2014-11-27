@@ -5,8 +5,12 @@
     <span>P</span><span>i</span><span>l</span><span>f</span><span>o</span><span>l</span><span>d</span>
   </a>
 
-  <nav class="site-header__nav">
-    <a href="{{ site.url }}">Blog</a>
-    {% for page in site.pages %}{% if page.title %}<a href="{{ page.url | prepend: site.url }}">{{ page.title }}</a>{% endif %}{% endfor %}
-  </nav>
+  <ul class="site-header__nav">
+    <li>
+      <a href="{{ site.url }}">Blog</a>
+    </li>
+    <li>
+      <a href="{{ site.url }}/about">About</a>
+    </li>
+  </ul>
 </header>

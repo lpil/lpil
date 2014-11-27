@@ -1,22 +1,27 @@
 ---
 ---
 
-@import 'vendor/bourbon/bourbon';
-@import 'modules/neat-grid-settings';
-@import 'vendor/neat/neat';
+* {
+  box-sizing: border-box;
+  list-style-type: none;
+}
 
 @import 'modules/variables';
+@import 'modules/clearfix';
 
 @import 'partials/base';
 @import 'partials/typography';
 @import 'partials/syntax-highlighting';
 
-@import 'partials/about';
+@import 'partials/layout';
 @import 'partials/post';
 @import 'partials/posts';
+
 @import 'partials/site-header';
+@import 'partials/site-header-animation';
+
+@import 'partials/about';
 
 .content {
-  @include outer-container;
   padding: 0.6em;
 }
