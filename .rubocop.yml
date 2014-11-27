@@ -21,6 +21,9 @@ Style/RescueModifier:
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-rescue-modifiers'
   Enabled: false
 
+Style/EmptyLines:
+  Enabled: false
+
 Documentation:
   Enabled: false
 
