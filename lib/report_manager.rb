@@ -3,6 +3,10 @@ class ReportManager
     @ftp_config = ftp_config
   end
 
+  #
+  # Adding new
+  #
+
   def fetch_new_reports
     Net::FTP.open(*@ftp_config) do |ftp|
       ftp.passive = true
@@ -22,10 +26,15 @@ class ReportManager
     Database.establish_connection
 
     unparsed_reports.each do |report|
-      Report.new(File.read report).save_to_db
-      File.rename f, "#{File.dirname f}/parsed/#{File.basename f}"
+      Report.new(File.read "reports/#{report}").save_to_db
+      File.rename "reports/#{report}",
+                  "reports/parsed/#{report}"
     end
   end
+
+  #
+  # Removing old
+  #
 
   def remove_old_reports_from_db(time_ago = 3.months.ago)
     Database.establish_connection
@@ -47,7 +56,9 @@ class ReportManager
     end
   end
 
+
   private
+
 
   def unparsed_reports
     Dir.glob('./reports/*.OUT').map { |f| File.basename f }
