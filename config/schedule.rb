@@ -1,8 +1,13 @@
-every :hour do
-  rake 'orders:fetch'
-  rake 'orders:parse'
+job_type :bin, ':path/bin/:task'
+
+every :hour, at: 00 do
+  bin 'fetch_new_reports.rb'
+end
+
+every :hour, at: 01 do
+  bin 'parse_fetched_reports.rb'
 end
 
 every :day, at: '12:34am' do
-  rake 'orders:clean'
+  bin 'remove_old_reports.rb'
 end
