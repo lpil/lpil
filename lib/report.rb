@@ -12,7 +12,7 @@ class Report
     }
   end
 
-  def save_to_db
+  def save
     Mailing.create(@report)
   end
 end

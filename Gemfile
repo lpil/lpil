@@ -5,3 +5,4 @@ gem 'sqlite3'
 gem 'whenever'
 
 gem 'rspec', group: [:test, :development]
+gem 'pry', group: [:test, :development]

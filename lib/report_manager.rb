@@ -26,7 +26,7 @@ class ReportManager
     Database.establish_connection
 
     unparsed_reports.each do |report|
-      Report.new(File.read "reports/#{report}").save_to_db
+      Report.new(File.read "reports/#{report}").save
       File.rename "reports/#{report}",
                   "reports/parsed/#{report}"
     end
