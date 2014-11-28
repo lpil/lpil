@@ -19,7 +19,7 @@ class Report
       order_ref: report[1].force_encoding('UTF-8'),
       is_post:   false,
       dpd_ref:   report[11].force_encoding('UTF-8'),
-      date_sent: Time.parse(report[12])
+      date_sent: Date.strptime(report[10], '%d/%m/%y')
     }
   end
 
