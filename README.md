@@ -1,8 +1,8 @@
 # Order Tracking
 
 The backend consists of two parts:
-* A set of Ruby Rake tasks that periodically add new order reports to the
-  sqlite3 database, and remove old reports.
+* A Ruby application that periodically add new order reports to the sqlite3
+  database, and remove old reports.
 * A PHP script through which the user can query the sqlite3 database to find
   out the delivery details of their order.
 
@@ -40,15 +40,14 @@ The PHP script can be used in three ways:
 5. Set up your webserver not to serve anything but HTML and CSS files from the
    project directory, so that users cannot download the code or database. See
    below for an example.
-6. From the project directory run `bundle exec rake db:migrate` to create the
+6. From the project directory run `bin/setup_db.rb` to create the
    sqlite3 database.
 7. Make a yaml file at `config/ftp.yml` with the details of the FTP site to
    read the reports from. You can find an example at `config/ftp.yml.example`.
 8. Populate the database with reports for the first time by running the
-   following:
-   * `bundle exec rake orders:clean`
-   * `bundle exec rake orders:fetch`
-   * `bundle exec rake orders:parse`
+   following from the project directory:
+   * `bin/fetch_new_reports.rb`
+   * `bin/parse_fetched_reports.rb`
 9. Now we need to use [Cron](https://en.wikipedia.org/wiki/Cron) to
    periodically add new reports and to remove old ones. We shall do this
    indirectly using the `whenever` Ruby gem, rather than by directly editing
