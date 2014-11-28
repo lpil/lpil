@@ -12,8 +12,9 @@ $prepared_query = $dbh->prepare(
 );
 
 $prepared_query->execute([$_GET['order_ref']]);
-$data = $prepared_query->fetchAll()[0];
+$data = $prepared_query->fetchAll();
 if ($data) {
+  $data = $data[0];
   $data['url'] = $dpd_url . $data['dpd_ref'];
 }
 
