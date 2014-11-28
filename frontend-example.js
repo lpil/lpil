@@ -20,7 +20,7 @@
     link.target = '_blank';
     link.innerHTML = 'Slow response? Try here instead';
     spinner = document.createElement('img');
-    spinner.src = 'Images/AjaxWait.gif';
+    spinner.src = 'Custom/Theme/sjp_2014_06/CSS/Images/AjaxWait.gif';
 
     result_div.appendChild(spinner);
     result_div.appendChild(document.createElement('br'));
@@ -30,7 +30,7 @@
     script = document.createElement('script');
     script.type = 'text/javascript';
     script.src =
-      trackUrl + '?json=t&order_ref=' + order_ref + '&callback=printMailInfo';
+      trackUrl + '?json&order_ref=' + order_ref + '&callback=printMailInfo';
     document.getElementsByTagName('head')[0].appendChild(script);
 
     return false;
