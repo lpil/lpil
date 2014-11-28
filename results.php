@@ -22,6 +22,9 @@ if ($data) {
  * We've got the data. Time to build the response.
  */
 
+/* Allow cross domain requests */
+header('Access-Control-Allow-Origin: *');
+
 /* If they asked for JSON */
 if (array_key_exists('json', $_GET)) {
   $json = json_encode($data);
