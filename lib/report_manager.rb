@@ -35,13 +35,14 @@ class ReportManager
   def remove_old_reports_from_ftp(time_ago = 3.months.ago)
     Net::FTP.open(*@ftp_config) do |ftp|
       ftp.nlst.each do |report|
+        next unless report.end_with? '.OUT'
         ftp.delete report if ftp.mtime(report) < time_ago
       end
     end
   end
 
   def remove_old_reports_from_local_dir(time_ago = 3.months.ago)
-    Dir.glob("#{this_dir}/reports/parsed/*").each do |report|
+    Dir.glob('./reports/parsed/*').each do |report|
       File.delete report if File.mtime(report) < time_ago
     end
   end
