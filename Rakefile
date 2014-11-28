@@ -43,8 +43,8 @@ namespace :orders do
         ftp.gettextfile f, write_file
 
         report_with_mod_time = File.read(write_file)
-          .force_encoding('BINARY')
-          .sub(/\n/, ",#{ftp.mtime f}")
+                               .force_encoding('BINARY')
+                               .sub(/\n/, ",#{ftp.mtime f}")
 
         File.open write_file, 'w' do |e|
           e.puts report_with_mod_time
@@ -55,8 +55,8 @@ namespace :orders do
 
   desc 'Parse reports in ./reports/ and add to db'
   task parse: [:check_db_exists, :environment] do
-    Dir.glob("#{this_dir}/reports/*.OUT").each do |f|
-      Mailing.add_dpd_report(File.read f)
+    Dir.glob("#{this_dir}/reports/*.OUT").each do |report|
+      Report.new(File.read report).save_to_db
       File.rename f, "#{File.dirname f}/parsed/#{File.basename f}"
     end
   end
