@@ -4,7 +4,7 @@ require 'net/ftp'
 require 'sqlite3'
 require 'yaml'
 
-Dir['./*.rb'].each { |lib| require lib }
+Dir['./lib/*.rb'].each { |lib| require lib }
 
 ftp_config = YAML.load_file 'config/ftp.yml'
 
