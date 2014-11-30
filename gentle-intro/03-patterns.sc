@@ -313,7 +313,7 @@ p.play; // This results in an EventStreamPlayer
 ~myPlayer = p.play;
 ~myPlayer.stop;
 ~myPlayer.resume;
-~myPlayer.stop.reset;
+~myPlayer.stop.reset; // What does reset do?
 ~myPlayer.start;
 ~myPlayer.stop;
 

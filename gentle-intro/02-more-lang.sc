@@ -104,10 +104,14 @@ Array.newClear(7);
 "foo" ! 4;
 "foo".dup(4);
 // x..y is sugar for series. Makin ranges
-(50..59);
-Array.series(10, 50, 1);
-(50, 52..68);
-Array.series(10, 50, 2);
+(
+  (50..59);
+  Array.series(10, 50, 1);
+)
+(
+  (50, 52..68);
+  Array.series(10, 50, 2);
+)
 
 // Often we will need to do some action over all items of a collection.
 // There is a method for this
