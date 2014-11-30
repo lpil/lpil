@@ -9,7 +9,7 @@
   ui = true
 
 [core]
-  excludesfile = /Users/louis/.gitignore
+  excludesfile = ~/.gitignore
 
 [alias]
   br = branch
