@@ -23,8 +23,10 @@ s.stopRecording;
 // SC operator precedence goes left to right, regardless of operator
 5 + 2 * 2; // => 14
 
-10.do( {"Print this line over and over...".postln} );
-10.do( {"Print this line over and over...".scramble.postln} );
+(
+  10.do( {"Print this line over and over...".postln} );
+  10.do( {"Print this line over and over...".scramble.postln} );
+)
 
 { Saw.ar(LFNoise0.kr([2,3]).range(100,2000),
         LFPulse.kr([4,5]) * 0.1
