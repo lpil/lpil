@@ -7,6 +7,12 @@ if (!isset($_GET['order_ref'])) {
   return;
 }
 
+/* Check the sqlite db file exists */
+if (!file_exists('orders.sqlite3')) {
+  echo 'sqlite3 database file not found. Has the setup been completed?';
+  return;
+}
+
 try {
   $dbh = new PDO("sqlite:orders.sqlite3");
 } catch(PDOException $e) {
