@@ -51,7 +51,7 @@ class ReportManager
   end
 
   def remove_old_reports_from_local_dir(time_ago = 3.months.ago)
-    Dir.glob('./reports/parsed/*').each do |report|
+    parsed_reports.each do |report|
       File.delete report if File.mtime(report) < time_ago
     end
   end
