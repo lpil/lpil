@@ -342,5 +342,3 @@ au FileType haskell hi Conceal ctermbg=NONE guifg=NONE guibg=NONE
 set secure
 " Enable reading of a .vimrc found in the current dir
 set exrc
-
-" fooooo
