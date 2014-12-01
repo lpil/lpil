@@ -1,6 +1,12 @@
 <?php
 $dpd_url = 'http://www.dpd.co.uk/apps/tracking/?reference=';
 
+/* Abort if the order_ref hasn't been given */
+if (!isset($_GET['order_ref'])) {
+  echo 'Pass the order_ref URL paramerter';
+  return;
+}
+
 try {
   $dbh = new PDO("sqlite:orders.sqlite3");
 } catch(PDOException $e) {
