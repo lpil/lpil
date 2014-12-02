@@ -1,6 +1,6 @@
 ## Managing the `_scss/theme` submodule
 
-Updating
+Updating to latest version
 
     git submodule foreach git pull
 
