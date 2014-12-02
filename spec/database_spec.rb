@@ -11,12 +11,12 @@ describe Database do
     end
   end
 
-  describe 'self.migrate_db' do
+  describe 'self.migrate' do
     it 'calls ActiveRecord::Migrator.migrate' do
       expect(ActiveRecord::Migrator)
         .to receive(:migrate)
 
-      Database.migrate_db
+      Database.migrate
     end
   end
 end

@@ -6,7 +6,7 @@ class Database
     )
   end
 
-  def self.migrate_db
+  def self.migrate
     Database.establish_connection
 
     ActiveRecord::Migrator.migrate(
