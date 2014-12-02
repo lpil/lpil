@@ -2,6 +2,6 @@
 
 https://github.com/bitemyapp/learnhaskell
 
-http://dev.stephendiehl.com/hask/
+http://www.stephendiehl.com/what/
 
 http://stackoverflow.com/questions/1012573/getting-started-with-haskell
