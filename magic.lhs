@@ -1,4 +1,4 @@
-'You can run this directly, or with ruby, coffee -l, or runhaskell. Magic.'
+'You can run this with ruby, coffee -l, runhaskell, or python3. Magic.'
 ''''
 
 puts 'Hello from Ruby!'
