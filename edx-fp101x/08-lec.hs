@@ -15,7 +15,7 @@ sgetLn = do x <- getCh
             if x == '\n'
               then do putChar x
                       return []
-              else do putChar '_'
+              else do putChar '-'
                       xs <- sgetLn
                       return (x:xs)
 
@@ -29,3 +29,7 @@ guess word = do putStr "> "
 
 diff :: String -> String -> String
 diff xs ys = [ if x `elem` ys then x else '-' | x <- xs ]
+
+hangman :: IO ()
+hangman = do word <- sgetLn
+             guess word
