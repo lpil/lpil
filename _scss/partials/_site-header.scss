@@ -1,21 +1,25 @@
 .site-header {
   border-bottom: 1px solid #ddd;
   margin-bottom: 1em;
-  padding: 2em 1em;
+  padding: 40px 0 25px;
   text-align: center;
 
 
-  a.site-header__home {
+  .site-header__home {
     color: $text-colour;
-    font-size: 1.3em;
+    font-size: 12px;
     font-weight: bold;
 
     i {
-      font-size: .01em;
+      font-size: 1%;
     }
   }
 
-  a.site-header__home:hover {
+  .site-header__home:hover {
     text-decoration: none;
+  }
+
+  .site-header__nav {
+    margin-top: 10px;
   }
 }
