@@ -11,6 +11,12 @@
 [core]
   excludesfile = ~/.gitignore
 
+[push]
+  default = simple
+
+[credential]
+  helper = cache
+
 [alias]
   br = branch
   ci = commit
@@ -21,6 +27,3 @@
   g = grep --break --heading --line-number --ignore-case
   workemail = !git config user.email `git config --get work.email`
   worksubmodule = !git submodule foreach git workemail
-
-[push]
-  default = simple
