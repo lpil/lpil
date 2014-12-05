@@ -308,6 +308,15 @@ autocmd FileType supercollider set commentstring=//\ %s
 
 let g:sneak#s_next = 1
 
+"""""""""""""""""""
+" Plugin: tabular "
+"""""""""""""""""""
+
+nnoremap <leader>tt :Tab /=<CR>
+vnoremap <leader>tt :Tab /=<CR>
+nnoremap <leader>t= :Tab /=<CR>
+vnoremap <leader>t= :Tab /=<CR>
+
 """""""""""""""""""""""""""""""""""""""""
 " Plugin: Colorizer (terrible spelling) "
 """""""""""""""""""""""""""""""""""""""""
