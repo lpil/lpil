@@ -19,8 +19,8 @@ layout: default
       </li>
     {% endfor %}
   </ul>
-  <a class="posts__rss" href="{{ "/feed.xml" | prepend: site.baseurl }}">
+  <span class="posts__feed">
     <i class="fa fa-rss"></i>
-    RSS feed
-  </a>
+    <a href="{{ site.url }}/feed.xml">Feed</span>
+  </span>
 </div>
