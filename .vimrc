@@ -26,6 +26,7 @@ Bundle 'scrooloose/syntastic'
 Bundle 'Shougo/neocomplcache.vim'
 Bundle 'SirVer/ultisnips'
 Bundle 'slim-template/vim-slim'
+Bundle 'sophacles/vim-processing'
 Bundle 'tomtom/tlib_vim'
 Bundle 'tpope/vim-commentary'
 Bundle 'tpope/vim-endwise'
@@ -132,6 +133,7 @@ set undoreload=10000        " number of lines to save for undo
 """"""""""""""""""
 
 autocmd BufNewFile,BufRead *.md set filetype=markdown
+autocmd BufNewFile,BufRead *.pde set filetype=processing
 
 """"""""""""""""""
 " Remapping keys "
@@ -299,6 +301,7 @@ let g:ctrlp_custom_ignore = {
 
 autocmd FileType javascript set commentstring=//\ %s
 autocmd FileType lhaskell set commentstring=>\ %s
+autocmd FileType processing set commentstring=//\ %s
 autocmd FileType slim set commentstring=/\ %s
 autocmd FileType supercollider set commentstring=//\ %s
 
