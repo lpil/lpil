@@ -10,19 +10,15 @@
 
 (defn setup []
   (frame-rate 30)
-
-  ; setup function returns initial state.
   {:one 1
    :two 1})
 
 (defn update [state]
   (let [one (increment (:one state) 1000)
         two (increment (:two state)  100)
-
         size (+ 300
                 (* 90 (Math/sin (cycles one)))
                 (* 10 (Math/sin (cycles two))))]
-
     {:one one
      :two two
      :size size}))
