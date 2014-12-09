@@ -28,6 +28,8 @@ $data = $prepared_query->fetchAll();
 if ($data) {
   $data = $data[0];
   $data['url'] = $dpd_url . $data['dpd_ref'];
+} else {
+  $data = NULL;
 }
 
 /*
