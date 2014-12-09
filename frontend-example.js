@@ -20,7 +20,7 @@
     link.target = '_blank';
     link.innerHTML = 'Slow response? Try here instead';
     spinner = document.createElement('img');
-    spinner.src = 'Custom/Theme/sjp_2014_06/CSS/Images/AjaxWait.gif';
+    spinner.src = 'Custom/themes/sjp_2014_06/CSS/Images/AjaxWait.gif';
 
     result_div.appendChild(spinner);
     result_div.appendChild(document.createElement('br'));
