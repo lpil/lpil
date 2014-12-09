@@ -1,7 +1,7 @@
 (function() {
   'use strict';
   var trackUrl =
-    'http://info.perivansolutions.co.uk/order-tracking/results.php';
+    'http://perivan.co.uk/order-tracking/results.php';
 
   // Cross site JSON request (JSONP)
   var getMailInfo = function getMailInfo(order_ref) {
@@ -16,7 +16,7 @@
 
     // Display help message
     link = document.createElement('a');
-    link.href = 'http://info.perivansolutions.co.uk/delivery';
+    link.href = 'http://perivan.co.uk/order-tracking/index.html';
     link.target = '_blank';
     link.innerHTML = 'Slow response? Try here instead';
     spinner = document.createElement('img');
