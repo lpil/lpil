@@ -20,8 +20,8 @@
         two (increment (:two state)  100)
 
         size (+ 300
-              (* 90 (Math/sin (cycles one)))
-              (* 10 (Math/sin (cycles two))))]
+                (* 90 (Math/sin (cycles one)))
+                (* 10 (Math/sin (cycles two))))]
 
     {:one one
      :two two
