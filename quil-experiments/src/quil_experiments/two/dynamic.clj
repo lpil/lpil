@@ -14,17 +14,17 @@
    :two 1})
 
 (defn update [state]
-  (let [one (increment (:one state) 1000)
-        two (increment (:two state)  100)
-        size (+ 300
-                (* 90 (Math/sin (cycles one)))
-                (* 10 (Math/sin (cycles two))))]
+  (let [one (increment (:one state) 1500)
+        two (increment (:two state)  150)
+        size (+ 280
+                (* 125 (Math/sin (cycles one)))
+                (* 25 (Math/sin (cycles two))))]
     {:one one
      :two two
      :size size}))
 
 (defn draw [state]
   (background 240)
-  (text (str (round (current-frame-rate))) 5 15)
+  (text (str (round (:size state))) 5 15)
   (fill 0)
   (ellipse (/ (width) 2) (/ (height) 2) (:size state) (:size state)))
