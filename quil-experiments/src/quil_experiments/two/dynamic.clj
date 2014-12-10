@@ -2,7 +2,7 @@
   (:use [quil.core])
   (:require [quil.middleware :as m]))
 
-(defn cycles [num] (* num 2 (. Math PI)))
+(defn cycles [num] (* num 2 (Math/PI)))
 
 (defn increment [previous-state steps]
   (mod (+ (/ 1 steps) previous-state)
