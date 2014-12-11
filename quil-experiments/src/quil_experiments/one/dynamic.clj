@@ -1,5 +1,5 @@
 (ns quil-experiments.one.dynamic
-  (:use [quil.core])
+  (:use [quil.core :as q])
   (:require [quil.middleware :as m]))
 
 
@@ -13,11 +13,11 @@
   {})
 
 (defn draw [state]
-  (fill 255 10)
-  (rect -1 -1 (inc (width)) (inc (height)))
+  (q/fill 255 10)
+  (q/rect -1 -1 (inc (q/width)) (inc (q/height)))
 
   (when (mouse-pressed?)
-    (line 0       0        (mouse-x) (mouse-y))
-    (line 0       (height) (mouse-x) (mouse-y))
-    (line (width) 0        (mouse-x) (mouse-y))
-    (line (width) (height) (mouse-x) (mouse-y))))
+    (q/line 0         0          (q/mouse-x) (q/mouse-y))
+    (q/line 0         (q/height) (q/mouse-x) (q/mouse-y))
+    (q/line (q/width) 0          (q/mouse-x) (q/mouse-y))
+    (q/line (q/width) (q/height) (q/mouse-x) (q/mouse-y))))
