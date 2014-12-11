@@ -12,7 +12,7 @@
 
 
 (defn calc-f-osc-255 [fast-osc]
-  (round (+ 80 (* 80 (ratio->sine fast-osc)))))
+  (Math/round (+ 80 (* 80 (ratio->sine fast-osc)))))
 
 (defn calc-size [slow-osc fast-osc]
   (+ 280
@@ -25,7 +25,7 @@
   {:slow-osc 0
    :fast-osc 0
    :colour   0
-   :size     280})
+   :size     280.0})
 
 (defn update [state]
   (let [slow-osc  (increment (:slow-osc state) 1500)
@@ -39,7 +39,7 @@
 (defn draw [state]
   (q/background 240)
   (q/fill 0)
-  (q/text (str (round (:size state))) 5 15)
+  (q/text (str (int (:size state))) 5 15)
   (q/text (str (:colour state)) 5 35)
 
   (q/no-stroke)
