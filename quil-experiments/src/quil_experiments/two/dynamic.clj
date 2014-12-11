@@ -11,22 +11,30 @@
        1))
 
 
+(defn calc-f-osc-255 [fast-osc]
+  (round (+ 80 (* 80 (ratio->sine fast-osc)))))
+
+(defn calc-size [slow-osc fast-osc]
+  (+ 280
+     (* 125 (ratio->sine slow-osc))
+     (*  25 (ratio->sine fast-osc))))
+
+
 (defn setup []
   (frame-rate 30)
   {:slow-osc 0
-   :fast-osc 0})
+   :fast-osc 0
+   :colour   0
+   :size     280})
 
 (defn update [state]
   (let [slow-osc  (increment (:slow-osc state) 1500)
-        fast-osc  (increment (:fast-osc state)  150)
-        f-osc-255 (round (+ 80 (* 80 (ratio->sine fast-osc))))
-        size (+ 280
-                (* 125 (ratio->sine slow-osc))
-                (*  25 (ratio->sine fast-osc)))]
+        fast-osc  (increment (:fast-osc state)  150)]
+
     {:slow-osc slow-osc
      :fast-osc fast-osc
-     :colour   f-osc-255
-     :size     size}))
+     :colour   (calc-f-osc-255 fast-osc)
+     :size     (calc-size slow-osc fast-osc)}))
 
 (defn draw [state]
   (q/background 240)
