@@ -2,7 +2,7 @@
   (:require [quil.core :as q]
             [quil.middleware :as m]))
 
-(defn ratio->radians [num] (* num 2 (Math/PI)))
+(defn ratio->radians [ratio] (* ratio 2 (Math/PI)))
 
 (defn ratio->sine [ratio] (Math/sin (ratio->radians ratio)))
 
