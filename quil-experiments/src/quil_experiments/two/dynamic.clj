@@ -1,6 +1,6 @@
 (ns quil-experiments.two.dynamic
-  (:use [quil.core :as q])
-  (:require [quil.middleware :as m]))
+  (:require [quil.core :as q]
+            [quil.middleware :as m]))
 
 (defn ratio->radians [num] (* num 2 (Math/PI)))
 
@@ -21,7 +21,7 @@
 
 
 (defn setup []
-  (frame-rate 30)
+  (q/frame-rate 30)
   {:slow-osc 0
    :fast-osc 0
    :colour   0
