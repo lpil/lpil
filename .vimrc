@@ -347,6 +347,12 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 au FileType haskell hi Conceal ctermbg=NONE guifg=NONE guibg=NONE
 
+"""""""""""""""""""""
+" Plugin: fireplace "
+"""""""""""""""""""""
+
+au FileType clojure nnoremap <leader>r :w<CR>:Require<CR>
+
 """""""""""""""""""""""""""""""""""""
 " And finally, per-project .vimrc's "
 """""""""""""""""""""""""""""""""""""
