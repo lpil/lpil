@@ -27,21 +27,23 @@
    :colour   0
    :size     280.0})
 
-(defn update [state]
-  (let [slow-osc  (increment (:slow-osc state) 1500)
-        fast-osc  (increment (:fast-osc state)  150)]
+(defn update [{:keys [slow-osc fast-osc]
+               :as state}]
+  (let [slow-osc  (increment slow-osc 1500)
+        fast-osc  (increment fast-osc  150)]
 
     {:slow-osc slow-osc
      :fast-osc fast-osc
      :colour   (calc-f-osc-255 fast-osc)
      :size     (calc-size slow-osc fast-osc)}))
 
-(defn draw [state]
+(defn draw [{:keys [size colour]
+             :as state}]
   (q/background 240)
   (q/fill 0)
-  (q/text (str (int (:size state))) 5 15)
-  (q/text (str (:colour state)) 5 35)
+  (q/text (str (int size)) 5 15)
+  (q/text (str colour) 5 35)
 
   (q/no-stroke)
-  (q/fill 0 (- 255 (:colour state)))
-  (q/ellipse (/ (q/width) 2) (/ (q/height) 2) (:size state) (:size state)))
+  (q/fill 0 (- 255 colour))
+  (q/ellipse (/ (q/width) 2) (/ (q/height) 2) size size))
