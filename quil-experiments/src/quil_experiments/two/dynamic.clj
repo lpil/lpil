@@ -1,5 +1,5 @@
 (ns quil-experiments.two.dynamic
-  (:use [quil.core])
+  (:use [quil.core :as q])
   (:require [quil.middleware :as m]))
 
 (defn ratio->radians [num] (* num 2 (Math/PI)))
@@ -29,11 +29,11 @@
      :size     size}))
 
 (defn draw [state]
-  (background 240)
-  (fill 0)
-  (text (str (round (:size state))) 5 15)
-  (text (str (:colour state)) 5 35)
+  (q/background 240)
+  (q/fill 0)
+  (q/text (str (round (:size state))) 5 15)
+  (q/text (str (:colour state)) 5 35)
 
-  (no-stroke)
-  (fill 0 (- 255 (:colour state)))
-  (ellipse (/ (width) 2) (/ (height) 2) (:size state) (:size state)))
+  (q/no-stroke)
+  (q/fill 0 (- 255 (:colour state)))
+  (q/ellipse (/ (q/width) 2) (/ (q/height) 2) (:size state) (:size state)))
