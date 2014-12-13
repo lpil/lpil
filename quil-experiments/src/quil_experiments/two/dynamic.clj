@@ -19,13 +19,15 @@
      (* 125 (ratio->sine slow-osc))
      (*  25 (ratio->sine fast-osc))))
 
-
-(defn setup []
-  (q/frame-rate 30)
+(def starting-state
   {:slow-osc 0
    :fast-osc 0
    :colour   0
    :size     280.0})
+
+(defn setup []
+  (q/frame-rate 30)
+  starting-state)
 
 (defn update [{:keys [slow-osc fast-osc]
                :as state}]
