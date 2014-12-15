@@ -337,6 +337,8 @@ let g:neocomplcache_enable_at_startup = 1
 " Plugin: ultisnips "
 """""""""""""""""""""
 
+let g:snips_author="Louis Pilfold"
+
 " Simulate textmate field selection behaviour
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
