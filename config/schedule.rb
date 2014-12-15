@@ -1,4 +1,4 @@
-job_type :bin, ':path/bin/:task'
+job_type :bin, 'cd :path && bundle exec bin/:task'
 
 every :hour, at: 00 do
   bin 'fetch_new_reports.rb'
