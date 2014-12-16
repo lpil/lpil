@@ -1,4 +1,8 @@
 class ShoutsController < ApplicationController
+  def show
+    @shout = Shout.find(params[:id])
+  end
+
   def create
     current_user
       .shouts.build(shout_parameters)
