@@ -33,4 +33,20 @@ describe ReportManager do
       end
     end
   end
+
+  describe 'remove_old_reports_from_local_dir' do
+    it 'calls mtime on the files' do
+      manager = ReportManager.new FTP_CONFIG
+
+      expect(manager).to receive(:parsed_reports)
+        .and_return(%w(1.OUT 2.OUT 3.OUT))
+
+      expect(File).to receive(:mtime)
+        .with(/reports\/parsed/)
+        .exactly(3).times
+        .and_return 2.hours.ago
+
+      manager.remove_old_reports_from_local_dir
+    end
+  end
 end
