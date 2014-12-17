@@ -5,4 +5,9 @@ Dashboard!
   <%= f.submit 'Shout!', :disable_with => 'Shouting!' %>
 <% end %>
 
+<%= form_for @photo_shout do |f| %>
+  <%= f.file_field :image %>
+  <%= f.submit 'Shout!', :disable_with => 'Shouting!' %>
+<% end %>
+
 <%= render @shouts %>
