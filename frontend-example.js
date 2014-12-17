@@ -46,7 +46,7 @@
       para.innerHTML = 'No record found for this order reference';
       result_div.appendChild(para);
 
-    } else if (jsonp.is_post) {
+    } else if (jsonp.is_post = 't') {
       para.innerHTML = 'Your order was sent by post on ' + jsonp.date_sent;
       result_div.appendChild(para);
 
