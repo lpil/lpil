@@ -192,6 +192,19 @@ nnoremap Q <Nop>
 " No, I don't want to look things up in the man pages
 nnoremap K <Nop>
 
+"""""""""""""""""""
+" Toggling stuff! "
+"""""""""""""""""""
+" Toggle Search result highlighting
+nnoremap <F1> :set hlsearch!<CR>
+" Toggle textwidth automatic new line insertion
+nnoremap <silent> <F2> :exe "set textwidth=" . (&tw ? 0 : 79)<CR> <Bar> :echo ":set textwidth=" . &tw<CR>
+" Toggle show hidden chars
+nnoremap <F3> :set list!<CR>
+" Toggle spell check
+nnoremap <F4> :setlocal spell!<CR>
+" Toggle syntax check
+nnoremap <F5> :SyntasticToggleMode<CR>
 
 """""""""""""""""""""""""""""""""""
 " Nicer location list navigation! "
@@ -229,20 +242,6 @@ function! StripWhitespace()
 endfunction
 noremap <leader>d<space> :call StripWhitespace()<CR>
 
-"""""""""""""""""""
-" Toggling stuff! "
-"""""""""""""""""""
-" Toggle Search result highlighting
-nnoremap <F1> :set hlsearch!<CR>
-" Toggle textwidth automatic new line insertion
-nnoremap <silent> <F2> :exe "set textwidth=" . (&tw ? 0 : 79)<CR> <Bar> :echo ":set textwidth=" . &tw<CR>
-" Toggle show hidden chars
-nnoremap <F3> :set list!<CR>
-" Toggle spell check
-nnoremap <F4> :setlocal spell!<CR>
-" Toggle syntax check
-nnoremap <F5> :SyntasticToggleMode<CR>
-
 """"""""""""""""""""""
 " HTML char escaping "
 """"""""""""""""""""""
@@ -258,6 +257,16 @@ function HtmlEscape()
   silent s/>/\&gt;/eg   " greater than
   silent s/\ /\%20;/eg  " space
 endfunction
+
+"""""""""""""""""""""
+" Reverse selection "
+"""""""""""""""""""""
+
+if has('macunix')
+  command -range=% Reverse :'<,'>!gtac
+else
+  command -range=% Reverse :'<,'>!tac
+endif
 
 """""""""""""""""""""""""""""""""""""""""""""""
 " plugin: Syntastic syntax checking behaviour "
