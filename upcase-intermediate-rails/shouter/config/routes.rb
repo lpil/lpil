@@ -10,7 +10,8 @@ Shouter::Application.routes.draw do
   resources :shouts, only: [:show]
   resources :text_shouts, only: [:create]
   resources :photo_shouts, only: [:create]
-  resources :users, only: [:new, :show, :create] do
+  resources :users, only: [:index, :new, :show, :create] do
     post 'follow' => 'following_relationships#create'
+    delete 'follow' => 'following_relationships#destroy'
   end
 end
