@@ -1,13 +1,13 @@
 Dashboard!
 
-<%= form_for @text_shout do |f| %>
+<%= form_for @dashboard.new_text_shout do |f| %>
   <%= f.text_field :body, placeholder: 'Shout content here' %>
   <%= f.submit 'Shout!', :disable_with => 'Shouting!' %>
 <% end %>
 
-<%= form_for @photo_shout do |f| %>
+<%= form_for @dashboard.new_photo_shout do |f| %>
   <%= f.file_field :image %>
   <%= f.submit 'Shout!', :disable_with => 'Shouting!' %>
 <% end %>
 
-<%= render @shouts %>
+<%= render @dashboard.timeline %>
