@@ -113,7 +113,7 @@ set tabstop=2       "A tab is 2 spaces
 
 " Lang specific
 autocmd FileType python setlocal ts=4 sw=4
-autocmd FileType rust setlocal ts=2 sw=2 " rust.vim is aggressive
+let g:rust_recommended_style=0
 
 """""""""""""""""""
 " Persistent Undo "
