@@ -27,8 +27,6 @@ pub fn main() {
 
   // Ifs are expressions, yay!
   let f: int = if true { 6 } else { 1498724398 };
-  //                                              ^
-  // Semicolon when it's an expression returning a value
 
   // let is not an expression. This won't compile
   //    let x = (let y = 5i);
