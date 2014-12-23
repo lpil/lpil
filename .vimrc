@@ -93,6 +93,9 @@ set lazyredraw
 " Default folds are no fun
 set nofoldenable
 
+" Delete comment character when joining commented lines
+set formatoptions+=j
+
 """""""""""""""""""""""""""""""""
 " Indentation, Tabs, Space, Etc "
 """""""""""""""""""""""""""""""""
