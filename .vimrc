@@ -192,6 +192,9 @@ nnoremap Q <Nop>
 " No, I don't want to look things up in the man pages
 nnoremap K <Nop>
 
+" Undo in insert mode
+inoremap <C-U> <C-G>u<C-U>
+
 """""""""""""""""""
 " Toggling stuff! "
 """""""""""""""""""
