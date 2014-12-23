@@ -94,7 +94,9 @@ set lazyredraw
 set nofoldenable
 
 " Delete comment character when joining commented lines
-set formatoptions+=j
+if v:version > 703 || v:version == 703 && has("patch541")
+  set formatoptions+=j
+endif
 
 """""""""""""""""""""""""""""""""
 " Indentation, Tabs, Space, Etc "
