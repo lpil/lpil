@@ -15,3 +15,10 @@
 (demo 5 (* 0.5 (sin-osc (lin-lin (lf-noise0:kr 10)
                                  -1 1
                                  500 1500))))
+
+; {
+;   RLPF.ar(Dust.ar ([12,15]), LFNoise1.ar([0.3, 0.2]).range(100,3000), 0.02)
+; }.play;
+(demo 5 (rlpf (dust [12, 15])
+              (lin-lin (lf-noise1 [0.3, 0.2]) -1 1 100 3000)
+              0.02))
