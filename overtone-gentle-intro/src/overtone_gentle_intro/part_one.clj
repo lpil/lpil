@@ -22,3 +22,10 @@
 (demo 5 (rlpf (dust [12, 15])
               (lin-lin (lf-noise1 [0.3, 0.2]) -1 1 100 3000)
               0.02))
+
+; We can record!
+(recording-start "foo.wav")
+(recording-stop)
+
+; KICKDRUM
+(def kick (sample (freesound-path 2086)))
