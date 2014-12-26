@@ -373,6 +373,7 @@ au FileType haskell hi Conceal ctermbg=NONE guifg=NONE guibg=NONE
 """""""""""""""""""""
 
 au FileType clojure nnoremap <leader>r :w<CR>:Require<CR>
+au FileType clojure nnoremap cpo :Eval<CR>
 
 """""""""""""""""""""""""""""""""""""
 " And finally, per-project .vimrc's "
