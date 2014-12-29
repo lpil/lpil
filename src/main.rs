@@ -1,4 +1,5 @@
-type Board = [char; 9];
+type Cell = char;
+type Board = [Cell; 9];
 
 fn main() {
     let board: Board = [
@@ -7,14 +8,32 @@ fn main() {
         '7','8','9'
     ];
 
-    println!("{}", is_winning_board(board));
+    println!("{}", won(board));
 }
 
-fn is_winning_board(board: Board) -> bool {
-    fn same_player([x, y, z]: [char; 3]) -> bool {
-        x == y && y == z
-    }
+fn won(board: Board) -> Option<Cell> {
+    let winning_patterns: [[uint; 3]; 8] = [
+        // horizontal
+        [0,1,2],
+        [3,4,5],
+        [6,7,8],
+        // Vertical
+        [0,3,6],
+        [1,4,7],
+        [2,5,8],
+        // Diagonal
+        [0,4,8],
+        [6,4,2]
+    ];
 
-    // http://projects.haskell.org/operational/examples/TicTacToe.hs.html
-    same_player(['1','2','3'])
+    for pattern in winning_patterns.iter() {
+        let x = pattern[0];
+        let y = pattern[1];
+        let z = pattern[2];
+
+        if board[x] == board[y] && board[y] == board[z] {
+            return Some(board[x])
+        }
+    }
+    None
 }
