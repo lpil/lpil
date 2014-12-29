@@ -1,17 +1,16 @@
-use Cell::{Empty,X,O};
+use Cell::{Empty,Taken};
 
 type Board = [Cell; 9];
 
 enum Cell {
-    Empty, X, O
+    Empty, Taken(char)
 }
 
 impl PartialEq for Cell {
     fn eq(&self, other: &Self) -> bool {
         match (self, other) {
-            (&X, &X) => true,
-            (&O, &O) => true,
-            _        => false
+            (&Taken(x), &Taken(y)) => x == y,
+            _                      => false
         }
     }
 }
@@ -22,6 +21,11 @@ fn main() {
         Empty,Empty,Empty,
         Empty,Empty,Empty
     ];
+
+    match won(board) {
+        Some(Taken(x)) => println!("{}", x),
+        _ => println!("No one won")
+    }
 }
 
 fn won(board: Board) -> Option<Cell> {
