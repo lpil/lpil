@@ -1,14 +1,27 @@
-type Cell = char;
+use Cell::{Empty,X,O};
+
 type Board = [Cell; 9];
+
+enum Cell {
+    Empty, X, O
+}
+
+impl PartialEq for Cell {
+    fn eq(&self, other: &Self) -> bool {
+        match (self, other) {
+            (&X, &X) => true,
+            (&O, &O) => true,
+            _        => false
+        }
+    }
+}
 
 fn main() {
     let board: Board = [
-        '1','2','3',
-        '4','5','6',
-        '7','8','9'
+        Empty,Empty,Empty,
+        Empty,Empty,Empty,
+        Empty,Empty,Empty
     ];
-
-    println!("{}", won(board));
 }
 
 fn won(board: Board) -> Option<Cell> {
