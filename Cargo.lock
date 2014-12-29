@@ -1,4 +1,4 @@
 [root]
-name = "tic-tac-toe"
+name = "tic_tac_toe"
 version = "0.0.1"
 

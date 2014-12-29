@@ -1,34 +1,23 @@
-use Cell::{Empty,Taken};
-
-type Board = [Cell; 9];
-
-enum Cell {
-    Empty, Taken(char)
-}
-
-impl PartialEq for Cell {
-    fn eq(&self, other: &Self) -> bool {
-        match (self, other) {
-            (&Taken(x), &Taken(y)) => x == y,
-            _                      => false
-        }
-    }
-}
+pub type Board = [Cell; 9];
+pub type Player = char;
+pub type Cell = Option<Player>;
 
 fn main() {
     let board: Board = [
-        Empty,Empty,Empty,
-        Empty,Empty,Empty,
-        Empty,Empty,Empty
+        None,None,None,
+        None,None,None,
+        None,None,None
     ];
 
+    println!("{}", board);
+
     match won(board) {
-        Some(Taken(x)) => println!("{}", x),
+        Some(x) => println!("{} wins", x),
         _ => println!("No one won")
     }
 }
 
-fn won(board: Board) -> Option<Cell> {
+pub fn won(board: Board) -> Option<Player> {
     let winning_patterns: [[uint; 3]; 8] = [
         // horizontal
         [0,1,2],
@@ -49,7 +38,7 @@ fn won(board: Board) -> Option<Cell> {
         let z = pattern[2];
 
         if board[x] == board[y] && board[y] == board[z] {
-            return Some(board[x])
+            return board[x]
         }
     }
     None
