@@ -1,0 +1,5 @@
+[package]
+
+name = "tic-tac-toe"
+version = "0.0.1"
+authors = ["Louis Pilfold <louis@lpil.uk>"]
