@@ -6,12 +6,10 @@ mod ttt_game;
 #[cfg(not(test))]
 fn main() {
     let game = Game { board: [ None,..9 ] };
-    println!("{}", game);
+    println!("{}\n", game);
 
     let new_game = game.make_move(0, 'X');
-    println!("{}", new_game);
-
-    println!("{}", game);
+    println!("{}\n", new_game);
 
     match new_game.won() {
         Some(x) => println!("{} wins", x),

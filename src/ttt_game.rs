@@ -46,6 +46,19 @@ impl Game {
 
 impl fmt::Show for Game {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "{}", self.board)
+        let mut board_string = "".to_string();
+
+        for (i, cell) in self.board.iter().enumerate() {
+            if i == 3 || i == 6 {
+                board_string.push('\n');
+            }
+
+            board_string.push(match cell {
+                &Some(x) => x,
+                &None    => '_'
+            });
+        }
+
+        write!(f, "{}", board_string)
     }
 }
