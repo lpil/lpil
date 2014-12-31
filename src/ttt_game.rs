@@ -1,3 +1,5 @@
+use std::fmt;
+
 pub type Player = char;
 pub type Cell = Option<Player>;
 
@@ -32,5 +34,18 @@ impl Game {
             }
         }
         None
+    }
+
+    pub fn make_move(&self, index: uint, player: Player) -> Game {
+        let mut board = self.board;
+        board[index] = Some(player);
+
+        Game { board: board }
+    }
+}
+
+impl fmt::Show for Game {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{}", self.board)
     }
 }
