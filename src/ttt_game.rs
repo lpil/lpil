@@ -7,6 +7,8 @@ pub struct Game {
     pub board: [Cell; 9]
 }
 
+/// Returns a new with no moves taken.
+///
 pub fn new_game() -> Game {
     Game { board: [ None,..9 ] };
 }
