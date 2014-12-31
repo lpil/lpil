@@ -10,7 +10,7 @@ pub struct Game {
 /// Returns a new with no moves taken.
 ///
 pub fn new_game() -> Game {
-    Game { board: [ None,..9 ] };
+    Game { board: [ None,..9 ] }
 }
 
 impl Game {
