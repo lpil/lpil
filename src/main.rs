@@ -5,7 +5,7 @@ mod ttt_game;
 
 #[cfg(not(test))]
 fn main() {
-    let game = Game { board: [ None,..9 ] };
+    let game = new_game();
     println!("{}\n", game);
 
     println!("Valid moves: {}", game.valid_moves());

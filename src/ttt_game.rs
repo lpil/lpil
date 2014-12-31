@@ -7,6 +7,10 @@ pub struct Game {
     pub board: [Cell; 9]
 }
 
+pub fn new_game() -> Game {
+    Game { board: [ None,..9 ] };
+}
+
 impl Game {
     /// Checks to see if the game has been one.
     ///
