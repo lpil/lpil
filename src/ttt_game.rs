@@ -8,6 +8,11 @@ pub struct Game {
 }
 
 impl Game {
+    /// Checks to see if the game has been one.
+    ///
+    /// * If won it returns Some(player) where player is the winning player.
+    /// * If not won it returns None
+    ///
     pub fn won(&self) -> Option<Player> {
         let board = self.board;
         let winning_patterns: [[uint; 3]; 8] = [
@@ -36,11 +41,31 @@ impl Game {
         None
     }
 
+    /// Returns a new instance of the game after the player makes a move at
+    /// the index given.
+    ///
+    /// This method **does not** check if the move is valid. Invalid moves
+    /// will return an identical game instance.
+    ///
     pub fn make_move(&self, index: uint, player: Player) -> Game {
         let mut board = self.board;
         board[index] = Some(player);
 
         Game { board: board }
+    }
+
+    /// Returns a vector of all valid moves
+    ///
+    pub fn valid_moves(&self) -> Vec<uint> {
+        let mut moves: Vec<uint> = vec![];
+
+        for (i, cell) in self.board.iter().enumerate() {
+            match cell {
+                &Some(_) => continue,
+                &None    => moves.push(i)
+            }
+        }
+        moves
     }
 }
 
