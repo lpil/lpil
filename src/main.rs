@@ -8,12 +8,12 @@ fn main() {
     let game = new_game();
     println!("{}\n", game);
 
-    println!("Valid moves: {}", game.valid_moves());
+    println!("Valid moves: {}\n", game.valid_moves());
 
     let new_game = game.make_move(0, 'X');
     println!("{}\n", new_game);
 
-    println!("Valid moves: {}", new_game.valid_moves());
+    println!("Valid moves: {}\n", new_game.valid_moves());
 
     match new_game.won() {
         Some(x) => println!("{} wins", x),
