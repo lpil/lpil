@@ -5,7 +5,7 @@ guard :shell do
                  .gsub(/\//, '::') << '::tests'
 
     puts "\n\n\n\n"
-    puts "cargo test #{mod}"
+    puts "\e[33mcargo test #{mod}\e[0m"
     `cargo test #{mod}`
   end
 end
