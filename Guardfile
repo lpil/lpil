@@ -1,6 +1,11 @@
-guard :shell, all_on_start: true do
-  watch(/.*\.rs/) do
-    puts "\n\n\n\n\n\n"
-    `cargo test`
+guard :shell do
+  watch(/src\/.*\.rs/) do |m|
+    mod = m.first.sub(/src\//, '')
+                 .sub(/\.rs/, '')
+                 .gsub(/\//, '::') << '::tests'
+
+    puts "\n\n\n\n"
+    puts "cargo test #{mod}"
+    `cargo test #{mod}`
   end
 end
