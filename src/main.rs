@@ -1,4 +1,5 @@
 #![feature(globs)]
+#[cfg(not(test))]
 use ttt_game::*;
 
 mod ttt_game;
