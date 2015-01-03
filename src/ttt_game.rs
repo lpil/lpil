@@ -19,6 +19,12 @@ impl Game {
     /// * If won it returns Some(player) where player is the winning player.
     /// * If not won it returns None
     ///
+    /// # Examples
+    ///
+    /// ```
+    /// use ttt_game::Board;
+    /// assert_eq!(new_game().won(), None);
+    /// ```
     pub fn won(&self) -> Option<Player> {
         let board = self.board;
         let winning_patterns: [[uint; 3]; 8] = [
@@ -135,5 +141,27 @@ mod tests {
         let mut game = new_game();
         game.make_move(0,'x');
         assert_eq!(new_game().board, game.board);
+    }
+
+    #[test]
+    fn new_game_isnt_won() {
+        assert_eq!(None, new_game().won());
+    }
+
+    #[test]
+    fn test_some_won_games_are_won() {
+        for moves in [
+            vec![0,1,2], vec![3,4,5], vec![6,7,8], vec![0,3,6],
+            vec![1,4,7], vec![2,5,8], vec![0,4,8], vec![6,4,2],
+            vec![0,1,2,6,4],   vec![3,4,5,3,8,2],
+            vec![6,7,8,4,6,1], vec![0,3,6,1,2,5,7]
+        ].iter() {
+            let mut game = new_game();
+            for i in moves.iter() {
+                game = game.make_move(i.clone(), 'x');
+            }
+            assert!(game.won() == Some('x'),
+                    format!("Should be won with these moves: {}", moves));
+        }
     }
 }
