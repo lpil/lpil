@@ -42,8 +42,10 @@ impl Game {
         ];
 
         for &[x,y,z] in winning_patterns.iter() {
-            if board[x] == board[y] && board[y] == board[z] {
-                return board[x]
+            match (board[x], board[y], board[z]) {
+                (Some(xx), Some(yy), Some(zz)) =>
+                    if xx == yy && yy == zz { return Some(xx) },
+                _ => continue
             }
         }
         None
