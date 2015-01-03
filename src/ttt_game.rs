@@ -35,11 +35,7 @@ impl Game {
             [6,4,2]
         ];
 
-        for pattern in winning_patterns.iter() {
-            let x = pattern[0];
-            let y = pattern[1];
-            let z = pattern[2];
-
+        for &[x,y,z] in winning_patterns.iter() {
             if board[x] == board[y] && board[y] == board[z] {
                 return board[x]
             }
