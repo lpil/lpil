@@ -1,8 +1,8 @@
 guard :shell do
   watch(/src\/.*\.rs/) do |m|
     mod = m.first.sub(/src\//, '')
-                 .sub(/\/tests/, '')
-                 .sub(/\/mod/, '')
+                 .sub(/\/tests\.rs/, '.rs')
+                 .sub(/\/mod\.rs/, '.rs')
                  .gsub(/\//, '::')
                  .sub(/\.rs/, '::tests')
 
