@@ -90,9 +90,9 @@ impl fmt::Show for Game {
                 board_string.push('\n');
             }
 
-            board_string.push(match cell {
-                &Some(x) => x,
-                &None    => '_'
+            board_string.push(match *cell {
+                Some(x) => x,
+                None    => '_'
             });
         }
         write!(f, "{}", board_string)
