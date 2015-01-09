@@ -21,12 +21,6 @@ impl Game {
     /// * If won it returns Some(player) where player is the winning player.
     /// * If not won it returns None
     ///
-    /// # Examples
-    ///
-    /// ```
-    /// use ttt_game::Board;
-    /// assert_eq!(new_game().won(), None);
-    /// ```
     pub fn won(&self) -> Option<Player> {
         let board = self.board;
         let winning_patterns: [[uint; 3]; 8] = [

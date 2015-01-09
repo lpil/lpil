@@ -8,9 +8,9 @@ use std::io;
 use std::os;
 
 #[cfg(not(test))]
-use ttt_game::*;
+use game_mechanics::*;
 
-mod ttt_game;
+mod game_mechanics;
 
 #[cfg(not(test))]
 fn main() {
