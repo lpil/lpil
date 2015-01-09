@@ -133,7 +133,6 @@ guard :shell do
                # Swap the file extension for '::tests', as the tests
                # are contained within a sub-module called 'tests'
               .sub(/\.rs/, '::tests')
-          end
   end
 end
 {% endhighlight %}
@@ -152,7 +151,6 @@ guard :shell do
                 .sub(/\/mod\.rs/, '.rs')
                 .gsub(/\//, '::')
                 .sub(/\.rs/, '::tests')
-          end
 
     `cargo test #{mod}`
   end
@@ -176,7 +174,6 @@ guard :shell do
                 .sub(/\/mod\.rs/, '.rs')
                 .gsub(/\//, '::')
                 .sub(/\.rs/, '::tests')
-          end
 
     `cargo test #{mod}`
   end
