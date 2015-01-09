@@ -1,3 +1,5 @@
 source 'https://rubygems.org'
 
-gem 'guard-shell'
+group :development do
+  gem 'guard-shell'
+end
