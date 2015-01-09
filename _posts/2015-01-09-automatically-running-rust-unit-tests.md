@@ -140,7 +140,7 @@ end
 {% comment %}close itals -> *{% endcomment %}
 
 And now that we have have the module name, we can run it with with
-`$ cargo run module::name`
+`cargo run module::name`
 
 {% highlight ruby %}
 guard :shell do
@@ -208,7 +208,7 @@ end
 {% endhighlight %}
 {% comment %}close itals -> *{% endcomment %}
 
-And that's it. Run `$ guard` from the project directory and you're good to go.
+And that's it. Run `guard` from the project directory and you're good to go.
 :)
 
 Cheers,  
