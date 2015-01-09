@@ -1,5 +1,8 @@
 source 'https://rubygems.org'
 
-gem 'guard-livereload'
-gem 'jekyll'
+gem 'jekyll', '~> 2.5'
 gem 'jekyll-sitemap'
+
+group :development do
+  gem 'guard-livereload'
+end
