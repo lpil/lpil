@@ -1,7 +1,11 @@
 #![feature(globs)]
 
+extern crate getopts;
+
 #[cfg(not(test))]
 use std::io;
+#[cfg(not(test))]
+use std::os;
 
 #[cfg(not(test))]
 use ttt_game::*;
@@ -10,6 +14,16 @@ mod ttt_game;
 
 #[cfg(not(test))]
 fn main() {
+    let flag = os::args().pop().expect("");
+
+    match flag.as_slice() {
+        "launchpad" => launchpad_game(),
+        _ => terminal_game()
+    }
+}
+
+#[cfg(not(test))]
+fn terminal_game() {
     let mut game = new_game();
     let mut player: Player = 'x';
     println!("Tic Tac Toe!");
@@ -47,4 +61,9 @@ fn main() {
             }
         }
     }
+}
+
+#[cfg(not(test))]
+fn launchpad_game() {
+    println!("launchpad_game");
 }
