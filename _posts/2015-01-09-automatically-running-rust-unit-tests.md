@@ -139,7 +139,7 @@ end
 {% comment %}close itals -> *{% endcomment %}
 
 And now that we have have the module name, we can run it with with
-`cargo run module::name`
+`cargo test module::name`
 
 {% highlight ruby %}
 guard :shell do
