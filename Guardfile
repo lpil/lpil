@@ -2,7 +2,7 @@ guard :shell do
   watch(/src\/.*\.rs/) do |m|
     path = m.first
 
-    mod = unless path['main'] || path['lib']
+    mod = unless %w(src/main.rs src/lib.rs).include? path
             path.sub(/src\//, '')
                 .sub(/\/tests\.rs/, '.rs')
                 .sub(/\/mod\.rs/, '.rs')
