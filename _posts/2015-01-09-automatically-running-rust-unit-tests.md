@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Automatically Running Rust Unit Tests
+title: Automatically running Rust unit tests
 categories:
   - Rust
   - Testing
