@@ -75,7 +75,7 @@ impl Game {
     }
 }
 
-impl fmt::Show for Game {
+impl fmt::String for Game {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         let mut board_string = "".to_string();
 

@@ -11,8 +11,9 @@ pub fn terminal_game() {
     println!("{}\n", game);
 
     loop {
-        print!("Make a move player {}!\n{}: ", player, game.valid_moves());
-        let input: uint;
+        print!("Make a move player {}!\n", player);
+        print_vec_usize(game.valid_moves());
+        let input: usize;
         match
             io::stdin().read_line()
             .ok() // Convert to Option type from ioResult type
@@ -47,4 +48,11 @@ pub fn terminal_game() {
 #[cfg(not(test))]
 pub fn launchpad_game() {
     println!("launchpad_game");
+}
+
+/// I can't print vectors any more, so I'm using this for now
+fn print_vec_usize(a: Vec<usize>) {
+    for elem in a.iter() {
+        print!("{} ", elem);
+    }
 }
