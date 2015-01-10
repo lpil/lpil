@@ -17,7 +17,7 @@ fn new_game_has_all_valid_moves() {
 #[test]
 fn games_dont_have_move_listed_as_valid_after_taken() {
     let game = new_game();
-    for i in range(0us, 9) {
+    for i in 0us..9 {
         assert!(!game.make_move(i, 'x').valid_moves().contains(&i));
     }
 }
@@ -25,7 +25,7 @@ fn games_dont_have_move_listed_as_valid_after_taken() {
 #[test]
 fn game_valid_moves_vec_length_decreases_as_moves_taken() {
     let mut game = new_game();
-    for i in range(0us, 9) {
+    for i in 0us..9 {
         game = game.make_move(i, 'x');
         assert_eq!(game.valid_moves().len(),
                     8 - i);
