@@ -5,7 +5,7 @@ use super::*;
 #[test]
 fn new_games_board_is_empty() {
     assert_eq!(new_game().board,
-                [ None,..9 ] );
+                [ None; 9 ] );
 }
 
 #[test]
@@ -17,7 +17,7 @@ fn new_game_has_all_valid_moves() {
 #[test]
 fn games_dont_have_move_listed_as_valid_after_taken() {
     let game = new_game();
-    for i in range(0u, 9) {
+    for i in range(0us, 9) {
         assert!(!game.make_move(i, 'x').valid_moves().contains(&i));
     }
 }
@@ -25,7 +25,7 @@ fn games_dont_have_move_listed_as_valid_after_taken() {
 #[test]
 fn game_valid_moves_vec_length_decreases_as_moves_taken() {
     let mut game = new_game();
-    for i in range(0u, 9) {
+    for i in range(0us, 9) {
         game = game.make_move(i, 'x');
         assert_eq!(game.valid_moves().len(),
                     8 - i);
@@ -34,7 +34,7 @@ fn game_valid_moves_vec_length_decreases_as_moves_taken() {
 
 #[test]
 fn game_with_all_cells_taken_has_no_valid_moves() {
-    assert_eq!(Game { board: [ Some('x'),..9] }.valid_moves(),
+    assert_eq!(Game { board: [ Some('x'); 9] }.valid_moves(),
                 []);
 }
 
@@ -63,7 +63,6 @@ fn test_some_won_games_are_won() {
         for i in moves.iter() {
             game = game.make_move(i.clone(), 'x');
         }
-        assert!(game.won() == Some('x'),
-                format!("Should be won with these moves: {}", moves));
+        assert!(game.won() == Some('x'));
     }
 }

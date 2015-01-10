@@ -1,7 +1,3 @@
-#![feature(globs)]
-
-extern crate getopts;
-
 mod games;
 mod game_mechanics;
 

@@ -12,7 +12,7 @@ pub struct Game {
 /// Returns a new with no moves taken.
 ///
 pub fn new_game() -> Game {
-    Game { board: [ None,..9 ] }
+    Game { board: [ None; 9 ] }
 }
 
 impl Game {
@@ -23,7 +23,7 @@ impl Game {
     ///
     pub fn won(&self) -> Option<Player> {
         let board = self.board;
-        let winning_patterns: [[uint; 3]; 8] = [
+        let winning_patterns: [[usize; 3]; 8] = [
             // horizontal
             [0,1,2],
             [3,4,5],
@@ -53,7 +53,7 @@ impl Game {
     /// This method **does not** check if the move is valid. Invalid moves
     /// will return an identical game instance.
     ///
-    pub fn make_move(&self, index: uint, player: Player) -> Game {
+    pub fn make_move(&self, index: usize, player: Player) -> Game {
         let mut board = self.board;
         board[index] = Some(player);
 
@@ -62,8 +62,8 @@ impl Game {
 
     /// Returns a vector of all valid moves
     ///
-    pub fn valid_moves(&self) -> Vec<uint> {
-        let mut moves: Vec<uint> = vec![];
+    pub fn valid_moves(&self) -> Vec<usize> {
+        let mut moves: Vec<usize> = vec![];
 
         for (i, cell) in self.board.iter().enumerate() {
             match cell {
