@@ -14,7 +14,7 @@ with algebraic data types and traits. Sounds cool, right?
 If you're like me, you probably want to write tests with your code, especially
 when working with a language that doesn't have a REPL ([yet...][repl-yet]).
 You'll probably also want the relevant tests to run automatically when you save
-a file after modification (test driven developement, anyone?). [Cargo][cargo],
+a file after modification (test driven development, anyone?). [Cargo][cargo],
 the rust package manager/build tool, doesn't have ability to do this yet, but
 we can get more or less the same functionality using the lovely Ruby tool
 [Guard][guard].
