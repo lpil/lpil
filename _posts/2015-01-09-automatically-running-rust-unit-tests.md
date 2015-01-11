@@ -149,10 +149,10 @@ guard :shell do
     path = m.first
 
     mod = path.sub(/src\//, '')
-                .sub(/\/tests\.rs/, '.rs')
-                .sub(/\/mod\.rs/, '.rs')
-                .gsub(/\//, '::')
-                .sub(/\.rs/, '::tests')
+              .sub(/\/tests\.rs/, '.rs')
+              .sub(/\/mod\.rs/, '.rs')
+              .gsub(/\//, '::')
+              .sub(/\.rs/, '::tests')
 
     `cargo test #{mod}`
   end
@@ -176,6 +176,7 @@ guard :shell do
                 .sub(/\/mod\.rs/, '.rs')
                 .gsub(/\//, '::')
                 .sub(/\.rs/, '::tests')
+          end
 
     `cargo test #{mod}`
   end
