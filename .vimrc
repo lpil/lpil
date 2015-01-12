@@ -130,7 +130,7 @@ set undoreload=10000        " number of lines to save for undo
 """"""""""""""""
 " Highlighting "
 """"""""""""""""
-" Highlight chars in col 81 (long lines)
+" Highlight chars in col 80
 2mat ErrorMsg '\%80v.'
     " clear with :2mat
 
