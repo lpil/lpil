@@ -9,7 +9,7 @@
   ui = true
 
 [core]
-  excludesfile = ~/.gitignore
+  excludesfile = ~/.gitglobalignore
 	editor = /usr/local/bin/vim
 
 [push]
