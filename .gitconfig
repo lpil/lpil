@@ -3,13 +3,14 @@
   email = louis@lpil.uk
 
 [work]
-  email = lpilfold@perivan.co.uk
+  email = louis.pilfold@reevoo.com
 
 [color]
   ui = true
 
 [core]
   excludesfile = ~/.gitignore
+	editor = /usr/local/bin/vim
 
 [push]
   default = simple
