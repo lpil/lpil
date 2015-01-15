@@ -20,7 +20,6 @@
 * cycle
 * dropWhile
 * dropWhile
-* elem
 * error
 * foldl
 * foldl1
@@ -83,6 +82,7 @@
 * ~~concat~~
 * ~~curry~~
 * ~~drop~~
+* ~~elem~~
 * ~~even~~
 * ~~filter~~
 * ~~fizzbuzz~~
