@@ -16,7 +16,7 @@ DoubleNegation:
 ClassAndModuleChildren:
   EnforcedStyle: compact
 
-Style/LineLength:
+Metrics/LineLength:
   Max: 120
 
 Style/ColonMethodCall:
@@ -51,5 +51,5 @@ DoubleNegation:
 ClassAndModuleChildren:
   EnforcedStyle: compact
 
-Style/MethodLength:
+Metrics/MethodLength:
   Max: 20
