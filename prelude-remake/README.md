@@ -18,7 +18,6 @@
 * const
 * cycle
 * dropWhile
-* dropWhile
 * error
 * foldl
 * foldl1
@@ -47,7 +46,6 @@
 * readIO
 * readLn
 * realToFrac
-* repeat
 * replicate
 * reverse
 * scanl
@@ -95,6 +93,7 @@
 * ~~null~~
 * ~~odd~~
 * ~~or~~
+* ~~repeat~~
 * ~~sum~~
 * ~~tail~~
 * ~~takeWhile~~
