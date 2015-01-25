@@ -29,7 +29,6 @@
 * getContents
 * getLines
 * interact
-* iterate
 * lcm
 * lines
 * maximum
@@ -82,6 +81,7 @@
 * ~~head~~
 * ~~id~~
 * ~~init~~
+* ~~iterate~~
 * ~~last~~
 * ~~length~~
 * ~~length~~
