@@ -56,7 +56,6 @@
 * splitAt
 * subtract
 * takedrop
-* uncurry
 * undefined
 * unlines
 * until
@@ -97,6 +96,7 @@
 * ~~sum~~
 * ~~tail~~
 * ~~takeWhile~~
+* ~~uncurry~~
 * ~~zipWith~~
 * ~~zip~~
 * ~~||~~
