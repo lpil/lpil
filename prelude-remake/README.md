@@ -31,7 +31,6 @@
 * interact
 * iterate
 * lcm
-* length
 * lines
 * lookup
 * maximum
@@ -87,6 +86,7 @@
 * ~~id~~
 * ~~init~~
 * ~~last~~
+* ~~length~~
 * ~~length~~
 * ~~map~~
 * ~~not~~
