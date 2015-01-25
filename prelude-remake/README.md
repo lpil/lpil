@@ -10,7 +10,6 @@
 * .
 * ^
 * ^^
-* and
 * any
 * appendFile
 * asTypeOf
@@ -40,7 +39,6 @@
 * minimum
 * notElem
 * null
-* or
 * print
 * product
 * putChar
@@ -79,6 +77,7 @@
 * ~~!!~~
 * ~~&&~~
 * ~~all~~
+* ~~and~~
 * ~~concat~~
 * ~~curry~~
 * ~~drop~~
@@ -95,6 +94,7 @@
 * ~~map~~
 * ~~not~~
 * ~~odd~~
+* ~~or~~
 * ~~sum~~
 * ~~tail~~
 * ~~takeWhile~~
