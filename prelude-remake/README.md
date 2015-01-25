@@ -34,7 +34,6 @@
 * lines
 * maximum
 * minimum
-* notElem
 * print
 * product
 * putChar
@@ -88,6 +87,7 @@
 * ~~length~~
 * ~~lookup~~
 * ~~map~~
+* ~~notElem~~
 * ~~not~~
 * ~~null~~
 * ~~odd~~
