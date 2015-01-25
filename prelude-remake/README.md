@@ -38,7 +38,6 @@
 * maximum
 * minimum
 * notElem
-* null
 * print
 * product
 * putChar
@@ -93,6 +92,7 @@
 * ~~length~~
 * ~~map~~
 * ~~not~~
+* ~~null~~
 * ~~odd~~
 * ~~or~~
 * ~~sum~~
