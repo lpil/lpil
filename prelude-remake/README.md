@@ -32,7 +32,6 @@
 * iterate
 * lcm
 * lines
-* lookup
 * maximum
 * minimum
 * notElem
@@ -87,6 +86,7 @@
 * ~~last~~
 * ~~length~~
 * ~~length~~
+* ~~lookup~~
 * ~~map~~
 * ~~not~~
 * ~~null~~
