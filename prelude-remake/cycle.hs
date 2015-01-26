@@ -3,5 +3,5 @@ module Cycle where
 import Prelude hiding (cycle)
 
 cycle :: [a] -> [a]
-cycle []     = []
-cycle (x:xs) = x : cycle (xs ++ [x])
+cycle [] = error "Prelude.cycle: empty list"
+cycle xs = loop where loop = xs ++ loop
