@@ -32,7 +32,6 @@
 * maximum
 * minimum
 * print
-* product
 * putChar
 * putStr
 * putStrLn
@@ -92,6 +91,7 @@
 * ~~null~~
 * ~~odd~~
 * ~~or~~
+* ~~product~~
 * ~~repeat~~
 * ~~sum~~
 * ~~tail~~
