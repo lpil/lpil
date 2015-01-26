@@ -10,7 +10,6 @@
 * .
 * ^
 * ^^
-* any
 * appendFile
 * asTypeOf
 * break
@@ -69,6 +68,7 @@
 * ~~&&~~
 * ~~all~~
 * ~~and~~
+* ~~any~~
 * ~~concat~~
 * ~~curry~~
 * ~~dropWhile~~
