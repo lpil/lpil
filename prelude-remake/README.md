@@ -15,7 +15,6 @@
 * break
 * concatMap
 * const
-* cycle
 * error
 * foldl
 * foldl1
@@ -70,6 +69,7 @@
 * ~~any~~
 * ~~concat~~
 * ~~curry~~
+* ~~cycle~~
 * ~~dropWhile~~
 * ~~drop~~
 * ~~elem~~
