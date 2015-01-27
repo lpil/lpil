@@ -24,7 +24,6 @@
 * atanh
 * break
 * ceiling
-* compare
 * concat
 * concatMap
 * const
@@ -147,14 +146,16 @@
 * undefined
 * unlines
 * unwords
-* unzip
 * unzip3
 * userError
 * words
 * writeFile
-* zip
 * zip3
 * zipWith3
+
+#### Class functions
+
+* compare
 
 #### Done
 
@@ -193,6 +194,7 @@
 * ~~takeWhile~~
 * ~~uncurry~~
 * ~~until~~
+* ~~unzip~~
 * ~~zipWith~~
 * ~~zip~~
 * ~~||~~
