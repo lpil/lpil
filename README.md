@@ -14,3 +14,6 @@ http://stackoverflow.com/questions/1012573/getting-started-with-haskell
 * [Justin Le](http://blog.jle.im/entries)
   * [IO Monad Considered Harmful](http://blog.jle.im/entry/io-monad-considered-harmful)
   * [First-Class "Statements"](http://blog.jle.im/entry/first-class-statements)
+* [Kevin Mahoney](http://kevinmahoney.co.uk/)
+  * [Haskell IO Without the M-word](http://kevinmahoney.co.uk/articles/haskell-io/)
+  * [Misconceptions About Types](http://kevinmahoney.co.uk/articles/misconceptions-about-types/)
