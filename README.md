@@ -17,3 +17,7 @@ http://stackoverflow.com/questions/1012573/getting-started-with-haskell
 * [Kevin Mahoney](http://kevinmahoney.co.uk/)
   * [Haskell IO Without the M-word](http://kevinmahoney.co.uk/articles/haskell-io/)
   * [Misconceptions About Types](http://kevinmahoney.co.uk/articles/misconceptions-about-types/)
+
+## Env
+
+http://www.stephendiehl.com/posts/vim_haskell.html

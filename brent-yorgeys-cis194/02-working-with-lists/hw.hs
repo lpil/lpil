@@ -5,7 +5,7 @@ Name: Louis
 module HW02 where
 
 import Words
--- import Data.List
+import Data.List
 
 -- Though a Scrabble hand is the same Haskell type as a Scrabble word, they
 -- have different properties. Specifically, a hand is unordered whereas a word
