@@ -41,7 +41,6 @@
 * enumFromThenTo
 * enumFromTo
 * error
-* even
 * exp
 * exponent
 * fail
@@ -147,7 +146,6 @@
 * truncate
 * undefined
 * unlines
-* until
 * unwords
 * unzip
 * unzip3
@@ -194,6 +192,7 @@
 * ~~tail~~
 * ~~takeWhile~~
 * ~~uncurry~~
+* ~~until~~
 * ~~zipWith~~
 * ~~zip~~
 * ~~||~~
