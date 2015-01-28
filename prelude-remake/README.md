@@ -80,12 +80,10 @@
 * maxBound
 * maximum
 * maybe
-* min
 * minBound
 * minimum
 * mod
 * negate
-* not
 * otherwise
 * pi
 * pred
@@ -182,6 +180,7 @@
 * ~~length~~
 * ~~lookup~~
 * ~~map~~
+* ~~min~~
 * ~~notElem~~
 * ~~not~~
 * ~~null~~
