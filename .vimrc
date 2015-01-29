@@ -8,8 +8,10 @@ call vundle#rc()
 " let Vundle manage Vundle
 Bundle 'gmarik/Vundle.vim'
 
+Bundle 'bitc/vim-hdevtools'
 Bundle 'cespare/vim-toml'
 Bundle 'chrisbra/Colorizer'
+Bundle 'digitaltoad/vim-jade'
 Bundle 'editorconfig/editorconfig-vim'
 Bundle 'godlygeek/tabular'
 Bundle 'guns/vim-sexp'
@@ -21,6 +23,7 @@ Bundle 'lpil/my-vim-snippets'
 Bundle 'lpil/vim2hs-flexible'
 Bundle 'marcweber/vim-addon-mw-utils'
 Bundle 'sbl/scvim'
+Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
 Bundle 'Shougo/neocomplcache.vim'
 Bundle 'SirVer/ultisnips'
@@ -249,6 +252,11 @@ function! StripWhitespace()
 endfunction
 noremap <leader>d<space> :call StripWhitespace()<CR>
 
+"""""""""""""""""""""""""
+"  Convert ruby hashes  "
+"""""""""""""""""""""""""
+autocmd FileType ruby nnoremap <leader>rh :%s/:\(\w\+\)\(\s*=>\s*\)/\1: /g<CR>
+
 """"""""""""""""""""""
 " HTML char escaping "
 """"""""""""""""""""""
@@ -294,7 +302,7 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_wq = 0
 
 let g:syntastic_ruby_checkers=['mri', 'rubocop']
-let g:syntastic_haskell_checkers=['ghc_mod', 'hlint']
+let g:syntastic_haskell_checkers=['hdevtools', 'hlint', 'ghc_mod']
 
 """"""""""""""""""
 " plugin: ctrlp "
