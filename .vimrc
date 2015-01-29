@@ -382,6 +382,14 @@ au FileType haskell hi Conceal ctermbg=NONE guifg=NONE guibg=NONE
 au FileType clojure nnoremap <leader>r :w<CR>:Require<CR>
 au FileType clojure nnoremap cpo :Eval<CR>
 
+""""""""""""""
+"  NERDtree  "
+""""""""""""""
+map <C-n> :NERDTreeToggle<CR>
+
+" close vim if the only window left open is a NERDTree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
 """""""""""""""""""""""""""""""""""""
 " And finally, per-project .vimrc's "
 """""""""""""""""""""""""""""""""""""
