@@ -27,7 +27,6 @@
 * const
 * cos
 * cosh
-* cycle
 * decodeFloat
 * div
 * divMod
@@ -81,7 +80,6 @@
 * minBound
 * minimum
 * mod
-* otherwise
 * pi
 * pred
 * print
@@ -185,6 +183,7 @@
 * ~~null~~
 * ~~odd~~
 * ~~or~~
+* ~~otherwise~~
 * ~~product~~
 * ~~repeat~~
 * ~~sum~~
