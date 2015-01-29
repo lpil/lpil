@@ -12,7 +12,6 @@
 * ^^
 * `mapM_`
 * `sequence_`
-* abs
 * acos
 * acosh
 * appendFile
@@ -159,6 +158,7 @@
 
 * ~~!!~~
 * ~~&&~~
+* ~~abs~~
 * ~~all~~
 * ~~and~~
 * ~~any~~
