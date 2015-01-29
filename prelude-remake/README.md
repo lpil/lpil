@@ -23,7 +23,6 @@
 * atanh
 * break
 * ceiling
-* concat
 * concatMap
 * const
 * cos
