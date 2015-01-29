@@ -82,7 +82,6 @@
 * minBound
 * minimum
 * mod
-* negate
 * otherwise
 * pi
 * pred
@@ -181,6 +180,7 @@
 * ~~lookup~~
 * ~~map~~
 * ~~min~~
+* ~~negate~~
 * ~~notElem~~
 * ~~not~~
 * ~~null~~
