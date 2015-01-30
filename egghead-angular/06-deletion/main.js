@@ -35,6 +35,7 @@ app.controller('MainCtrl', function($scope) {
   /***********
    *  State  *
    ***********/
+  var nextBookmarkId = $scope.bookmarks.length;
   $scope.isCreating = false;
   $scope.isEditing = false;
 
@@ -86,9 +87,10 @@ app.controller('MainCtrl', function($scope) {
   };
   
   var createBookmark = function createBookmark(bookmark) {
-    bookmark.id = $scope.bookmarks.length;
-    $scope.bookmarks.push(bookmark);
+    bookmark.id = nextBookmarkId;
+    nextBookmarkId++;
 
+    $scope.bookmarks.push(bookmark);
     resetNewBookmarkForm();
   };
   $scope.createBookmark = createBookmark;
@@ -98,6 +100,7 @@ app.controller('MainCtrl', function($scope) {
     $scope.editedBookmark = angular.copy(bookmark);
   };
   $scope.setEditedBookmark = setEditedBookmark;
+
 
   var updateBookmark = function updateBookmark(bookmark) {
     var i = $scope.bookmarks.length;
@@ -117,4 +120,15 @@ app.controller('MainCtrl', function($scope) {
     return $scope.editedBookmark && $scope.editedBookmark.id === bookmark.id;
   };
   $scope.isSelectedBookmark = isSelectedBookmark;
+
+
+  var deleteBookmark = function deleteBookmark(bookmark) {
+    var i = $scope.bookmarks.length;
+    while (i--) {
+      if ($scope.bookmarks[i].id === bookmark.id) {
+        $scope.bookmarks.splice(i, 1);
+      }
+    }
+  };
+  $scope.deleteBookmark = deleteBookmark;
 });
