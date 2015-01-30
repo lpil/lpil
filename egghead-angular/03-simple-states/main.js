@@ -1,4 +1,4 @@
-var app = angular.module('myApp', [])
+var app = angular.module('myApp', []);
 
 app.controller('MainCtrl', function($scope) {
   $scope.categories = [
@@ -22,6 +22,8 @@ app.controller('MainCtrl', function($scope) {
 
   $scope.setCurrentCategory = function setCurrentCategory(category) {
     $scope.currentCategory = category;
+    $scope.isCreating = false;
+    $scope.isEditing = false;
   };
 
   $scope.isCurrentCategory = function isCurrentCategory(category) {
@@ -29,4 +31,44 @@ app.controller('MainCtrl', function($scope) {
       return category.name === $scope.currentCategory.name;
     }
   };
+
+  /***********
+   *  State  *
+   ***********/
+  $scope.isCreating = false;
+  $scope.isEditing = false;
+
+  var startCreating = function startCreating() {
+    $scope.isCreating = true;
+    $scope.isEditing = false;
+  };
+  var startEditing = function startEditing() {
+    $scope.isCreating = false;
+    $scope.isEditing = true;
+  };
+
+  var cancelCreating = function cancelCreating() {
+    $scope.isCreating = false;
+  };
+  var cancelEditing = function cancelEditing() {
+    $scope.isEditing = false;
+  };
+
+  $scope.startCreating = startCreating;
+  $scope.startEditing = startEditing;
+  $scope.cancelCreating = cancelCreating;
+  $scope.cancelEditing = cancelEditing;
+
+  // "Creating" can be shown if we are on a category AND if not editing.
+  var shouldShowCreating = function shouldShowCreating() {
+    if ($scope.currentCategory) { return !$scope.isEditing; }
+  };
+
+  // "Editing" can be shown if editing and not creating
+  var shouldShowEditing = function shouldShowEditing() {
+    return $scope.isEditing && !$scope.isCreating;
+  };
+
+  $scope.shouldShowCreating = shouldShowCreating;
+  $scope.shouldShowEditing = shouldShowEditing;
 });
