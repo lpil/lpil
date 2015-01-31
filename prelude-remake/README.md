@@ -75,7 +75,6 @@
 * maximum
 * maybe
 * minBound
-* minimum
 * mod
 * pi
 * pred
@@ -99,7 +98,6 @@
 * rem
 * replicate
 * return
-* reverse
 * round
 * scaleFloat
 * scanl
@@ -176,6 +174,7 @@
 * ~~length~~
 * ~~lookup~~
 * ~~map~~
+* ~~minimum~~
 * ~~min~~
 * ~~negate~~
 * ~~notElem~~
@@ -186,6 +185,7 @@
 * ~~otherwise~~
 * ~~product~~
 * ~~repeat~~
+* ~~reverse~~
 * ~~sum~~
 * ~~tail~~
 * ~~takeWhile~~
