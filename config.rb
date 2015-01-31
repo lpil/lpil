@@ -3,6 +3,7 @@ set :enviroment, :development
 activate :livereload
 activate :syntax
 
+set :site_url, 'http://lpil.uk'
 set :title, 'lpil'
 set :description, 'The website of a code monkey named Louis Pilfold.'
 
