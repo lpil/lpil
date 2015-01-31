@@ -21,7 +21,7 @@ end
 
 activate :blog do |blog|
   blog.layout = 'blog'
-  blog.permalink = ':title'
+  blog.permalink = 'blog/:title'
   blog.sources = 'posts/:year-:month-:day-:title.html'
 end
 activate :directory_indexes # Must go after blog
