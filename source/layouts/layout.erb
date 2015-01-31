@@ -6,7 +6,7 @@
   <% page_title = current_page.data.title %>
   <title><%= title %><%= " - #{page_title}" if page_title %></title>
   <meta name="viewport" content="width=device-width">
-  <meta name="description" content="{{ site.description }}">
+  <meta name="description" content="<%= description %>">
   <%# TODO %>
   <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
   <%= feed_tag :atom, "#{blog.options.prefix}/feed.xml", title: 'Feed' %>

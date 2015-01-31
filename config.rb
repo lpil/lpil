@@ -4,6 +4,7 @@ activate :livereload
 activate :syntax
 
 set :title, 'lpil'
+set :description, 'The website of a code monkey named Louis Pilfold.'
 
 set :css_dir, 'css'
 set :js_dir, 'js'
