@@ -52,7 +52,6 @@
 * fromInteger
 * fromIntegral
 * fromRational
-* fst
 * gcd
 * getChar
 * getContents
@@ -168,6 +167,7 @@
 * ~~filter~~
 * ~~fizzbuzz~~
 * ~~flip~~
+* ~~fst~~
 * ~~head~~
 * ~~id~~
 * ~~init~~

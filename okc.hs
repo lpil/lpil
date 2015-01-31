@@ -4,7 +4,7 @@ module Okc where
 
 seq1 :: (Eq a, Num a) => a -> a
 seq1 1 = 1
-seq1 x = seq1 ( x - 1) + (x - 1) * 3
+seq1 x = seq1 (x - 1) + (x - 1) * 3
 
 -- print $ seq1 6
 -- 46
