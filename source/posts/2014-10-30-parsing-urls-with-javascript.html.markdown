@@ -8,7 +8,7 @@ categories:
 
 So this is pretty cool:
 
-{% highlight javascript %}
+```javascript
 var a = document.createElement('a');
 a.href = 'http://louis:passwd@lpil.uk:1991/cool-app/?callback=parseRep#hash';
 
@@ -21,7 +21,7 @@ a.host;     // => 'lpil.uk:1991'
 a.pathname; // => '/cool-app/'
 a.search;   // => '?callback=parseRep'
 a.hash;     // => '#hash'
-{% endhighlight %}
+```
 
 The only gotcha seems to be that IE drops the preceding `/` from `pathname`.
 

@@ -1,9 +1,5 @@
-.sass-cache
-_site
-!*.gitkeep
-Gemfile.lock
-.cabal-sandbox/
-_cache/
-cabal.sandbox.config
-dist/
-lpil.uk/
+.DS_Store
+/.bundle
+/.cache
+/.sass-cache
+/build

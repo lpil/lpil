@@ -1,8 +1,10 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
-gem 'jekyll', '~> 2.5'
-gem 'jekyll-sitemap'
+gem 'middleman', '~> 3.3.7'
+gem 'middleman-blog', '~> 3.5.3'
+gem 'middleman-livereload', '~> 3.4.2'
+gem 'middleman-syntax', '~> 2.0.0'
 
-group :development do
-  gem 'guard-livereload'
-end
+gem 'redcarpet', '~> 3.2.2'
+
+gem 'builder', '~> 3.0'

@@ -1,0 +1,16 @@
+<% wrap_layout :layout do %>
+<article class="post">
+  <header class="post__header">
+    <h1><%= current_article.title %></h1>
+    <p class="post__date"><%= current_article.date.strftime '%b %-d, %Y' %></p>
+  </header>
+
+  <section class="post__content">
+    <%= yield %>
+  </section>
+
+  <nav class="post__nav">
+    <%= link_to 'Back', 'index.html' %>
+  </nav>
+</article>
+<% end %>

@@ -27,31 +27,31 @@ time I've used them, but so far I'm a fan. Rather than spraying additional
 classes all over your HTML, you specify your columns using SCSS mixins. This is
 pretty cool, because rather than having this...
 
-{% highlight html %}
+```scss
 <section>
   <aside class="col-xs-6" >First column</aside>
   <article class="col-xs-6" >Second Column</article>
 </section>
-{% endhighlight %}
-{% highlight SCSS %}
+```
+```scss
 section { }
 aside   { }
 article { }
-{% endhighlight %}
+```
 
 We get this...
 
-{% highlight html %}
+```html
 <section>
   <aside>First column</aside>
   <article>Second Column</article>
 </section>
-{% endhighlight %}
-{% highlight SCSS %}
+```
+```scss
 section { @include outer-container; }
 aside   { @include span-columns(6); }
 article { @include span-columns(6); }
-{% endhighlight %}
+```
 
 Yup- now we get to keep our styling in the stylesheets!
 

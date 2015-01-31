@@ -1,10 +1,10 @@
 <header class="site-header">
-  <a class="site-header__home" href="{{ site.url }}/">
+  <% link_to 'index.html', class: 'site-header__home' do %>
     <h1>
       lpil: Louis<i> </i>Pilfold
     </h1>
-  </a>
+  <% end %>
   <nav class="site-header__nav">
-    <a href="{{ site.url }}/about">About</a>
+    <%= link_to 'About', 'about.html' %>
   </nav>
 </header>

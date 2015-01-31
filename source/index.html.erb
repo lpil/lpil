@@ -1,6 +1,3 @@
----
-layout: default
----
 <div class="home">
   <p>
     <span class="home__hi">Hi</span>, I'm Louis, a software engineer and
@@ -9,18 +6,18 @@ layout: default
     <a href="mailto:my-first-name@this-domain" class="js-muddled-email" 
       target="_blank">email</a> if you fancy a chat.
   </p>
+
   <ul class="posts">
-    {% for post in site.posts %}
+    <% blog.articles.each do |post| %>
       <li>
-        <span class="posts__date">{{ post.date | date: "%y.%m.%d" }}</span>
-        <a class="posts__link" href="{{ post.url | prepend: site.baseurl }}">
-          {{ post.title }}
-        </a>
+        <span class="posts__date"><%= post.date.strftime '%y.%m.%y' %></span>
+        <%= link_to post.title, post, class: 'posts__link' %>
       </li>
-    {% endfor %}
+    <% end %>
   </ul>
   <span class="posts__feed">
     <i class="fa fa-rss"></i>
-    <a href="{{ site.url }}/feed.xml">Feed</span>
+    <%= link_to 'Feed', "#{blog.options.prefix}/feed.xml" %>
   </span>
 </div>
+

@@ -56,9 +56,9 @@ command to start Supercollider in a new terminal emulator window. scvim
 lucky this will just work. If it doesn't you probably need to set the
 `g:sclangTerm` value in your `.vimrc`. Here's an example for `gnome-terminal`:
 
-{% highlight vim %}
-    let g:sclangTerm = "gnome-terminal -x $SHELL -ic"
-{% endhighlight %}
+```viml
+let g:sclangTerm = "gnome-terminal -x $SHELL -ic"
+```
 
 #### 4. Profit
 
@@ -67,7 +67,7 @@ That's it for setup. Lets see if it works.
 Open a new `.sc` file in Vim, run `:SClangStart`, and insert the following
 Supercollider code into vim.
 
-{% highlight scala %}
+```scala
 s.boot;
 (
   Pbind(
@@ -86,7 +86,7 @@ s.boot;
     \legato, 0.1
   ).play;
 )
-{% endhighlight %}
+```
 
 Place your cursor on the `s.boot;` line, and hit `F6` to evaluate that line, and
 start the Supercollider server. Then place your cursor within the `( )` block

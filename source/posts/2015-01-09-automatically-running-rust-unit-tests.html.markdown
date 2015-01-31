@@ -30,7 +30,7 @@ alpha).
 $ gem install guard-shell
 ~~~
 
-{% highlight ruby %}
+```ruby
 # Guardfile
 guard :shell do
   watch(/src\/.*\.rs/) do |m|
@@ -49,8 +49,7 @@ guard :shell do
     `cargo test #{mod}`
   end
 end
-{% endhighlight %}
-{% comment %}close itals -> *{% endcomment %}
+```
 
 ~~~
 $ guard
@@ -74,12 +73,11 @@ Alternative, put it in a Gemfile and manage Ruby dependencies with
 In your Rust project directory run `guard init shell` from the shell to create
 a Guardfile. It'll look something like this, preceded by a load of comments:
 
-{% highlight ruby %}
+```ruby
 guard :shell do
   watch(/(.*).txt/) {|m| `tail #{m[0]}` }
 end
-{% endhighlight %}
-{% comment %}close itals -> *{% endcomment %}
+```
 
 If you're familiar with Ruby you'll see that there is a `watch` function being
 called with a regexp, and into that function a block is being passed that
@@ -100,18 +98,17 @@ modified file.
 Let's change that regexp to match Rust (`.rs`) files within the source
 directory.
 
-{% highlight ruby %}
+```ruby
 guard :shell do
   watch(/src\/(.*)\.rs/) {|m| `tail #{m[0]}` }
 end
-{% endhighlight %}
-{% comment %}close itals -> *{% endcomment %}
+```
 
 Now, let's use the path string to create a string containing the name of the
 tests module we want to run for that file. See the comments for a step-by-step
 walk-through.
 
-{% highlight ruby %}
+```ruby
 guard :shell do
   watch(/src\/.*\.rs/) do |m|
 
@@ -137,13 +134,12 @@ guard :shell do
               .sub(/\.rs/, '::tests')
   end
 end
-{% endhighlight %}
-{% comment %}close itals -> *{% endcomment %}
+```
 
 And now that we have have the module name, we can run it with with
 `cargo test module::name`
 
-{% highlight ruby %}
+```ruby
 guard :shell do
   watch(/src\/.*\.rs/) do |m|
     path = m.first
@@ -157,15 +153,14 @@ guard :shell do
     `cargo test #{mod}`
   end
 end
-{% endhighlight %}
-{% comment %}close itals -> *{% endcomment %}
+```
 
 However there is a problem here- it won't work for the top level `src/main.rs`
 or `src/lib.rs` files. I've decided in this case I want to run all the tests
 with `cargo test`, so I'm going to add a conditional so that the module path is
 not computed for these files.
 
-{% highlight ruby %}
+```ruby
 guard :shell do
   watch(/src\/.*\.rs/) do |m|
     path = m.first
@@ -181,13 +176,12 @@ guard :shell do
     `cargo test #{mod}`
   end
 end
-{% endhighlight %}
-{% comment %}close itals -> *{% endcomment %}
+```
 
 And lastly, let's print a few newlines and the module path in a colour so that
 we can see where each round of output starts a little easier.
 
-{% highlight ruby %}
+```ruby
 guard :shell do
   watch(/src\/.*\.rs/) do |m|
     path = m.first
@@ -205,8 +199,7 @@ guard :shell do
     `cargo test #{mod}`
   end
 end
-{% endhighlight %}
-{% comment %}close itals -> *{% endcomment %}
+```
 
 And that's it. Run `guard` from the project directory and you're good to go.
 :)

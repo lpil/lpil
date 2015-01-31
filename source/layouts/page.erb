@@ -1,12 +1,11 @@
----
-layout: default
----
+<% wrap_layout :layout do %>
 <article class="post">
   <header class="post__header">
-    <h1>{{ page.title }}</h1>
+    <h1><%= current_page.data.title %></h1>
   </header>
 
   <section class="post__content">
-    {{ content }}
+    <%= yield %>
   </section>
 </article>
+<% end %>

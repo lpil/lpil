@@ -14,7 +14,7 @@ duplication in Minitest tests.
 For instance, if I want to test that my User model responds to various method
 calls, I could end up with code like this:
 
-{% highlight ruby %}
+```ruby
 class UserTest < ActiveSupport::TestCase
 
   def test_user_responds_to_first_name
@@ -34,7 +34,7 @@ class UserTest < ActiveSupport::TestCase
 
   # and so on...
 end
-{% endhighlight %}
+```
 
 The problem here is that code like this heavily violates the D.R.Y. principle-
 Don't repeat yourself. Repetitive code is a pain to work with and maintain; If
@@ -50,7 +50,7 @@ One obvious solution would be to load the name symbols of the methods we want
 to check into an array, and then iterate though this array, asserting the model
 responds to each symbol in turn. It might look something like this:
 
-{% highlight ruby %}
+```ruby
 class UserTest < ActiveSupport::TestCase
 
   def test_user_responds_to_various_methods
@@ -62,7 +62,7 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 end
-{% endhighlight %}
+```
 
 That's better. By adding a bit of basic logic we've checked that a whole bunch
 of methods exist, and we've managed to not repeat ourselves at all.
@@ -80,7 +80,7 @@ without either adding more tests, or checking manually.
 What I really want is an automated way of creating one test per method to be
 checked. How can we do this? Metaprogramming, of course!
 
-{% highlight ruby %}
+```ruby
 class UserTest < ActiveSupport::TestCase
 
   %i(first_name last_name email admin password created_at updated_at
@@ -94,7 +94,7 @@ class UserTest < ActiveSupport::TestCase
     }
   end
 end
-{% endhighlight %}
+```
 
 Here we're using `class_eval`, a method which evaluates the string passed to it
 if it were regular Ruby code in the context of the class (in this case, my
