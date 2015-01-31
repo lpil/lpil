@@ -1,6 +1,5 @@
 set :enviroment, :development
 
-activate :directory_indexes
 activate :livereload
 activate :syntax
 
@@ -11,7 +10,7 @@ set :js_dir, 'js'
 set :images_dir, 'images'
 
 set :markdown_engine, :redcarpet
-set :markdown, :fenced_code_blocks => true, :smartypants => true
+set :markdown, fenced_code_blocks: true, smartypants: true
 
 configure :build do
   activate :minify_css
@@ -25,5 +24,6 @@ activate :blog do |blog|
   blog.permalink = ':title'
   blog.sources = 'posts/:year-:month-:day-:title.html'
 end
+activate :directory_indexes # Must go after blog
 
 page 'feed.xml', layout: false
