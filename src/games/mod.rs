@@ -1,5 +1,5 @@
 #[cfg(not(test))]
-use std::io;
+use std::old_io;
 #[cfg(not(test))]
 use game_mechanics::*;
 
@@ -15,7 +15,7 @@ pub fn terminal_game() {
         print_vec_usize(game.valid_moves());
         let input: usize;
         match
-            io::stdin().read_line()
+            old_io::stdin().read_line()
             .ok() // Convert to Option type from ioResult type
             .expect("Failed to read line") // Handle None
             .trim() // Remove trailing newline
