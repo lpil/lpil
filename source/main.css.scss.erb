@@ -12,7 +12,7 @@
 
 @import 'partials/base';
 @import 'partials/typography';
-@import 'partials/syntax-highlighting';
+@import 'partials/pre';
 
 @import 'partials/layout';
 @import 'partials/post';
@@ -26,3 +26,5 @@
 .content {
   padding: 0.6em;
 }
+
+<%= Rouge::Themes::Github.render scope: '.highlight' %>
