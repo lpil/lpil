@@ -1,3 +1,3 @@
 angular.module('categories', [
-    'myApp.modules.categories'
+    'myApp.models.categories'
 ]);
