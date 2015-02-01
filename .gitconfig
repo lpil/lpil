@@ -10,7 +10,7 @@
 
 [core]
   excludesfile = ~/.gitglobalignore
-	editor = /usr/local/bin/vim
+	editor = vim
 
 [push]
   default = simple
