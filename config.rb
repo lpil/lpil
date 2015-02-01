@@ -1,6 +1,11 @@
 set :enviroment, :development
 
-activate :livereload
+activate :livereload,
+         host: 'localhost',
+         apply_js_live: false,
+         apply_css_live: false,
+         no_swf: true
+
 activate :syntax
 
 set :site_url, 'http://lpil.uk'
