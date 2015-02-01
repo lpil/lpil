@@ -15,6 +15,7 @@ set :description, 'The website of a code monkey named Louis Pilfold.'
 set :css_dir, 'css'
 set :js_dir, 'js'
 set :images_dir, 'images'
+set :partials_dir, 'partials'
 
 set :markdown_engine, :redcarpet
 set :markdown, fenced_code_blocks: true,
