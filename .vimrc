@@ -22,6 +22,7 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'lpil/my-vim-snippets'
 Bundle 'lpil/vim2hs-flexible'
 Bundle 'marcweber/vim-addon-mw-utils'
+Bundle 'rking/ag.vim'
 Bundle 'sbl/scvim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
@@ -308,14 +309,8 @@ let g:syntastic_haskell_checkers=['hdevtools', 'hlint', 'ghc_mod']
 " plugin: ctrlp "
 """"""""""""""""""
 
-" Start in regexp mode
-let g:ctrlp_regexp = 1
-
 " Search MRU, buffers, and files
 nnoremap <C-o> :CtrlPMixed<CR>
-
-" Space inserts a wildcard
-let g:ctrlp_prompt_mappings = { 'PrtAdd(".*")': ['<space>'] }
 
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/](\.git|\.hg|\.svn|_site|node_modules)$',
@@ -385,7 +380,7 @@ au FileType clojure nnoremap cpo :Eval<CR>
 """"""""""""""
 "  NERDtree  "
 """"""""""""""
-nnoremap <C-n> :NERDTreeToggle<CR>
+nnoremap <leader>n :NERDTreeToggle<CR>
 
 " close vim if the only window left open is a NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
