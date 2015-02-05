@@ -1,0 +1,11 @@
+<h1>Categories</h1>
+<ul>
+  <li ng-repeat="category in categories" ng-class="{'active':isCurrentCategory(category)}">
+    <a href="#" ng-click="setCurrentCategory(category)">
+      {{ category.name }}
+    </a>
+  </li>
+  <li>
+    <a href="#" ng-click="setCurrentCategory(null)">n/a</a>
+  </li>
+</ul>
