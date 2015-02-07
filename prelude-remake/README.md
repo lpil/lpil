@@ -26,7 +26,6 @@
 * cos
 * cosh
 * decodeFloat
-* div
 * divMod
 * either
 * encodeFloat
@@ -158,6 +157,7 @@
 * ~~concat~~
 * ~~curry~~
 * ~~cycle~~
+* ~~div~~
 * ~~dropWhile~~
 * ~~drop~~
 * ~~elem~~
