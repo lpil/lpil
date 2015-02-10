@@ -1,2 +1,4 @@
 **/*cabal*sandbox*
 **/tmp.csd
+*.oi
+*.h
