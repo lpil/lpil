@@ -4,10 +4,9 @@ name = 'Tim'
 years = 6
 company = "Bob's Burgers"
 
-document = <<DOC
-This is the CV of <%= name %>
+document =
+"This is the CV of <%= name %>
 
-They worked for <%= years %> years at <%= company %>
-DOC
+They worked for <%= years %> years at <%= company %>"
 
 puts ERB.new(document).result
