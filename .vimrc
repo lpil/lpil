@@ -9,6 +9,7 @@ call vundle#rc()
 Bundle 'gmarik/Vundle.vim'
 
 Bundle 'bitc/vim-hdevtools'
+Bundle 'cakebaker/scss-syntax.vim'
 Bundle 'cespare/vim-toml'
 Bundle 'chrisbra/Colorizer'
 Bundle 'digitaltoad/vim-jade'
