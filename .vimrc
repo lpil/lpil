@@ -44,6 +44,7 @@ Bundle 'tpope/vim-surround'
 Bundle 'typedclojure/vim-typedclojure'
 Bundle 'vim-scripts/matchit.zip'
 Bundle 'wting/rust.vim'
+Plugin 'elixir-lang/vim-elixir'
 
 filetype plugin indent on
 filetype plugin on
