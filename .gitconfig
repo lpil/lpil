@@ -23,6 +23,7 @@
   ci = commit
   co = checkout
   dh = diff HEAD
+  amend = commit --amend
   lol = log --pretty=oneline --abbrev-commit --graph --decorate
   st = status
   g = grep --break --heading --line-number --ignore-case
