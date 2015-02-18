@@ -316,7 +316,7 @@ let g:syntastic_haskell_checkers=['hdevtools', 'hlint', 'ghc_mod']
 nnoremap <C-o> :CtrlPMixed<CR>
 
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](\.git|\.hg|\.svn|_site|node_modules)$',
+  \ 'dir':  '\v[\/](\.git|\.hg|\.svn|_site|node_modules|_build)$',
   \ }
 
 """""""""""""""""""""""""""
