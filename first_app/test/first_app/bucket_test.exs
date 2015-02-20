@@ -21,6 +21,7 @@ defmodule FirstApp.BucketTest do
     assert Bucket.get(bucket, "milk") == "cookies"
 
     x = Bucket.delete(bucket, "milk")
+    assert x == "cookies"
 
     assert Bucket.get(bucket, "milk") == nil
   end
