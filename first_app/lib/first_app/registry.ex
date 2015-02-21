@@ -13,5 +13,31 @@ defmodule FirstApp.Registry do
     GenServer.start_link(__MODULE__, :ok, opts) # __MODULE__ is the current
   end                                           # module. Registry here.
 
+  @doc """
+  Look up the bucket PID for `name` in `server`.
+
+  Returns `{:ok, pid}` if the bucket exists, `:error` otherwise.
+  """
+  def lookup(server, name) do
+    GenServer.call(server, {:lookup, name}) # Calls are synchronous and return
+  end
+
+  @doc """
+  Ensures that there is a bucket in `server` with the name `name`
+  """
+  def create(server, name) do
+    GenServer.cast(server, {:create, name}) # Casts are async and don't return
+  end
+
+  ##
   ## Server Callbacks
+  ##
+
+  def init(:ok) do # callback for start_link
+    {:ok, HashDict.new}
+  end
+
+  def handle_call({:lookup, name}, _from, names) do # callback for lookup
+    {:reply, HashDict.fetch(names, name), names}
+  end
 end
