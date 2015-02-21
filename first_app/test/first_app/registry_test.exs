@@ -2,8 +2,19 @@ defmodule FirstApp.RegistryTest do
   use ExUnit.Case, async: true
   alias FirstApp.Registry
 
+  defmodule Forwarder do
+    use GenEvent
+
+    def handle_event(event, parent) do
+      send parent, event
+      {:ok, parent}
+    end
+  end
+
   setup do
-    {:ok, registry} = Registry.start_link
+    {:ok, manager}  = GenEvent.start_link
+    {:ok, registry} = Registry.start_link(manager)
+    GenEvent.add_mon_handler(manager, Forwarder, self())
     {:ok, registry: registry}
   end
 
@@ -28,5 +39,18 @@ defmodule FirstApp.RegistryTest do
 
     Agent.stop(bucket)
     assert Registry.lookup(registry, "shopping") == :error
+  end
+
+  test "sends events on create", %{registry: registry} do
+    Registry.create(registry, "shopping")
+    {:ok, bucket} = Registry.lookup(registry, "shopping")
+    assert_receive {:create, "shopping", ^bucket}
+  end
+
+  test "sends events on crash", %{registry: registry} do
+    Registry.create(registry, "shopping")
+    {:ok, bucket} = Registry.lookup(registry, "shopping")
+    Agent.stop(bucket)
+    assert_receive {:exit, "shopping", ^bucket}
   end
 end

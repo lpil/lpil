@@ -9,9 +9,9 @@ defmodule FirstApp.Registry do
   @doc """
   Start the registry
   """
-  def start_link(opts \\ []) do
-    GenServer.start_link(__MODULE__, :ok, opts) # __MODULE__ is the current
-  end                                           # module. Registry here.
+  def start_link(event_manager, opts \\ []) do
+    GenServer.start_link(__MODULE__, event_manager, opts)
+  end
 
   @doc """
   Look up the bucket PID for `name` in `server`.
@@ -42,15 +42,16 @@ defmodule FirstApp.Registry do
   ##  => Run on the GenServer
   ##
 
-  def init(:ok) do # callback for start_link
+  # callback for start_link
+  def init(events) do
     names = HashDict.new
     refs  = HashDict.new
-    {:ok, {names, refs}}
+    {:ok, %{names: names, refs: refs, events: events}}
   end
 
   # callback for lookup
-  def handle_call({:lookup, name}, _from, {names, _} = state) do
-    {:reply, HashDict.fetch(names, name), state}
+  def handle_call({:lookup, name}, _from, state) do
+    {:reply, HashDict.fetch(state.names, name), state}
   end
 
   # callback for stop
@@ -60,25 +61,32 @@ defmodule FirstApp.Registry do
 
 
   # callback for create
-  def handle_cast({:create, name}, {names, refs} = state) do
-    if HashDict.has_key?(names, name) do
+  def handle_cast({:create, name}, state) do
+    if HashDict.has_key?(state.names, name) do
       {:noreply, state}
     else
-      {:ok, pid} = FirstApp.Bucket.start_link()
-      ref   = Process.monitor(pid)
-      refs  = HashDict.put(refs, ref, name)
-      names = HashDict.put(names, name, pid)
-      {:noreply, {names, refs}}
+      {:ok, pid} = FirstApp.Bucket.start_link() # <- Bad idea. Registry will
+      ref   = Process.monitor(pid)              # crash when the Bucket crashes
+      refs  = HashDict.put(state.refs, ref, name)
+      names = HashDict.put(state.names, name, pid)
+
+      GenEvent.sync_notify(state.events, {:create, name, pid})
+      {:noreply, %{state | names: names, refs: refs}}
     end
   end
 
+
   # callback for other messages, i.e. from Process.monitor
-  def handle_info({:DOWN, ref, :process, _pid, _reason}, {names,refs}) do
-    {name, refs} = HashDict.pop(refs, ref)
-    names = HashDict.delete(names, name)
-    {:noreply, {names, refs}}
+  def handle_info({:DOWN, ref, :process, pid, _reason}, state) do
+    {name, refs} = HashDict.pop(state.refs, ref)
+    names = HashDict.delete(state.names, name)
+
+    GenEvent.sync_notify(state.events, {:exit, name, pid})
+    {:noreply, %{state | names: names, refs: refs}}
   end
 
+  # We need this catch all info handler as otherwise unexpected info messages
+  # could crash the supervisor (Registry) due to no clause matching.
   def handle_info(_msg, state) do
     {:noreply, state}
   end
