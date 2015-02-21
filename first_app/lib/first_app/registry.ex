@@ -43,12 +43,14 @@ defmodule FirstApp.Registry do
   ##
 
   def init(:ok) do # callback for start_link
-    {:ok, HashDict.new}
+    names = HashDict.new
+    refs  = HashDict.new
+    {:ok, {names, refs}}
   end
 
   # callback for lookup
-  def handle_call({:lookup, name}, _from, names) do
-    {:reply, HashDict.fetch(names, name), names}
+  def handle_call({:lookup, name}, _from, {names, _} = state) do
+    {:reply, HashDict.fetch(names, name), state}
   end
 
   # callback for stop
@@ -58,12 +60,26 @@ defmodule FirstApp.Registry do
 
 
   # callback for create
-  def handle_cast({:create, name}, names) do
+  def handle_cast({:create, name}, {names, refs} = state) do
     if HashDict.has_key?(names, name) do
-      {:noreply, names}
+      {:noreply, state}
     else
-      {:ok, bucket} = FirstApp.Bucket.start_link()
-      {:noreply, HashDict.put(names, name, bucket)}
+      {:ok, pid} = FirstApp.Bucket.start_link()
+      ref   = Process.monitor(pid)
+      refs  = HashDict.put(refs, ref, name)
+      names = HashDict.put(names, name, pid)
+      {:noreply, {names, refs}}
     end
+  end
+
+  # callback for other messages, i.e. from Process.monitor
+  def handle_info({:DOWN, ref, :process, _pid, _reason}, {names,refs}) do
+    {name, refs} = HashDict.pop(refs, ref)
+    names = HashDict.delete(names, name)
+    {:noreply, {names, refs}}
+  end
+
+  def handle_info(_msg, state) do
+    {:noreply, state}
   end
 end

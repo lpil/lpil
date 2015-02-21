@@ -14,11 +14,19 @@ defmodule FirstApp.RegistryTest do
   test "spawns buckets", %{registry: registry} do
     assert Registry.lookup(registry, "shopping") == :error
     Registry.create(registry, "shopping")
-    assert {:ok, bucket} = Registry.lookup(registry, "shopping")
+    assert {:ok, _bucket} = Registry.lookup(registry, "shopping")
   end
 
   test "Can stop", %{registry: registry} do
     # This is a crappy test.
     assert :ok == Registry.stop registry
+  end
+
+  test "removes buckets when they exit", %{registry: registry} do
+    Registry.create(registry, "shopping")
+    {:ok, bucket} = Registry.lookup(registry, "shopping")
+
+    Agent.stop(bucket)
+    assert Registry.lookup(registry, "shopping") == :error
   end
 end
