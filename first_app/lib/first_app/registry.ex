@@ -29,6 +29,13 @@ defmodule FirstApp.Registry do
     GenServer.cast(server, {:create, name}) # Casts are async and don't return
   end
 
+  @doc """
+  Stop the Registry
+  """
+  def stop(server) do
+    GenServer.call(server, :stop)
+  end
+
 
   ##
   ## Server Callbacks
@@ -39,11 +46,19 @@ defmodule FirstApp.Registry do
     {:ok, HashDict.new}
   end
 
-  def handle_call({:lookup, name}, _from, names) do # callback for lookup
+  # callback for lookup
+  def handle_call({:lookup, name}, _from, names) do
     {:reply, HashDict.fetch(names, name), names}
   end
 
-  def handle_cast({:create, name}, names) do # callback for create
+  # callback for stop
+  def handle_call(:stop, _from, state) do
+    {:stop, :normal, :ok, state}
+  end
+
+
+  # callback for create
+  def handle_cast({:create, name}, names) do
     if HashDict.has_key?(names, name) do
       {:noreply, names}
     else
