@@ -29,8 +29,10 @@ defmodule FirstApp.Registry do
     GenServer.cast(server, {:create, name}) # Casts are async and don't return
   end
 
+
   ##
   ## Server Callbacks
+  ##  => Run on the GenServer
   ##
 
   def init(:ok) do # callback for start_link
@@ -39,5 +41,14 @@ defmodule FirstApp.Registry do
 
   def handle_call({:lookup, name}, _from, names) do # callback for lookup
     {:reply, HashDict.fetch(names, name), names}
+  end
+
+  def handle_cast({:create, name}, names) do # callback for create
+    if HashDict.has_key?(names, name) do
+      {:noreply, names}
+    else
+      {:ok, bucket} = FirstApp.Bucket.start_link()
+      {:noreply, HashDict.put(names, name, bucket)}
+    end
   end
 end

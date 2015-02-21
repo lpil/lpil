@@ -12,6 +12,7 @@ defmodule FirstApp.RegistryTest do
 
   test "spawns buckets", %{registry: registry} do
     assert FirstApp.Registry.lookup(registry, "shopping") == :error
-
+    FirstApp.Registry.create(registry, "shopping")
+    assert {:ok, bucket} = FirstApp.Registry.lookup(registry, "shopping")
   end
 end
