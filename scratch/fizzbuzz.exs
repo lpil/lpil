@@ -4,6 +4,9 @@ defmodule FizzBuzz do
   defp fizzbuzzify(x) when rem(x, 3)  == 0 do "Buzz" end
   defp fizzbuzzify(x) do to_string x end
 
+  @doc """
+  Streams FizzBuzz up to `num` into standard output.
+  """
   def to(num) do
     stream = IO.stream :stdio, :line
     for x <- 1..num, into: stream do
