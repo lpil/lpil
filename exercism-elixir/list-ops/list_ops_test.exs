@@ -25,17 +25,17 @@ defmodule ListOpsTest do
     assert L.count(Enum.to_list(1..1_000_000)) == 1_000_000
   end
 
-  # test "reverse of empty list" do
-  #   assert L.reverse([]) == []
-  # end
+  test "reverse of empty list" do
+    assert L.reverse([]) == []
+  end
 
-  # test "reverse of normal list" do
-  #   assert L.reverse([1,3,5,7]) == [7,5,3,1]
-  # end
+  test "reverse of normal list" do
+    assert L.reverse([1,3,5,7]) == [7,5,3,1]
+  end
 
-  # test "reverse of huge list" do
-  #   assert L.reverse(Enum.to_list(1..1_000_000)) == Enum.to_list(1_000_000..1)
-  # end
+  test "reverse of huge list" do
+    assert L.reverse(Enum.to_list(1..1_000_000)) == Enum.to_list(1_000_000..1)
+  end
 
   test "map of empty list" do
     assert L.map([], &(&1+1)) == []
