@@ -6,3 +6,7 @@
 * http://www.elixirdose.com/
 * http://www.jayway.com/2014/11/21/web-development-with-elixir/
 * http://learnelixir.com/
+
+### Graphics with erlang's wx
+
+* http://wxerlang.dougedmunds.com/
