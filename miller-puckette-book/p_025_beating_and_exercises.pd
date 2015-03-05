@@ -1,0 +1,30 @@
+#N canvas 1282 24 1278 686 12;
+#X obj 13 239 +~;
+#X obj 13 270 +~;
+#X obj 13 305 output~;
+#X obj 13 209 +~;
+#X obj 67 208 +~;
+#X obj 141 207 +~;
+#X obj 67 96 osc~ 440;
+#X obj 85 122 osc~ 440.33;
+#X obj 13 41 osc~ 330.2;
+#X obj 31 68 osc~ 330;
+#X obj 141 152 osc~ 587;
+#X obj 159 177 osc~ 587.25;
+#X text 11 2 They move in an out of phase in an interesting fashion.
+:);
+#X text 291 10 A sinusoid (Page 1) has initial phase φ = 0 and angular
+frequency ω = π/10. What is its period in samples? What is the phase
+at sample number n = 10 ? =>;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 1 0 2 1;
+#X connect 3 0 0 0;
+#X connect 4 0 0 1;
+#X connect 5 0 1 1;
+#X connect 6 0 4 0;
+#X connect 7 0 4 1;
+#X connect 8 0 3 0;
+#X connect 9 0 3 1;
+#X connect 10 0 5 0;
+#X connect 11 0 5 1;
