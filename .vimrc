@@ -148,6 +148,8 @@ set undoreload=10000        " number of lines to save for undo
 autocmd BufNewFile,BufRead *.md set filetype=markdown
 autocmd BufNewFile,BufRead *.pde set filetype=processing
 
+autocmd BufRead,BufNewFile *.scss set filetype=scss.css
+
 """"""""""""""""""
 " Remapping keys "
 """"""""""""""""""
