@@ -1,0 +1,26 @@
+defmodule DNA do
+  @doc """
+  Returns number of differences between two strands of DNA, known as the
+  Hamming Distance.
+
+  ## Examples
+
+  iex> DNA.hamming_distance('AAGTCATA', 'TAGCGATC')
+  4
+  """
+  @spec hamming_distance([char], [char]) :: non_neg_integer
+  def hamming_distance(x, y) when length(x) !== length(y) do
+    nil
+  end
+
+  def hamming_distance(strand1, strand2) do
+    twin? = fn pair ->
+      {x, y} = pair
+      x === y
+    end
+
+    Stream.zip(strand1, strand2)
+    |> Enum.reject(twin?)
+    |> length
+  end
+end
