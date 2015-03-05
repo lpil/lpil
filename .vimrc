@@ -11,7 +11,6 @@ Bundle 'gmarik/Vundle.vim'
 Bundle 'bitc/vim-hdevtools'
 Bundle 'cakebaker/scss-syntax.vim'
 Bundle 'cespare/vim-toml'
-Bundle 'chrisbra/Colorizer'
 Bundle 'digitaltoad/vim-jade'
 Bundle 'editorconfig/editorconfig-vim'
 Bundle 'godlygeek/tabular'
@@ -343,12 +342,6 @@ nnoremap <leader>tt :Tab /=<CR>
 vnoremap <leader>tt :Tab /=<CR>
 nnoremap <leader>t= :Tab /=<CR>
 vnoremap <leader>t= :Tab /=<CR>
-
-"""""""""""""""""""""""""""""""""""""""""
-" Plugin: Colorizer (terrible spelling) "
-"""""""""""""""""""""""""""""""""""""""""
-
-let g:colorizer_auto_filetype='css,scss'
 
 """""""""""""""""""""""""
 " Plugin: neocomplcache "
