@@ -31,14 +31,12 @@ defmodule Sublist do
     sublist?(y, x)
   end
 
+  defp sublist?(sub, _) when sub === [] do
+    true
+  end
+
   defp sublist?(sub, sup) do
-    sub_l = length(sub)
-    sup_l = length(sup)
-    delta = sup_l - sub_l
-    slice_super = &(Enum.slice sup, &1, sub_l)
-
-    slices = Stream.map(0..delta, slice_super)
-
-    Enum.any? slices, &(&1 === sub)
+    Stream.chunk(sup, length(sub), 1)
+    |> Enum.any? &(&1 === sub)
   end
 end
