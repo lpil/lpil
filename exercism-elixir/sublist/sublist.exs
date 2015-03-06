@@ -31,7 +31,7 @@ defmodule Sublist do
     sublist?(y, x)
   end
 
-  defp sublist?(sub, _) when sub === [] do
+  defp sublist?([], _) do
     true
   end
 
