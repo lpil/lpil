@@ -6,9 +6,9 @@ end
 
 ExUnit.start
 
-# You need to define a SpaceAge module containing a function age_on that given a
-# planet (:earth, :saturn, etc) and a number of seconds returns the age in years
-# on that planet as a floating point number.
+# You need to define a SpaceAge module containing a function age_on that given
+# a planet (:earth, :saturn, etc) and a number of seconds returns the age in
+# years on that planet as a floating point number.
 
 defmodule SpageAgeTest do
   use ExUnit.Case, async: true
