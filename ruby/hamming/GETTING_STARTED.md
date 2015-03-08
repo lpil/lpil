@@ -29,12 +29,12 @@ Run the test again. It will give you a new error.
 
 Within the first test, we are referencing a constant named `Hamming` when
 we say `Hamming.compute('A', 'A')`. When Ruby sees a capitalized name like
-`Hamming`, it looks it up in a big huge list of all the constants it knows about,
-to see what it points to. It could point to anything, and often in Ruby we have
-constants that point to definitions of classes or modules.
+`Hamming`, it looks it up in a big huge list of all the constants it knows
+about, to see what it points to. It could point to anything, and often in Ruby
+we have constants that point to definitions of classes or modules.
 
-When it looks `Hamming` up in it's list, it doesn't find anything, so we need to make
-one.
+When it looks `Hamming` up in it's list, it doesn't find anything, so we need
+to make one.
 
 There are several ways that this error message can be made to go
 away, one of which is to define a `Hamming` class.
