@@ -17,7 +17,7 @@ ClassAndModuleChildren:
   EnforcedStyle: compact
 
 Metrics/LineLength:
-  Max: 120
+  Max: 80
 
 Style/ColonMethodCall:
   Description: 'Do not use :: for method call.'
