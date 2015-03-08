@@ -14,17 +14,16 @@ defmodule GigasecondTest do
   end
 
   test "from 6/13/1977" do
-    # assert Gigasecond.from({1977, 6, 13}) == {2009, 2, 19}
+    assert Gigasecond.from({1977, 6, 13}) == {2009, 2, 19}
   end
 
   test "from 7/19/1959" do
-    # assert Gigasecond.from({1959, 7, 19}) == {1991, 3, 27}
+    assert Gigasecond.from({1959, 7, 19}) == {1991, 3, 27}
   end
 
-  test "yourself" do
-    # customize these values for yourself
-    #your_birthday = {year1, month1, day1}
-    #assert Gigasecond.from(your_birthday) == {year2, month2, day2}
+  test "from my birthday" do
+    my_birthday = {1991, 1, 5}
+    assert Gigasecond.from(my_birthday) == {2022, 9, 13}
   end
 end
 
