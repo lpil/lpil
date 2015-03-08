@@ -172,10 +172,11 @@ let mapleader = " "
 
 " Easier : commands!
 nnoremap ; :
-nnoremap <C-;> ;
 vnoremap ; :
-vnoremap <C-;> ;
 nnoremap q; q:
+" get ; back
+nnoremap # ;
+vnoremap # ;
 
 " Have Y behave like D, C, etc (until end of line, not entire line)
 nnoremap Y y$
