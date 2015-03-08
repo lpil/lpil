@@ -21,6 +21,7 @@ Bundle 'justinmk/vim-sneak'
 Bundle 'kien/ctrlp.vim'
 Bundle 'lpil/my-vim-snippets'
 Bundle 'lpil/vim2hs-flexible'
+Bundle 'majutsushi/tagbar'
 Bundle 'marcweber/vim-addon-mw-utils'
 Bundle 'pangloss/vim-javascript'
 Bundle 'rking/ag.vim'
@@ -227,15 +228,10 @@ inoremap <C-U> <C-G>u<C-U>
 """""""""""""""""""
 " Toggling stuff! "
 """""""""""""""""""
-" Toggle Search result highlighting
 nnoremap <F1> :set hlsearch!<CR>
-" Toggle textwidth automatic new line insertion
-nnoremap <silent> <F2> :exe "set textwidth=" . (&tw ? 0 : 79)<CR> <Bar> :echo ":set textwidth=" . &tw<CR>
-" Toggle show hidden chars
-nnoremap <F3> :set list!<CR>
-" Toggle spell check
+nnoremap <F2> :NERDTreeToggle<CR>
+nnoremap <F3> :TagbarToggle<CR>
 nnoremap <F4> :setlocal spell!<CR>
-" Toggle syntax check
 nnoremap <F5> :SyntasticToggleMode<CR>
 
 """""""""""""""""""""""""""""""""""
