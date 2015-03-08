@@ -16,6 +16,7 @@ Bundle 'editorconfig/editorconfig-vim'
 Bundle 'godlygeek/tabular'
 Bundle 'guns/vim-sexp'
 Bundle 'honza/vim-snippets'
+Bundle 'jpalardy/vim-slime'
 Bundle 'justinmk/vim-sneak'
 Bundle 'kien/ctrlp.vim'
 Bundle 'lpil/my-vim-snippets'
@@ -397,6 +398,15 @@ nnoremap <leader>n :NERDTreeToggle<CR>
 
 " close vim if the only window left open is a NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+"""""""""""
+"  slime  "
+"""""""""""
+
+let g:slime_target = "tmux"
+let g:slime_no_mappings = 1
+xmap <C-e> <Plug>SlimeRegionSend
+nmap <C-e> <Plug>SlimeParagraphSend
 
 """""""""""""""""""""""""""""""""""""
 " And finally, per-project .vimrc's "
