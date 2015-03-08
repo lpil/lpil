@@ -147,8 +147,21 @@ set undoreload=10000        " number of lines to save for undo
 
 autocmd BufNewFile,BufRead *.md set filetype=markdown
 autocmd BufNewFile,BufRead *.pde set filetype=processing
-
 autocmd BufRead,BufNewFile *.scss set filetype=scss.css
+
+" Highlight fenced code blocks in markdown docs
+let g:markdown_fenced_languages = [
+      \'css',
+      \'elixir',
+      \'haskell',
+      \'html',
+      \'javascript',
+      \'js=javascript',
+      \'json=javascript',
+      \'ruby',
+      \'sass',
+      \'xml'
+      \]
 
 """"""""""""""""""
 " Remapping keys "
