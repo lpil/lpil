@@ -1,6 +1,7 @@
 # Bob
 
-Bob is a lackadaisical teenager. In conversation, his responses are very limited.
+Bob is a lackadaisical teenager. In conversation, his responses are very
+limited.
 
 Bob answers 'Sure.' if you ask him a question.
 
@@ -52,4 +53,5 @@ changing `xit` to `it`.
 
 ## Source
 
-Inspired by the 'Deaf Grandma' exercise in Chris Pine's Learn to Program tutorial. [view source](http://pine.fm/LearnToProgram/?Chapter=06)
+Inspired by the 'Deaf Grandma' exercise in Chris Pine's Learn to Program
+tutorial. [view source](http://pine.fm/LearnToProgram/?Chapter=06)
