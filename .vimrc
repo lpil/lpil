@@ -342,6 +342,7 @@ autocmd FileType lhaskell set commentstring=>\ %s
 autocmd FileType processing set commentstring=//\ %s
 autocmd FileType slim set commentstring=/\ %s
 autocmd FileType supercollider set commentstring=//\ %s
+autocmd FileType sql set commentstring=--\ %s
 
 """""""""""""""""
 " Plugin: Sneak "
