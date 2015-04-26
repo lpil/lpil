@@ -1,0 +1,13 @@
+language: c
+
+compiler:
+  - gcc
+  - clang
+
+install:
+  - sudo apt-get -qq update
+  - sudo apt-get -qq install valgrind
+
+script:
+  - make travis_test
+  - valgrind --error-exitcode=1 ./travis_test
