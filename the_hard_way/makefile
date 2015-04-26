@@ -1,6 +1,6 @@
 CFLAGS=-Wall -g
 
-all: ex01 ex03 ex05 ex06 ex07 ex08 ex09
+all: ex01 ex03 ex05 ex06 ex07 ex08 ex09 ex10
 
 clean:
 	rm ex01
@@ -10,3 +10,4 @@ clean:
 	rm ex07
 	rm ex08
 	rm ex09
+	rm ex10

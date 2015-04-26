@@ -1,6 +1,7 @@
 #include <stdio.h>
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
 
   // If we don't specify all the elements C will set them to \0
   int numbers[4] = {0};
