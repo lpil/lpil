@@ -341,12 +341,13 @@ let g:ctrlp_custom_ignore = {
 " plugin : vim-commentary "
 """""""""""""""""""""""""""
 
+autocmd FileType c set commentstring=//\ %s
 autocmd FileType javascript set commentstring=//\ %s
 autocmd FileType lhaskell set commentstring=>\ %s
 autocmd FileType processing set commentstring=//\ %s
 autocmd FileType slim set commentstring=/\ %s
-autocmd FileType supercollider set commentstring=//\ %s
 autocmd FileType sql set commentstring=--\ %s
+autocmd FileType supercollider set commentstring=//\ %s
 
 """""""""""""""""
 " Plugin: Sneak "
