@@ -222,9 +222,12 @@ nnoremap d, :bd<CR>
 
 " Go away ex mode, you suck
 nnoremap Q <Nop>
+
 " No, I don't want to look things up in the man pages
 nnoremap K <Nop>
 vnoremap K <Nop>
+au FileType c nnoremap K K
+au FileType c vnoremap K K
 
 " Undo in insert mode
 inoremap <C-U> <C-G>u<C-U>
