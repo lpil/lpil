@@ -8,7 +8,7 @@ int main(int argc, char *argv[])
   }
 
   int i;
-  for (i = 0; i < argv[1][i] != '\0'; ++i) {
+  for (i = 0; argv[1][i] != '\0'; ++i) {
     char letter = argv[1][i];
 
     switch (letter) {
