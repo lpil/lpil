@@ -10,8 +10,8 @@ I've recently been doing a lot of Rails work with test-driven development
 (naturally), and I've found it's very easy to get a hell of a lot of
 duplication in Minitest tests.
 
-For instance, if I want to test that my User model responds to various method
-calls, I could end up with code like this:
+For instance, if for some reason I wanted to test that my User model responds
+to various method calls, I could end up with code like this:
 
 ```ruby
 class UserTest < ActiveSupport::TestCase
@@ -53,11 +53,12 @@ responds to each symbol in turn. It might look something like this:
 class UserTest < ActiveSupport::TestCase
 
   def test_user_responds_to_various_methods
-    %i(first_name last_name email admin password created_at updated_at
-       password_confirmation remember_token collection_id authenticate
-      ).each do |method|
+    %i(
+      first_name last_name email admin password created_at updated_at
+      password_confirmation remember_token collection_id authenticate
+    ).each do |method|
       assert User.new.respond_to?(method),
-        "Users should respond to #{method}"
+      "Users should respond to #{method}"
     end
   end
 end
@@ -82,29 +83,23 @@ checked. How can we do this? Metaprogramming, of course!
 ```ruby
 class UserTest < ActiveSupport::TestCase
 
-  %i(first_name last_name email admin password created_at updated_at
-     password_confirmation remember_token collection_id authenticate
-    ).each do |method|
-    class_eval %{
-      def test_user_responds_to_#{method}
-        assert User.new.respond_to?(:#{method}),
-          'Users should respond to #{method}'
-      end
-    }
+  %i(
+    first_name last_name email admin password created_at updated_at
+    password_confirmation remember_token collection_id authenticate
+  ).each do |method|
+    test_name = "test_user_responds_to_#{method}".to_s
+    define_method(test_name) do
+      assert User.new.respond_to?(method),
+        "Users should respond to #{method}"
+    end
   end
 end
 ```
 
-Here we're using `class_eval`, a method which evaluates the string passed to it
-if it were regular Ruby code in the context of the class (in this case, my
-UserTest class). So, by passing in a string that looks like a method definition
-we can add a new method to the class at runtime. If we add an array of method
-names, and some string interpolation, and we can create a new test for each
-method that we wish to test on the model! 
-
-The only thing I tripped up on is that because of how string interpolation
-works with symbols, you need to re-add the `:` before the symbol when passing
-it to the `respond_to?` method. See the eighth line of the code block above.
+Here we're using `define_method`, which (surprise surprise) defines a method on
+the class it's called from. If we add an array of method names, and some string
+interpolation, and we can create a new test for each method that we wish to
+test on the model! 
 
 You don't have to just use this technique for checking whether model responds a
 certain method call, anywhere were you've got multiple near-identical test
