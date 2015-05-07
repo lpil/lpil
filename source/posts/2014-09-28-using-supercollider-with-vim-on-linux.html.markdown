@@ -1,5 +1,4 @@
 ---
-layout: post
 title: Using Supercollider with Vim on Linux
 categories:
   - Linux

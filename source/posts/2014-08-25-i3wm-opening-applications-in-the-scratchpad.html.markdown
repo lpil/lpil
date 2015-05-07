@@ -1,5 +1,4 @@
 ---
-layout: post
 title:  "i3wm: Opening applications in the scratchpad"
 categories:
   - i3wm

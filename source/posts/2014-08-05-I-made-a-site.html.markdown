@@ -1,5 +1,4 @@
 ---
-layout: post
 title:  "I made a site"
 categories:
   - lpil.uk

@@ -1,5 +1,4 @@
 ---
-layout: post
 title: Automatically running Rust unit tests
 categories:
   - Rust

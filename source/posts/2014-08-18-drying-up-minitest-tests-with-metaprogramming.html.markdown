@@ -1,5 +1,4 @@
 ---
-layout: post
 title:  "DRYing up Minitest tests with metaprogramming"
 categories:
   - Web dev

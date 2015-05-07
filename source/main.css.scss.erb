@@ -28,3 +28,26 @@
 }
 
 <%= Rouge::Themes::Github.render scope: '.highlight' %>
+
+// Our font is monospace, but bold is wider than regular...
+.highlight {
+  .ow,
+  .o,
+  .nf,
+  .nl,
+  .nd,
+  .ne,
+  .nc,
+  .k, 
+  .kv,
+  .kt,
+  .kr,
+  .kp,
+  .kn,
+  .kd,
+  .kc,
+  .gs,
+  .cs {
+    letter-spacing: -1px;
+  }
+}
