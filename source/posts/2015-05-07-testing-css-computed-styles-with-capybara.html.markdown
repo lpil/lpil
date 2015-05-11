@@ -36,7 +36,7 @@ end
 describe 'Users page' do
   it 'should have the correct title colour' do
     style = computed_style '.title', 'color'
-    expect(as_hex style).to eq 'rgb(243, 75, 125)'
+    expect(style).to eq 'rgb(243, 75, 125)'
   end
 end
 ```
