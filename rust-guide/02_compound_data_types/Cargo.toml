@@ -1,9 +1,0 @@
-[package]
-
-name = "compound_data_types"
-version = "0.0.1"
-authors = [ "Louis Pilfold <louis@lpil.uk>" ]
-
-[[bin]]
-
-name = "compound_data_types"

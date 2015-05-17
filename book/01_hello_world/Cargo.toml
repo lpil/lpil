@@ -3,7 +3,3 @@
 name = "hello_world"
 version = "0.0.1"
 authors = [ "Louis Pilfold <louis@lpil.uk>" ]
-
-[[bin]]
-
-name = "hello_world"
