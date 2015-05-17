@@ -8,7 +8,6 @@ call vundle#rc()
 " let Vundle manage Vundle
 Bundle 'gmarik/Vundle.vim'
 
-Bundle 'bitc/vim-hdevtools'
 Bundle 'cakebaker/scss-syntax.vim'
 Bundle 'cespare/vim-toml'
 Bundle 'derekwyatt/vim-scala'
@@ -28,6 +27,7 @@ Bundle 'marcweber/vim-addon-mw-utils'
 Bundle 'mustache/vim-mustache-handlebars'
 Bundle 'octol/vim-cpp-enhanced-highlight'
 Bundle 'pangloss/vim-javascript'
+Bundle 'rhysd/clever-f.vim'
 Bundle 'rking/ag.vim'
 Bundle 'sbl/scvim'
 Bundle 'scrooloose/nerdtree'
