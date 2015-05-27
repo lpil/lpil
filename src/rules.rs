@@ -1,5 +1,6 @@
 use std::fmt;
 
+#[derive(PartialEq, Debug)]
 pub enum Player {
     A, B,
 }
@@ -12,6 +13,7 @@ impl fmt::Display for Player {
     }
 }
 
+#[derive(PartialEq, Debug)]
 pub enum Cell {
     Untaken,
     Taken(Player),
@@ -26,8 +28,18 @@ impl fmt::Display for Cell {
 }
 
 
+#[derive(PartialEq, Debug)]
 pub struct Game {
     pub board: [Cell; 9]
+}
+impl Game {
+    pub fn new() -> Game {
+        Game { board: [
+            Cell::Untaken, Cell::Untaken, Cell::Taken(Player::A),
+            Cell::Untaken, Cell::Untaken, Cell::Taken(Player::B),
+            Cell::Untaken, Cell::Untaken, Cell::Taken(Player::A),
+        ]}
+    }
 }
 impl fmt::Display for Game {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
@@ -57,13 +69,17 @@ mod tests {
 
     #[test]
     fn can_print_games() {
+        let expected = "[ ] [ ] [A]\n[ ] [ ] [B]\n[ ] [ ] [A]";
+        assert_eq!(expected, format!("{}", Game::new()));
+    }
+
+    #[test]
+    fn game_new_creates_new_game_with_none_taken() {
         let game = Game { board: [
             Cell::Untaken, Cell::Untaken, Cell::Taken(Player::A),
             Cell::Untaken, Cell::Untaken, Cell::Taken(Player::B),
             Cell::Untaken, Cell::Untaken, Cell::Taken(Player::A),
         ]};
-        let expected = "[ ] [ ] [A]\n[ ] [ ] [B]\n[ ] [ ] [A]";
-        assert_eq!(expected, format!("{}", game));
+        assert_eq!(game, Game::new());
     }
 }
-
