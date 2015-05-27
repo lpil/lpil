@@ -8,18 +8,18 @@ fn can_print_players() {
 
 #[test]
 fn can_print_cells() {
-    let untaken_cell = Cell::Untaken;
+    let untaken_cell = Square::Untaken;
     assert_eq!("[ ]", format!("{}", untaken_cell));
-    let taken_cell = Cell::Taken(Player::A);
+    let taken_cell = Square::Taken(Player::A);
     assert_eq!("[A]", format!("{}", taken_cell));
 }
 
 #[test]
 fn can_print_games() {
     let game = Game { board: [
-        Cell::Untaken, Cell::Untaken, Cell::Taken(Player::A),
-        Cell::Untaken, Cell::Untaken, Cell::Taken(Player::B),
-        Cell::Untaken, Cell::Untaken, Cell::Taken(Player::A),
+        Square::Untaken, Square::Untaken, Square::Taken(Player::A),
+        Square::Untaken, Square::Untaken, Square::Taken(Player::B),
+        Square::Untaken, Square::Untaken, Square::Taken(Player::A),
     ]};
     let expected = "[ ] [ ] [A]\n[ ] [ ] [B]\n[ ] [ ] [A]";
     assert_eq!(expected, format!("{}", game));
@@ -28,9 +28,9 @@ fn can_print_games() {
 #[test]
 fn game_new_creates_blank_game() {
     let game = Game { board: [
-        Cell::Untaken, Cell::Untaken, Cell::Untaken,
-        Cell::Untaken, Cell::Untaken, Cell::Untaken,
-        Cell::Untaken, Cell::Untaken, Cell::Untaken,
+        Square::Untaken, Square::Untaken, Square::Untaken,
+        Square::Untaken, Square::Untaken, Square::Untaken,
+        Square::Untaken, Square::Untaken, Square::Untaken,
     ]};
     assert_eq!(game, Game::new());
 }
@@ -38,51 +38,51 @@ fn game_new_creates_blank_game() {
 #[test]
 fn game_winner_with_winning_boards() {
     let game = Game { board: [
-        Cell::Taken(Player::A), Cell::Taken(Player::A), Cell::Taken(Player::A),
-        Cell::Untaken, Cell::Untaken, Cell::Untaken,
-        Cell::Untaken, Cell::Untaken, Cell::Untaken,
+        Square::Taken(Player::A), Square::Taken(Player::A), Square::Taken(Player::A),
+        Square::Untaken, Square::Untaken, Square::Untaken,
+        Square::Untaken, Square::Untaken, Square::Untaken,
     ]};
     assert_eq!(Some(Player::A), game.winner());
     let game = Game { board: [
-        Cell::Untaken, Cell::Untaken, Cell::Untaken,
-        Cell::Taken(Player::B), Cell::Taken(Player::B), Cell::Taken(Player::B),
-        Cell::Untaken, Cell::Untaken, Cell::Untaken,
+        Square::Untaken, Square::Untaken, Square::Untaken,
+        Square::Taken(Player::B), Square::Taken(Player::B), Square::Taken(Player::B),
+        Square::Untaken, Square::Untaken, Square::Untaken,
     ]};
     assert_eq!(Some(Player::B), game.winner());
     let game = Game { board: [
-        Cell::Untaken, Cell::Untaken, Cell::Untaken,
-        Cell::Untaken, Cell::Untaken, Cell::Untaken,
-        Cell::Taken(Player::A), Cell::Taken(Player::A), Cell::Taken(Player::A),
+        Square::Untaken, Square::Untaken, Square::Untaken,
+        Square::Untaken, Square::Untaken, Square::Untaken,
+        Square::Taken(Player::A), Square::Taken(Player::A), Square::Taken(Player::A),
     ]};
     assert_eq!(Some(Player::A), game.winner());
     let game = Game { board: [
-        Cell::Taken(Player::A), Cell::Untaken, Cell::Untaken,
-        Cell::Taken(Player::A), Cell::Untaken, Cell::Untaken,
-        Cell::Taken(Player::A), Cell::Untaken, Cell::Untaken,
+        Square::Taken(Player::A), Square::Untaken, Square::Untaken,
+        Square::Taken(Player::A), Square::Untaken, Square::Untaken,
+        Square::Taken(Player::A), Square::Untaken, Square::Untaken,
     ]};
     assert_eq!(Some(Player::A), game.winner());
     let game = Game { board: [
-        Cell::Untaken, Cell::Taken(Player::A), Cell::Untaken,
-        Cell::Untaken, Cell::Taken(Player::A), Cell::Untaken,
-        Cell::Untaken, Cell::Taken(Player::A), Cell::Untaken,
+        Square::Untaken, Square::Taken(Player::A), Square::Untaken,
+        Square::Untaken, Square::Taken(Player::A), Square::Untaken,
+        Square::Untaken, Square::Taken(Player::A), Square::Untaken,
     ]};
     assert_eq!(Some(Player::A), game.winner());
     let game = Game { board: [
-        Cell::Untaken, Cell::Untaken, Cell::Taken(Player::B),
-        Cell::Untaken, Cell::Untaken, Cell::Taken(Player::B),
-        Cell::Untaken, Cell::Untaken, Cell::Taken(Player::B),
+        Square::Untaken, Square::Untaken, Square::Taken(Player::B),
+        Square::Untaken, Square::Untaken, Square::Taken(Player::B),
+        Square::Untaken, Square::Untaken, Square::Taken(Player::B),
     ]};
     assert_eq!(Some(Player::B), game.winner());
     let game = Game { board: [
-        Cell::Untaken, Cell::Untaken, Cell::Taken(Player::A),
-        Cell::Untaken, Cell::Taken(Player::A), Cell::Untaken,
-        Cell::Taken(Player::A), Cell::Untaken, Cell::Untaken,
+        Square::Untaken, Square::Untaken, Square::Taken(Player::A),
+        Square::Untaken, Square::Taken(Player::A), Square::Untaken,
+        Square::Taken(Player::A), Square::Untaken, Square::Untaken,
     ]};
     assert_eq!(Some(Player::A), game.winner());
     let game = Game { board: [
-        Cell::Taken(Player::B), Cell::Untaken, Cell::Untaken,
-        Cell::Untaken, Cell::Taken(Player::B), Cell::Untaken,
-        Cell::Untaken, Cell::Untaken, Cell::Taken(Player::B),
+        Square::Taken(Player::B), Square::Untaken, Square::Untaken,
+        Square::Untaken, Square::Taken(Player::B), Square::Untaken,
+        Square::Untaken, Square::Untaken, Square::Taken(Player::B),
     ]};
     assert_eq!(Some(Player::B), game.winner());
 }
@@ -97,4 +97,13 @@ fn game_winner_with_new_board() {
 fn valid_moves_of_empty_board() {
     let game = Game::new();
     assert_eq!(game.valid_moves(), [0,1,2,3,4,5,6,7,8]);
+}
+
+#[test]
+fn games_dont_have_move_listed_as_valid_after_taken() {
+    let game = Game::new();
+    for i in 0..9 {
+        let new_game = game.make_move(i, Player::A);
+        assert!(!new_game.valid_moves().contains(&i));
+    }
 }

@@ -15,16 +15,17 @@ impl fmt::Display for Player {
     }
 }
 
-#[derive(PartialEq, Debug)]
-pub enum Cell {
+
+#[derive(PartialEq, Debug, Copy, Clone)]
+pub enum Square {
     Untaken,
     Taken(Player),
 }
-impl fmt::Display for Cell {
+impl fmt::Display for Square {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match self {
-            &Cell::Untaken           => write!(f, "[ ]"),
-            &Cell::Taken(ref player) => write!(f, "[{}]", player),
+            &Square::Untaken           => write!(f, "[ ]"),
+            &Square::Taken(ref player) => write!(f, "[{}]", player),
         }
     }
 }
@@ -32,14 +33,14 @@ impl fmt::Display for Cell {
 
 #[derive(PartialEq, Debug)]
 pub struct Game {
-    pub board: [Cell; 9]
+    pub board: [Square; 9]
 }
 impl Game {
     pub fn new() -> Game {
         Game { board: [
-            Cell::Untaken, Cell::Untaken, Cell::Untaken,
-            Cell::Untaken, Cell::Untaken, Cell::Untaken,
-            Cell::Untaken, Cell::Untaken, Cell::Untaken,
+            Square::Untaken, Square::Untaken, Square::Untaken,
+            Square::Untaken, Square::Untaken, Square::Untaken,
+            Square::Untaken, Square::Untaken, Square::Untaken,
         ]}
     }
     pub fn winner(self) -> Option<Player> {
@@ -54,7 +55,7 @@ impl Game {
         ];
         for &(x,y,z) in winning_patterns.iter() {
             match (&board[x], &board[y], &board[z]) {
-                (&Cell::Taken(ref xx), &Cell::Taken(ref yy), &Cell::Taken(ref zz)) =>
+                (&Square::Taken(ref xx), &Square::Taken(ref yy), &Square::Taken(ref zz)) =>
                     if xx == yy && yy == zz { return Some(*xx) },
                 _ =>
                     continue
@@ -67,12 +68,17 @@ impl Game {
         let mut moves: Vec<usize> = vec![];
         for (i, cell) in self.board.iter().enumerate() {
             match cell {
-                &Cell::Taken(_) => continue,
-                &Cell::Untaken  => moves.push(i)
+                &Square::Taken(_) => continue,
+                &Square::Untaken  => moves.push(i)
             }
         }
         println!("{:?}", moves);
         moves
+    }
+    pub fn make_move(&self, index: usize, player: Player) -> Game {
+        let mut board = self.board.clone();
+        board[index] = Square::Taken(player);
+        Game { board: board }
     }
 
 }
