@@ -37,7 +37,7 @@ impl Game {
             [6,4,2]
         ];
 
-        for &[x,y,z] in winning_patterns.clone().iter() {
+        for &[x,y,z] in winning_patterns.iter() {
             match (board[x], board[y], board[z]) {
                 (Some(xx), Some(yy), Some(zz)) =>
                     if xx == yy && yy == zz { return Some(xx) },

@@ -37,9 +37,9 @@ pub struct Game {
 impl Game {
     pub fn new() -> Game {
         Game { board: [
-            Cell::Untaken, Cell::Untaken, Cell::Taken(Player::A),
-            Cell::Untaken, Cell::Untaken, Cell::Taken(Player::B),
-            Cell::Untaken, Cell::Untaken, Cell::Taken(Player::A),
+            Cell::Untaken, Cell::Untaken, Cell::Untaken,
+            Cell::Untaken, Cell::Untaken, Cell::Untaken,
+            Cell::Untaken, Cell::Untaken, Cell::Untaken,
         ]}
     }
     pub fn winner(self) -> Option<Player> {
@@ -61,6 +61,18 @@ impl Game {
             }
         }
         None
+    }
+    pub fn valid_moves(&self) -> Vec<usize> {
+        println!("{:?}", self.board);
+        let mut moves: Vec<usize> = vec![];
+        for (i, cell) in self.board.iter().enumerate() {
+            match cell {
+                &Cell::Taken(_) => continue,
+                &Cell::Untaken  => moves.push(i)
+            }
+        }
+        println!("{:?}", moves);
+        moves
     }
 
 }
