@@ -1,2 +1,3 @@
 language: rust
 rust: stable
+sudo: false
