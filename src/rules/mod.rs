@@ -31,7 +31,7 @@ impl fmt::Display for Square {
 }
 
 
-#[derive(PartialEq, Debug)]
+#[derive(PartialEq, Debug, Clone, Copy)]
 pub struct Game {
     pub board: [Square; 9]
 }
@@ -43,6 +43,7 @@ impl Game {
             Square::Untaken, Square::Untaken, Square::Untaken,
         ]}
     }
+
     pub fn winner(self) -> Option<Player> {
         let board = self.board;
         let winning_patterns: [(usize, usize, usize); 8] = [
@@ -63,8 +64,8 @@ impl Game {
         }
         None
     }
+
     pub fn valid_moves(&self) -> Vec<usize> {
-        println!("{:?}", self.board);
         let mut moves: Vec<usize> = vec![];
         for (i, cell) in self.board.iter().enumerate() {
             match cell {
@@ -72,9 +73,12 @@ impl Game {
                 &Square::Untaken  => moves.push(i)
             }
         }
-        println!("{:?}", moves);
         moves
     }
+
+    /// This method **does not** check if the move is valid. Invalid moves
+    /// will return an identical game instance.
+    ///
     pub fn make_move(&self, index: usize, player: Player) -> Game {
         let mut board = self.board.clone();
         board[index] = Square::Taken(player);
