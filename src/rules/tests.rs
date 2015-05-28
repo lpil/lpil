@@ -1,3 +1,6 @@
+extern crate rand;
+
+use rand::Rng;
 use super::*;
 
 #[test]
@@ -104,6 +107,31 @@ fn games_dont_have_move_listed_as_valid_after_taken() {
     let game = Game::new();
     for i in 0..9 {
         let new_game = game.make_move(i, Player::A);
-        assert!(!new_game.valid_moves().contains(&i));
+        let moves = new_game.valid_moves();
+        assert!(!moves.contains(&i));
+        assert_eq!(8, moves.len());
     }
+}
+
+#[test]
+fn game_make_move_associativity() {
+    let mut gen = rand::thread_rng();
+    let a = gen.gen_range(1, 9);
+    let b = gen.gen_range(1, 9);
+    let p = Player::A;
+    assert_eq!(
+        Game::new().make_move(a, p).make_move(b, p),
+        Game::new().make_move(b, p).make_move(a, p)
+        );
+}
+
+#[test]
+fn game_make_move() {
+    let game1 = Game { board: [
+        Square::Untaken, Square::Untaken, Square::Untaken,
+        Square::Untaken, Square::Untaken, Square::Untaken,
+        Square::Untaken, Square::Untaken, Square::Taken(Player::A),
+    ]};
+    let game2 = Game::new().make_move(8, Player::A);
+    assert_eq!(game1, game2);
 }
