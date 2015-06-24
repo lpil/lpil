@@ -152,6 +152,7 @@ autocmd BufRead,BufNewFile *.scss set filetype=scss.css
 
 " Highlight fenced code blocks in markdown docs
 let g:markdown_fenced_languages = [
+      \'sh',
       \'css',
       \'elixir',
       \'haskell',
