@@ -1,28 +1,5 @@
-ClassVars:
-  Description: 'Avoid the use of class variables.'
-  Enabled: false
-
-EmptyLines:
-  Description: "Don't use several empty lines in a row."
-  Enabled: false
-
-Documentation:
-  Description: 'Document classes and non-namespace modules.'
-  Enabled: false
-
-DoubleNegation:
-  Enabled: false
-
-ClassAndModuleChildren:
-  EnforcedStyle: compact
-
 Metrics/LineLength:
   Max: 80
-
-Style/ColonMethodCall:
-  Description: 'Do not use :: for method call.'
-  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#double-colons'
-  Enabled: false
 
 Style/EmptyLines:
   Enabled: false
@@ -30,29 +7,8 @@ Style/EmptyLines:
 Documentation:
   Enabled: false
 
-DoubleNegation:
-  Enabled: false
-
-ClassVars:
-  Description: 'Avoid the use of class variables.'
-  Enabled: false
-
-EmptyLines:
-  Description: "Don't use several empty lines in a row."
-  Enabled: false
-
-Documentation:
-  Description: 'Document classes and non-namespace modules.'
-  Enabled: false
-
-DoubleNegation:
-  Enabled: false
-
-ClassAndModuleChildren:
-  EnforcedStyle: compact
-
 Metrics/MethodLength:
-  Max: 20
+  Enabled: false
 
 Style/TrailingComma:
-  Enabled: false
+  Enabled: true
