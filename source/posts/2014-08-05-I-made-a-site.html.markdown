@@ -5,6 +5,22 @@ categories:
   - Web dev
 ---
 
+**Update:** This post is no longer an accurate description of this site. Since
+making it I've migrated to the [middleman](middleman) static site compiler,
+switched from coffeescript to vanilla Javascript, and completely dropped any
+CSS framework.
+
+[middlema]: https://github.com/middleman/middleman
+
+Why? I found that middleman is much more powerful and flexible than Jekyll, I
+didn't feel that coffeescript provides any advantage over Javascript
+(especially ES6 Javascript), and I felt that my site was too simple to really
+warrant a CSS framework.
+
+But still, this is how I did it first time round- enjoy.
+
+---
+
 It struck me the other day that a web developer should probably have a personal
 website. I feel it doesn't inspire much confidence if a creator doesn't use
 what they produce. Plus, if I made a site, I'd get to play with some new toys.
