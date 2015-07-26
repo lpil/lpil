@@ -10,7 +10,7 @@
   <ul class="posts">
     <% blog.articles.each do |post| %>
       <li>
-        <span class="posts__date"><%= post.date.strftime '%y.%m.%y' %></span>
+        <span class="posts__date"><%= post.date.strftime '%d.%m.%y' %></span>
         <%= link_to post.title, post, class: 'posts__link' %>
       </li>
     <% end %>
