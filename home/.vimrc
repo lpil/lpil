@@ -19,7 +19,6 @@ Bundle 'honza/vim-snippets'
 Bundle 'jpalardy/vim-slime'
 Bundle 'kien/ctrlp.vim'
 Bundle 'lpil/my-vim-snippets'
-Bundle 'lpil/vim2hs-flexible'
 Bundle 'majutsushi/tagbar'
 Bundle 'marcweber/vim-addon-mw-utils'
 Bundle 'mustache/vim-mustache-handlebars'
@@ -105,6 +104,7 @@ if v:version > 703 || v:version == 703 && has("patch541")
   set formatoptions+=j
 endif
 
+
 """""""""""""""""""""""""""""""""
 " Indentation, Tabs, Space, Etc "
 """""""""""""""""""""""""""""""""
@@ -123,8 +123,6 @@ set shiftwidth=2    "An indent is 2 spaces
 set softtabstop=2   "Insert 2 spaces when tab is pressed
 set tabstop=2       "A tab is 2 spaces
 
-" Lang specific
-autocmd FileType python setlocal ts=4 sw=4
 
 """""""""""""""""""
 " Persistent Undo "
@@ -223,20 +221,21 @@ nnoremap Q <Nop>
 " No, I don't want to look things up in the man pages
 nnoremap K <Nop>
 vnoremap K <Nop>
-au FileType c nnoremap K K
-au FileType c vnoremap K K
 
 " Undo in insert mode
 inoremap <C-U> <C-G>u<C-U>
 
+
 """""""""""""""""""
 " Toggling stuff! "
 """""""""""""""""""
+
 nnoremap <F1> :set hlsearch!<CR>
 nnoremap <F2> :NERDTreeToggle<CR>
 nnoremap <F3> :TagbarToggle<CR>
 nnoremap <F4> :setlocal spell!<CR>
 nnoremap <F5> :SyntasticToggleMode<CR>
+
 
 """""""""""""""""""""""""""""""""""
 " Nicer location list navigation! "
@@ -262,9 +261,11 @@ function! WrapLnext(direction)
   endif
 endfunction
 
+
 """""""""""""""""""""""""""""
 " Strip trailing whitespace "
 """""""""""""""""""""""""""""
+
 function! StripWhitespace()
   let save_cursor = getpos(".")
   let old_query = getreg('/')
@@ -274,26 +275,6 @@ function! StripWhitespace()
 endfunction
 noremap <leader>d<space> :call StripWhitespace()<CR>
 
-"""""""""""""""""""""""""
-"  Convert ruby hashes  "
-"""""""""""""""""""""""""
-autocmd FileType ruby nnoremap <leader>rh :%s/:\(\w\+\)\(\s*=>\s*\)/\1: /g<CR>
-
-""""""""""""""""""""""
-" HTML char escaping "
-""""""""""""""""""""""
-" This will escape HTML chars from the last pasted block
-nnoremap <Leader>h :'[,']call HtmlEscape()<CR>
-" This will do it for the visually selected block
-vnoremap <Leader>h :call HtmlEscape()<CR>
-
-" Insert more chars to replace here
-function HtmlEscape()
-  silent s/&/\&amp;/eg  " Amp has to be first!
-  silent s/</\&lt;/eg   " less than
-  silent s/>/\&gt;/eg   " greater than
-  silent s/\ /\%20;/eg  " space
-endfunction
 
 """""""""""""""""""""
 " Reverse selection "
@@ -324,7 +305,7 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_wq = 0
 
 let g:syntastic_ruby_checkers=['mri', 'rubocop']
-let g:syntastic_haskell_checkers=['hdevtools', 'hlint', 'ghc_mod']
+
 
 """"""""""""""""""
 " plugin: ctrlp "
@@ -337,23 +318,6 @@ let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/](\.git|\.hg|\.svn|_site|node_modules|_build|coverage|deps)$',
   \ }
 
-"""""""""""""""""""""""""""
-" plugin : vim-commentary "
-"""""""""""""""""""""""""""
-
-autocmd FileType c set commentstring=//\ %s
-autocmd FileType javascript set commentstring=//\ %s
-autocmd FileType lhaskell set commentstring=>\ %s
-autocmd FileType processing set commentstring=//\ %s
-autocmd FileType slim set commentstring=/\ %s
-autocmd FileType sql set commentstring=--\ %s
-autocmd FileType supercollider set commentstring=//\ %s
-
-"""""""""""""""""
-" Plugin: Sneak "
-"""""""""""""""""
-
-let g:sneak#s_next = 1
 
 """""""""""""""""""
 " Plugin: tabular "
@@ -364,11 +328,13 @@ vnoremap <leader>tt :Tab /=<CR>
 nnoremap <leader>t= :Tab /=<CR>
 vnoremap <leader>t= :Tab /=<CR>
 
+
 """""""""""""""""""""""""
 " Plugin: neocomplcache "
 """""""""""""""""""""""""
 
 let g:neocomplcache_enable_at_startup = 1
+
 
 """""""""""""""""""""
 " Plugin: ultisnips "
@@ -381,24 +347,13 @@ let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
-""""""""""""""""""
-" Plugin: vim2hs "
-""""""""""""""""""
-
-au FileType haskell hi Conceal ctermbg=NONE guifg=NONE guibg=NONE
-
-"""""""""""""""""""""
-" Plugin: fireplace "
-"""""""""""""""""""""
-
-au FileType clojure nnoremap <leader>r :w<CR>:Require<CR>
-au FileType clojure nnoremap cpo :Eval<CR>
 
 """"""""""""""
 "  NERDtree  "
 """"""""""""""
 nnoremap <leader>n :NERDTreeToggle<CR>
 let g:NERDTreeWinSize=40
+
 
 """""""""""
 "  slime  "
@@ -408,6 +363,7 @@ let g:slime_target = "tmux"
 let g:slime_no_mappings = 1
 xmap <C-e> <Plug>SlimeRegionSend
 nmap <C-e> <Plug>SlimeParagraphSend
+
 
 """""""""""""""""""""""""""""""""""""
 " And finally, per-project .vimrc's "
