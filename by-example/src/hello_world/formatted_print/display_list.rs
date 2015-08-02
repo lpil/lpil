@@ -7,6 +7,7 @@
 
 use std::fmt;
 
+#[allow(dead_code)]
 struct List(Vec<i32>);
 
 impl fmt::Display for List {
@@ -29,6 +30,7 @@ impl fmt::Display for List {
     }
 }
 
+#[allow(dead_code)]
 pub fn run() {
     let v = List(vec![1,2,3]);
     println!("{}", v);
