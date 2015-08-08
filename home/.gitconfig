@@ -31,3 +31,6 @@
   workemail = !git config user.email `git config --get work.email`
   worksubmodule = !git submodule foreach git workemail
   files-ive-edited = !git log --no-merges --stat --author='Louis Pilfold' --name-only --pretty=format:"" | sort -u | tail -n +2
+
+[commit]
+  template = ~/.gittemplate
