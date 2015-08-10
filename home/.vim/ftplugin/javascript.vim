@@ -1,1 +1,1 @@
-autocmd FileType javascript set commentstring=//\ %s
+set commentstring=//\ %s

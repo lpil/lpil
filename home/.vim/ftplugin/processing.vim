@@ -1,1 +1,1 @@
-autocmd FileType processing set commentstring=//\ %s
+set commentstring=//\ %s

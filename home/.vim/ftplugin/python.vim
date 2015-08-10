@@ -1,1 +1,1 @@
-autocmd FileType python setlocal ts=4 sw=4
+python setlocal ts=4 sw=4

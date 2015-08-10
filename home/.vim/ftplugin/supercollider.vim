@@ -1,1 +1,1 @@
-autocmd FileType supercollider set commentstring=//\ %s
+set commentstring=//\ %s

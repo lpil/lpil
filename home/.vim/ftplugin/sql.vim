@@ -1,1 +1,1 @@
-autocmd FileType sql set commentstring=--\ %s
+set commentstring=--\ %s

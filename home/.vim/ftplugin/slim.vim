@@ -1,1 +1,1 @@
-autocmd FileType slim set commentstring=/\ %s
+set commentstring=/\ %s
