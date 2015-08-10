@@ -1,0 +1,343 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1038.36">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #008325}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; min-height: 25.0px}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Geneva}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #cd1713}
+    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #737373}
+    p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Geneva; color: #00f94f}
+    p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Geneva; min-height: 25.0px}
+    p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 19.0px Helvetica}
+    p.p10 {margin: 0.0px 0.0px 0.0px 0.0px; font: 19.0px Helvetica; min-height: 23.0px}
+    span.s1 {color: #102ac2}
+    span.s2 {color: #000000}
+    span.s3 {color: #737373}
+    span.s4 {text-decoration: underline}
+    span.Apple-tab-span {white-space:pre}
+  </style>
+</head>
+<body>
+<p class="p1">Nodes</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s1">Server</span>.default=s=<span class="s1">Server</span>.internal;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">When creating Synths, we have been accepting certain defaults 'behind the scenes'. In particular, we have not worried about the rendering order for the synthesis (known as 'execution order'). This can be controlled by specifying Nodes on the Server, as I shall explain. <span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">Nodes</p>
+<p class="p2"><br></p>
+<p class="p4">The Server has a graph of all the running Synths, which may be organised into Groups for convenience. You can see Synths and Groups being created just by looking at the Server graphics.</p>
+<p class="p2"><br></p>
+<p class="p4">A Node means a Synth or a Group. Whenever you press command+period you reset the graph, cleaning out all the Synths and Groups you added, that is, clearing all Nodes.</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s2">s.queryAllNodes </span>//run me to see the Nodes on the Server</p>
+<p class="p2"><br></p>
+<p class="p4">(There is also a keyboard shortcut of pressing 'N' when the Server window is in focus)<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">When the Server determines the audio output, it must run through all the Synths in the graph, rendering them all. The order it does so is referred to as execution order.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">This can cause trouble if you're not careful with order! Because the inputs of some Synths depend on calculating some other Synth first: imagine a reverb unit, which has to follow some spawned sine wave grains. If the reverb is calculated first, it has no current input to work on.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">Demo:</p>
+<p class="p2"><br></p>
+<p class="p4">(</p>
+<p class="p4">s=<span class="s1">Server</span>.default;</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">SynthDef</span>(<span class="s3">"reverb"</span>,{<span class="s1">Out</span>.ar(0,<span class="s1">CombN</span>.ar(<span class="s1">In</span>.ar(0,2),0.1,0.1,4))}).add;</p>
+<p class="p4"><span class="s1">SynthDef</span>(<span class="s3">"impulses"</span>,{<span class="s1">Out</span>.ar(0,<span class="s1">Impulse</span>.ar([0.9,1.19],0,0.3))}).add;</p>
+<p class="p4">)</p>
+<p class="p2"><br></p>
+<p class="p5">//where is the reverb?<span class="Apple-converted-space"> </span></p>
+<p class="p4">(</p>
+<p class="p6"><span class="s1">Synth</span><span class="s2">(</span>"impulses"<span class="s2">);</span></p>
+<p class="p6"><span class="s1">Synth</span><span class="s2">(</span>"reverb"<span class="s2">);</span></p>
+<p class="p4">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">When you create Synths, you may rely on defaults for the execution order. This is dangerous (as you'll discover when you find that you aren't getting the sound you thought you should when you combine say an effects unit and some other instrument), and it is good practise to be explicit about the graph you create. This is a headache in some ways because it is extra effort for you; the only consolation you can take is that SC3 is more efficient because it doesn't have to worry about taking responsibility over execution order.<span class="Apple-converted-space">   </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p7">What are the defaults?</p>
+<p class="p2"><br></p>
+<p class="p4">The initial state of the Node graph on the Server looks like this (do command+period first to destroy any existing nodes so you have the starting state):</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s2">s.queryAllNodes </span>//run me to see the Nodes on the Server</p>
+<p class="p2"><br></p>
+<p class="p4">The two default Nodes are convenient Groups for putting your Synths into.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">Group(0) is the absolute root of the tree. All new Synths get placed within this Group somewhere (they might be in subGroups but they will be within the RootNode Group at the top of the hierarchy).<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s2">r=</span><span class="s1">RootNode</span><span class="s2">.new; </span>//this gets a reference to Group(0)<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">Group(1) was added as an additional default to receive all created Synths, to avoid cluttering the base of the tree.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s1">Group</span><span class="s2">.basicNew(s, 1); </span>//this gets a reference to Group(1)<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">If we get a new Synth running:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">{<span class="s1">SinOsc</span>.ar(440,0,0.1)}.play</p>
+<p class="p2"><br></p>
+<p class="p4">If you now Query all Nodes you'll see the Synth was added to Group(1).<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">Now run this as well:</p>
+<p class="p2"><br></p>
+<p class="p4">{<span class="s1">SinOsc</span>.ar(880,0,0.1)}.play</p>
+<p class="p2"><br></p>
+<p class="p4">Query all nodes again. See how an execution order for rendering is building up.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">You might want to reset, then try the earlier impulse and reverb example at this point, to see what happens with their execution order. <span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">Now note we could have fixed the early example like this:</p>
+<p class="p2"><br></p>
+<p class="p5">//with the reverb?<span class="Apple-converted-space"> </span></p>
+<p class="p4">(</p>
+<p class="p6"><span class="s1">Synth</span><span class="s2">(</span>"reverb"<span class="s2">);</span></p>
+<p class="p6"><span class="s1">Synth</span><span class="s2">(</span>"impulses"<span class="s2">);</span></p>
+<p class="p4">)<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">That works because the defaults are on our side now. Another fix would use the InFeedback UGen. InFeedback takes the old value from the bus before this calculation cycle, allowing you to set up feedback cycles, and also circumvent execution order issues like this.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">But in more complex cases, it is highly advised that you take responsibility for the node graph on the Server, rather than accept defaults. In fact, always taking this responsibility will mean you never get into trouble, and is a good habit to fall into. You do this by specifying whenever you create a Synth where to put it in the Node tree. You can put new Nodes after or before other Nodes, and at the head or tail of Groups (lists of Synths)<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p5">//controlled execution</p>
+<p class="p4">(</p>
+<p class="p4">g=<span class="s1">Group</span>.basicNew(s,1);</p>
+<p class="p4"><span class="s1">Synth</span>.tail(g, <span class="s3">"reverb"</span>);</p>
+<p class="p4"><span class="s1">Synth</span>.head(g,<span class="s3">"impulses"</span>);</p>
+<p class="p4">)<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">Note it doesn't matter what order the code runs in now since the placement is carefully controlled:</p>
+<p class="p2"><br></p>
+<p class="p5">//controlled execution</p>
+<p class="p4">(</p>
+<p class="p4">g=<span class="s1">Group</span>.basicNew(s,1);</p>
+<p class="p4"><span class="s1">Synth</span>.head(g,<span class="s3">"impulses"</span>);</p>
+<p class="p4"><span class="s1">Synth</span>.tail(g,<span class="s3">"reverb"</span>);</p>
+<p class="p4">)</p>
+<p class="p2"><br></p>
+<p class="p4">Other ways we might do this:</p>
+<p class="p2"><br></p>
+<p class="p4">(</p>
+<p class="p6"><span class="s2">a=</span><span class="s1">Synth</span><span class="s2">(</span>"impulses"<span class="s2">);</span></p>
+<p class="p4"><span class="s1">Synth</span>.after(a,<span class="s3">"reverb"</span>);</p>
+<p class="p4">)</p>
+<p class="p2"><br></p>
+<p class="p4">(</p>
+<p class="p6"><span class="s2">a=</span><span class="s1">Synth</span><span class="s2">(</span>"reverb"<span class="s2">);</span></p>
+<p class="p4"><span class="s1">Synth</span>.before(a,<span class="s3">"impulses"</span>);</p>
+<p class="p4">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">You should have noted by now that all Synths get a number (starting from 1000) and all Groups get a number (starting from 0). The maximum number of Nodes you can have in your graph is set in ServerOptions and defaults to 1024.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">Combining the use of Nodes with the use of Buses; you use Nodes to control execution order, and buses (via In and Out) to pass audio data between Synths - so effects units can operate on a bus that another synth has already written to, and execution order will guarantee that this will all be calculated in the right order. Have a look at the reverb and impulses SynthDefs above again to see how this works in practice.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">A further perspective:</p>
+<p class="p8"><br></p>
+<p class="p9">[<span class="s4">Order-of-execution</span>]<span class="Apple-tab-span">	</span></p>
+<p class="p10"><br></p>
+<p class="p10"><br></p>
+</body>
+</html>

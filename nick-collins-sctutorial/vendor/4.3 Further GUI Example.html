@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1038.36">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; min-height: 25.0px}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #cd1713}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco}
+    span.s1 {color: #102ac2}
+    span.s2 {color: #008325}
+    span.s3 {color: #000000}
+    span.s4 {color: #737373}
+    span.Apple-tab-span {white-space:pre}
+  </style>
+</head>
+<body>
+<p class="p1"><br></p>
+<p class="p2">//This example was originally created in a seminar. It illustrates creating a new SynthDef, then a GUI which controls an active Synth based on that def.<span class="Apple-converted-space"> </span></p>
+<p class="p1"><br></p>
+<p class="p2">//As an exercise, you might want to expand this by adding labels to the GUI window to show a user what each control does!<span class="Apple-converted-space"> </span></p>
+<p class="p1"><br></p>
+<p class="p3">(</p>
+<p class="p3"><span class="s1">SynthDef</span>(<span class="s2">\mysound</span>,{<span class="s1">arg</span> density=100, centrefreq=1000, rq=0.1, amp=0.1;</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s1">var</span> dust, filter;<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-tab-span">	</span></p>
+<p class="p2"><span class="s3"><span class="Apple-tab-span">	</span></span>//Dust is a stochastic source of impulse clicks, density per second</p>
+<p class="p3"><span class="Apple-tab-span">	</span>dust= <span class="s1">Dust</span>.ar(density);</p>
+<p class="p1"><span class="Apple-tab-span">	</span></p>
+<p class="p2"><span class="s3"><span class="Apple-tab-span">	</span></span>//the filtering is twofold; shaping the clicks via attack and decay smoothing in Decay2, and then a Band Pass Filter</p>
+<p class="p3"><span class="Apple-tab-span">	</span>filter= <span class="s1">BPF</span>.ar(50*<span class="s1">Decay2</span>.ar(dust,0.01,0.05),centrefreq, rq);</p>
+<p class="p1"><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s1">Out</span>.ar(0,(filter*amp).dup(2))</p>
+<p class="p3">}).add</p>
+<p class="p3">)</p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p2">//GUI code. The MIDI Controller option is commented out; it was added spontaneously to answer an inquiry about how to hook up an external control to a graphical user interface control. You may want to look back at this after later material in the course on MIDI.<span class="Apple-converted-space"> </span></p>
+<p class="p3">(</p>
+<p class="p3"><span class="s1">var</span> w, slid2d, knob, numberbox;<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="s1">var</span> sound;<span class="Apple-converted-space"> </span></p>
+<p class="p1"><br></p>
+<p class="p2">//use that SynthDef!<span class="Apple-converted-space"> </span></p>
+<p class="p3">sound= <span class="s1">Synth</span>(<span class="s2">\mysound</span>);</p>
+<p class="p1"><br></p>
+<p class="p3">w= <span class="s1">Window</span>(<span class="s4">"mysound's window"</span>,<span class="s1">Rect</span>(100,300,300,200));</p>
+<p class="p1"><br></p>
+<p class="p3">slid2d= <span class="s1">Slider2D</span>(w,<span class="s1">Rect</span>(10,10,180,180));</p>
+<p class="p1"><br></p>
+<p class="p3">knob= <span class="s1">Knob</span>(w,<span class="s1">Rect</span>(210,10,80,80));</p>
+<p class="p1"><br></p>
+<p class="p3">numberbox= <span class="s1">NumberBox</span>(w,<span class="s1">Rect</span>(210,110,80,80));</p>
+<p class="p1"><br></p>
+<p class="p2">//slid2d.action = {stuff...} is the same as slid2d.action_({stuff...})</p>
+<p class="p3">slid2d.action = {<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>sound.set(<span class="s2">\density</span>,slid2d.x*100.0+1,<span class="s2">\rq</span>,slid2d.y*0.5+0.01);</p>
+<p class="p3">};<span class="Apple-converted-space"> </span></p>
+<p class="p1"><br></p>
+<p class="p3">knob.action={sound.set(<span class="s2">\centrefreq</span>,knob.value*2000+500)};</p>
+<p class="p1"><br></p>
+<p class="p2">//to let any MIDI control message set the knob position, and trigger the corresponding action</p>
+<p class="p2">/*</p>
+<p class="p2">MIDIIn.control={arg src,chan,num,val;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span>//defer avoids complaints from the system that the GUI is being updated outside of a safe thread; it pushes the code through to the AppClock (see week 6 of course) <span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span>{knob.value= (val/127.0); knob.action.value;}.defer;<span class="Apple-converted-space"> </span></p>
+<p class="p2">};<span class="Apple-converted-space"> </span></p>
+<p class="p2">*/</p>
+<p class="p1"><br></p>
+<p class="p3">numberbox.action={<span class="s1">var</span> temp;<span class="Apple-converted-space"> </span></p>
+<p class="p1"><br></p>
+<p class="p3">temp= numberbox.value.max(0.0).min(1.0);</p>
+<p class="p3">sound.set(<span class="s2">\amp</span>,temp);</p>
+<p class="p1"><br></p>
+<p class="p3">numberbox.value = temp;</p>
+<p class="p3">};</p>
+<p class="p1"><br></p>
+<p class="p3">w.front;<span class="Apple-converted-space"> </span></p>
+<p class="p1"><br></p>
+<p class="p3">w.onClose= {sound.free;};</p>
+<p class="p3">)</p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+</body>
+</html>

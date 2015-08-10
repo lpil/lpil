@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1038.36">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 24.0px Monaco}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; min-height: 25.0px}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #cd1713}
+    span.s1 {color: #102ac2}
+    span.s2 {color: #000000}
+    span.s3 {text-decoration: underline}
+    span.s4 {color: #008325}
+    span.s5 {color: #737373}
+    span.s6 {color: #cd1713}
+    span.Apple-tab-span {white-space:pre}
+  </style>
+</head>
+<body>
+<p class="p1">Global variables and Environments</p>
+<p class="p2"><br></p>
+<p class="p3">The interpreter provides a-z for free</p>
+<p class="p2"><br></p>
+<p class="p3">a=9;</p>
+<p class="p2"><br></p>
+<p class="p3">This is not recommended for anything other than simple code because it is too easy to overwrite contents accidentally, say by running multiple patches which use such variables.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3"><span class="s1">var</span> a;</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">a=9;<span class="Apple-tab-span">	</span></span>//sets local a, NOT global</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p3">would have a variable called a which remains local to the patch scope without overwriting the global.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">You should never use these variables for large projects, though they are occasionally helpful for small short examples.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">There is another place global data might be stored.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">The currentEnvironment is a special collection which can be used as a big storage space for name tagged data- see the [<span class="s3">Environment</span>] help file.</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">currentEnvironment; </span>//run this line to the current state of the currentEnvironment</p>
+<p class="p2"><br></p>
+<p class="p3">You use the currentEnvironment via the ~ sign</p>
+<p class="p2"><br></p>
+<p class="p3">~myvar= 0.9;</p>
+<p class="p2"><br></p>
+<p class="p3">The ~ and = is a shortcut here for<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">currentEnvironment.put(<span class="s4">\myvar</span>, 0.9);</p>
+<p class="p2"><br></p>
+<p class="p3">You can access the variable wherever you need it by<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">~myvar</p>
+<p class="p2"><br></p>
+<p class="p3">Which is the same as<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">currentEnvironment.put(<span class="s4">\myvar</span>, 0.9);</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">The currentEnvironment uses a special collection called an IdentityDictionary.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">The shortcut to make one in SuperCollider is</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">a= (); </span>//make a new IdentityDictionary</p>
+<p class="p2"><br></p>
+<p class="p3">a.put(<span class="s4">\hello</span>, 67)</p>
+<p class="p2"><br></p>
+<p class="p3">a.at(<span class="s4">\hello</span>)</p>
+<p class="p2"><br></p>
+<p class="p3">b= (a:8, fortune:<span class="s5">"darmstadt"</span>, hello:10); <span class="s6">//shortcut to set one up</span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+</body>
+</html>

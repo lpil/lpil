@@ -1,0 +1,494 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1038.36">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #cd1713}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; min-height: 25.0px}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #102ac2}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #008325}
+    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #1738f5}
+    p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #bb1a10}
+    p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #1030c6}
+    span.s1 {color: #102ac2}
+    span.s2 {color: #000000}
+    span.s3 {color: #008325}
+    span.s4 {color: #cd1713}
+    span.s5 {color: #1030c6}
+    span.s6 {color: #bb1a10}
+    span.s7 {text-decoration: underline}
+    span.Apple-tab-span {white-space:pre}
+  </style>
+</head>
+<body>
+<p class="p1">//Some effects examples</p>
+<p class="p2"><br></p>
+<p class="p1">//use the internal server with the scope</p>
+<p class="p3">(</p>
+<p class="p3"><span class="s1">Server</span>.default= s=<span class="s1">Server</span>.internal;<span class="Apple-converted-space"> </span></p>
+<p class="p3">s.boot;</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">//make some source sound recipe</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p4">SynthDef<span class="s2">(</span><span class="s3">\impulse</span><span class="s2">, {</span></p>
+<p class="p3"><span class="s1">Out</span>.ar(0,<span class="s1">Pan2</span>.ar(<span class="s1">Saw</span>.ar(440,<span class="s1">Decay2</span>.ar(<span class="s1">Impulse</span>.ar(1),0.001,0.1,0.5)),0.0));</p>
+<p class="p3">}).add; <span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s1">SynthDef</span><span class="s2">(</span>\continuous<span class="s2">, {</span></p>
+<p class="p3"><span class="s1">Out</span>.ar(0,<span class="s1">Pan2</span>.ar(<span class="s1">WhiteNoise</span>.ar(0.1),0.0));</p>
+<p class="p3">}).add; <span class="Apple-converted-space"> </span></p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">//we'll need to be careful with execution order here, since the effects unit SynthDefs will be separate to the sound sources. See the previous Nodes file.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">a = <span class="s1">Group</span>.basicNew(s,1); <span class="s4">//get Group 1</span></p>
+<p class="p2"><br></p>
+<p class="p3">x = <span class="s1">Synth</span>.head(a, <span class="s3">\impulse</span>);</p>
+<p class="p2"><br></p>
+<p class="p3">s.scope</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">//Delay</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3"><span class="s1">SynthDef</span>(<span class="s3">\fxexampledelay</span>, {<span class="s1">arg</span> delaytime=0.1;</p>
+<p class="p3"><span class="s1">var</span> input, effect;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="s2">input=</span><span class="s1">In</span><span class="s2">.ar(0,2); </span>//get two channels of input starting (and ending) on bus 0</p>
+<p class="p2"><br></p>
+<p class="p3">effect= <span class="s1">DelayN</span>.ar(input, 1,delaytime); <span class="s4">//max delay of one second</span></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="s1">Out</span><span class="s2">.ar(0,effect); </span>//adds to bus 0<span class="Apple-converted-space"> </span></p>
+<p class="p3">}).add; <span class="Apple-converted-space"> </span></p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">x.free;</p>
+<p class="p3">x = <span class="s1">Synth</span>.head(a, <span class="s3">\impulse</span>);</p>
+<p class="p5"><span class="s2">y= </span><span class="s1">Synth</span><span class="s2">.tail(a, </span>\fxexampledelay<span class="s2">);</span></p>
+<p class="p2"><br></p>
+<p class="p3">y.free;</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s2">y= </span><span class="s1">Synth</span><span class="s2">.tail(a, </span>\fxexampledelay<span class="s2">, [</span>\delaytime<span class="s2">, 0.4]);</span></p>
+<p class="p2"><br></p>
+<p class="p3">y.free;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">//other UGens to explore:</p>
+<p class="p6"><a href="SC://DelayN">DelayN</a><span class="s2">, <a href="SC://DelayL">DelayL</a>, <a href="SC://DelayC">DelayC</a>, <a href="SC://Delay1">Delay1</a>, <a href="SC://Tap">Tap</a>, <a href="SC://MultiTap">MultiTap</a></span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">//vibrato</p>
+<p class="p3">(</p>
+<p class="p2"><br></p>
+<p class="p3">{</p>
+<p class="p3"><span class="s1">var</span> source;<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="s1">var</span> fx;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">source= <span class="s1">Saw</span>.ar(440,0.1);</p>
+<p class="p2"><br></p>
+<p class="p3">fx= <span class="s1">DelayC</span>.ar(source, 0.01, <span class="s1">SinOsc</span>.ar(<span class="s1">Rand</span>(5,10),0,0.0025,0.0075));</p>
+<p class="p2"><br></p>
+<p class="p3">fx</p>
+<p class="p3">}.play</p>
+<p class="p2"><br></p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">//chorusing</p>
+<p class="p3">(</p>
+<p class="p2"><br></p>
+<p class="p3">{</p>
+<p class="p3"><span class="s1">var</span> source;<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="s1">var</span> fx;<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="s1">var</span> n=10;</p>
+<p class="p2"><br></p>
+<p class="p3">source= <span class="s1">EnvGen</span>.ar(<span class="s1">Env</span>([0,1,0],[0.1,0.5]),<span class="s1">Impulse</span>.kr(2))*<span class="s1">Saw</span>.ar(440,0.5);</p>
+<p class="p2"><br></p>
+<p class="p3">fx= <span class="s1">Mix</span>.fill(n, {</p>
+<p class="p3"><span class="s1">var</span> maxdelaytime= rrand(0.01,0.03);</p>
+<p class="p3"><span class="s1">var</span> half= maxdelaytime*0.5;</p>
+<p class="p3"><span class="s1">var</span> quarter= maxdelaytime*0.25;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">//%half+(quarter*LPF.ar(WhiteNoise.ar,rrand(1.0,10)))</p>
+<p class="p3"><span class="s1">DelayC</span>.ar(source, maxdelaytime, <span class="s1">LFNoise1</span>.kr(<span class="s1">Rand</span>(5,10),0.01,0.02) )</p>
+<p class="p2"><br></p>
+<p class="p3">});</p>
+<p class="p2"><br></p>
+<p class="p3">fx</p>
+<p class="p3">}.play</p>
+<p class="p2"><br></p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">//Reverb</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3"><span class="s1">SynthDef</span>(<span class="s3">\fxexamplereverb</span>, {<span class="s1">arg</span> delaytime=0.01, decaytime=1;</p>
+<p class="p3"><span class="s1">var</span> input;<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="s1">var</span> numc,numa,temp;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="s2">input=</span><span class="s1">In</span><span class="s2">.ar(0,2); </span>//get two channels of input starting (and ending) on bus 0</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="s2">numc = 4; </span>// number of comb delays</p>
+<p class="p1"><span class="s2">numa = 6; </span>// number of allpass delays</p>
+<p class="p2"><br></p>
+<p class="p1">// reverb predelay time :</p>
+<p class="p3">temp = <span class="s1">DelayN</span>.ar(input, 0.048,0.048);</p>
+<p class="p2"><br></p>
+<p class="p3">temp=<span class="s1">Mix</span>.fill(numc,{<span class="s1">CombL</span>.ar(temp,0.1,rrand(0.01, 0.1),5)});</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p1">// chain of 4 allpass delays on each of two channels (8 total) :</p>
+<p class="p3">numa.do({ temp = <span class="s1">AllpassN</span>.ar(temp, 0.051, [rrand(0.01, 0.05),rrand(0.01, 0.05)], 1) });</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p1">// add original sound to reverb and play it :</p>
+<p class="p3"><span class="s1">Out</span>.ar(0,(0.2*temp));</p>
+<p class="p3">}).add; <span class="Apple-converted-space"> </span></p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s2">y= </span><span class="s1">Synth</span><span class="s2">.tail(a, </span>\fxexamplereverb<span class="s2">);</span></p>
+<p class="p2"><br></p>
+<p class="p3">y.free;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">//readymade Reverbs in SC3.2 and later</p>
+<p class="p6"><a href="SC://FreeVerb">FreeVerb</a></p>
+<p class="p6"><a href="SC://FreeVerb2">FreeVerb2</a></p>
+<p class="p6"><a href="SC://GVerb">GVerb</a></p>
+<p class="p2"><br></p>
+<p class="p1">//If you build your own reverbs, useful UGens are:<span class="Apple-converted-space"> </span></p>
+<p class="p6"><a href="SC://CombN">CombN</a><span class="s2">, <a href="SC://CombL">CombL</a>, <a href="SC://CombC">CombC</a></span></p>
+<p class="p6"><a href="SC://AllpassN">AllpassN</a><span class="s2">, <a href="SC://AllpassL">AllpassL</a>, <a href="SC://AllpassC">AllpassC</a></span></p>
+<p class="p1">//and the delay reverbs above for early reflections</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">//simple feedback example, using the LocalIn and LocalOut UGens</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3">{</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s1">var</span> source = <span class="s1">Impulse</span>.ar(<span class="s1">MouseX</span>.kr(1,10));</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s1">var</span> sound, feedback;</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>feedback = <span class="s1">LocalIn</span>.ar(1);<span class="Apple-tab-span">	</span>//one channel of feedback</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>sound = source + feedback;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><span class="s2"><span class="Apple-tab-span">	</span></span><span class="s1">LocalOut</span><span class="s2">.ar(sound* </span><span class="s1">MouseY</span><span class="s2">.kr(0,0.9));<span class="Apple-converted-space">  </span></span>//feedback sound with some gain (&lt;1 to stop feedback building up and overloading!).<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>sound;</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">}.play</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p1">//can take on pitch at reciprocal of control period, which is the default delay time for feedback. You can add further delay via Delay UGens for the feedback signal.<span class="Apple-converted-space"> </span></p>
+<p class="p3">{<span class="s1">SinOsc</span>.ar(<span class="s1">ControlDur</span>.ir.reciprocal)*0.1}.play</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">//Phasing and Flanging</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">//phasing = play a signal back in combination with a phase shifted copy of itself (using an allpass filter); vary the delaytime under 20 msec</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p5"><span class="s1">SynthDef</span><span class="s2">(</span>\fxexamplephasing<span class="s2">, {</span><span class="s1">arg</span><span class="s2"> freq=0.2;</span></p>
+<p class="p3"><span class="s1">var</span> input, effect;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="s2">input=</span><span class="s1">In</span><span class="s2">.ar(0,2); </span>//get two channels of input starting (and ending) on bus 0</p>
+<p class="p2"><br></p>
+<p class="p3">effect= <span class="s1">AllpassN</span>.ar(input,0.02,<span class="s1">SinOsc</span>.kr(freq,0,0.01,0.01)); <span class="s4">//max delay of 20msec</span></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="s1">Out</span><span class="s2">.ar(0,effect); </span>//adds to bus 0 where original signal is already playing</p>
+<p class="p3">}).add; <span class="Apple-converted-space"> </span></p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p3">x.free</p>
+<p class="p2"><br></p>
+<p class="p3">x= <span class="s1">Synth</span>.head(a, <span class="s3">\continuous</span>);</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s2">y= </span><span class="s1">Synth</span><span class="s2">.tail(a, </span>\fxexamplephasing<span class="s2">);</span></p>
+<p class="p2"><br></p>
+<p class="p3">y.set(<span class="s3">\freq</span>, 0.1)</p>
+<p class="p2"><br></p>
+<p class="p3">y.set(<span class="s3">\freq</span>, 1)</p>
+<p class="p2"><br></p>
+<p class="p3">y.free</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">//flanging= play a signal back in combination with a delayed copy of itself; vary the delaytime around 10 msec</p>
+<p class="p1">//flanging usually also involves some feedback, achieved here using LocalIn and LocalOut</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3"><span class="s1">SynthDef</span>(<span class="s3">\fxexampleflanging</span>, {<span class="s1">arg</span> flangefreq=0.1, fdback=0.1;</p>
+<p class="p3"><span class="s1">var</span> input, effect;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="s2">input=</span><span class="s1">In</span><span class="s2">.ar(0,2); </span>//get two channels of input starting (and ending) on bus 0</p>
+<p class="p2"><br></p>
+<p class="p3">input= input+ <span class="s1">LocalIn</span>.ar(2); <span class="s4">//add some feedback</span></p>
+<p class="p2"><br></p>
+<p class="p3">effect= <span class="s1">DelayN</span>.ar(input,0.02,<span class="s1">SinOsc</span>.kr(flangefreq,0,0.005,0.005)); <span class="s4">//max delay of 20msec</span></p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s1">LocalOut</span>.ar(fdback*effect);</p>
+<p class="p1">//LocalOut.ar(fdback*BPF.ar(effect,MouseX.kr(1000,10000),0.1)); //alternative with filter in the feedback loop</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="s1">Out</span><span class="s2">.ar(0,effect); </span>//adds to bus 0 where original signal is already playing</p>
+<p class="p3">}).add; <span class="Apple-converted-space"> </span></p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p3">x.free</p>
+<p class="p2"><br></p>
+<p class="p3">x= <span class="s1">Synth</span>.head(a, <span class="s3">\continuous</span>);</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s2">y= </span><span class="s1">Synth</span><span class="s2">.tail(a, </span>\fxexampleflanging<span class="s2">);</span></p>
+<p class="p2"><br></p>
+<p class="p3">y.set(<span class="s3">\flangefreq</span>,0.4);</p>
+<p class="p2"><br></p>
+<p class="p3">y.set(<span class="s3">\fdback</span>, 0.95);</p>
+<p class="p2"><br></p>
+<p class="p3">y.free;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">//Dynamics Processing</p>
+<p class="p2"><br></p>
+<p class="p3">s.scope</p>
+<p class="p2"><br></p>
+<p class="p1">//compress or expand the dynamic range (amplitude variation) of a signal</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3"><span class="s1">SynthDef</span>(<span class="s3">\fxexamplecompression</span>, {<span class="s1">arg</span> gain=1.5, threshold=0.5;</p>
+<p class="p3"><span class="s1">var</span> input, effect;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="s2">input=</span><span class="s1">In</span><span class="s2">.ar(0,2); </span>//get two channels of input starting (and ending) on bus 0</p>
+<p class="p2"><br></p>
+<p class="p3">effect= <span class="s1">CompanderD</span>.ar(gain*input,threshold,1,0.5);<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="s1">ReplaceOut</span><span class="s2">.ar(0,effect); </span>//replaces bus 0 where original signal is already playing</p>
+<p class="p3">}).add; <span class="Apple-converted-space"> </span></p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">x.free</p>
+<p class="p2"><br></p>
+<p class="p3">x= <span class="s1">Synth</span>.head(a, <span class="s3">\impulse</span>);</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s2">y= </span><span class="s1">Synth</span><span class="s2">.tail(a, </span>\fxexamplecompression<span class="s2">);</span></p>
+<p class="p2"><br></p>
+<p class="p3">y.free;</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s2">y= </span><span class="s1">Synth</span><span class="s2">.tail(a, </span>\fxexamplecompression<span class="s2">,[</span>\gain<span class="s2">,2, </span>\threshold<span class="s2">,0.1]);</span></p>
+<p class="p2"><br></p>
+<p class="p3">y.free;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">//a limiter forces an absolute limit, and is very useful as a final stage in a patch to avoid overloading<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p5"><span class="s1">SynthDef</span><span class="s2">(</span>\fxexamplelimiter<span class="s2">, {</span><span class="s1">arg</span><span class="s2"> gain=1;</span></p>
+<p class="p3"><span class="s1">var</span> input, effect;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="s2">input=</span><span class="s1">In</span><span class="s2">.ar(0,2); </span>//get two channels of input starting (and ending) on bus 0</p>
+<p class="p2"><br></p>
+<p class="p3">effect= <span class="s1">Limiter</span>.ar(gain*input,0.99, 0.01);<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="s1">ReplaceOut</span><span class="s2">.ar(0,effect); </span>//replaces bus 0 where original signal is already playing</p>
+<p class="p3">}).add; <span class="Apple-converted-space"> </span></p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">x.free</p>
+<p class="p2"><br></p>
+<p class="p3">x= <span class="s1">Synth</span>.head(a, <span class="s3">\impulse</span>);</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s2">y= </span><span class="s1">Synth</span><span class="s2">.tail(a, </span>\fxexamplelimiter<span class="s2">);</span></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="s2">y.set(</span><span class="s3">\gain</span><span class="s2">, 10) </span>//careful with your ears!<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">y.free;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p6"><a href="SC://Compander">Compander</a><span class="s2">, <a href="SC://Normalizer">Normalizer</a>, <a href="SC://Limiter">Limiter</a></span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">//Distortion</p>
+<p class="p2"><br></p>
+<p class="p3">Adding new components into a signal to make it richer; modulation side effects are examples of these.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">//use a unary or binary operation (see the top of the AbstractFunctions or bottom of the Signal help files for some more)</p>
+<p class="p2"><br></p>
+<p class="p3">{<span class="s1">SinOsc</span>.ar(440,0,0.5)}.play</p>
+<p class="p2"><br></p>
+<p class="p3">{<span class="s1">SinOsc</span>.ar(440,0,0.5).distort}.play</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="s2">{</span><span class="s1">SinOsc</span><span class="s2">.ar(440,0,0.5).cubed}.play </span>//squared would put it an octave up; recall ring modulation and C+M, C-M</p>
+<p class="p2"><br></p>
+<p class="p3">{<span class="s1">SinOsc</span>.ar(440,0,0.1).pow(<span class="s1">MouseX</span>.kr(0.1,1.0))}.scope</p>
+<p class="p2"><br></p>
+<p class="p3">{<span class="s1">SinOsc</span>.ar(440,0,0.5).clip(-0.2,0.3)}.scope</p>
+<p class="p2"><br></p>
+<p class="p3">{<span class="s1">SinOsc</span>.ar(440,0,0.1).round(2**(-7))}.scope <span class="s4">//bit reduction to 7 bit signal</span></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="s2">{</span><span class="s1">Latch</span><span class="s2">.ar(</span><span class="s1">SinOsc</span><span class="s2">.ar(440,0,0.1),</span><span class="s1">Impulse</span><span class="s2">.ar(</span><span class="s1">MouseX</span><span class="s2">.kr(100,20000)))}.scope </span>//sr change; Latch allows crude resampling with aliasing (sample and hold signal values at assigned rate)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">//pass through Shaper for waveshaping; each input value has an assigned output value in a lookup table</p>
+<p class="p2"><br></p>
+<p class="p3">b = <span class="s5">Buffer</span>.alloc(s, 1024, 1);</p>
+<p class="p2"><br></p>
+<p class="p7">// arbitrary transfer function, create the data at 1/2 buffer size + 1</p>
+<p class="p3">t = <span class="s5">Signal</span>.fill(513, { <span class="s5">|i|</span> i.linlin(0.0, 512.0, -1.0, 1.0) });</p>
+<p class="p2"><br></p>
+<p class="p7">// linear function</p>
+<p class="p3">t.plot</p>
+<p class="p2"><br></p>
+<p class="p7">// t.asWavetable will convert it to the official Wavetable format at twice the size</p>
+<p class="p3">b.sendCollection(t.asWavetableNoWrap);<span class="Apple-converted-space">  </span><span class="s6">// may also use loadCollection here</span></p>
+<p class="p2"><br></p>
+<p class="p7">// shaper has no effect because of the linear transfer function</p>
+<p class="p3">(</p>
+<p class="p3">{ <span class="Apple-tab-span">	</span><span class="s5">var</span><span class="Apple-tab-span">	</span>sig = <span class="s5">Shaper</span>.ar(b, <span class="s5">SinOsc</span>.ar(440, 0, 0.4));</p>
+<p class="p3"><span class="Apple-tab-span">	</span>sig ! 2</p>
+<p class="p3">}.scope;</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p7">// now for a twist</p>
+<p class="p3">(</p>
+<p class="p3">a = <span class="s5">Signal</span>.fill(256, { <span class="s5">|i|</span><span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s5">var</span> t = i/255.0; <span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>t + (0.1 * (max(t, 0.1) - 0.1) * sin(2pi * t * 80 + sin(2pi * 25.6 * t)))</p>
+<p class="p3">})</p>
+<p class="p3">);</p>
+<p class="p2"><br></p>
+<p class="p3">a.plot</p>
+<p class="p2"><br></p>
+<p class="p3">d = (a.copy.reverse.neg) ++(Signal[0])++ a;</p>
+<p class="p2"><br></p>
+<p class="p3">d.plot</p>
+<p class="p2"><br></p>
+<p class="p3">d.size<span class="Apple-tab-span">	</span>//must be buffer size/2 + 1, so 513 is fine</p>
+<p class="p2"><br></p>
+<p class="p3">b.sendCollection(d.asWavetableNoWrap);<span class="Apple-converted-space">  </span><span class="s6">// may also use loadCollection here</span></p>
+<p class="p2"><br></p>
+<p class="p7"><span class="s2">b.plot </span>// wavetable format!<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p7">// test shaper</p>
+<p class="p3">(</p>
+<p class="p3">{<span class="Apple-converted-space"> </span></p>
+<p class="p8"><span class="s2"><span class="Apple-tab-span">	</span></span>Shaper<span class="s2">.ar(</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>b,<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s5">SinOsc</span>.ar(440, 0.5, <span class="s5">Line</span>.kr(0,0.9,6))</p>
+<p class="p3"><span class="Apple-tab-span">	</span>)<span class="Apple-converted-space"> </span></p>
+<p class="p3">}.scope</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Shaper can also be used to deliberately distort a sine in a controlled manner, as a synthesis method.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">[</span>Shaper<span class="s2">]</span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Further examples of various effects, from distortion to delay effects, are in<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">[<span class="s7">Tour_of_UGens</span>]</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+</body>
+</html>

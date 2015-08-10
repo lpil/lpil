@@ -1,0 +1,251 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1038.36">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #cd1713}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; min-height: 25.0px}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #008325}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #102ac2}
+    span.s1 {color: #102ac2}
+    span.s2 {color: #000000}
+    span.s3 {color: #008325}
+    span.s4 {color: #737373}
+    span.Apple-tab-span {white-space:pre}
+  </style>
+</head>
+<body>
+<p class="p1">//One fork appears inside the other:</p>
+<p class="p2">(</p>
+<p class="p2">{</p>
+<p class="p3"><br></p>
+<p class="p2"><span class="Apple-tab-span">	</span>4.do{<span class="s1">arg</span> j;<span class="Apple-converted-space"> <span class="Apple-tab-span">	</span></span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p1"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//nested sequence, create another fork</p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>{</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>8.do{<span class="s1">arg</span> i;</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Synth</span>(<span class="s3">\event</span>, [<span class="s3">\freq</span>,(48+(i*3.3)+j).midicps,<span class="s3">\amp</span>, (1.0-(i/8))]);</p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0.5.wait;</p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>}</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>}.fork;</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p1"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>4.0.wait; </span>//outer fork must wait for inner fork to do its work</p>
+<p class="p2"><span class="Apple-tab-span">	</span>}</p>
+<p class="p2">}.fork;</p>
+<p class="p2">)</p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p2">(</p>
+<p class="p1">//two quickly created sounds; they click because of the line generators being quite crude</p>
+<p class="p2"><span class="s1">SynthDef</span>(<span class="s3">\sound1</span>,{<span class="s1">arg</span> freq=440,amp=0.1;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="s1">var</span> sound;<span class="Apple-converted-space"> </span></p>
+<p class="p3"><br></p>
+<p class="p2">sound= <span class="s1">LPF</span>.ar(<span class="s1">Saw</span>.ar(freq),2000)*<span class="s1">Line</span>.kr(1,0,0.1, doneAction:2)*amp;</p>
+<p class="p2"><span class="s1">Out</span>.ar(0,<span class="s1">Pan2</span>.ar(sound,0.0))</p>
+<p class="p2">}).add;</p>
+<p class="p3"><br></p>
+<p class="p2"><span class="s1">SynthDef</span>(<span class="s3">\sound2</span>,{<span class="s1">arg</span> freq=440,amp=0.1;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="s1">var</span> sound;<span class="Apple-converted-space"> </span></p>
+<p class="p3"><br></p>
+<p class="p2">sound= <span class="s1">HPF</span>.ar(<span class="s1">LFPar</span>.ar(freq),1000)*<span class="s1">Line</span>.kr(0,1,0.5, doneAction:2)*amp;</p>
+<p class="p2"><span class="s1">Out</span>.ar(0,<span class="s1">Pan2</span>.ar(sound,0.0))</p>
+<p class="p2">}).add;</p>
+<p class="p2">)</p>
+<p class="p3"><br></p>
+<p class="p1">//test SynthDefs</p>
+<p class="p4"><span class="s1">Synth</span><span class="s2">(</span>\sound1<span class="s2">)</span></p>
+<p class="p3"><br></p>
+<p class="p4"><span class="s1">Synth</span><span class="s2">(</span>\sound2<span class="s2">)</span></p>
+<p class="p3"><br></p>
+<p class="p1">//nested scheduling; each bar has a different length, and uses one of two sounds</p>
+<p class="p2">(<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="s1">var</span> barlengths= [4.0,3.5,5.0]; <span class="Apple-converted-space"> </span></p>
+<p class="p5"><span class="s2"><span class="Apple-converted-space"> </span></span>var<span class="s2"> t= </span>TempoClock<span class="s2">(2.5);</span></p>
+<p class="p2">{<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="s1">inf</span>.do{<span class="s1">|i|</span> <span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">var</span> barnow= barlengths.wrapAt(i);<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">"new bar"</span>.postln;</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>{<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">var</span> whichsound;<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>whichsound= [<span class="s3">\sound1</span>,<span class="s3">\sound2</span>].choose;</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>((barnow/0.25)-2).floor.do{<span class="s1">|j|</span><span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Synth</span>(whichsound,[<span class="s3">\freq</span>, 300+(100*j),<span class="s3">\amp</span>,0.3]); <span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0.25.wait;<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>}; <span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>}.fork(t);<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>barnow.wait;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span>}<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p2">}.fork(t)<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-converted-space"> </span></p>
+<p class="p2">)</p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p1">//another example</p>
+<p class="p2">(<span class="Apple-converted-space"> </span></p>
+<p class="p5">var<span class="s2"> t= </span>TempoClock<span class="s2">(2);<span class="Apple-converted-space"> </span></span></p>
+<p class="p3"><span class="Apple-converted-space"> </span></p>
+<p class="p2">{<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span>4.do{<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">"bar"</span>.postln;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>{<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>[1.0,1.0,0.5,0.5,0.5,0.25,0.25].do{<span class="s1">|val|</span> <span class="s1">Synth</span>(<span class="s3">\event</span>, [<span class="s3">\freq</span>,rrand(48,84).midicps,<span class="s3">\amp</span>, rrand(0.0,0.3)]); <span class="s4">"event"</span>.postln; val.wait;}; <span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>}.fork(t);<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>4.0.wait;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span>}<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p2">}.fork(t)<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-converted-space"> </span></p>
+<p class="p2">)</p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p1">//demonstration of a simple structure for a piece where different sections appear in a desired order<span class="Apple-converted-space"> </span></p>
+<p class="p1">//note if you were extending this to some large-scale form with sectional repeats, that repeated materials could be put into functions, to avoid repetition through encapsulation.<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-converted-space"> </span></p>
+<p class="p2">(<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-converted-space"> </span></p>
+<p class="p2">{<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="s1">SynthDef</span>(<span class="s3">\bleep</span>,{ <span class="s1">arg</span> out=0, note=60, amp=0.5, pan=0.0;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">var</span> freq, env; <span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>freq = note.midicps;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>env = <span class="s1">EnvGen</span>.ar(<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Env</span>([0,1,1,0],[0.01, 0.1, 0.2]),<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>levelScale:amp, <span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>doneAction:2<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>);<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Out</span>.ar(out,<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Pan2</span>.ar(<span class="s1">Blip</span>.ar(freq) * env, pan)<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>)<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span>}).add;<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="s1">SynthDef</span>(<span class="s3">\bleep2</span>,{ <span class="s1">arg</span> out=0, note=60, amp=0.5, pan=0.0;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">var</span> freq, env; <span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>freq = note.midicps;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>env = <span class="s1">EnvGen</span>.ar(<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Env</span>([0,1,1,0],[0.1, 0.1, 0.02]),<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>levelScale:amp, <span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>doneAction:2<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>);<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Out</span>.ar(out,<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Pan2</span>.ar(<span class="s1">Blip</span>.ar(freq, <span class="s1">Line</span>.kr(10,1,1)) * env, pan)<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>)<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span>}).add;<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p5"><span class="s2"><span class="Apple-tab-span">	</span></span>SynthDef<span class="s2">(</span><span class="s3">\mlpitch</span><span class="s2">,{<span class="Apple-converted-space"> </span></span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">var</span> soundin, amp, freq, hasFreq; <span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>soundin= <span class="s1">SoundIn</span>.ar; <span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>amp= <span class="s1">Amplitude</span>.kr(soundin);<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>#freq, hasFreq= <span class="s1">Pitch</span>.kr(soundin); <span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Out</span>.ar(0,amp*<span class="s1">SinOsc</span>.ar(freq))<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span>}).add; <span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="s2"><span class="Apple-tab-span">	</span>s.sync;<span class="Apple-converted-space">  </span></span>//won't proceed until server confirms it has the SynthDefs ready</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="s2"><span class="Apple-tab-span">	</span></span>//make buffers;<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="s2"><span class="Apple-tab-span">	</span></span>//s.sync;<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="s2"><span class="Apple-tab-span">	</span></span>//three sections<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="s2"><span class="Apple-tab-span">	</span></span>//1.<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span>10.do{<span class="s1">|i|</span><span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Synth</span>([<span class="s3">\bleep</span>, <span class="s3">\bleep2</span>].choose);<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0.15.wait;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span>};<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span>1.0.wait;<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="s2"><span class="Apple-tab-span">	</span></span>//2.<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span>a= <span class="s1">Synth</span>(<span class="s3">\mlpitch</span>);<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span>1.0.wait; <span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span>a.free; <span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span>1.0.wait; <span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="s2"><span class="Apple-tab-span">	</span></span>//3. two sequences of actions happen simultaneously (note no gap between the two)</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span>{<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>100.do{<span class="s1">|i|</span><span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Synth</span>([<span class="s3">\bleep</span>, <span class="s3">\bleep2</span>].choose,[<span class="s3">\note</span>, ([60,62,64,66,67,69,71]-12).choose]);<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>rrand(0.05,0.15).wait;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>};<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span>}.fork; <span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><span class="s2"><span class="Apple-tab-span">	</span></span>//though process has just been forked off, straight to do further things in this thread too!</p>
+<p class="p3"><span class="Apple-tab-span">	</span> <span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span>100.do{<span class="s1">|i|</span><span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Synth</span>([<span class="s3">\bleep</span>, <span class="s3">\bleep2</span>].choose,[<span class="s3">\note</span>, [60,62,64,66,67,69,71].choose]);<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0.1.wait;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span>};<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p2">}.fork; <span class="Apple-converted-space"> </span></p>
+<p class="p2">)<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-converted-space"> </span></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+</body>
+</html>

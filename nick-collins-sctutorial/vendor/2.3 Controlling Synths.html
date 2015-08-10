@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1038.36">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; min-height: 25.0px}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #cd1713}
+    span.s1 {color: #102ac2}
+    span.s2 {color: #000000}
+    span.s3 {color: #008325}
+  </style>
+</head>
+<body>
+<p class="p1">Some useful ways to use Synths<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">When we run code like<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">{SinOsc.ar}.play<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">we make a Synth (which you see counted on the synthesizer graphic under Synths). We'll see soon enough ways to make reusable recipes for synthesis (SynthDefs) but we'll stick with the quick {}.play formulation for now. But let's just show a few things you can do here.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">We can store a reference to a running Synth to send messages to it later.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">a = {<span class="s1">SinOsc</span>.ar(440)*0.1}.play</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s2">a.run(</span><span class="s1">false</span><span class="s2">) </span>//turn off synthesis (saving CPU) without freeing the Synth</p>
+<p class="p3"><span class="s2">a.run </span>//restore (defaults to a.run(true)</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s2">a.free </span>//stop it explicitly: note that I didn't need to use the 'stop all' cmd+. or alt+. key command, and can individual kill specific Synths this way</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">Arguments<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">An argument to the function {} is turned by the SuperCollider language into a control, a way for you to change a parameter of your Synth later on.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">a = {<span class="s1">arg</span> freq=440; <span class="s1">SinOsc</span>.ar(freq)*0.1}.play</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s2">a.set(</span><span class="s3">\freq</span><span class="s2">,330) </span>//change frequency!<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">A common mistake is to try to pass a UGen as an argument:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s2">a.set(</span><span class="s3">\freq</span><span class="s2">,</span><span class="s1">MouseX</span><span class="s2">.kr(220,440)) </span>//WON'T WORK, WILL CRASH 'ERROR: can't set a control to a UGen'</p>
+<p class="p2"><br></p>
+<p class="p1">You must have plugged together all the UGens earlier on within the {}. More explanation of this later on (it's really to do with the language being separate to the synthesizer and the Synth mechanism having to be used in certain ways).<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">Two arguments at once:</p>
+<p class="p2"><br></p>
+<p class="p1">a = {<span class="s1">arg</span> freq=440, amp=0.1; <span class="s1">SinOsc</span>.ar(freq)*amp}.play</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s2">a.set(</span><span class="s3">\freq</span><span class="s2">,rrand(220,440), </span><span class="s3">\amp</span><span class="s2">, rrand(0.05,0.2)) </span>//change frequency and amplitude randomly within a uniform range; run this line multiple times<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+</body>
+</html>

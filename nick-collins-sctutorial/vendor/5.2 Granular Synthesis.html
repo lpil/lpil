@@ -1,0 +1,314 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1038.36">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Geneva; color: #008325}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Geneva; min-height: 25.0px}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Geneva}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; min-height: 25.0px}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco}
+    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #cd1713}
+    span.s1 {color: #102ac2}
+    span.s2 {color: #737373}
+    span.s3 {color: #008325}
+    span.s4 {font: 18.0px Geneva}
+    span.s5 {font: 18.0px Geneva; color: #102ac2}
+    span.s6 {color: #cd1713}
+    span.s7 {color: #000000}
+    span.s8 {text-decoration: underline ; color: #102ac2}
+    span.s9 {color: #1738f5}
+    span.Apple-tab-span {white-space:pre}
+  </style>
+</head>
+<body>
+<p class="p1">Granular Synthesis</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s1">Server</span>.default=s=<span class="s1">Server</span>.internal;</p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p5">In Granular Synthesis sounds are modelled out of microscopic particles of sound, short grains in the region of 10-100 milliseconds long.</p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p5">There are lots of choices for these grains, they might be enveloped sine tones, or tiny extracts of sampled sound:</p>
+<p class="p4"><br></p>
+<p class="p3">b = <span class="s1">Buffer</span>.read(s,<span class="s1">Platform</span>.resourceDir +/+ <span class="s2">"sounds/a11wlk01.wav"</span>);</p>
+<p class="p4"><br></p>
+<p class="p6">//three different possible grains<span class="Apple-converted-space"> </span></p>
+<p class="p5">(</p>
+<p class="p5">{</p>
+<p class="p5"><span class="s1">var</span> singrain1, singrain2, sfgrain;</p>
+<p class="p5">singrain1=<span class="s1">SinOsc</span>.ar(440,0,<span class="s1">XLine</span>.kr(1.0, 0.0001, 0.05));</p>
+<p class="p5">singrain2=<span class="s1">FSinOsc</span>.ar(800, 0.0, <span class="s1">Line</span>.kr(1.0,0,0.05).squared);</p>
+<p class="p5">sfgrain=(<span class="s1">PlayBuf</span>.ar(1,b.bufnum, <span class="s1">BufRateScale</span>.kr(b.bufnum)))*<span class="s1">EnvGen</span>.kr(<span class="s1">Env</span>([0,1,1,0],[0.01,0.01,0.01], -4));</p>
+<p class="p4"><br></p>
+<p class="p5">[singrain1,singrain2,sfgrain]</p>
+<p class="p5">}.plot(0.1,s)</p>
+<p class="p5">)</p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p5">When lots of these microsounds are combined into big swarms, we can make macroscopic soundscapes. <span class="Apple-converted-space"> </span></p>
+<p class="p4"><br></p>
+<p class="p5">We can control the swarms by scheduling grains over time, forming clouds of events.</p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p6">//simple sine grain synthdef - note the all important doneAction</p>
+<p class="p5">(</p>
+<p class="p5"><span class="s1">SynthDef</span>(<span class="s3">\sinegrain</span>, {<span class="s1">arg</span> pan, freq, amp; <span class="s1">var</span> grain;<span class="Apple-converted-space"> </span></p>
+<p class="p4"><br></p>
+<p class="p5">grain= <span class="s1">SinOsc</span>.ar(freq, 0, amp)*(<span class="s1">XLine</span>.kr(1.001,0.001,0.1,doneAction:2)-0.001);</p>
+<p class="p4"><br></p>
+<p class="p5"><span class="s1">Out</span>.ar(0,<span class="s1">Pan2</span>.ar(grain, pan))}).add;<span class="Apple-converted-space"> </span></p>
+<p class="p5">)</p>
+<p class="p4"><br></p>
+<p class="p6">//listen to a single grain;</p>
+<p class="p5"><span class="s1">Synth</span>(<span class="s3">\sinegrain</span>,[<span class="s3">\freq</span>,rrand(100,10000),<span class="s3">\amp</span>, exprand(0.05,0.1), <span class="s3">\pan</span>, 1.0.rand2]);</p>
+<p class="p4"><br></p>
+<p class="p6">//schedule 100 random grains over 1 second<span class="Apple-converted-space"> </span></p>
+<p class="p5">(</p>
+<p class="p5">{</p>
+<p class="p5">100.do{arg i;<span class="Apple-converted-space"> </span></p>
+<p class="p4"><br></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s1">Synth</span>(<span class="s3">\sinegrain</span>,[<span class="s3">\freq</span>,rrand(100,10000),<span class="s3">\amp</span>, exprand(0.05,0.1), <span class="s3">\pan</span>, 1.0.rand2]); <span class="Apple-converted-space"> </span></p>
+<p class="p5"><span class="Apple-tab-span">	</span>0.01.wait</p>
+<p class="p5">};<span class="Apple-converted-space"> </span></p>
+<p class="p5">}.fork</p>
+<p class="p5">)</p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p5">Over time, we can change the characteristics of the swarm, for example, playing with its density, and control individual parameters of grains within tendency masks or following certain paths</p>
+<p class="p4"><br></p>
+<p class="p6">//schedule 200 random grains over time, decreasing the range of allowed random frequencies and lowering the density over time</p>
+<p class="p5">(</p>
+<p class="p5">{</p>
+<p class="p5">200.do{arg i;<span class="Apple-converted-space"> </span></p>
+<p class="p5">var timeprop = (i/199.0)**3;</p>
+<p class="p4"><br></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s1">Synth</span>(<span class="s3">\sinegrain</span>,[<span class="s3">\freq</span>,exprand(100,5000-(20*i)),<span class="s3">\amp</span>, exprand(0.05,0.1), <span class="s3">\pan</span>, 1.0.rand2]); <span class="Apple-converted-space"> </span></p>
+<p class="p5"><span class="Apple-tab-span">	</span>rrand((timeprop*0.1).max(0.01),timeprop*0.3).wait</p>
+<p class="p5">};<span class="Apple-converted-space"> </span></p>
+<p class="p5">}.fork</p>
+<p class="p5">)</p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p6">//simple playbuf grain synthdef - note the all important doneAction</p>
+<p class="p5">(</p>
+<p class="p5"><span class="s1">SynthDef</span>(<span class="s3">\sfgrain</span>, {<span class="s1">arg</span> bufnum=0, pan=0.0, startPos=0.0, amp=0.1, dur=0.04;<span class="Apple-converted-space"> </span></p>
+<p class="p5"><span class="s1">var</span> grain;<span class="Apple-converted-space"> </span></p>
+<p class="p4"><br></p>
+<p class="p5">grain= <span class="s1">PlayBuf</span>.ar(1,bufnum, <span class="s1">BufRateScale</span>.kr(bufnum), <span class="s4">1, </span><span class="s5">BufFrames</span><span class="s4">.ir(bufnum)*startPos, 0</span>)*(<span class="s1">EnvGen</span>.kr(<span class="s1">Env</span>.perc(0.01,dur),doneAction:2)-0.001);</p>
+<p class="p4"><br></p>
+<p class="p5"><span class="s1">Out</span>.ar(0,<span class="s1">Pan2</span>.ar(grain, pan))}).add;<span class="Apple-converted-space"> </span></p>
+<p class="p5">)</p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p3">b = <span class="s1">Buffer</span>.read(s,<span class="s1">Platform</span>.resourceDir +/+ <span class="s2">"sounds/a11wlk01.wav"</span>);</p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p6">//individual grain</p>
+<p class="p5"><span class="s1">Synth</span>(<span class="s3">\sfgrain</span>,[<span class="s3">\bufnum</span>, b.bufnum, <span class="s3">\startPos</span>,rrand(0.0,1.0),<span class="s3">\amp</span>, exprand(0.005,0.1), <span class="s3">\pan</span>, 1.0.rand2]); <span class="Apple-converted-space"> </span></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p6">//schedule 200 random soundfile playback grains over time, with random offset positions into the soundfile and lowering the density over time</p>
+<p class="p5">(</p>
+<p class="p5">{</p>
+<p class="p5">200.do{<span class="s1">arg</span> i;<span class="Apple-converted-space"> </span></p>
+<p class="p5"><span class="s1">var</span> timeprop = (i/199.0)**3;</p>
+<p class="p4"><br></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s1">Synth</span>(<span class="s3">\sfgrain</span>,[<span class="s3">\bufnum</span>, b.bufnum, <span class="s3">\startPos</span>,rrand(0.0,timeprop),<span class="s3">\amp</span>, exprand(0.005,0.1), <span class="s3">\pan</span>, 1.0.rand2]); <span class="Apple-converted-space"> </span></p>
+<p class="p5"><span class="Apple-tab-span">	</span>rrand((timeprop*0.1).max(0.01),timeprop*0.4).wait</p>
+<p class="p5">};<span class="Apple-converted-space"> </span></p>
+<p class="p5">}.fork</p>
+<p class="p5">)</p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p5">Each grain might have many different parameters attached to it; some salient ones might be the pitch, the duration of the envelope, the pan position in the stereo field or the amplitude. The overall cloud can also have some sort of distribution for these parameters, which might lead to a tendency mask determining the range of frequencies of the particles allowed at differnet points in time, or control of the evolving density of the cloud.<span class="Apple-converted-space"> </span></p>
+<p class="p4"><br></p>
+<p class="p5">The composer's work is to both specify the grains, and also control how they are used over time to make an interesting compositional structure.<span class="Apple-converted-space"> </span></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p5">These techniques were first conceptualised and explored in instrumental and electronic music by Iannis Xenakis (late 50s), and further investigated in computer implementation, notably by Curtis Roads and Barry Truax, from the early 1970s on. Real-time systems became plausible in the 1980s. <span class="Apple-converted-space"> </span></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p5">Because you can take tiny slices of sound, granular processing allows one to perform quite dramatic transformations on sound sources. The sound can be made to disappear into a stream of tiny quanta and reappear, coalescing out of distinct particles:</p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p5">(</p>
+<p class="p5"><span class="s1">var</span> w, slid, lastval;</p>
+<p class="p5">lastval=0.0;</p>
+<p class="p4"><br></p>
+<p class="p5">w=<span class="s1">Window</span>(<span class="s2">"My Window"</span>, <span class="s1">Rect</span>(100,500,200,200));<span class="Apple-converted-space"> </span></p>
+<p class="p6">//A 200 by 200 window appears at screen co-ordinates (100, 500)</p>
+<p class="p4"><br></p>
+<p class="p5">slid=<span class="s1">Slider</span>(w,<span class="s1">Rect</span>(10,10,150,40)); <span class="s6">//a basic slider object<span class="Apple-converted-space"> </span></span></p>
+<p class="p4"><br></p>
+<p class="p6"><span class="s7">slid.action_({lastval= slid.value;}); </span>//this is the callback- the function is called whenever you move the slider</p>
+<p class="p4"><br></p>
+<p class="p5">{</p>
+<p class="p5"><span class="s1">inf</span>.do{<span class="s1">arg</span> i;<span class="Apple-converted-space"> </span></p>
+<p class="p4"><br></p>
+<p class="p5"><span class="s1">var</span> prop, timestart, timeend;</p>
+<p class="p4"><br></p>
+<p class="p5">prop= (i%300)/300;</p>
+<p class="p4"><br></p>
+<p class="p5">timestart= prop*0.8;</p>
+<p class="p5">timeend= prop*(0.8+(0.1*lastval));</p>
+<p class="p4"><br></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s1">Synth</span>(<span class="s3">\sfgrain</span>,[<span class="s3">\bufnum</span>, b.bufnum, <span class="s3">\startPos</span>,rrand(timestart,timeend),<span class="s3">\amp</span>, exprand(0.005,0.1), <span class="s3">\pan</span>, lastval.rand2, \dur, 0.1+(lastval*0.5)]); <span class="Apple-converted-space"> </span></p>
+<p class="p6"><span class="s7"><span class="Apple-tab-span">	</span></span>//max in this to avoid ever going near 0.0 wait time, which would crash the computer!</p>
+<p class="p5"><span class="Apple-tab-span">	</span>(((lastval*0.2)+0.01).max(0.01)).wait</p>
+<p class="p5">};<span class="Apple-converted-space"> </span></p>
+<p class="p5">}.fork;</p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p5">w.front;</p>
+<p class="p5">)</p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p5">Some classes to explore:</p>
+<p class="p4"><br></p>
+<p class="p6"><span class="s7">[</span><span class="s8">PitchShift</span><span class="s7">] </span>//A granular pitchshifter</p>
+<p class="p4"><br></p>
+<p class="p6"><span class="s7">[</span><span class="s8">TGrains</span><span class="s7">]<span class="Apple-tab-span">	</span></span>//efficient granular synthesis on a buffer, from a single UGen</p>
+<p class="p4"><br></p>
+<p class="p5">Also see various granular UGens by Josh Parmenter added for SC3.2: <a href="SC://GrainSin"><span class="s9">GrainSin</span></a>, <a href="SC://GrainFM"><span class="s9">GrainFM</span></a>, <a href="SC://GrainBuf"><span class="s9">GrainBuf</span></a>, <a href="SC://GrainIn"><span class="s9">GrainIn</span></a>, <a href="SC://Warp1"><span class="s9">Warp1</span></a></p>
+<p class="p4"><br></p>
+<p class="p5">To read more on these techniques, Curtis Roads's Computer Music Tutorial is a good introduction, and his Microsound book explores many more possibilities.<span class="Apple-converted-space"> </span></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+</body>
+</html>
