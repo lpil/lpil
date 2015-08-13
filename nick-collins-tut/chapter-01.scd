@@ -1,5 +1,10 @@
 s.boot;
 
+s.quit;
+
+// Part 1.1
+
+
 2 + 2;
 
 "I am SuperCollider\n".post;
@@ -77,3 +82,46 @@ LFSaw
 2.postln;
 Post << [2,3,4,5] << nl; 
 Post << [2,3,4,5];
+
+
+// Part 1.2
+
+// We can run shell commands!
+
+"ls -l".unixCmd;
+
+// Or, if you want to be fancy, getting the values back into SC
+
+(
+  var pipe, line,
+  d = "";
+  pipe = Pipe.new("ls -l", "r");
+  line = pipe.getLine;
+
+  while { line.notNil } {
+    d = d ++ line ++ "\n";
+    line = pipe.getLine; 
+  };	
+  pipe.close;	
+)
+
+d; // <- Check out my contents
+
+
+
+// We can look up...
+
+Object; // Class definitions
+
+rand; // Which objects have a method defined
+
+// We can determine...
+
+Clock.dumpClassSubtree; // class descendants
+
+Array.dumpInterface; // methods
+
+Array.hasHelpFile; // Presence of help files
+
+// We can also browse the class hierarchy
+Array.browse;
