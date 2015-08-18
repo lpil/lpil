@@ -8,6 +8,8 @@ call vundle#rc()
 " let Vundle manage Vundle
 Bundle 'gmarik/Vundle.vim'
 
+Bundle 'Shougo/neocomplcache.vim'
+Bundle 'SirVer/ultisnips'
 Bundle 'cakebaker/scss-syntax.vim'
 Bundle 'cespare/vim-toml'
 Bundle 'derekwyatt/vim-scala'
@@ -16,10 +18,9 @@ Bundle 'editorconfig/editorconfig-vim'
 Bundle 'elixir-lang/vim-elixir'
 Bundle 'godlygeek/tabular'
 Bundle 'honza/vim-snippets'
+Bundle 'jeetsukumaran/vim-buffergator'
 Bundle 'jpalardy/vim-slime'
 Bundle 'kien/ctrlp.vim'
-Bundle 'lpil/my-vim-snippets'
-Bundle 'majutsushi/tagbar'
 Bundle 'marcweber/vim-addon-mw-utils'
 Bundle 'octol/vim-cpp-enhanced-highlight'
 Bundle 'pangloss/vim-javascript'
@@ -27,12 +28,11 @@ Bundle 'rhysd/clever-f.vim'
 Bundle 'sbl/scvim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
-Bundle 'Shougo/neocomplcache.vim'
-Bundle 'SirVer/ultisnips'
 Bundle 'slim-template/vim-slim'
 Bundle 'sophacles/vim-processing'
 Bundle 'tomtom/tlib_vim'
 Bundle 'tpope/vim-commentary'
+Bundle 'tpope/vim-cucumber'
 Bundle 'tpope/vim-endwise'
 Bundle 'tpope/vim-eunuch'
 Bundle 'tpope/vim-fugitive'
@@ -229,7 +229,7 @@ inoremap <C-U> <C-G>u<C-U>
 
 nnoremap <F1> :set hlsearch!<CR>
 nnoremap <F2> :NERDTreeToggle<CR>
-nnoremap <F3> :TagbarToggle<CR>
+nnoremap <F3> :BuffergatorToggle<CR>
 nnoremap <F4> :setlocal spell!<CR>
 nnoremap <F5> :SyntasticToggleMode<CR>
 
