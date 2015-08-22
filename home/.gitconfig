@@ -2,9 +2,6 @@
   name = Louis Pilfold
   email = louis@lpil.uk
 
-[work]
-  email = louis.pilfold@reevoo.com
-
 [color]
   ui = true
 
@@ -28,8 +25,6 @@
   st = status
   g = grep --break --heading --line-number
   gi = grep --break --heading --line-number --ignore-case
-  workemail = !git config user.email `git config --get work.email`
-  worksubmodule = !git submodule foreach git workemail
   files-ive-edited = !git log --no-merges --stat --author='Louis Pilfold' --name-only --pretty=format:"" | sort -u | tail -n +2
 
 [commit]
