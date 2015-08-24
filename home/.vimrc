@@ -312,7 +312,7 @@ let g:syntastic_ruby_checkers=['mri', 'rubocop']
 nnoremap <C-o> :CtrlPMixed<CR>
 
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](\.git|\.hg|\.svn|_site|node_modules|_build|coverage|deps)$',
+  \ 'dir':  '\v[\/](\.git|\.hg|\.svn|_site|node_modules|_build|coverage|deps|tmp)$',
   \ }
 
 
