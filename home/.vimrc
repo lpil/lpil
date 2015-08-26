@@ -220,6 +220,9 @@ nnoremap Q <Nop>
 nnoremap K <Nop>
 vnoremap K <Nop>
 
+" Let's not accidentally open help all the time
+inoremap <F1> <Nop>
+
 " Undo in insert mode
 inoremap <C-U> <C-G>u<C-U>
 
