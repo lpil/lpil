@@ -178,7 +178,7 @@ exports.config = {
 ```
 
 And then create some SCSS files under `app/`, and use the usual SCSS import
-statements. I like to keep them in `app/stylesheets`.
+statements. I like to keep them in `app/stylesheets/`.
 
 Done that? Then you should have a compiled CSS file at `public/main.css`.
 Super easy.
@@ -219,6 +219,15 @@ test();
 
 Boom. It works.
 
+
+## Javascript linting with jshint
+
+Add your config as a `.jshintrc` file in the project directory, and then
+install the plugin.
+
+```
+npm install --save jshint-brunch
+```
 
 ## Minification
 
