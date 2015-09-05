@@ -8,3 +8,7 @@ gem 'middleman-syntax', '~> 2'
 gem 'redcarpet', '~> 3'
 
 gem 'builder', '~> 3'
+
+group :development do
+  gem 'travis'
+end

@@ -1,0 +1,22 @@
+language: ruby
+rvm:
+  - 2.2.2
+
+script:
+  - bundle exec middleman build
+
+sudo: false
+
+deploy:
+  provider: s3
+  access_key_id: AKIAIDEGH6JWVOBUXQGQ
+  secret_access_key:
+    secure: kQbZl0lAWy32adBgxxB2BM9nWOOcODMOcUi+Ziu8j6F/lBehakLP+jyoVWFiVzkS2I/QfKwxvyV7skVdOIntySyYjhPXqLz6mJSWzDMzhd2zFizeipB6Wqx9dbKBu8jC4QhuWnb6FocR903zODN4ncPj6Qieo4Wjh2z1EpX5vjo=
+  bucket: lpil.uk
+  local-dir: build
+  acl: public_read
+  skip_cleanup: true
+  region: eu-west-1
+  endpoint: lpil.uk.s3-website-eu-west-1.amazonaws.com
+  on:
+    repo: lpil/lpil.uk
