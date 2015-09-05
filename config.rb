@@ -24,6 +24,7 @@ set :markdown, fenced_code_blocks: true,
 configure :build do
   activate :minify_css
   activate :minify_javascript
+  activate :minify_html
   activate :relative_assets
   set :enviroment, :production
 end
