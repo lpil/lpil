@@ -22,11 +22,12 @@ set :markdown, fenced_code_blocks: true,
                smartypants: true
 
 configure :build do
+  set :enviroment, :production
+  activate :relative_assets
   activate :minify_css
   activate :minify_javascript
   activate :minify_html
-  activate :relative_assets
-  set :enviroment, :production
+  activate :gzip
 end
 
 activate :blog do |blog|

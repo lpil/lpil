@@ -19,6 +19,7 @@ deploy:
   local-dir: build
   acl: public_read
   skip_cleanup: true
+  detect_encoding: true # We're using gzip
   region: eu-west-1
   endpoint: lpil.uk.s3-website-eu-west-1.amazonaws.com
   on:
