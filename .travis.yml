@@ -7,6 +7,9 @@ script:
 
 sudo: false
 
+notifications:
+  email: false
+
 deploy:
   provider: s3
   access_key_id: AKIAIDEGH6JWVOBUXQGQ
