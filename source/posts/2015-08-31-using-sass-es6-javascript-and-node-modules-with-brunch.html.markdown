@@ -195,7 +195,7 @@ npm install --save lodash
 
 Enable npm support in your Brunch config:
 
-```Javascript
+```javascript
 // brunch-config.js
 exports.config = {
   files: {
