@@ -21,18 +21,18 @@ run: main.out
 
 main.out:
 	@echo Compiling src/main.c
-	@cc $(CFLAGS) src/main.c -o main.out
+	@cc src/main.c -o main.out
 
 clean:
 	rm -f *.o *.out
 
 unity.o:
-	@echo Compiling test/vendor/unity.c
-	@cc $(CFLAGS) -c test/vendor/unity.c
+	@echo Compiling $@
+	@cc -c test/vendor/unity.c
 
 tests.out: unity.o
-	@echo Compiling test/main.c
-	@cc $(CFLAGS) *.o test/main.c -o tests.out
+	@echo Compiling $@
+	@cc *.o test/main.c -o tests.out
 
 test: tests.out
 	@./tests.out
