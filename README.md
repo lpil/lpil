@@ -5,4 +5,8 @@ Learning C
 
 Oh er... This one isn't functional...
 
-Hey look, we're playing with travis too.  
+## Notes
+
+* [Make tutorial][make-tutorial]
+
+[make-tutorial]: http://mrbook.org/blog/tutorials/make/
