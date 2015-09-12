@@ -1,7 +1,7 @@
 // Directive used here
 #include "stdio.h"
 
-int main(int argc, char *argv[])
+int main(void)
 {
   // printf statement used here
   printf("Parkinson's Law:\nWork expands so as to \n");

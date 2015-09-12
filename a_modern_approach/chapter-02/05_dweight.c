@@ -5,7 +5,7 @@
 
 #define CUBIC_IN_PER_LB 166
 
-int main(int argc, char *argv[])
+int main(void)
 {
   int height;
   int length;
