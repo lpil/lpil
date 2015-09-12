@@ -14,8 +14,6 @@ CFLAGS += -Wstrict-prototypes
 CFLAGS += -Wundef
 CFLAGS += -Wold-style-definition
 
-INC_DIRS=-Isrc -Itest/vendor
-
 all: main.out
 
 run: main.out
@@ -34,7 +32,7 @@ unity.o:
 
 tests.out: unity.o
 	@echo Compiling test/main.c
-	@cc $(CFLAGS) $(INC_DIRS) *.o test/main.c -o tests.out
+	@cc $(CFLAGS) *.o test/main.c -o tests.out
 
 test: tests.out
 	@./tests.out
