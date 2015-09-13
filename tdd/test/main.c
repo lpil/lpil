@@ -25,7 +25,7 @@ void test_the_framework_works(void)
 
 int main(void)
 {
-  UnityBegin("test/TestProductionCode.c");
+  UnityBegin("main.c");
 
   RUN_TEST(test_the_framework_works, 20);
 

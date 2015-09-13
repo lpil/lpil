@@ -14,6 +14,8 @@ CFLAGS += -Wstrict-prototypes
 CFLAGS += -Wundef
 CFLAGS += -Wold-style-definition
 
+CC=clang
+
 LDFLAGS=
 
 SOURCES=\
