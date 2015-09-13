@@ -20,6 +20,8 @@ LDFLAGS=
 
 SOURCES=\
 				backwards_while.c \
+				product.c \
+				factorial.c \
 
 BINS=$(SOURCES:.c=.out)
 
