@@ -27,7 +27,7 @@ int main(void)
 {
   UnityBegin("main.c");
 
-  RUN_TEST(test_the_framework_works, 20);
+  RUN_TEST(test_the_framework_works);
 
   UnityEnd();
   return 0;

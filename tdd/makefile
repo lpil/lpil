@@ -15,6 +15,7 @@ CFLAGS += -Wundef
 CFLAGS += -Wold-style-definition
 
 CC=clang
+# CC=gcc
 
 all: main.out
 
