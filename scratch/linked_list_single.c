@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <assert.h>
 
+
 struct cons_cell {
   int value;
   struct cons_cell *next;
@@ -29,7 +30,7 @@ void List_print(struct cons_cell *head)
   printf("(");
   struct cons_cell *next;
   next = head->next;
-  while(next != NULL) {
+  while (next != NULL) {
     printf("%d, ", head->value);
     head = next;
     next = head->next;
@@ -50,6 +51,20 @@ void List_free(struct cons_cell *head)
 }
 
 
+int List_count(struct cons_cell *head)
+{
+  int size = 1;
+  struct cons_cell *next;
+  next = head->next;
+  do {
+    size++;
+    head = next;
+    next = head->next;
+  } while (next != NULL);
+  return size;
+}
+
+
 int main(void)
 {
   struct cons_cell *list = List_new(1);
@@ -59,6 +74,7 @@ int main(void)
   list = List_prepend(list, 5);
   list = List_prepend(list, 6);
   List_print(list);
+  printf("Size: %d\n", List_count(list));
   List_free(list);
   return 0;
 }
