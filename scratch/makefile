@@ -22,7 +22,7 @@ SOURCES=\
 	backwards_while.c \
 	product.c \
 	factorial.c \
-	test.c \
+	linked_list_single.c \
 
 BINS=$(SOURCES:.c=.out)
 
