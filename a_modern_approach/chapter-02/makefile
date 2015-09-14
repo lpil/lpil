@@ -19,14 +19,14 @@ CC=clang
 LDFLAGS=
 
 SOURCES=\
-				00_scanf.c \
-				04_dweight.c \
-				05_dweight.c \
-				ex1.c \
-				ex2.c \
-				ex3.c \
-				ex4.c \
-				ex5.c \
+	00_scanf.c \
+	04_dweight.c \
+	05_dweight.c \
+	ex1.c \
+	ex2.c \
+	ex3.c \
+	ex4.c \
+	ex5.c \
 
 BINS=$(SOURCES:.c=.out)
 

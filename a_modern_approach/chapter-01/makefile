@@ -19,7 +19,7 @@ CC=clang
 LDFLAGS=
 
 SOURCES=\
-				04_dweight.c \
+	04_dweight.c \
 
 BINS=$(SOURCES:.c=.out)
 
