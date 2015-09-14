@@ -18,8 +18,8 @@ struct cons_cell *List_new(int n)
 
 struct cons_cell *List_prepend(struct cons_cell *list, int n)
 {
-  struct cons_cell *head = malloc( sizeof(struct cons_cell) );
-  *head = (struct cons_cell) { .value = n, .next = list };
+  struct cons_cell *head = List_new(n);
+  head->next = list;
   return head;
 }
 
