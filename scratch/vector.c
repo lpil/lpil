@@ -56,6 +56,12 @@ void Vector_print(struct vector *vec)
 }
 
 
+void Vector_free(struct vector *vec)
+{
+  free( vec->contents );
+  free( vec );
+}
+
 
 int main(void)
 {
@@ -74,5 +80,6 @@ int main(void)
     printf("%c", v->contents[i]);
   }
   printf("\n");
+  Vector_free(v);
   return 0;
 }
