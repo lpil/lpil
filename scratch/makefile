@@ -23,6 +23,7 @@ SOURCES=\
 	product.c \
 	factorial.c \
 	linked_list_single.c \
+	vector.c \
 
 BINS=$(SOURCES:.c=.out)
 
