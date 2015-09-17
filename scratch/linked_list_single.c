@@ -48,6 +48,7 @@ void List_free(struct cons_cell *head)
     head = next;
     next = head->next;
   } while (next != NULL);
+  free(head);
 }
 
 
