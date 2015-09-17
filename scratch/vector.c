@@ -45,6 +45,17 @@ struct vector *Vector_push(struct vector *vec, char data)
 }
 
 
+void Vector_print(struct vector *vec)
+{
+  int i;
+  printf("[");
+  for (i = 0; i < vec->size; ++i) {
+    printf("'%c', ", vec->contents[i]);
+  }
+  printf("\b\b]\n");
+}
+
+
 
 int main(void)
 {
@@ -56,9 +67,12 @@ int main(void)
   v = Vector_push(v, 'l');
   v = Vector_push(v, 'o');
   v = Vector_push(v, '!');
-  v = Vector_push(v, '\n');
+  Vector_print(v);
+  printf("Vector size: %d\n", v->size);
+  printf("Vector capacity: %d\n", v->capacity);
   for (i = 0; i < v->size; ++i) {
     printf("%c", v->contents[i]);
   }
+  printf("\n");
   return 0;
 }
