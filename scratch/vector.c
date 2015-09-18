@@ -30,6 +30,7 @@ struct vector *Vector_expand(struct vector *vec)
     contents[i] = old[i];
   }
   vec->contents = contents;
+  free(old);
   return vec;
 }
 
