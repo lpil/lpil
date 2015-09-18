@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <assert.h>
 
 struct vector {
   char *contents;
@@ -35,12 +36,12 @@ struct vector *Vector_expand(struct vector *vec)
 }
 
 
-struct vector *Vector_push(struct vector *vec, char data)
+struct vector *Vector_push(struct vector *vec, char elem)
 {
   if (vec->size >= vec->capacity) {
     vec = Vector_expand(vec);
   }
-  vec->contents[vec->size] = data;
+  vec->contents[vec->size] = elem;
   vec->size++;
   return vec;
 }
@@ -54,6 +55,14 @@ void Vector_print(struct vector *vec)
     printf("'%c', ", vec->contents[i]);
   }
   printf("\b\b]\n");
+}
+
+
+struct vector *Vector_set(struct vector *vec, int i, char elem)
+{
+  assert(i < vec->size);
+  vec->contents[i] = elem;
+  return vec;
 }
 
 
@@ -74,6 +83,8 @@ int main(void)
   v = Vector_push(v, 'l');
   v = Vector_push(v, 'o');
   v = Vector_push(v, '!');
+  Vector_print(v);
+  Vector_set(v, 1, 'u');
   Vector_print(v);
   printf("Vector size: %d\n", v->size);
   printf("Vector capacity: %d\n", v->capacity);
