@@ -21,7 +21,7 @@ struct vector *Vector_new(int capacity)
 }
 
 
-struct vector *Vector_expand(struct vector *vec)
+void Vector_expand(struct vector *vec)
 {
   vec->capacity *= 2;
   char *contents = malloc( vec->capacity * sizeof(char) );
@@ -32,18 +32,16 @@ struct vector *Vector_expand(struct vector *vec)
   }
   vec->contents = contents;
   free(old);
-  return vec;
 }
 
 
-struct vector *Vector_push(struct vector *vec, char elem)
+void Vector_push(struct vector *vec, char elem)
 {
   if (vec->size >= vec->capacity) {
-    vec = Vector_expand(vec);
+    Vector_expand(vec);
   }
   vec->contents[vec->size] = elem;
   vec->size++;
-  return vec;
 }
 
 
@@ -58,11 +56,10 @@ void Vector_print(struct vector *vec)
 }
 
 
-struct vector *Vector_set(struct vector *vec, int i, char elem)
+void Vector_set(struct vector *vec, int i, char elem)
 {
   assert(i < vec->size);
   vec->contents[i] = elem;
-  return vec;
 }
 
 
@@ -77,12 +74,12 @@ int main(void)
 {
   int i;
   struct vector *v = Vector_new(1);
-  v = Vector_push(v, 'H');
-  v = Vector_push(v, 'e');
-  v = Vector_push(v, 'l');
-  v = Vector_push(v, 'l');
-  v = Vector_push(v, 'o');
-  v = Vector_push(v, '!');
+  Vector_push(v, 'H');
+  Vector_push(v, 'e');
+  Vector_push(v, 'l');
+  Vector_push(v, 'l');
+  Vector_push(v, 'o');
+  Vector_push(v, '!');
   Vector_print(v);
   Vector_set(v, 1, 'u');
   Vector_print(v);
