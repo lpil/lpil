@@ -8,4 +8,7 @@ app.set('views', './app/views');
 
 app.use('/', routes);
 
+const FAQ = require('./models/faq');
+FAQ.create({ question: 'foo', answer: 'bar' });
+
 module.exports = app;

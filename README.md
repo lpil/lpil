@@ -2,8 +2,15 @@ Ivy
 ===
 
 ```sh
-# Install deps
+# Install JS deps
 npm install
+# Install and set up Postgres database
+brew install postgresql
+pg_ctl init
+createdb
+psql -c "CREATE USER postgres WITH PASSWORD 'postgres';"
+psql -c "CREATE DATABASE ivy_dev;"
+psql -c "CREATE DATABASE ivy_test;"
 
 # Start test watcher
 npm test
