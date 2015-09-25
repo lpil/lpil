@@ -8,7 +8,6 @@ npm install
 brew install postgresql
 pg_ctl init
 createdb
-psql -c "CREATE USER postgres WITH PASSWORD 'postgres';"
 psql -c "CREATE DATABASE ivy_dev;"
 psql -c "CREATE DATABASE ivy_test;"
 

@@ -2,28 +2,20 @@
 
 const Sequelize = require('sequelize');
 
-function dbName() {
-  switch (process.env.NODE_ENV) {
-    case 'prod':
-      return 'ivy';
-    case 'test':
-      return 'ivy_test';
-    default:
-      return 'ivy_dev';
-  }
-}
+const connection = new Sequelize(
+  process.env.DB_NAME,
+  process.env.DB_USER,
+  process.env.DB_PASSWORD,
+  {
+    host: process.env.DB_HOST,
+    dialect: 'postgres',
+    logging: false,
 
-
-const connection = new Sequelize(dbName(), 'postgres', 'postgres', {
-  host: 'localhost',
-  dialect: 'postgres',
-  logging: false,
-
-  pool: {
-    max: 5,
-    min: 0,
-    idle: 10000
-  },
+    pool: {
+      max: 5,
+      min: 0,
+      idle: 10000
+    },
 });
 
 module.exports = { Sequelize, connection };

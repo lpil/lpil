@@ -1,10 +1,10 @@
 'use strict';
 
-const FAQ   = require('../../app/models/faq');
+const FAQ = require('../../app/models/faq');
 
 describe('database persistance', () => {
   beforeEach((done) => {
-    FAQ.sync({ force: true }).then(() => done());
+    FAQ.truncate().then(() => done());
   });
 
   it('can insert and select', (done) => {
