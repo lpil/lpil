@@ -8,6 +8,7 @@ npm install
 brew install postgresql
 pg_ctl init
 createdb
+pg_ctl start
 psql -c "CREATE DATABASE ivy_dev;"
 psql -c "CREATE DATABASE ivy_test;"
 
@@ -50,3 +51,15 @@ Handy reading.
 * [Unit testing controllers][controller-test]
 
 [controller-test]: http://www.designsuperbuild.com/blog/unit_testing_controllers_in_express/
+
+
+## Reference applications
+
+These look pretty good. Let's study them when we're not sure what the
+idiomatic way to solve a problem is.
+
+* [Ghost blogging platform][ghost]
+* [Hackathon Starter][hackathon-starter]
+
+[ghost]: https://github.com/tryghost/Ghost
+[hackathon-starter]: https://github.com/sahat/hackathon-starter
