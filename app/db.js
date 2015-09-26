@@ -14,8 +14,9 @@ const connection = new Sequelize(
     pool: {
       max: 5,
       min: 0,
-      idle: 10000
+      idle: 10000,
     },
-});
+  }
+);
 
 module.exports = { Sequelize, connection };
