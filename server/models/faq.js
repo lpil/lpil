@@ -7,6 +7,4 @@ const FAQ = db.connection.define('faq', {
   answer:   db.Sequelize.TEXT,
 });
 
-FAQ.sync();
-
 module.exports = FAQ;

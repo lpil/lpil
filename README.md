@@ -4,6 +4,7 @@ Ivy
 ```sh
 # Install JS deps
 npm install
+npm install -g sequelize-clie
 # Install and set up Postgres database
 brew install postgresql
 pg_ctl init
@@ -11,6 +12,7 @@ createdb
 pg_ctl start
 psql -c "CREATE DATABASE ivy_dev;"
 psql -c "CREATE DATABASE ivy_test;"
+sequelize db:migrate
 
 # Start test watcher
 npm test

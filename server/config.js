@@ -5,22 +5,26 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').load();
 }
 
-switch (process.env.NODE_ENV) {
-  case 'production':
-    var dbName = 'ivy';
-    break;
-  case 'test':
-    var dbName = 'ivy_test';
-    break;
-  default:
-    var dbName = 'ivy_dev';
-}
-
 module.exports = {
-  db: {
-    name: dbName,
+  production: {
+    database: 'ivy',
     host: process.env.DB_HOST,
     username: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
+    dialect: 'postgres',
+  },
+  development: {
+    database: 'ivy_dev',
+    host: process.env.DB_HOST,
+    username: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    dialect: 'postgres',
+  },
+  test: {
+    database: 'ivy_test',
+    host: process.env.DB_HOST,
+    username: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    dialect: 'postgres',
   },
 };

@@ -3,14 +3,15 @@
 const config = require('./config');
 
 const Sequelize = require('sequelize');
+const env = process.env.NODE_ENV;
 
 const connection = new Sequelize(
-  config.db.name,
-  config.db.username,
-  config.db.password,
+  config[env].database,
+  config[env].username,
+  config[env].password,
   {
-    host: config.db.host,
-    dialect: 'postgres',
+    host: config[env].host,
+    dialect: config[env].dialect,
     logging: false,
 
     pool: {
