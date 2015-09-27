@@ -16,6 +16,9 @@ make migrate
 # Start test watcher
 make test
 
+# Compile the frontend
+make frontend
+
 # Run server
 make server
 ```
