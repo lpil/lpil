@@ -12,6 +12,9 @@ app.set('views', './server/views');
 // Security middleware
 app.use(require('helmet')());
 
+// Log requests
+app.use(require('./middlewares/request_logger'));
+
 app.use('/', routes);
 
 // Finally, error handling
