@@ -6,9 +6,9 @@ const routes = require('./routes');
 app.set('view engine', 'jade');
 app.set('views', './server/views');
 
-app.use('/', routes);
+// Security middleware
+app.use(require('helmet')());
 
-const FAQ = require('./models/faq');
-FAQ.create({ question: 'foo', answer: 'bar' });
+app.use('/', routes);
 
 module.exports = app;
