@@ -1,13 +1,15 @@
 'use strict';
 
+const config = require('../config/config');
+
 const Sequelize = require('sequelize');
 
 const connection = new Sequelize(
-  process.env.DB_NAME,
-  process.env.DB_USER,
-  process.env.DB_PASSWORD,
+  config.db.name,
+  config.db.username,
+  config.db.password,
   {
-    host: process.env.DB_HOST,
+    host: config.db.host,
     dialect: 'postgres',
     logging: false,
 

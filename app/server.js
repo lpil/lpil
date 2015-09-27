@@ -1,7 +1,9 @@
 'use strict';
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-require('dotenv').load();
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').load();
+}
 
 const app    = require('express')();
 const routes = require('./routes');
