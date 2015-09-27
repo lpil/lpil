@@ -4,8 +4,6 @@
   "description": "Content API thing",
   "main": "bin/start.js",
   "scripts": {
-    "start": "./node_modules/nodemon/bin/nodemon.js bin/start.js",
-    "test": "./node_modules/mocha/bin/mocha --watch"
   },
   "repository": {
     "type": "git",
