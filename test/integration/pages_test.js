@@ -1,7 +1,7 @@
 'use strict';
 
 var request = require('supertest');
-var server  = require('../../app/server');
+var server  = require('../../server/app');
 
 describe('GET /', () => {
   it('respond with json', (done) => {

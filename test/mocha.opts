@@ -1,4 +1,4 @@
 --recursive
 --require test/test_helper.js
---require app/db.js
+--require server/db.js
 --reporter min

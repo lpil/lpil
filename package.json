@@ -2,7 +2,7 @@
   "name": "ivy",
   "version": "0.0.1",
   "description": "Content API thing",
-  "main": "app.js",
+  "main": "bin/start.js",
   "scripts": {
     "start": "./node_modules/nodemon/bin/nodemon.js bin/start.js",
     "test": "./node_modules/mocha/bin/mocha --watch"

@@ -1,15 +1,10 @@
 'use strict';
 
-process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').load();
-}
-
 const app    = require('express')();
 const routes = require('./routes');
 
 app.set('view engine', 'jade');
-app.set('views', './app/views');
+app.set('views', './server/views');
 
 app.use('/', routes);
 

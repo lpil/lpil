@@ -1,6 +1,6 @@
 'use strict';
 
-const FAQ = require('../../app/models/faq');
+const FAQ = require('../../server/models/faq');
 
 describe('database persistance', () => {
   beforeEach((done) => {
