@@ -118,3 +118,68 @@ Env([1, 0], [1.0]).plot;
     SinOsc.ar( freq, [0,0], amp );
   }.play
 )
+
+(
+  {
+    var freq = EnvGen.kr(Env([500,100],[1.0]),doneAction:2);
+    Saw.ar(freq, [0.5, 0.5]);
+  }.play;
+)
+
+
+Line		// Straight line generator
+XLine		// Exponential line generator
+
+// Linear
+(
+  {
+    var freq  = SinOsc.ar(1,0,10,440);
+    var amp   = Line.kr(0.0001,1,1,doneAction:2);
+    var noise = Saw.ar( freq, amp );
+    Pan2.ar( noise, 0 );
+  }.play;
+)
+// Exponential
+(
+  {
+    var freq  = SinOsc.ar(1,0,10,440);
+    var amp   = XLine.kr(0.0001,1,1,doneAction:2);
+    var noise = Saw.ar( freq, amp );
+    Pan2.ar( noise, 0 );
+  }.play;
+)
+
+/////////////////////////////
+//   Releasing envelopes   //
+/////////////////////////////
+
+// Some envelopes run through their stages without intervention.
+(
+  {
+    var env = Env([0, 0.1, 0], [0.1, 0.9]);
+    var amp = EnvGen.ar( env, doneAction: 2 );
+    amp * SinOsc.ar(330);
+  }.play
+)
+// Others will freeze at a certain point, waiting for instructions to begin the
+// release phase.
+(
+  a = {
+    var env = Env.asr( 0.1, 0.1, 0.9 );
+    var amp = EnvGen.ar( env, doneAction: 2 );
+    amp * SinOsc.ar(330);
+  }.play
+)
+a.release(2.0); // Release, taking 2 seconds.
+
+// Similar, but the synth function takes a gate argument, which holds the
+// envelope at the releaseNode until its value is 1
+(
+  a = { |gate = 1|
+    var amp = EnvGen.ar(Env.asr(0.1,0.1,0.9), gate, doneAction:2);
+    amp * SinOsc.ar(330);
+  }.play
+)
+// When gate is set to 0, the envelope can finish, and takes 0.9 seconds to
+// fade out (releaseTime argument to Env.asr set above)
+a.set(\gate, 0)
