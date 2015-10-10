@@ -183,3 +183,65 @@ a.release(2.0); // Release, taking 2 seconds.
 // When gate is set to 0, the envelope can finish, and takes 0.9 seconds to
 // fade out (releaseTime argument to Env.asr set above)
 a.set(\gate, 0)
+
+
+// With envelopes of arbitrary length we have to specify which point is the
+// releaseNode ourselves, using a number.
+//
+// The number is the index - 1 of the value in the first array, and the index
+// in the second array.
+(
+  // releaseNode is 1
+  //  first array value:  0.0
+  //  second array value: 3.0
+  a = { |gate = 1|
+    var env = Env([0.2, 1.0, 0.0], [0.1, 3.0], 0, releaseNode: 1);
+    var amp = EnvGen.ar( env, gate, doneAction: 2 );
+    amp * Pan2.ar( SinOsc.ar(550, 0, 0.2), 0 );
+  }.play;
+)
+a.set(\gate, 0);
+
+
+///////////////////////////
+//   Looping envelopes   // 
+///////////////////////////
+
+// There is also a loopNode. The env will loop between it and the node before
+// the releaseNode.
+(
+  e = { |gate = 1|
+    var env = Env(
+      [0.0, 0.0, 1.0, 0.0],
+      [0.5, 1.0, 2.0],
+      0,
+      releaseNode: 2,
+      loopNode: 0,
+    );
+    var amp = EnvGen.ar( env, gate, doneAction: 2 );
+    Pan2.ar( SinOsc.ar(550, 0, 0.3) * amp, 0 );
+  }.play;
+)
+// 2 seconds to fade out, as value 2 in the second array is 2.0
+e.set(\gate, 0);
+
+
+// If the envelope is looping fast enough, you can get interesting control
+// signals, and even head towards audio rate waveforms.
+(
+  e = Env(
+    [0.0, 1.0, -1.9, 0.0],
+    [0.01, 0.01, 2.0],
+    0,
+    releaseNode: 2, loopNode: 0
+  );
+)
+e.plot;
+(
+  a = { |gate = 1|
+    var mouseX = MouseX.kr(0.3, 2.0);
+    var noise = EnvGen.ar( e, gate, timeScale: mouseX, doneAction: 2);
+    Pan2.ar( noise, 0 );
+  }.play;
+)
+a.set(\gate, 0); // Stops immediately since 2 seconds is slow for ar.
