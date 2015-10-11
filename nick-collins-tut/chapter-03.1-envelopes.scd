@@ -235,13 +235,11 @@ e.set(\gate, 0);
     0,
     releaseNode: 2, loopNode: 0
   );
-)
-e.plot;
-(
   a = { |gate = 1|
-    var mouseX = MouseX.kr(0.3, 2.0);
+    var mouseX = MouseX.kr(0.8, 2.0);
     var noise = EnvGen.ar( e, gate, timeScale: mouseX, doneAction: 2);
     Pan2.ar( noise, 0 );
   }.play;
 )
+e.plot;
 a.set(\gate, 0); // Stops immediately since 2 seconds is slow for ar.
