@@ -32,8 +32,8 @@ e.free;
 // Flop allows you to apply a function to an array, a bit like map.
 { |e| e.free; }.flop.([a, b, c, d, e]);
 
-// Functional composition
-a = { |e| e + 1 };
-b = { |e| e * 2 };
-c = { |e| e * 10 };
+a = { |e| postln(e); e + 1 };
+b = { |e| postln(e); e * 2 };
+c = { |e| postln(e); e * 10 };
 d =  a + b + c;
+d.value(1);
