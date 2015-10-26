@@ -1,0 +1,41 @@
+{
+  "name": "seaboard-hero.js",
+  "version": "0.0.1",
+  "description": "",
+  "main": "",
+  "scripts": {
+    "start": "./node_modules/brunch/bin/brunch watch --server",
+    "test": "./node_modules/karma/bin/karma start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/weareRoli/seaboard-hero"
+  },
+  "author": "Louis Pilfold <louis@lpil.uk>",
+  "license": "UNLICENCED",
+  "bugs": {
+    "url": "https://github.com/weareRoli/seaboard-hero"
+  },
+  "homepage": "https://github.com/weareRoli/seaboard-hero",
+  "dependencies": {
+    "babel-brunch": "^5.1.1",
+    "brunch": "^1.8.1",
+    "clean-css-brunch": ">= 1.0 < 1.8",
+    "css-brunch": ">= 1.0 < 1.8",
+    "javascript-brunch": ">= 1.0 < 1.9",
+    "uglify-js-brunch": ">= 1.0 < 1.8"
+  },
+  "devDependencies": {
+    "chai": "^3.3.0",
+    "jscs": "^2.1.1",
+    "jshint": "^2.1.1",
+    "karma": "^0.13.11",
+    "karma-babel-preprocessor": "^5.2.1",
+    "karma-chai": "^0.1.0",
+    "karma-jshint-preprocessor": "0.0.6",
+    "karma-mocha": "^0.2.0",
+    "karma-phantomjs-launcher": "^0.2.1",
+    "mocha": "^2.3.3",
+    "phantomjs": "^1.9.18"
+  }
+}

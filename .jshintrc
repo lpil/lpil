@@ -1,0 +1,32 @@
+{
+  "globalstrict"  : true,
+  "camelcase"     : true,
+  "curly"         : true,
+  "eqeqeq"        : true,
+  "forin"         : true,
+  "freeze"        : true,
+  "immed"         : true,
+  "indent"        : 2,
+  "latedef"       : true,
+  "newcap"        : true,
+  "noarg"         : true,
+  "noempty"       : true,
+  "nonbsp"        : true,
+  "nonew"         : false,
+  "plusplus"      : false,
+  "quotmark"      : "single",
+  "undef"         : true,
+  "unused"        : true,
+  "maxparams"     : 4,
+  "maxdepth"      : 3,
+  "maxcomplexity" : 10,
+  "maxlen"        : 80,
+
+  "browser" : true,
+  "devel"   : true,
+  "esnext"  : true,
+
+  "globals": {
+    "_": true
+  }
+}

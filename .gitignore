@@ -1,0 +1,14 @@
+*.log
+SeaboardHero/Builds
+js/!dist/index.html
+js/**/.tern-port
+js/*.log
+js/.tern-port
+js/logs
+js/node_modules
+js/npm-debug*
+js/npm-debug.log*
+js/public
+logs
+npm-debug.log*
+node_modules
