@@ -169,9 +169,6 @@ let mapleader = " "
 nnoremap ; :
 vnoremap ; :
 nnoremap q; q:
-" get ; back
-nnoremap # ;
-vnoremap # ;
 
 " Have Y behave like D, C, etc (until end of line, not entire line)
 nnoremap Y y$
