@@ -9,3 +9,10 @@ git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 # Setup undo history
 mkdir -p ~/.vim/undo/
+
+if [ "$(uname)" == "Darwin" ]; then
+  cd
+  infocmp $TERM | sed 's/kbs=^[hH]/kbs=\\177/' > $TERM.ti
+  tic $TERM.ti
+  cd -
+fi
