@@ -1,6 +1,8 @@
-""""""""""""""""""""""""""
-" Vundle package manager "
-""""""""""""""""""""""""""
+if has('nvim')
+  runtime! plugin/python_setup.vim
+  tnoremap <Esc> <C-\><C-n>
+endif
+
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#rc()
@@ -8,8 +10,6 @@ call vundle#rc()
 " let Vundle manage Vundle
 Bundle 'gmarik/Vundle.vim'
 
-Bundle 'Shougo/neocomplcache.vim'
-Bundle 'SirVer/ultisnips'
 Bundle 'cakebaker/scss-syntax.vim'
 Bundle 'cespare/vim-toml'
 Bundle 'digitaltoad/vim-jade'
@@ -20,11 +20,14 @@ Bundle 'jeetsukumaran/vim-buffergator'
 Bundle 'jpalardy/vim-slime'
 Bundle 'kien/ctrlp.vim'
 Bundle 'marcweber/vim-addon-mw-utils'
+Bundle 'munshkr/vim-tidal'
 Bundle 'pangloss/vim-javascript'
 Bundle 'rhysd/clever-f.vim'
 Bundle 'sbl/scvim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
+Bundle 'Shougo/neocomplcache.vim'
+Bundle 'SirVer/ultisnips'
 Bundle 'slim-template/vim-slim'
 Bundle 'tomtom/tlib_vim'
 Bundle 'tpope/vim-commentary'
@@ -270,7 +273,6 @@ function! StripWhitespace()
 endfunction
 noremap <leader>d<space> :call StripWhitespace()<CR>
 
-
 """""""""""""""""""""
 " Reverse selection "
 """""""""""""""""""""
@@ -359,7 +361,6 @@ let g:slime_target = "tmux"
 let g:slime_no_mappings = 1
 xmap <C-e> <Plug>SlimeRegionSend
 nmap <C-e> <Plug>SlimeParagraphSend
-
 
 """""""""""""""""""""""""""""""""""""
 " And finally, per-project .vimrc's "
