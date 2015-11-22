@@ -4,6 +4,7 @@ if has('nvim')
 endif
 
 call plug#begin('~/.vim/plugged')
+
 Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
 Plug 'cespare/vim-toml', { 'for': 'toml' }
 Plug 'digitaltoad/vim-jade', { 'for': 'jade' }
@@ -12,6 +13,7 @@ Plug 'godlygeek/tabular'
 Plug 'honza/vim-snippets'
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'jpalardy/vim-slime'
+Plug 'junegunn/vader.vim',  { 'on': 'Vader', 'for': 'vader' }
 Plug 'kien/ctrlp.vim'
 Plug 'marcweber/vim-addon-mw-utils'
 Plug 'munshkr/vim-tidal'
@@ -20,8 +22,8 @@ Plug 'rhysd/clever-f.vim'
 Plug 'sbl/scvim', { 'for': 'supercollider' }
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'scrooloose/syntastic'
-Plug 'Shougo/neocomplcache.vim'
-Plug 'SirVer/ultisnips'
+Plug 'shougo/neocomplcache.vim'
+Plug 'sirver/ultisnips'
 Plug 'slim-template/vim-slim'
 Plug 'tomtom/tlib_vim'
 Plug 'tpope/vim-commentary'
@@ -36,6 +38,7 @@ Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
 Plug 'vim-scripts/matchit.zip'
 Plug 'wting/rust.vim', { 'for': 'rust' }
+
 call plug#end()
 
 filetype plugin indent on
