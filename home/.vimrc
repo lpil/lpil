@@ -237,30 +237,6 @@ nnoremap <F4> :setlocal spell!<CR>
 nnoremap <F5> :SyntasticToggleMode<CR>
 
 
-"""""""""""""""""""""""""""""""""""
-" Nicer location list navigation! "
-"""""""""""""""""""""""""""""""""""
-nnoremap <leader>[ :call WrapLnext("up")<CR>
-nnoremap <leader>] :call WrapLnext("down")<CR>
-
-" This function is a replacement for :lnext and :lprevious. It allows you to
-" wrap around from last to first (and back again)
-function! WrapLnext(direction)
-  if a:direction == "up"
-    try
-      lprevious
-    catch /^Vim\%((\a\+)\)\=:E553/
-      llast
-    endtry
-  elseif a:direction == "down"
-    try
-      lnext
-    catch /^Vim\%((\a\+)\)\=:E553/
-      lfirst
-    endtry
-  endif
-endfunction
-
 """""""""""""""""""""
 " Reverse selection "
 """""""""""""""""""""
@@ -270,28 +246,6 @@ if has('macunix')
 else
   command! -range=% Reverse :'<,'>!tac
 endif
-
-"""""""""""""""""""""""""""""""""""""""""""""""
-" plugin: Syntastic syntax checking behaviour "
-"""""""""""""""""""""""""""""""""""""""""""""""
-
-" On by default, except for html
-let g:syntastic_mode_map = { 'mode': 'active',
-                           \ 'passive_filetypes': ['html'] }
-
-" error highlighting
-let g:syntastic_enable_highlighting = 1
-
-let g:syntastic_enable_signs = 0
-
-" Have the error list automatically close
-let g:syntastic_auto_loc_list = 1
-
-let g:syntastic_check_on_wq = 0
-
-" let g:syntastic_ruby_checkers=['mri', 'rubocop']
-let g:syntastic_ruby_checkers=['mri']
-
 
 """"""""""""""""""
 " plugin: ctrlp "
@@ -305,50 +259,12 @@ let g:ctrlp_custom_ignore = {
   \ }
 
 
-"""""""""""""""""""
-" Plugin: tabular "
-"""""""""""""""""""
-
-nnoremap <leader>tt :Tab /=<CR>
-vnoremap <leader>tt :Tab /=<CR>
-nnoremap <leader>t= :Tab /=<CR>
-vnoremap <leader>t= :Tab /=<CR>
-
-
 """""""""""""""""""""""""
 " Plugin: neocomplcache "
 """""""""""""""""""""""""
 
 let g:neocomplcache_enable_at_startup = 1
 
-
-"""""""""""""""""""""
-" Plugin: ultisnips "
-"""""""""""""""""""""
-
-let g:snips_author="Louis Pilfold"
-
-" Simulate textmate field selection behaviour
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-
-
-""""""""""""""
-"  NERDtree  "
-""""""""""""""
-nnoremap <leader>n :NERDTreeToggle<CR>
-let g:NERDTreeWinSize=40
-
-
-"""""""""""
-"  slime  "
-"""""""""""
-
-let g:slime_target = "tmux"
-let g:slime_no_mappings = 1
-xmap <C-e> <Plug>SlimeRegionSend
-nmap <C-e> <Plug>SlimeParagraphSend
 
 """""""""""""""""""""""""""""""""""""
 " And finally, per-project .vimrc's "
