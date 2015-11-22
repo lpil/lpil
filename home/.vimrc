@@ -3,45 +3,40 @@ if has('nvim')
   tnoremap <Esc> <C-\><C-n>
 endif
 
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#rc()
-
-" let Vundle manage Vundle
-Bundle 'gmarik/Vundle.vim'
-
-Bundle 'cakebaker/scss-syntax.vim'
-Bundle 'cespare/vim-toml'
-Bundle 'digitaltoad/vim-jade'
-Bundle 'elixir-lang/vim-elixir'
-Bundle 'godlygeek/tabular'
-Bundle 'honza/vim-snippets'
-Bundle 'jeetsukumaran/vim-buffergator'
-Bundle 'jpalardy/vim-slime'
-Bundle 'kien/ctrlp.vim'
-Bundle 'marcweber/vim-addon-mw-utils'
-Bundle 'munshkr/vim-tidal'
-Bundle 'pangloss/vim-javascript'
-Bundle 'rhysd/clever-f.vim'
-Bundle 'sbl/scvim'
-Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/syntastic'
-Bundle 'Shougo/neocomplcache.vim'
-Bundle 'SirVer/ultisnips'
-Bundle 'slim-template/vim-slim'
-Bundle 'tomtom/tlib_vim'
-Bundle 'tpope/vim-commentary'
-Bundle 'tpope/vim-cucumber'
-Bundle 'tpope/vim-endwise'
-Bundle 'tpope/vim-eunuch'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-rails'
-Bundle 'tpope/vim-repeat'
-Bundle 'tpope/vim-rsi'
-Bundle 'tpope/vim-sleuth'
-Bundle 'tpope/vim-surround'
-Bundle 'vim-scripts/matchit.zip'
-Bundle 'wting/rust.vim'
+call plug#begin('~/.vim/plugged')
+Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
+Plug 'cespare/vim-toml', { 'for': 'toml' }
+Plug 'digitaltoad/vim-jade', { 'for': 'jade' }
+Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
+Plug 'godlygeek/tabular'
+Plug 'honza/vim-snippets'
+Plug 'jeetsukumaran/vim-buffergator'
+Plug 'jpalardy/vim-slime'
+Plug 'kien/ctrlp.vim'
+Plug 'marcweber/vim-addon-mw-utils'
+Plug 'munshkr/vim-tidal'
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+Plug 'rhysd/clever-f.vim'
+Plug 'sbl/scvim', { 'for': 'supercollider' }
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'scrooloose/syntastic'
+Plug 'Shougo/neocomplcache.vim'
+Plug 'SirVer/ultisnips'
+Plug 'slim-template/vim-slim'
+Plug 'tomtom/tlib_vim'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-cucumber', { 'for': 'cucumber' }
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rails', { 'for': 'ruby' }
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-rsi'
+Plug 'tpope/vim-sleuth'
+Plug 'tpope/vim-surround'
+Plug 'vim-scripts/matchit.zip'
+Plug 'wting/rust.vim', { 'for': 'rust' }
+call plug#end()
 
 filetype plugin indent on
 filetype plugin on
