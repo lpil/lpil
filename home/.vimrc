@@ -221,6 +221,10 @@ inoremap <F1> <Nop>
 " Undo in insert mode
 inoremap <C-U> <C-G>u<C-U>
 
+" Open vimrc to edit
+nnoremap <leader>ev :e $MYVIMRC<cr>
+" Reload vimrc
+nnoremap <leader>sv :source $MYVIMRC<cr>
 
 """""""""""""""""""
 " Toggling stuff! "
@@ -276,9 +280,9 @@ noremap <leader>d<space> :call StripWhitespace()<CR>
 """""""""""""""""""""
 
 if has('macunix')
-  command -range=% Reverse :'<,'>!gtac
+  command! -range=% Reverse :'<,'>!gtac
 else
-  command -range=% Reverse :'<,'>!tac
+  command! -range=% Reverse :'<,'>!tac
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""
