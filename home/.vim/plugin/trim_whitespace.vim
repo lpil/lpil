@@ -8,6 +8,8 @@ endfunction
 
 noremap <leader>d<space> :call StripWhitespace()<CR>
 
-autocmd BufWritePre *.rb call StripWhitespace()
-autocmd BufWritePre *.js call StripWhitespace()
-autocmd BufWritePre *.hs call StripWhitespace()
+augroup whitespace_strip_group
+  autocmd BufWritePre *.rb call StripWhitespace()
+  autocmd BufWritePre *.js call StripWhitespace()
+  autocmd BufWritePre *.hs call StripWhitespace()
+augroup END

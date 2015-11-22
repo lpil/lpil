@@ -135,15 +135,6 @@ set undoreload=10000        " number of lines to save for undo
 2mat ErrorMsg '\%80v.'
     " clear with :2mat
 
-""""""""""""""""""
-" Filetype stuff "
-""""""""""""""""""
-
-autocmd BufNewFile,BufRead Guardfile set filetype=ruby
-autocmd BufNewFile,BufRead *.md set filetype=markdown
-autocmd BufNewFile,BufRead *.pde set filetype=processing
-autocmd BufRead,BufNewFile *.scss set filetype=scss.css
-
 " Highlight fenced code blocks in markdown docs
 let g:markdown_fenced_languages = [
       \'sh',
