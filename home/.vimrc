@@ -8,7 +8,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
 Plug 'cespare/vim-toml', { 'for': 'toml' }
 Plug 'digitaltoad/vim-jade', { 'for': 'jade' }
-Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
+Plug 'elixir-lang/vim-elixir', { 'for': ['elixir', 'markdown'] }
 Plug 'godlygeek/tabular'
 Plug 'honza/vim-snippets'
 Plug 'jeetsukumaran/vim-buffergator'
