@@ -5,7 +5,6 @@ function! s:CycleHiddenBuffers(command)
 
   for num in buffer_range
     if index(visible_buffers, winbufnr(winnr())) == -1
-      echo "hello"
       break
     endif
     execute a:command
@@ -17,4 +16,5 @@ command! BP call s:CycleHiddenBuffers('bprevious')
 
 nnoremap , :BN<CR>
 
-nnoremap d, :bd<CR>
+" Close buffer, without closing the window/split
+nnoremap d, :bp\|bd #<CR>
