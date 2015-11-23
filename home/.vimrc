@@ -209,8 +209,9 @@ inoremap <C-U> <C-G>u<C-U>
 
 " Open vimrc to edit
 nnoremap <leader>ev :e $MYVIMRC<cr>
-" Reload vimrc
-nnoremap <leader>sv :source $MYVIMRC<cr>
+
+" Generate ctags
+nnoremap <leader>ct :! ctags -R .
 
 """""""""""""""""""
 " Toggling stuff! "
