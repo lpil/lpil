@@ -5,7 +5,7 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
+Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'scss.css'] }
 Plug 'cespare/vim-toml', { 'for': 'toml' }
 Plug 'digitaltoad/vim-jade', { 'for': 'jade' }
 Plug 'elixir-lang/vim-elixir', { 'for': ['elixir', 'markdown'] }
@@ -211,7 +211,7 @@ inoremap <C-U> <C-G>u<C-U>
 nnoremap <leader>ev :e $MYVIMRC<cr>
 
 " Generate ctags
-nnoremap <leader>ct :! ctags -R .
+nnoremap <leader>ct :! ctags -R .<cr>
 
 """""""""""""""""""
 " Toggling stuff! "
