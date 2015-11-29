@@ -99,9 +99,8 @@ dropPrefix (x:xs) (y:ys)
   | x == y    = dropPrefix xs ys
   | otherwise = error "Not a prefix"
 
-checkVerse n str =
+checkVerse n expected =
   let
-    prefix = song (n - 1)
-    verseN = dropPrefix prefix $ song n
+    verseN = dropPrefix (song $ n - 1) $ song n
   in
-    verseN `shouldBe` str
+    verseN `shouldBe` expected
