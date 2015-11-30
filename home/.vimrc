@@ -16,7 +16,7 @@ Plug 'jpalardy/vim-slime'
 Plug 'junegunn/vader.vim',  { 'on': 'Vader', 'for': 'vader' }
 Plug 'kien/ctrlp.vim'
 Plug 'marcweber/vim-addon-mw-utils'
-Plug 'munshkr/vim-tidal'
+Plug 'munshkr/vim-tidal', { 'for': 'tidal' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'rhysd/clever-f.vim'
 Plug 'sbl/scvim', { 'for': 'supercollider' }
