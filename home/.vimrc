@@ -142,6 +142,7 @@ let g:markdown_fenced_languages = [
       \'elixir',
       \'haskell',
       \'html',
+      \'scheme',
       \'javascript',
       \'js=javascript',
       \'json=javascript',
