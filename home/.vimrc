@@ -35,6 +35,7 @@ Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rails', { 'for': 'ruby' }
+Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': lisp_languages }
