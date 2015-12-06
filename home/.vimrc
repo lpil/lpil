@@ -5,7 +5,11 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
+let lisp_languages = ['scheme']
+
 Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'scss.css'] }
+Plug 'guns/vim-sexp', { 'for': lisp_languages }
+Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': lisp_languages }
 Plug 'cespare/vim-toml', { 'for': 'toml' }
 Plug 'digitaltoad/vim-jade', { 'for': 'jade' }
 Plug 'elixir-lang/vim-elixir', { 'for': ['elixir', 'markdown'] }
