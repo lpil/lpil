@@ -5,15 +5,14 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
-let lisp_languages = ['scheme']
+let lisp_languages = ['scheme', 'clojure']
 
 Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'scss.css'] }
-Plug 'guns/vim-sexp', { 'for': lisp_languages }
-Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': lisp_languages }
 Plug 'cespare/vim-toml', { 'for': 'toml' }
 Plug 'digitaltoad/vim-jade', { 'for': 'jade' }
 Plug 'elixir-lang/vim-elixir', { 'for': ['elixir', 'markdown'] }
 Plug 'godlygeek/tabular'
+Plug 'guns/vim-sexp', { 'for': lisp_languages }
 Plug 'honza/vim-snippets'
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'jpalardy/vim-slime'
@@ -38,6 +37,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rails', { 'for': 'ruby' }
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-rsi'
+Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': lisp_languages }
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
 Plug 'vim-scripts/matchit.zip'
