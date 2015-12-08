@@ -1,0 +1,1 @@
+nnoremap sd :Eval<CR>
