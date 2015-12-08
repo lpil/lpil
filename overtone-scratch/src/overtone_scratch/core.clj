@@ -40,3 +40,30 @@
   (play (now) (cycle my-scale) 285))
 
 (stop)
+
+
+
+(piano)
+
+(def score [:E4 :F#4 :B4 :C#5 :D5 :F#4 :E4 :C#5 :B4 :F#4 :D5 :C#5])
+
+(def notes (map note score))
+
+(piano (first notes))
+(piano (first notes))
+
+(defn play "Play a series of notes" [start-time notes time-gap]
+  (let [note (first notes)
+        next-time (+ start-time time-gap)]
+    (piano note)
+    (apply-at next-time play [next-time (rest notes) time-gap])))
+
+(play (now) notes 300)
+
+(play (now) (cycle notes) 300)
+
+(stop)
+
+(let [start-time (now)]
+  (play start-time (cycle notes) 200)
+  (play start-time (cycle notes) 204))
