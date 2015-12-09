@@ -1,6 +1,11 @@
 ---
 title: Testing CSS Computed Styles with Capybara
 date: 2015-05-07 12:58 UTC
+tags:
+  - Ruby
+  - CSS
+  - Javascript
+  - Testing
 ---
 
 This week I found myself with the rather strange task of testing that styles
