@@ -230,15 +230,25 @@ nnoremap <F4> :setlocal spell!<CR>
 nnoremap <F5> :SyntasticToggleMode<CR>
 
 
-"""""""""""""""""""""
-" Reverse selection "
-"""""""""""""""""""""
-
+" Reverse selection
 if has('macunix')
   command! -range=% Reverse :'<,'>!gtac
 else
   command! -range=% Reverse :'<,'>!tac
 endif
+
+" Open dem splits
+
+fun! DoOpenSplits()
+  vsplit
+  vsplit
+  split
+  terminal
+  wincmd j
+  terminal
+endfunction
+
+command! Opensplits call DoOpenSplits()
 
 """"""""""""""""""
 " plugin: ctrlp "
