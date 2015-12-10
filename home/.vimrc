@@ -142,18 +142,19 @@ set undoreload=10000        " number of lines to save for undo
 
 " Highlight fenced code blocks in markdown docs
 let g:markdown_fenced_languages = [
-      \'sh',
+      \'clojure',
       \'css',
       \'elixir',
       \'haskell',
       \'html',
-      \'scheme',
       \'javascript',
       \'js=javascript',
       \'json=javascript',
       \'python',
       \'ruby',
       \'sass',
+      \'scheme',
+      \'sh',
       \'xml'
       \]
 
