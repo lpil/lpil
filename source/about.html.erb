@@ -36,3 +36,15 @@ layout: page
     </a>
   </li>
 </ul>
+<hr>
+
+<p>
+  Here are some talks I've especially enjoyed.
+</p>
+<ul class="about__talks">
+  <% data.talks.each do |talk| %>
+    <li>
+      <%= link_to talk.title, talk.url %> by <%= talk.presenter %>
+    </li>
+  <% end %>
+</ul>
