@@ -44,7 +44,8 @@ layout: page
 <ul class="about__talks">
   <% data.talks.each do |talk| %>
     <li>
-      <%= link_to talk.title, talk.url %> by <%= talk.presenter %>
+      <%= link_to talk.title, talk.url, target: '_blank' %>
+      by <%= talk.presenter %>
     </li>
   <% end %>
 </ul>
