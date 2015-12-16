@@ -1,10 +1,10 @@
 source 'http://rubygems.org'
 
-gem 'middleman', '~> 3'
-gem 'middleman-blog', '~> 3'
-gem 'middleman-livereload', '~> 3'
-gem 'middleman-syntax', '~> 2'
-gem 'middleman-minify-html', '~> 3'
+gem 'middleman', '~> 4'
+gem 'middleman-blog'
+gem 'middleman-livereload'
+gem 'middleman-syntax', github: 'middleman/middleman-syntax'
+gem 'middleman-minify-html'
 
 gem 'redcarpet', '~> 3'
 

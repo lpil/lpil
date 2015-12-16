@@ -1,28 +1,24 @@
-set :enviroment, :development
+config[:enviroment] = :development
 
 activate :livereload,
-         host: 'localhost',
-         apply_js_live: false,
-         apply_css_live: false,
-         no_swf: true
+  no_swf: true
 
 activate :syntax
 
-set :site_url, 'http://lpil.uk'
-set :title, 'lpil'
-set :description, 'The website of a code monkey named Louis Pilfold.'
+config[:site_url] = 'http://lpil.uk'
+config[:title] = 'lpil'
+config[:description] = 'The website of a code monkey named Louis Pilfold.'
 
-set :css_dir, 'css'
-set :js_dir, 'js'
-set :images_dir, 'images'
-set :partials_dir, 'partials'
+config[:sass_assets_paths] = ['scss']
 
-set :markdown_engine, :redcarpet
-set :markdown, fenced_code_blocks: true,
-               smartypants: true
+config[:markdown_engine] = :redcarpet
+config[:markdown] = {
+  fenced_code_blocks: true,
+  smartypants: true,
+}
 
 configure :build do
-  set :enviroment, :production
+  config[:enviroment] = :production
   activate :relative_assets
   activate :minify_css
   activate :minify_javascript
