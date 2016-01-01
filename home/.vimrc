@@ -28,14 +28,15 @@ Plug 'scrooloose/syntastic'
 Plug 'shougo/neocomplcache.vim'
 Plug 'sirver/ultisnips'
 Plug 'slim-template/vim-slim'
+Plug 'slime-lang/vim-slime-syntax', { 'for': 'slime' }
 Plug 'tomtom/tlib_vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-cucumber', { 'for': 'cucumber' }
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rails', { 'for': 'ruby' }
-Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': lisp_languages }
