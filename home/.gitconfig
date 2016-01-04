@@ -26,6 +26,3 @@
   g = grep --break --heading --line-number
   gi = grep --break --heading --line-number --ignore-case
   files-ive-edited = !git log --no-merges --stat --author='Louis Pilfold' --name-only --pretty=format:"" | sort -u | tail -n +2
-
-[commit]
-  template = ~/.gittemplate
