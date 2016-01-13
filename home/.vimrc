@@ -16,7 +16,7 @@ Plug 'guns/vim-sexp', { 'for': lisp_languages }
 Plug 'honza/vim-snippets'
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'jpalardy/vim-slime'
-Plug 'junegunn/vader.vim',  { 'on': 'Vader', 'for': 'vader' }
+Plug 'junegunn/vader.vim', { 'on': 'Vader', 'for': 'vader' }
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'marcweber/vim-addon-mw-utils'
 Plug 'munshkr/vim-tidal', { 'for': 'tidal' }
