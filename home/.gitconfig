@@ -26,3 +26,4 @@
   g = grep --break --heading --line-number
   gi = grep --break --heading --line-number --ignore-case
   files-ive-edited = !git log --no-merges --stat --author='Louis Pilfold' --name-only --pretty=format:"" | sort -u | tail -n +2
+  cleanup = "!git branch --merged | grep -v \"\\*\" | grep -v master | grep -v dev | xargs -n 1 git branch -d"
