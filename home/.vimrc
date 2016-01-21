@@ -9,6 +9,7 @@ let lisp_languages = ['scheme', 'clojure']
 
 Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'scss.css'] }
 Plug 'cespare/vim-toml', { 'for': 'toml' }
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'digitaltoad/vim-jade', { 'for': 'jade' }
 Plug 'elixir-lang/vim-elixir', { 'for': ['elixir', 'markdown'] }
 Plug 'godlygeek/tabular'
@@ -17,7 +18,7 @@ Plug 'honza/vim-snippets'
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'jpalardy/vim-slime'
 Plug 'junegunn/vader.vim', { 'on': 'Vader', 'for': 'vader' }
-Plug 'ctrlpvim/ctrlp.vim'
+Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 Plug 'marcweber/vim-addon-mw-utils'
 Plug 'munshkr/vim-tidal', { 'for': 'tidal' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
