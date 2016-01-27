@@ -3,15 +3,13 @@ defmodule LYSE.Event do
   A scheduled event process in our reminder system.
   """
 
-  alias __MODULE__
-
   defstruct server: nil,
             name:   nil,
             ms:     0
 
 
   def start(event_name, delay_ms) do
-    tate = %__MODULE__{ server: self(), name: event_name, ms: delay_ms }
+    state = %__MODULE__{ server: self(), name: event_name, ms: delay_ms }
     spawn fn-> loop(state) end
   end
 
@@ -35,7 +33,7 @@ defmodule LYSE.Event do
   end
 
 
-  defp loop(state = %Event{ server: server }) do
+  defp loop(state = %__MODULE__{ server: server }) do
     receive do
       {^server, reference, :cancel} ->
         send server, {reference, :ok}
