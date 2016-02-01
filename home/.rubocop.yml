@@ -27,3 +27,9 @@ Style/EmptyLinesAroundModuleBody:
   Enabled: false
 Style/ModuleFunction:
   Enabled: false
+
+# https://viget.com/extend/just-use-double-quoted-ruby-strings
+Style/StringLiterals:
+  EnforcedStyle: "double_quotes"
+Style/StringLiteralsInInterpolation:
+  EnforcedStyle: "double_quotes"
