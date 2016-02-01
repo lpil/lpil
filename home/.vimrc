@@ -240,29 +240,6 @@ else
   command! -range=% Reverse :'<,'>!tac
 endif
 
-" Open dem splits
-
-fun! Open3Columns()
-  vsplit
-  vsplit
-  split
-  terminal
-  wincmd j
-  terminal
-endf
-
-command! ThreeColumns call Open3Columns()
-
-fun! Open2Columns()
-  vsplit
-  split
-  terminal
-  wincmd j
-  terminal
-endf
-
-command! TwoColumns call Open2Columns()
-
 
 """"""""""""""""""
 " plugin: ctrlp "
