@@ -13,4 +13,5 @@ augroup whitespace_strip_group
   autocmd BufWritePre *.rb call StripWhitespace()
   autocmd BufWritePre *.js call StripWhitespace()
   autocmd BufWritePre *.hs call StripWhitespace()
+  autocmd BufWritePre *.clj call StripWhitespace()
 augroup END
