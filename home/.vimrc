@@ -18,6 +18,7 @@ Plug 'honza/vim-snippets'
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'jpalardy/vim-slime'
 Plug 'junegunn/vader.vim', { 'on': 'Vader', 'for': 'vader' }
+Plug 'kylef/apiblueprint.vim', { 'for': 'apiblueprint' }
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 Plug 'marcweber/vim-addon-mw-utils'
 Plug 'munshkr/vim-tidal', { 'for': 'tidal' }
