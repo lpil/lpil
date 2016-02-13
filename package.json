@@ -1,0 +1,25 @@
+{
+  "name": "Fawkes",
+  "author": "Louis Pilfold <louis@lpil.uk>",
+  "description": "To start your Phoenix app:",
+  "license": "GPL-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lpil/fawkes.git"
+  },
+  "dependencies": {
+    "babel": "5.x",
+    "babel-core": "5.x",
+    "babel-loader": "5.x",
+    "css-loader": "^0.23.1",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.8.5",
+    "node-sass": "^3.4.2",
+    "phoenix": "file:deps/phoenix",
+    "phoenix_html": "file:deps/phoenix_html",
+    "sass-loader": "^3.1.2",
+    "style-loader": "^0.13.0",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.12.13"
+  }
+}
