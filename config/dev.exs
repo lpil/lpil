@@ -4,14 +4,14 @@ use Mix.Config
 # debugging and code reloading.
 #
 # The watchers configuration can be used to run external
-# watchers to your application. For example, we use it
-# with brunch.io to recompile .js and .css sources.
+# watchers to your application.
 config :fawkes, Fawkes.Endpoint,
   http: [port: 4000],
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
   watchers: [
+    # Run a webpack watcher to compile the frontend
     node: [
       "node_modules/webpack/bin/webpack.js",
       "--watch",
