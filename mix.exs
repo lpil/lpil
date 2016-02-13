@@ -20,7 +20,7 @@ defmodule Fawkes.Mixfile do
       mod: {Fawkes, []},
       applications: [
         :phoenix, :phoenix_html, :cowboy, :logger, :gettext, :phoenix_ecto,
-        :postgrex
+        :postgrex, :comeonin,
       ]
     ]
   end
@@ -46,6 +46,10 @@ defmodule Fawkes.Mixfile do
       {:cowboy, "~> 1.0"},
       # HTML templating language
       {:phoenix_slime, "~> 0.4"},
+      # Authentication framework
+      {:guardian, "~> 0.9.0"},
+      # Password hashing lib
+      {:comeonin, "~> 2.1"},
 
       # Code style linter
       {:dogma, "~> 0.0", only: :dev},

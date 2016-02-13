@@ -50,4 +50,5 @@ config :fawkes, Fawkes.Repo,
 
 # Configure the auto test runner
 config :mix_test_watch,
-  tasks: ~w(test dogma)
+  # tasks: ~w(test dogma)
+  tasks: ~w(test)

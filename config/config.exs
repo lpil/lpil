@@ -33,3 +33,14 @@ config :phoenix, :generators,
 config :phoenix, :template_engines,
   slim: PhoenixSlime.Engine,
   slime: PhoenixSlime.Engine
+
+# Configure Guardian auth framework
+config :guardian, Guardian,
+  allowed_algos: ["HS512"],
+  verify_module: Guardian.JWT,
+  issuer: "Fawkes",
+  ttl: { 30, :days },
+  verify_issuer: true,
+  secret_key:
+    "6X6MrQHhy199YkjP+D3+VzVH9UI9Qs5PZnYVIlh+wp8luLmT0+93Vigd+LDJx7Jz",
+  serializer: Fawkes.GuardianSerializer
