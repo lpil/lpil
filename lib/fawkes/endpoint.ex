@@ -11,7 +11,7 @@ defmodule Fawkes.Endpoint do
   plug Plug.Static,
     at: "/", from: :fawkes, gzip: false,
     only: ~w(
-      assets fonts favicon.ico robots.txt
+      assets fonts favicon.ico robots.txt humans.txt
     )
 
   # Code reloading can be explicitly enabled under the
