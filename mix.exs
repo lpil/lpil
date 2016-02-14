@@ -52,7 +52,7 @@ defmodule Fawkes.Mixfile do
       {:comeonin, "~> 2.1"},
 
       # Code style linter
-      {:dogma, "~> 0.0", only: :dev},
+      {:dogma, "~> 0.0", only: ~w(dev test)a},
       # Automatic test runner
       {:mix_test_watch, "~> 0.1", only: :dev},
     ]

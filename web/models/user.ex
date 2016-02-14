@@ -3,7 +3,6 @@ defmodule Fawkes.User do
   A person what can log in.
   """
   use Fawkes.Web, :model
-  alias Fawkes.Repo
   alias Comeonin.Bcrypt
   alias Ecto.Changeset
 
