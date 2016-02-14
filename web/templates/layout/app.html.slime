@@ -11,6 +11,11 @@ html lang="en"
     link rel="stylesheet" href="#{static_path(@conn, "/assets/main.css")}"
 
   body
+    = if Guardian.Plug.authenticated?(@conn) do
+      p= link "Logout", to: session_path(@conn, :delete), method: :delete
+    - else
+      p= link "Sign In", to: session_path(@conn, :new)
+
     p.alert--info role="alert"
       = get_flash(@conn, :info)
     p.alert--danger role="alert"

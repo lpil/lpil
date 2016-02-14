@@ -26,6 +26,13 @@ defmodule Fawkes.SessionController do
     end
   end
 
+  def delete(conn, _params) do
+    conn
+    |> Guardian.Plug.sign_out
+    |> put_flash(:info, "Signed out successfully")
+    |> redirect(to: "/")
+  end
+
 
   defp try_login(conn, username, password, opts) do
     repo = Keyword.fetch!(opts, :repo)

@@ -29,6 +29,16 @@ defmodule Fawkes.ConnCase do
 
       # The default endpoint for testing
       @endpoint Fawkes.Endpoint
+
+
+      def sign_in(%Plug.Conn{} = conn, user) do
+        conn
+        |> bypass_through(Fawkes.Router, [:browser])
+        |> get("/")
+        |> Guardian.Plug.sign_in(user, :token)
+        |> send_resp(200, "Flush the session")
+        |> recycle()
+      end
     end
   end
 

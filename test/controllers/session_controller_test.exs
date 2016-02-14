@@ -58,4 +58,23 @@ defmodule Fawkes.SessionControllerTest do
     assert body =~ "Log in"
     assert Guardian.Plug.current_resource(conn) == nil
   end
+
+
+  # Delete
+
+  test "DELETE delete", %{conn: conn} do
+    attrs = %{
+      email: "foo@bar.baz",
+      username: "foobar",
+      password: "supersecret",
+      password_confirmation: "supersecret",
+    }
+    user = %User{}
+    |> User.registration_changeset(attrs)
+    |> Repo.insert!()
+    conn = conn |> sign_in(user) |> get("/")
+    assert Guardian.Plug.current_resource(conn).id == user.id
+    conn = delete conn, "/session"
+    assert Guardian.Plug.current_resource(conn) == nil
+  end
 end
