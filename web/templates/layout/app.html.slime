@@ -1,0 +1,22 @@
+doctype html
+html lang="en"
+  head
+    meta charset="utf-8"
+    meta http-equiv="X-UA-Compatible" content="IE=edge"
+    meta name="viewport" content="width=device-width, initial-scale=1"
+    meta name="description" content=""
+    meta name="author" content=""
+
+    title Hello Fawkes
+    link rel="stylesheet" href="#{static_path(@conn, "/assets/main.css")}"
+
+  body
+    p.alert--info role="alert"
+      = get_flash(@conn, :info)
+    p.alert--danger role="alert"
+      = get_flash(@conn, :error)
+
+    main role="main"
+      = render(@view_module, @view_template, assigns)
+
+    script src="#{static_path(@conn, "/js/main.js")}"

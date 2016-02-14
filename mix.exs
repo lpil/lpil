@@ -44,6 +44,8 @@ defmodule Fawkes.Mixfile do
       {:gettext, "~> 0.9"},
       # Web server
       {:cowboy, "~> 1.0"},
+      # HTML templating language
+      {:phoenix_slime, "~> 0.4"},
 
       # Code style linter
       {:dogma, "~> 0.0", only: :dev},
