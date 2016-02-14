@@ -4,7 +4,6 @@ defmodule Fawkes.UserTest do
   alias Fawkes.User
   alias Comeonin.Bcrypt
 
-  password = "0123456789"
   @attrs %{
     email: "louis@lpil.uk",
     username: "louis",
@@ -41,6 +40,7 @@ defmodule Fawkes.UserTest do
 
   # registration_changeset/2
 
+  password = "0123456789"
   @reg_attrs Map.merge @attrs, %{
     password: password,
     password_confirmation: password,
@@ -48,7 +48,7 @@ defmodule Fawkes.UserTest do
 
   @tag :async
   test "registration_changeset can be valid" do
-    changeset = User.changeset(%User{}, @reg_attrs)
+    changeset = User.registration_changeset(%User{}, @reg_attrs)
     assert changeset.valid?
   end
 
