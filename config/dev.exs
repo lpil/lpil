@@ -17,7 +17,11 @@ config :fawkes, Fawkes.Endpoint,
       "--watch",
       "--progress",
       "--colors",
-    ]
+    ],
+    # Run the Elixir test runner
+    mix: [
+      "test.watch",
+    ],
   ]
 
 # Watch static and templates for browser reloading.
@@ -28,7 +32,7 @@ config :fawkes, Fawkes.Endpoint,
       ~r{priv/gettext/.*(po)$},
       ~r{web/views/.*(ex)$},
       ~r{web/templates/.*(eex|slime?)$}
-    ]
+    ],
   ]
 
 # Do not include metadata nor timestamps in development logs
