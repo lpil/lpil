@@ -5,7 +5,7 @@ defmodule Fawkes.ArticleTest do
 
   @attrs %{
     title: "Amazing Blog Post!",
-    slug: "amazing-blog-post",
+    slug: "amazing-blog-post-0123456789",
     body: """
     <p>This is our super amazing blog post.</p>
     <h1>Wow.</h1>
@@ -23,6 +23,14 @@ defmodule Fawkes.ArticleTest do
   @tag :async
   test "slug must be present" do
     attrs = Dict.delete @attrs, :slug
+    changeset = Article.changeset(%Article{}, attrs)
+    refute changeset.valid?
+    assert [slug: _] = changeset.errors
+  end
+
+  @tag :async
+  test "slug must be url friendly" do
+    attrs = %{ @attrs | slug: "What the??" }
     changeset = Article.changeset(%Article{}, attrs)
     refute changeset.valid?
     assert [slug: _] = changeset.errors

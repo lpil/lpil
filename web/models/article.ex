@@ -15,7 +15,7 @@ defmodule Fawkes.Article do
   @required_params ~w(title slug body)
   @optional_params ~w()
 
-  @slug_regex ~r/\A[a-z0-1-]+\z/
+  @slug_regex ~r/\A[a-z0-9-]+\z/
 
 
   @doc """
