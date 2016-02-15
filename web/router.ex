@@ -32,6 +32,6 @@ defmodule Fawkes.Router do
     pipe_through :browser_admin
 
     resources "/articles", ArticleController,
-      only: ~w(new create)a
+      only: ~w(new show create)a
   end
 end

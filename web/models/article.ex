@@ -12,7 +12,7 @@ defmodule Fawkes.Article do
     timestamps
   end
 
-  @required_params ~w(title slug body)
+  @required_params ~w(title slug body published_at)
   @optional_params ~w()
 
   @slug_regex ~r/\A[a-z0-9-]+\z/
@@ -28,5 +28,11 @@ defmodule Fawkes.Article do
     |> unique_constraint(:slug)
     |> validate_format(:slug, @slug_regex)
     |> validate_length(:body, min: 50)
+  end
+end
+
+defimpl Phoenix.Param, for: Fawkes.Article do
+  def to_param(%Fawkes.Article{ slug: slug }) when is_binary(slug) do
+    slug
   end
 end

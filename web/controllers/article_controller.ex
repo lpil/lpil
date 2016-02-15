@@ -8,10 +8,18 @@ defmodule Fawkes.ArticleController do
 
   plug :scrub_params, "article" when action in [:create]
 
+
   def new(conn, _params) do
     changeset = Article.changeset(%Article{})
     render(conn, "new.html", changeset: changeset)
   end
+
+
+  def show(conn, %{ "id" => slug}) do
+    article = Repo.get_by!(Article, slug: slug)
+    render(conn, "show.html", article: article)
+  end
+
 
   def create(conn, %{"article" => params}) do
     changeset = Article.changeset(%Article{}, params)

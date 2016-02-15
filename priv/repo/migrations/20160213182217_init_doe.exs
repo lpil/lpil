@@ -15,7 +15,7 @@ defmodule Fawkes.Repo.Migrations.InitDoe do
       add :title, :string
       add :slug,  :string
       add :body,  :text
-      add :published_at, :datetime, default: fragment("now()")
+      add :published_at, :datetime, null: false
       timestamps
     end
     create unique_index(:articles, [:slug])

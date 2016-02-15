@@ -6,10 +6,11 @@ defmodule Fawkes.ArticleTest do
   @attrs %{
     title: "Amazing Blog Post!",
     slug: "amazing-blog-post-0123456789",
+    published_at: Ecto.DateTime.utc,
     body: """
     <p>This is our super amazing blog post.</p>
     <h1>Wow.</h1>
-    """
+    """,
   }
 
   # changeset/2
@@ -59,6 +60,14 @@ defmodule Fawkes.ArticleTest do
   end
 
   @tag :async
+  test " must be present" do
+    attrs = Dict.delete @attrs, :title
+    changeset = Article.changeset(%Article{}, attrs)
+    refute changeset.valid?
+    assert [title: _] = changeset.errors
+  end
+
+  @tag :async
   test "titles must be longish" do
     attrs = %{ @attrs | title: "Short" }
     changeset = Article.changeset(%Article{}, attrs)
@@ -87,4 +96,10 @@ defmodule Fawkes.ArticleTest do
 
   @tag :skip
   test "body must be stripped of dangerous tags"
+
+  test "the slug is used as the Param" do
+    article = %Article{ slug: "hello-world" }
+    param   = article |> Phoenix.Param.to_param
+    assert param == "hello-world"
+  end
 end

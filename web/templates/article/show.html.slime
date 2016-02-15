@@ -1,0 +1,8 @@
+h1= @article.title
+
+= inspect @article
+
+p Published at #{to_string @article.published_at}
+p Published at #{inspect @article.published_at}
+
+= raw @article.body

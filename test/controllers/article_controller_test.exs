@@ -3,6 +3,16 @@ defmodule Fawkes.ArticleControllerTest do
 
   alias Fawkes.Article
 
+  @attrs %{
+    title: "Amazing Blog Post!",
+    slug: "amazing-blog-post-0123456789",
+    published_at: Ecto.DateTime.utc,
+    body: """
+    <p>This is our super amazing blog post.</p>
+    <h1>Wow.</h1>
+    """,
+  }
+
   # new
 
   test "GET new when not signed in", %{conn: conn} do
@@ -17,16 +27,26 @@ defmodule Fawkes.ArticleControllerTest do
   end
 
 
-  # create
+  # show
 
-  @attrs %{
-    title: "Amazing Blog Post!",
-    slug: "amazing-blog-post-0123456789",
-    body: """
-    <p>This is our super amazing blog post.</p>
-    <h1>Wow.</h1>
-    """
-  }
+  test "GET show when not signed in", %{conn: conn} do
+    # TODO replace with factories
+    article = Article |> struct(@attrs) |> Repo.insert!
+    conn = get conn, article_path(conn, :show, article)
+    assert redirected_to(conn) == "/"
+  end
+
+  @tag login_as: []
+  test "GET show", %{conn: conn} do
+    # TODO: replace with factories
+    article = Article |> struct(@attrs) |> Repo.insert!
+    conn = get conn, article_path(conn, :show, article)
+    body = html_response(conn, 200)
+    assert body =~ article.title
+    assert body =~ article.body
+  end
+
+  # create
 
   test "POST create when not signed in", %{conn: conn} do
     conn = post conn, article_path(conn, :create), article: @attrs
