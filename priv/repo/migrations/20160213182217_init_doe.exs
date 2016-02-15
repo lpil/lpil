@@ -10,5 +10,14 @@ defmodule Fawkes.Repo.Migrations.InitDoe do
     end
     create unique_index(:users, [:email])
     create unique_index(:users, [:username])
+
+    create table(:articles) do
+      add :title, :string
+      add :slug,  :string
+      add :body,  :text
+      add :published_at, :datetime, default: fragment("now()")
+      timestamps
+    end
+    create unique_index(:articles, [:slug])
   end
 end
