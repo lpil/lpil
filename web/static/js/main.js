@@ -8,4 +8,4 @@ import "../css/main.scss";
 
 // Import project JS files
 //
-// import socket from "./socket"
+// import socket from "./socket";

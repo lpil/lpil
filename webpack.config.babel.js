@@ -8,6 +8,13 @@ const config = {
   },
 
   module: {
+    preLoaders: [
+      {
+        test: /\.js$/,
+        loader: "eslint-loader",
+      },
+    ],
+
     loaders: [
       {
         test: /\.js$/,

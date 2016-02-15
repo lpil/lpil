@@ -10,8 +10,13 @@
   "dependencies": {
     "babel": "5.x",
     "babel-core": "5.x",
+    "babel-eslint": "^4.1.8",
     "babel-loader": "5.x",
     "css-loader": "^0.23.1",
+    "eslint": "^1.10.3",
+    "eslint-config-airbnb": "^5.0.1",
+    "eslint-loader": "^1.2.1",
+    "eslint-plugin-react": "^3.16.1",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.8.5",
     "node-sass": "^3.4.2",
@@ -21,5 +26,18 @@
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.7",
     "webpack": "^1.12.13"
+  },
+  "eslintConfig": {
+    "extends": "airbnb",
+    "parserOptions": {
+      "ecmaVersion": 6,
+      "sourceType": "module"
+    },
+    "env": {
+      "browser": true
+    },
+    "rules": {
+      "quotes": [2, "double"]
+    }
   }
 }
