@@ -6,7 +6,7 @@ defmodule Fawkes.ArticleController do
 
   alias Fawkes.Article
 
-  # plug :scrub_params, "articles" when action in [:create]
+  plug :scrub_params, "article" when action in [:create]
 
   def new(conn, _params) do
     changeset = Article.changeset(%Article{})

@@ -52,6 +52,18 @@ defmodule Fawkes.ConnCase do
         |> Fawkes.User.registration_changeset(changes)
         |> Repo.insert!()
       end
+
+      setup %{conn: conn} = config do
+        attrs = config[:login_as]
+        if attrs do
+          user = insert_user(attrs)
+          conn = sign_in(conn, user)
+          {:ok, conn: conn, user: user}
+        else
+          :ok
+        end
+      end
+
     end
   end
 

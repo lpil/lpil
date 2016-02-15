@@ -3,18 +3,6 @@ defmodule Fawkes.ArticleControllerTest do
 
   alias Fawkes.Article
 
-  setup %{conn: conn} = config do
-    attrs = config[:login_as]
-    if attrs do
-      user = insert_user(attrs)
-      conn = sign_in(conn, user)
-      {:ok, conn: conn, user: user}
-    else
-      :ok
-    end
-  end
-
-
   # new
 
   test "GET new when not signed in", %{conn: conn} do
