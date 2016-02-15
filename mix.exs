@@ -64,8 +64,8 @@ defmodule Fawkes.Mixfile do
   defp aliases do
     [
       "ecto.seed": ["run priv/repo/seeds.exs"],
-      "ecto.setup": ~w[ecto.create ecto.migrate ecto.seed],
-      "ecto.reset": ~w[ecto.drop ecto.setup],
+      "ecto.setup": ~w(ecto.create ecto.migrate ecto.seed),
+      "ecto.reset": ~w(ecto.drop ecto.setup),
     ]
   end
 end

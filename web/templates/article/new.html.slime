@@ -23,7 +23,12 @@ h1 New article
 
   .form-group
     = label f, :body
-    = textarea f, :body
+    #js-scribe-toolbar
+      a href="#" data-command-name="bold" Bold
+      a href="#" data-command-name="italic" Italic
+      a href="#" data-command-name="underline" Underline
+    #js-scribe-editor contenteditable="true"
+    = hidden_input f, :body, id: "js-scribe-output", readonly: true
     = error_tag f, :body
 
   .form-group

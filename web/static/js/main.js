@@ -9,3 +9,5 @@ import "../css/main.scss";
 // Import project JS files
 //
 // import socket from "./socket";
+
+import "./scribe_editor";
