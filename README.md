@@ -5,6 +5,7 @@ Dumbledore's pet phoenix.
 
 Also a blog web app, written with Phoenix.
 
+
 ## Setup
 
 You'll need Elixir, Node, and Postgresql installed.
@@ -38,3 +39,13 @@ You may need to ensure the `postgres` database user has the password
 ```sql
 CREATE ROLE postgres LOGIN;
 ```
+
+
+## What are we using?
+
+- Elixir
+- Phoenix web framework
+- Dogma Elixir linter
+- ES6 Javascript
+- Webpack frontend build tool
+- ESLint Javascript linter
