@@ -30,18 +30,16 @@ defmodule Fawkes.ArticleControllerTest do
   # show
 
   test "GET show when not signed in", %{conn: conn} do
-    # TODO replace with factories
-    article = Article |> struct(@attrs) |> Repo.insert!
-    conn = get conn, article_path(conn, :show, article)
+    article = Factory.create(:article)
+    conn    = get conn, article_path(conn, :show, article)
     assert redirected_to(conn) == "/"
   end
 
   @tag login_as: []
   test "GET show", %{conn: conn} do
-    # TODO: replace with factories
-    article = Article |> struct(@attrs) |> Repo.insert!
-    conn = get conn, article_path(conn, :show, article)
-    body = html_response(conn, 200)
+    article = Factory.create(:article)
+    conn    = get conn, article_path(conn, :show, article)
+    body    = html_response(conn, 200)
     assert body =~ article.title
     assert body =~ article.body
   end

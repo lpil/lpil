@@ -51,6 +51,9 @@ defmodule Fawkes.Mixfile do
       # Password hashing lib
       {:comeonin, "~> 2.1"},
 
+      # Test data factories
+      {:ex_machina, "~> 0.6", only: :test},
+
       # Code style linter
       {:dogma, "~> 0.0", only: ~w(dev test)a},
       # Automatic test runner

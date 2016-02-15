@@ -21,6 +21,7 @@ defmodule Fawkes.ConnCase do
       use Phoenix.ConnTest
 
       alias Fawkes.Repo
+      alias Fawkes.Factory
       import Ecto
       import Ecto.Changeset
       import Ecto.Query, only: [from: 1, from: 2]
@@ -40,23 +41,10 @@ defmodule Fawkes.ConnCase do
         |> recycle()
       end
 
-      # TODO: Replace with factories
-      def insert_user(attrs \\ %{}) do
-        changes = Dict.merge(%{
-          email: "user#{Base.encode16(:crypto.rand_bytes(8))}@foo.com",
-          username: "user#{Base.encode16(:crypto.rand_bytes(8))}",
-          password: "supersecret",
-          password_confirmation: "supersecret",
-        }, attrs)
-        %Fawkes.User{}
-        |> Fawkes.User.registration_changeset(changes)
-        |> Repo.insert!()
-      end
-
       setup %{conn: conn} = config do
         attrs = config[:login_as]
         if attrs do
-          user = insert_user(attrs)
+          user = Factory.create(:user)
           conn = sign_in(conn, user)
           {:ok, conn: conn, user: user}
         else

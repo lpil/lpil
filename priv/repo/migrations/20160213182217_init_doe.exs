@@ -3,18 +3,18 @@ defmodule Fawkes.Repo.Migrations.InitDoe do
 
   def change do
     create table(:users) do
-      add :email,    :string
-      add :username, :string
-      add :password_hash, :string
+      add :email,    :string, null: false
+      add :username, :string, null: false
+      add :password_hash, :string, null: false
       timestamps
     end
     create unique_index(:users, [:email])
     create unique_index(:users, [:username])
 
     create table(:articles) do
-      add :title, :string
-      add :slug,  :string
-      add :body,  :text
+      add :title, :string, null: false
+      add :slug,  :string, null: false
+      add :body,  :text,   null: false
       add :published_at, :datetime, null: false
       timestamps
     end
