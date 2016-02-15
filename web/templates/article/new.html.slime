@@ -1,0 +1,33 @@
+h1 New article
+
+
+= form_for @changeset, article_path(@conn, :create), fn f ->
+  = if @changeset.action do
+    .alert
+      p Oops, something went wrong! Please check the errors below.
+
+  .form-group
+    = label f, :title
+    = text_input f, :title
+    = error_tag f, :title
+
+  .form-group
+    = label f, :slug
+    = text_input f, :slug
+    = error_tag f, :slug
+
+  .form-group
+    = label f, :published_at
+    = datetime_select f, :published_at
+    = error_tag f, :published_at
+
+  .form-group
+    = label f, :body
+    = textarea f, :body
+    = error_tag f, :body
+
+  .form-group
+    = submit "Submit"
+
+.page-nav
+  = link "Back", to: "/"

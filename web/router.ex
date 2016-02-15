@@ -12,12 +12,13 @@ defmodule Fawkes.Router do
     plug Guardian.Plug.LoadResource
   end
 
-  pipeline :api do
-    plug :accepts, ["json"]
+  pipeline :browser_admin do
+    plug Guardian.Plug.EnsureAuthenticated, handler: Fawkes.ErrorController
   end
 
+
   scope "/", Fawkes do
-    pipe_through :browser # Use the default browser stack
+    pipe_through :browser
 
     get "/", PageController, :index
     resources "/session", SessionController,
@@ -25,8 +26,12 @@ defmodule Fawkes.Router do
       singleton: true
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", Fawkes do
-  #   pipe_through :api
-  # end
+
+  scope "/", Fawkes do
+    pipe_through :browser
+    pipe_through :browser_admin
+
+    resources "/articles", ArticleController,
+      only: ~w(new create)a
+  end
 end

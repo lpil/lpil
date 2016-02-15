@@ -39,6 +39,19 @@ defmodule Fawkes.ConnCase do
         |> send_resp(200, "Flush the session")
         |> recycle()
       end
+
+      # TODO: Replace with factories
+      def insert_user(attrs \\ %{}) do
+        changes = Dict.merge(%{
+          email: "user#{Base.encode16(:crypto.rand_bytes(8))}@foo.com",
+          username: "user#{Base.encode16(:crypto.rand_bytes(8))}",
+          password: "supersecret",
+          password_confirmation: "supersecret",
+        }, attrs)
+        %Fawkes.User{}
+        |> Fawkes.User.registration_changeset(changes)
+        |> Repo.insert!()
+      end
     end
   end
 

@@ -1,0 +1,17 @@
+defmodule Fawkes.ErrorController do
+  @moduledoc """
+  Responsible handling error requests. Also serves as the handler for
+  unauthenticated requsts.
+  """
+  use Fawkes.Web, :controller
+
+  @doc """
+  The unauthenticated function is called because this controller has been
+  specified as the handler to Guardian.Plug.EnsureAuthenticated in the router.
+  """
+  def unauthenticated(conn, _params) do
+    conn
+    |> put_flash(:error, "404: Page not found!")
+    |> redirect(to: "/")
+  end
+end
