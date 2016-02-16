@@ -17,13 +17,13 @@ defmodule Fawkes.Factory do
 
   def factory(:article) do
     %Fawkes.Article{
-      title: "Amazing Blog Post!",
+      title: sequence(:title, &"Amazing Blog Post #{&1}!"),
       slug:  sequence(:slug, &"slug-#{&1}"),
       published_at: Ecto.DateTime.utc,
-      body: """
-      <p>This is our super amazing blog post.</p>
+      body: sequence(:body, &"""
+      <p>This is our super amazing blog post number #{&1}.</p>
       <h1>Wow.</h1>
-      """,
+      """),
     }
   end
 end

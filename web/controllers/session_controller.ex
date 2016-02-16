@@ -13,12 +13,12 @@ defmodule Fawkes.SessionController do
 
   def create(conn, %{"session" => %{"username" => u, "password" => p}}) do
     conn
-    |> try_login(u, p, repo: Repo)
+    |> try_login(u, p)
     |> case do
       {:ok, conn} ->
         conn
         |> put_flash(:info, "Welcome back")
-        |> redirect(to: page_path(conn, :index))
+        |> redirect(to: "/")
       {:error, _reason, conn} ->
         conn
         |> put_flash(:error, "Invalid username/password combination")
@@ -34,9 +34,8 @@ defmodule Fawkes.SessionController do
   end
 
 
-  defp try_login(conn, username, password, opts) do
-    repo = Keyword.fetch!(opts, :repo)
-    user = repo.get_by(Fawkes.User, username: username)
+  defp try_login(conn, username, password) do
+    user = Repo.get_by(Fawkes.User, username: username)
     cond do
       user && Bcrypt.checkpw(password, user.password_hash) ->
         {:ok, Guardian.Plug.sign_in(conn, user)}

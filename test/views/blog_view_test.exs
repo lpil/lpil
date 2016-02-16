@@ -1,3 +1,3 @@
-defmodule Fawkes.PageViewTest do
+defmodule Fawkes.BlogViewTest do
   use Fawkes.ConnCase, async: true
 end

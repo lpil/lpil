@@ -20,7 +20,9 @@ defmodule Fawkes.Router do
   scope "/", Fawkes do
     pipe_through :browser
 
-    get "/", PageController, :index
+    resources "/", BlogController,
+      only: ~w(index)a
+
     resources "/session", SessionController,
       only: ~w(new create delete)a,
       singleton: true
