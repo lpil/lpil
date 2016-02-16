@@ -50,6 +50,8 @@ defmodule Fawkes.Mixfile do
       {:guardian, "~> 0.9.0"},
       # Password hashing lib
       {:comeonin, "~> 2.1"},
+      # HTML sanitizer
+      {:html_sanitize_ex, "~> 0.1"},
 
       # Test data factories
       {:ex_machina, "~> 0.6", only: :test},

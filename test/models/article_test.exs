@@ -94,8 +94,16 @@ defmodule Fawkes.ArticleTest do
     assert [body: _] = changeset.errors
   end
 
-  @tag :skip
-  test "body must be stripped of dangerous tags"
+  @tag :async
+  test "body must be stripped of dangerous tags" do
+    body = """
+    <script>2</script>
+    """
+    attrs     = %{ @attrs | body: body }
+    changeset = Article.changeset(%Article{}, attrs)
+    new_body  = get_change(changeset, :body)
+    assert new_body == "2"
+  end
 
   test "the slug is used as the Param" do
     article = %Article{ slug: "hello-world" }

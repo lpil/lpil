@@ -24,10 +24,23 @@ defmodule Fawkes.Article do
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_params, @optional_params)
+    |> sanitize_body
     |> validate_length(:title, min: 6)
     |> unique_constraint(:slug)
     |> validate_format(:slug, @slug_regex)
     |> validate_length(:body, min: 50)
+  end
+
+  defp sanitize_body(changeset) do
+    changeset
+    |> get_change(:body)
+    |> case do
+      nil ->
+        changeset
+      body ->
+        sanitized = HtmlSanitizeEx.basic_html(body)
+        put_change(changeset, :body, sanitized)
+    end
   end
 end
 

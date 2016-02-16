@@ -41,7 +41,16 @@ defmodule Fawkes.ArticleControllerTest do
     conn    = get conn, article_path(conn, :show, article)
     body    = html_response(conn, 200)
     assert body =~ article.title
-    assert body =~ article.body
+    assert body =~ String.replace(article.body, "\n", "")
+  end
+
+  @tag login_as: []
+  test "GET show santitizes HTML", %{conn: conn} do
+    article = Factory.create(:article, body: "<script>1</script>")
+    conn    = get conn, article_path(conn, :show, article)
+    body    = html_response(conn, 200)
+    assert body =~ article.title
+    refute body =~ "<script>1</script>"
   end
 
   # create
@@ -49,14 +58,14 @@ defmodule Fawkes.ArticleControllerTest do
   test "POST create when not signed in", %{conn: conn} do
     conn = post conn, article_path(conn, :create), article: @attrs
     assert redirected_to(conn) == "/"
-    refute Repo.get_by(Article, @attrs)
+    refute Repo.get_by(Article, slug: @attrs.slug)
   end
 
   @tag login_as: []
   test "POST create when successful", %{conn: conn} do
     conn = post conn, article_path(conn, :create), article: @attrs
     assert redirected_to(conn) == "/"
-    assert Repo.get_by(Article, @attrs)
+    assert Repo.get_by(Article, slug: @attrs.slug)
   end
 
   @tag login_as: []
@@ -65,6 +74,6 @@ defmodule Fawkes.ArticleControllerTest do
     conn = post conn, article_path(conn, :create), article: attrs
     body = html_response(conn, 200)
     assert body =~ "Please check the errors below"
-    refute Repo.get_by(Article, @attrs)
+    refute Repo.get_by(Article, slug: @attrs.slug)
   end
 end
