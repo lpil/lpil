@@ -25,7 +25,6 @@
     "sass-loader": "^3.1.2",
     "scribe-editor": "^2.1.1",
     "scribe-plugin-toolbar": "^1.0.0",
-    "style-loader": "^0.13.0",
     "url-loader": "^0.5.7",
     "webpack": "^1.12.13"
   },
