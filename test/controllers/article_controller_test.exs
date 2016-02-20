@@ -17,7 +17,7 @@ defmodule Fawkes.ArticleControllerTest do
 
   test "GET new when not signed in", %{conn: conn} do
     conn = get conn, article_path(conn, :new)
-    assert redirected_to(conn) == "/"
+    assert html_response(conn, 404)
   end
 
   @tag login_as: []
@@ -32,7 +32,7 @@ defmodule Fawkes.ArticleControllerTest do
   test "GET show when not signed in", %{conn: conn} do
     article = Factory.create(:article)
     conn    = get conn, article_path(conn, :show, article)
-    assert redirected_to(conn) == "/"
+    assert html_response(conn, 404)
   end
 
   @tag login_as: []
@@ -57,7 +57,7 @@ defmodule Fawkes.ArticleControllerTest do
 
   test "POST create when not signed in", %{conn: conn} do
     conn = post conn, article_path(conn, :create), article: @attrs
-    assert redirected_to(conn) == "/"
+    assert html_response(conn, 404)
     refute Repo.get_by(Article, slug: @attrs.slug)
   end
 
