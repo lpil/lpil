@@ -31,6 +31,7 @@ defmodule Fawkes.Web do
       use Phoenix.Controller
 
       alias Fawkes.Repo
+      alias Ecto.Query
       import Ecto
       import Ecto.Query, only: [from: 1, from: 2]
 

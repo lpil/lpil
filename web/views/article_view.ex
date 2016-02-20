@@ -4,7 +4,7 @@ defmodule Fawkes.ArticleView do
 
   alias Fawkes.Article
 
-  defp body_content(%Article{ body: body }) when is_binary(body) do
+  def body_content(%Article{ body: body }) when is_binary(body) do
     body
     |> HtmlSanitizeEx.basic_html
     |> raw

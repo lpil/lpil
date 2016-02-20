@@ -19,21 +19,21 @@ defmodule Fawkes.Router do
 
   scope "/", Fawkes do
     pipe_through :browser
-
-    resources "/", BlogController,
-      only: ~w(index)a
-
-    resources "/session", SessionController,
-      only: ~w(new create delete)a,
-      singleton: true
-  end
-
-
-  scope "/", Fawkes do
-    pipe_through :browser
     pipe_through :browser_admin
 
     resources "/articles", ArticleController,
       only: ~w(new show create)a
+  end
+
+  scope "/", Fawkes do
+    pipe_through :browser
+
+    resources "/session", SessionController,
+      only: ~w(new create delete)a,
+      singleton: true
+
+    # This is a catch all route, so it goes last.
+    resources "/", BlogController,
+      only: ~w(index show)a
   end
 end
