@@ -9,7 +9,7 @@ defmodule Fawkes.ErrorController do
   The unauthenticated function is called because this controller has been
   specified as the handler to Guardian.Plug.EnsureAuthenticated in the router.
   """
-  def unauthenticated(conn, params) do
+  def unauthenticated(conn, _params) do
     conn
     |> put_status(404)
     |> put_view(Fawkes.ErrorView)
