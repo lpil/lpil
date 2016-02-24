@@ -47,7 +47,7 @@ defmodule Fawkes.Mixfile do
       # HTML templating language
       {:phoenix_slime, "~> 0.4"},
       # Authentication framework
-      {:guardian, "~> 0.9.0"},
+      {:guardian, "~> 0.10.0"},
       # Password hashing lib
       {:comeonin, "~> 2.1"},
       # HTML sanitizer
