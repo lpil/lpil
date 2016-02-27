@@ -10,6 +10,7 @@ let lisp_languages = ['scheme', 'clojure']
 Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'scss.css'] }
 Plug 'cespare/vim-toml', { 'for': 'toml' }
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'dermusikman/sonicpi.vim'
 Plug 'digitaltoad/vim-jade', { 'for': 'jade' }
 Plug 'elixir-lang/vim-elixir', { 'for': ['elixir', 'markdown'] }
 Plug 'godlygeek/tabular'
