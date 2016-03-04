@@ -10,8 +10,12 @@ Documentation:
 Metrics/MethodLength:
   Enabled: false
 
-Style/TrailingComma:
+Style/TrailingCommaInLiteral:
   Enabled: true
+  EnforcedStyleForMultiline: comma
+Style/TrailingCommaInArguments:
+  Enabled: true
+  EnforcedStyleForMultiline: comma
 
 
 # Allow use of empty lines to visually group code into 'paragraphs'
