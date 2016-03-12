@@ -34,6 +34,7 @@ defmodule LYSE.EventServer do
 
   def terminate do
     send __MODULE__, :shutdown
+    :ok
   end
 
   def subscribe(client_pid) do
@@ -48,6 +49,37 @@ defmodule LYSE.EventServer do
 
     after 5000 ->
       {:error, :timeout}
+    end
+  end
+
+  def add_event(name, description, timeout) do
+    ref = make_ref()
+    send __MODULE__, {self(), ref, {:add, name, description, timeout}}
+    receive do
+      {^ref, msg} ->
+        msg
+    after 5000 ->
+      {:error, :timeout}
+    end
+  end
+
+  def cancel(name) do
+    ref = make_ref()
+    send __MODULE__, {self(), ref, {:cancel, name}}
+    receive do
+      {^ref, :ok} ->
+        :ok
+    after 5000 ->
+      {:error, :timeout}
+    end
+  end
+
+  def listen(delay) do
+    receive do
+      msg = {:done, _name, _description} ->
+        msg
+    after delay ->
+      nil
     end
   end
 
@@ -79,7 +111,7 @@ defmodule LYSE.EventServer do
         __MODULE__.loop state
 
       unknown ->
-        IO.puts "Unknown message: #{unknown}"
+        IO.puts "Unknown message: #{inspect unknown}"
         loop state
     end
   end
@@ -98,13 +130,13 @@ defmodule LYSE.EventServer do
       name: name,     description: description,
       pid: event_pid, timeout: timeout,
     }
-    new_events = %{ state.events | name => event }
+    new_events = Map.put(state.events, name, event)
     send pid, {msg_ref, :ok}
     loop(%{ state | events: new_events })
   end
 
   defp cancel_event(state, pid, msg_ref, name) do
-    new_events = case Map.pop(name, state.events) do
+    new_events = case Map.pop(state.events, name) do
       {nil, events} ->
         events
 
@@ -117,7 +149,7 @@ defmodule LYSE.EventServer do
   end
 
   defp handle_event_done(state, name) do
-    case Map.pop(name, state.events) do
+    case Map.pop(state.events, name) do
       {nil, _events} ->
         # We cancelled the event at the same time it finished
         loop state
