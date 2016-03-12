@@ -40,6 +40,6 @@ defmodule LYSE.Event do
 
       after state.ms ->
         send server, {:done, state.name}
-      end
+    end
   end
 end
