@@ -18,14 +18,13 @@ defmodule LYSE.EventServer do
   def loop(state = %__MODULE__{}) do
     receive do
       {pid, msg_ref, {:subscribe, client}} ->
-        handle_subscribe(state, pid, msg_ref, client)
+        subscribe_client(state, pid, msg_ref, client)
 
       {pid, msg_ref, {:add, name, description, timeout}} ->
-        handle_add_event(state, pid, msg_ref, name, description, timeout)
+        add_event(state, pid, msg_ref, name, description, timeout)
 
       {pid, msg_ref, {:cancel, name}} ->
-        nil
-
+        cancel_event(state, pid, msg_ref, name)
       {:done, name} ->
         nil
 
@@ -40,19 +39,19 @@ defmodule LYSE.EventServer do
 
       unknown ->
         IO.puts "Unknown message: #{unknown}"
-        loop( state )
+        loop state
     end
   end
 
-  defp handle_subscribe(state, pid, msg_ref, client) do
+  defp subscribe_client(state, pid, msg_ref, client) do
     ref     = Process.monitor(client)
     clients = Map.put(state.clients, ref, client)
     state   = Map.put(state, :clients, clients)
     send pid, {msg_ref, :ok}
-    loop(state)
+    loop state
   end
 
-  defp handle_add_event(state, pid, msg_ref, name, description, timeout) do
+  defp add_event(state, pid, msg_ref, name, description, timeout) do
     event_pid = Event.start_link(name, timeout)
     event = %StoredEvent{
       name: name,     description: description,
@@ -61,5 +60,18 @@ defmodule LYSE.EventServer do
     new_events = %{ state.events | name => event }
     send pid, {msg_ref, :ok}
     loop(%{ state | events: new_events })
+  end
+
+  defp cancel_event(state, pid, msg_ref, name) do
+    new_events = case Map.pop(name, state.events) do
+      {nil, events} ->
+        events
+
+      {event, events} ->
+        Event.cancel(event.pid)
+        events
+    end
+    send pid, {msg_ref, :ok}
+    loop %{ state | events: new_events }
   end
 end
