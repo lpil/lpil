@@ -15,7 +15,46 @@ defmodule LYSE.EventServer do
             events:  %{}
 
 
-  def loop(state = %__MODULE__{}) do
+  # Public API
+
+  def start do
+    pid = spawn __MODULE__, :init, []
+    Process.register(pid, __MODULE__)
+  end
+
+  def start_link do
+    pid = spawn_link __MODULE__, :init, []
+    Process.register(pid, __MODULE__)
+  end
+
+  def init do
+    # Load events from disk here.
+    loop %__MODULE__{}
+  end
+
+  def terminate do
+    send __MODULE__, :shutdown
+  end
+
+  def subscribe(client_pid) do
+    ref = Process.monitor(client_pid)
+    send __MODULE__, {self(), ref, {:subscribe, client_pid}}
+    receive do
+      {ref, :ok} ->
+        {ref, :ok}
+
+      {:DOWN, _ref, :process, _pid, reason} ->
+        {:error, reason}
+
+    after 5000 ->
+      {:error, :timeout}
+    end
+  end
+
+
+  # Server functions
+
+  defp loop(state = %__MODULE__{}) do
     receive do
       {pid, msg_ref, {:subscribe, client}} ->
         subscribe_client(state, pid, msg_ref, client)
@@ -25,17 +64,19 @@ defmodule LYSE.EventServer do
 
       {pid, msg_ref, {:cancel, name}} ->
         cancel_event(state, pid, msg_ref, name)
+
       {:done, name} ->
-        nil
+        handle_event_done(state, name)
 
       :shutdown ->
-        nil
+        exit :shutdown
 
-      {'DOWN', ref, process, _pid, _reason} ->
-        nil
+      {'DOWN', ref, :process, _pid, _reason} ->
+        events = Map.delete(state.events, ref)
+        loop %{ state | events: events }
 
       :code_change ->
-        nil
+        __MODULE__.loop state
 
       unknown ->
         IO.puts "Unknown message: #{unknown}"
@@ -73,5 +114,19 @@ defmodule LYSE.EventServer do
     end
     send pid, {msg_ref, :ok}
     loop %{ state | events: new_events }
+  end
+
+  defp handle_event_done(state, name) do
+    case Map.pop(name, state.events) do
+      {nil, _events} ->
+        # We cancelled the event at the same time it finished
+        loop state
+
+      {event, events} ->
+        Enum.each(state.clients, fn {_ref, pid} ->
+          send pid, {:done, event.name, event.description}
+        end)
+        loop %{ state | events: events }
+    end
   end
 end
