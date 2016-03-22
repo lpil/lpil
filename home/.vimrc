@@ -81,6 +81,9 @@ set ruler
 " Improve backspace deletion behaviour
 set backspace=indent,eol,start
 
+" Disable search highlighting by default
+set nohlsearch
+
 " Smart case insensitive search
 set ignorecase
 set smartcase
