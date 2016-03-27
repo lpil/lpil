@@ -73,6 +73,7 @@ const config = {
       {
         test: /\.js$/,
         loader: "babel-loader",
+        query: { presets: ["es2015"], },
       },
     ],
   },
@@ -131,6 +132,7 @@ const config = {
       {
         test: /\.js$/,
         loader: "babel-loader",
+        query: { presets: ["es2015"], },
       },
       // Run .scss files through the SASS and CSS loaders
       {
@@ -186,6 +188,7 @@ const config = {
       {
         test: /\.js$/,
         loader: "babel-loader",
+        query: { presets: ["es2015"], },
       },
       {
         test: /\.scss$/,
@@ -256,6 +259,7 @@ const config = {
       {
         test: /\.js$/,
         loader: "babel-loader",
+        query: { presets: ["es2015"], },
       },
       {
         test: /\.scss$/,
