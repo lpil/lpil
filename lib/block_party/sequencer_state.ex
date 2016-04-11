@@ -12,10 +12,16 @@ defmodule BlockParty.SequencerState do
   def start_link do
     Agent.start_link(fn -> @default_state end)
   end
+  def start_link({:named, true}) do
+    Agent.start_link(fn -> @default_state end, name: __MODULE__)
+  end
 
   @doc """
   Gets a value from the `bucket` by `key`.
   """
+  def get_grid do
+    get_grid(__MODULE__)
+  end
   def get_grid(sequencer) do
     Agent.get(sequencer, fn x -> x end)
   end
@@ -24,6 +30,9 @@ defmodule BlockParty.SequencerState do
   Set a cell in the sequencer, which is persisted in the Agent process.
   The entire grid is returned.
   """
+  def set_cell(x, y, value) do
+    set_cell(__MODULE__, x, y, value)
+  end
   def set_cell(sequencer, x, y, value)
   when value in [true, false]
   and x >= 0 and x < 8

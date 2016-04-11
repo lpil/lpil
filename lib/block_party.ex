@@ -1,21 +1,21 @@
 defmodule BlockParty do
   use Application
 
-  # See http://elixir-lang.org/docs/stable/elixir/Application.html
-  # for more information on OTP Applications
+  alias BlockParty.{
+    Endpoint,
+    SequencerState,
+  }
+
   def start(_type, _args) do
     import Supervisor.Spec, warn: false
-
     children = [
-      # Start the endpoint when the application starts
-      supervisor(BlockParty.Endpoint, []),
-      # Here you could define other workers and supervisors as children
-      # worker(BlockParty.Worker, [arg1, arg2, arg3]),
+      supervisor(Endpoint, []),
+      worker(SequencerState, [named: true]),
     ]
-
-    # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
-    # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: BlockParty.Supervisor]
+    opts = [
+      strategy: :one_for_one,
+      name: BlockParty.Supervisor
+    ]
     Supervisor.start_link(children, opts)
   end
 
