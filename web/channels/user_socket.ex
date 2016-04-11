@@ -2,7 +2,7 @@ defmodule BlockParty.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "rooms:*", BlockParty.RoomChannel
+  channel "rooms:*", BlockParty.RoomChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
