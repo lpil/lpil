@@ -12,7 +12,7 @@ defmodule BlockParty.SequencerState do
   def start_link do
     Agent.start_link(fn -> @default_state end)
   end
-  def start_link({:named, true}) do
+  def start_link({:global, true}) do
     Agent.start_link(fn -> @default_state end, name: __MODULE__)
   end
 

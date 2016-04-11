@@ -10,7 +10,7 @@ defmodule BlockParty do
     import Supervisor.Spec, warn: false
     children = [
       supervisor(Endpoint, []),
-      worker(SequencerState, [named: true]),
+      worker(SequencerState, [global: true]),
     ]
     opts = [
       strategy: :one_for_one,
