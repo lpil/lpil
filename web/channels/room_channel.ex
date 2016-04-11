@@ -8,8 +8,9 @@ defmodule BlockParty.RoomChannel do
     {:error, %{ reason: "unknown room" }}
   end
 
-  def handle_in("new_msg", %{ "body" => body }, socket) do
-    broadcast! socket, "msg", %{ body: "someone sent #{body}" }
+  def handle_in("set_cell", %{ "x" => x, "y" => y, "state" => state } = params, socket)
+  when state in ["on", "off"] do
+    broadcast! socket, "set_cell", params # Return payload to show we can.
     {:noreply, socket}
   end
 end

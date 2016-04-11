@@ -13,10 +13,14 @@ channel
   .receive("ok",    resp => { console.log("Joined successfully", resp); })
   .receive("error", resp => { console.log("Unable to join", resp); });
 
-channel.on("msg", payload => { console.log("msg: ", payload); });
+channel.on("set_cell", payload => {
+  console.log("Server sent set_cell:", payload);
+});
 
 
-function transmit(x) {
-  channel.push("new_msg", { body: x });
+function setCell(x, y, state) {
+  const params = { x, y, state };
+  console.log("Sending set_cell:", params);
+  channel.push("set_cell", params);
 }
-window.transmit = transmit;
+window.setCell = setCell;
