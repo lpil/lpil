@@ -1,3 +1,10 @@
 body {
-  background: hotpink;
+  background: #444;
+}
+
+.cell {
+  display: inline-block;
+  height: 50px;
+  width:  50px;
+  margin: 2px 4px;
 }

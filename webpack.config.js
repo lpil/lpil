@@ -1,5 +1,6 @@
 var babelPresets = [
   "es2015",
+  "react",
 ];
 var babelPlugins = [
   "transform-object-assign",
