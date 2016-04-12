@@ -6,10 +6,10 @@ var babelPlugins = [
 ];
 
 module.exports = {
-  entry: "./web/static/js/app.js",
+  entry: "./web/static/app.js",
   output: {
     path: "./priv/static",
-    filename: "js/app.js",
+    filename: "app.js",
   },
 
   devtool: "inline-source-map",
