@@ -30,7 +30,7 @@ function setCell(x, y, active) {
 //
 // Subscribe a callback to changes in grid state passed from the network.
 // `cb` receives a 2D array of booleans.
-// Returns a function that can be used to unsubscribe
+// Returns a function that can be used to unsubscribe.
 //
 function subscribeGrid(cb) {
   subscribers.push(cb);
@@ -40,4 +40,4 @@ function subscribeGrid(cb) {
   };
 }
 
-export { setCell, subscribeGrid };
+export default { setCell, subscribeGrid };

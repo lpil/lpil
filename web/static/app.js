@@ -1,6 +1,8 @@
 import "./css/app.scss";
 
 import "phoenix_html";
-import * as network from "./network";
+import network from "./network";
 
 window.network = network;
+
+import "./reducers";
