@@ -1,16 +1,22 @@
 defmodule BlockParty.RoomChannel do
   use Phoenix.Channel
+  alias BlockParty.SequencerState, as: SeqState
 
-  def join("rooms:lobby", _message, socket) do
+  def join("sequencers:lobby", _message, socket) do
     {:ok, socket}
   end
-  def join("rooms:" <> _private_room_id, _params, _socket) do
+  def join("sequencers:" <> _private_room_id, _params, _socket) do
     {:error, %{ reason: "unknown room" }}
   end
 
-  def handle_in("set_cell", %{ "x" => x, "y" => y, "state" => state } = params, socket)
-  when state in ["on", "off"] do
-    broadcast! socket, "set_cell", params # Return payload to show we can.
+  def handle_in(
+    "set_cell",
+    %{ "x" => x, "y" => y, "active" => active },
+    socket
+  ) when is_boolean(active) do
+    grid = SeqState.set_cell(x, y, active)
+    data = grid |> Tuple.to_list |> Enum.map(&Tuple.to_list/1)
+    broadcast! socket, "grid", %{ grid: data }
     {:noreply, socket}
   end
 end

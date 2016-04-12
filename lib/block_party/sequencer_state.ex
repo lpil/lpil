@@ -17,7 +17,7 @@ defmodule BlockParty.SequencerState do
   end
 
   @doc """
-  Gets a value from the `bucket` by `key`.
+  Gets the current state of the sequencer grid.
   """
   def get_grid do
     get_grid(__MODULE__)
@@ -30,16 +30,16 @@ defmodule BlockParty.SequencerState do
   Set a cell in the sequencer, which is persisted in the Agent process.
   The entire grid is returned.
   """
-  def set_cell(x, y, value) do
-    set_cell(__MODULE__, x, y, value)
+  def set_cell(x, y, active) do
+    set_cell(__MODULE__, x, y, active)
   end
-  def set_cell(sequencer, x, y, value)
-  when value in [true, false]
+  def set_cell(sequencer, x, y, active)
+  when is_boolean(active)
   and x >= 0 and x < 8
   and y >= 0 and y < 8
   do
     Agent.get_and_update(sequencer, fn grid ->
-      new_row  = grid |> elem(y) |> put_elem(x, value)
+      new_row  = grid |> elem(y) |> put_elem(x, active)
       new_grid = grid |> put_elem(y, new_row)
       {new_grid, new_grid}
     end)

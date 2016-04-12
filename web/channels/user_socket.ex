@@ -1,10 +1,10 @@
 defmodule BlockParty.UserSocket do
   use Phoenix.Socket
 
-  ## Channels
-  channel "rooms:*", BlockParty.RoomChannel
+  # Channels
+  channel "sequencers:*", BlockParty.RoomChannel
 
-  ## Transports
+  # Transports
   transport :websocket, Phoenix.Transports.WebSocket
   # transport :longpoll, Phoenix.Transports.LongPoll
 
