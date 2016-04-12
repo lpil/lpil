@@ -2,8 +2,7 @@ import { setGrid } from "../../actions";
 import grid        from ".";
 
 it("has default arguments", () => {
-  const row      = new Array(8).fill(false);
-  const expected = new Array(8).fill(row);
+  const expected = [[]];
   const result = grid(undefined, {});
   expect(result).to.be.deepEqual(expected);
 });
