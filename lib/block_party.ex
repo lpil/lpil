@@ -1,4 +1,7 @@
 defmodule BlockParty do
+  @moduledoc """
+  Collaberative music sequencing in the browser.
+  """
   use Application
 
   alias BlockParty.{

@@ -2,8 +2,8 @@ import React, { PropTypes } from "react";
 
 const Cell = ({ active }) => (
   <div
-    style={{ backgroundColor: active ? "hotpink" : "black" }}
-    className="cell"
+      className="cell"
+      style={{ backgroundColor: active ? "hotpink" : "black" }}
   ></div>
 );
 

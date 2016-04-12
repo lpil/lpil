@@ -1,4 +1,7 @@
-defmodule BlockParty.RoomChannel do
+defmodule BlockParty.SequencerChannel do
+  @moduledoc """
+  Synchronisation of sequencers across multiple users.
+  """
   use Phoenix.Channel
   alias BlockParty.SequencerState, as: SeqState
 

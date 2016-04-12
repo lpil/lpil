@@ -1,4 +1,5 @@
 defmodule BlockParty.ErrorView do
+  @moduledoc false
   use BlockParty.Web, :view
 
   def render("404.html", _assigns) do

@@ -1,4 +1,5 @@
 defmodule BlockParty.Endpoint do
+  @moduledoc false
   use Phoenix.Endpoint, otp_app: :block_party
 
   socket "/socket", BlockParty.UserSocket

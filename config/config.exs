@@ -9,7 +9,8 @@ use Mix.Config
 config :block_party, BlockParty.Endpoint,
   url: [host: "localhost"],
   root: Path.dirname(__DIR__),
-  secret_key_base: "h1g0wl26sGgBRZRYtP8zYJVQMD6ur90fBpcKrQ1s9RJxh2VAy0PTyeES5KLklb8R",
+  secret_key_base:
+    "h1g0wl26sGgBRZRYtP8zYJVQMD6ur90fBpcKrQ1s9RJxh2VAy0PTyeES5KLklb8R",
   render_errors: [accepts: ~w(html json)],
   pubsub: [name: BlockParty.PubSub,
            adapter: Phoenix.PubSub.PG2]

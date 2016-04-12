@@ -1,4 +1,5 @@
 defmodule BlockParty.Router do
+  @moduledoc false
   use BlockParty.Web, :router
 
   pipeline :browser do

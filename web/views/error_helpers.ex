@@ -9,7 +9,8 @@ defmodule BlockParty.ErrorHelpers do
   Generates tag for inlined form input errors.
   """
   def error_tag(form, field) do
-    if error = form.errors[field] do
+    error = form.errors[field]
+    if error do
       content_tag :span, translate_error(error), class: "help-block"
     end
   end
@@ -26,7 +27,9 @@ defmodule BlockParty.ErrorHelpers do
     #
     #     dngettext "errors", "1 file", "%{count} files", count
     #
-    Gettext.dngettext(BlockParty.Gettext, "errors", msg, msg, opts[:count], opts)
+    Gettext.dngettext(
+      BlockParty.Gettext, "errors", msg, msg, opts[:count], opts
+    )
   end
 
   def translate_error(msg) do

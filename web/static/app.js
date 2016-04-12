@@ -12,14 +12,14 @@ import ReactDOM from "react-dom";
 import CellGrid from "./components/cell_grid";
 
 const rowStates = [
-  [ false, false, false, false, false, false, true, false ],
+  [ false, false, false, false, false, false, true,  false ],
   [ false, false, true,  false, true,  false, false, false ],
   [ false, true,  false, false, true,  false, false, false ],
   [ true,  false, true,  false, true,  false, true,  false ],
-  [ false, false, false, false, false, false, false, true, ],
-  [ false, false, false, true,  false, false, true, false ],
-  [ false, false, false, false, false, false, true, false ],
-  [ true, true, false, false, false, false, true, false ],
+  [ false, false, false, false, false, false, false, true  ],
+  [ false, false, false, true,  false, false, true,  false ],
+  [ false, false, false, false, false, false, true,  false ],
+  [ true,  true,  false, false, false, false, true,  false ],
 ];
 
 ReactDOM.render(
