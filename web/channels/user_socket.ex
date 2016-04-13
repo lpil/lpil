@@ -3,7 +3,7 @@ defmodule BlockParty.UserSocket do
   use Phoenix.Socket
 
   # Channels
-  channel "sequencers:*", BlockParty.RoomChannel
+  channel "sequencers:*", BlockParty.SequencerChannel
 
   # Transports
   transport :websocket, Phoenix.Transports.WebSocket
