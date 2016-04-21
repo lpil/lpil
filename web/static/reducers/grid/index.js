@@ -1,14 +1,4 @@
-// const initialState = [[]];
-const initialState = [
-  [ false, false, false, false, false, false, true,  false ],
-  [ false, false, true,  false, true,  false, false, false ],
-  [ false, true,  false, false, true,  false, false, false ],
-  [ true,  false, true,  false, true,  false, true,  false ],
-  [ false, false, false, false, false, false, false, true  ],
-  [ false, false, false, true,  false, false, true,  false ],
-  [ false, false, false, false, false, false, true,  false ],
-  [ true,  true,  false, false, false, false, true,  false ],
-];
+const initialState = [[]];
 
 function subject(state = initialState, action = undefined) {
   switch (action.type) {
