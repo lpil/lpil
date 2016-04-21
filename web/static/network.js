@@ -40,4 +40,4 @@ function subscribeGrid(cb) {
   };
 }
 
-export default { setCell, subscribeGrid };
+export { setCell, subscribeGrid };

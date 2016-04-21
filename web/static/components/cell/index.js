@@ -1,13 +1,10 @@
 import React, { PropTypes } from "react";
-
-const handleClick = function handleClick(x, y) {
-  console.log(x, y);
-};
+import { setCell }          from "../../network";
 
 const Cell = ({ active, x, y }) => (
   <div
       className="cell"
-      onClick={function() { handleClick(x, y); }}
+      onClick={function() { setCell(x, y, !active); }}
       style={{ backgroundColor: active ? "hotpink" : "black" }}
   ></div>
 );
