@@ -4,7 +4,9 @@ import Cell from "../cell";
 const CellRow = ({ cellStates }) => (
   <div>
   {
-    cellStates.map((active, index) => <Cell active={active} key={index} />)
+    cellStates.map((active, index) => (
+      <Cell x={index} active={active} key={index} />
+    ))
   }
   </div>
 );
