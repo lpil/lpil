@@ -1,28 +1,18 @@
 import "./css/app.scss";
-
 import "phoenix_html";
-import network from "./network";
 
-window.network = network;
+import reducer         from "./reducers";
+import { createStore } from "redux";
 
-import "./reducers";
+const store = createStore(reducer);
+console.log(store.getState());
 
-import React    from "react";
-import ReactDOM from "react-dom";
-import CellGrid from "./components/cell_grid";
-
-const rowStates = [
-  [ false, false, false, false, false, false, true,  false ],
-  [ false, false, true,  false, true,  false, false, false ],
-  [ false, true,  false, false, true,  false, false, false ],
-  [ true,  false, true,  false, true,  false, true,  false ],
-  [ false, false, false, false, false, false, false, true  ],
-  [ false, false, false, true,  false, false, true,  false ],
-  [ false, false, false, false, false, false, true,  false ],
-  [ true,  true,  false, false, false, false, true,  false ],
-];
+import React        from "react";
+import ReactDOM     from "react-dom";
+import { Provider } from "react-redux";
+import Grid         from "./containers/grid";
 
 ReactDOM.render(
-  <CellGrid rowStates={rowStates} />,
+  <Provider store={store}><Grid /></Provider>,
   document.querySelector("#app")
 );
