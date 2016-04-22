@@ -32,8 +32,6 @@ body {
   flex-grow: 1;
 }
 
-
-
 //grid
 .row {
   font-size: 0;
@@ -56,4 +54,33 @@ body {
     padding-bottom: 100%;
     border-radius: 50%;
   }
+}
+
+//meta
+.meta {
+  padding: 10px 20px;
+}
+.meta__title {
+  margin-top: 0;
+}
+
+%box {
+  width: 100%;
+  border: 1px solid black;
+  text-align: center;
+  padding: 10px;
+}
+.meta__button {
+  @extend %box;
+  display: inline-block;
+  margin-bottom:10px;
+  cursor: pointer;
+
+  &--half {
+    width: 50%;
+  }
+
+}
+.meta__bpm {
+  @extend %box;
 }
