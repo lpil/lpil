@@ -404,15 +404,6 @@
 
     while (noteTime < currentTime + 0.200) {
         var contextPlayTime = noteTime + startTime;
-        //var currentPads = $(".column_" + rhythmIndex);
-        // for(var i=0;i<grid.length;i++){
-        //   console.log("ROW",grid[i].length);
-        //   for(var x=0;x<grid[i].length;x++){
-        //     console.log(grid[i][x]);
-        //     if(grid[i][x] != "false") playNote(i, contextPlayTime);
-        //   }
-        // }
-
           const grid = store.getState().grid;
           grid.forEach((row, y) => {
             console.log('row', step);

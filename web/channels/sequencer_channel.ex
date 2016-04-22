@@ -16,7 +16,9 @@ defmodule BlockParty.SequencerChannel do
   # Send current grid state after a user joins.
   def handle_info(:after_join, socket) do
     grid = SeqState.get_grid |> grid_to_list
+    bpm  = SeqState.get_bpm
     push socket, "grid", %{ grid: grid }
+    push socket, "bpm",  %{ bpm:  bpm }
     {:noreply, socket}
   end
 
@@ -32,9 +34,9 @@ defmodule BlockParty.SequencerChannel do
     {:noreply, socket}
   end
 
-  def handle_in("set_bpm", bpm, socket) when is_integer(bpm) do
-    grid = SeqState.set_bpm(bpm)
-    broadcast! socket, "bpm", %{ bpm: bpm }
+  def handle_in("add_bpm", bpm, socket) when is_integer(bpm) do
+    new_bpm = SeqState.add_bpm(bpm)
+    broadcast! socket, "bpm", %{ bpm: new_bpm }
     {:noreply, socket}
   end
 
