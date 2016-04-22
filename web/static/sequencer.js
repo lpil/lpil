@@ -381,7 +381,8 @@
         for(var i=0;i<currentState.length;i++){
           console.log("ROW",currentState[i].length);
           for(var x=0;x<currentState[i].length;x++){
-            // if(currentState[i] != false) playNote(currentKit.kickBuffer, contextPlayTime);
+            console.log(currentState[i][x]);
+            if(currentState[i][x] != "false") playNote(currentKit.kickBuffer, contextPlayTime);
           }
         }
         // $currentPads.each(function() {
