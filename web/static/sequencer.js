@@ -1,8 +1,8 @@
   import store      from "./store";
-
+  console.log("SEQUENCER LAODED");
   //KITS start
   var NUM_INSTRUMENTS = 2;
-
+  var soundKit = [];
   function Kit(name) {
     this.SAMPLE_BASE_PATH = "samples/";
     this.name = name;
@@ -33,10 +33,18 @@
     var kickPath = pathName + "kick.mp3";
     var snarePath = pathName + "snare.mp3";
     var hihatPath = pathName + "hihat.mp3";
+    var clapPath = pathName + "clap-2.wav";
+    var cowbellPath = pathName + "cowbell-2.wav";
+    var openhatPath = pathName + "open-hat-2.wav";
+    var closedHatPath = pathName + "closed-hat-2.wav";
 
     this.loadSample(kickPath, "kick");
     this.loadSample(snarePath, "snare");
     this.loadSample(hihatPath, "hihat");
+    this.loadSample(clapPath, "clap");
+    this.loadSample(cowbellPath, "cowbell");
+    this.loadSample(openhatPath, "openhat");
+    this.loadSample(closedHatPath, "closedHat");
   };
 
   //also make a class per buffer/sample? can store prettified name?
@@ -58,12 +66,31 @@
           switch (instrumentName) {
             case "kick":
               kit.kickBuffer = buffer;
+              soundKit[0] = buffer;
               break;
             case "snare":
               kit.snareBuffer = buffer;
+              soundKit[1] = buffer;
               break;
             case "hihat":
               kit.hihatBuffer = buffer;
+              soundKit[2] = buffer;
+              break;
+            case "clap":
+              kit.clapBuffer = buffer;
+              soundKit[3] = buffer;
+              break;
+            case "cowbell":
+              kit.cowbellBuffer = buffer;
+              soundKit[4] = buffer;
+              break;
+            case "openhat":
+              kit.openhatBuffer = buffer;
+              soundKit[5] = buffer;
+              break;
+            case "closedhat":
+              kit.closedhatBuffer = buffer;
+              soundKit[6] = buffer;
               break;
           }
           kit.instrumentLoadCount++;
@@ -349,6 +376,7 @@
   }
 
   function playNote(buffer, noteTime) {
+    buffer = soundKit[buffer];
     var voice = context.createBufferSource();
     voice.buffer = buffer;
 
@@ -367,6 +395,7 @@
     voice.start(noteTime);
   }
 
+ var step = 0;
   function schedule() {
     var currentTime = context.currentTime;
 
@@ -376,13 +405,12 @@
     while (noteTime < currentTime + 0.200) {
         var contextPlayTime = noteTime + startTime;
         //var currentPads = $(".column_" + rhythmIndex);
-        var currentState = store.getState().grid;
-        // console.log(currentState);
-        for(var i=0;i<currentState.length;i++){
-          console.log("ROW",currentState[i].length);
-          for(var x=0;x<currentState[i].length;x++){
-            console.log(currentState[i][x]);
-            if(currentState[i][x] != "false") playNote(currentKit.kickBuffer, contextPlayTime);
+        var grid = store.getState().grid;
+        for(var i=0;i<grid.length;i++){
+          console.log("ROW",grid[i].length);
+          for(var x=0;x<grid[i].length;x++){
+            console.log(grid[i][x]);
+            if(grid[i][x] != "false") playNote(i, contextPlayTime);
           }
         }
         // $currentPads.each(function() {

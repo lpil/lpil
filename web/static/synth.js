@@ -87,6 +87,7 @@ var Synth = (function () {
       } else {
         oscillators[i].frequency.value = 0;
       }
+
     }
   }
 
