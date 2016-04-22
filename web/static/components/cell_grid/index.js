@@ -12,7 +12,11 @@ const CellGrid = ({ rowStates }) => (
 );
 
 CellGrid.propTypes = {
-  rowStates: PropTypes.arrayOf(PropTypes.array).isRequired,
+  rowStates: PropTypes.arrayOf(
+    PropTypes.arrayOf(
+      PropTypes.oneOfType([PropTypes.string, PropTypes.bool])
+    )
+  ).isRequired,
 };
 
 
