@@ -1,11 +1,11 @@
 var Synth = (function () {
 
   var channels = 8;
-	var defaultScaleName = 'dorian';
-	var currentScaleName = 'dorian';
-  var currentScale = [];
+	var defaultModeName = 'dorian';
+	var currentModeName;
+  var currentMode = [];
   var previousNotes = [];
-	var scales = {
+	var modes = {
 		// CDEFGABC
 		ionian: ['C4','D4','E4','F4','G4','A4','B4','C5'],
 		// DEFGABCD
@@ -21,8 +21,8 @@ var Synth = (function () {
 		// BCDEFGAB
 		locrian: ['B3','C4','D4','E4','F4','G4','A4','B4']
 	};
-  // concert pitches
-  var pitches = {
+  // concert pitch in HZ
+  var frequencies = {
     C3: 130.813,
     D3: 146.832,
     E3: 164.814,
@@ -57,17 +57,17 @@ var Synth = (function () {
         oscillators[i].start();
         console.log(oscillators[i]);
       };
-      setScale(defaultScaleName);
+      setMode(defaultModeName);
     } else {
         throw new Error('synth.js: browser does not support Web Audio API');
     }
   }
 
-	function setScale(name){
-    if (scales[name] !== undefined) {
-      for (var i = scales[name].length - 1; i >= 0; i--) {
-        // convert to pitches
-        currentScale[i] = pitches[ scales[name][i] ];
+	function setMode(name){
+    if (modes[name] !== undefined) {
+      for (var i = modes[name].length - 1; i >= 0; i--) {
+        // convert to frequency
+        currentMode[i] = frequencies[ modes[name][i] ];
       }
       playNotes(previousNotes);
     }
@@ -83,8 +83,8 @@ var Synth = (function () {
       // TODO keep it going if it's the same
       // TODO set new otherwise
       //oscillators[i].stop();
-      if (notes[i] && currentScale[i]) {
-        oscillators[i].frequency.value = currentScale[i];
+      if (notes[i] && currentMode[i]) {
+        oscillators[i].frequency.value = currentMode[i];
         //oscillators[i].start();
       } else {
         oscillators[i].frequency.value = 0;
@@ -92,25 +92,25 @@ var Synth = (function () {
     }    
   }
 	
-  function getScaleNames() {
-    return Object.keys(scales);
+  function getModeNames() {
+    return Object.keys(modes);
   }
 
-  function getCurrentScale() {
-    return currentScale;
+  function getCurrentMode() {
+    return currentMode;
   }
 
-  function getCurrentScaleName() {
-    return currentScaleName;
+  function getCurrentModeName() {
+    return currentModeName;
   }
   
 	// returned functions
   return {
     init: init,
-  	getScaleNames: getScaleNames,
-  	setScale: setScale,
-  	getCurrentScaleName: getCurrentScaleName,
-  	getCurrentScale: getCurrentScale,
+  	getModeNames: getModeNames,
+  	setMode: setMode,
+  	getCurrentModeName: getCurrentModeName,
+  	getCurrentMode: getCurrentMode,
   	playNotes: playNotes
   };
 	
