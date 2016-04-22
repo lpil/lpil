@@ -22,7 +22,7 @@ channel.on("grid", payload => {
 
 channel.on("bpm", payload => {
   console.log("[IN bpm]:", payload);
-  const bpm   = payload.bpm;
+  // const bpm   = payload.bpm;
   // const action = setBPM(bpm);
   // store.dispatch(action);
 });
