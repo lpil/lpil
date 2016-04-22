@@ -67,7 +67,12 @@ var Synth = (function () {
 	}
 
   // Expects an array of 8 values from 0-4
-  // 
+  // 0 - don't play this note (can also be false/null/undefined)
+  // 1..4 - play this note using waveform types:
+  // 1 - sine
+  // 2 - square
+  // 3 - sawtooth
+  // 4 - triangle
   function playNotes(notes) {
     // save for reference
     previousNotes = notes;
@@ -76,11 +81,9 @@ var Synth = (function () {
       // TODO stop the oscillator if note is null
       // TODO keep it going if it's the same
       // TODO set new otherwise
-      //oscillators[i].stop();
       if (notes[i] && currentMode[i]) {
         oscillators[i].frequency.value = currentMode[i];
         oscillators[i].type = types[ notes[i]-1 ];
-        //oscillators[i].start();
       } else {
         oscillators[i].frequency.value = 0;
       }
