@@ -1,8 +1,9 @@
 import { Socket } from "phoenix";
+import setGrid    from "./action_creators/set_grid";
+import store      from "./store";
 
 const topic  = "sequencers:lobby";
 const socket = new Socket("/socket", { params: {} });
-let subscribers = [];
 
 socket.connect();
 
@@ -14,7 +15,16 @@ channel
 
 channel.on("grid", payload => {
   console.log("[IN grid]:", payload);
-  subscribers.forEach(cb => { cb(payload.grid); });
+  const grid   = payload.grid;
+  const action = setGrid(grid);
+  store.dispatch(action);
+});
+
+channel.on("bpm", payload => {
+  console.log("[IN bpm]:", payload);
+  const bpm   = payload.bpm;
+  // const action = setBPM(bpm);
+  // store.dispatch(action);
 });
 
 //
@@ -27,17 +37,9 @@ function setCell(x, y, active) {
   channel.push("set_cell", params);
 }
 
-//
-// Subscribe a callback to changes in grid state passed from the network.
-// `cb` receives a 2D array of booleans.
-// Returns a function that can be used to unsubscribe.
-//
-function subscribeGrid(cb) {
-  subscribers.push(cb);
-  return () => {
-    const index = subscribers.indexOf(cb);
-    subscribers.splice(index, 1);
-  };
+function addBPM(bpm) {
+  console.log("[OUT add_bpm]:", bpm);
+  channel.push("add_bpm", bpm);
 }
 
-export { setCell, subscribeGrid };
+export { setCell, addBPM };

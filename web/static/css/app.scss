@@ -1,6 +1,30 @@
-body {
-  background: #444;
+//Vars
+$off-white: rgb(245,244,244);
+
+//Globals
+* {
+  box-sizing: border-box;
+  font-family: Helvetica;
+  text-transform: uppercase;
 }
+
+//Styles
+body {
+  background: $off-white;
+}
+
+.sequencer {
+  display: flex;
+}
+.meta {
+  width: 20%;
+  min-width: 20px;
+}
+.grid {
+  flex-grow: 1;
+}
+
+
 
 .cell {
   display: inline-block;

@@ -22,8 +22,8 @@
       <span class="tempo-container">
         <label for="tempo-input" >Tempo </label>
         <input id="tempo-input" type="number" disabled>
-        <span id="decrease-tempo" class="glyphicon glyphicon-minus btn btn-default tempo-btn">DOWN</span>
-        <span id="increase-tempo" class="glyphicon glyphicon-plus btn btn-default tempo-btn">UP</span>
+        <span id="decrease-tempo">DOWN</span>
+        <span id="increase-tempo">UP</span>
       </span>
 
       <main role="main">
