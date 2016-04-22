@@ -5,8 +5,13 @@ const Cell = ({ active, x, y }) => (
   <div
       className="cell"
       onClick={function() { setCell(x, y, !active); }}
-      style={{ backgroundColor: active ? "hotpink" : "black" }}
-  ></div>
+  >
+    <div 
+        className="cell__square"
+        style={{ backgroundColor: active ? "hotpink" : "black" }}
+    >
+    </div>
+  </div>
 );
 
 Cell.propTypes = {

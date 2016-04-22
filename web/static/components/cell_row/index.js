@@ -2,7 +2,7 @@ import React, { PropTypes } from "react";
 import Cell from "../cell";
 
 const CellRow = ({ cellStates, y }) => (
-  <div>
+  <div className="row">
   {
     cellStates.map((active, index) => (
       <Cell x={index} y={y} active={active} key={index} />
