@@ -1,5 +1,13 @@
 //Vars
-$off-white: rgb(245,244,244);
+$off-white: rgb(244,244,244);
+$grey: rgb(205,205,205);
+
+$num-steps: 16;
+$num-tracks: 12;
+
+$line-width: 1px;
+
+$instr-name-width: 100px;
 
 //Globals
 * {
@@ -11,25 +19,85 @@ $off-white: rgb(245,244,244);
 //Styles
 body {
   background: $off-white;
+  margin: 0;
 }
 
+//layout
 .sequencer {
   display: flex;
 }
 .meta {
-  width: 20%;
+  width: 15%;
   min-width: 20px;
 }
 .grid {
   flex-grow: 1;
 }
 
+//grid
+.row {
+  &:not(:last-child) {
+    border-bottom:  $line-width dashed $grey;
+  }
+  position: relative;
+  padding-left: $instr-name-width;
+}
+.row__info {
+  position: absolute;
+  width: $instr-name-width;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: center;
 
-
+}
+.row__sequence {
+  width: calc(100% - $instr-name-width);
+  font-size: 0;
+  display: flex;
+  justify-content: space-between;
+}
 .cell {
   display: inline-block;
-  height: 50px;
-  width:  50px;
-  margin: 2px 4px;
+  width: calc(100%/#{$num-steps} - #{$line-width});
+  max-width: calc(100vh/#{$num-tracks} - #{$line-width});
   transition: background-color 0.2s;
+  padding: 0.55%;
+
+  &__circle {
+    width:100%;
+    height: 0;
+    padding-bottom: 100%;
+    border-radius: 50%;
+  }
+}
+
+//meta
+.meta {
+  padding: 10px 20px;
+}
+.meta__title {
+  margin-top: 0;
+  font-size: 50px;
+}
+
+%box {
+  width: 100%;
+  border: 1px solid black;
+  text-align: center;
+  padding: 10px;
+}
+.meta__button {
+  @extend %box;
+  display: inline-block;
+  margin-bottom:10px;
+  cursor: pointer;
+
+  &--half {
+    width: 50%;
+  }
+
+}
+.meta__bpm {
+  @extend %box;
 }
