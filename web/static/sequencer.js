@@ -395,7 +395,7 @@
     voice.start(noteTime);
   }
 
- var step = 0;
+  let step = 0;
   function schedule() {
     var currentTime = context.currentTime;
 
@@ -405,14 +405,21 @@
     while (noteTime < currentTime + 0.200) {
         var contextPlayTime = noteTime + startTime;
         //var currentPads = $(".column_" + rhythmIndex);
-        var grid = store.getState().grid;
-        for(var i=0;i<grid.length;i++){
-          console.log("ROW",grid[i].length);
-          for(var x=0;x<grid[i].length;x++){
-            console.log(grid[i][x]);
-            if(grid[i][x] != "false") playNote(i, contextPlayTime);
-          }
-        }
+        // for(var i=0;i<grid.length;i++){
+        //   console.log("ROW",grid[i].length);
+        //   for(var x=0;x<grid[i].length;x++){
+        //     console.log(grid[i][x]);
+        //     if(grid[i][x] != "false") playNote(i, contextPlayTime);
+        //   }
+        // }
+
+          const grid = store.getState().grid;
+          grid.forEach((row, y) => {
+            console.log('row', step);
+            if (row[step]) { playNote(y, contextPlayTime); }
+          });
+          step = (step + 1) % grid[0].length;
+
         // $currentPads.each(function() {
         //   if ($(this).hasClass("selected")) {
         //     var instrumentName = $(this).parents().data("instrument");
