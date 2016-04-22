@@ -4,7 +4,7 @@ import Meta from "../meta";
 import Grid from "../../containers/grid";
 
 const Sequencer = () => (
-  <div>
+  <div className="sequencer">
     <Meta/>
     <Grid />
   </div>
