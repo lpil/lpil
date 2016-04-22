@@ -10,7 +10,7 @@ console.log(store.getState());
 import React        from "react";
 import ReactDOM     from "react-dom";
 import { Provider } from "react-redux";
-import Sequencer    from "./components/sequencer"
+import Sequencer    from "./components/sequencer";
 
 import setGrid           from "./action_creators/set_grid";
 import { subscribeGrid } from "./network";
