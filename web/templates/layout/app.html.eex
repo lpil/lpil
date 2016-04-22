@@ -15,6 +15,17 @@
       <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
       <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
 
+      <button id="play-pause" type="button" class="btn btn-default btn-lg noselect">
+        <span class="glyphicon glyphicon-play" aria-hidden="true">START</span>
+      </button>
+
+      <span class="tempo-container">
+        <label for="tempo-input" >Tempo </label>
+        <input id="tempo-input" type="number" disabled>
+        <span id="decrease-tempo" class="glyphicon glyphicon-minus btn btn-default tempo-btn">DOWN</span>
+        <span id="increase-tempo" class="glyphicon glyphicon-plus btn btn-default tempo-btn">UP</span>
+      </span>
+
       <main role="main">
         <%= render @view_module, @view_template, assigns %>
       </main>

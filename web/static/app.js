@@ -7,7 +7,6 @@ import { Provider } from "react-redux";
 import store        from "./store";
 import Sequencer    from "./components/sequencer";
 
-
 ReactDOM.render(
   <Provider store={store}><Sequencer /></Provider>,
   document.querySelector("#app")
