@@ -29,7 +29,7 @@ defmodule BlockParty.SequencerState do
     get_grid(__MODULE__)
   end
   def get_grid(sequencer) do
-    Agent.get(sequencer, fn x -> x.grid end)
+    Agent.get(sequencer, fn state -> state.grid end)
   end
 
   @doc """
@@ -49,5 +49,29 @@ defmodule BlockParty.SequencerState do
       new_state = %{ state | grid: new_grid }
       {new_grid, new_state}
     end)
+  end
+
+  # TODO: test
+  @doc """
+  Gets the current BPM of the sequencer.
+  """
+  def get_bpm do
+    get_bpm(__MODULE__)
+  end
+  def get_bpm(sequencer) do
+    Agent.get(sequencer, fn state -> state.bpm end)
+  end
+
+
+  # TODO: test
+  @doc """
+  Set the BPM of the sequencer.
+  """
+  def set_bpm(bpm) do
+    set_bpm(__MODULE__, bpm)
+  end
+  def set_bpm(sequencer, bpm) when is_integer(bpm) do
+    Agent.update(sequencer, fn state -> %{ state | bpm: bpm } end)
+    bpm
   end
 end
