@@ -7,11 +7,7 @@ import { Provider } from "react-redux";
 import store        from "./store";
 import Sequencer    from "./components/sequencer";
 
-import setGrid           from "./action_creators/set_grid";
-import { subscribeGrid } from "./network";
-
-import { play } from "./sampler";
-window.play = play;
+import "./unreliable_sequencer";
 
 ReactDOM.render(
   <Provider store={store}><Sequencer /></Provider>,
