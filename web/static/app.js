@@ -5,10 +5,10 @@ import React        from "react";
 import ReactDOM     from "react-dom";
 import { Provider } from "react-redux";
 import store        from "./store";
-import Grid         from "./containers/grid";
+import Sequencer    from "./components/sequencer";
 
 
 ReactDOM.render(
-  <Provider store={store}><Grid /></Provider>,
+  <Provider store={store}><Sequencer /></Provider>,
   document.querySelector("#app")
 );
