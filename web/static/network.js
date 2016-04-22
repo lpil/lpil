@@ -30,4 +30,9 @@ function setCell(x, y, active) {
   channel.push("set_cell", params);
 }
 
-export { setCell };
+function addBPM(bpm) {
+  console.log("[OUT add_bpm]:", bpm);
+  channel.push("add_bpm", bpm);
+}
+
+export { setCell, addBPM };
