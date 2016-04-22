@@ -8,7 +8,7 @@ const colors = [
   "greenyellow",
   "hotpink",
   "indigo",
-  "ligthseagreen",
+  "lightseagreen",
   "limegreen",
   "mediumpurple",
   "mediumvioletred",
