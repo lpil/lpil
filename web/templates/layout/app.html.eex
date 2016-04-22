@@ -19,7 +19,7 @@
         <span class="glyphicon glyphicon-play" aria-hidden="true">START</span>
       </button>
 
-      <span class="tempo-container">
+      <span style="display:none;" class="tempo-container">
         <label for="tempo-input" >Tempo </label>
         <input id="tempo-input" type="number" disabled>
         <span id="decrease-tempo">DOWN</span>
