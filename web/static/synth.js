@@ -11,15 +11,15 @@ var Synth = (function () {
 		// DEFGABCD
 		dorian: ['D3','E3','F3','G3','A3','B3','C4','D4'],
 		// EFGABCDE
-		phrygian: [],
+		phrygian: ['E3','F3','G3','A3','B3','C4','D4','E4'],
 		// FGABCDEF
-		lydian: [],
+		lydian: ['F3','G3','A3','B3','C4','D4','E4','F4'],
 		// GABCDEFG
-		mixolydian: [],
+		mixolydian: ['G3','A3','B3','C4','D4','E4','F4','G4'],
 		// ABCDEFGA
-		aeolian: [],
+		aeolian: ['A3','B3','C4','D4','E4','F4','G4','A4'],
 		// BCDEFGAB
-		locrian: []
+		locrian: ['B3','C4','D4','E4','F4','G4','A4','B4']
 	};
   // concert pitches
   var pitches = {
@@ -69,11 +69,14 @@ var Synth = (function () {
         // convert to pitches
         currentScale[i] = pitches[ scales[name][i] ];
       }
+      playNotes(previousNotes);
     }
 	}
 
   // expects an array of 8 values
   function playNotes(notes) {
+    // save for reference
+    previousNotes = notes;
     // iterate through the notes
     for (var i = 0; i < notes.length; i++) {
       // TODO stop the oscillator if note is null
@@ -90,7 +93,7 @@ var Synth = (function () {
   }
 	
   function getScaleNames() {
-    return ['ionian', 'dorian'];
+    return Object.keys(scales);
   }
 
   function getCurrentScale() {
