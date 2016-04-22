@@ -1,5 +1,6 @@
 import { Socket } from "phoenix";
 import setGrid    from "./action_creators/set_grid";
+import setBPM     from "./action_creators/set_bpm";
 import store      from "./store";
 
 const topic  = "sequencers:lobby";
@@ -22,9 +23,9 @@ channel.on("grid", payload => {
 
 channel.on("bpm", payload => {
   console.log("[IN bpm]:", payload);
-  // const bpm   = payload.bpm;
-  // const action = setBPM(bpm);
-  // store.dispatch(action);
+  const bpm   = payload.bpm;
+  const action = setBPM(bpm);
+  store.dispatch(action);
 });
 
 //

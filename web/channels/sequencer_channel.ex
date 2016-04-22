@@ -16,7 +16,9 @@ defmodule BlockParty.SequencerChannel do
   # Send current grid state after a user joins.
   def handle_info(:after_join, socket) do
     grid = SeqState.get_grid |> grid_to_list
+    bpm  = SeqState.get_bpm
     push socket, "grid", %{ grid: grid }
+    push socket, "bpm",  %{ bpm:  bpm }
     {:noreply, socket}
   end
 
