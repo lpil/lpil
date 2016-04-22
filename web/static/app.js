@@ -13,9 +13,6 @@ import { subscribeGrid } from "./network";
 import { play } from "./sampler";
 window.play = play;
 
-const boundSetGrid = (grid) => store.dispatch(setGrid(grid));
-subscribeGrid(boundSetGrid);
-
 ReactDOM.render(
   <Provider store={store}><Sequencer /></Provider>,
   document.querySelector("#app")
