@@ -4,15 +4,20 @@ import Cell from "../cell";
 const CellRow = ({ cellStates, y }) => (
   <div className="row">
   {
-    cellStates.map((active, index) => (
-      <Cell x={index} y={y} active={active} key={index} />
+    cellStates.map((state, index) => (
+      <Cell key={index} state={state} x={index} y={y} />
     ))
   }
   </div>
 );
 
+const cellStateType = PropTypes.oneOfType([
+  PropTypes.string,
+  PropTypes.bool,
+]);
+
 CellRow.propTypes = {
-  cellStates: PropTypes.arrayOf(PropTypes.bool).isRequired,
+  cellStates: PropTypes.arrayOf(cellStateType).isRequired,
   y: PropTypes.number.isRequired,
 };
 

@@ -25,11 +25,16 @@ defmodule BlockParty.SequencerChannel do
     "set_cell",
     %{ "x" => x, "y" => y, "active" => active },
     socket
-  ) when is_boolean(active)
-  do
+  ) do
     grid = SeqState.set_cell(x, y, active)
     data = grid |> grid_to_list
     broadcast! socket, "grid", %{ grid: data }
+    {:noreply, socket}
+  end
+
+  def handle_in("set_bpm", bpm, socket) when is_integer(bpm) do
+    grid = SeqState.set_bpm(bpm)
+    broadcast! socket, "bpm", %{ bpm: bpm }
     {:noreply, socket}
   end
 
