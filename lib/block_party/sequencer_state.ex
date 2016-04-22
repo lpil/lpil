@@ -65,13 +65,16 @@ defmodule BlockParty.SequencerState do
 
   # TODO: test
   @doc """
-  Set the BPM of the sequencer.
+  Add a value to the BPM of the sequencer to get the new BPM.
   """
-  def set_bpm(bpm) do
-    set_bpm(__MODULE__, bpm)
+  def add_bpm(bpm) do
+    add_bpm(__MODULE__, bpm)
   end
-  def set_bpm(sequencer, bpm) when is_integer(bpm) do
-    Agent.update(sequencer, fn state -> %{ state | bpm: bpm } end)
-    bpm
+  def add_bpm(sequencer, bpm) when is_integer(bpm) do
+    Agent.get_and_update(sequencer, fn state ->
+      new_bpm   = state.bpm + bpm
+      new_state = %{ state | bpm: new_bpm }
+      {new_bpm, new_state}
+    end)
   end
 end

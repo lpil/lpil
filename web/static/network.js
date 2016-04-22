@@ -1,5 +1,6 @@
 import { Socket } from "phoenix";
 import setGrid    from "./action_creators/set_grid";
+import setBPM     from "./action_creators/set_bpm";
 import store      from "./store";
 
 const topic  = "sequencers:lobby";
@@ -20,6 +21,13 @@ channel.on("grid", payload => {
   store.dispatch(action);
 });
 
+channel.on("bpm", payload => {
+  console.log("[IN bpm]:", payload);
+  const bpm   = payload.bpm;
+  const action = setBPM(bpm);
+  store.dispatch(action);
+});
+
 //
 // Broadcast whether a cell is on or off to the network.
 // `active` must be a boolean.
@@ -30,4 +38,9 @@ function setCell(x, y, active) {
   channel.push("set_cell", params);
 }
 
-export { setCell };
+function addBPM(bpm) {
+  console.log("[OUT add_bpm]:", bpm);
+  channel.push("add_bpm", bpm);
+}
+
+export { setCell, addBPM };
