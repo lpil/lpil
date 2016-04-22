@@ -1,5 +1,3 @@
-var Synth = (function () {
-
   var channels = 8;
   var defaultModeName = 'dorian';
   var currentModeName;
@@ -37,6 +35,7 @@ var Synth = (function () {
   var oscillators = [];
 
   function init() {
+    console.log("SYNTH LOADED");
     // normalize and create a new AudioContext if supported
     window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
@@ -110,7 +109,7 @@ var Synth = (function () {
   }
 
 	// returned functions
-  return {
+  var Synth = {
     init: init,
   	getModeNames: getModeNames,
   	setMode: setMode,
@@ -121,4 +120,4 @@ var Synth = (function () {
     STFU: releaseNotes
   };
 
-})();
+export default Synth;

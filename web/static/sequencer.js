@@ -1,5 +1,6 @@
   import store      from "./store";
-  console.log("SEQUENCER LAODED");
+  console.log("SEQUENCER LOADED - READY TO GO");
+  // Synth.init();
   //KITS start
   var NUM_INSTRUMENTS = 2;
   var soundKit = [];
@@ -382,6 +383,7 @@
   }
 
   function playNote(buffer, noteTime) {
+    if(buffer>7) return; //synth.playNotes([1,2,3]);
     buffer = soundKit[buffer];
     var voice = context.createBufferSource();
     voice.buffer = buffer;
