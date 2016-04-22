@@ -34,9 +34,9 @@ defmodule BlockParty.SequencerChannel do
     {:noreply, socket}
   end
 
-  def handle_in("set_bpm", bpm, socket) when is_integer(bpm) do
-    grid = SeqState.set_bpm(bpm)
-    broadcast! socket, "bpm", %{ bpm: bpm }
+  def handle_in("add_bpm", bpm, socket) when is_integer(bpm) do
+    new_bpm = SeqState.add_bpm(bpm)
+    broadcast! socket, "bpm", %{ bpm: new_bpm }
     {:noreply, socket}
   end
 
