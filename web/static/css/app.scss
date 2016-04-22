@@ -1,11 +1,13 @@
 //Vars
-$off-white: rgb(245,244,244);
-$grey: gray;
+$off-white: rgb(244,244,244);
+$grey: rgb(205,205,205);
 
 $num-steps: 16;
 $num-tracks: 12;
 
 $line-width: 1px;
+
+$instr-name-width: 100px;
 
 //Globals
 * {
@@ -25,7 +27,7 @@ body {
   display: flex;
 }
 .meta {
-  width: 20%;
+  width: 15%;
   min-width: 20px;
 }
 .grid {
@@ -34,19 +36,33 @@ body {
 
 //grid
 .row {
-  font-size: 0;
-  display: flex;
-  justify-content: space-between;
   &:not(:last-child) {
     border-bottom:  $line-width dashed $grey;
   }
+  position: relative;
+  padding-left: $instr-name-width;
+}
+.row__info {
+  position: absolute;
+  width: $instr-name-width;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: center;
+
+}
+.row__sequence {
+  width: calc(100% - $instr-name-width);
+  font-size: 0;
+  display: flex;
+  justify-content: space-between;
 }
 .cell {
   display: inline-block;
   width: calc(100%/#{$num-steps} - #{$line-width});
   max-width: calc(100vh/#{$num-tracks} - #{$line-width});
   transition: background-color 0.2s;
-  padding: 0.5%;
+  padding: 0.55%;
 
   &__circle {
     width:100%;
@@ -62,6 +78,7 @@ body {
 }
 .meta__title {
   margin-top: 0;
+  font-size: 50px;
 }
 
 %box {
