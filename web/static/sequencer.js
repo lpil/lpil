@@ -36,7 +36,8 @@
     var clapPath = pathName + "clap-2.wav";
     var cowbellPath = pathName + "cowbell-2.wav";
     var openhatPath = pathName + "open-hat-2.wav";
-    var closedHatPath = pathName + "closed-hat-2.wav";
+    var closedhatPath = pathName + "closed-hat-2.wav";
+    var mysteryPath = pathName + "shaker-suckup.wav";
 
     this.loadSample(kickPath, "kick");
     this.loadSample(snarePath, "snare");
@@ -44,7 +45,8 @@
     this.loadSample(clapPath, "clap");
     this.loadSample(cowbellPath, "cowbell");
     this.loadSample(openhatPath, "openhat");
-    this.loadSample(closedHatPath, "closedHat");
+    this.loadSample(closedhatPath, "closedhat");
+    this.loadSample(mysteryPath, "mystery");
   };
 
   //also make a class per buffer/sample? can store prettified name?
@@ -91,6 +93,10 @@
             case "closedhat":
               kit.closedhatBuffer = buffer;
               soundKit[6] = buffer;
+              break;
+            case "mystery":
+              kit.mysteryBuffer = buffer;
+              soundKit[7] = buffer;
               break;
           }
           kit.instrumentLoadCount++;
@@ -390,7 +396,6 @@
       convolver.connect(currentLastNode);
       currentLastNode = convolver;
     }
-
     voice.connect(currentLastNode);
     voice.start(noteTime);
   }
