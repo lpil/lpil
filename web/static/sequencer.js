@@ -109,9 +109,9 @@
           console.log("Error decoding drum samples!");
         }
       );
-    }
+    };
     request.send();
-  }
+  };
 
   //KITS END
 
@@ -148,7 +148,7 @@
           console.log("Error decoding impulse response!");
         }
       );
-    }
+    };
     request.send();
   };
 
@@ -177,9 +177,6 @@
   var reverbImpulseResponse = null;
 
   var tempo = 120;
-  var TEMPO_MAX = 200;
-  var TEMPO_MIN = 40;
-  var TEMPO_STEP = 4;
 
   if (window.hasOwnProperty('AudioContext')) {
     window.audioContext = AudioContext;
@@ -191,8 +188,6 @@
     lowPassFilterListener();
     reverbListener();
     createLowPassFilterSliders();
-    initializeTempo();
-    changeTempoListener();
 
   function createLowPassFilterSliders() {
     // $("#freq-slider").slider({
@@ -378,7 +373,7 @@
           console.log("Error decoding drum samples!");
         }
       );
-    }
+    };
     request.send();
   }
 
@@ -411,7 +406,9 @@
 
     while (noteTime < currentTime + 0.200) {
         var contextPlayTime = noteTime + startTime;
-          const grid = store.getState().grid;
+          const state = store.getState();
+          const grid  = state.grid;
+          tempo = state.bpm;
           grid.forEach((row, y) => {
             console.log('row', step);
             if (row[step]) { playNote(y, contextPlayTime); }
@@ -443,7 +440,7 @@
         advanceNote();
     }
 
-    timeoutId = requestAnimationFrame(schedule)
+    timeoutId = requestAnimationFrame(schedule);
   }
 
   function drawPlayhead(xindex) {
@@ -461,7 +458,6 @@
       // Advance time by a 16th note...
       // var secondsPerBeat = 60.0 / theBeat.tempo;
 
-      tempo = Number(document.getElementById("tempo-input").value);
       var secondsPerBeat = 60.0 / tempo;
       rhythmIndex++;
       if (rhythmIndex == LOOP_LENGTH) {
@@ -469,7 +465,7 @@
       }
 
       //0.25 because each square is a 16th note
-      noteTime += 0.25 * secondsPerBeat
+      noteTime += 0.25 * secondsPerBeat;
   }
 
   function handlePlay(event) {
@@ -493,31 +489,9 @@
 
   function removeClass(el, className){
     if (el.classList)
-        el.classList.remove(className)
+        el.classList.remove(className);
       else if (hasClass(el, className)) {
-        var reg = new RegExp('(\\s|^)' + className + '(\\s|$)')
-        el.className=el.className.replace(reg, ' ')
+        var reg = new RegExp('(\\s|^)' + className + '(\\s|$)');
+        el.className=el.className.replace(reg, ' ');
       }
   }
-
-  function initializeTempo() {
-    console.log("TEMPO", document.getElementById("tempo-input"));
-    document.getElementById("tempo-input").value = tempo;
-  }
-
-  function changeTempoListener() {
-    document.getElementById("increase-tempo").addEventListener('click',function() {
-      if (tempo < TEMPO_MAX) {
-        tempo += TEMPO_STEP;
-        document.getElementById("tempo-input").value = tempo;
-      }
-    });
-
-    document.getElementById("decrease-tempo").addEventListener('click',function() {
-      if (tempo > TEMPO_MIN) {
-        tempo -= TEMPO_STEP;
-        document.getElementById("tempo-input").value = tempo;
-      }
-    });
-  }
-  //SEQUENCER END
