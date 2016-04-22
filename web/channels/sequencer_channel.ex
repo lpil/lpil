@@ -32,6 +32,12 @@ defmodule BlockParty.SequencerChannel do
     {:noreply, socket}
   end
 
+  def handle_in("set_bpm", bpm, socket) when is_integer(bpm) do
+    grid = SeqState.set_bpm(bpm)
+    broadcast! socket, "bpm", %{ bpm: bpm }
+    {:noreply, socket}
+  end
+
 
   defp grid_to_list(grid) do
     grid |> Tuple.to_list |> Enum.map(&Tuple.to_list/1)

@@ -13,7 +13,7 @@ const CellRow = ({ cellStates, y }) => (
 
 const cellStateType = PropTypes.oneOfType([
   PropTypes.string,
-  PropTypes.boolean,
+  PropTypes.bool,
 ]);
 
 CellRow.propTypes = {
