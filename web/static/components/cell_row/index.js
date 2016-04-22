@@ -5,14 +5,19 @@ const CellRow = ({ cellStates, y }) => (
   <div>
   {
     cellStates.map((state, index) => (
-      <Cell x={index} y={y} state={state} key={index} />
+      <Cell key={index} state={state} x={index} y={y} />
     ))
   }
   </div>
 );
 
+const cellStateType = PropTypes.oneOfType([
+  PropTypes.string,
+  PropTypes.boolean,
+]);
+
 CellRow.propTypes = {
-  cellStates: PropTypes.array.isRequired,
+  cellStates: PropTypes.arrayOf(cellStateType).isRequired,
   y: PropTypes.number.isRequired,
 };
 
