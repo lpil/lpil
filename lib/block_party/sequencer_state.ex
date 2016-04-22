@@ -3,8 +3,11 @@ defmodule BlockParty.SequencerState do
   An Agent process that holds the mutable state of a sequencer grid.
   """
 
-  row = Tuple.duplicate(false, 8)
-  @default_state Tuple.duplicate(row, 8)
+  @x_size 16
+  @y_size 16
+
+  row = Tuple.duplicate(false, @x_size)
+  @default_state Tuple.duplicate(row, @y_size)
 
   @doc """
   Starts a new agent that holds the state of the sequencer.
@@ -35,8 +38,8 @@ defmodule BlockParty.SequencerState do
   end
   def set_cell(sequencer, x, y, active)
   when is_boolean(active)
-  and x >= 0 and x < 8
-  and y >= 0 and y < 8
+  and x >= 0 and x < @x_size
+  and y >= 0 and y < @y_size
   do
     Agent.get_and_update(sequencer, fn grid ->
       new_row  = grid |> elem(y) |> put_elem(x, active)
