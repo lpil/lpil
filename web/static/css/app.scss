@@ -1,7 +1,11 @@
 //Vars
 $off-white: rgb(245,244,244);
+$grey: gray;
+
 $num-steps: 16;
 $num-tracks: 12;
+
+$line-width: 1px;
 
 //Globals
 * {
@@ -29,16 +33,20 @@ body {
 }
 
 
+
 //grid
 .row {
   font-size: 0;
   display: flex;
   justify-content: space-between;
+  &:not(:last-child) {
+    border-bottom:  $line-width dashed $grey;
+  }
 }
 .cell {
   display: inline-block;
-  width: calc(100%/#{$num-steps});
-  max-width: calc(100vh/#{$num-tracks});
+  width: calc(100%/#{$num-steps} - #{$line-width});
+  max-width: calc(100vh/#{$num-tracks} - #{$line-width});
   transition: background-color 0.2s;
   padding: 0.5%;
 
