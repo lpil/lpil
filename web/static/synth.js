@@ -1,26 +1,19 @@
 var Synth = (function () {
 
   var channels = 8;
-	var defaultModeName = 'dorian';
-	var currentModeName;
+  var defaultModeName = 'dorian';
+  var currentModeName;
   var currentMode = [];
   var previousNotes = [];
-	var modes = {
-		// CDEFGABC
-		ionian: ['C4','D4','E4','F4','G4','A4','B4','C5'],
-		// DEFGABCD
-		dorian: ['D3','E3','F3','G3','A3','B3','C4','D4'],
-		// EFGABCDE
-		phrygian: ['E3','F3','G3','A3','B3','C4','D4','E4'],
-		// FGABCDEF
-		lydian: ['F3','G3','A3','B3','C4','D4','E4','F4'],
-		// GABCDEFG
-		mixolydian: ['G3','A3','B3','C4','D4','E4','F4','G4'],
-		// ABCDEFGA
-		aeolian: ['A3','B3','C4','D4','E4','F4','G4','A4'],
-		// BCDEFGAB
-		locrian: ['B3','C4','D4','E4','F4','G4','A4','B4']
-	};
+  var modes = {
+    ionian:     ['C4','D4','E4','F4','G4','A4','B4','C5'],
+    dorian:     ['D3','E3','F3','G3','A3','B3','C4','D4'],
+    phrygian:   ['E3','F3','G3','A3','B3','C4','D4','E4'],
+    lydian:     ['F3','G3','A3','B3','C4','D4','E4','F4'],
+    mixolydian: ['G3','A3','B3','C4','D4','E4','F4','G4'],
+    aeolian:    ['A3','B3','C4','D4','E4','F4','G4','A4'],
+    locrian:    ['B3','C4','D4','E4','F4','G4','A4','B4']
+  };
   // concert pitch in HZ
   var frequencies = {
     C3: 130.813,
@@ -38,9 +31,10 @@ var Synth = (function () {
     A4: 440,
     B4: 493.883,
     C5: 523.251
-  };  
+  };
+  var types = [ 'sine','square','sawtooth','triangle' ];
   var context;
-  var oscillators = {};
+  var oscillators = [];
 
   function init() {
     // normalize and create a new AudioContext if supported
@@ -49,13 +43,12 @@ var Synth = (function () {
     if ('AudioContext' in window) {
       context = new AudioContext();
       for (var i = channels - 1; i >= 0; i--) {
-        console.log(i);
         // contexts[i] = new AudioContext();
         oscillators[i] = context.createOscillator();
         oscillators[i].connect(context.destination);
         oscillators[i].frequency.value = 0;
+        oscillators[i].frequency.value = 0;
         oscillators[i].start();
-        console.log(oscillators[i]);
       };
       setMode(defaultModeName);
     } else {
@@ -73,7 +66,8 @@ var Synth = (function () {
     }
 	}
 
-  // expects an array of 8 values
+  // Expects an array of 8 values from 0-4
+  // 
   function playNotes(notes) {
     // save for reference
     previousNotes = notes;
@@ -85,13 +79,20 @@ var Synth = (function () {
       //oscillators[i].stop();
       if (notes[i] && currentMode[i]) {
         oscillators[i].frequency.value = currentMode[i];
+        oscillators[i].type = types[ notes[i]-1 ];
         //oscillators[i].start();
       } else {
         oscillators[i].frequency.value = 0;
       }
     }    
   }
-	
+  
+  function releaseNotes() {
+    for (var i = 0; i < oscillators.length; i++) {
+      oscillators[i].frequency.value = 0;
+    }
+  }
+  
   function getModeNames() {
     return Object.keys(modes);
   }
@@ -111,7 +112,9 @@ var Synth = (function () {
   	setMode: setMode,
   	getCurrentModeName: getCurrentModeName,
   	getCurrentMode: getCurrentMode,
-  	playNotes: playNotes
+  	playNotes: playNotes,
+    releaseNotes: releaseNotes,
+    STFU: releaseNotes
   };
 	
 })();
