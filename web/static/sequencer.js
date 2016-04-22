@@ -407,14 +407,10 @@
 
     while (noteTime < currentTime + 0.200) {
         var contextPlayTime = noteTime + startTime;
-<<<<<<< Updated upstream
           const state = store.getState();
           const grid  = state.grid;
           tempo = state.bpm;
-=======
-          const grid = store.getState().grid;
           var synthNotes = [];
->>>>>>> Stashed changes
           grid.forEach((row, y) => {
             console.log('row', step);
             console.log('step', row[step]);

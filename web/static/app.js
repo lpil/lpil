@@ -6,7 +6,7 @@ import ReactDOM     from "react-dom";
 import { Provider } from "react-redux";
 import store        from "./store";
 import Sequencer    from "./components/sequencer";
-import SeqFunctions from "./sequencer";
+// import SeqFunctions from "./sequencer";
 import synth        from "./synth";
 window.synth = synth;
 

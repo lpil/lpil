@@ -1,16 +1,16 @@
   var channels = 8;
-  var defaultModeName = 'dorian';
+  var defaultModeName = "dorian";
   var currentModeName;
   var currentMode = [];
   var previousNotes = [];
   var modes = {
-    ionian:     ['C4','D4','E4','F4','G4','A4','B4','C5'],
-    dorian:     ['D3','E3','F3','G3','A3','B3','C4','D4'],
-    phrygian:   ['E3','F3','G3','A3','B3','C4','D4','E4'],
-    lydian:     ['F3','G3','A3','B3','C4','D4','E4','F4'],
-    mixolydian: ['G3','A3','B3','C4','D4','E4','F4','G4'],
-    aeolian:    ['A3','B3','C4','D4','E4','F4','G4','A4'],
-    locrian:    ['B3','C4','D4','E4','F4','G4','A4','B4']
+    ionian:     ["C4","D4","E4","F4","G4","A4","B4","C5"],
+    dorian:     ["D3","E3","F3","G3","A3","B3","C4","D4"],
+    phrygian:   ["E3","F3","G3","A3","B3","C4","D4","E4"],
+    lydian:     ["F3","G3","A3","B3","C4","D4","E4","F4"],
+    mixolydian: ["G3","A3","B3","C4","D4","E4","F4","G4"],
+    aeolian:    ["A3","B3","C4","D4","E4","F4","G4","A4"],
+    locrian:    ["B3","C4","D4","E4","F4","G4","A4","B4"],
   };
   // concert pitch in HZ
   var frequencies = {
@@ -28,9 +28,9 @@
     G4: 391.995,
     A4: 440,
     B4: 493.883,
-    C5: 523.251
+    C5: 523.251,
   };
-  var types = [ 'sine','square','sawtooth','triangle' ];
+  var types = [ "sine","square","sawtooth","triangle" ];
   var context;
   var oscillators = [];
 
@@ -39,7 +39,7 @@
     // normalize and create a new AudioContext if supported
     window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
-    if ('AudioContext' in window) {
+    if ("AudioContext" in window) {
       context = new AudioContext();
       for (var i = channels - 1; i >= 0; i--) {
         // contexts[i] = new AudioContext();
@@ -48,14 +48,14 @@
         oscillators[i].frequency.value = 0;
         oscillators[i].frequency.value = 0;
         oscillators[i].start();
-      };
+      }
       setMode(defaultModeName);
     } else {
-        throw new Error('synth.js: browser does not support Web Audio API');
+      throw new Error("synth.js: browser does not support Web Audio API");
     }
   }
 
-	function setMode(name){
+  function setMode(name){
     if (modes[name] !== undefined) {
       for (var i = modes[name].length - 1; i >= 0; i--) {
         // convert to frequency
@@ -63,7 +63,7 @@
       }
       playNotes(previousNotes);
     }
-	}
+  }
 
   // Expects an array of 8 values from 0-4
   // 0 - don't play this note (can also be false/null/undefined)
@@ -111,13 +111,13 @@
 	// returned functions
   var Synth = {
     init: init,
-  	getModeNames: getModeNames,
-  	setMode: setMode,
-  	getCurrentModeName: getCurrentModeName,
-  	getCurrentMode: getCurrentMode,
-  	playNotes: playNotes,
+    getModeNames: getModeNames,
+    setMode: setMode,
+    getCurrentModeName: getCurrentModeName,
+    getCurrentMode: getCurrentMode,
+    playNotes: playNotes,
     releaseNotes: releaseNotes,
-    STFU: releaseNotes
+    STFU: releaseNotes,
   };
 
-export default Synth;
+  export default Synth;
