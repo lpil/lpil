@@ -14,8 +14,12 @@ import Grid         from "./containers/grid";
 
 import setGrid           from "./action_creators/set_grid";
 import { subscribeGrid } from "./network";
+import { sequencerInit } from "./sequencer";
+
 const boundSetGrid = (grid) => store.dispatch(setGrid(grid));
 subscribeGrid(boundSetGrid);
+
+store.subscribe(() => console.log('state', store.getState()));
 
 ReactDOM.render(
   <Provider store={store}><Grid /></Provider>,
