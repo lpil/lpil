@@ -9,17 +9,18 @@ window.incBPM = incBPM;
 
 // <div className="meta__button">Play / Stop</div>
 
-const BPM = ({ currentBPM, decBPM, incBPM }) => (
+const BPM = ({ currentBPM }) => (
   <div className="meta__controls">
     <div className="meta__bpm">BPM - {currentBPM}</div>
-    <div className="meta__button meta__button--half" onClick={incBPM}>+</div>
-    <div className="meta__button meta__button--half" onClick={decBPM}>-</div>
+
+    <div className="meta__button meta__button--half" onClick={incBPM} >+</div>
+
+    <div className="meta__button meta__button--half" onClick={decBPM} >-</div>
   </div>
 );
 
 BPM.propTypes = {
   currentBPM: PropTypes.number.isRequired,
 };
-
 
 export default BPM;

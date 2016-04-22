@@ -87,15 +87,16 @@ var Synth = (function () {
       } else {
         oscillators[i].frequency.value = 0;
       }
-    }    
+
+    }
   }
-  
+
   function releaseNotes() {
     for (var i = 0; i < oscillators.length; i++) {
       oscillators[i].frequency.value = 0;
     }
   }
-  
+
   function getModeNames() {
     return Object.keys(modes);
   }
@@ -107,7 +108,7 @@ var Synth = (function () {
   function getCurrentModeName() {
     return currentModeName;
   }
-  
+
 	// returned functions
   return {
     init: init,
@@ -119,5 +120,5 @@ var Synth = (function () {
     releaseNotes: releaseNotes,
     STFU: releaseNotes
   };
-	
+
 })();
