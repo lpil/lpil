@@ -11,8 +11,13 @@ const Cell = ({ state, x, y }) => (
   <div
       className="cell"
       onClick={function() { handleClick(x, y, state); }}
+  >
+    <div 
+      className="cell__circle"
       style={{ backgroundColor: state || "black" }}
-  ></div>
+    >
+    </div>
+  </div>
 );
 
 Cell.propTypes = {
