@@ -37,9 +37,8 @@ defmodule BlockParty.SequencerState do
     set_cell(__MODULE__, x, y, active)
   end
   def set_cell(sequencer, x, y, active)
-  when is_boolean(active)
-  and x >= 0 and x < @x_size
-  and y >= 0 and y < @y_size
+  when x >= 0 and x < @x_size
+  and  y >= 0 and y < @y_size
   do
     Agent.get_and_update(sequencer, fn grid ->
       new_row  = grid |> elem(y) |> put_elem(x, active)

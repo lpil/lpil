@@ -4,15 +4,15 @@ import Cell from "../cell";
 const CellRow = ({ cellStates, y }) => (
   <div>
   {
-    cellStates.map((active, index) => (
-      <Cell x={index} y={y} active={active} key={index} />
+    cellStates.map((state, index) => (
+      <Cell x={index} y={y} state={state} key={index} />
     ))
   }
   </div>
 );
 
 CellRow.propTypes = {
-  cellStates: PropTypes.arrayOf(PropTypes.bool).isRequired,
+  cellStates: PropTypes.array.isRequired,
   y: PropTypes.number.isRequired,
 };
 
