@@ -1,16 +1,25 @@
 import React, { PropTypes } from "react";
 import { setCell }          from "../../network";
+import color                from "../../color";
 
-const Cell = ({ active, x, y }) => (
+function handleClick(x, y, currentState) {
+  const newState = currentState ? false : color;
+  setCell(x, y, newState);
+}
+
+const Cell = ({ state, x, y }) => (
   <div
       className="cell"
-      onClick={function() { setCell(x, y, !active); }}
-      style={{ backgroundColor: active ? "hotpink" : "black" }}
+      onClick={function() { handleClick(x, y, state); }}
+      style={{ backgroundColor: state || "black" }}
   ></div>
 );
 
 Cell.propTypes = {
-  active: PropTypes.bool.isRequired,
+  state: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.bool,
+  ]).isRequired,
   x: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
 };
