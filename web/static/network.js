@@ -20,6 +20,13 @@ channel.on("grid", payload => {
   store.dispatch(action);
 });
 
+channel.on("bpm", payload => {
+  console.log("[IN bpm]:", payload);
+  const bpm   = payload.bpm;
+  // const action = setBPM(bpm);
+  // store.dispatch(action);
+});
+
 //
 // Broadcast whether a cell is on or off to the network.
 // `active` must be a boolean.
