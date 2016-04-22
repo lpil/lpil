@@ -1,6 +1,7 @@
   import store      from "./store";
   console.log("SEQUENCER LOADED - READY TO GO");
-  // Synth.init();
+  import synth      from "./synth";
+  synth.init();
   //KITS start
   var NUM_INSTRUMENTS = 2;
   var soundKit = [];
@@ -315,7 +316,7 @@
     // Create master volume.
     // for now, the master volume is static, but in the future there will be a slider
     masterGainNode = context.createGain();
-    masterGainNode.gain.value = 0.7; // reduce overall volume to avoid clipping
+    masterGainNode.gain.value = 1; // reduce overall volume to avoid clipping
     masterGainNode.connect(finalMixNode);
 
     //connect all sounds to masterGainNode to play them
@@ -378,7 +379,7 @@
   }
 
   function playNote(buffer, noteTime) {
-    if(buffer>7) return; //synth.playNotes([1,2,3]);
+    if(buffer>7) return;
     buffer = soundKit[buffer];
     var voice = context.createBufferSource();
     voice.buffer = buffer;
@@ -406,12 +407,25 @@
 
     while (noteTime < currentTime + 0.200) {
         var contextPlayTime = noteTime + startTime;
+<<<<<<< Updated upstream
           const state = store.getState();
           const grid  = state.grid;
           tempo = state.bpm;
+=======
+          const grid = store.getState().grid;
+          var synthNotes = [];
+>>>>>>> Stashed changes
           grid.forEach((row, y) => {
             console.log('row', step);
-            if (row[step]) { playNote(y, contextPlayTime); }
+            console.log('step', row[step]);
+            console.log('y', y);
+            if (y > 7) {
+              synthNotes[y-8] = (row[step]) ? 1:0;
+            }
+            else if (row[step]) {
+              playNote(y, contextPlayTime);
+            }
+            synth.playNotes(synthNotes);
           });
           step = (step + 1) % grid[0].length;
 

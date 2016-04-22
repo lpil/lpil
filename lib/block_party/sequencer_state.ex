@@ -3,8 +3,8 @@ defmodule BlockParty.SequencerState do
   An Agent process that holds the mutable state of a sequencer grid.
   """
   @x_size 16
-  # @y_size 16
-  @y_size 8
+  @y_size 16
+  # @y_size 8
 
   row = Tuple.duplicate(false, @x_size)
   grid = Tuple.duplicate(row, @y_size)
