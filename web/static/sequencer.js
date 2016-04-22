@@ -2,6 +2,7 @@
   console.log("SEQUENCER LOADED - READY TO GO");
   import synth      from "./synth";
   synth.init();
+  
   //KITS start
   var NUM_INSTRUMENTS = 2;
   var soundKit = [];
