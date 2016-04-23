@@ -9,9 +9,9 @@
   var pathName = "samples/TR808/";
   var sounds = [];
 
-  sounds[0] = pathName + "kick.mp3";
-  sounds[1] = pathName + "snare.mp3";
-  sounds[2] = pathName + "hihat.mp3";
+  sounds[0] = pathName + "kick-2.wav";
+  sounds[1] = pathName + "snare-2.wav";
+  sounds[2] = pathName + "closed-hat-2.wav";
   sounds[3] = pathName + "clap-2.wav";
   sounds[4] = pathName + "cowbell-2.wav";
   sounds[5] = pathName + "open-hat-2.wav";
@@ -146,9 +146,12 @@
       startTime = context.currentTime + 0.005;
       schedule();
       handlePlay.clicked = true;
+      document.getElementById('button-text').innerHTML = 'STOP';
   }
 
   function handleStop(event) {
     cancelAnimationFrame(timeoutId);
     handlePlay.clicked = false;
+    document.getElementById('button-text').innerHTML = 'START';
+
   }

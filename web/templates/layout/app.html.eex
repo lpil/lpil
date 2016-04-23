@@ -15,8 +15,8 @@
       <div class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></div>
       <div class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></div>
 
-      <button id="play-pause" type="button" class="btn btn-default btn-lg noselect">
-        <span class="glyphicon glyphicon-play" aria-hidden="true">START</span>
+      <button id="play-pause" type="button">
+        <span id="button-text" >START</span>
       </button>
 
       <main role="main">
