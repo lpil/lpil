@@ -19,13 +19,6 @@
         <span class="glyphicon glyphicon-play" aria-hidden="true">START</span>
       </button>
 
-      <span class="tempo-container">
-        <label for="tempo-input" >Tempo </label>
-        <input id="tempo-input" type="number" disabled>
-        <span id="decrease-tempo">DOWN</span>
-        <span id="increase-tempo">UP</span>
-      </span>
-
       <main role="main">
         <%= render @view_module, @view_template, assigns %>
       </main>
