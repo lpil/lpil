@@ -6,6 +6,7 @@
   //KITS start
   var NUM_INSTRUMENTS = 2;
   var soundKit = [];
+
   function Kit(name) {
     this.SAMPLE_BASE_PATH = "samples/";
     this.name = name;
@@ -19,10 +20,6 @@
     this.instrumentLoadCount = 0;
   }
 
-  Kit.prototype.pathName = function() {
-    return this.SAMPLE_BASE_PATH + this.name + "/";
-  };
-
   Kit.prototype.load = function() {
     if (this.startedLoading) {
       return;
@@ -30,25 +27,16 @@
 
     this.startedLoading = true;
 
-    var pathName = this.pathName();
+    var pathName = "samples/TR808/";
 
-    var kickPath = pathName + "kick.mp3";
-    var snarePath = pathName + "snare.mp3";
-    var hihatPath = pathName + "hihat.mp3";
-    var clapPath = pathName + "clap-2.wav";
-    var cowbellPath = pathName + "cowbell-2.wav";
-    var openhatPath = pathName + "open-hat-2.wav";
-    var closedhatPath = pathName + "closed-hat-2.wav";
-    var shakerPath = pathName + "shaker-suckup.wav";
-
-    this.loadSample(kickPath, "kick");
-    this.loadSample(snarePath, "snare");
-    this.loadSample(hihatPath, "hihat");
-    this.loadSample(clapPath, "clap");
-    this.loadSample(cowbellPath, "cowbell");
-    this.loadSample(openhatPath, "openhat");
-    this.loadSample(closedhatPath, "closedhat");
-    this.loadSample(shakerPath, "shaker");
+    this.loadSample(pathName + "kick.mp3", "kick");
+    this.loadSample(pathName + "snare.mp3", "snare");
+    this.loadSample(pathName + "hihat.mp3", "hihat");
+    this.loadSample(pathName + "clap-2.wav", "clap");
+    this.loadSample(pathName + "cowbell-2.wav", "cowbell");
+    this.loadSample(pathName + "open-hat-2.wav", "openhat");
+    this.loadSample(pathName + "closed-hat-2.wav", "closedhat");
+    this.loadSample(pathName + "shaker-suckup.wav", "shaker");
   };
 
   Kit.prototype.loadSample = function(url, instrumentName) {
@@ -118,7 +106,6 @@
   var context;
   var compressor;
   var masterGainNode;
-  var effectLevelNode;
 
   var noteTime;
   var startTime;
@@ -126,10 +113,6 @@
   var LOOP_LENGTH = 16;
   var rhythmIndex = 0;
   var timeoutId;
-  var testBuffer = null;
-
-  var currentKit = null;
-  var reverbImpulseResponse = null;
 
   var tempo = store.getState().bpm;
 
@@ -137,26 +120,11 @@
     window.audioContext = AudioContext;
   }
 
-    init();
-    toggleSelectedListener();
-    playPauseListener();
-
-  function changeFrequency(event, ui) {
-    var minValue = 40;
-    var maxValue = context.sampleRate / 2;
-    var numberOfOctaves = Math.log(maxValue / minValue) / Math.LN2;
-    var multiplier = Math.pow(2, numberOfOctaves * (ui.value - 1.0));
-    lowPassFilterNode.frequency.value = maxValue * multiplier;
-  }
-
-  function changeQuality(event, ui) {
-    //30 is the quality multiplier, for now.
-    lowPassFilterNode.Q.value = ui.value * 30;
-  }
+  init();
+  playPauseListener();
 
   function playPauseListener() {
     console.log('PLAY PAUSE',document.getElementById('play-pause'));
-
     document.getElementById('play-pause').addEventListener('click', function() {
       console.log('BUTTON PUSHED');
       if(handlePlay.clicked) {
@@ -165,16 +133,6 @@
           handlePlay();
         }
     });
-  }
-
-  function toggleSelectedListener() {
-    var cells = document.getElementsByClassName("cell");
-    var myFunction = function() {
-      this.toggleClass("selected");
-    };
-    for (var i = 0; i < cells.length; i++) {
-        cells[i].addEventListener('click', myFunction, false);
-    }
   }
 
   function init() {
@@ -206,8 +164,6 @@
     //name must be same as path
     var kit = new Kit("TR808");
     kit.load();
-
-    currentKit = kit;
   }
 
   function playNote(buffer, noteTime) {
@@ -271,6 +227,3 @@
     cancelAnimationFrame(timeoutId);
     handlePlay.clicked = false;
   }
-
-
-  //SEQUENCER END
