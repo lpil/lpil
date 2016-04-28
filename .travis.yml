@@ -1,25 +1,25 @@
-language: ruby
-rvm:
-  - 2.3.0
+language: node_js
+node_js:
+  - 5
 
 script:
-  - bundle exec middleman build
+  - npm run build
 
 sudo: false
 
 notifications:
-  email: false
+  email: true
 
-deploy:
-  provider: s3
-  access_key_id: AKIAIDEGH6JWVOBUXQGQ
-  secret_access_key:
-    secure: kQbZl0lAWy32adBgxxB2BM9nWOOcODMOcUi+Ziu8j6F/lBehakLP+jyoVWFiVzkS2I/QfKwxvyV7skVdOIntySyYjhPXqLz6mJSWzDMzhd2zFizeipB6Wqx9dbKBu8jC4QhuWnb6FocR903zODN4ncPj6Qieo4Wjh2z1EpX5vjo=
-  bucket: lpil.uk
-  local-dir: build
-  acl: public_read
-  skip_cleanup: true
-  detect_encoding: true # We're using gzip
-  region: eu-west-1
-  on:
-    repo: lpil/lpil.uk
+# deploy:
+#   provider: s3
+#   access_key_id: AKIAIDEGH6JWVOBUXQGQ
+#   secret_access_key:
+#     secure: kQbZl0lAWy32adBgxxB2BM9nWOOcODMOcUi+Ziu8j6F/lBehakLP+jyoVWFiVzkS2I/QfKwxvyV7skVdOIntySyYjhPXqLz6mJSWzDMzhd2zFizeipB6Wqx9dbKBu8jC4QhuWnb6FocR903zODN4ncPj6Qieo4Wjh2z1EpX5vjo=
+#   bucket: lpil.uk
+#   local-dir: build
+#   acl: public_read
+#   skip_cleanup: true
+#   detect_encoding: true # We're using gzip
+#   region: eu-west-1
+#   on:
+#     repo: lpil/lpil.uk

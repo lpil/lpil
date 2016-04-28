@@ -1,5 +1,7 @@
 lpil.uk
 =======
 
-    bundle install
-    bundle exec middleman server
+```
+npm install
+npm run build
+```
