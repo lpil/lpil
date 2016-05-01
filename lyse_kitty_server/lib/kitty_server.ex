@@ -32,14 +32,12 @@ defmodule Kitty.Server do
     GenServer.start_link(__MODULE__, [], [name: __MODULE__])
   end
 
-  def handle_call({:order, n, c, d}, _from, state) do
-    case state do
-      [] ->
-        cat = %Kitty{ name: n, colour: c, description: d }
-        {:reply, cat, state}
-      [cat|cats] ->
-        {:reply, cat, cats}
-    end
+  def handle_call({:order, n, c, d}, _from, []) do
+    cat = %Kitty{ name: n, colour: c, description: d }
+    {:reply, cat, state}
+  end
+  def handle_call({:order, n, c, d}, _from, [cat|cats]) do
+    {:reply, cat, cats}
   end
 
   def handle_call(:terminate, _from, cats) do
