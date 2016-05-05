@@ -3,10 +3,15 @@ if has('nvim')
   tnoremap <Esc> <C-\><C-n>
 endif
 
+function! DoRemote(arg)
+  UpdateRemotePlugins
+endfunction
+
 call plug#begin('~/.vim/plugged')
 
 let lisp_languages = ['scheme', 'clojure']
 
+Plug 'awetzel/elixir.nvim', { 'do': ['yes \| ./install.sh', function('DoRemote')] }
 Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'scss.css'] }
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'dermusikman/sonicpi.vim'
@@ -28,10 +33,11 @@ Plug 'rhysd/clever-f.vim'
 Plug 'sbl/scvim', { 'for': 'supercollider' }
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'scrooloose/syntastic'
-Plug 'shougo/neocomplcache.vim'
+Plug 'shougo/deoplete.nvim', { 'do': function('DoRemote') }
 Plug 'sirver/ultisnips'
 Plug 'slim-template/vim-slim'
 Plug 'slime-lang/vim-slime-syntax', { 'for': 'slime' }
+Plug 'thinca/vim-ref'
 Plug 'tomtom/tlib_vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-cucumber', { 'for': 'cucumber' }
@@ -211,10 +217,6 @@ nnoremap - <C-x>
 " Go away ex mode, you suck
 nnoremap Q <Nop>
 
-" No, I don't want to look things up in the man pages
-nnoremap K <Nop>
-vnoremap K <Nop>
-
 " Let's not accidentally open help all the time
 inoremap <F1> <Nop>
 
@@ -259,11 +261,10 @@ let g:ctrlp_custom_ignore = {
 
 
 """""""""""""""""""""""""
-" Plugin: neocomplcache "
+" Plugin: deocomplcache "
 """""""""""""""""""""""""
 
-let g:neocomplcache_enable_at_startup = 1
-
+let g:deoplete#enable_at_startup = 1
 
 """""""""""""""""""""""""""""""""""""
 " And finally, per-project .vimrc's "

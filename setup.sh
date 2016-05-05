@@ -30,4 +30,4 @@ if [ "$(uname)" == "Darwin" ]; then
   cd -
 fi
 
-echo Now run 'pip install neovim'
+echo Now run 'pip install neovim and pip3 install neovim'
