@@ -22,5 +22,5 @@
   live_link: https://lpil.github.io/theremin/
   description: |
     A fun little toy made in an afternoon to introduce a friend to programming.
-    It makes simple noises and colours using the Web Audio API and HTML Canvas.
-    It probably wont work on many browsers... oops...
+    It makes simple noises and colours using the Web Audio API. It probably
+    wont work on many browsers... oops...
