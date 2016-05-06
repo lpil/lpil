@@ -1,0 +1,26 @@
+- name: mix test.watch
+  github: lpil/mix-test.watch
+  description: |
+    I'm a big fan of test driven development and fast feedback loops, so when I
+    started learning Elixir I found myself missing the automatic test runners
+    of Ruby and Javascript. To resolve this I wrote this handy little library
+    that builds upon Vladimir Kirillov and Maxim Sokhatsky's fs project. I use
+    this project every day, and it's taught me much about OTP, the BEAM's code
+    server, and the Elixir compiler.
+
+- name: Dogma
+  github: lpil/dogma
+  description: |
+    I value consistency and readability in a codebase and I have a soft spot
+    for static analysis tools, so I thought it would be fun to write a linter
+    of my own. Dogma turned out to be a great exercise for learning about
+    abstract syntax trees, parsing, and some of Elixir's less obvious features.
+    It's also relatively useful too.
+
+- name: Theremin
+  github: lpil/theremin
+  live_link: https://lpil.github.io/theremin/
+  description: |
+    A fun little toy made in an afternoon to introduce a friend to programming.
+    It makes simple noises and colours using the Web Audio API and HTML Canvas.
+    It probably wont work on many browsers... oops...
