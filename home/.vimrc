@@ -38,7 +38,6 @@ Plug 'shougo/deoplete.nvim', { 'do': function('DoRemote') }
 Plug 'sirver/ultisnips'
 Plug 'slim-template/vim-slim'
 Plug 'slime-lang/vim-slime-syntax', { 'for': 'slime' }
-Plug 'ternjs/tern_for_vim'
 Plug 'thinca/vim-ref'
 Plug 'tomtom/tlib_vim'
 Plug 'tpope/vim-commentary'
