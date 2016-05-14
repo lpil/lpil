@@ -13,7 +13,6 @@ let lisp_languages = ['scheme', 'clojure']
 
 Plug 'awetzel/elixir.nvim', { 'do': ['yes \| ./install.sh', function('DoRemote')] }
 Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'scss.css'] }
-Plug 'carlitux/deoplete-ternjs', { 'for': 'javascript' }
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'dermusikman/sonicpi.vim'
 Plug 'digitaltoad/vim-pug', { 'for': ['pug', 'jade'] }
