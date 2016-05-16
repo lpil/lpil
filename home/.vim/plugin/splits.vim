@@ -14,8 +14,6 @@ function! Open2Columns()
   vsplit
   split
   terminal
-  wincmd j
-  terminal
 endfunction
 
 command! TwoColumns call Open2Columns()
