@@ -14,6 +14,7 @@ let lisp_languages = ['scheme', 'clojure']
 Plug 'awetzel/elixir.nvim', { 'do': ['yes \| ./install.sh', function('DoRemote')] }
 Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'scss.css'] }
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'foosoft/vim-argwrap', { 'on': 'ArgWrap' }
 Plug 'dermusikman/sonicpi.vim'
 Plug 'digitaltoad/vim-pug', { 'for': ['pug', 'jade'] }
 Plug 'elixir-lang/vim-elixir', { 'for': ['elixir', 'markdown'] }

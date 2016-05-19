@@ -4,7 +4,6 @@ if !exists("*HtmlEscape")
     silent s/&/\&amp;/eg  " Amp has to be first!
     silent s/</\&lt;/eg   " less than
     silent s/>/\&gt;/eg   " greater than
-    silent s/\ /\%20;/eg  " space
   endfunction
 endif
 
