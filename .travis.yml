@@ -1,0 +1,9 @@
+language: node_js
+
+sudo: false # faster builds
+
+notifications:
+  email: false
+
+script:
+  - npm run single-run-test
