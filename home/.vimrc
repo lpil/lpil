@@ -32,7 +32,6 @@ Plug 'marcweber/vim-addon-mw-utils'
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'rhysd/clever-f.vim'
 Plug 'sbl/scvim', { 'for': 'supercollider' }
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'scrooloose/syntastic'
 Plug 'shougo/deoplete.nvim', { 'do': function('DoRemote') }
 Plug 'sirver/ultisnips'
@@ -236,7 +235,6 @@ nnoremap <leader>ct :! ctags -R .<cr>
 """""""""""""""""""
 
 nnoremap <F1> :set hlsearch!<CR>
-nnoremap <F2> :NERDTreeToggle<CR>
 nnoremap <F3> :BuffergatorToggle<CR>
 nnoremap <F4> :setlocal spell!<CR>
 nnoremap <F5> :SyntasticToggleMode<CR>
