@@ -14,12 +14,12 @@ let lisp_languages = ['scheme', 'clojure']
 Plug 'awetzel/elixir.nvim', { 'do': ['yes \| ./install.sh', function('DoRemote')] }
 Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'scss.css'] }
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'foosoft/vim-argwrap', { 'on': 'ArgWrap' }
 Plug 'dermusikman/sonicpi.vim'
 Plug 'digitaltoad/vim-pug', { 'for': ['pug', 'jade'] }
 Plug 'elixir-lang/vim-elixir', { 'for': ['elixir', 'markdown'] }
 Plug 'evanmiller/nginx-vim-syntax', { 'for': 'nginx' }
 Plug 'fatih/vim-go', { 'for': 'go' }
+Plug 'foosoft/vim-argwrap', { 'on': 'ArgWrap' }
 Plug 'godlygeek/tabular'
 Plug 'guns/vim-sexp', { 'for': lisp_languages }
 Plug 'honza/vim-snippets'
@@ -52,6 +52,7 @@ Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': lisp_languages }
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-vinegar'
 Plug 'vim-scripts/matchit.zip'
 Plug 'wting/rust.vim', { 'for': 'rust' }
 
