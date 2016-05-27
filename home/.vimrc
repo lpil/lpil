@@ -11,7 +11,7 @@ call plug#begin('~/.vim/plugged')
 
 let lisp_languages = ['scheme', 'clojure']
 
-Plug 'awetzel/elixir.nvim', { 'do': ['yes \| ./install.sh', function('DoRemote')] }
+Plug 'awetzel/elixir.nvim', { 'do': 'yes \| ./install.sh' }
 Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'scss.css'] }
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'dermusikman/sonicpi.vim'
@@ -27,6 +27,7 @@ Plug 'jeetsukumaran/vim-buffergator'
 Plug 'jpalardy/vim-slime'
 Plug 'junegunn/vader.vim', { 'on': 'Vader', 'for': 'vader' }
 Plug 'kylef/apiblueprint.vim', { 'for': 'apiblueprint' }
+Plug 'lambdatoast/elm.vim', { 'for': 'elm' }
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 Plug 'marcweber/vim-addon-mw-utils'
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
