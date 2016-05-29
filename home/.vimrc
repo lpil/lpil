@@ -11,7 +11,6 @@ call plug#begin('~/.vim/plugged')
 
 let lisp_languages = ['scheme', 'clojure']
 
-Plug 'awetzel/elixir.nvim', { 'do': 'yes \| ./install.sh' }
 Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'scss.css'] }
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'dermusikman/sonicpi.vim'
@@ -38,7 +37,7 @@ Plug 'shougo/deoplete.nvim', { 'do': function('DoRemote') }
 Plug 'sirver/ultisnips'
 Plug 'slim-template/vim-slim'
 Plug 'slime-lang/vim-slime-syntax', { 'for': 'slime' }
-Plug 'thinca/vim-ref'
+Plug 'sunaku/vim-dasht'
 Plug 'tomtom/tlib_vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-cucumber', { 'for': 'cucumber' }
@@ -259,7 +258,6 @@ nnoremap <C-o> :CtrlPMixed<CR>
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/](\.git|\.hg|\.svn|_site|node_modules|_build|coverage|deps|tmp)$',
   \ }
-
 
 """""""""""""""""""""""""
 " Plugin: deocomplcache "
