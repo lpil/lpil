@@ -1,0 +1,39 @@
+---
+title: Talks
+layout: default
+---
+<h1>Talks</h1>
+
+<ul class="about__talks">
+  {% for talk in site.data.talks_given %}
+    <li>
+      <h1 class="talk__title">{{ talk.title }}</h1>
+      <div>
+         {{ talk.event }} at {{ talk.venue }}, {{ talk.date }}
+      </div>
+      <div class="talk__description">
+        {{ talk.description | markdownify }}
+      </div>
+      <ul>
+{% for link in talk.links %}
+        <li>
+          <a href="{{ link.url }}" target="_blank">{{ link.text }}</a>
+        </li>
+{% endfor %}
+        </li>
+  {% endfor %}
+</ul>
+
+<hr>
+<p>
+  Additionally, here are some talks I've especially enjoyed:
+</p>
+<ul class="about__talks">
+  {% for talk in site.data.talks %}
+    <li>
+      <a href="{{ talk.url }}" target="_blank">{{ talk.title }}</a>
+      by {{ talk.presenter }}
+    </li>
+  {% endfor %}
+</ul>
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">

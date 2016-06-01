@@ -23,25 +23,3 @@
     width: 300px;
   }
 }
-
-.about__links {
-  padding: 0;
-
-  ul {
-    padding-left: 0;
-  }
-
-  li {
-    left: 1em;
-    margin: 0 1.3em;
-    position: relative;
-  }
-
-  @media (min-width: 400px) {
-    text-align: center;
-
-    li {
-      display: inline-block;
-    }
-  }
-}

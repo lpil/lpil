@@ -1,7 +1,21 @@
-- name: Fashioning a Faster Feedback Loop
+- title: Fashioning a Faster Feedback Loop
   date: 2016-05-26
-  event: Elixir Meetup London
+  event: The London Elixir Meetup
   venue: GoCardless
-  slides: http://lpil.github.io/talks/fashioning-a-faster-feedback-loop/
-  notes: |
-    First talk. It went marvellously :)
+  slides: http://lpil.uk/talks/fashioning-a-faster-feedback-loop/
+  links:
+    - text: Slides
+      url: https://lpil.uk/talks/fashioning-a-faster-feedback-loop
+    - text: mix test.watch
+      url: https://github.com/lpil/mix-test.watch
+    - text: mix test --stale
+      url: https://github.com/elixir-lang/elixir/pull/4696
+  description: |
+    Automatic test runners are my go-to tool for creating a fast feedback loop
+    when writing software. Alas, Elixir didn't have one back in the days of
+    version 1.0, so I had to make my own.
+
+    In this talk I give a little code tour of the `mix test.watch` test runner
+    I made, and show some of the things I learnt about the compiler in doing
+    so. This was my first public programming talk, and it inspired the
+    excellent `--stale` option of `mix test`, Elixir's regular test runner.

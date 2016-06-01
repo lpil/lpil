@@ -1,21 +1,40 @@
 ---
 layout: default
+redirect_from:
+  - /about/
 ---
 <div class="home">
-  <p>
-    <span class="home__hi">Hi</span>, I'm Louis, a software engineer and
-    music fanatic based in London, UK. You can find me and my work on
-    <a href="http://github.com/lpil">Github</a>. Drop me an
-    <a href="mailto:my-first-name@this-domain" class="js-muddled-email"
-      target="_blank">email</a> if you fancy a chat.
-  </p>
+  <article class="about__intro">
+    <img class="about__gravatar-image" alt="A picture of me"
+      src="https://secure.gravatar.com/avatar/11a70fd3673e3bc3931ea118cc3d12f5?s=300" />
+    <section>
+    <p>
+      <span class="home__hi">Hi</span>, I'm Louis, a software engineer and
+      music fanatic based in London, UK.
+    </p>
+    <p>
+      I work for a most excellent company called
+      <a class="no-wrap" href="http://red-badger.com/" target="_blank">
+        Red Badger,</a> I primarily enjoy solving problems with languages
+      begining with the letter 'E' (namely Elixir, Erlang, and Elm), though
+      I've also been known to use Clojure, Ruby and Javascript when other
+      letters take my fancy.
+    </p>
+    <p>
+      I dig functional programming, understandable code, and a test driven
+      style of development.
+    </p>
+    </section>
+  </article>
+
+  <br>
 
   <ul class="posts">
-{% for post in site.posts %}
+    {% for post in site.posts %}
     <li>
       <span class="posts__date">{{ post.date | date: "%d.%m.%y" }}</span>
       <a class="post__link" href="{{ post.url }}">{{ post.title }}</a>
     </li>
-{% endfor %}
+    {% endfor %}
   </ul>
 </div>
