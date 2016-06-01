@@ -3,6 +3,8 @@ title:  "I made a site"
 categories:
   - lpil.uk
   - Web dev
+redirect_from:
+  - /blog/I-made-a-site
 ---
 
 **Update:** This post is no longer an accurate description of this site. Since
