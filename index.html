@@ -1,3 +1,6 @@
+---
+layout: default
+---
 <div class="home">
   <p>
     <span class="home__hi">Hi</span>, I'm Louis, a software engineer and
@@ -8,15 +11,11 @@
   </p>
 
   <ul class="posts">
-    <% blog.articles.each do |post| %>
-      <li>
-        <span class="posts__date"><%= post.date.strftime '%d.%m.%y' %></span>
-        <%= link_to post.title, post, class: 'posts__link' %>
-      </li>
-    <% end %>
+{% for post in site.posts %}
+    <li>
+      <span class="posts__date">{{ post.date | date: "%d.%m.%y" }}</span>
+      <a class="post__link" href="{{ post.url }}">{{ post.title }}</a>
+    </li>
+{% endfor %}
   </ul>
-  <span class="posts__feed">
-    <i class="fa fa-rss"></i>
-    <%= link_to 'Feed', "#{blog.options.prefix}/feed.xml" %>
-  </span>
 </div>

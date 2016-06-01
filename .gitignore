@@ -2,4 +2,5 @@
 /.bundle
 /.cache
 /.sass-cache
-/build
+/_site
+

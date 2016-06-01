@@ -1,11 +1,9 @@
----
----
-
 * {
   box-sizing: border-box;
 }
 
 @import 'vendor/normalize';
+@import 'vendor/syntax';
 
 @import 'modules/variables';
 @import 'modules/clearfix';
@@ -25,5 +23,3 @@
 .content {
   padding: 0.6em;
 }
-
-<%= Rouge::Themes::Github.render scope: '.highlight' %>

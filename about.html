@@ -1,6 +1,6 @@
 ---
 title: About
-layout: page
+layout: default
 ---
 <section class="about__intro">
   <img class="about__gravatar-image" alt="A picture of me"
@@ -42,11 +42,11 @@ layout: page
   Here are some talks I've especially enjoyed.
 </p>
 <ul class="about__talks">
-  <% data.talks.each do |talk| %>
+  {% for talk in site.data.talks %}
     <li>
-      <%= link_to talk.title, talk.url, target: '_blank' %>
-      by <%= talk.presenter %>
+      <a href="{{ talk.url }}" target="_blank">{{ talk.title }}</a>
+      by {{ talk.presenter }}
     </li>
-  <% end %>
+  {% endfor %}
 </ul>
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">

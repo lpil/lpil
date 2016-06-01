@@ -1,0 +1,31 @@
+---
+title: Things I've Made
+layout: default
+---
+<ul>
+  {% for project in site.data.projects %}
+    <li>
+      <h3>{{ project.name }}</h3>
+      {% if project.description %}
+        <p>{{ project.description }}</p>
+      {% endif %}
+      {% if project.github %}
+        <div>
+          View the code on <a href="https://github.com/{{ project.github }}" target="_blank">GitHub</a>.
+        </div>
+      {% endif %}
+      {% if project.live_link %}
+        <div>
+          View it live <a href="{{ project.live_link }}" target="_blank">here</a>.
+        </div>
+      {% endif %}
+    </li>
+    <br>
+  {% endfor %}
+</ul>
+<hr>
+<p>
+  That's just a handful of favourites. I've got loads more projects that be
+  found on my <a href="https://github.com/lpil" target="_blank">GitHub</a>
+  account. Feel free to have a look.
+</p>
