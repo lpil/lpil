@@ -2,9 +2,8 @@ baseurl: ""
 url: "http://lpil.uk/"
 
 markdown: kramdown
-permalinks: pretty
 
-permalink: "/blog/:title"
+permalink: "/blog/:title/"
 
 gems:
   - jekyll-redirect-from
