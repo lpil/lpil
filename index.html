@@ -32,7 +32,7 @@ redirect_from:
   <ul class="posts">
     {% for post in site.posts %}
     <li>
-      <span class="posts__date">{{ post.date | date: "%d.%m.%y" }}</span>
+      <span class="posts__date">{{ post.date | date: "%y-%m-%d" }}</span>
       <a class="post__link" href="{{ post.url }}">{{ post.title }}</a>
     </li>
     {% endfor %}
