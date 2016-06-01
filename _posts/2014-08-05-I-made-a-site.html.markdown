@@ -21,6 +21,10 @@ But still, this is how I did it first time round- enjoy.
 
 ---
 
+**Update again:** Back to Jekyll so I can use GitHub pages. Woo.
+
+---
+
 It struck me the other day that a web developer should probably have a personal
 website. I feel it doesn't inspire much confidence if a creator doesn't use
 what they produce. Plus, if I made a site, I'd get to play with some new toys.
@@ -33,7 +37,7 @@ Github team. Static sites are great! They're *really fast*, there's no database
 to fiddle about with, and deploying the site is as easy as `git pull; jekyll
 build`. Jekyll also has support for [SCSS][scss] and
 [Coffeescript][coffeescript], compiling them to CSS and Javascript when it
-compiles the site. What's not to like? 
+compiles the site. What's not to like?
 
 The guys at [thoughtbot][thoughtbot] have made a ton of awesome open source web
 dev toys, and this time round I've been using [Bourbon][bourbon], a SCSS mixin
@@ -75,7 +79,7 @@ when I save a file in development- no more manually refreshing the page to see
 my changes! I run `jekyll serve --watch` to start a webserver that'll serve the
 compiled site, and recompile said site each time I make a change. I then start
 Guard with Guard::LiveReload, which monitors my file system, and uses
-Javascript voodoo to refresh my browser each time Jekyll recompiles the site. 
+Javascript voodoo to refresh my browser each time Jekyll recompiles the site.
 
 On the LiveReload website they recommend various web browser plugins, but I
 didn't have much luck with them. Instead, I opted to just have Jekyll [include
@@ -91,7 +95,7 @@ And that's about it. If you're interested in having a look at how it all fits
 together, the source for this site can be found in this
 [Github repo][site-repo]. (Drop me a pull request when you find a typo.)
 
-Cheers,  
+Cheers,
 Louis
 
 [jekyll]: http://jekyllrb.com
