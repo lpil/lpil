@@ -25,7 +25,7 @@ update msg model =
       model + 1
 
     Decrement ->
-      model + 1
+      model - 1
 
 
 -- Subscriptions

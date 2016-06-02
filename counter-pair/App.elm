@@ -40,7 +40,7 @@ update message model =
       )
 
     Bot msg ->
-      ( { model | topCounter = Counter.update msg model.botCounter }
+      ( { model | botCounter = Counter.update msg model.botCounter }
       , Cmd.none
       )
 
@@ -56,5 +56,9 @@ subscriptions model =
 
 view : Model -> Html Msg
 view model =
-  h1 []
-    [ text "Hello!" ]
+  div []
+    [ Html.App.map Top (Counter.view model.topCounter)
+    , br [] []
+    , Html.App.map Bot (Counter.view model.botCounter)
+    -- , button [ onClick Reset ] [ text "RESET" ]
+    ]
