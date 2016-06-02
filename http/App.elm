@@ -1,6 +1,6 @@
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Html.Events exposing (onClick)
+import Html.Events exposing (onClick, onInput)
 import Html.App
 import Http
 import Task
@@ -33,12 +33,16 @@ init =
 
 type Msg
   = GifRequest
+  | SetTopic String
   | FetchSucceed String
   | FetchFail Http.Error
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   case msg of
+    SetTopic topic ->
+      ({ model | topic = topic }, Cmd.none)
+
     GifRequest ->
       (model, getRandomGif model.topic)
 
@@ -71,8 +75,11 @@ subscriptions model =
 view : Model -> Html Msg
 view model =
   div []
-    [ h2 [] [ text model.topic ]
+    [ h2 [] [ text <| if model.topic == "" then "???" else model.topic ]
     , button [ onClick GifRequest ] [ text "More Please!" ]
+    , br [] []
+    , br [] []
+    , input [ onInput SetTopic, value model.topic ] [ text model.topic ]
     , br [] []
     , br [] []
     , img [ src model.gifUrl ] []
