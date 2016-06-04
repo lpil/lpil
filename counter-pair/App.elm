@@ -32,6 +32,7 @@ init =
 type Msg
   = Top Counter.Msg
   | Bot Counter.Msg
+  | Swap
   | Reset
 
 update : Msg -> Model -> (Model, Cmd a)
@@ -47,8 +48,18 @@ update message model =
       , Cmd.none
       )
 
+    Swap ->
+      (swapCounters(model), Cmd.none)
+
     Reset ->
       init
+
+swapCounters : Model -> Model
+swapCounters model =
+  { model
+  | botCounter = model.topCounter
+  , topCounter = model.botCounter
+  }
 
 
 -- Subscriptions
@@ -67,4 +78,5 @@ view model =
     , br [] []
     , Html.App.map Bot (Counter.view model.botCounter)
     , button [ onClick Reset ] [ text "Reset" ]
+    , button [ onClick Swap ] [ text "Swap" ]
     ]
