@@ -8,15 +8,16 @@ import Html exposing (..)
 type alias Model =
   Int
 
-init : Int -> Model
-init value =
-  value
+init : Model
+init =
+  0
 
 -- Update
 
 type Msg
   = Increment
   | Decrement
+  | Reset
 
 update : Msg -> Model -> Model
 update msg model =
@@ -26,6 +27,9 @@ update msg model =
 
     Decrement ->
       model - 1
+
+    Reset ->
+      init
 
 
 -- Subscriptions
@@ -40,4 +44,7 @@ view model = div []
   [ button [ onClick Decrement ] [ text "-" ]
   , div [] [model |> toString |> text]
   , button [ onClick Increment ] [ text "+" ]
+  , br [] []
+  , button [ onClick Reset ] [ text "Reset" ]
+  , br [] []
   ]

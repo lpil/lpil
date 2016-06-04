@@ -21,8 +21,8 @@ type alias Model =
 
 init : (Model, Cmd a)
 init =
-  ( { topCounter = Counter.init 0
-    , botCounter = Counter.init 0
+  ( { topCounter = Counter.init
+    , botCounter = Counter.init
     }
   , Cmd.none
   )
@@ -33,7 +33,6 @@ type Msg
   = Top Counter.Msg
   | Bot Counter.Msg
   | Swap
-  | Reset
 
 update : Msg -> Model -> (Model, Cmd a)
 update message model =
@@ -50,9 +49,6 @@ update message model =
 
     Swap ->
       (swapCounters(model), Cmd.none)
-
-    Reset ->
-      init
 
 swapCounters : Model -> Model
 swapCounters model =
@@ -77,6 +73,6 @@ view model =
     [ Html.App.map Top (Counter.view model.topCounter)
     , br [] []
     , Html.App.map Bot (Counter.view model.botCounter)
-    , button [ onClick Reset ] [ text "Reset" ]
+    , br [] []
     , button [ onClick Swap ] [ text "Swap" ]
     ]
