@@ -1,11 +1,12 @@
 import Counter
 import Html exposing (..)
+import Html.Events exposing (onClick)
 import Html.App
 
 main : Program Never
 main =
   Html.App.program
-    { init = init 0 0
+    { init = init
     , subscriptions = subscriptions
     , update = update
     , view = view
@@ -18,10 +19,11 @@ type alias Model =
   , botCounter : Counter.Model
   }
 
-init : Int -> Int -> (Model, Cmd a)
-init top bot =
-  ( { topCounter = Counter.init top
-    , botCounter = Counter.init bot }
+init : (Model, Cmd a)
+init =
+  ( { topCounter = Counter.init 0
+    , botCounter = Counter.init 0
+    }
   , Cmd.none
   )
 
@@ -30,6 +32,7 @@ init top bot =
 type Msg
   = Top Counter.Msg
   | Bot Counter.Msg
+  | Reset
 
 update : Msg -> Model -> (Model, Cmd a)
 update message model =
@@ -43,6 +46,9 @@ update message model =
       ( { model | botCounter = Counter.update msg model.botCounter }
       , Cmd.none
       )
+
+    Reset ->
+      init
 
 
 -- Subscriptions
@@ -60,5 +66,5 @@ view model =
     [ Html.App.map Top (Counter.view model.topCounter)
     , br [] []
     , Html.App.map Bot (Counter.view model.botCounter)
-    -- , button [ onClick Reset ] [ text "RESET" ]
+    , button [ onClick Reset ] [ text "Reset" ]
     ]
