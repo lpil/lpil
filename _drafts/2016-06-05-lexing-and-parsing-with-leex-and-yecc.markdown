@@ -39,21 +39,20 @@ this:
 
 ```elixir
 [
-  open_paren:  "(",
-  atom:        "add",
-  int:         "1",
-  open_paren:  "(",
-  atom:        "add",
-  int:         "2",
-  int:         "3",
-  close_paren: ")",
-  close_paren: ")",
+  "(":  "(",
+  atom: "add",
+  int:  "1",
+  "(":  "(",
+  atom: "add",
+  int:  "2",
+  int:  "3",
+  ")":  ")",
+  ")":  ")",
 ]
 ```
 
-Our string can be broken down into a combination of tokens of types
-`open_paren` and `close_paren` `atom,` or `int` all of which can have
-their own value.
+Our string can be broken down into a combination of tokens of types `(`, `)`,
+`atom,` or `int` all of which can have their own value.
 
 Once we have these tokens we can use Yecc to build the abstract syntax tree,
 which could look like this in Elixir:
@@ -97,7 +96,7 @@ this, create the directory, and then make a placeholder test which we can run
 to check that everything works..
 
 ```erlang
-% rebar.config
+%%% rebar.config
 {erl_opts, [debug_info]}.
 {eunit_tests, [{dir, "test"}]}. % This line is new.
 {deps, []}.
@@ -148,7 +147,7 @@ Now to write some basic assertions about what we expect from our tokenizer.
 -include_lib("eunit/include/eunit.hrl").
 
 -define(assertTokens(Code, Tokens),
-        ?assertMatch(Tokens, lisp_lexer:string(Code))).
+        ?assertEqual(Tokens, lisp_lexer:string!(Code))).
 
 int_test() ->
   ?assertTokens("1",    [{int, "1"}]),
@@ -175,15 +174,15 @@ atom_test() ->
 
 expression_test() ->
   ?assertTokens("(add 1 (mult 2 3))",
-                [{open_paren,  "("},
-                 {atom,        "add"},
-                 {int,         "1"},
-                 {open_paren,  "("},
-                 {atom,        "mult"},
-                 {int,         "2"},
-                 {int,         "3"},
-                 {close_paren, ")"},
-                 {close_paren, ")"}]).
+                [{'(',  "("},
+                 {atom, "add"},
+                 {int,  "1"},
+                 {'(',  "("},
+                 {atom, "mult"},
+                 {int,  "2"},
+                 {int,  "3"},
+                 {')',  ")"},
+                 {')',  ")"}]).
 ```
 
 `int_test/0` and `float_test/0` assert that the lexer can tokenize integers,
@@ -200,7 +199,98 @@ expression used earlier.
 
 Time to write our lexer.
 
-
 ## Writing Leex
 
+In Leex we use regular expressions to define a set of rules dictating what the
+lexer should consider tokens. Each rule has an associated data structure or
+either `skip_token` or `{token, YourToken}` which dictates the contents of the
+token tuple to be returned, if any.
 
+```erlang
+{Regex} : DataStructure
+```
+
+Here's a Leex module that will make the tests pass:
+
+```erlang
+%%% src/lisp_lexer.xrl
+
+Definitions. %% Regexes to be used in Rules
+
+WS     = [\n\s\r\t]
+Int    = [+-]?[0-9]+
+Float  = [+-]?[0-9]+\.[0-9]+
+String = "([^\\""]|\\.)*"
+Atom   = [a-zA-Z_^!+=*\-\?]+
+
+Rules. %% Mappings between regexes and token tuples
+
+{WS}     : skip_token.
+[(]      : {token, {'(' TokenChars}}.
+[)]      : {token, {')' TokenChars}}.
+{Int}    : {token, {int, TokenChars}}.
+{Float}  : {token, {float, TokenChars}}.
+{String} : {token, {string, strValue(TokenChars)}}.
+{Atom}   : {token, {atom, TokenChars}}.
+
+
+Erlang code. %% Helper functions
+
+-export(['string!'/1]).
+
+'string!'(Code) ->
+ {ok, Tokens, _} = string(Code),
+ Tokens.
+
+strValue(S) when is_list(S) ->
+  Contents  = tl(lists:droplast(S)),
+  deescape(Contents, []).
+
+deescape([$\\, C|Tail], Acc) -> deescape(Tail, [C|Acc]);
+deescape([C|Tail]     , Acc) -> deescape(Tail, [C|Acc]);
+deescape([]           , Acc) -> lists:reverse(Acc).
+```
+
+In the definitions section I've named a series of regexes that will match our
+various token types.
+
+In the Rules section I've specified token tuples for all the definitions
+except `WS`, which we discard as our syntax doesn't care about whitespace.
+
+For the value of most token tuples I use the `TokenChars` variable which
+contains the characters matched by the regex. The string token is different,
+for that one I drop the quotes and remove any escape characters to get the
+writer's intended value.
+
+
+## Parsing with Yecc
+
+The next step is to transform the tokens into the AST, which is where Yecc
+comes in. I'm going to write some tests again to make assertions about the
+tree I expect. As the parser is so tightly coupled to the lexer I'm going to
+test them both, rather than trying to isolate just the parser.
+
+```erlang
+-module(lisp_parser_test).
+-include_lib("eunit/include/eunit.hrl").
+
+-define(assertAST(Code, AST),
+        ?assertEqual(AST, lisp_parser:'string!'(Code))).
+
+literal_test() ->
+  ?assertAST("",       []),
+  ?assertAST("12345",  [12345]),
+  ?assertAST("-5",     [-5]),
+  ?assertAST("1.5",    [1.5]),
+  ?assertAST("\"Hi\"", ["Hi"]),
+  ?assertAST("sup",    [sup]),
+  ?assertAST("()",     [[]]).
+
+expression_test() ->
+  ?assertAST("(mult 1 2)",    [[mult, 1, 2]]),
+  ?assertAST("(+ 1 2 3)",     [['+', 1, 2, 3]]),
+  ?assertAST("(+ 3 (- 5 1))", [['+', 3, ['-', 5, 1]]]).
+
+multiple_expression_test() ->
+  ?assertAST("(print hi) (id 2)", [[print, hi], [id, 2]]).
+```
