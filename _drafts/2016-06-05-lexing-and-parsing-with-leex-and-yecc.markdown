@@ -137,6 +137,7 @@ files.
 
 ```console
 $ echo src/lisp_lexer.erl >> .gitignore
+$ echo src/lisp_parser.erl >> .gitignore
 ```
 
 Now to write some basic assertions about what we expect from our tokenizer.
