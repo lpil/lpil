@@ -1,5 +1,10 @@
 lpil.uk
 =======
 
-    bundle install
-    make
+```sh
+# Install deps
+bundle install
+
+# Run dev server
+make
+```

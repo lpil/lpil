@@ -7,6 +7,7 @@ permalink: "/blog/:title/"
 
 gems:
   - jekyll-redirect-from
+  - jekyll-compose
 
 whitelist:
   - jekyll-redirect-from

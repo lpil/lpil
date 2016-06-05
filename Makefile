@@ -1,11 +1,11 @@
 serve: ## Run the development server
-	bundle exec jekyll server --watch --safe
+	bundle exec jekyll server --watch --safe --drafts
 
 build: clean ## Compile the site
 	JEKYLL_ENV=production bundle exec jekyll build
 
 debug: clean ## Run the development server in verbose mode
-	JEKYLL_ENV=production bundle exec jekyll build --verbos
+	JEKYLL_ENV=production bundle exec jekyll build --verbose
 
 clean: ## Delete compiled output
 	rm -rf _site
