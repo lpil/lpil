@@ -159,6 +159,7 @@ let g:markdown_fenced_languages = [
       \'clojure',
       \'css',
       \'elixir',
+      \'erlang',
       \'haskell',
       \'html',
       \'javascript',
