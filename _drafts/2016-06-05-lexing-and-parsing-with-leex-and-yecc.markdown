@@ -316,7 +316,7 @@ Higher level components that are made by composing terminals or other
 nonterminals. For example, a nonterminal called `literal` could be an `atom`,
 `int`, `float`, or a `string`.
 
-```erlang
+```
 literal -> atom
 literal -> int
 literal -> float
@@ -327,7 +327,7 @@ A nonterminal called `elements` could be one or more literals, though this
 would be expressed recursively, so `elements` is a `literal`, or a `literal`
 followed by `elements`.
 
-```erlang
+```
 elements -> element
 elements -> element elements
 ```
