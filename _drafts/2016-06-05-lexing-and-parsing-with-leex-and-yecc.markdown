@@ -65,7 +65,7 @@ Notice how similar this Elixir representation of the AST is to the actual Lisp
 syntax?
 
 ```clojure
-(add 1, (add 2 3))
+(add 1 (add 2 3))
 ```
 
 This is why some say that Lisp has no syntax, you're more or less directly
@@ -294,4 +294,40 @@ expression_test() ->
 
 multiple_expression_test() ->
   ?assertAST("(print hi) (id 2)", [[print, hi], [id, 2]]).
+```
+
+With these tests in place I can start creating the parser with Yecc.
+
+Much like a Leec module, a Yeec module is made up of a fixed number of
+sections.
+
+### Terminals
+
+A list of bottom level tokens that the parser can understand. In our case this
+would be `'('`, `')'`, `int`, `float`, `string`, and `atom.
+
+```erlang
+Terminals int float string atom '(' ')'.
+```
+
+### Nonterminals
+
+Higher level components that are made by composing terminals or other
+nonterminals. For example, a nonterminal called `literal` could be an `atom`,
+`int`, `float`, or a `string`.
+
+```erlang
+literal -> atom
+literal -> int
+literal -> float
+literal -> string
+```
+
+A nonterminal called `elements` could be one or more literals, though this
+would be expressed recursively, so `elements` is a `literal`, or a `literal`
+followed by `elements`.
+
+```erlang
+elements -> element
+elements -> element elements
 ```
