@@ -21,13 +21,12 @@ Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'foosoft/vim-argwrap', { 'on': 'ArgWrap' }
 Plug 'godlygeek/tabular'
 Plug 'guns/vim-sexp', { 'for': lisp_languages }
+Plug 'hashivim/vim-terraform'
 Plug 'honza/vim-snippets'
-Plug 'jeetsukumaran/vim-buffergator'
 Plug 'jpalardy/vim-slime'
 Plug 'junegunn/vader.vim', { 'on': 'Vader', 'for': 'vader' }
 Plug 'kylef/apiblueprint.vim', { 'for': 'apiblueprint' }
 Plug 'lambdatoast/elm.vim', { 'for': 'elm' }
-Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 Plug 'marcweber/vim-addon-mw-utils'
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'rhysd/clever-f.vim'
@@ -236,7 +235,6 @@ nnoremap <leader>ct :! ctags -R .<cr>
 """""""""""""""""""
 
 nnoremap <F1> :set hlsearch!<CR>
-nnoremap <F3> :BuffergatorToggle<CR>
 nnoremap <F4> :setlocal spell!<CR>
 nnoremap <F5> :SyntasticToggleMode<CR>
 
