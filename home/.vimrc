@@ -18,6 +18,7 @@ Plug 'digitaltoad/vim-pug', { 'for': ['pug', 'jade'] }
 Plug 'elixir-lang/vim-elixir', { 'for': ['elixir', 'markdown'] }
 Plug 'evanmiller/nginx-vim-syntax', { 'for': 'nginx' }
 Plug 'fatih/vim-go', { 'for': 'go' }
+Plug 'flowtype/vim-flow', { 'for': ['javascript'] }
 Plug 'foosoft/vim-argwrap', { 'on': 'ArgWrap' }
 Plug 'godlygeek/tabular'
 Plug 'guns/vim-sexp', { 'for': lisp_languages }
