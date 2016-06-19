@@ -1,5 +1,5 @@
 float brightness() {
-  return -1.0;
+  return 1.0;
 }
 
 //Do not change this line
