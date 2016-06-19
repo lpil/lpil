@@ -13,6 +13,7 @@ let lisp_languages = ['scheme', 'clojure']
 
 Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'scss.css'] }
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'tikhomirov/vim-glsl', { 'for': 'glsl' }
 Plug 'dermusikman/sonicpi.vim'
 Plug 'digitaltoad/vim-pug', { 'for': ['pug', 'jade'] }
 Plug 'elixir-lang/vim-elixir', { 'for': ['elixir', 'markdown'] }
