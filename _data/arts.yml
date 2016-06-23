@@ -1,0 +1,7 @@
+- name: Conversion Bars
+  github: lpil/conversion-bars
+  url: https://lpil.uk/conversion-bars
+
+- name: Tunnel
+  github: lpil/tunnel
+  url: https://lpil.uk/tunnel
