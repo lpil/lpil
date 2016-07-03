@@ -4,7 +4,7 @@ Frontend Boilerplate
 A starting point for simple frontend apps.
 
 This template includes webpack for compiling all your application's Javascript
-and CSS files into one Javascript file that can be downloaded by the user.
+files into one file that can be downloaded by the user.
 
 To use this template clone the repo, delete the `.git` directory that is
 inside the repo, git init your own project, and then start hacking. :)
