@@ -29,10 +29,12 @@ redirect_from:
 
   <br>
 
+  <h3>Occasionally I write things:</h3>
+
   <ul class="posts">
     {% for post in site.posts %}
     <li>
-      <span class="posts__date">{{ post.date | date: "%y-%m-%d" }}</span>
+      <span class="posts__date">{{ post.date | date: "%d %b, %Y" }}</span>
       <a class="post__link" href="{{ post.url }}">{{ post.title }}</a>
     </li>
     {% endfor %}

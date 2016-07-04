@@ -1,6 +1,6 @@
 .posts {
   margin-bottom: 2em;
-  padding: 0 1em;
+  padding: 0;
 
   li {
     margin: .1em;
@@ -8,8 +8,12 @@
 }
 
 .posts__date {
-  font-family: $monospace-font-family;
-  margin-right: 1em;
+  display: none;
+
+  @media (min-width: $max-page-width) {
+    display: inline;
+    float: right;
+  }
 }
 
 .posts__feed {
