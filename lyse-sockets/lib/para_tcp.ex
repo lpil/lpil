@@ -12,7 +12,8 @@ defmodule ParaTCP.Supervisor do
   end
 
   def init(port) do
-    {:ok, listen_socket} = :gen_tcp.listen(port, active: :once, packet: :line)
+    args = [:binary] ++ [active: :once, packet: :line]
+    {:ok, listen_socket} = :gen_tcp.listen(port, args)
     start_listeners()
     children = [
       worker(ParaTCP.Listener, [listen_socket], []),
@@ -51,7 +52,7 @@ defmodule ParaTCP.Listener do
     {:noreply, socket}
   end
 
-  def handle_info({:tcp, socket, 'quit' ++ _}, socket),
+  def handle_info({:tcp, socket, "quit" <>  _}, socket),
     do: close(socket)
   def handle_info({:tcp_closed, socket}, socket),
     do: close(socket)
