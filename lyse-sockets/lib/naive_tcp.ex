@@ -18,11 +18,17 @@ defmodule NaiveTCP do
     :inet.setopts(socket, active: :once)
     receive do
       {:tcp, ^socket, "quit" <> _} ->
+        log("Client quit")
         :gen_tcp.close(socket)
 
       {:tcp, ^socket, msg} ->
+        log("Got message '#{msg}' from client")
         :gen_tcp.send(socket, msg)
         handle(socket)
     end
+  end
+
+  defp log(msg) do
+    IO.puts inspect(self()) <> ": " <> msg
   end
 end
