@@ -1,0 +1,6 @@
+[package]
+name = "pangram"
+version = "0.0.0"
+
+[dependencies]
+lazy_static = "0.1.*"
