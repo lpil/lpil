@@ -9,10 +9,8 @@ pub fn verse(n: u8) -> String {
         String::from("No more bottles of beer on the wall, no more bottles of beer.\n\
                      Go to the store and buy some more, 99 bottles of beer on the wall.\n")
     } else {
-        let curr = bottles(n);
-        let next = bottles(n - 1);
         format!("{0} on the wall, {0}.\n{1}, {2} on the wall.\n",
-                curr, take(n), next)
+                bottles(n), take(n), bottles(n - 1))
     }
 }
 
