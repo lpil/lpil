@@ -12,6 +12,7 @@ call plug#begin('~/.vim/plugged')
 let lisp_languages = ['scheme', 'clojure']
 
 Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'scss.css'] }
+Plug 'cespare/vim-toml', { 'for': 'toml' }
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tikhomirov/vim-glsl', { 'for': 'glsl' }
 Plug 'dermusikman/sonicpi.vim'
