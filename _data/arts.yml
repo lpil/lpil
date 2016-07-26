@@ -1,7 +1,24 @@
-- name: Conversion Bars
+- title: The Watching Room
+  date: 2016-07-26
+  github: lpil/the-watching-room
+  url: https://lpil.uk/the-watching-room
+
+- title: Polaris
+  date: 2016-07-17
+  github: lpil/polaris
+  url: https://lpil.uk/polaris
+
+- title: Orbit Calling
+  date: 2016-07-08
+  github: lpil/orbit-calling
+  url: https://lpil.uk/orbit-calling
+
+- title: Conversion Bars
+  date: 2016-06-23
   github: lpil/conversion-bars
   url: https://lpil.uk/conversion-bars
 
-- name: Tunnel
+- title: Tunnel
+  date: 2016-05-15
   github: lpil/tunnel
   url: https://lpil.uk/tunnel

@@ -39,4 +39,15 @@ redirect_from:
     </li>
     {% endfor %}
   </ul>
+
+  <h3>Sometimes I make digital art:</h3>
+
+  <ul class="posts">
+    {% for art in site.data.arts %}
+      <li>
+        <span class="posts__date">{{ art.date | date: "%b, %Y" }}</span>
+        <a class="post__link" target="_blank" href="{{ art.url }}">{{ art.title }}</a>
+      </li>
+    {% endfor %}
+  </ul>
 </div>
