@@ -22,3 +22,9 @@
   date: 2016-05-15
   github: lpil/tunnel
   url: https://lpil.uk/tunnel
+
+- title: Stepper
+  date: 2016-05-01
+  github: lpil/stepper
+  url: https://lpil.uk/stepper
+  notes: Made in prep for joining Red Badger. i.e. to learn React + Redux.
