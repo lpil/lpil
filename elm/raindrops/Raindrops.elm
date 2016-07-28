@@ -2,8 +2,6 @@ module Raindrops exposing (raindrops)
 
 import List exposing (foldr)
 
--- foldr (+) 0 [1,2,3] == 6
-
 raindrops : Int -> String
 raindrops num =
     let
