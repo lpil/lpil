@@ -1,5 +1,8 @@
 defmodule Item do
-  defstruct name: nil, sell_in: nil, quality: nil
+  @fields name: nil, sell_in: nil, quality: nil
+  defstruct @fields
+
+  def fields, do: @fields
 end
 
 defimpl GildedRose.Update, for: Item do

@@ -1,5 +1,5 @@
 defmodule Item.Sulfuras do
-  defstruct name: nil, sell_in: nil, quality: nil
+  defstruct Item.fields
 end
 
 defimpl GildedRose.Update, for: Item.Sulfuras do
