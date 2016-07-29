@@ -5,17 +5,18 @@ import Set exposing (Set)
 import String
 import List
 
+
 isPangram : String -> Bool
 isPangram string =
     let
         chars =
             string
-            |> String.toLower
-            |> alphasOnly
-            |> String.toList
-            |> Set.fromList
+                |> String.toLower
+                |> alphasOnly
+                |> String.toList
+                |> Set.fromList
     in
-       chars == alphabet
+        chars == alphabet
 
 
 alphasOnly : String -> String
@@ -26,6 +27,5 @@ alphasOnly =
 alphabet : Set Char
 alphabet =
     "abcdefghijklmnopqrstuvwxyz"
-    |> String.toList
-    |> Set.fromList
-
+        |> String.toList
+        |> Set.fromList

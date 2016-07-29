@@ -7,8 +7,7 @@ import Pangram exposing (isPangram)
 tests : Test
 tests =
     suite "Pangram"
-        [
-            test "sentence empty"
+        [ test "sentence empty"
             (assertEqual False
                 (isPangram "")
             )
