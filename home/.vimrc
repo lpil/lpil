@@ -14,10 +14,10 @@ let lisp_languages = ['scheme', 'clojure']
 Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'scss.css'] }
 Plug 'cespare/vim-toml', { 'for': 'toml' }
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'tikhomirov/vim-glsl', { 'for': 'glsl' }
 Plug 'dermusikman/sonicpi.vim'
 Plug 'digitaltoad/vim-pug', { 'for': ['pug', 'jade'] }
 Plug 'elixir-lang/vim-elixir', { 'for': ['elixir', 'markdown'] }
+Plug 'elmcast/elm-vim', { 'for': 'elm' }
 Plug 'evanmiller/nginx-vim-syntax', { 'for': 'nginx' }
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'flowtype/vim-flow', { 'for': ['javascript'] }
@@ -29,7 +29,6 @@ Plug 'honza/vim-snippets'
 Plug 'jpalardy/vim-slime'
 Plug 'junegunn/vader.vim', { 'on': 'Vader', 'for': 'vader' }
 Plug 'kylef/apiblueprint.vim', { 'for': 'apiblueprint' }
-Plug 'lambdatoast/elm.vim', { 'for': 'elm' }
 Plug 'marcweber/vim-addon-mw-utils'
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'rhysd/clever-f.vim'
@@ -40,6 +39,7 @@ Plug 'sirver/ultisnips'
 Plug 'slim-template/vim-slim'
 Plug 'slime-lang/vim-slime-syntax', { 'for': 'slime' }
 Plug 'sunaku/vim-dasht'
+Plug 'tikhomirov/vim-glsl', { 'for': 'glsl' }
 Plug 'tomtom/tlib_vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-cucumber', { 'for': 'cucumber' }
