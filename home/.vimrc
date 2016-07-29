@@ -32,6 +32,7 @@ Plug 'kylef/apiblueprint.vim', { 'for': 'apiblueprint' }
 Plug 'marcweber/vim-addon-mw-utils'
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'rhysd/clever-f.vim'
+Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'sbl/scvim', { 'for': 'supercollider' }
 Plug 'scrooloose/syntastic'
 Plug 'shougo/deoplete.nvim', { 'do': function('DoRemote') }
@@ -55,7 +56,6 @@ Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
 Plug 'vim-scripts/matchit.zip'
-Plug 'wting/rust.vim', { 'for': 'rust' }
 
 call plug#end()
 
