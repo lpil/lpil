@@ -176,6 +176,15 @@ defmodule GildedRoseTest do
       assert update_item(item).quality == 5
     end
 
+    test "-1 < sell_in, quality - 1" do
+      item = %{ @generic | sell_in: -1 }
+      assert update_item(item).quality == 5
+      item = %{ @generic | sell_in: 0 }
+      assert update_item(item).quality == 4
+      item = %{ @generic | sell_in: 1 }
+      assert update_item(item).quality == 4
+    end
+
     test "name and sell_in don't change" do
       assert update_item(@generic).name == @generic.name
       assert update_item(@generic).sell_in == @generic.sell_in
