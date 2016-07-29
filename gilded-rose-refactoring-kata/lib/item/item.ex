@@ -17,9 +17,10 @@ defimpl GildedRose.Update, for: Item do
         Item.BackstagePass
       "Aged Brie" ->
         Item.Brie
+      "Sulfuras, Hand of Ragnaros" ->
+        Item.Sulfuras
       _ ->
         Item.Plain
     end
   end
 end
-
