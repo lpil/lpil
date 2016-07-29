@@ -20,16 +20,20 @@ impl Team {
 
     pub fn register_result(&mut self, result: GameResult) {
         match result {
-            GameResult::Win  => self.wins += 1,
+            GameResult::Win => self.wins += 1,
             GameResult::Loss => self.losses += 1,
             GameResult::Draw => self.draws += 1,
         }
     }
 
     pub fn to_tally(&self) -> String {
-        format!(
-            "{:30} | {:2} | {:2} | {:2} | {:2} | {:2}",
-            self.name, self.matches_played(), self.wins, self.draws, self.losses, self.points())
+        format!("{:30} | {:2} | {:2} | {:2} | {:2} | {:2}",
+                self.name,
+                self.matches_played(),
+                self.wins,
+                self.draws,
+                self.losses,
+                self.points())
     }
 
     pub fn matches_played(&self) -> usize {
@@ -81,7 +85,8 @@ mod tests {
         team.register_result(GameResult::Win);
         team.register_result(GameResult::Loss);
         team.register_result(GameResult::Draw);
-        assert_eq!(team.to_tally(), "Tim                            |  4 |  2 |  1 |  1 |  7");
+        assert_eq!(team.to_tally(),
+                   "Tim                            |  4 |  2 |  1 |  1 |  7");
     }
 
     #[test]

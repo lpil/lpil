@@ -1,6 +1,6 @@
 pub fn reply(msg: &'static str) -> &'static str {
     if msg == "" {
-        return "Fine. Be that way!"
+        return "Fine. Be that way!";
     }
 
     let mut all_uppercase = true;

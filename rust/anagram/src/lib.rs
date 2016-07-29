@@ -1,10 +1,10 @@
 pub fn anagrams_for<'a>(word: &str, words: &[&'a str]) -> Vec<&'a str> {
     let sorted = sort_word(lowercase(word.to_string()));
     words.iter()
-         .cloned()
-         .filter(|x| x.to_string() != word)
-         .filter(|x| sort_word(lowercase(x.to_string())) == sorted)
-         .collect::<Vec<&'a str>>()
+        .cloned()
+        .filter(|x| x.to_string() != word)
+        .filter(|x| sort_word(lowercase(x.to_string())) == sorted)
+        .collect::<Vec<&'a str>>()
 }
 
 

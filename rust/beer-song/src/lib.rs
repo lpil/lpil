@@ -1,7 +1,5 @@
 pub fn sing(start: u8, stop: u8) -> String {
-    (stop..start).rev().fold(verse(start), |acc, n| {
-        acc + "\n" + &verse(n)
-    })
+    (stop..start).rev().fold(verse(start), |acc, n| acc + "\n" + &verse(n))
 }
 
 pub fn verse(n: u8) -> String {
@@ -10,7 +8,9 @@ pub fn verse(n: u8) -> String {
                      Go to the store and buy some more, 99 bottles of beer on the wall.\n")
     } else {
         format!("{0} on the wall, {0}.\n{1}, {2} on the wall.\n",
-                bottles(n), take(n), bottles(n - 1))
+                bottles(n),
+                take(n),
+                bottles(n - 1))
     }
 }
 

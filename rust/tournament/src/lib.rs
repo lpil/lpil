@@ -18,8 +18,7 @@ pub enum GameResult {
 }
 
 pub fn tally(csv: &CSV) -> Tally {
-    let teams = csv
-        .lines()
+    let teams = csv.lines()
         .flat_map(row_to_info)
         .fold(HashMap::new(), |acc, (name_a, name_b, result)| {
             let acc = register_result(acc, name_a, result.clone());
@@ -27,8 +26,7 @@ pub fn tally(csv: &CSV) -> Tally {
         });
     let teams: Vec<_> = teams.values().collect();
     let teams = sort_teams(teams);
-    let body: String = teams
-        .iter()
+    let body: String = teams.iter()
         .map(|e| e.to_tally())
         .collect::<Vec<_>>()
         .join("\n");
@@ -39,18 +37,20 @@ type ResultInfo = Option<(String, String, GameResult)>;
 
 fn row_to_info(row: &str) -> ResultInfo {
     let data: Vec<&str> = row.split(";").take(3).collect();
-    if data.len() != 3 { return None }
+    if data.len() != 3 {
+        return None;
+    }
     match data[2] {
-        "win"  => Some((data[0].to_string(), data[1].to_string(), GameResult::Win)),
+        "win" => Some((data[0].to_string(), data[1].to_string(), GameResult::Win)),
         "draw" => Some((data[0].to_string(), data[1].to_string(), GameResult::Draw)),
         "loss" => Some((data[0].to_string(), data[1].to_string(), GameResult::Loss)),
-        _      => None
+        _ => None,
     }
 }
 
 fn flip_result(result: GameResult) -> GameResult {
     match result {
-        GameResult::Win  => GameResult::Loss,
+        GameResult::Win => GameResult::Loss,
         GameResult::Draw => GameResult::Draw,
         GameResult::Loss => GameResult::Win,
     }

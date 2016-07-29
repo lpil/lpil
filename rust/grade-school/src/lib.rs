@@ -10,14 +10,11 @@ pub struct School {
 
 impl School {
     pub fn new() -> School {
-        School {
-            scores: HashMap::new(),
-        }
+        School { scores: HashMap::new() }
     }
 
     pub fn add(&mut self, grade: Grade, student: &str) {
-        let students = self
-            .scores
+        let students = self.scores
             .entry(grade)
             .or_insert(vec![]);
         students.push(student.to_string());
@@ -25,8 +22,7 @@ impl School {
     }
 
     pub fn grades(&self) -> Vec<Grade> {
-        let mut grades = self
-            .scores
+        let mut grades = self.scores
             .keys()
             .cloned()
             .collect::<Vec<Grade>>();

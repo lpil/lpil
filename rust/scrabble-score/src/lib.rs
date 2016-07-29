@@ -37,7 +37,7 @@ fn char_to_score(c: char) -> Score {
         'x' => 8,
         'q' => 10,
         'z' => 10,
-        _   => 0,
+        _ => 0,
     }
 }
 

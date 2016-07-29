@@ -12,21 +12,19 @@ impl Roman {
     }
 }
 
-static RULES: [(usize, &'static str); 13] = [
-    (1000, "M" ),
-    (900,  "CM"),
-    (500,  "D" ),
-    (400,  "CD"),
-    (100,  "C" ),
-    (90,   "XC"),
-    (50,   "L" ),
-    (40,   "XL"),
-    (10,   "X" ),
-    (9,    "IX"),
-    (5,    "V" ),
-    (4,    "IV"),
-    (1,    "I" ),
-];
+static RULES: [(usize, &'static str); 13] = [(1000, "M"),
+                                             (900, "CM"),
+                                             (500, "D"),
+                                             (400, "CD"),
+                                             (100, "C"),
+                                             (90, "XC"),
+                                             (50, "L"),
+                                             (40, "XL"),
+                                             (10, "X"),
+                                             (9, "IX"),
+                                             (5, "V"),
+                                             (4, "IV"),
+                                             (1, "I")];
 
 fn convert(n: usize, acc: &mut String) -> &mut String {
     let rule = RULES.iter().find(|&&(i, _)| n >= i);
@@ -35,7 +33,6 @@ fn convert(n: usize, acc: &mut String) -> &mut String {
             acc.push_str(s);
             convert(n - i, acc)
         }
-        None =>
-            acc
+        None => acc,
     }
 }

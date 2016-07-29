@@ -11,8 +11,7 @@ lazy_static! {
 }
 
 pub fn is_pangram(sentence: &&str) -> bool {
-    let iter = sentence
-        .chars()
+    let iter = sentence.chars()
         .filter(|e| e.is_ascii())
         .filter(|e| e.is_alphabetic())
         .flat_map(|e| e.to_lowercase());

@@ -22,8 +22,7 @@ impl DeoxyribonucleicAcid {
 
     pub fn to_rna(&self) -> RibonucleicAcid {
         let DeoxyribonucleicAcid(ref dna_stand) = *self;
-        let rna_strand = dna_stand
-            .chars()
+        let rna_strand = dna_stand.chars()
             .flat_map(dna_base_to_rna_base)
             .collect::<String>();
         RibonucleicAcid(rna_strand)
@@ -37,6 +36,6 @@ fn dna_base_to_rna_base(c: Base) -> Option<Base> {
         'A' => Some('U'),
         'T' => Some('A'),
         'G' => Some('C'),
-        _ => None
+        _ => None,
     }
 }
