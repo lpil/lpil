@@ -19,6 +19,10 @@ defimpl GildedRose.Update, for: Item do
         Item.Brie
       "Sulfuras, Hand of Ragnaros" ->
         Item.Sulfuras
+      "+5 Dexterity Vest" ->
+        Item.Magic
+      "Elixir of the Mongoose" ->
+        Item.Magic
       _ ->
         Item.Plain
     end
