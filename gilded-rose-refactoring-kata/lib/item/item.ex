@@ -15,6 +15,8 @@ defimpl GildedRose.Update, for: Item do
     case item.name do
       "Backstage passes to a TAFKAL80ETC concert" ->
         Item.BackstagePass
+      "Aged Brie" ->
+        Item.Brie
       _ ->
         Item.Plain
     end
