@@ -3,6 +3,10 @@ defmodule Item.BackstagePass do
 end
 
 defimpl GildedRose.Update, for: Item.BackstagePass do
+  def update(%{ quality: 0 } = item) do
+    item
+  end
+
   def update(%{ quality: q } = item) when 49 < q do
     item
   end
