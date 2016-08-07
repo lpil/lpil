@@ -33,4 +33,45 @@ all =
                     |> decodeString decoder3
                     |> equal
                         (Ok "Sarah is a 32 year old engineer")
+        , test "decoding lists" <|
+            \() ->
+                """
+                [ 1, 2, 3, 4, 5, 6, 7 ]
+                """
+                    |> decodeString decoder4
+                    |> equal
+                        (Ok [ 1, 2, 3, 4, 5, 6, 7 ])
+        , test "optional value present" <|
+            \() ->
+                """
+                { "name": "Sarah", "role": "boss" }
+                """
+                    |> decodeString decoder5
+                    |> equal
+                        (Ok ( "Sarah", Just "boss" ))
+        , test "optional value not present" <|
+            \() ->
+                """
+                { "name": "Sarah" }
+                """
+                    |> decodeString decoder5
+                    |> equal
+                        (Ok ( "Sarah", Nothing ))
+        , test "optional value not present" <|
+            \() ->
+                """
+                {
+                    "user": {
+                        "email": "some@thi.ng",
+                        "token": "this-is-a-token"
+                    }
+                }
+                """
+                    |> decodeString decoder6
+                    |> equal
+                        (Ok
+                            { email = "some@thi.ng"
+                            , token = "this-is-a-token"
+                            }
+                        )
         ]
