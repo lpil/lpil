@@ -14,7 +14,6 @@ let lisp_languages = ['scheme', 'clojure']
 Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'scss.css'] }
 Plug 'cespare/vim-toml', { 'for': 'toml' }
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'dermusikman/sonicpi.vim'
 Plug 'digitaltoad/vim-pug', { 'for': ['pug', 'jade'] }
 Plug 'elixir-lang/vim-elixir', { 'for': ['elixir', 'markdown'] }
 Plug 'elmcast/elm-vim', { 'for': 'elm' }
@@ -30,6 +29,7 @@ Plug 'jpalardy/vim-slime'
 Plug 'junegunn/vader.vim', { 'on': 'Vader', 'for': 'vader' }
 Plug 'kylef/apiblueprint.vim', { 'for': 'apiblueprint' }
 Plug 'marcweber/vim-addon-mw-utils'
+Plug 'mxw/vim-jsx', { 'for': 'javascript' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'rhysd/clever-f.vim'
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
@@ -39,7 +39,6 @@ Plug 'shougo/deoplete.nvim', { 'do': function('DoRemote') }
 Plug 'sirver/ultisnips'
 Plug 'slim-template/vim-slim'
 Plug 'slime-lang/vim-slime-syntax', { 'for': 'slime' }
-Plug 'sunaku/vim-dasht'
 Plug 'tikhomirov/vim-glsl', { 'for': 'glsl' }
 Plug 'tomtom/tlib_vim'
 Plug 'tpope/vim-commentary'
