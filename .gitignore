@@ -3,3 +3,5 @@
 **/elm/**/build.js
 **/.stack-work
 *.beam
+**/_build/*
+**/rebar3.crashdump
