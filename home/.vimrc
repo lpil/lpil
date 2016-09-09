@@ -28,6 +28,7 @@ Plug 'honza/vim-snippets'
 Plug 'jpalardy/vim-slime'
 Plug 'junegunn/vader.vim', { 'on': 'Vader', 'for': 'vader' }
 Plug 'kylef/apiblueprint.vim', { 'for': 'apiblueprint' }
+Plug 'lfe-support/vim-lfe', { 'for': 'lfe' }
 Plug 'marcweber/vim-addon-mw-utils'
 Plug 'mxw/vim-jsx', { 'for': 'javascript' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
