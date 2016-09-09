@@ -168,6 +168,7 @@ let g:markdown_fenced_languages = [
       \'json=javascript',
       \'python',
       \'ruby',
+      \'rust',
       \'sass',
       \'scheme',
       \'sh',
