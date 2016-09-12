@@ -5,3 +5,4 @@
 *.beam
 **/_build/*
 **/rebar3.crashdump
+**/node_modules/**
