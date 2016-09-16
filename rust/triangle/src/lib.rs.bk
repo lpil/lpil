@@ -1,0 +1,15 @@
+enum TriangleType {
+    Equalateral,
+Isosceles,
+    Scalene,
+}
+
+pub struct Triangle {
+    order: TriangleType,
+}
+
+impl Triangle {
+    pub fn build(sides: [usize; 3]) -> Result<Triangle, String> {
+        Ok(Triangle { order: TriangleType::Scalene })
+    }
+}
