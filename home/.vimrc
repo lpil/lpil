@@ -9,7 +9,7 @@ endfunction
 
 call plug#begin('~/.vim/plugged')
 
-let lisp_languages = ['scheme', 'clojure']
+let lisp_languages = ['scheme', 'clojure', 'lfe']
 
 Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'scss.css'] }
 Plug 'cespare/vim-toml', { 'for': 'toml' }
@@ -34,7 +34,7 @@ Plug 'marcweber/vim-addon-mw-utils'
 Plug 'mxw/vim-jsx', { 'for': 'javascript' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'rhysd/clever-f.vim'
-Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+Plug 'rust-lang/rust.vim', { 'for': ['rust', 'markdown'] }
 Plug 'sbl/scvim', { 'for': 'supercollider' }
 Plug 'scrooloose/syntastic'
 Plug 'shougo/deoplete.nvim', { 'do': function('DoRemote') }
