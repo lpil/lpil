@@ -1,5 +1,5 @@
 #[derive(Debug,PartialEq)]
-enum TriangleType {
+pub enum TriangleType {
     Equalateral,
     Isosceles,
     Scalene,
@@ -14,9 +14,8 @@ impl Triangle {
         let big = sorted[2];
         let med = sorted[1];
         let sml = sorted[0];
-        if sml < 1 {
-            Err(String::from("Invalid sides"))
-        } else if big >= med + sml {
+
+        if sml < 1 || big >= med + sml {
             Err(String::from("Invalid sides"))
         } else if big == med && med == sml {
             Ok(Triangle(TriangleType::Equalateral))
@@ -28,17 +27,19 @@ impl Triangle {
     }
 
     pub fn is_equilateral(&self) -> bool {
-        let &Triangle(ref value) = self;
-        value == &TriangleType::Equalateral
+        self.order() == &TriangleType::Equalateral
     }
 
     pub fn is_isosceles(&self) -> bool {
-        let &Triangle(ref value) = self;
-        value == &TriangleType::Isosceles
+        self.order() == &TriangleType::Isosceles
     }
 
     pub fn is_scalene(&self) -> bool {
+        self.order() == &TriangleType::Scalene
+    }
+
+    pub fn order(&self) -> &TriangleType {
         let &Triangle(ref value) = self;
-        value == &TriangleType::Scalene
+        value
     }
 }
