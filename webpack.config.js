@@ -2,6 +2,7 @@ const path              = require('path');
 const webpack           = require('webpack');
 const merge             = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const inProd = process.env.NODE_ENV === "production";
 
@@ -21,6 +22,12 @@ const commonConfig = {
         test: /\.(eot|ttf|woff|woff2|svg)$/,
         loader: 'file-loader'
       },
+      {
+        test: /\.(css)$/,
+        loader: ExtractTextPlugin.extract('style-loader', [
+          'css-loader',
+        ])
+      },
     ],
   },
 
@@ -32,6 +39,8 @@ const commonConfig = {
       inject:   'body',
       filename: 'index.html'
     }),
+
+    new ExtractTextPlugin('./[hash].css', { allChunks: true }),
   ],
 };
 

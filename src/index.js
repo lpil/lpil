@@ -1,3 +1,5 @@
+require('./main.css');
+
 // Flag variables are injected via Webpack DefinePlugin
 var flags = {
 };

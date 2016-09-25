@@ -54,14 +54,14 @@ update msg model =
 view : Model -> Html Msg
 view model =
     div []
-        [ h1 [] [ text "Louis Bingo!" ]
+        [ h1 [ class "title" ] [ text "Louis Bingo!" ]
         , boardView model.board
         ]
 
 
 boardView : Board -> Html Msg
 boardView board =
-    div []
+    div [ class "board" ]
         [ cellView board.cell0
         , cellView board.cell1
         , cellView board.cell2
@@ -71,4 +71,4 @@ boardView board =
 
 cellView : Board.Cell -> Html Msg
 cellView cell =
-    a [] [ cell.trope |> Trope.toString |> text ]
+    a [ class "cell" ] [ cell.trope |> Trope.toString |> text ]
