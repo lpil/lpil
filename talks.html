@@ -9,7 +9,7 @@ layout: default
   <li>
     <h1 class="talk__title">{{ talk.title }}</h1>
     <div>
-        {{ talk.event }} at {{ talk.venue }}, {{ talk.date }}
+      {{ talk.event }}{% if talk.venue %} at {{ talk.venue }}{% endif %}, {{ talk.date }}
     </div>
     <div class="talk__description">
       {{ talk.description | markdownify }}

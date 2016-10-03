@@ -1,11 +1,28 @@
+- title: Build Your Own Elixir
+  date: 2016-09-22
+  event: Elixir LDN Conference 2016
+  # venue: GoCardless
+  links:
+    - text: Recording
+      url: https://www.youtube.com/watch?v=IONWi9hayEA&index=13&list=PLWbHc_FXPo2ivlIjzcaHS9N_Swe_0hWj0
+    - text: Slides
+      url: http://lpil.uk/talk-slides/fashioning-a-faster-feedback-loop/
+    - text: Elixir LDN Conference
+      url: http://www.elixir.london/
+  description: |
+    Over two years of working with Elixir I (almost accidentally) went from
+    knowing nothing about compilers to having my own programming language
+    running on the BEAM. In this talk I detail this journey, and share the rich
+    range of tools that Elixir and Erlang offer us when parsing and compiling
+    code.
+
 - title: Fashioning a Faster Feedback Loop
   date: 2016-05-26
   event: The London Elixir Meetup
   venue: GoCardless
-  slides: http://lpil.uk/talk-slides/fashioning-a-faster-feedback-loop/
   links:
     - text: Slides
-      url: https://lpil.uk/talks/fashioning-a-faster-feedback-loop
+      url: https://lpil.uk/talk-slides/fashioning-a-faster-feedback-loop
     - text: mix test.watch
       url: https://github.com/lpil/mix-test.watch
     - text: mix test --stale
