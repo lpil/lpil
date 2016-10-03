@@ -6,6 +6,7 @@ type Trope
     | Elixir
     | TankTop
     | Hummus
+    | Giphy
 
 
 toString : Trope -> String
@@ -22,3 +23,6 @@ toString trope =
 
         Hummus ->
             "'Dear god I love hummus'"
+
+        Giphy ->
+            "Reacts with Giphy on Slack"

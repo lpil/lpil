@@ -11,7 +11,7 @@ const flags = {
 
 const commonConfig = {
   output: {
-    path:     path.resolve(__dirname, 'public/'),
+    path:     path.resolve(__dirname, 'dist/'),
     filename: '[hash].js',
   },
 
@@ -83,7 +83,7 @@ if (process.env.NODE_ENV === 'production') {
         {
           test:    /\.elm$/,
           exclude: [/elm-stuff/, /node_modules/],
-          loader:  'elm-webpack'
+          loader:  'elm-webpack?pathToMake=node_modules/.bin/elm-make'
         }
       ]
     },
