@@ -64,6 +64,7 @@ defmodule Del.Worker do
 
   def handle_info(:timeout, target) do
     IO.puts "#{__MODULE__} (#{inspect self()}) got timeout. Replying to #{inspect target}"
+    :timer.sleep(5000)
     GenServer.reply(target, {:hello, self()})
     {:stop, :normal, []}
   end
