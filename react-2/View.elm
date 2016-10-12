@@ -1,12 +1,13 @@
 module View exposing (root)
 
+import Array exposing (Array)
+import Colors exposing (..)
 import Html exposing (Html)
 import Html.Attributes exposing (style)
+import List
+import State exposing (..)
 import Svg exposing (..)
 import Svg.Attributes exposing (..)
-import Array
-import State exposing (..)
-import Colors exposing (..)
 
 
 root : Model -> Html Msg
@@ -21,8 +22,32 @@ root model =
             , width "100%"
             , height "260px"
             ]
-            (Array.toList <| Array.map mapPoint model.points)
+            ((mapPoints model.points) ++ (mapConnections model.connections))
         ]
+
+
+mapConnections : List ( Point, Point ) -> List (Svg a)
+mapConnections connections =
+    List.map connectionLine connections
+
+
+connectionLine : ( Point, Point ) -> Svg a
+connectionLine ( p1, p2 ) =
+    line
+        [ strokeDasharray "7, 7"
+        , p1.x |> percent |> x1
+        , p1.y |> percent |> y1
+        , p2.x |> percent |> x2
+        , p2.y |> percent |> y2
+        , strokeWidth "3"
+        , stroke grey
+        ]
+        []
+
+
+mapPoints : Array Point -> List (Svg a)
+mapPoints points =
+    (Array.toList <| Array.map mapPoint points)
 
 
 ringSize : number -> number
