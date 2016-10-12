@@ -6,6 +6,7 @@ import Array exposing (Array)
 type alias Point =
     { x : Int
     , y : Int
+    , delay : Int
     }
 
 
@@ -27,15 +28,15 @@ init =
 points : Array Point
 points =
     Array.fromList
-        [ { x = 3, y = 44 }
-        , { x = 20, y = 14 }
-        , { x = 32, y = 110 }
-        , { x = 45, y = -10 }
-        , { x = 62, y = 31 }
-        , { x = 75, y = 87 }
-        , { x = 73, y = -18 }
-        , { x = 91, y = 86 }
-        , { x = 110, y = 150 }
+        [ { delay = 100, x = 3, y = 44 }
+        , { delay = 1820, x = 20, y = 14 }
+        , { delay = 930, x = 32, y = 110 }
+        , { delay = 490, x = 45, y = -10 }
+        , { delay = 1390, x = 62, y = 31 }
+        , { delay = 150, x = 75, y = 87 }
+        , { delay = 40, x = 73, y = -18 }
+        , { delay = 1100, x = 91, y = 86 }
+        , { delay = 900, x = 110, y = 150 }
         ]
 
 

@@ -59,23 +59,30 @@ mapPoint : Point -> Svg a
 mapPoint point =
     g [] <|
         dot point
-            :: List.map
-                (ringSize >> (ring point))
-                [1..4]
+            :: List.indexedMap (ring point) [1..4]
 
 
-ring : Point -> number -> Svg a
-ring point radius =
+ring : Point -> Int -> Int -> Svg a
+ring point index radius =
     circle
         [ cx (percent point.x)
         , cy (percent point.y)
-        , r (px radius)
+        , r (radius |> ringSize |> px)
         , fill "none"
         , strokeWidth "0.5"
-        , opacity "0.3"
+        , opacity "0"
         , stroke grey
+        , class "header-map__ring"
+        , Html.Attributes.style
+            [ ( "animation-delay", (delay index point.delay) )
+            ]
         ]
         []
+
+
+delay : Int -> Int -> String
+delay index delay =
+    (toString (index * 100 + delay)) ++ "ms"
 
 
 dot : Point -> Svg a
