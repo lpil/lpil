@@ -2,6 +2,8 @@ module App exposing (main)
 
 import Svg exposing (..)
 import Svg.Attributes exposing (..)
+import Html exposing (Html)
+import Html.Attributes exposing (style)
 import Html.App
 import List
 
@@ -33,7 +35,13 @@ type alias Model =
 init : ( Model, Cmd Msg )
 init =
     ( { points =
-            [ { x = 100, y = 100 }
+            [ { x = 3, y = 44 }
+            , { x = 20, y = 14 }
+            , { x = 32, y = 110 }
+            , { x = 45, y = -10 }
+            , { x = 62, y = 31 }
+            , { x = 75, y = 87 }
+            , { x = 91, y = 86 }
             ]
       }
     , Cmd.none
@@ -68,10 +76,25 @@ subscriptions model =
 -- View
 
 
-view : Model -> Svg Msg
+view : Model -> Html Msg
 view model =
-    svg [ version "1.1", x "0", y "0", viewBox "0 0 323.141 322.95" ]
-        (List.map mapPoint model.points)
+    Html.div
+        [ Html.Attributes.style [ ( "background-color", green ) ]
+        ]
+        [ svg
+            [ version "1.1"
+            , x "0"
+            , y "0"
+            , width "100%"
+            , height "260px"
+            ]
+            (List.map mapPoint model.points)
+        ]
+
+
+green : String
+green =
+    "#cde5b3"
 
 
 grey : String
@@ -81,7 +104,7 @@ grey =
 
 ringSize : number -> number
 ringSize index =
-    index * 10 + 3
+    index * 20 + 10
 
 
 mapPoint : Point -> Svg a
@@ -90,14 +113,14 @@ mapPoint point =
         dot point
             :: List.map
                 (ringSize >> (ring point))
-                [ 1, 2, 3, 4 ]
+                [1..4]
 
 
 ring : Point -> number -> Svg a
 ring point radius =
     circle
-        [ cx (px point.x)
-        , cy (px point.y)
+        [ cx (percent point.x)
+        , cy (percent point.y)
         , r (px radius)
         , fill "none"
         , strokeWidth "0.5"
@@ -110,12 +133,17 @@ ring point radius =
 dot : Point -> Svg a
 dot point =
     circle
-        [ cx (px point.x)
-        , cy (px point.y)
-        , r (px 3)
+        [ cx (percent point.x)
+        , cy (percent point.y)
+        , r (px 8)
         , fill grey
         ]
         []
+
+
+percent : number -> String
+percent num =
+    (toString num) ++ "%"
 
 
 px : number -> String
