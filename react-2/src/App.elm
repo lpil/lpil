@@ -5,6 +5,7 @@ import State
 import Html.App
 
 
+main : Program Never
 main =
     Html.App.program
         { init = State.init
