@@ -6,9 +6,9 @@ tags:
 ---
 
 The CSS preprocessors such as SCSS, LESS and cssnext make it easy and natural
-to create complex selectors through nesting. This works but after working with
-this style for a few years I've come to think that it in fact an anti-pattern
-as it makes the CSS harder to work with over time.
+to create complex selectors through nesting. After working with this style for
+a few years I've come to think that it in fact an anti-pattern as it makes the
+CSS harder to work with over time.
 
 Here's some example SCSS from an open source project.
 
