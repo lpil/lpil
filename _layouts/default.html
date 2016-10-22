@@ -31,5 +31,11 @@
   </div>
 
   <script src="/main.js" type="text/javascript" charset="utf-8"></script>
+
+  <script type="text/javascript" charset="utf-8">
+if (window.location.href.match(/^http:\/\/lpil.uk/)) {
+  window.location = window.location.href.replace(/^http/, "https");
+}
+  </script>
 </body>
 </html>
