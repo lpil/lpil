@@ -1,6 +1,6 @@
-.vimrc
-======
+Dotfiles
+========
 
-My .(n)vimrc (and other dev dotfiles)
+My dotfiles.
 
 Enjoy!
