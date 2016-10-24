@@ -33,6 +33,7 @@ values."
    ;; Press <SPC f e R> (Vim style) or to reload this config
    dotspacemacs-configuration-layers
    '(
+     ruby
      html
      (elm :variables
           elm-format-on-save t)
@@ -49,6 +50,7 @@ values."
             ;; shell-pop-window-size 30
             ;; shell-default-full-span nil
             shell-default-height 33
+            shell-default-shell ansi-shell
             ;; shell-default-position 'left
             )
      spell-checking
@@ -138,7 +140,8 @@ values."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("Ubuntu Mono"
-                               :size 24
+                               ;; :size 24
+                               :size 17
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -285,7 +288,13 @@ values."
    ;; `trailing' to delete only the whitespace at end of lines, `changed'to
    ;; delete only whitespace for changed lines or `nil' to disable cleanup.
    ;; (default nil)
-   dotspacemacs-whitespace-cleanup nil
+   dotspacemacs-whitespace-cleanup 'all
+
+   ;; Indentation
+   default-tab-width 2
+   standard-indent 2
+   js-indent-level 2
+   js2-basic-offset 2
    ))
 
 (defun dotspacemacs/user-init ()
