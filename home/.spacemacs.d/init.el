@@ -7,9 +7,6 @@
 You should not put any user code in this function besides modifying the variable
 values."
   (setq-default
-   ;; Base distribution to use. This is a layer contained in the directory
-   ;; `+distribution'. For now available distributions are `spacemacs-base'
-   ;; or `spacemacs'. (default 'spacemacs)
    dotspacemacs-distribution 'spacemacs
    ;; Lazy installation of layers (i.e. layers are installed only when a file
    ;; with a supported type is opened). Possible values are `all', `unused'
@@ -21,15 +18,9 @@ values."
    ;; variable `dotspacemacs-configuration-layers' to install it.
    ;; (default 'unused)
    dotspacemacs-enable-lazy-installation 'unused
-   ;; If non-nil then Spacemacs will ask for confirmation before installing
-   ;; a layer lazily. (default t)
    dotspacemacs-ask-for-lazy-installation t
-   ;; If non-nil layers with lazy install support are lazy installed.
-   ;; List of additional paths where to look for configuration layers.
-   ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
    dotspacemacs-configuration-layer-path '()
-   ;; List of configuration layers to load.
-   ;; Example of useful layers you may want to use right away.
+
    ;; Press <SPC f e R> (Vim style) or to reload this config
    dotspacemacs-configuration-layers
    '(
@@ -106,6 +97,7 @@ values."
    dotspacemacs-themes '(spacemacs-dark
                          spacemacs-light)
    dotspacemacs-colorize-cursor-according-to-state t
+
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("Ubuntu Mono"
@@ -114,6 +106,7 @@ values."
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
+
    dotspacemacs-leader-key "SPC"
    dotspacemacs-emacs-command-key "SPC"
    dotspacemacs-ex-command-key ":"
@@ -158,6 +151,11 @@ values."
    dotspacemacs-default-package-repository nil
    dotspacemacs-whitespace-cleanup 'all
 
+   require-final-newline t
+   mode-require-final-newline t
+   evil-toggle-key "C-`" ;; Set evil-toggle-key to C-` to free up C-z for suspending
+   create-lockfiles nil
+
    ;; Indentation
    default-tab-width 2
    standard-indent 2
@@ -197,13 +195,6 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-
-  ;; Use eslint with flycheck for JS
-  (add-hook 'js2-mode-hook
-            (defun my-js2-mode-setup ()
-              (flycheck-mode t)
-              (when (executable-find "eslint")
-                (flycheck-select-checker 'javascript-eslint))))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
