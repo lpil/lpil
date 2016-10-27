@@ -20,9 +20,6 @@ alias ll='ls -lh'
 alias la='ls -a'
 alias lla='ls -lah'
 
-# i3lock black background
-alias i3lock='i3lock -c 303030'
-
 # cd
 alias c='cd'
 
@@ -72,9 +69,6 @@ alias ber='bundle exec rake'
 
 # pop up server
 alias serve='echo "ruby -run -e httpd . -p 4000" && ruby -run -e httpd . -p 4000'
-
-# The space at the end is deliberate. It prevents saving to shell history.
-alias switchoff='/usr/bin/dbus-send --system --print-reply --dest="org.freedesktop.ConsoleKit" /org/freedesktop/ConsoleKit/Manager org.freedesktop.ConsoleKit.Manager.Stop '
 
 # OSX
 if [ $(uname) == Darwin ]; then
