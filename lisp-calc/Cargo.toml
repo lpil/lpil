@@ -1,6 +1,14 @@
 [package]
-name = "lisp-calc"
+name = "lisp_calc"
 version = "0.1.0"
 authors = ["Louis Pilfold <louis@lpil.uk>"]
+
+[lib]
+name = "lib"
+path = "src/lib.rs"
+
+[[bin]]
+name = "lisp_calc"
+path = "src/main.rs"
 
 [dependencies]
