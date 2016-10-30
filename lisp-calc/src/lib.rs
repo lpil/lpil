@@ -1,5 +1,8 @@
+mod parser;
+
 use std::fmt;
 
+#[derive(Debug, PartialEq)]
 pub enum Op {
     Plus,
     Minus,
@@ -7,9 +10,10 @@ pub enum Op {
     Mult,
 }
 
+#[derive(Debug, PartialEq)]
 pub enum Sexpr {
-    Branch(Op, Vec<Sexpr>),
-    Leaf(f64),
+    List(Op, Vec<Sexpr>),
+    Value(f64),
     Nil,
 }
 
@@ -27,14 +31,14 @@ impl fmt::Display for Op {
 impl fmt::Display for Sexpr {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match self {
-            &Sexpr::Branch(ref op, ref elems) => {
+            &Sexpr::List(ref op, ref elems) => {
                 let contents = elems.iter()
                     .map(|e| format!(" {}", *e))
                     .collect::<Vec<_>>()
                     .join("");
                 write!(f, "({}{})", op, contents)
             }
-            &Sexpr::Leaf(n) => write!(f, "{}", n),
+            &Sexpr::Value(n) => write!(f, "{}", n),
             &Sexpr::Nil => write!(f, "()"),
 
         }
