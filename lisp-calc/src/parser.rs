@@ -3,6 +3,7 @@ use std::str;
 use super::Op;
 use super::Sexpr;
 
+
 pub fn parse_op(chars: &mut iter::Peekable<str::Chars>) -> Result<Op, String> {
     match chars.next() {
         None => Err("Unexpected EOF".to_string()),
@@ -14,7 +15,8 @@ pub fn parse_op(chars: &mut iter::Peekable<str::Chars>) -> Result<Op, String> {
     }
 }
 
-fn pop_nums(chars: &mut iter::Peekable<str::Chars>) -> Result<String, String> {
+
+pub fn parse_num(chars: &mut iter::Peekable<str::Chars>) -> Result<Sexpr, String> {
     let mut point = false;
     let mut nums = String::new();
     while let Some(&c) = chars.peek() {
@@ -28,20 +30,12 @@ fn pop_nums(chars: &mut iter::Peekable<str::Chars>) -> Result<String, String> {
         }
         chars.next();
     }
-    if nums.is_empty() {
-        Err("Invalid number".to_string())
-    } else {
-        Ok(nums)
+    match nums.parse() {
+        Ok(n) => Ok(Sexpr::Value(n)),
+        Err(_) => Err("Invalid number".to_string()),
     }
 }
 
-pub fn parse_num(chars: &mut iter::Peekable<str::Chars>) -> Result<Sexpr, String> {
-    let nums = pop_nums(chars);
-    match nums {
-        Ok(s) => Ok(Sexpr::Value(s.parse().unwrap())),
-        Err(e) => Err(e),
-    }
-}
 
 mod tests {
     use super::*;
