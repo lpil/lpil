@@ -1,4 +1,4 @@
-mod parser;
+pub mod parser;
 
 use std::fmt;
 
@@ -77,7 +77,6 @@ impl fmt::Display for Sexpr {
                 write!(f, "({}{})", op, contents)
             }
             &Sexpr::Value(n) => write!(f, "{}", n),
-
         }
     }
 }

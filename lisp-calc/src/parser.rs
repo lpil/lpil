@@ -4,6 +4,11 @@ use super::Op;
 use super::Sexpr;
 
 
+pub fn parse(input: &String) -> Result<Sexpr, String> {
+    let mut chars = input.chars().peekable();
+    parse_list(&mut chars)
+}
+
 pub fn parse_op(chars: &mut iter::Peekable<str::Chars>) -> Result<Op, String> {
     match chars.next() {
         None => Err("Invalid operator. Unexpected EOF".to_string()),
@@ -87,6 +92,17 @@ mod tests {
     use super::*;
     use super::super::Op;
     use super::super::Sexpr;
+
+    // Parse
+
+    #[test]
+    fn parse_test() {
+        let input = "(+ 1 2 3)".to_string();
+        let res = parse(&input);
+        let nums = vec![Sexpr::Value(1.0), Sexpr::Value(2.0), Sexpr::Value(3.0)];
+        let sexpr = Sexpr::List(Op::Plus, nums);
+        assert_eq!(res, Ok(sexpr));
+    }
 
     // parse_list
 
