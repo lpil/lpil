@@ -9,12 +9,6 @@ fn display_sexpr_node() {
 }
 
 #[test]
-fn display_sexpr_nil() {
-    let sexpr = Sexpr::Nil;
-    assert_eq!("()", format!("{}", sexpr));
-}
-
-#[test]
 fn display_sexpr_branch_plus() {
     let sexpr = Sexpr::List(Op::Plus, vec![Sexpr::Value(20.02)]);
     assert_eq!("(+ 20.02)", format!("{}", sexpr));
