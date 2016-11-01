@@ -6,12 +6,12 @@ use super::Sexpr;
 
 pub fn parse_op(chars: &mut iter::Peekable<str::Chars>) -> Result<Op, String> {
     match chars.next() {
-        None => Err("Unexpected EOF".to_string()),
+        None => Err("Invalid operator. Unexpected EOF".to_string()),
         Some('+') => Ok(Op::Plus),
         Some('-') => Ok(Op::Minus),
         Some('/') => Ok(Op::Div),
         Some('*') => Ok(Op::Mult),
-        Some(c) => Err(format!("Unexpected `{}`", c)),
+        Some(c) => Err(format!("Invalid operator. Unexpected `{}`", c)),
     }
 }
 
@@ -22,9 +22,9 @@ pub fn parse_num(chars: &mut iter::Peekable<str::Chars>) -> Result<Sexpr, String
     while let Some(&c) = chars.peek() {
         if !point && c == '.' {
             point = true;
-            nums.push(c)
+            nums.push(c);
         } else if c.is_digit(10) {
-            nums.push(c)
+            nums.push(c);
         } else {
             break;
         }
@@ -37,9 +37,123 @@ pub fn parse_num(chars: &mut iter::Peekable<str::Chars>) -> Result<Sexpr, String
 }
 
 
+pub fn parse_list(mut chars: &mut iter::Peekable<str::Chars>) -> Result<Sexpr, String> {
+    if chars.peek() != Some(&'(') {
+        return Err("Invalid list. Expected `(`".to_string());
+    }
+    chars.next();
+    chomp(&mut chars);
+    let op = try!(parse_op(&mut chars));
+    let nums = try!(parse_elems(&mut chars));
+    if chars.peek() == Some(&')') {
+        chars.next();
+        Ok(Sexpr::List(op, nums))
+    } else {
+        Err("Invalid list. Expected `(`, `)` or number".to_string())
+    }
+}
+
+fn parse_elems(mut chars: &mut iter::Peekable<str::Chars>) -> Result<Vec<Sexpr>, String> {
+    let mut elems = vec![];
+    loop {
+        chomp(&mut chars);
+        if let Ok(num) = parse_num(&mut chars) {
+            elems.push(num);
+            continue;
+        }
+        if let Ok(list) = parse_list(&mut chars) {
+            elems.push(list);
+            continue;
+        }
+        break;
+    }
+    Ok(elems)
+}
+
+/// Drop preceeding spaces
+///
+fn chomp(chars: &mut iter::Peekable<str::Chars>) {
+    while let Some(&c) = chars.peek() {
+        if c != ' ' {
+            break;
+        }
+
+        chars.next();
+    }
+}
+
+
 mod tests {
     use super::*;
-    use super::super::*;
+    use super::super::Op;
+    use super::super::Sexpr;
+
+    // parse_list
+
+    #[test]
+    fn parse_list_empty() {
+        let mut chars = "".chars().peekable();
+        let res = parse_list(&mut chars);
+        assert_eq!(res, Err("Invalid list. Expected `(`".to_string()));
+    }
+
+    #[test]
+    fn parse_list_of_num() {
+        let mut chars = "(123)".chars().peekable();
+        let res = parse_list(&mut chars);
+        assert_eq!(res, Err("Invalid operator. Unexpected `1`".to_string()));
+    }
+
+    #[test]
+    fn parse_list_of_op() {
+        let mut chars = "(+)".chars().peekable();
+        let res = parse_list(&mut chars);
+        let sexpr = Sexpr::List(Op::Plus, vec![]);
+        assert_eq!(res, Ok(sexpr));
+    }
+
+    #[test]
+    fn parse_list_of_op_and_num() {
+        let mut chars = "(/ 123)".chars().peekable();
+        let res = parse_list(&mut chars);
+        let sexpr = Sexpr::List(Op::Div, vec![Sexpr::Value(123.0)]);
+        assert_eq!(res, Ok(sexpr));
+    }
+
+    #[test]
+    fn parse_list_of_op_and_num_and_op() {
+        let mut chars = "(+ 123 +)".chars().peekable();
+        let res = parse_list(&mut chars);
+        assert_eq!(res,
+                   Err("Invalid list. Expected `(`, `)` or number".to_string()));
+    }
+
+    #[test]
+    fn parse_incomplete_list() {
+        let mut chars = "(+ 123".chars().peekable();
+        let res = parse_list(&mut chars);
+        assert_eq!(res,
+                   Err("Invalid list. Expected `(`, `)` or number".to_string()));
+    }
+
+
+    #[test]
+    fn parse_multi_num_list() {
+        let mut chars = "(+ 1 2 3)".chars().peekable();
+        let res = parse_list(&mut chars);
+        let nums = vec![Sexpr::Value(1.0), Sexpr::Value(2.0), Sexpr::Value(3.0)];
+        let sexpr = Sexpr::List(Op::Plus, nums);
+        assert_eq!(res, Ok(sexpr));
+    }
+
+    #[test]
+    fn parse_nested_list() {
+        let mut chars = "(+ 1 (- 3))".chars().peekable();
+        let res = parse_list(&mut chars);
+        let sexpr1 = Sexpr::List(Op::Minus, vec![Sexpr::Value(3.0)]);
+        let sexpr2 = Sexpr::List(Op::Plus, vec![Sexpr::Value(1.0), sexpr1]);
+        assert_eq!(res, Ok(sexpr2));
+    }
 
     // parse_num
 
@@ -108,7 +222,7 @@ mod tests {
     fn parse_op_empty() {
         let mut chars = "".chars().peekable();
         let res = parse_op(&mut chars);
-        assert_eq!(res, Err("Unexpected EOF".to_string()));
+        assert_eq!(res, Err("Invalid operator. Unexpected EOF".to_string()));
     }
 
     #[test]
@@ -147,7 +261,7 @@ mod tests {
     fn parse_op_other() {
         let mut chars = "?".chars().peekable();
         let res = parse_op(&mut chars);
-        assert_eq!(res, Err("Unexpected `?`".to_string()));
+        assert_eq!(res, Err("Invalid operator. Unexpected `?`".to_string()));
         assert_eq!(chars.peek(), None);
     }
 }
