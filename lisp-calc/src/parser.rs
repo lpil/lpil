@@ -87,7 +87,7 @@ fn chomp(chars: &mut iter::Peekable<str::Chars>) {
     }
 }
 
-
+#[cfg(test)]
 mod tests {
     use super::*;
     use super::super::Op;
