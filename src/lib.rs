@@ -1,3 +1,5 @@
+mod oscil;
+
 #[cfg(test)]
 mod tests {
     #[test]
