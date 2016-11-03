@@ -10,14 +10,16 @@ pub fn parse(input: &String) -> Result<Sexpr, String> {
 }
 
 pub fn parse_op(chars: &mut iter::Peekable<str::Chars>) -> Result<Op, String> {
-    match chars.next() {
-        None => Err("Invalid operator. Unexpected EOF".to_string()),
-        Some('+') => Ok(Op::Plus),
-        Some('-') => Ok(Op::Minus),
-        Some('/') => Ok(Op::Div),
-        Some('*') => Ok(Op::Mult),
-        Some(c) => Err(format!("Invalid operator. Unexpected `{}`", c)),
-    }
+    let op = match chars.peek() {
+        Some(&'+') => Ok(Op::Plus),
+        Some(&'-') => Ok(Op::Minus),
+        Some(&'/') => Ok(Op::Div),
+        Some(&'*') => Ok(Op::Mult),
+        Some(c) => return Err(format!("Invalid operator. Unexpected `{}`", c)),
+        None => return Err("Invalid operator. Unexpected EOF".to_string()),
+    };
+    chars.next();
+    op
 }
 
 
@@ -28,12 +30,13 @@ pub fn parse_num(chars: &mut iter::Peekable<str::Chars>) -> Result<Sexpr, String
         if !point && c == '.' {
             point = true;
             nums.push(c);
+            chars.next();
         } else if c.is_digit(10) {
             nums.push(c);
+            chars.next();
         } else {
             break;
         }
-        chars.next();
     }
     match nums.parse() {
         Ok(n) => Ok(Sexpr::Value(n)),
@@ -49,7 +52,7 @@ pub fn parse_list(mut chars: &mut iter::Peekable<str::Chars>) -> Result<Sexpr, S
     chars.next();
     chomp(&mut chars);
     let op = try!(parse_op(&mut chars));
-    let nums = try!(parse_elems(&mut chars));
+    let nums = parse_elems(&mut chars);
     if chars.peek() == Some(&')') {
         chars.next();
         Ok(Sexpr::List(op, nums))
@@ -58,7 +61,7 @@ pub fn parse_list(mut chars: &mut iter::Peekable<str::Chars>) -> Result<Sexpr, S
     }
 }
 
-fn parse_elems(mut chars: &mut iter::Peekable<str::Chars>) -> Result<Vec<Sexpr>, String> {
+fn parse_elems(mut chars: &mut iter::Peekable<str::Chars>) -> Vec<Sexpr> {
     let mut elems = vec![];
     loop {
         chomp(&mut chars);
@@ -72,20 +75,22 @@ fn parse_elems(mut chars: &mut iter::Peekable<str::Chars>) -> Result<Vec<Sexpr>,
         }
         break;
     }
-    Ok(elems)
+    elems
 }
 
 /// Drop preceeding spaces
 ///
 fn chomp(chars: &mut iter::Peekable<str::Chars>) {
     while let Some(&c) = chars.peek() {
-        if c != ' ' {
+        if c == ' ' {
+            chars.next();
+        } else {
             break;
         }
 
-        chars.next();
     }
 }
+
 
 #[cfg(test)]
 mod tests {
@@ -239,6 +244,7 @@ mod tests {
         let mut chars = "".chars().peekable();
         let res = parse_op(&mut chars);
         assert_eq!(res, Err("Invalid operator. Unexpected EOF".to_string()));
+        assert_eq!(chars.peek(), None);
     }
 
     #[test]
@@ -278,6 +284,6 @@ mod tests {
         let mut chars = "?".chars().peekable();
         let res = parse_op(&mut chars);
         assert_eq!(res, Err("Invalid operator. Unexpected `?`".to_string()));
-        assert_eq!(chars.peek(), None);
+        assert_eq!(chars.peek(), Some(&'?'));
     }
 }
