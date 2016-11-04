@@ -24,16 +24,22 @@ values."
    ;; Press <SPC f e R> (Vim style) or to reload this config
    dotspacemacs-configuration-layers
    '(
+     go
+     yaml
+     (rust :variables
+           rust-format-on-save t
+           )
      ruby
      html
      (elm :variables
           elm-format-on-save t)
      javascript
+     react
      markdown
      elixir
      helm
-     ;; auto-completion
-     ;; better-defaults
+     auto-completion
+     better-defaults
      emacs-lisp
      git
      org
@@ -41,10 +47,10 @@ values."
             ;; shell-pop-window-size 30
             ;; shell-default-full-span nil
             shell-default-height 33
-            shell-default-shell ansi-shell
+            shell-default-shell 'multi-shell
             ;; shell-default-position 'left
             )
-     spell-checking
+     ;; spell-checking
      syntax-checking
      version-control
      )
@@ -101,8 +107,8 @@ values."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("Ubuntu Mono"
-                               ;; :size 24
-                               :size 17
+                               :size 24
+                               ;; :size 17
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -172,11 +178,11 @@ values."
    flycheck-checkers '(javascript-eslint)
    )
 
-    ;; Make evil-mode up/down operate in screen lines instead of logical lines
-    (define-key evil-motion-state-map "j" 'evil-next-visual-line)
-    (define-key evil-motion-state-map "k" 'evil-previous-visual-line)
-    (define-key evil-visual-state-map "j" 'evil-next-visual-line)
-    (define-key evil-visual-state-map "k" 'evil-previous-visual-line)
+  ;; Make evil-mode up/down operate in screen lines instead of logical lines
+  (define-key evil-motion-state-map "j" 'evil-next-visual-line)
+  (define-key evil-motion-state-map "k" 'evil-previous-visual-line)
+  (define-key evil-visual-state-map "j" 'evil-next-visual-line)
+  (define-key evil-visual-state-map "k" 'evil-previous-visual-line)
   )
 
 (defun dotspacemacs/user-init ()
@@ -195,6 +201,42 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+
+  ;; Use react mode for all JS
+  (push '("\\.js\\'" . react-mode) auto-mode-alist)
+
+  ;; Flow (JS) flycheck config (http://flowtype.org)
+  ;; from https://github.com/bodil/emacs.d/blob/master/bodil/bodil-js.el
+  (require 'f)
+  (require 'json)
+  (require 'flycheck)
+
+  (defun flycheck-parse-flow (output checker buffer)
+    (let ((json-array-type 'list))
+      (let ((o (json-read-from-string output)))
+        (mapcar #'(lambda (errp)
+                    (let ((err (cadr (assoc 'message errp))))
+                      (flycheck-error-new
+                       :line (cdr (assoc 'line err))
+                       :column (cdr (assoc 'start err))
+                       :level 'error
+                       :message (cdr (assoc 'descr err))
+                       :filename (f-relative
+                                  (cdr (assoc 'path err))
+                                  (f-dirname (file-truename
+                                              (buffer-file-name))))
+                       :buffer buffer
+                       :checker checker)))
+                (cdr (assoc 'errors o))))))
+
+  (flycheck-define-checker javascript-flow
+    "Javascript type checking using Flow."
+    :command ("flow" "--json" source-original)
+    :error-parser flycheck-parse-flow
+    :modes react-mode
+    :next-checkers ((error . javascript-eslint))
+    )
+  (add-to-list 'flycheck-checkers 'javascript-flow)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will

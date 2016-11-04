@@ -32,6 +32,8 @@ export PATH="$PATH:$GOPATH/bin"
 export PATH="$PATH:$HOME/.cargo/bin"
 export PATH="$PATH:$HOME/bin/node/bin"
 export PATH="$PATH:$HOME/bin/lfe/bin"
+export PATH="$PATH:$HOME/bin/go/bin"
 export PATH="$HOME/bin:$PATH"
 
 export GOPATH="$HOME/projects/go"
+export GOROOT="$HOME/bin/go"
