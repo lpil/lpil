@@ -39,7 +39,7 @@
   \parbox{\datebox}{\small \textit{#1}}\hspace{0.3em} #2 #3
 % Define a command for each new block - change spacing and font sizes here:
 %   #1 is the left margin
-%   #2 is the italic date field and 
+%   #2 is the italic date field and
 %   #3 is the position/employer/location field
 
 % Add some white space after each new entry
@@ -55,6 +55,8 @@
 
 % Remove date from end of document
 \date{}
+% Remove page numbering
+\pagenumbering{gobble}
 
 \begin{document}
 
@@ -84,7 +86,8 @@
 
 \noindent\spacedlowsmallcaps{Summary}\vspace{1em}
 
-\Description{An enthusiastic developer building cool things.}
+\Description{An enthusiastic developer and active open source contributor
+  interested in maintainable code and distributed systems.}
 \vspace{0.5em}
 
 %--------------%
@@ -93,14 +96,15 @@
 
 \spacedlowsmallcaps{Technologies}\vspace{1em}
 
-\Description{\MarginText{Languages}Elixir, Ruby, ES6 Javascript, Haskell,
-  Clojure}
+\Description{\MarginText{Languages}Elixir, Erlang OTP, Javascript, Ruby}
 
-\Description{\MarginText{Tools}Linux, Neovim, Git, Phoenix Framework, Rails
-  Framework}
+\Description{\MarginText{Tools}Spacemacs, Linux, Git, AWS}
 
-\Description{\MarginText{Interests}Functional programming, Test driven
-  development, Web development, Algorithmic music composition, Libre software}
+\Description{\MarginText{Learning}Distributed systems, OTP, Rust, Elm,
+  Terraform, Go, Audio DSP}
+
+\Description{\MarginText{Interests}Functional programming, Open source softwar,
+  Test driven development, Distributed systems, Digital art, Libre software}
 
 %------------------------------------------------
 
@@ -113,31 +117,36 @@
 \noindent\spacedlowsmallcaps{Work Experience}\vspace{1.5em}
 
 
-\NewEntry{2014.08 onwards}{Web Developer}
+\NewEntry{2015.06 onwards}{Software Engineer}
 
-\Description{\MarginText{ROLI}ROLI is a start up pushing the boundaries of
-  music expression with ground breaking new hardware and software instruments.
-  \newline
-  \newline
-  Back end engineer and DevOps, directly responsible for My ROLI, a pair of
-  Rails applications that provides ROLI's user portal as well as the API
-  consumed by the desktop software. Also managing web infrastructure, deploying
-  ROLI's web applications using AWS services including EC2, S3, RDS, and
-  Elastic Beanstalk.
+\Description{\MarginText{Red Badger}Red Badger is a digital consultancy with a
+  focus on user experience, delivery, and cutting edge open source software.
+  My role is of a full stack engineer working primarily with Javascript and
+  AWS. Projects include Tesco's new online grocery store, Red Badger's new
+  website, the React London community site, and internal proof of concepts for
+  prospective clients.
 }
 
 \vspace{0.5em}
 
 
-\NewEntry{2014.01 - 2014.08}{Ruby Developer}
+\NewEntry{2015.08 2016.04}{Web Developer}
+
+\Description{\MarginText{ROLI}ROLI is a start up pushing the boundaries of
+  music expression with ground breaking new hardware and software instruments.
+  I worked as a back end engineer and DevOps, maintaining ROLI's Rails based
+  APIs and leading the migration of all ROLI applications to AWS.
+}
+
+\vspace{0.5em}
+
+
+\NewEntry{2015.01 - 2015.08}{Ruby Developer}
 
 \Description{\MarginText{Reevoo}Reevoo is a pioneering ratings and reviews
   provider, with clients such as Kia, British Gas, and Nintendo.
-  \newline
-  \newline
-  Full stack engineer working with the Rails and Grape Ruby frameworks. The
-  role involves working on and the refactoring of large legacy applications as
-  well as developing new products.
+  I was a back end engineer working with the large legacy applications written
+  with the Rails and Grape Ruby frameworks.
 }
 
 \vspace{0.5em}
@@ -148,15 +157,7 @@
 \Description{\MarginText{Perivan Solutions}Perivan Solutions is a
   software-as-a-service company that provides technical solutions to companies
   such as St James's Place Wealth Management, AXA Group, and Schroders PLC.
-  \newline
-  \newline
-  Front end engineer for Perivan's 'Marketing Store' applications; Renovating
-  stylesheets and Javascript of legacy application, and building the front end
-  of new applications.
-
-% \\
-% Reference: John \textsc{McDonald}\ \ $\cdotp$\ \ +1 (000) 111 1111\ \ $\cdotp$\
-% \ \href{mailto:john@lehman.com}{john@lehman.com}
+  I worked as a front end engineer for Perivan's 'Marketing Store' applications.
 }
 
 %------------------------------------------------
@@ -169,8 +170,6 @@
 
 \spacedlowsmallcaps{Notable Open Source Projects}\vspace{1em}
 
-
-% \NewEntry{Q2 2015}{University of Kent \textsc{MOOC}}
 
 \Description{\MarginText{Dogma}A code style linter for the Elixir language
   \newline
@@ -193,49 +192,43 @@
 
 %------------------------------------------------
 
-% \NewEntry{Q2 2015}{University of Kent \textsc{MOOC}}
+
+
+
+\Description{\MarginText{University of Illinois}Cloud Computing Concepts 1
+  \newline
+  Q4 2016 - Distributed Systems
+}
 
 \Description{\MarginText{Kent Uni}Functional Programming with Erlang MOOC
   \newline
   Q2 2015 - Erlang
 }
 
-% \NewEntry{Q1 2015}{Coursera \textsc{reactive}}
-
 \Description{\MarginText{EFPL}Principles of Reactive Programming
   \newline
   Q1 2015 - Scala
 }
-
-% \NewEntry{Q4 2014}{edX \textsc{FP101x}}
 
 \Description{\MarginText{DelftX}Introduction to Functional Programming
   \newline
   Q4 2014 - Haskell
 }
 
-% \NewEntry{Q3 2014}{Coursera \textsc{progfun}}
-
 \Description{\MarginText{EPFL}Functional Programming Principles in Scala
   \newline
   Q3 2014 - Scala
 }
-
-% \NewEntry{Q2 2014}{edX \textsc{CS169.2x}}
 
 \Description{\MarginText{BerkeleyX}Engineering Software as a Service Part 2
   \newline
   Q2 2014 - Ruby, Rails, Coffeescript
 }
 
-% \NewEntry{Q1 2014}{edX \textsc{CS169.1x}}
-
 \Description{\MarginText{BerkeleyX}Engineering Software as a Service Part 1
   \newline
   Q1 2014 - Ruby, Rails
 }
-
-% \NewEntry{Q1 2013}{edX \textsc{6.00x}}
 
 \Description{\MarginText{MITx}Introduction to Computer Science and Programming
   Using Python
@@ -275,8 +268,6 @@
 
 \spacedlowsmallcaps{Other Information}\vspace{1em}
 
-%------------------------------------------------
-
 \Description{\MarginText{Volenteering}I coach programming at Railsgirls,
   Codebar, Trans*code and other events aiming to get women, LGBTQ people,
   and other underrepresented groups into engineering and the technology
@@ -287,8 +278,6 @@
   \ $\cdotp$\ \ Social ethics \& equality
   \ $\cdotp$\ \ Enthusiastic bad dancing
 }
-
-%------------------------------------------------------------------------------
 
 \end{cv}
 
