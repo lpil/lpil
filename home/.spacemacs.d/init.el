@@ -24,35 +24,33 @@ values."
    ;; Press <SPC f e R> (Vim style) or to reload this config
    dotspacemacs-configuration-layers
    '(
+     auto-completion
+     better-defaults
+     elixir
+     emacs-lisp
+     git
      go
+     helm
+     html
+     javascript
+     markdown
+     org
+     react
+     ruby
+     syntax-checking
+     version-control
      yaml
+     yasnippet
+     (elm :variables
+          elm-format-on-save t)
      (rust :variables
            rust-format-on-save t
            )
-     ruby
-     html
-     (elm :variables
-          elm-format-on-save t)
-     javascript
-     react
-     markdown
-     elixir
-     helm
-     auto-completion
-     better-defaults
-     emacs-lisp
-     git
-     org
      (shell :variables
-            ;; shell-pop-window-size 30
-            ;; shell-default-full-span nil
             shell-default-height 33
-            shell-default-shell 'multi-shell
-            ;; shell-default-position 'left
+            shell-default-shell 'shell
             )
      ;; spell-checking
-     syntax-checking
-     version-control
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -64,7 +62,7 @@ values."
    ;; A list of packages that will not be installed and loaded.
    dotspacemacs-excluded-packages
    '(
-     smartparens ;; Remove automatic delimiter closing layer
+     ;; smartparens ;; Remove automatic delimiter closing layer
      )
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
@@ -180,11 +178,8 @@ values."
    flycheck-checkers '(javascript-eslint)
    )
 
-  ;; Make evil-mode up/down operate in screen lines instead of logical lines
-  (define-key evil-motion-state-map "j" 'evil-next-visual-line)
-  (define-key evil-motion-state-map "k" 'evil-previous-visual-line)
-  (define-key evil-visual-state-map "j" 'evil-next-visual-line)
-  (define-key evil-visual-state-map "k" 'evil-previous-visual-line)
+  (add-to-list 'hippie-expand-try-functions-list 'yas/hippie-try-expand)
+  (global-set-key (kbd "TAB") #'hippie-expand)
   )
 
 (defun dotspacemacs/user-init ()
@@ -203,6 +198,12 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+
+  ;; Make evil-mode up/down operate in screen lines instead of logical lines
+  (define-key evil-motion-state-map "j" 'evil-next-visual-line)
+  (define-key evil-motion-state-map "k" 'evil-previous-visual-line)
+  (define-key evil-visual-state-map "j" 'evil-next-visual-line)
+  (define-key evil-visual-state-map "k" 'evil-previous-visual-line)
 
   ;; Use react mode for all JS
   (push '("\\.js\\'" . react-mode) auto-mode-alist)
