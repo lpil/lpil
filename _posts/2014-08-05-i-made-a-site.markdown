@@ -8,7 +8,7 @@ redirect_from:
 ---
 
 **Update:** This post is no longer an accurate description of this site. Since
-making it I've migrated to the [middleman](middleman) static site compiler,
+making it I've migrated to the [middleman][middleman] static site compiler,
 switched from coffeescript to vanilla Javascript, and completely dropped any
 CSS framework.
 
