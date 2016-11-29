@@ -7,7 +7,8 @@
 
 [core]
   excludesfile = ~/.gitglobalignore
-	editor = nvim
+  editor = nvim
+  pager = less -S
 
 [push]
   default = simple
