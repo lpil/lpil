@@ -29,7 +29,6 @@ values."
      elixir
      emacs-lisp
      git
-     go
      helm
      html
      javascript
@@ -40,7 +39,8 @@ values."
      syntax-checking
      version-control
      yaml
-     yasnippet
+     (go :variables
+         go-use-gometalinter nil)
      (elm :variables
           elm-format-on-save t)
      (rust :variables
@@ -108,8 +108,9 @@ values."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("Ubuntu Mono"
-                               ;; :size 24
-                               :size 17
+                               :size 24
+                               ;; :size 17
+                               ;; :size 16
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -177,9 +178,6 @@ values."
    flycheck-disabled-checkers '(javascript-jshint)
    flycheck-checkers '(javascript-eslint)
    )
-
-  (add-to-list 'hippie-expand-try-functions-list 'yas/hippie-try-expand)
-  (global-set-key (kbd "TAB") #'hippie-expand)
   )
 
 (defun dotspacemacs/user-init ()
@@ -198,6 +196,9 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+
+  ;; (add-to-list 'hippie-expand-try-functions-list 'yas/hippie-try-expand)
+  (global-set-key (kbd "M-j") #'hippie-expand)
 
   ;; Make evil-mode up/down operate in screen lines instead of logical lines
   (define-key evil-motion-state-map "j" 'evil-next-visual-line)
