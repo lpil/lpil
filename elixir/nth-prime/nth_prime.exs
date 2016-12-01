@@ -13,13 +13,39 @@ defmodule Prime do
   end
 
   defp nth(count, candidate, primes) do
-    is_prime = ! Enum.any?(primes, &factor?(candidate, &1))
-    if is_prime do
+    if prime?(candidate, primes) do
       nth(count - 1, candidate + 2, [candidate|primes])
     else
       nth(count, candidate + 2, primes)
     end
   end
+
+
+  defp prime?(candidate, lesser_primes) do
+    sqrt = :math.sqrt(candidate)
+    prime?(candidate, lesser_primes, sqrt)
+  end
+
+
+  defp prime?(candidate, [], sqrt) do
+    true
+  end
+
+  # Primes larger than the sqrt cannot be a factor.
+  defp prime?(candidate, [largest_prime | lesser_primes], sqrt)
+  when largest_prime > sqrt
+  do
+    prime?(candidate, lesser_primes, sqrt)
+  end
+
+  defp prime?(candidate, [largest_prime | lesser_primes], sqrt) do
+    if factor?(candidate, largest_prime) do
+      false
+    else
+      prime?(candidate, lesser_primes, sqrt)
+    end
+  end
+
 
   defp factor?(num, divider) do
     rem(num, divider) == 0

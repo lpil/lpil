@@ -32,6 +32,10 @@ defmodule NthPrimeTest do
     assert Prime.nth(2000) == 17389
   end
 
+  test "10,000th prime" do
+    assert Prime.nth(10_000) == 104729
+  end
+
   test "weird case" do
     catch_error Prime.nth(0)
   end
