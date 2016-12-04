@@ -6,3 +6,5 @@
 **/_build/*
 **/rebar3.crashdump
 **/node_modules/**
+**/*.native
+**/.merlin
