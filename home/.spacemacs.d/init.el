@@ -24,6 +24,7 @@ values."
    ;; Press <SPC f e R> (Vim style) or to reload this config
    dotspacemacs-configuration-layers
    '(
+     purescript
      auto-completion
      better-defaults
      elixir
