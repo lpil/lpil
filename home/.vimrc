@@ -11,6 +11,7 @@ call plug#begin('~/.vim/plugged')
 
 let lisp_languages = ['scheme', 'clojure', 'lfe']
 
+Plug 'FrigoEU/psc-ide-vim', { 'for': 'purescript' }
 Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'scss.css'] }
 Plug 'cespare/vim-toml', { 'for': 'toml' }
 Plug 'ctrlpvim/ctrlp.vim'
@@ -27,12 +28,12 @@ Plug 'guns/vim-sexp', { 'for': lisp_languages }
 Plug 'hashivim/vim-terraform'
 Plug 'honza/vim-snippets'
 Plug 'jpalardy/vim-slime'
-Plug 'junegunn/vader.vim', { 'on': 'Vader', 'for': 'vader' }
 Plug 'kylef/apiblueprint.vim', { 'for': 'apiblueprint' }
 Plug 'lfe-support/vim-lfe', { 'for': 'lfe' }
 Plug 'marcweber/vim-addon-mw-utils'
 Plug 'mxw/vim-jsx', { 'for': 'javascript' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+Plug 'raichoo/purescript-vim', { 'for': 'purescript' }
 Plug 'rhysd/clever-f.vim'
 Plug 'rust-lang/rust.vim', { 'for': ['rust', 'markdown'] }
 Plug 'sbl/scvim', { 'for': 'supercollider' }
@@ -41,7 +42,6 @@ Plug 'shougo/deoplete.nvim', { 'do': function('DoRemote') }
 Plug 'sirver/ultisnips'
 Plug 'slim-template/vim-slim'
 Plug 'slime-lang/vim-slime-syntax', { 'for': 'slime' }
-Plug 'tikhomirov/vim-glsl', { 'for': 'glsl' }
 Plug 'tomtom/tlib_vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-cucumber', { 'for': 'cucumber' }

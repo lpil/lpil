@@ -29,7 +29,6 @@ values."
      better-defaults
      elixir
      emacs-lisp
-     git
      helm
      html
      javascript
