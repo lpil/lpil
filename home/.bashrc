@@ -82,18 +82,11 @@ PS1=$(build_ps1)
 
 # Ruby rbenv version manager
 if [ -d "$HOME/.rbenv" ]; then
-  export PATH="$HOME/.rbenv/bin:$PATH"
   eval "$(rbenv init -)"
 fi
 # Node nvm version manager
 if [ -d "$HOME/.nvm" ]; then
-  export NVM_DIR="$HOME/.nvm"
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-fi
-
-# homeshick config manager
-if [ -d "$HOME/.homesick/repos/homeshick/bin" ]; then
-  export PATH="$HOME/.homesick/repos/homeshick/bin:$PATH"
 fi
 
 
