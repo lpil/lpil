@@ -24,23 +24,21 @@ values."
    ;; Press <SPC f e R> (Vim style) or to reload this config
    dotspacemacs-configuration-layers
    '(
-     purescript
      auto-completion
      better-defaults
      elixir
      emacs-lisp
+     go
      helm
      html
      javascript
      markdown
-     org
+     purescript
      react
      ruby
      syntax-checking
      version-control
      yaml
-     (go :variables
-         go-use-gometalinter nil)
      (elm :variables
           elm-format-on-save t)
      (rust :variables
