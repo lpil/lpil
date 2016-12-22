@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+# Hide mouse cursor when not in use
+pidof unclutter >& /dev/null
+if [ $? -ne 0 ]; then
+  unclutter &
+fi
+
+# Clipboard manager
+pidof clipit >& /dev/null
+if [ $? -ne 0 ]; then
+  clipit -n &
+fi
+
+# Turn off caps lock
+# xmodmap -e "remove lock = Caps_Lock"
+# Disable caps lock
+setxkbmap -option ctrl:nocaps
+
+# Keyboard refresh rate
+xset r rate 175 35
+# Turn off system bell
+xset b off
+
+# mpd
+pidof mpd >& /dev/null
+if [ $? -ne 0 ]; then
+  (mpd && sleep 4 && mpc single off && mpc consume on) &
+fi
