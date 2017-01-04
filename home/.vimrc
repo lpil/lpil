@@ -81,7 +81,7 @@ if (has("termguicolors"))
   set termguicolors
 endif
 set background=dark
-colorscheme spacemacs-theme
+" colorscheme spacemacs-theme
 highlight Normal ctermbg=none
 highlight NonText ctermbg=none
 highlight Normal guibg=none
