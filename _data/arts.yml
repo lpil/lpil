@@ -1,7 +1,19 @@
+- title: Elm Hearts
+  date: 2017-01-09
+  github: lpil/elm-hearts
+  url: https://lpil.uk/elm-hearts
+
+- title: Ka Li Da Scope
+  date: 2017-01-09
+  github: emmadonnelly/p5js-art
+  url: https://emmadonnelly.github.io/p5js-art/ka-li-da-scope/
+  notes: Pairing + exploring p5.js with Emma Donnelly
+
 - title: Rainbow Wash
   date: 2016-10-08
   github: lpil/rainbow-wash
   url: https://lpil.uk/rainbow-wash
+  notes: Super quick Hackathing hackathon project.
 
 - title: The Watching Room
   date: 2016-07-26
