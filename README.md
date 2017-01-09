@@ -2,4 +2,4 @@ lpil.uk
 =======
 
     bundle install
-    make
+    make start

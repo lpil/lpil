@@ -1,7 +1,7 @@
 help: ## Prints help for targets with comments
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-serve: ## Run the development server
+start: ## Run the development server
 	bundle exec jekyll server --watch --safe
 
 build: clean ## Compile the site
@@ -21,4 +21,4 @@ quack:
 	clean \
 	debug \
 	help  \
-	serve
+	start

@@ -7,7 +7,7 @@ $text-colour: #353535;
 $link-colour: #008080;
 $font-family: 'PT Sans', sans-serif;
 $monospace-font-family: 'PT Mono', monospace;
-$max-page-width: 777px;
+$max-page-width: 700px;
 
 * {
   box-sizing: border-box;
@@ -147,11 +147,11 @@ p code {
 .arts {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .art {
-  margin-bottom: 16px;
+  margin: 0 16px 16px 16px;
 }
 
 .art,
@@ -163,4 +163,14 @@ p code {
 .art__thumbnail {
   width: 196px;
   height: 110px;
+}
+
+@media (min-width: $max-page-width) {
+  .art {
+    margin: 0 0 16px 0;
+  }
+
+  .arts {
+    justify-content: space-between;
+  }
 }

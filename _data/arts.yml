@@ -10,6 +10,7 @@
   github: emmadonnelly/p5js-art
   url: https://emmadonnelly.github.io/p5js-art/ka-li-da-scope/
   notes: Pairing + exploring p5.js with Emma Donnelly
+  thumbnail: /img/ka-li-da-scope.gif
   displayed: true
 
 - title: Rainbow Wash
@@ -22,6 +23,7 @@
   date: 2016-07-26
   github: lpil/the-watching-room
   url: https://lpil.uk/the-watching-room
+  thumbnail: /img/the-watching-room.gif
   displayed: true
 
 - title: Polaris
@@ -38,12 +40,14 @@
   date: 2016-06-23
   github: lpil/conversion-bars
   url: https://lpil.uk/conversion-bars
+  thumbnail: /img/conversion-bars.gif
   displayed: true
 
 - title: Tunnel
   date: 2016-05-15
   github: lpil/tunnel
   url: https://lpil.uk/tunnel
+  thumbnail: /img/tunnel.gif
   displayed: true
 
 - title: Stepper
@@ -51,4 +55,5 @@
   github: lpil/stepper
   url: https://lpil.uk/stepper
   notes: Made in prep for joining Red Badger. i.e. to learn React + Redux.
+  thumbnail: /img/stepper.gif
   displayed: true
