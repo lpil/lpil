@@ -2,12 +2,15 @@
   date: 2017-01-09
   github: lpil/elm-hearts
   url: https://lpil.uk/elm-hearts
+  thumbnail: /img/elm-hearts.gif
+  displayed: true
 
-- title: Ka Li Da Scope
+- title: Ka li da scope
   date: 2017-01-09
   github: emmadonnelly/p5js-art
   url: https://emmadonnelly.github.io/p5js-art/ka-li-da-scope/
   notes: Pairing + exploring p5.js with Emma Donnelly
+  displayed: true
 
 - title: Rainbow Wash
   date: 2016-10-08
@@ -19,6 +22,7 @@
   date: 2016-07-26
   github: lpil/the-watching-room
   url: https://lpil.uk/the-watching-room
+  displayed: true
 
 - title: Polaris
   date: 2016-07-17
@@ -34,14 +38,17 @@
   date: 2016-06-23
   github: lpil/conversion-bars
   url: https://lpil.uk/conversion-bars
+  displayed: true
 
 - title: Tunnel
   date: 2016-05-15
   github: lpil/tunnel
   url: https://lpil.uk/tunnel
+  displayed: true
 
 - title: Stepper
   date: 2016-05-01
   github: lpil/stepper
   url: https://lpil.uk/stepper
   notes: Made in prep for joining Red Badger. i.e. to learn React + Redux.
+  displayed: true

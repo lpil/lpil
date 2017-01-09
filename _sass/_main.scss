@@ -1,30 +1,166 @@
-* {
-  box-sizing: border-box;
-}
+@import url(//fonts.googleapis.com/css?family=PT+Sans|PT+Mono);
 
 @import 'vendor/normalize';
 @import 'vendor/syntax';
 
-@import 'modules/variables';
-@import 'modules/clearfix';
+$text-colour: #353535;
+$link-colour: #008080;
+$font-family: 'PT Sans', sans-serif;
+$monospace-font-family: 'PT Mono', monospace;
+$max-page-width: 777px;
 
-@import 'partials/base';
-@import 'partials/typography';
-@import 'partials/pre';
-
-@import 'partials/layout';
-@import 'partials/post';
-@import 'partials/posts';
-
-@import 'partials/site-header';
-
-@import 'partials/about';
-
-.content {
-  padding: 0.6em;
+* {
+  box-sizing: border-box;
+  color: $text-colour;
 }
 
-.talk__title,
-.talk__description {
-  margin: 0.5em 0;
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+
+html {
+  font-family: $font-family;
+  font-size: 1.1em;
+}
+
+p {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+a, p {
+  line-height: 1.6em;
+}
+
+a {
+  color: $link-colour;
+  text-decoration: none;
+}
+
+a:hover {
+  color: lighten($link-colour, 7);
+  text-decoration: underline;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+}
+
+pre, code {
+  font-family: $monospace-font-family;
+  font-size: .91em;
+}
+
+pre,
+pre.highlight {
+  background: #f0f0f0;
+  border-radius: 2px;
+  margin: .3em;
+  overflow: auto;
+  padding: .7em 1em;
+}
+
+li code,
+p code {
+  background: #f0f0f0;
+  padding: .1em .2em;
+}
+
+.site-header,
+.content {
+  padding: 0.6em;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: $max-page-width;
+}
+
+.post__content {
+  margin: 1em 0;
+
+  h1, h2, h3, h4 {
+    margin-top: 1em;
+  }
+}
+
+.post__nav {
+  font-size: .9em;
+  text-align: center;
+
+  a {
+    color: #888;
+    display: inline-block;
+    padding: 1em 1em 0;
+  }
+}
+
+.posts {
+  margin-bottom: 2em;
+  padding: 0;
+
+  li {
+    margin: 0.1em;
+  }
+}
+
+.posts__date {
+  display: none;
+
+  @media (min-width: $max-page-width) {
+    display: inline;
+    float: right;
+  }
+}
+
+.posts__feed {
+  color: #888;
+  float: right;
+  font-size: .9em;
+  padding: 0 .4em;
+}
+
+.site-header {
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 1em;
+  padding: 40px 0 25px;
+  text-align: center;
+}
+
+.site-header__home {
+  color: $text-colour;
+  font-size: 12px;
+  font-weight: bold;
+
+  i {
+    font-size: 1%;
+  }
+}
+
+.site-header__home:hover {
+  text-decoration: none;
+}
+
+//
+// Grid of art thumbnails on index page
+//
+.arts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.art {
+  margin-bottom: 16px;
+}
+
+.art,
+.art__thumbnail {
+  display: block;
+  width: 196px;
+}
+
+.art__thumbnail {
+  width: 196px;
+  height: 110px;
 }

@@ -4,32 +4,26 @@ redirect_from:
   - /about/
 ---
 <div class="home">
-  <article class="about__intro">
-    <img class="about__gravatar-image" alt="A picture of me"
-      src="https://secure.gravatar.com/avatar/11a70fd3673e3bc3931ea118cc3d12f5?s=300" />
-    <section>
-    <p>
-      <span class="home__hi">Hi</span>, I'm Louis, a software engineer and
-      music fanatic based in London, UK.
-    </p>
-    <p>
-      I work for an excellent company called
-      <a class="no-wrap" href="http://red-badger.com/" target="_blank">
-        Red Badger,</a> and I like to spend my time solving problems with
-      languages beginning with the letter 'E' (namely Elixir, Erlang, and Elm).
-      I've also been known to use Rust, Ruby and Javascript when other
-      letters take my fancy.
-    </p>
-    <p>
-      I dig functional programming, understandable code, and a test driven
-      style of development.
-    </p>
-    </section>
-  </article>
+  <p class="about__intro">
+    Hi, I'm Louis.
+    <a href="https://github.com/lpil" target="_blank">I make things</a>.
+  </p>
 
-  <br>
+  <ul class="arts">
+    {% for art in site.data.arts %}{% if art.displayed %}
+      <li class="art">
+        <a class="art__link" target="_blank" href="{{ art.url }}">
+          {% if art.thumbnail %}
+            <img class="art__thumbnail" alt="{{ art.title }}" src="{{ art.thumbnail }}"/>
+          {% else %}
+            <img class="art__thumbnail" alt="{{ art.title }}" src="/img/grey-pixel.gif"/>
+          {% endif %}
+        </a>
+      </li>
+    {% endif %}{% endfor %}
+  </ul>
 
-  <h3>Occasionally I write things:</h3>
+  <h3>Thoughts</h3>
 
   <ul class="posts">
     {% for post in site.posts %}
@@ -37,17 +31,6 @@ redirect_from:
       <span class="posts__date">{{ post.date | date: "%d %b, %Y" }}</span>
       <a class="post__link" href="{{ post.url }}">{{ post.title }}</a>
     </li>
-    {% endfor %}
-  </ul>
-
-  <h3>Sometimes I make digital art:</h3>
-
-  <ul class="posts">
-    {% for art in site.data.arts %}
-      <li>
-        <span class="posts__date">{{ art.date | date: "%b, %Y" }}</span>
-        <a class="post__link" target="_blank" href="{{ art.url }}">{{ art.title }}</a>
-      </li>
     {% endfor %}
   </ul>
 </div>
