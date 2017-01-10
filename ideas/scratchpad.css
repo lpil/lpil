@@ -1,0 +1,37 @@
+/*
+ * Defining a global function called main. It takes no arguments.
+ *
+ */
+@function main {
+  /* Assign a list literal to the variable `--my-list` */
+  --some-strings: ("a", "b", "c", "d");
+
+  /*
+   * Calling the `second` global function, passing in the list
+   * defined above. The variable is dereferenced with the `var` function.
+   *
+   * The return value is saved into another variable.
+   */
+  --my-favourite-string: second(var(--some-strings));
+
+  /*
+   * Print the string using the built in `print` function.
+   */
+  print(var(--my-favourite-string));
+}
+
+/*
+ * Defining a global function called `second`.
+ */
+@function second {
+  /* It takes one argument, named `--list`. */
+  arguments: --list;
+  /* It will return the contents of the --second-element variable */
+  return: --second-element;
+
+  /*
+   * Define --second-element as the result of calling the `nth-child` property
+   * defined on the list with the number 2 as an argument.
+   */
+  --second-element: var(--list):nth-child(2)
+}
