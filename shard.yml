@@ -1,0 +1,13 @@
+name: css
+version: 0.1.0
+
+authors:
+  - Louis Pilfold <louis@lpil.uk>
+
+targets:
+  css:
+    main: src/css.cr
+
+crystal: 0.20.4
+
+license: MIT
