@@ -1,12 +1,12 @@
-name: css
+name: xcss
 version: 0.1.0
 
 authors:
   - Louis Pilfold <louis@lpil.uk>
 
 targets:
-  css:
-    main: src/css.cr
+  xcss:
+    main: src/xcss.cr
 
 crystal: 0.20.4
 

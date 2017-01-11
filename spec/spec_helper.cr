@@ -1,2 +1,2 @@
 require "spec"
-require "../src/css"
+require "../src/xcss"
