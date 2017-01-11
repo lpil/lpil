@@ -11,7 +11,6 @@ call plug#begin('~/.vim/plugged')
 
 let lisp_languages = ['scheme', 'clojure', 'lfe']
 
-Plug 'FrigoEU/psc-ide-vim', { 'for': 'purescript' }
 Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'scss.css'] }
 Plug 'cespare/vim-toml', { 'for': 'toml' }
 Plug 'colepeters/spacemacs-theme.vim'
@@ -24,6 +23,7 @@ Plug 'evanmiller/nginx-vim-syntax', { 'for': 'nginx' }
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'flowtype/vim-flow', { 'for': ['javascript'] }
 Plug 'foosoft/vim-argwrap', { 'on': 'ArgWrap' }
+Plug 'frigoeu/psc-ide-vim', { 'for': 'purescript' }
 Plug 'godlygeek/tabular'
 Plug 'guns/vim-sexp', { 'for': lisp_languages }
 Plug 'hashivim/vim-terraform'
@@ -36,6 +36,7 @@ Plug 'mxw/vim-jsx', { 'for': 'javascript' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'raichoo/purescript-vim', { 'for': 'purescript' }
 Plug 'rhysd/clever-f.vim'
+Plug 'rhysd/vim-crystal', { 'for': 'crystal' }
 Plug 'rust-lang/rust.vim', { 'for': ['rust', 'markdown'] }
 Plug 'sbl/scvim', { 'for': 'supercollider' }
 Plug 'scrooloose/syntastic'
