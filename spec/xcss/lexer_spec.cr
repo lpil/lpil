@@ -10,14 +10,6 @@ private def it_lexes(src, type, value = "", file = __FILE__, line = __LINE__)
 end
 
 describe Xcss::Lexer do
-  it "keeps track of column numbers" do
-    Xcss::Lexer.new("  1").next_token!.column.should eq(3)
-  end
-
-  it "keeps track of line numbers" do
-    Xcss::Lexer.new("\n\n\n1").next_token!.line.should eq(4)
-  end
-
   # EOF
   it_lexes "", :EOF
 
@@ -27,10 +19,7 @@ describe Xcss::Lexer do
   it_lexes "3", :number, "3"
   it_lexes "10", :number, "10"
   it_lexes "20.20", :number, "20.20"
-
-  # Whitespace
-  it_lexes "     ", :EOF
-  it_lexes "\t\t3", :number, "3"
+  it_lexes "-1000", :number, "-1000"
 
   # Delimeters
   it_lexes "{", :"{"
@@ -51,4 +40,28 @@ describe Xcss::Lexer do
   it_lexes "-", :"-"
   it_lexes "/", :"/"
   it_lexes "*", :"*"
+
+  # Atoms
+  it_lexes "main", :atom, "main"
+  it_lexes "s-pp", :atom, "s-pp"
+  it_lexes "--go", :atom, "--go"
+  it_lexes "d__b", :atom, "d__b"
+  it_lexes "_db_", :atom, "_db_"
+
+  # Whitespace
+  it_lexes "    12", :ws, "    "
+  it_lexes "\t\t\t", :ws, "\t\t\t"
+  it_lexes "\n\n00", :ws, "\n\n"
+
+  it "keeps track of column numbers" do
+    lexer = Xcss::Lexer.new("  1")
+    lexer.next_token!
+    lexer.next_token!.column.should eq(3)
+  end
+
+  it "keeps track of line numbers" do
+    lexer = Xcss::Lexer.new("\n\n\n1")
+    lexer.next_token!
+    lexer.next_token!.line.should eq(4)
+  end
 end
