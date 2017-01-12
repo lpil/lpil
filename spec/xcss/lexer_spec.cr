@@ -180,4 +180,18 @@ describe Xcss::Lexer do
     lexer.next_token!
     lexer.next_token!.line.should eq(4)
   end
+
+  describe "#each" do
+    it "iterates over all tokens" do
+      lexer = Xcss::Lexer.new("1 2")
+      tokens = [] of Xcss::Token
+      lexer.each { |t| tokens << t }
+      tokens.should eq([
+        Xcss::Token.new(:number, "1"),
+        Xcss::Token.new(:whitespace, " "),
+        Xcss::Token.new(:number, "2"),
+        Xcss::Token.new(:EOF),
+      ])
+    end
+  end
 end

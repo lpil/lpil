@@ -1,8 +1,12 @@
+require "./token"
+
 #
 # Tokenizes CSS code.
 # Spec: https://www.w3.org/TR/css-syntax-3/#consume-a-token
 #
 class Xcss::Lexer
+  include Enumerable(Xcss::Token)
+
   def initialize(string)
     @reader = Char::Reader.new(string)
     @line = 1
@@ -67,6 +71,14 @@ class Xcss::Lexer
       Token.new(:EOF, line: @line, column: @column)
     else
       consume_char!(:delim)
+    end
+  end
+
+  def each
+    while true
+      token = next_token!
+      yield token
+      break if token.type == :EOF
     end
   end
 
