@@ -1,9 +1,7 @@
-# Adapted from this ->
-# https://github.com/manastech/crystal-toml/blob/master/src/toml/lexer.cr
 #
-# More mutate-y than need be. Oops.
+# Tokenizes CSS code.
+# Spec: https://www.w3.org/TR/css-syntax-3/#consume-a-token
 #
-
 class Xcss::Lexer
   def initialize(string)
     @reader = Char::Reader.new(string)
@@ -17,32 +15,58 @@ class Xcss::Lexer
       consume_number!
     when 'a'..'z', '_'
       consume_atom!
+    when '"', '\''
+      consume_string!
     when '-'
-      consume_minus_token!
+      consume_minus_etc!
     when ' ', '\t', '\n'
       consume_whitespace!
-    when '{'
-      consume_punctuation!(:"{")
-    when '}'
-      consume_punctuation!(:"}")
-    when '.'
-      consume_punctuation!(:".")
-    when ','
-      consume_punctuation!(:",")
-    when ';'
-      consume_punctuation!(:";")
     when '+'
-      consume_punctuation!(:"+")
+      consume_plus_etc!
+    when '.'
+      consume_dot_etc!
     when '/'
-      consume_punctuation!(:"/")
-    when '*'
-      consume_punctuation!(:"*")
+      consume_slash_etc!
     when '#'
-      consume_punctuation!(:"#")
+      consume_hash_etc!
+    when '<'
+      consume_less_than_etc!
+    when '@'
+      consume_at_etc!
+    when '|'
+      consume_pipe_etc!
+    when '^'
+      consume_match!(:prefix_match)
+    when '$'
+      consume_match!(:suffix_match)
+    when '*'
+      consume_match!(:substring_match)
+    when '~'
+      consume_match!(:include_match)
+    when ','
+      consume_char!(:comma)
+    when ':'
+      consume_char!(:colon)
+    when ';'
+      consume_char!(:semicolon)
+    when '{'
+      consume_char!(:"{")
+    when '}'
+      consume_char!(:"}")
+    when '['
+      consume_char!(:"[")
+    when ']'
+      consume_char!(:"]")
+    when '@'
+      consume_char!(:"@")
+    when '('
+      consume_char!(:"(")
+    when ')'
+      consume_char!(:")")
     when '\0'
       Token.new(:EOF, line: @line, column: @column)
     else
-      raise Exception.new("Xcss::Lexer: Unexpected #{current_char.inspect}")
+      consume_char!(:delim)
     end
   end
 
@@ -55,19 +79,98 @@ class Xcss::Lexer
     @reader.next_char
   end
 
-  private def consume_minus_token!
+  private def consume_less_than_etc!
+    # TODO
+    consume_char!(:delim)
+  end
+
+  private def consume_pipe_etc!
+    if @reader.peek_next_char == '|'
+      t = Token.new(:column, line: @line, column: @column)
+      next_char!
+      t
+    else
+      consume_match!(:dash_match)
+    end
+  end
+
+  private def consume_slash_etc!
+    case @reader.peek_next_char
+    when '*'
+      next_char!
+      while true
+        if current_char == '\0'
+          break
+        elsif current_char == '*' && @reader.peek_next_char == '/'
+          next_char!
+          next_char!
+          break
+        end
+        next_char!
+      end
+      next_token!
+    else
+      consume_char!(:delim)
+    end
+  end
+
+  private def consume_minus_etc!
     case @reader.peek_next_char
     when '-'
       consume_atom!
     when '0'..'9'
       consume_number!
     else
-      consume_punctuation!(:"-")
+      consume_char!(:delim)
     end
   end
 
-  private def consume_punctuation!(type)
-    t = Token.new(type, line: @line, column: @column)
+  private def consume_at_etc!
+    consume_char!(:delim)
+  end
+
+  private def consume_dot_etc!
+    case @reader.peek_next_char
+    when '0'..'9'
+      consume_number!
+    else
+      consume_char!(:delim)
+    end
+  end
+
+  private def consume_plus_etc!
+    case @reader.peek_next_char
+    when '0'..'9'
+      consume_number!
+    else
+      consume_char!(:delim)
+    end
+  end
+
+  private def consume_match!(type)
+    case @reader.peek_next_char
+    when '='
+      line = @line
+      column = @column
+      next_char!
+      next_char!
+      Token.new(type, line: line, column: column)
+    else
+      consume_char!(:delim)
+    end
+  end
+
+  private def consume_hash_etc!
+    case @reader.peek_next_char
+    when 'a'..'z', '0'..'9', '-'
+      raise "TODO!"
+    else
+      consume_char!(:delim)
+    end
+  end
+
+  private def consume_char!(type)
+    t = Token.new(type, current_char.to_s, line: @line, column: @column)
     next_char!
     t
   end
@@ -85,14 +188,26 @@ class Xcss::Lexer
         io << current_char
         next_char!(advance_column: false)
         @line += 1
-      when '\n'
       else
         break
       end
     end
-    Token.new(:ws, io.to_s, line: line, column: column)
+    Token.new(:whitespace, io.to_s, line: line, column: column)
   end
 
+  private def consume_string!
+    io = IO::Memory.new
+    line = @line
+    column = @column
+    delimeter = current_char
+    next_char!
+    while current_char != delimeter
+      io << current_char
+      next_char!
+    end
+    next_char!
+    Token.new(:string, io.to_s, line: line, column: column)
+  end
 
   private def consume_atom!
     io = IO::Memory.new
@@ -114,13 +229,19 @@ class Xcss::Lexer
     io = IO::Memory.new
     line = @line
     column = @column
-    # Optional preceeding -
+    # Optional preceeding - or +
     if current_char == '-'
       io << current_char
       next_char!
+    elsif current_char == '+'
+      next_char!
     end
     # Digits
-    chomp_digits!(io)
+    if current_char == '.'
+      io << '0'
+    else
+      chomp_digits!(io)
+    end
     # Optional decimal
     if current_char == '.'
       io << current_char
