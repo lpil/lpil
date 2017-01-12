@@ -2,9 +2,9 @@
  * Defining a global function called main. It takes no arguments.
  *
  */
-@function main {
+@function main() {
   /* Assign a list literal to the variable `--my-list` */
-  --some-strings: ("a", "b", "c", "d");
+  --some-strings: "a", "b", "c", "d";
 
   /*
    * Calling the `second` global function, passing in the list
@@ -22,16 +22,14 @@
 
 /*
  * Defining a global function called `second`.
+ * It takes one argument, named `--list`.
  */
-@function second {
-  /* It takes one argument, named `--list`. */
-  arguments: --list;
+@function second(--list) {
   /* It will return the contents of the --second-element variable */
   return: --second-element;
 
   /*
    * Define --second-element as the result of calling the `nth-child` property
-   * defined on the list with the number 2 as an argument.
    */
-  --second-element: var(--list):nth-child(2)
+  --second-element: nth(var(--list), 2);
 }
