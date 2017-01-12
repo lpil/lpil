@@ -1,0 +1,59 @@
+/*
+ * A HTTP server listening on port 4000
+ *
+ * Static files will be served from ./ideas/
+ */
+@http {
+  port: 4000;
+  static: "./ideas/"
+
+  / {
+    status: 200;
+    content: "Hello, world!"
+  }
+
+  /about {
+    status: 200;
+    content: html("about-page");
+  }
+}
+
+
+/*
+ * The `html` at-rule creates a html template that can be rendered
+ * to a string with the `html` function.
+ */
+@html about-page {
+  link {
+    rel: "stylesheet";
+    type: "text/css";
+    href: "/web-server.css";
+  }
+
+  h1.about__header {
+    content: "About us";
+  }
+
+  div.about__content {
+    p {
+      content: "We're damn cool";
+    }
+  }
+}
+
+
+/*
+ * And now some styling :)
+ */
+.about__header,
+.about__content {
+  color: #333;
+}
+
+.about__header {
+  text-align: center;
+}
+
+.about__content {
+  font-style: 18px;
+}
