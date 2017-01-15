@@ -44,6 +44,7 @@ Plug 'shougo/deoplete.nvim', { 'do': function('DoRemote') }
 Plug 'sirver/ultisnips'
 Plug 'slim-template/vim-slim'
 Plug 'slime-lang/vim-slime-syntax', { 'for': 'slime' }
+Plug 'tikhomirov/vim-glsl', { 'for': 'glsl' }
 Plug 'tomtom/tlib_vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-cucumber', { 'for': 'cucumber' }
