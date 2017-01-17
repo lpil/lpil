@@ -1,6 +1,14 @@
-var elm = require("./Main.elm");
-var app = elm.Main.embed(document.getElementById("main"));
+const newSampler = require("./sampler");
 
-app.ports.play.subscribe(function(sampleId) {
+const elm = require("./Main.elm");
+const app = elm.Main.embed(document.getElementById("main"));
+
+newSampler().then(sampler => {
+  console.log(sampler);
+  sampler.play("kick");
+});
+
+
+app.ports.play.subscribe((sampleId) => {
   console.log("play port got ->", sampleId);
 });
