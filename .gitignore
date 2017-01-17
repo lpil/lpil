@@ -1,0 +1,9 @@
+_build
+cover
+deps
+erl_crash.dump
+*.ez
+node_modules
+elm-stuff
+dist
+npm-debug.log
