@@ -30,6 +30,7 @@ Plug 'hashivim/vim-terraform'
 Plug 'honza/vim-snippets'
 Plug 'jpalardy/vim-slime'
 Plug 'kylef/apiblueprint.vim', { 'for': 'apiblueprint' }
+Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 Plug 'lfe-support/vim-lfe', { 'for': 'lfe' }
 Plug 'marcweber/vim-addon-mw-utils'
 Plug 'mxw/vim-jsx', { 'for': 'javascript' }
