@@ -1,6 +1,8 @@
 extern crate cssparser;
 extern crate rustc_serialize;
 
-mod parser;
 mod ast;
 mod env;
+mod error;
+mod func;
+mod parser;
