@@ -4,6 +4,8 @@
 use std::fmt::Write;
 
 
+/// The result of attempting to reduce an AST Node
+///
 #[derive(Debug, PartialEq)]
 pub enum Reduced {
     Some(Node),
@@ -11,23 +13,13 @@ pub enum Reduced {
 }
 
 
-#[derive(Debug, PartialEq)]
+/// An AST Node
+///
+#[derive(Debug, Clone, PartialEq)]
 pub enum Node {
     String { value: String },
     Symbol { value: String },
     Number { value: f64 },
-}
-
-pub fn number(v: f64) -> Node {
-    Node::Number { value: v }
-}
-
-pub fn string(v: String) -> Node {
-    Node::String { value: v }
-}
-
-pub fn symbol(v: String) -> Node {
-    Node::Symbol { value: v }
 }
 
 impl Node {
@@ -51,6 +43,25 @@ impl Node {
             &Node::Number { value: ref v } => write!(b, "{}", v).unwrap(),
         }
     }
+}
+
+
+/// Construct a Number Node
+///
+pub fn number(v: f64) -> Node {
+    Node::Number { value: v }
+}
+
+/// Construct a String Node
+///
+pub fn string(v: String) -> Node {
+    Node::String { value: v }
+}
+
+/// Construct a Symbol Node
+///
+pub fn symbol(v: String) -> Node {
+    Node::Symbol { value: v }
 }
 
 
