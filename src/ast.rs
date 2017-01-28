@@ -1,6 +1,8 @@
 // TODO
 #![allow(dead_code)]
 
+use std::fmt::Write;
+
 
 #[derive(Debug, PartialEq)]
 pub enum Reduced {
@@ -29,11 +31,24 @@ pub fn symbol(v: String) -> Node {
 }
 
 impl Node {
+    /// Attempt to reduce the Node by one step.
+    /// Nodes may reduce, not reduce, or error depending their type and state.
+    ///
     pub fn reduce(&self) -> Reduced {
         match self {
             &Node::String { value: _ } => Reduced::None,
             &Node::Symbol { value: _ } => Reduced::None,
             &Node::Number { value: _ } => Reduced::None,
+        }
+    }
+
+    /// Convert Node in the Xcss source syntax and write into the given buffer.
+    ///
+    pub fn write_source(&self, b: &mut String) {
+        match self {
+            &Node::String { value: ref v } => write!(b, "{:?}", v).unwrap(),
+            &Node::Symbol { value: ref v } => write!(b, "{}", v).unwrap(),
+            &Node::Number { value: ref v } => write!(b, "{}", v).unwrap(),
         }
     }
 }
@@ -59,6 +74,14 @@ mod tests {
         assert_eq!(number.reduce(), Reduced::None);
     }
 
+    #[test]
+    fn number_write_source() {
+        let number = number(100.0);
+        let mut buffer = String::new();
+        number.write_source(&mut buffer);
+        assert_eq!(buffer, "100".to_string());
+    }
+
 
     //
     // Symbols
@@ -76,6 +99,14 @@ mod tests {
         assert_eq!(symbol.reduce(), Reduced::None);
     }
 
+    #[test]
+    fn symbol_write_source() {
+        let symbol = symbol("main".to_string());
+        let mut buffer = String::new();
+        symbol.write_source(&mut buffer);
+        assert_eq!(buffer, "main".to_string());
+    }
+
 
     //
     // Strings
@@ -91,5 +122,13 @@ mod tests {
     fn strings_are_not_reducible() {
         let string = string("Hello sailor.".to_string());
         assert_eq!(string.reduce(), Reduced::None);
+    }
+
+    #[test]
+    fn string_write_source() {
+        let string = string("Hello sailor.".to_string());
+        let mut buffer = String::new();
+        string.write_source(&mut buffer);
+        assert_eq!(buffer, "\"Hello sailor.\"".to_string());
     }
 }
