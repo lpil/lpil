@@ -1,3 +1,6 @@
+#![allow(dead_code)]
+// TODO
+
 use cssparser::{Parser, Token, NumericValue, PercentageValue, RuleListParser, AtRuleType,
                 AtRuleParser, QualifiedRuleParser, ToCss};
 use rustc_serialize::json::{self, Json, ToJson};
