@@ -2,6 +2,12 @@
 #![allow(dead_code)]
 
 use std::fmt::Write;
+use super::env::Env;
+
+#[derive(Debug, PartialEq)]
+pub enum Error {
+    UndefinedVariable(String),
+}
 
 
 /// The result of attempting to reduce an AST Node
@@ -9,6 +15,7 @@ use std::fmt::Write;
 #[derive(Debug, PartialEq)]
 pub enum Reduced {
     Some(Node),
+    Err(Error),
     None,
 }
 
@@ -26,11 +33,16 @@ impl Node {
     /// Attempt to reduce the Node by one step.
     /// Nodes may reduce, not reduce, or error depending their type and state.
     ///
-    pub fn reduce(&self) -> Reduced {
+    pub fn reduce(&self, env: &mut Env) -> Reduced {
         match self {
-            &Node::String { value: _ } => Reduced::None,
-            &Node::Symbol { value: _ } => Reduced::None,
-            &Node::Number { value: _ } => Reduced::None,
+            &Node::String { .. } => Reduced::None,
+            &Node::Number { .. } => Reduced::None,
+            &Node::Symbol { value: ref v } => {
+                match env.get_var(v) {
+                    Some(value) => Reduced::Some(value.clone()),
+                    None => Reduced::Err(Error::UndefinedVariable(v.to_string())),
+                }
+            }
         }
     }
 
@@ -38,9 +50,9 @@ impl Node {
     ///
     pub fn write_source(&self, b: &mut String) {
         match self {
-            &Node::String { value: ref v } => write!(b, "{:?}", v).unwrap(),
-            &Node::Symbol { value: ref v } => write!(b, "{}", v).unwrap(),
-            &Node::Number { value: ref v } => write!(b, "{}", v).unwrap(),
+            &Node::String { value: ref v, .. } => write!(b, "{:?}", v).unwrap(),
+            &Node::Number { value: ref v, .. } => write!(b, "{}", v).unwrap(),
+            &Node::Symbol { value: ref v, .. } => write!(b, "{}", v).unwrap(),
         }
     }
 }
@@ -68,6 +80,7 @@ pub fn symbol(v: String) -> Node {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use super::super::env::Env;
 
     //
     // Numbers
@@ -82,7 +95,8 @@ mod tests {
     #[test]
     fn numbers_are_not_reducible() {
         let number = number(100.0);
-        assert_eq!(number.reduce(), Reduced::None);
+        let mut env = Env::new();
+        assert_eq!(number.reduce(&mut env), Reduced::None);
     }
 
     #[test]
@@ -105,9 +119,19 @@ mod tests {
     }
 
     #[test]
-    fn symbols_are_not_reducible() {
+    fn symbols_reduce_to_variable_from_env() {
         let symbol = symbol("main".to_string());
-        assert_eq!(symbol.reduce(), Reduced::None);
+        let mut env = Env::new();
+        env.set_var("main".to_string(), number(1.0));
+        assert_eq!(symbol.reduce(&mut env), Reduced::Some(number(1.0)));
+    }
+
+    #[test]
+    fn symbols_reduce_to_error_with_unset_var() {
+        let symbol = symbol("main".to_string());
+        let mut env = Env::new();
+        let err = Error::UndefinedVariable("main".to_string());
+        assert_eq!(symbol.reduce(&mut env), Reduced::Err(err));
     }
 
     #[test]
@@ -132,7 +156,8 @@ mod tests {
     #[test]
     fn strings_are_not_reducible() {
         let string = string("Hello sailor.".to_string());
-        assert_eq!(string.reduce(), Reduced::None);
+        let mut env = Env::new();
+        assert_eq!(string.reduce(&mut env), Reduced::None);
     }
 
     #[test]
