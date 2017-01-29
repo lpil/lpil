@@ -35,6 +35,7 @@ Plug 'lfe-support/vim-lfe', { 'for': 'lfe' }
 Plug 'marcweber/vim-addon-mw-utils'
 Plug 'mxw/vim-jsx', { 'for': 'javascript' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+Plug 'powerman/vim-plugin-ansiesc', { 'for': 'elixir' } " Used by alchemist
 Plug 'raichoo/purescript-vim', { 'for': 'purescript' }
 Plug 'rhysd/clever-f.vim'
 Plug 'rhysd/vim-crystal', { 'for': 'crystal' }
@@ -43,6 +44,7 @@ Plug 'sbl/scvim', { 'for': 'supercollider' }
 Plug 'scrooloose/syntastic'
 Plug 'shougo/deoplete.nvim', { 'do': function('DoRemote') }
 Plug 'sirver/ultisnips'
+Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
 Plug 'slim-template/vim-slim'
 Plug 'slime-lang/vim-slime-syntax', { 'for': 'slime' }
 Plug 'tikhomirov/vim-glsl', { 'for': 'glsl' }
