@@ -13,7 +13,6 @@ let lisp_languages = ['scheme', 'clojure', 'lfe']
 
 Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'scss.css'] }
 Plug 'cespare/vim-toml', { 'for': 'toml' }
-Plug 'colepeters/spacemacs-theme.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'derekwyatt/vim-scala', { 'for': 'scala' }
 Plug 'digitaltoad/vim-pug', { 'for': ['pug', 'jade'] }
@@ -82,11 +81,7 @@ syntax on
 set synmaxcol=320
 
 " Colors
-if (has("termguicolors"))
-  set termguicolors
-endif
 set background=dark
-" colorscheme spacemacs-theme
 highlight Normal ctermbg=none
 highlight NonText ctermbg=none
 highlight Normal guibg=none
