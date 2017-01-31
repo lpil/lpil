@@ -45,6 +45,12 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# And on OSX
+[[ $(type -P "brew") ]] && if [ -f $(brew --prefix)/etc/bash_completion ]; then
+  . $(brew --prefix)/etc/bash_completion
+fi
+
+
 ###########
 #  Prompt #
 ###########
@@ -82,7 +88,7 @@ PS1=$(build_ps1)
 
 # Ruby rbenv version manager
 if [ -d "$HOME/.rbenv" ]; then
-  eval "$(rbenv init -)"
+  eval "$("$HOME"/.rbenv/bin/rbenv init -)"
 fi
 # Node nvm version manager
 if [ -d "$HOME/.nvm" ]; then
