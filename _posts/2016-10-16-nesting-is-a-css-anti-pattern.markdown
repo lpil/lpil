@@ -1,5 +1,5 @@
 ---
-title: Nesting is a CSS Anti-Pattern
+title: Nesting is a CSS anti-pattern
 tags:
   - CSS
   - Code quality

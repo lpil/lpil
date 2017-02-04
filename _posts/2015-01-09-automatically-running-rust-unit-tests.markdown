@@ -5,6 +5,12 @@ categories:
   - Testing
 ---
 
+### Edit: These days there is the excellent [cargo watch][cw] project. Use that.
+
+[cw]: https://github.com/passcod/cargo-watch
+
+---
+
 [Rust][rust-lang] is a really cool new programming language from Mozilla. It
 features guaranteed memory safety with manual memory management, zero cost
 abstractions, pattern matching, and a type system that reminds me of Haskell,
@@ -203,7 +209,7 @@ end
 And that's it. Run `guard` from the project directory and you're good to go.
 :)
 
-Cheers,  
+Cheers,
 Louis
 
 [rust-lang]: http://www.rust-lang.org/
