@@ -171,8 +171,8 @@ defimpl Node, for: Number do
 end
 ```
 ```elixir
-Node.reduce(Number.new(1))
-#=> :noop
+result = Node.reduce(Number.new(1))
+assert result == :noop
 ```
 
 And the same for Boolean.
@@ -185,8 +185,8 @@ defimpl Node, for: Boolean do
 end
 ```
 ```elixir
-Node.reduce(Boolean.new(true))
-#=> :noop
+result = Node.reduce(Boolean.new(true))
+assert result == :noop
 ```
 
 Add is more complex. It tries to reduce each of its children, and then reduces
@@ -210,8 +210,8 @@ defimpl Node, for: Add do
 end
 ```
 ```elixir
-Node.reduce(Add.new(Number.new(1), Number.new(1)))
-#=> {:ok, Number.new(2)}
+result = Node.reduce(Add.new(Number.new(1), Number.new(1)))
+assert result == {:ok, Number.new(2)}
 ```
 
 This code's pretty grim, so I'll use Elixir's monadic `with` to tidy it up a
@@ -242,7 +242,7 @@ defimpl Node, for: Add do
   def reduce(add) do
     with {:left, :noop} <- {:left, Node.reduce(add.left)},
          {:right, :noop} <- {:right, Node.reduce(add.right)} do
-      {:ok, Boolean.(add.left.value == add.right.value)}
+      {:ok, Boolean.new(add.left.value == add.right.value)}
     else
       {:left, {:ok, reduced}} ->
         {:ok, Add.new(reduced add.right)}
@@ -257,5 +257,52 @@ end
 Can you spot the difference? It's just this line in the middle.
 
 ```elixir
-{:ok, Boolean.(add.left.value == add.right.value)}
+{:ok, Boolean.new(add.left.value == add.right.value)}
 ```
+
+Maybe there's an abstraction to be extracted here. For now I'll leave it as it
+is- duplication is better than the wrong abstraction.
+
+Right, so if we can reduce expressions by a single step the only thing left to
+do is perform this step repeatedly until the expression can be reduced no
+more.
+
+```elixir
+defmodule Program do
+  def run(expression) do
+    case Node.reduce(expression) do
+      {:ok, reduced} ->
+        run(reduced)
+      :noop ->
+        expression
+    end
+  end
+end
+```
+
+And if we try it out...
+
+```elixir
+ast = Equals.new(Add.new(Number.new(1),
+                         Number.new(2)),
+                 Number.new(4))
+
+result = Program.run(ast)
+assert result == Boolean.new(false)
+```
+
+Voila! A new programming language is born. Not a very useful one, but it'll
+grow more powerful as more types of node are added, each bringing new
+behaviour to the language.
+
+I've been exploring these ideas over the last month and I've now got a tiny
+little language written in Elixir, including a parser that turns the source
+code into the AST introduced in this post. The source for this project can be
+found on GitHub [here][repo].
+
+[repo]: https://github.com/lpil/soup
+
+If you're interested in learning more about language and computation I
+recommend reading Tom Stuart's [Understanding Computation][book].
+
+[book]: http://computationbook.com/
