@@ -19,8 +19,8 @@ The first thing to know is that all code syntax can be expressed as a tree.
 Take the expression below, in which `+` is called with the numbers `1` and
 `2`.
 
-This can be expressed as a tree with `+` as the root, and the numbers as
-its children.
+This can be expressed as a tree with `+` as the root nodes, and the numbers as
+its child nodes.
 
 ```elixir
 1 + 2
@@ -44,8 +44,8 @@ call: ==
  └── number: 3
 ```
 
-Here the `==` is the root and it has two children, a call
-to `+` and the number 3. The call to `+` has two children, the number 1
+Here the `==` is the root node and it has two children nodes, a call
+to `+` and the number 3. The call to `+` has two child nodes, the number 1
 and the number 2.
 
 All source code can be expressed as a tree data structure (an [abstract syntax
@@ -215,7 +215,7 @@ assert result == {:ok, Number.new(2)}
 ```
 
 This code's pretty grim, so I'll use Elixir's monadic `with` to tidy it up a
-bit. This code does exactly the same thing, except the happy path it written
+bit. This code does exactly the same thing, except the happy path is written
 first, and then the other paths are in the `else` block.
 
 ```elixir
@@ -306,3 +306,5 @@ If you're interested in learning more about language and computation I
 recommend reading Tom Stuart's [Understanding Computation][book].
 
 [book]: http://computationbook.com/
+
+Tara! :)
