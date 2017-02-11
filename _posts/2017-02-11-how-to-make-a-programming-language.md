@@ -226,7 +226,7 @@ defimpl Node, for: Add do
       {:ok, Number.new(add.left.value + add.right.value)}
     else
       {:left, {:ok, reduced}} ->
-        {:ok, Add.new(reduced add.right)}
+        {:ok, Add.new(reduced, add.right)}
 
       {:right, {:ok, reduced}} ->
         {:ok, Add.new(add.left, reduced)}
@@ -245,7 +245,7 @@ defimpl Node, for: Add do
       {:ok, Boolean.new(add.left.value == add.right.value)}
     else
       {:left, {:ok, reduced}} ->
-        {:ok, Add.new(reduced add.right)}
+        {:ok, Add.new(reduced, add.right)}
 
       {:right, {:ok, reduced}} ->
         {:ok, Add.new(add.left, reduced)}
