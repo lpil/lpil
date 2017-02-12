@@ -238,7 +238,7 @@ end
 And then lastly there's `Equals`, which is pretty much the same as `Add`.
 
 ```elixir
-defimpl Node, for: Add do
+defimpl Node, for: Equals do
   def reduce(add) do
     with {:left, :noop} <- {:left, Node.reduce(add.left)},
          {:right, :noop} <- {:right, Node.reduce(add.right)} do
