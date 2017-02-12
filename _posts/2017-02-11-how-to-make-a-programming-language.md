@@ -93,7 +93,7 @@ Equals.new(Add.new(Number.new(1),
            Number.new(4))
 ```
 
-Now can can express programs in our code, providing those programs do nothing
+Now we can express programs in our code, providing those programs do nothing
 other than add numbers and check for equality. How do we go one step further
 and execute this tree? First we need to think about what happens when we step
 through code.
