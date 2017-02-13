@@ -242,13 +242,13 @@ defimpl Node, for: Equals do
   def reduce(add) do
     with {:left, :noop} <- {:left, Node.reduce(add.left)},
          {:right, :noop} <- {:right, Node.reduce(add.right)} do
-      {:ok, Boolean.new(add.left.value == add.right.value)}
+      {:ok, Equals.new(add.left.value == add.right.value)}
     else
       {:left, {:ok, reduced}} ->
-        {:ok, Add.new(reduced, add.right)}
+        {:ok, Equals.new(reduced, add.right)}
 
       {:right, {:ok, reduced}} ->
-        {:ok, Add.new(add.left, reduced)}
+        {:ok, Equals.new(add.left, reduced)}
     end
   end
 end
