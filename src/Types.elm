@@ -1,18 +1,8 @@
 module Types exposing (..)
 
 import Array exposing (Array)
-import NewEvent.Types as NewEvent
-
-
-type alias Update =
-    ( Model, Cmd Msg )
-
-
-type alias Event =
-    { name : String
-    , dateStart : String
-    , dateEnd : String
-    }
+import Event exposing (Event)
+import EventForm.Types as EventForm
 
 
 type alias Model =
@@ -27,5 +17,4 @@ type alias Flags =
 
 type Msg
     = LogOut
-    | NewEventInput NewEvent.EventField String
-    | NewEventSubmit
+    | EventFormMsg EventForm.Msg

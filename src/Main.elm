@@ -5,7 +5,7 @@ import Array
 import Types exposing (..)
 import View
 import Update
-import NewEvent.State
+import EventForm.Update
 
 
 main : Program Flags Model Msg
@@ -20,7 +20,7 @@ main =
 
 init : Flags -> ( Model, Cmd Msg )
 init flags =
-    { newEvent = NewEvent.State.newEvent
+    { newEvent = EventForm.Update.newEvent
     , events = Array.fromList []
     }
         ! []

@@ -1,7 +1,12 @@
 port module Update exposing (update)
 
 import Types exposing (..)
-import NewEvent.State as NewEvent
+import EventForm.Update as EventForm
+import EventForm.Types
+
+
+type alias Update =
+    ( Model, Cmd Msg )
 
 
 update : Msg -> Model -> Update
@@ -10,11 +15,17 @@ update msg model =
         LogOut ->
             model ! [ logOut () ]
 
-        NewEventInput field value ->
-            NewEvent.updateInput field value model
+        EventFormMsg formMsg ->
+            eventFormUpdate formMsg model
 
-        NewEventSubmit ->
-            NewEvent.updateSubmit model
+
+eventFormUpdate : EventForm.Types.Msg -> Model -> Update
+eventFormUpdate msg model =
+    let
+        ( event, cmd ) =
+            EventForm.update msg model.newEvent
+    in
+        ( { model | newEvent = event }, Cmd.map EventFormMsg cmd )
 
 
 {-| Defer to JS to log out

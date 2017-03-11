@@ -8,19 +8,19 @@ module.exports = merge(config, {
   module: {
     loaders: [
       {
-        test:    /\.elm$/,
+        test: /\.elm$/,
         exclude: [/elm-stuff/, /node_modules/],
-        loader:  "elm-webpack"
-      },
-    ],
+        loader: "elm-webpack"
+      }
+    ]
   },
 
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
 
     new webpack.optimize.UglifyJsPlugin({
-      minimize:   true,
+      minimize: true,
       compressor: { warnings: false }
-    }),
-  ],
+    })
+  ]
 });

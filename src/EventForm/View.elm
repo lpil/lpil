@@ -1,20 +1,20 @@
-module NewEvent.View exposing (form)
+module EventForm.View exposing (form)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onInput, onSubmit)
-import Types exposing (..)
-import NewEvent.Types exposing (..)
+import EventForm.Types exposing (..)
+import Event exposing (Event)
 
 
-form : Event -> Html Msg
+form : Model -> Html Msg
 form event =
-    Html.form [ onSubmit NewEventSubmit ]
+    Html.form [ onSubmit Submit ]
         [ h1 [] [ text "New event form" ]
         , eventInput event.name Name
-        , eventInput event.dateStart EventStart
-        , eventInput event.dateEnd EventEnd
-        , div [] [ button [] [ text "Save" ] ]
+        , eventInput event.dateStart DateStart
+        , eventInput event.dateEnd DateEnd
+        , div [] [ button [] [ text "Submit" ] ]
         ]
 
 
@@ -25,7 +25,7 @@ eventInput currentValue field =
         , input
             [ type_ "text"
             , value currentValue
-            , onInput (NewEventInput field)
+            , onInput (Input field)
             ]
             []
         ]
@@ -37,8 +37,8 @@ labelText field =
         Name ->
             "Event Name"
 
-        EventStart ->
+        DateStart ->
             "Start Date"
 
-        EventEnd ->
+        DateEnd ->
             "End Date"
