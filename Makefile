@@ -14,7 +14,7 @@ install: ## Install deps
 
 
 start: ## Start the dev server
-	NODE_ENV=development $(NBIN)/webpack-dev-server \
+	@NODE_ENV=development $(NBIN)/webpack-dev-server \
 					 --hot \
 					 --inline \
 					 --content-base src/, \
@@ -25,14 +25,18 @@ start: ## Start the dev server
 
 
 build: ## Compile app
-	rm -rf dist
-	NODE_ENV=production $(NBIN)/webpack \
+	@NODE_ENV=production $(NBIN)/webpack \
 					 --optimize-minimize \
 					 --define \
 					 --progress \
 					 --bail \
 					 --config ./webpack.prod.config.js
 .PHONY: build
+
+
+clean: ## Remove compiled artifacts
+	rm -rf dist
+.PHONY: clean
 
 
 test: ## Run the front end tests
