@@ -1,3 +1,4 @@
+const webpack = require("webpack");
 const path = require("path");
 const merge = require("webpack-merge");
 const config = require("./webpack.config");
@@ -20,5 +21,7 @@ module.exports = merge(config, {
         loader: "elm-hot-loader!elm-webpack-loader?debug=true&verbose=true&warn=true"
       }
     ]
-  }
+  },
+
+  plugins: [new webpack.NamedModulesPlugin()]
 });

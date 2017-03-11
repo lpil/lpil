@@ -11,5 +11,5 @@ root model =
     div []
         [ text "hello, world!"
         , button [ onClick LogOut ] [ text "Log out" ]
-        , map EventFormMsg (EventForm.form model.newEvent)
+        , map NewEventMsg (EventForm.form model.newEvent)
         ]

@@ -17,4 +17,4 @@ type alias Flags =
 
 type Msg
     = LogOut
-    | EventFormMsg EventForm.Msg
+    | NewEventMsg EventForm.Msg

@@ -1,11 +1,11 @@
-module EventForm.Update exposing (newEvent, update)
+module EventForm.State exposing (init, update)
 
 import Event exposing (Event)
 import EventForm.Types exposing (..)
 
 
-newEvent : Event
-newEvent =
+init : Event
+init =
     { name = ""
     , dateStart = ""
     , dateEnd = ""
@@ -25,4 +25,4 @@ update msg model =
             { model | dateEnd = value } ! []
 
         Submit ->
-            Debug.crash "TODO: EventForm.update Submit"
+            Debug.log "Handle Submit at a higher level!" model ! []

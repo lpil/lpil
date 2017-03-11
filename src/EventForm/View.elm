@@ -4,7 +4,6 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onInput, onSubmit)
 import EventForm.Types exposing (..)
-import Event exposing (Event)
 
 
 form : Model -> Html Msg
@@ -23,19 +22,33 @@ eventInput currentValue field =
     div []
         [ label [] [ text <| labelText field ]
         , input
-            [ type_ "text"
+            [ type_ <| inputType field
             , value currentValue
+            , required True
             , onInput (Input field)
             ]
             []
         ]
 
 
+inputType : EventField -> String
+inputType field =
+    case field of
+        Name ->
+            "text"
+
+        DateStart ->
+            "date"
+
+        DateEnd ->
+            "date"
+
+
 labelText : EventField -> String
 labelText field =
     case field of
         Name ->
-            "Event Name"
+            "Name"
 
         DateStart ->
             "Start Date"
