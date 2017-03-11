@@ -1,8 +1,9 @@
 const Auth0Lock = require("auth0-lock").default;
 const elmApp = require("./elm-app");
+const constants = require("./constants");
 
-const idTokenStorageKey = "honeycombTraining::idToken";
-const profileStorageKey = "honeycombTraining::profile";
+const idTokenStorageKey = constants.idTokenStorageKey;
+const profileStorageKey = constants.profileStorageKey;
 
 const auth0ClientId = "vrkVChz9uCUe4F8UZx1hcJinOdjDHBGr";
 const domain = "lpil.eu.auth0.com";
@@ -19,7 +20,7 @@ function buildFlags(idToken, profile) {
   };
 }
 
-function onAuthenticated(lock, authResult) {
+function onAuthenticated(authResult) {
   lock.getProfile(authResult.idToken, function(error, profile) {
     if (error) {
       // Handle error

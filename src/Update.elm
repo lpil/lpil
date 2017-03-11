@@ -1,42 +1,22 @@
-module Update exposing (update)
+port module Update exposing (update)
 
-import Array
 import Types exposing (..)
-import NewEvent.Types exposing (..)
 import NewEvent.State as NewEvent
-
-
-type alias Update =
-    ( Model, Cmd Msg )
 
 
 update : Msg -> Model -> Update
 update msg model =
     case msg of
+        LogOut ->
+            model ! [ logOut () ]
+
         NewEventInput field value ->
-            newEventInput field value model
+            NewEvent.updateInput field value model
 
         NewEventSubmit ->
-            newEventSubmit model
+            NewEvent.updateSubmit model
 
 
-{-| New event form has has new content entered.
+{-| Defer to JS to log out
 -}
-newEventInput : EventField -> String -> Model -> Update
-newEventInput field value model =
-    let
-        event =
-            NewEvent.updateField model.newEvent field value
-    in
-        { model | newEvent = event } ! []
-
-
-{-| New event form has has been submitted
--}
-newEventSubmit : Model -> Update
-newEventSubmit model =
-    { model
-        | newEvent = NewEvent.newEvent
-        , events = Array.push model.newEvent model.events
-    }
-        ! []
+port logOut : () -> Cmd msg

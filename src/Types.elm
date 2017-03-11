@@ -4,6 +4,10 @@ import Array exposing (Array)
 import NewEvent.Types as NewEvent
 
 
+type alias Update =
+    ( Model, Cmd Msg )
+
+
 type alias Event =
     { name : String
     , dateStart : String
@@ -22,5 +26,6 @@ type alias Flags =
 
 
 type Msg
-    = NewEventInput NewEvent.EventField String
+    = LogOut
+    | NewEventInput NewEvent.EventField String
     | NewEventSubmit
