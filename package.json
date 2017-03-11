@@ -1,6 +1,9 @@
 {
   "dependencies": {
-    "auth0-lock": "^10.12.3",
+    "auth0-lock": "^10.12.3"
+  },
+  "devDependencies": {
+    "compression-webpack-plugin": "^0.3.2",
     "elm": "^0.18.0",
     "elm-hot-loader": "^0.5.4",
     "elm-test": "^0.18.2",

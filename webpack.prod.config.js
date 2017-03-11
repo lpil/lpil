@@ -1,6 +1,7 @@
 const webpack = require("webpack");
 const path = require("path");
 const merge = require("webpack-merge");
+const CompressionPlugin = require("compression-webpack-plugin");
 const config = require("./webpack.config");
 
 module.exports = merge(config, {
@@ -20,6 +21,11 @@ module.exports = merge(config, {
     new webpack.optimize.UglifyJsPlugin({
       minimize: true,
       compressor: { warnings: false }
+    }),
+
+    new CompressionPlugin({
+      algorithm: "gzip",
+      test: /\.(js|html|css)$/,
     })
   ]
 });
