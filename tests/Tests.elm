@@ -16,9 +16,6 @@ all =
             , test "String.left" <|
                 \() ->
                     Expect.equal "a" (String.left 1 "abcdefg")
-            , test "This test should fail - you should remove it" <|
-                \() ->
-                    Expect.fail "Failed as expected!"
             ]
         , describe "Fuzz test examples, using randomly generated input"
             [ fuzz (list int) "Lists always have positive length" <|
