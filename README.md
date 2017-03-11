@@ -5,11 +5,15 @@ Tracking conferences and other training fun :)
 ## About
 
 A single page app written in Elm and a little Javascript. The app uses the Elm
-architecture and Kris Jenkin's Elm app [pattern][pattern].
+architecture and largely uses Kris Jenkin's Elm app [pattern][pattern].
+
+[Auth0][auth0] provides user authentication service.
+
+[GraphCool][graphcool] provides a GraphQL based backend service.
 
 [pattern]: http://blog.jenkster.com/2016/04/how-i-structure-elm-apps.html
-
-Auth0 is used for user authentication.
+[auth0]: https://auth0.com/
+[graphcool]: https://www.graph.cool
 
 
 ## Usage

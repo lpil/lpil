@@ -1,9 +1,9 @@
 port module State exposing (init, subscriptions, update)
 
-import Array
 import Types exposing (..)
 import EventForm.State as EventForm
 import EventForm.Types as EventFormT
+import Event.CreateEvent as CreateEvent
 
 
 type alias Update =
@@ -17,7 +17,7 @@ update msg model =
             model ! [ logOut () ]
 
         NewEventMsg (EventFormT.Submit) ->
-            Debug.crash "TODO: Hit API to create new event"
+            model ! [ CreateEvent.cmd model.idToken model.newEvent ]
 
         NewEventMsg formMsg ->
             eventFormUpdate NewEventMsg formMsg model
@@ -47,7 +47,7 @@ port logOut : () -> Cmd msg
 init : Flags -> ( Model, Cmd Msg )
 init flags =
     { newEvent = EventForm.init
-    , events = Array.fromList []
+    , idToken = flags.idToken
     }
         ! []
 

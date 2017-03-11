@@ -24,10 +24,9 @@ start: ## Start the dev server
 .PHONY: start
 
 
-build: ## Compile app
+build: clean ## Compile app
 	@NODE_ENV=production $(NBIN)/webpack \
 					 --optimize-minimize \
-					 --define \
 					 --progress \
 					 --bail \
 					 --config ./webpack.prod.config.js
