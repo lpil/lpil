@@ -1,20 +1,24 @@
 module Types exposing (..)
 
+import Http
 import Event exposing (Event)
 import EventForm.Types as EventForm
 
 
 type alias Model =
     { newEvent : Event
-    , idToken : String
+    , createEvent : Event -> Cmd Msg
     }
 
 
 type alias Flags =
     { idToken : String
+    , endpoint : String
     }
 
 
 type Msg
     = LogOut
     | NewEventMsg EventForm.Msg
+    | FailResponse Http.Error
+    | CreateUserResponse Int

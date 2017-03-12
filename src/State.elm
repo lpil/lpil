@@ -1,9 +1,8 @@
-port module State exposing (init, subscriptions, update)
+port module State exposing (update)
 
 import Types exposing (..)
 import EventForm.State as EventForm
 import EventForm.Types as EventFormT
-import Event.CreateEvent as CreateEvent
 
 
 type alias Update =
@@ -17,10 +16,16 @@ update msg model =
             model ! [ logOut () ]
 
         NewEventMsg (EventFormT.Submit) ->
-            model ! [ CreateEvent.cmd model.idToken model.newEvent ]
+            model ! [ model.createEvent model.newEvent ]
 
         NewEventMsg formMsg ->
             eventFormUpdate NewEventMsg formMsg model
+
+        FailResponse error ->
+            Debug.crash "TODO: update FailResponse"
+
+        CreateUserResponse value ->
+            Debug.crash "TODO: update CreateUserResponse"
 
 
 
@@ -42,16 +47,3 @@ eventFormUpdate msgConstructor msg model =
 {-| Defer to JS to log out
 -}
 port logOut : () -> Cmd msg
-
-
-init : Flags -> ( Model, Cmd Msg )
-init flags =
-    { newEvent = EventForm.init
-    , idToken = flags.idToken
-    }
-        ! []
-
-
-subscriptions : Model -> Sub Msg
-subscriptions model =
-    Sub.none

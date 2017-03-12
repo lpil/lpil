@@ -1,21 +1,19 @@
 module Event.CreateEvent exposing (cmd, query, rawQuery)
 
+import Backend exposing (RequestBuilder)
 import Json.Encode as Encode
+import Json.Decode as Decode
 import Types exposing (Msg(..))
 import EventForm.Types exposing (Model)
-
-
-type alias IdToken =
-    String
 
 
 {-| Construct a Cmd that attempts create a user.
 
 It does this by sending a GraphQL mutation to the backend via HTTP.
 -}
-cmd : IdToken -> Model -> Cmd Msg
-cmd token model =
-    Cmd.none
+cmd : RequestBuilder Int -> Model -> Cmd Msg
+cmd builder model =
+    builder Decode.int CreateUserResponse (query model)
 
 
 query : Model -> Encode.Value
@@ -53,17 +51,3 @@ mutation CreateEvent(
   }
 }
 """
-
-
-
-{- The entire query needs to look like so:
-
-       {
-           "operationName": NAME_OF_QUERY_HERE
-           "query": QUERY_STRING_GOES_HERE,
-           "variables":"{\n  \"foo\": \"wow\"\n}",
-       }
-
-   Note the variables are encoded as JSON. Weird.
-
--}
