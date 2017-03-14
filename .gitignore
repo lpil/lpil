@@ -8,3 +8,5 @@
 **/node_modules/**
 **/*.native
 **/.merlin
+**/output
+**/bower_components
