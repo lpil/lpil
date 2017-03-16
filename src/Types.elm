@@ -14,6 +14,8 @@ type alias Model =
 type alias Flags =
     { idToken : String
     , endpoint : String
+    , userName : String
+    , userEmail : String
     }
 
 

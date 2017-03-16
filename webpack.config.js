@@ -12,7 +12,8 @@ module.exports = {
 
   module: {
     noParse: /\.elm$/,
-    loaders: []
+    loaders: [
+    ]
   },
 
   plugins: [

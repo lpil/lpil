@@ -1,3 +1,5 @@
+require("./styles/main.scss");
+
 const Auth0Lock = require("auth0-lock").default;
 const elmApp = require("./elm-app");
 const constants = require("./constants");
@@ -12,12 +14,10 @@ const lock = new Auth0Lock(auth0ClientId, domain);
 
 function buildFlags(idToken, profile) {
   return {
-    user: {
-      endpoint: "https://api.graph.cool/simple/v1/cj05f7nxp1ztj0123t3tfsg1z",
-      idToken: idToken,
-      name: profile.name,
-      email: profile.email
-    }
+    endpoint: "https://api.graph.cool/simple/v1/cj05f7nxp1ztj0123t3tfsg1z",
+    idToken: idToken,
+    userName: profile.name,
+    userEmail: profile.email
   };
 }
 

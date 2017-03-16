@@ -18,10 +18,22 @@ module.exports = merge(config, {
       {
         test: /\.elm$/,
         exclude: [/elm-stuff/, /node_modules/],
-        loader: "elm-hot-loader!elm-webpack-loader?debug=true&verbose=true&warn=true"
+        use: [
+          { loader: "elm-hot-loader" },
+          { loader: "elm-webpack-loader?debug=true&verbose=true&warn=true" }
+        ]
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          { loader: "style-loader" },
+          { loader: "css-loader" },
+          { loader: "sass-loader" }
+        ]
       }
     ]
   },
 
   plugins: [new webpack.NamedModulesPlugin()]
 });
+
