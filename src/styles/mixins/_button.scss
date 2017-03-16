@@ -1,0 +1,17 @@
+@mixin button() {
+  display: inline-block;
+  padding: 7px 14px;
+  font-weight: 700;
+  font-style: 15px;
+  cursor: pointer;
+
+  background-color: $white;
+  color: $black;
+  border: 3px solid $black;
+
+  &:hover {
+    background-color: $black;
+    color: $white;
+    border: 3px solid $black;
+  }
+}

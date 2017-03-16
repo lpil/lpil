@@ -11,6 +11,8 @@ architecture and largely uses Kris Jenkin's Elm app [pattern][pattern].
 
 [GraphCool][graphcool] provides a GraphQL based backend service.
 
+Webpack is used to compile the application, and SCSS is used for styling.
+
 [pattern]: http://blog.jenkster.com/2016/04/how-i-structure-elm-apps.html
 [auth0]: https://auth0.com/
 [graphcool]: https://www.graph.cool

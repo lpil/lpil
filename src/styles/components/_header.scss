@@ -1,0 +1,18 @@
+.header {
+  background-color: $c-brand-yellow;
+  padding: $tile-padding;
+  padding-top: 15px;
+}
+
+.header--nav {
+  text-align: right;
+}
+
+.header--logout {
+  @include button();
+}
+
+.header--logout:hover {
+  background-color: $black;
+  color: $white;
+}

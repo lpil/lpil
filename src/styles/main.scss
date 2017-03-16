@@ -1,10 +1,15 @@
 @import 'vendor/reset';
 
 @import 'variables';
-@import 'typography';
 
-@import 'code';
+@import 'mixins/button';
+
+@import 'typography';
 @import 'links';
+@import 'page';
+
+@import 'components/header';
+@import 'components/event-tiles';
 
 * {
   box-sizing: border-box;
