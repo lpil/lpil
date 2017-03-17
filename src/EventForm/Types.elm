@@ -1,10 +1,11 @@
 module EventForm.Types exposing (..)
 
-import Event exposing (Event)
-
 
 type alias Model =
-    Event
+    { name : String
+    , dateStart : String
+    , dateEnd : String
+    }
 
 
 type Msg

@@ -6,7 +6,8 @@ import EventForm.Types as EventForm
 
 
 type alias Model =
-    { newEvent : Event
+    { events : List Event
+    , newEvent : EventForm.Model
     , createEvent : Event -> Cmd Msg
     }
 

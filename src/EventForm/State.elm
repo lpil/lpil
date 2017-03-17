@@ -4,7 +4,7 @@ import Event exposing (Event)
 import EventForm.Types exposing (..)
 
 
-init : Event
+init : Model
 init =
     { name = ""
     , dateStart = ""

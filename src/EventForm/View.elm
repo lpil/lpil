@@ -10,6 +10,7 @@ form : Model -> Html Msg
 form event =
     Html.form [ onSubmit Submit ]
         [ h1 [] [ text "New event form" ]
+        , div [ class "hexagon" ] []
         , eventInput event.name Name
         , eventInput event.dateStart DateStart
         , eventInput event.dateEnd DateEnd

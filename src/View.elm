@@ -3,6 +3,7 @@ module View exposing (root)
 import Html exposing (..)
 import Html.Attributes exposing (class)
 import Html.Events exposing (onClick)
+import View.Spinner
 import Types exposing (..)
 import EventForm.View as EventForm
 
@@ -12,6 +13,7 @@ root model =
     div []
         [ header model
         , eventTiles
+        , View.Spinner.root True
         ]
 
 

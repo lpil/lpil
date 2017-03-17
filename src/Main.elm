@@ -24,13 +24,12 @@ init flags =
     let
         requestBuilder =
             Backend.cmd flags.idToken flags.endpoint
-
-        model =
-            { newEvent = EventForm.State.init
-            , createEvent = Event.CreateEvent.cmd requestBuilder
-            }
     in
-        model ! []
+        { newEvent = EventForm.State.init
+        , createEvent = Event.CreateEvent.cmd requestBuilder
+        , events = []
+        }
+            ! []
 
 
 subscriptions : Model -> Sub Msg
