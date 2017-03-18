@@ -1,5 +1,7 @@
 # Training
 
+[![Build Status](https://travis-ci.org/honeycomb-tv/training.svg?branch=v2/master)](https://travis-ci.org/honeycomb-tv/training)
+
 Tracking conferences and other training fun :)
 
 ## About

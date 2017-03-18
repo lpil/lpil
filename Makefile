@@ -40,9 +40,9 @@ clean: ## Remove compiled artifacts
 
 test: ## Run the front end tests
 	$(ELM_TEST)
-.PHONY: elm-test
+.PHONY: test
 
 
 test-watch: ## Run the front end test watcher
 	$(ELM_TEST) --watch
-.PHONY: elm-test-watch
+.PHONY: test-watch
