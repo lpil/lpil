@@ -1,4 +1,6 @@
-language: node
+language: node_js
+node_js:
+  - node
 
 sudo: false # faster builds
 
@@ -22,7 +24,10 @@ before_install:
     fi
   - npm install -g yarn
   - make install
+  - npm install elm-format-download
+  - ./node_modules/.bin/elm-format-download
 
 script:
   - $TRAVIS_BUILD_DIR/sysconfcpus/bin/sysconfcpus -n 2 make build
   - $TRAVIS_BUILD_DIR/sysconfcpus/bin/sysconfcpus -n 2 make test
+  - ./node_modules/elm-format-download/downloads/elm-format --validate src tests

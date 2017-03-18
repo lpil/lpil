@@ -4,6 +4,7 @@
 
 Tracking conferences and other training fun :)
 
+
 ## About
 
 A single page app written in Elm and a little Javascript. The app uses the Elm
@@ -34,3 +35,10 @@ make start
 make test
 make test-watch
 ```
+
+
+## Contributing
+
+Run [Elm format](https://github.com/avh4/elm-format) on Elm code. Having your
+editor do this automatically when you hit save is nice and saves you a lot of
+typing :)
