@@ -1,6 +1,7 @@
 module Main exposing (..)
 
 import Html exposing (..)
+import Html.Attributes exposing (class)
 import Task
 import Maybe
 import Time exposing (Time, second)
@@ -17,8 +18,10 @@ type alias Model =
 
 
 type alias Date28Hour =
-    { month : Date.Month
-    , day : Int
+    { year : Int
+    , month : Date.Month
+    , weekday : Int
+    , monthday : Int
     , second : Int
     , minute : Int
     , hour : Int
@@ -37,7 +40,8 @@ main =
 
 init : ( Model, Cmd Msg )
 init =
-    { currentDate = Nothing } ! []
+    { currentDate = Nothing }
+        ! [ Task.perform CurrentDate Date.now ]
 
 
 subscriptions : Model -> Sub Msg
@@ -90,25 +94,119 @@ to28Hour date =
         day28Hour =
             rem dayHours 28
     in
-        { month = Date.month date
-        , day = Date.day date
+        { year = Date.year date
+        , month = Date.month date
+        , weekday = day28Hour
+        , monthday = Date.day date
         , hour = Date.hour date
         , minute = Date.minute date
         , second = Date.second date
         }
 
 
-view : Model -> Html a
+monthName : Date.Month -> String
+monthName month =
+    case month of
+        Date.Jan ->
+            "January"
+
+        Date.Feb ->
+            "February"
+
+        Date.Mar ->
+            "March"
+
+        Date.Apr ->
+            "April"
+
+        Date.May ->
+            "May"
+
+        Date.Jun ->
+            "June"
+
+        Date.Jul ->
+            "July"
+
+        Date.Aug ->
+            "August"
+
+        Date.Sep ->
+            "September"
+
+        Date.Oct ->
+            "October"
+
+        Date.Nov ->
+            "November"
+
+        Date.Dec ->
+            "December"
+
+
+padNumber : Int -> String
+padNumber n =
+    if n < 10 then
+        "0" ++ (toString n)
+    else
+        toString n
+
+
+weekdayName : Int -> String
+weekdayName weekday =
+    case weekday of
+        0 ->
+            "Monday"
+
+        1 ->
+            "Tuesday"
+
+        2 ->
+            "Wednesday"
+
+        3 ->
+            "Thursday"
+
+        4 ->
+            "Friday"
+
+        _ ->
+            "Saturday"
+
+
+view : Model -> Html Msg
 view model =
     case Maybe.map to28Hour model.currentDate of
         Nothing ->
             div [] []
 
         Just date ->
-            div []
-                [ span [] [ date.month |> toString |> text ]
-                , span [] [ date.day |> toString |> text ]
-                , span [] [ date.hour |> toString |> text ]
-                , span [] [ date.minute |> toString |> text ]
-                , span [] [ date.second |> toString |> text ]
+            clockView date
+
+
+clockView : Date28Hour -> Html Msg
+clockView date =
+    let
+        dateInfo =
+            div [ class "clock-date" ]
+                [ span [ class "weekday" ] [ date.weekday |> weekdayName |> text ]
+                , text ", "
+                , span [ class "monthday" ] [ date.monthday |> toString |> text ]
+                , text " "
+                , span [ class "month" ] [ date.month |> monthName |> text ]
+                , text " "
+                , span [ class "year" ] [ date.year |> toString |> text ]
                 ]
+
+        timeInfo =
+            div [ class "clock-time" ]
+                [ span [ class "hour" ] [ date.hour |> padNumber |> text ]
+                , text ":"
+                , span [ class "minute" ] [ date.minute |> padNumber |> text ]
+                , text ":"
+                , span [ class "second" ] [ date.second |> padNumber |> text ]
+                ]
+    in
+        div [ class "clock-container" ]
+            [ div [ class "clock" ] [ dateInfo, timeInfo ]
+            ]

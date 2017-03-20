@@ -1,5 +1,36 @@
 @import 'vendor/reset';
 
+$black: black;
+$white: #ddd;
+
 * {
   box-sizing: border-box;
+}
+
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  background-color: $black;
+  background-color: brown;
+  color: $white;
+  padding-top: 120px;
+}
+
+.clock-container {
+  text-align: center;
+  vertical-align: center;
+}
+
+.clock {
+  display: inline-block;
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 20px;
+}
+
+.clock-date {
+  margin-bottom: 8px;
+}
+
+.clock-time {
+  font-size: 1.6em;
 }
