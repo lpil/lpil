@@ -100,5 +100,6 @@ alias transfer-random-data-new-music-to-media-usb-music="find data/new-music/*/*
 #  Docker  #
 ############
 
-alias docker-couchdb="docker run -t -d -p 5984:5984 --name couchdb klaemo/couchdb"
-alias docker-postgres="docker run -t -d -p 5432:5432 --name postgres postgres"
+alias get-docker-couchdb="docker run -t -d -p 5984:5984 --name couchdb klaemo/couchdb"
+alias get-docker-postgres="docker run -t -d -p 5432:5432 --name postgres postgres"
+alias get-docker-redis="docker run -t -d -p 6379:6379 --name redis redis"

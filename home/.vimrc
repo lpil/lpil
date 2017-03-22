@@ -27,6 +27,7 @@ Plug 'godlygeek/tabular'
 Plug 'guns/vim-sexp', { 'for': lisp_languages }
 Plug 'hashivim/vim-terraform'
 Plug 'honza/vim-snippets'
+Plug 'idris-hackers/idris-vim', { 'for': 'idris' }
 Plug 'jpalardy/vim-slime'
 Plug 'kylef/apiblueprint.vim', { 'for': 'apiblueprint' }
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
