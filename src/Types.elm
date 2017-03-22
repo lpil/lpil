@@ -9,6 +9,7 @@ type alias Model =
     { events : List Event
     , newEvent : EventForm.Model
     , createEvent : Event -> Cmd Msg
+    , fetchEvents : Cmd Msg
     }
 
 
@@ -24,4 +25,6 @@ type Msg
     = LogOut
     | NewEventMsg EventForm.Msg
     | FailResponse Http.Error
-    | CreateUserResponse Int
+    | CreateEventResponse Int
+    | CreateUserResponse ()
+    | FetchEventsResponse (List Event)

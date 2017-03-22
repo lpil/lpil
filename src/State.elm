@@ -22,10 +22,20 @@ update msg model =
             eventFormUpdate NewEventMsg formMsg model
 
         FailResponse error ->
-            Debug.crash "TODO: update FailResponse"
+            Debug.crash ("TODO: update FailResponse" ++ (toString error))
+
+        CreateEventResponse value ->
+            let
+                _ =
+                    Debug.log "CreateEventResponse" value
+            in
+                Debug.crash "TODO: update CreateEventResponse"
 
         CreateUserResponse value ->
-            Debug.crash "TODO: update CreateUserResponse"
+            model ! [ model.fetchEvents ]
+
+        FetchEventsResponse events ->
+            { model | events = events } ! []
 
 
 

@@ -22,13 +22,14 @@ function buildFlags(idToken, profile) {
 }
 
 function onAuthenticated(authResult) {
-  lock.getProfile(authResult.idToken, function(error, profile) {
+  const accessToken = authResult.accessToken;
+  const idToken = authResult.idToken;
+  lock.getUserInfo(accessToken, function(error, profile) {
     if (error) {
       // Handle error
       console.error(error);
       return;
     }
-    const idToken = authResult.idToken;
     localStorage.setItem(idTokenStorageKey, idToken);
     localStorage.setItem(profileStorageKey, JSON.stringify(profile));
     lock.hide();

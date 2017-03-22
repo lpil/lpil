@@ -1,7 +1,7 @@
-module Backend exposing (cmd, RequestBuilder)
+module Backend exposing (Query, cmd)
 
 import Http exposing (Request)
-import Json.Encode exposing (Value)
+import Json.Encode as Encode
 import Json.Decode exposing (Decoder)
 import Types exposing (..)
 
@@ -14,20 +14,20 @@ type alias IdToken =
     String
 
 
-type alias RequestBuilder data =
-    Decoder data
-    -> (data -> Msg)
-    -> Value
-    -> Cmd Msg
+type alias Query responseData =
+    { name : String
+    , graphQl : String
+    , variables : List ( String, Encode.Value )
+    , responseMsg : responseData -> Msg
+    , responseDecoder : Decoder responseData
+    }
 
 
 {-| Construct a Cmd that sends a GraphQL query to the backend.
 
-Partially apply everything except the body for convenience.
-
 -}
-cmd : IdToken -> Endpoint -> RequestBuilder responseBody
-cmd idToken endpoint respBodyDecoder msg body =
+cmd : IdToken -> Endpoint -> Query responseData -> Cmd Msg
+cmd idToken endpoint query =
     let
         headers =
             [ Http.header "Authorization" ("Bearer " ++ idToken)
@@ -38,13 +38,22 @@ cmd idToken endpoint respBodyDecoder msg body =
                 { method = "POST"
                 , headers = headers
                 , url = endpoint
-                , body = Http.jsonBody body
-                , expect = Http.expectJson respBodyDecoder
+                , body = query |> requestBody |> Http.jsonBody
+                , expect = Http.expectJson query.responseDecoder
                 , timeout = Nothing
                 , withCredentials = False
                 }
     in
-        Http.send (dispatchMsg msg) requestPayload
+        Http.send (dispatchMsg query.responseMsg) requestPayload
+
+
+requestBody : Query a -> Encode.Value
+requestBody query =
+    Encode.object
+        [ ( "operationName", Encode.string query.name )
+        , ( "query", Encode.string query.graphQl )
+        , ( "variables", Encode.object query.variables )
+        ]
 
 
 dispatchMsg : (resp -> Msg) -> Result Http.Error resp -> Msg

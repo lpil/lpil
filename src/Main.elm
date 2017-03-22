@@ -5,7 +5,9 @@ import Types exposing (..)
 import State
 import View
 import Backend
-import Event.CreateEvent
+import CreateUser
+import Backend.CreateEvent
+import Backend.FetchEvents
 import EventForm.State
 
 
@@ -22,14 +24,19 @@ main =
 init : Flags -> ( Model, Cmd Msg )
 init flags =
     let
-        requestBuilder =
+        send =
             Backend.cmd flags.idToken flags.endpoint
+
+        createUser =
+            send (CreateUser.query flags.idToken)
     in
         { newEvent = EventForm.State.init
-        , createEvent = Event.CreateEvent.cmd requestBuilder
+        , createEvent = Backend.CreateEvent.query >> send
+        , fetchEvents = send Backend.FetchEvents.query
         , events = []
         }
-            ! []
+            ! [ createUser
+              ]
 
 
 subscriptions : Model -> Sub Msg
