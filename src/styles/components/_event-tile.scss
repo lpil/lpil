@@ -1,0 +1,12 @@
+.event-tile {
+  background-color: $c-brand-pink;
+  padding: $tile-padding;
+}
+
+.event-tile__value {
+  height: $event-value-height;
+}
+
+.event-tile__field {
+  margin-bottom: $event-field-spacer;
+}

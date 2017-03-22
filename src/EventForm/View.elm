@@ -20,7 +20,7 @@ form event =
 
 eventInput : String -> EventField -> Html Msg
 eventInput currentValue field =
-    div []
+    div [ class "event-form__field" ]
         [ label [] [ text <| labelText field ]
         , input
             [ type_ <| inputType field

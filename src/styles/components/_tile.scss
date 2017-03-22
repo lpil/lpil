@@ -1,4 +1,4 @@
-.event-tiles {
+.tiles {
   display: flex;
   flex-wrap: wrap;
   align-items: stretch;
@@ -7,28 +7,13 @@
   margin-right: -$panel-gutter-size / 2;
 }
 
+.new-event-tile,
 .event-tile {
   margin-left: $panel-gutter-size / 2;
   margin-right: $panel-gutter-size / 2;
   margin-top: $panel-gutter-size;
   flex-grow: 1;
+  flex: 1;
   min-width: 300px;
-  height: 300px;
-
-  background-color: $c-brand-pink;
-  padding: $tile-padding;
-}
-
-.event-tile__name {
-  font-size: 28px;
-}
-
-.event-tile__label {
-  display: inline-block;
-  font-weight: bold;
-  min-width: 6em;
-}
-
-.event-tile__label:after {
-  content: ': ';
+  min-height: 100px;
 }

@@ -8,9 +8,12 @@
 @import 'links';
 @import 'page';
 
+@import 'components/logout';
 @import 'components/hexagon-spinner';
-@import 'components/header';
-@import 'components/event-tiles';
+@import 'components/tile';
+@import 'components/new-event-tile';
+@import 'components/event-form';
+@import 'components/event-tile';
 
 * {
   box-sizing: border-box;

@@ -11,44 +11,36 @@ import Event exposing (Event)
 
 root : Model -> Html Msg
 root model =
-    div []
-        [ View.Spinner.root True
-        , header model
-        , eventTiles model.events
-        ]
-
-
-header : Model -> Html Msg
-header model =
     let
-        navBar =
-            nav [ class "header--nav" ]
-                [ a [ onClick LogOut, class "header--logout" ]
-                    [ text "Log out" ]
-                ]
+        tiles =
+            div [ class "tiles" ] <|
+                newEventTile model
+                    :: (List.map eventTile model.events)
     in
-        div [ class "header" ]
-            [ navBar
-            , map NewEventMsg (EventForm.form model.newEvent)
+        div []
+            [ View.Spinner.root True
+            , a [ onClick LogOut, class "logout" ] [ text "Log out" ]
+            , tiles
             ]
 
 
-eventTiles : List Event -> Html Msg
-eventTiles events =
-    div [ class "event-tiles" ] (List.map eventTile events)
+newEventTile : Model -> Html Msg
+newEventTile model =
+    div [ class "new-event-tile" ]
+        [ map NewEventMsg (EventForm.form model.newEvent) ]
 
 
 eventTile : Event -> Html Msg
 eventTile event =
     let
         detail name value =
-            div []
+            div [ class "event-tile__field" ]
                 [ label [ class "event-tile__label" ] [ text name ]
-                , span [] [ text value ]
+                , div [ class "event-tile__value" ] [ text value ]
                 ]
     in
         div [ class "event-tile" ]
-            [ h3 [ class "event-tile__name" ] [ text event.name ]
+            [ h3 [] [ text event.name ]
             , detail "Start Date" event.dateStart
             , detail "End Date" event.dateEnd
             ]
