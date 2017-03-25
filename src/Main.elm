@@ -33,7 +33,7 @@ init flags =
         { newEvent = EventForm.State.init
         , createEvent = Backend.CreateEvent.query >> send
         , fetchEvents = send Backend.FetchEvents.query
-        , events = []
+        , events = Nothing
         }
             ! [ createUser
               ]

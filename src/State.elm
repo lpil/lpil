@@ -35,7 +35,7 @@ update msg model =
             model ! [ model.fetchEvents ]
 
         FetchEventsResponse events ->
-            { model | events = events } ! []
+            { model | events = Just events } ! []
 
 
 

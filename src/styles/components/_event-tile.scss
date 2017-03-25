@@ -1,6 +1,6 @@
 .event-tile {
+  animation: 0.5s fade-in;
   background-color: $c-brand-pink;
-  padding: $tile-padding;
 }
 
 .event-tile__value {

@@ -15,7 +15,7 @@ root model =
         tiles =
             div [ class "tiles" ] <|
                 newEventTile model
-                    :: (List.map eventTile model.events)
+                    :: eventTiles model.events
     in
         div []
             [ View.Spinner.root True
@@ -44,3 +44,13 @@ eventTile event =
             , detail "Start Date" event.dateStart
             , detail "End Date" event.dateEnd
             ]
+
+
+eventTiles : Maybe (List Event) -> List (Html Msg)
+eventTiles maybeEvents =
+    case maybeEvents of
+        Nothing ->
+            [ div [ class "loading-tile" ] [ text "loading!" ] ]
+
+        Just events ->
+            List.map eventTile events

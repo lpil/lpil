@@ -1,9 +1,3 @@
-@keyframes spin {
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
 .hexagon-spinner {
   animation: spin 1.5s ease-in-out infinite;
 
