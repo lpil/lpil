@@ -7,7 +7,7 @@ import Types exposing (..)
 import State
 import View
 import Backend
-import CreateUser
+import Backend.CreateUser
 import Backend.CreateEvent
 import Backend.FetchEvents
 import EventForm.State
@@ -30,7 +30,7 @@ init flags =
             Backend.cmd flags.idToken flags.endpoint
 
         createUser =
-            send (CreateUser.query flags.idToken)
+            send (Backend.CreateUser.query flags.idToken)
     in
         { newEvent = EventForm.State.init
         , createEvent = Backend.CreateEvent.query >> send

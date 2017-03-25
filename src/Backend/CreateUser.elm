@@ -1,4 +1,4 @@
-module CreateUser exposing (query)
+module Backend.CreateUser exposing (query)
 
 import Json.Encode as Encode
 import Json.Decode as Decode
