@@ -7,14 +7,17 @@ import Types exposing (Msg(..))
 import EventForm.Types exposing (Model)
 
 
+-- TODO: Handle failure
+
+
 {-| Attempts to create an event.
 
 -}
-query : Model -> Backend.Query Int
+query : Model -> Backend.Query ()
 query { name, dateStart, dateEnd } =
     { name = "CreateEvent"
     , responseMsg = CreateEventResponse
-    , responseDecoder = Decode.int
+    , responseDecoder = Decode.succeed ()
     , variables =
         [ ( "name", Encode.string name )
         , ( "dateStart", Encode.string dateStart )

@@ -26,8 +26,12 @@ root model =
 
 newEventTile : Model -> Html Msg
 newEventTile model =
-    div [ class "new-event-tile" ]
-        [ map NewEventMsg (EventForm.form model.newEvent) ]
+    let
+        form =
+            EventForm.form model.newEvent model.currentDate
+    in
+        div [ class "new-event-tile" ]
+            [ map NewEventMsg form ]
 
 
 eventTile : Event -> Html Msg

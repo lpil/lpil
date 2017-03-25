@@ -1,6 +1,8 @@
 module Main exposing (..)
 
 import Html
+import Date
+import Task
 import Types exposing (..)
 import State
 import View
@@ -34,8 +36,10 @@ init flags =
         , createEvent = Backend.CreateEvent.query >> send
         , fetchEvents = send Backend.FetchEvents.query
         , events = Nothing
+        , currentDate = Nothing
         }
-            ! [ createUser
+            ! [ Task.perform CurrentDate Date.now
+              , createUser
               ]
 
 

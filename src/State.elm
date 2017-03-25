@@ -12,6 +12,9 @@ type alias Update =
 update : Msg -> Model -> Update
 update msg model =
     case msg of
+        CurrentDate date ->
+            { model | currentDate = Just date } ! []
+
         LogOut ->
             model ! [ logOut () ]
 
@@ -24,12 +27,8 @@ update msg model =
         FailResponse error ->
             Debug.crash ("TODO: update FailResponse" ++ (toString error))
 
-        CreateEventResponse value ->
-            let
-                _ =
-                    Debug.log "CreateEventResponse" value
-            in
-                Debug.crash "TODO: update CreateEventResponse"
+        CreateEventResponse events ->
+            { model | newEvent = EventForm.init } ! [ model.fetchEvents ]
 
         CreateUserResponse value ->
             model ! [ model.fetchEvents ]
@@ -51,7 +50,7 @@ eventFormUpdate msgConstructor msg model =
         cmd =
             Cmd.map msgConstructor formCmd
     in
-        ( { model | newEvent = event }, cmd )
+        { model | newEvent = event } ! [ cmd ]
 
 
 {-| Defer to JS to log out

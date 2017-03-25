@@ -1,6 +1,7 @@
 module Types exposing (..)
 
 import Http
+import Date exposing (Date)
 import Event exposing (Event)
 import EventForm.Types as EventForm
 
@@ -10,6 +11,7 @@ type alias Model =
     , newEvent : EventForm.Model
     , createEvent : Event -> Cmd Msg
     , fetchEvents : Cmd Msg
+    , currentDate : Maybe Date
     }
 
 
@@ -23,8 +25,9 @@ type alias Flags =
 
 type Msg
     = LogOut
+    | CurrentDate Date
     | NewEventMsg EventForm.Msg
     | FailResponse Http.Error
-    | CreateEventResponse Int
     | CreateUserResponse ()
+    | CreateEventResponse ()
     | FetchEventsResponse (List Event)
