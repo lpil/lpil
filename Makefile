@@ -24,12 +24,7 @@ start: ## Start the dev server
 .PHONY: start
 
 
-build: clean ## Compile app
-	@NODE_ENV=production $(NBIN)/webpack \
-					 --optimize-minimize \
-					 --progress \
-					 --bail \
-					 --config ./webpack.prod.config.js
+build: dist/index.html ## Compile app
 .PHONY: build
 
 
@@ -46,3 +41,25 @@ test: ## Run the front end tests
 test-watch: ## Run the front end test watcher
 	$(ELM_TEST) --watch
 .PHONY: test-watch
+
+
+deploy: clean dist/index.html ## Push the compiled site to gh-pages
+	rm -rf /tmp/honeycomb-training-deploy
+	mv dist /tmp/honeycomb-training-deploy
+	cd /tmp/honeycomb-training-deploy && \
+		git init && \
+		git remote add origin git@github.com:honeycomb/training.git && \
+		git checkout -b gh-pages && \
+		git add --all && \
+		git commit -m 'deploy' && \
+		git push origin HEAD --force
+	rm -rf /tmp/honeycomb-training-deploy
+.PHONY: deploy
+
+
+dist/index.html:
+	@NODE_ENV=production $(NBIN)/webpack \
+					 --optimize-minimize \
+					 --progress \
+					 --bail \
+					 --config ./webpack.prod.config.js
