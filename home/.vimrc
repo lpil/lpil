@@ -16,6 +16,7 @@ Plug 'cespare/vim-toml', { 'for': 'toml' }
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'derekwyatt/vim-scala', { 'for': 'scala' }
 Plug 'digitaltoad/vim-pug', { 'for': ['pug', 'jade'] }
+Plug 'eagletmt/ghcmod-vim', { 'for' : 'haskell' }
 Plug 'elixir-lang/vim-elixir', { 'for': ['elixir', 'markdown'] }
 Plug 'elmcast/elm-vim', { 'for': 'elm' }
 Plug 'evanmiller/nginx-vim-syntax', { 'for': 'nginx' }
@@ -34,6 +35,7 @@ Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 Plug 'lfe-support/vim-lfe', { 'for': 'lfe' }
 Plug 'marcweber/vim-addon-mw-utils'
 Plug 'mxw/vim-jsx', { 'for': 'javascript' }
+Plug 'neovimhaskell/haskell-vim', { 'for' : 'haskell' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'powerman/vim-plugin-ansiesc', { 'for': 'elixir' } " Used by alchemist
 Plug 'raichoo/purescript-vim', { 'for': 'purescript' }
@@ -43,6 +45,7 @@ Plug 'rust-lang/rust.vim', { 'for': ['rust', 'markdown'] }
 Plug 'sbl/scvim', { 'for': 'supercollider' }
 Plug 'scrooloose/syntastic'
 Plug 'shougo/deoplete.nvim', { 'do': function('DoRemote') }
+Plug 'shougo/vimproc.vim', { 'do' : 'make' } " used by ghcmod-vim
 Plug 'sirver/ultisnips'
 Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
 Plug 'slim-template/vim-slim'
