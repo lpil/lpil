@@ -88,17 +88,20 @@ to28Hour date =
                 Date.Sun ->
                     6
 
-        dayHours =
-            dayNum * 24
+        hoursInto28HourWeek =
+            dayNum * 24 + (Date.hour date)
 
-        day28Hour =
-            rem dayHours 28
+        dayOf28HourWeek =
+            hoursInto28HourWeek // 28
+
+        hoursInto28HourDay =
+            rem hoursInto28HourWeek 28
     in
         { year = Date.year date
         , month = Date.month date
-        , weekday = day28Hour
+        , weekday = dayOf28HourWeek
         , monthday = Date.day date
-        , hour = Date.hour date
+        , hour = hoursInto28HourDay
         , minute = Date.minute date
         , second = Date.second date
         }
