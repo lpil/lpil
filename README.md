@@ -4,7 +4,7 @@
 
 My friend Adam has some funky sleeping patterns.
 
-https://source.unsplash.com/
+Thanks to [unsplash](https://source.unsplash.com/) for the images.
 
 
 ## Usage
