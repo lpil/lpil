@@ -20,6 +20,10 @@ counts input =
   (length (words input), length input)
 
 
+counts_repl : IO ()
+counts_repl =
+  repl "\nI'll count the letters and words\n" (show . counts)
+
 
 ||| Write a top_ten function that returns the ten
 ||| largest values in a list.
@@ -27,3 +31,14 @@ counts input =
 top_ten : Ord a => List a -> List a
 top_ten =
   List.take 10 . List.reverse . List.sort
+
+
+||| Write an over_length function that returns the
+||| number of strings in the list longer than the
+||| given number of characters.
+|||
+over_length : Nat -> List String -> Nat
+over_length minLen strings =
+  List.length
+  $ filter (\x => (length x) > minLen)
+  $ strings
