@@ -25,20 +25,24 @@ newtype Game =
 
 newGame :: Player -> Int -> Int -> Maybe Game
 newGame currentPlayer numCols maxSize =
-  if numCols < 1 then
-    Nothing
-  else
-    replicate numCols (newColumn maxSize)
-    # sequence
-    >>= buildGame
+  assertPositive numCols
+  >>= buildCols
+  >>= buildGame
 
   where
+    assertPositive n =
+      if n > 0 then Just n else Nothing
+
+    newColumn maxSize =
+      if maxSize < 1 then
+        Nothing
+      else
+        Just { elements: Nil, maxSize }
+
+    buildCols n =
+      sequence $ replicate n (newColumn maxSize)
+
     buildGame columns =
       Just $ Game { columns, currentPlayer }
 
-newColumn :: Int -> Maybe Column
-newColumn maxSize =
-  if maxSize < 1 then
-    Nothing
-  else
-    Just { elements: Nil, maxSize }
+

@@ -1,15 +1,12 @@
 module Test.Connect (tests) where
 
 import Prelude
-import Test.Unit (Test, TestSuite, suite, test)
+import Test.Unit (TestSuite, suite, test)
 import Test.Unit.Assert as Assert
-import Test.Unit.QuickCheck (quickCheck)
-import Test.QuickCheck (Result(), (===))
-import Data.Maybe (Maybe(..), isJust, isNothing)
-import Data.Ord (abs)
+import Data.Maybe (isJust, isNothing)
 import Connect (Player(..), newGame)
 
-tests :: TestSuite _
+tests :: forall e. TestSuite e
 tests =
   suite "Connect.newGame" do
     test "Just Game with > 0 board size ints" do
