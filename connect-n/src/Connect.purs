@@ -2,7 +2,9 @@ module Connect (Game, Player(..), newGame) where
 
 import Prelude
 import Data.Maybe (Maybe(..))
-import Data.List (List)
+import Data.List (List(..))
+import Data.Array (replicate)
+import Data.Traversable (sequence)
 import Data.Int (round)
 
 data Player
@@ -22,13 +24,21 @@ newtype Game =
 
 
 newGame :: Player -> Int -> Int -> Maybe Game
-newGame player numCols maxSize =
+newGame currentPlayer numCols maxSize =
   if numCols < 1 then
     Nothing
-  else if maxSize < 1 then
+  else
+    replicate numCols (newColumn maxSize)
+    # sequence
+    >>= buildGame
+
+  where
+    buildGame columns =
+      Just $ Game { columns, currentPlayer }
+
+newColumn :: Int -> Maybe Column
+newColumn maxSize =
+  if maxSize < 1 then
     Nothing
   else
-    Just $ Game
-      { columns: []
-      , currentPlayer: player
-      }
+    Just { elements: Nil, maxSize }
