@@ -1,8 +1,12 @@
-module Connect (Game, Player(..), newGame) where
+module Connect
+  ( Game
+  , Player(..)
+  , newGame
+  , columnSize
+  ) where
 
 import Prelude
 import Data.Maybe (Maybe(..))
-import Data.List (List(..))
 import Data.Array (replicate)
 import Data.Traversable (sequence)
 import Data.Int (round)
@@ -11,38 +15,30 @@ data Player
   = X
   | Y
 
-type Column =
-  { elements :: List Player
-  , maxSize :: Int
-  }
-
 newtype Game =
   Game
-    { columns :: (Array Column)
+    { columns :: (Array Int)
     , currentPlayer :: Player
+    , columnSize :: Int
     }
 
 
+-- | Constructs a new Connect N game
 newGame :: Player -> Int -> Int -> Maybe Game
-newGame currentPlayer numCols maxSize =
-  assertPositive numCols
-  >>= buildCols
-  >>= buildGame
+newGame currentPlayer numCols columnSize = do
+  _ <- assertPositive numCols
+  _ <- assertPositive columnSize
+  pure $ Game
+    { columns: replicate numCols 0
+    , columnSize
+    , currentPlayer
+    }
 
   where
     assertPositive n =
       if n > 0 then Just n else Nothing
 
-    newColumn maxSize =
-      if maxSize < 1 then
-        Nothing
-      else
-        Just { elements: Nil, maxSize }
 
-    buildCols n =
-      sequence $ replicate n (newColumn maxSize)
-
-    buildGame columns =
-      Just $ Game { columns, currentPlayer }
-
-
+columnSize :: Game -> Int
+columnSize (Game { columnSize }) =
+  columnSize
