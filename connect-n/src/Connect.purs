@@ -3,17 +3,17 @@ module Connect
   , Player(..)
   , newGame
   , columnSize
+  , columnTokens
   ) where
 
 import Prelude
 import Data.Maybe (Maybe(..))
-import Data.Array (replicate)
-import Data.Traversable (sequence)
+import Data.Array (index, replicate)
 import Data.Int (round)
 
 data Player
   = X
-  | Y
+  | O
 
 newtype Game =
   Game
@@ -39,6 +39,13 @@ newGame currentPlayer numCols columnSize = do
       if n > 0 then Just n else Nothing
 
 
+-- | Get the size of the columns in the game
 columnSize :: Game -> Int
 columnSize (Game { columnSize }) =
   columnSize
+
+
+-- | Get the number of tokens in a column in the game.
+columnTokens :: Game -> Int -> Maybe Int
+columnTokens (Game { columns }) =
+  index columns
