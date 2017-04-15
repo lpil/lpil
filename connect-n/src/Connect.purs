@@ -6,17 +6,19 @@ module Connect
   , getColumn
   , placeToken
   , currentPlayer
+  , winner
   , draw
   ) where
 
 import Prelude
-import Data.Maybe (Maybe(..), fromMaybe, isNothing)
-import Data.List (range)
-import Data.String (joinWith)
 import Control.MonadZero (guard)
+import Data.Maybe (Maybe(..), fromMaybe, isNothing)
+import Data.String (joinWith)
+import Data.Foldable (findMap)
+import Data.NonEmpty (NonEmpty)
 import Data.Array
   ( reverse, index, replicate, updateAt, findIndex , length
-  , fromFoldable
+  , fromFoldable, group, head, range
   )
 
 data Player
@@ -33,9 +35,12 @@ instance showPlayer :: Show Player where
   show O = "O"
 
 
+type Grid =
+  Array (Array (Maybe Player))
+
 newtype Game =
   Game
-    { columns :: (Array (Array (Maybe Player)))
+    { columns :: Grid
     , currentPlayer :: Player
     }
 
@@ -94,7 +99,6 @@ draw :: Game -> String
 draw game@(Game { columns }) =
   (range 0 $ columnSize game - 1)
   # map drawRow
-  # fromFoldable
   # reverse
   # joinWith "\n"
     where
@@ -106,3 +110,40 @@ draw game@(Game { columns }) =
       showCell :: Maybe Player -> String
       showCell Nothing = "_"
       showCell (Just p) = show p
+
+
+winner :: Game -> Maybe Player
+winner game =
+  findMap (\f -> f game)
+    [ verticalWinner
+    , horizontalWinner
+    ]
+    where
+      verticalWinner :: Game -> Maybe Player
+      verticalWinner (Game { columns }) =
+        findMap find4InARow columns
+
+      horizontalWinner :: Game -> Maybe Player
+      horizontalWinner game@(Game { columns }) =
+        (range 0 $ columnSize game - 1)
+        # findMap (\i -> map (safeIndex i) columns # find4InARow)
+
+      find4InARow :: Array (Maybe Player) -> Maybe Player
+      find4InARow =
+        (group >>> findMap (fromFoldable >>> groupOfFour))
+
+      safeIndex :: Int -> Array (Maybe Player) -> Maybe Player
+      safeIndex i array =
+        index array i
+        # fromMaybe Nothing
+
+      groupOfFour :: Array (Maybe Player) -> Maybe Player
+      groupOfFour grp =
+        let
+          player =
+            head grp # fromMaybe Nothing
+        in
+          if player /= Nothing && (length grp) == 4 then
+            player
+          else
+            Nothing

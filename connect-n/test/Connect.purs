@@ -5,14 +5,6 @@ import Test.Unit (TestSuite, suite, test)
 import Test.Unit.Assert as Assert
 import Data.Maybe (Maybe(..), isJust, isNothing)
 import Connect
-  ( Player(..)
-  , newGame
-  , columnSize
-  , getColumn
-  , placeToken
-  , currentPlayer
-  , draw
-  )
 
 tests :: forall e. TestSuite e
 tests = do
@@ -85,7 +77,7 @@ tests = do
         >>= flip placeToken 0
         >>= flip getColumn 0
 
-  suite "draw" do
+  suite "Connect.draw" do
     test "renders to string" do
       Assert.equal (Just """|X|_|
 |X|O|""") $
@@ -94,3 +86,50 @@ tests = do
         >>= flip placeToken 1
         >>= flip placeToken 0
         # map draw
+
+  suite "Connect.winner" do
+    test "empty has no winner" do
+      Assert.equal (Nothing) $
+        newGame X 2 4
+        >>= winner
+
+    test "4 vertical X is a winner" do
+      Assert.equal (Just X) $
+        newGame X 5 5
+        >>= flip placeToken 0
+        >>= flip placeToken 1
+        >>= flip placeToken 0
+        >>= flip placeToken 1
+        >>= flip placeToken 0
+        >>= flip placeToken 1
+        >>= flip placeToken 0
+        >>= winner
+
+    test "4 horizontal O is a winner" do
+      Assert.equal (Just O) $
+        newGame X 5 5
+        >>= flip placeToken 0
+        >>= flip placeToken 1
+        >>= flip placeToken 1
+        >>= flip placeToken 2
+        >>= flip placeToken 2
+        >>= flip placeToken 3
+        >>= flip placeToken 3
+        >>= flip placeToken 4
+        >>= winner
+
+    test "4 horizontal X on second row is a winner" do
+      Assert.equal (Just X) $
+        newGame X 5 5
+        >>= flip placeToken 0
+        >>= flip placeToken 1
+        >>= flip placeToken 2
+        >>= flip placeToken 3
+        >>= flip placeToken 0
+        >>= flip placeToken 0
+        >>= flip placeToken 1
+        >>= flip placeToken 1
+        >>= flip placeToken 2
+        >>= flip placeToken 2
+        >>= flip placeToken 3
+        >>= winner
