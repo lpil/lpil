@@ -4,11 +4,12 @@ module Connect
   , newGame
   , columnSize
   , columnTokens
+  , placeToken
   ) where
 
 import Prelude
 import Data.Maybe (Maybe(..))
-import Data.Array (index, replicate)
+import Data.Array (index, replicate, updateAt)
 import Data.Int (round)
 
 data Player
@@ -49,3 +50,19 @@ columnSize (Game { columnSize }) =
 columnTokens :: Game -> Int -> Maybe Int
 columnTokens (Game { columns }) =
   index columns
+
+
+-- | Place a token in a column. Fails if column is full or out
+-- | of bounds.
+placeToken :: Game -> Int -> Maybe Game
+placeToken g@(Game game) n = do
+  column <- columnTokens g n
+  newColumn <- incCol column
+  columns <- updateAt n newColumn game.columns
+  Just $ Game $ game { columns = columns }
+    where
+      incCol column =
+        if column < game.columnSize then
+          Just (column + 1)
+        else
+          Nothing

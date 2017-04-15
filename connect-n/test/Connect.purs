@@ -4,7 +4,7 @@ import Prelude
 import Test.Unit (TestSuite, suite, test)
 import Test.Unit.Assert as Assert
 import Data.Maybe (Maybe(..), isJust, isNothing)
-import Connect (Player(..), newGame, columnSize, columnTokens)
+import Connect (Player(..), newGame, columnSize, columnTokens, placeToken)
 
 tests :: forall e. TestSuite e
 tests = do
@@ -39,3 +39,21 @@ tests = do
     test "Nothing for out of bounds columns" do
       Assert.equal Nothing
         (newGame O 2 5 >>= flip columnTokens 2)
+
+  suite "Connect.placeToken" do
+    test "fails if column out of bounds" do
+      Assert.assert "should be Nothing" $
+        isNothing (newGame X 1 1 >>= flip placeToken 1)
+
+    test "fails if column is full" do
+      Assert.assert "should be Nothing" $
+        isNothing $
+          newGame X 1 1
+          >>= flip placeToken 0
+          >>= flip placeToken 0
+
+    test "increments the column" do
+      Assert.equal (Just 1) $
+        newGame X 1 1
+        >>= flip placeToken 0
+        >>= flip columnTokens 0
