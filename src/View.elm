@@ -13,6 +13,17 @@ import Date exposing (Date)
 
 root : Model -> Html Msg
 root model =
+    if model.noNetwork then
+        div []
+            [ h4 [] [ text "Unable to connect to network." ]
+            , h4 [] [ text "Try again later." ]
+            ]
+    else
+        appRoot model
+
+
+appRoot : Model -> Html Msg
+appRoot model =
     let
         tiles =
             Html.Keyed.node "div" [ class "tiles" ] <|

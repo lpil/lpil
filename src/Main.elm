@@ -37,6 +37,7 @@ init flags =
         , fetchEvents = send Backend.FetchEvents.query
         , events = Nothing
         , currentDate = Nothing
+        , noNetwork = False
         }
             ! [ Task.perform CurrentDate Date.now
               , createUser

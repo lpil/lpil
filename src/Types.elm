@@ -12,6 +12,7 @@ type alias Model =
     , createEvent : Event -> Cmd Msg
     , fetchEvents : Cmd Msg
     , currentDate : Maybe Date
+    , noNetwork : Bool
     }
 
 

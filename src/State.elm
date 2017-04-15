@@ -1,5 +1,6 @@
 port module State exposing (update)
 
+import Http
 import Types exposing (..)
 import EventForm.State as EventForm
 import EventForm.Types as EventFormT
@@ -23,6 +24,9 @@ update msg model =
 
         NewEventMsg formMsg ->
             eventFormUpdate NewEventMsg formMsg model
+
+        FailResponse (Http.NetworkError) ->
+            { model | noNetwork = True } ! []
 
         FailResponse error ->
             Debug.crash ("TODO: update FailResponse" ++ (toString error))
