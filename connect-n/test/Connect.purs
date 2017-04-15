@@ -11,6 +11,7 @@ import Connect
   , getColumn
   , placeToken
   , currentPlayer
+  , draw
   )
 
 tests :: forall e. TestSuite e
@@ -83,3 +84,13 @@ tests = do
         >>= flip placeToken 0
         >>= flip placeToken 0
         >>= flip getColumn 0
+
+  suite "draw" do
+    test "renders to string" do
+      Assert.equal (Just """|X|_|
+|X|O|""") $
+        newGame X 2 2
+        >>= flip placeToken 0
+        >>= flip placeToken 1
+        >>= flip placeToken 0
+        # map draw

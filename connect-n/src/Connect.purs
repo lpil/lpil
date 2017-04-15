@@ -6,12 +6,18 @@ module Connect
   , getColumn
   , placeToken
   , currentPlayer
+  , draw
   ) where
 
 import Prelude
 import Data.Maybe (Maybe(..), fromMaybe, isNothing)
-import Data.Array (index, replicate, updateAt, findIndex, length)
+import Data.List (range)
+import Data.String (joinWith)
 import Control.MonadZero (guard)
+import Data.Array
+  ( reverse, index, replicate, updateAt, findIndex , length
+  , fromFoldable
+  )
 
 data Player
   = X
@@ -81,3 +87,22 @@ placeToken game@(Game game') n = do
   columns <- updateAt n newColumn game'.columns
   Just $ Game $ game' { columns = columns
                       , currentPlayer = nextPlayer game }
+
+
+-- | Construct a ASCII art version of the game
+draw :: Game -> String
+draw game@(Game { columns }) =
+  (range 0 $ columnSize game - 1)
+  # map drawRow
+  # fromFoldable
+  # reverse
+  # joinWith "\n"
+    where
+      drawRow n =
+        map (flip index n >>> fromMaybe Nothing >>> showCell) columns
+        # joinWith "|"
+        # (\elems -> "|" <> elems <> "|")
+
+      showCell :: Maybe Player -> String
+      showCell Nothing = "_"
+      showCell (Just p) = show p
