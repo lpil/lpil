@@ -23,6 +23,7 @@ query FetchEvents {
         url
         dateStart
         dateEnd
+        interestedPeople
     }
 }
 """
@@ -33,10 +34,11 @@ decoder : Decode.Decoder (List Event)
 decoder =
     let
         eventDecoder =
-            Decode.map4 Event
+            Decode.map5 Event
                 (Decode.field "name" Decode.string)
                 (Decode.field "url" Decode.string)
                 (Decode.field "dateStart" Decode.string)
                 (Decode.field "dateEnd" Decode.string)
+                (Decode.field "interestedPeople" (Decode.array Decode.string))
     in
         Decode.at [ "data", "allEvents" ] (Decode.list eventDecoder)

@@ -6,6 +6,7 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (onInput, onSubmit)
 import EventForm.Types exposing (..)
 import EventForm.Date exposing (dateYyMmDd)
+import Array exposing (Array)
 
 
 form : Model -> Maybe Date -> Html Msg
@@ -20,12 +21,13 @@ form event maybeDate =
             , field event.url Url
             , field event.dateEnd DateEnd
             , field event.dateEnd DateEnd
+            , interestedPeople event.interestedPeople
             , div [] [ button [] [ text "Submit" ] ]
             ]
 
 
 eventInput : Maybe Date -> String -> EventField -> Html Msg
-eventInput date currentValue field =
+eventInput currentDate currentValue field =
     let
         attrs =
             [ type_ <| inputType field
@@ -33,12 +35,38 @@ eventInput date currentValue field =
             , required True
             , onInput (Input field)
             ]
-                ++ extraAttrs date field
+                ++ extraAttrs currentDate field
     in
         div [ class "event-form__field" ]
             [ label [] [ text <| labelText field ]
             , input attrs []
             ]
+
+
+interestedPeople : Array String -> Html Msg
+interestedPeople people =
+    let
+        nameInput i person =
+            div []
+                [ input
+                    ([ type_ <| inputType (InterestedPeople i)
+                     , value person
+                     , onInput (Input (InterestedPeople i))
+                     ]
+                        ++ extraAttrs Nothing (InterestedPeople i)
+                    )
+                    []
+                ]
+
+        inputs =
+            people
+                |> Array.toIndexedList
+                |> List.map (\( i, person ) -> nameInput i person)
+    in
+        div [ class "event-form__field" ] <|
+            [ label [] [ text (labelText (InterestedPeople 0)) ] ]
+                ++ inputs
+                ++ [ (nameInput (Array.length people) "") ]
 
 
 extraAttrs : Maybe Date -> EventField -> List (Attribute Msg)
@@ -69,6 +97,9 @@ inputType field =
         DateEnd ->
             "date"
 
+        InterestedPeople _ ->
+            "text"
+
 
 labelText : EventField -> String
 labelText field =
@@ -84,3 +115,6 @@ labelText field =
 
         DateEnd ->
             "End Date"
+
+        InterestedPeople _ ->
+            "Who's interested"

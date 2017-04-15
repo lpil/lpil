@@ -37,10 +37,6 @@ update msg model =
             { model | events = Just events } ! []
 
 
-
--- Helpers
-
-
 eventFormUpdate : (EventFormT.Msg -> Msg) -> EventFormT.Msg -> Model -> Update
 eventFormUpdate msgConstructor msg model =
     let
