@@ -4,7 +4,14 @@ import Prelude
 import Test.Unit (TestSuite, suite, test)
 import Test.Unit.Assert as Assert
 import Data.Maybe (Maybe(..), isJust, isNothing)
-import Connect (Player(..), newGame, columnSize, columnTokens, placeToken)
+import Connect
+  ( Player(..)
+  , newGame
+  , columnSize
+  , getColumn
+  , placeToken
+  , currentPlayer
+  )
 
 tests :: forall e. TestSuite e
 tests = do
@@ -26,19 +33,25 @@ tests = do
       Assert.equal (Just 5)
         (newGame X 1 5 # map columnSize)
 
-  suite "Connect.columnTokens" do
-    test "columns start with no tokens"
-      let
-        game =
-          newGame X 2 5
-      in do
-        Assert.equal (Just 0) (game >>= flip columnTokens 0)
+  suite "Connect.currentPlayer" do
+    test "gets the current player" do
+      Assert.equal (Just X) $
+        (newGame X 1 1 # map currentPlayer)
 
-        Assert.equal (Just 0) (game >>= flip columnTokens 1)
+      Assert.equal (Just O) $
+        (newGame O 1 1 # map currentPlayer)
+
+  suite "Connect.getColumn" do
+    test "columns start with no tokens" do
+      Assert.equal (Just [Nothing, Nothing, Nothing])
+        (newGame X 2 3 >>= flip getColumn 0)
+
+      Assert.equal (Just [Nothing, Nothing, Nothing])
+        (newGame O 2 3 >>= flip getColumn 1)
 
     test "Nothing for out of bounds columns" do
       Assert.equal Nothing
-        (newGame O 2 5 >>= flip columnTokens 2)
+        (newGame O 2 5 >>= flip getColumn 2)
 
   suite "Connect.placeToken" do
     test "fails if column out of bounds" do
@@ -53,7 +66,20 @@ tests = do
           >>= flip placeToken 0
 
     test "increments the column" do
-      Assert.equal (Just 1) $
+      Assert.equal (Just [Just X]) $
         newGame X 1 1
         >>= flip placeToken 0
-        >>= flip columnTokens 0
+        >>= flip getColumn 0
+
+    test "sets the next player" do
+      Assert.equal (Just O) $
+        newGame X 1 1
+        >>= flip placeToken 0
+        # map currentPlayer
+
+    test "places a token for the current player" do
+      Assert.equal (Just [Just X, Just O, Nothing]) $
+        newGame X 1 3
+        >>= flip placeToken 0
+        >>= flip placeToken 0
+        >>= flip getColumn 0
