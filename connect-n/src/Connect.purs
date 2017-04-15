@@ -11,6 +11,7 @@ module Connect
 import Prelude
 import Data.Maybe (Maybe(..), fromMaybe, isNothing)
 import Data.Array (index, replicate, updateAt, findIndex, length)
+import Control.MonadZero (guard)
 
 data Player
   = X
@@ -36,16 +37,12 @@ newtype Game =
 -- | Constructs a new Connect N game
 newGame :: Player -> Int -> Int -> Maybe Game
 newGame startingPlayer numCols columnSize' = do
-  _ <- assertPositive numCols
-  _ <- assertPositive columnSize'
+  guard $ numCols > 0
+  guard $ columnSize' > 0
   pure $ Game
     { columns: replicate numCols (replicate columnSize' Nothing)
     , currentPlayer: startingPlayer
     }
-
-  where
-    assertPositive n =
-      if n > 0 then Just n else Nothing
 
 
 -- | Get the size of the columns in the game.
