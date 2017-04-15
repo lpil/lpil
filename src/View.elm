@@ -1,19 +1,21 @@
 module View exposing (root)
 
 import Html exposing (..)
+import Html.Keyed
 import Html.Attributes exposing (class)
 import Html.Events exposing (onClick)
 import View.Spinner
 import Types exposing (..)
 import EventForm.View as EventForm
 import Event exposing (Event)
+import Date exposing (Date)
 
 
 root : Model -> Html Msg
 root model =
     let
         tiles =
-            div [ class "tiles" ] <|
+            Html.Keyed.node "div" [ class "tiles" ] <|
                 newEventTile model
                     :: eventTiles model.events
     in
@@ -24,17 +26,20 @@ root model =
             ]
 
 
-newEventTile : Model -> Html Msg
+newEventTile : Model -> ( String, Html Msg )
 newEventTile model =
     let
         form =
             EventForm.form model.newEvent model.currentDate
+
+        elem =
+            div [ class "new-event-tile" ]
+                [ map NewEventMsg form ]
     in
-        div [ class "new-event-tile" ]
-            [ map NewEventMsg form ]
+        ( "newEventTile", elem )
 
 
-eventTile : Event -> Html Msg
+eventTile : Event -> ( String, Html Msg )
 eventTile event =
     let
         detail name value =
@@ -42,19 +47,40 @@ eventTile event =
                 [ label [ class "event-tile__label" ] [ text name ]
                 , div [ class "event-tile__value" ] [ text value ]
                 ]
+
+        elem =
+            div [ class "event-tile" ]
+                [ h3 [] [ text event.name ]
+                , detail "Start Date" (formatDate event.dateStart)
+                , detail "End Date" (formatDate event.dateEnd)
+                ]
     in
-        div [ class "event-tile" ]
-            [ h3 [] [ text event.name ]
-            , detail "Start Date" event.dateStart
-            , detail "End Date" event.dateEnd
-            ]
+        ( event.name, elem )
 
 
-eventTiles : Maybe (List Event) -> List (Html Msg)
+eventTiles : Maybe (List Event) -> List ( String, Html Msg )
 eventTiles maybeEvents =
     case maybeEvents of
         Nothing ->
-            [ div [ class "loading-tile" ] [ text "loading!" ] ]
+            [ ( "loading"
+              , div [ class "loading-tile" ] [ text "loading!" ]
+              )
+            ]
 
         Just events ->
             List.map eventTile events
+
+
+formatDate : String -> String
+formatDate dateString =
+    dateString
+        |> Date.fromString
+        |> Result.map
+            (\date ->
+                [ toString (Date.day date)
+                , toString (Date.month date)
+                , toString (Date.year date)
+                ]
+                    |> String.join " "
+            )
+        |> Result.withDefault ""
