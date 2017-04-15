@@ -2,7 +2,7 @@ module View exposing (root)
 
 import Html exposing (..)
 import Html.Keyed
-import Html.Attributes exposing (class)
+import Html.Attributes exposing (class, href, target)
 import Html.Events exposing (onClick)
 import View.Spinner
 import Types exposing (..)
@@ -50,7 +50,10 @@ eventTile event =
 
         elem =
             div [ class "event-tile" ]
-                [ h3 [] [ text event.name ]
+                [ h3 [ class "event-tile__title" ]
+                    [ a [ href event.url, target "_blank" ]
+                        [ text event.name ]
+                    ]
                 , detail "Start Date" (formatDate event.dateStart)
                 , detail "End Date" (formatDate event.dateEnd)
                 ]

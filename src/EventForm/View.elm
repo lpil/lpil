@@ -15,10 +15,10 @@ form event maybeDate =
             eventInput maybeDate
     in
         Html.form [ onSubmit Submit ]
-            [ h1 [] [ text "New event form" ]
-            , div [ class "hexagon" ] []
+            [ div [ class "hexagon" ] []
             , field event.name Name
-            , field event.dateStart DateStart
+            , field event.url Url
+            , field event.dateEnd DateEnd
             , field event.dateEnd DateEnd
             , div [] [ button [] [ text "Submit" ] ]
             ]
@@ -44,17 +44,14 @@ eventInput date currentValue field =
 extraAttrs : Maybe Date -> EventField -> List (Attribute Msg)
 extraAttrs maybeDate field =
     case ( field, maybeDate ) of
-        ( _, Nothing ) ->
-            []
-
-        ( Name, _ ) ->
-            []
-
         ( DateStart, Just date ) ->
             [ Html.Attributes.min (dateYyMmDd date) ]
 
         ( DateEnd, Just date ) ->
             [ Html.Attributes.min (dateYyMmDd date) ]
+
+        ( _, _ ) ->
+            []
 
 
 inputType : EventField -> String
@@ -62,6 +59,9 @@ inputType field =
     case field of
         Name ->
             "text"
+
+        Url ->
+            "url"
 
         DateStart ->
             "date"
@@ -75,6 +75,9 @@ labelText field =
     case field of
         Name ->
             "Name"
+
+        Url ->
+            "URL"
 
         DateStart ->
             "Start Date"

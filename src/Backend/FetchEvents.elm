@@ -20,6 +20,7 @@ query FetchEvents {
     allEvents(orderBy: dateStart_ASC) {
         id
         name
+        url
         dateStart
         dateEnd
     }
@@ -32,8 +33,9 @@ decoder : Decode.Decoder (List Event)
 decoder =
     let
         eventDecoder =
-            Decode.map3 Event
+            Decode.map4 Event
                 (Decode.field "name" Decode.string)
+                (Decode.field "url" Decode.string)
                 (Decode.field "dateStart" Decode.string)
                 (Decode.field "dateEnd" Decode.string)
     in

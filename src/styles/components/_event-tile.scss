@@ -3,6 +3,10 @@
   background-color: $c-brand-pink;
 }
 
+.event-tile__title:hover {
+  text-decoration: underline;
+}
+
 .event-tile__value {
   height: $event-value-height;
 }
