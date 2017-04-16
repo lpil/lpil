@@ -3,3 +3,4 @@
 **/*.oi
 */*.h
 **/dist/*
+.stack-work
