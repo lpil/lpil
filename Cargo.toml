@@ -1,8 +1,0 @@
-[package]
-name = "xcss"
-version = "0.1.0"
-authors = ["Louis Pilfold <louis@lpil.uk>"]
-
-[dependencies]
-cssparser = "~0.7"
-rustc-serialize = "~0.3" # For JSON serialization
