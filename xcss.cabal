@@ -2,12 +2,12 @@ name:                xcss
 version:             0.1.0.0
 -- synopsis:
 -- description:
-homepage:            https://github.com/githubuser/xcss#readme
-license:             BSD3
-license-file:        LICENSE
-author:              Author name here
-maintainer:          example@example.com
-copyright:           2017 Author name here
+homepage:            https://github.com/lpil/xcss#readme
+-- license:             BSD3
+-- license-file:        LICENSE
+author:              Louis Pilfold
+maintainer:          louis@lpil.uk
+copyright:           2017 Louis Pilfold
 category:            Web
 build-type:          Simple
 extra-source-files:  README.md
@@ -15,8 +15,10 @@ cabal-version:       >=1.10
 
 library
   hs-source-dirs:      src
-  exposed-modules:     Data.String.Strip
+  exposed-modules:     Xcss.Parser
+                     , Data.String.Strip
   build-depends:       base >= 4.7 && < 5
+                     , megaparsec
   default-language:    Haskell2010
 
 executable xcss
@@ -31,6 +33,8 @@ test-suite xcss-test
   type:                exitcode-stdio-1.0
   hs-source-dirs:      test
   main-is:             Spec.hs
+  other-modules:       Data.String.StripSpec
+                     , Xcss.ParserSpec
   build-depends:       base
                      , xcss
                      , hspec
@@ -40,4 +44,4 @@ test-suite xcss-test
 
 source-repository head
   type:     git
-  location: https://github.com/githubuser/xcss
+  location: https://github.com/lpil/xcss
