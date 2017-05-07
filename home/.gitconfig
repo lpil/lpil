@@ -20,7 +20,7 @@
   br = branch
   ci = commit
   co = checkout
-  dh = diff HEAD
+  dh = diff HEAD --word-diff=color
   amend = commit --amend
   lol = log --pretty=oneline --abbrev-commit --graph --decorate
   st = status

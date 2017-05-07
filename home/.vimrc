@@ -15,6 +15,7 @@ Plug 'alx741/vim-hindent', { 'for' : 'haskell' }
 Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'scss.css'] }
 Plug 'cespare/vim-toml', { 'for': 'toml' }
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'dag/vim-fish', { 'for': 'fish' }
 Plug 'derekwyatt/vim-scala', { 'for': 'scala' }
 Plug 'digitaltoad/vim-pug', { 'for': ['pug', 'jade'] }
 Plug 'eagletmt/ghcmod-vim', { 'for' : 'haskell' }

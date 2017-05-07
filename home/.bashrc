@@ -109,3 +109,4 @@ fi
 [[ $(type -P "brew") ]] && if [ -f $(brew --prefix)/etc/bash_completion ]; then
   source $(brew --prefix)/etc/bash_completion
 fi
+export ANSIBLE_VAULT_PASSWORD_FILE=~/.ansible/vault_password/honeycomb
