@@ -19,9 +19,6 @@ if [ $(uname) == Darwin ]; then
 
   # Launch sublime in cwd
   alias subl="open -a 'sublime text' ."
-
-  MONGOD_COMMAND="mongod --config /usr/local/etc/mongod.conf --fork"
-  alias mongod.start='echo "$MONGOD_COMMAND" && $MONGOD_COMMAND'
 fi
 
 source "$HOME/.aliases.sh"

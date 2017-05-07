@@ -15,7 +15,7 @@ alias lla='ls -lah'
 alias c='cd'
 
 alias g='git'
-alias ga='git add .'
+alias ga='git add .; and git status'
 alias gs='git status'
 
 alias ..='cd ..'
