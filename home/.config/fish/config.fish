@@ -6,6 +6,8 @@ set --export TERM xterm
 set --export PGHOST localhost
 set --export PGUSER postgres
 
+set --export ANSIBLE_VAULT_PASSWORD_FILE "$HOME/.ansible/vault_password/honeycomb"
+
 # Path
 set fish_user_paths \
   "$HOME/.cache/rebar3/bin" \
@@ -23,6 +25,13 @@ source "$HOME/.aliases.sh"
 # Autojump
 if test -e /usr/local/share/autojump/autojump.fish
   source /usr/local/share/autojump/autojump.fish
+end
+
+# rbenv ruby version manager
+if test -e $HOME/.rbenv/bin/rbenv
+  set PATH $HOME/.rbenv/bin $PATH
+  set PATH $HOME/.rbenv/shims $PATH
+  rbenv rehash >/dev/null ^&1
 end
 
 # Hub
