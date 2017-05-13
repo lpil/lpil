@@ -73,3 +73,7 @@
 - presenter: Rich Hickey
   title: Deconstructing the Database
   url: https://www.youtube.com/watch?v=Cym4TZwTCNU
+
+- presenter: Kyle Kingsbury
+  title: "Jepsen II: Linearizable Boogaloo"
+  url: https://www.youtube.com/watch?v=QdkS6ZjeR7Q
