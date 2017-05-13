@@ -1,11 +1,13 @@
+BOWER=$(NBIN)/bower
+
 install: ## Install dependancies
 	yarn install
-	$(NBIN)/bower install
+	$(BOWER) install
 .PHONY: install
 
 
 build: ## Compile application
-	$(NBIN)/pulp build
+	$(PULP) build
 .PHONY: build
 
 
@@ -19,8 +21,9 @@ clean: ## Remove compiled output
 
 
 output/Hal.js:
-	$(NBIN)/pulp build \
+	$(PULP) build \
+		--main Hal \
 		--skip-entry-point \
 		--optimise \
 		--to ./output/Hal.js
-	echo 'module.exports = PS.Main;' >> output/Hal.js
+	echo 'module.exports = PS.Hal;' >> output/Hal.js
