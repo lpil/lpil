@@ -276,7 +276,7 @@ endif
 nnoremap <C-o> :CtrlPMixed<CR>
 
 let g:ctrlp_custom_ignore = {
-  \ 'dir': '\v[\/](\.git|\.hg|\.svn|_site|node_modules|_build|output|elm-stuff|coverage|deps|tmp)$',
+  \ 'dir': '\v[\/](\.git|\.hg|\.svn|_site|node_modules|bower_components|_build|output|elm-stuff|coverage|deps|tmp)$',
   \ }
 
 """""""""""""""""""""""""
