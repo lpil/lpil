@@ -188,6 +188,7 @@ let g:markdown_fenced_languages = [
       \'python',
       \'ruby',
       \'sass',
+      \'scala',
       \'scheme',
       \'sh',
       \'xml'
