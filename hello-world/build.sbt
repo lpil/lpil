@@ -73,3 +73,4 @@ libraryDependencies += "org.typelevel" %% "cats" % "0.9.0"
 // To learn more about multi-project builds, head over to the official sbt
 // documentation at http://www.scala-sbt.org/documentation.html
 
+assemblyOutputPath in assembly := file("target/hello-world.jar")
