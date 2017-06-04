@@ -12,8 +12,8 @@ decode [x] = [x]
 decode chars@(first:rest)
   | (not . isDigit) first = first : decode rest
   | otherwise =
-    let size = (read . takeWhile isDigit) chars
-        char:rest = dropWhile isDigit chars
+    let (number, char:rest) = span isDigit chars
+        size = read number
     in replicate size char ++ decode rest
 
 encode :: String -> String
