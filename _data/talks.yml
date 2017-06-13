@@ -77,3 +77,7 @@
 - presenter: Kyle Kingsbury
   title: "Jepsen II: Linearizable Boogaloo"
   url: https://www.youtube.com/watch?v=QdkS6ZjeR7Q
+
+- presenter: Ryan Newton
+  title: "Haskell taketh away: limiting side effects for parallel programming"
+  url: https://www.youtube.com/watch?v=lC5UWG5N8oY
