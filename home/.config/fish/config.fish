@@ -16,6 +16,7 @@ set fish_user_paths \
   "$HOME/.homesick/repos/homeshick/bin" \
   "$HOME/.local/bin" \
   "$HOME/.rbenv/bin" \
+  "$HOME/.opam/system/bin" \
   "$HOME/bin"
 
 # Aliases
@@ -64,3 +65,10 @@ function fish_prompt -d "Write out the prompt"
     printf " %s✘ %s\$ %s" (set_color -o red) (set_color grey) (set_color normal)
   end
 end
+
+# OPAM configuration
+set -gx OCAML_TOPLEVEL_PATH "$HOME/.opam/system/lib/toplevel";
+set -gx PERL5LIB "$HOME/.opam/system/lib/perl5:$PERL5LIB";
+set -gx MANPATH "$MANPATH" "$HOME/.opam/system/man";
+set -gx OPAMUTF8MSGS "1";
+set -gx CAML_LD_LIBRARY_PATH "$HOME/.opam/system/lib/stublibs:/usr/local/lib/ocaml/stublibs";

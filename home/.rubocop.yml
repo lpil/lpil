@@ -1,9 +1,6 @@
 Metrics/LineLength:
   Max: 80
 
-Style/EmptyLines:
-  Enabled: false
-
 Documentation:
   Enabled: false
 
@@ -19,17 +16,15 @@ Style/TrailingCommaInArguments:
 
 
 # Allow use of empty lines to visually group code into 'paragraphs'
-EmptyLines:
+Layout/EmptyLines:
   Enabled: false
-Style/EmptyLinesAroundBlockBody:
+Layout/EmptyLinesAroundBlockBody:
   Enabled: false
-Style/EmptyLinesAroundClassBody:
+Layout/EmptyLinesAroundClassBody:
   Enabled: false
-Style/EmptyLinesAroundMethodBody:
+Layout/EmptyLinesAroundMethodBody:
   Enabled: false
-Style/EmptyLinesAroundModuleBody:
-  Enabled: false
-Style/ModuleFunction:
+Layout/EmptyLinesAroundModuleBody:
   Enabled: false
 
 # https://viget.com/extend/just-use-double-quoted-ruby-strings
