@@ -1,5 +1,8 @@
-let g:elm_format_autosave = 1
+setlocal shiftwidth=4
+setlocal softtabstop=4
+setlocal tabstop=4
 
-set shiftwidth=4
-set softtabstop=4
-set tabstop=4
+augroup filetype_elm
+  autocmd!
+  autocmd BufWritePre *.elm Neoformat
+augroup END

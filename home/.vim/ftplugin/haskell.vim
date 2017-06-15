@@ -7,3 +7,8 @@ let g:hindent_line_length = 80
 nnoremap <leader>a :GhcModTypeInsert<CR>
 nnoremap <leader>s :GhcModSplitFunCase<CR>
 nnoremap <leader>t :GhcModType<CR>
+
+augroup filetype_haskell
+  autocmd!
+  autocmd BufWritePre *.hs Neoformat
+augroup END

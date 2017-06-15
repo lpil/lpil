@@ -2,4 +2,7 @@ set commentstring=//\ %s
 
 let g:jsx_ext_required = 0
 
-autocmd FileType javascript set formatprg=prettier\ --stdin
+augroup filetype_javascript
+  autocmd!
+  autocmd BufWritePre *.js Neoformat
+augroup END
