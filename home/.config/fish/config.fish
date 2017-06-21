@@ -11,13 +11,14 @@ set --export ANSIBLE_VAULT_PASSWORD_FILE "$HOME/.ansible/vault_password/honeycom
 # Path
 set fish_user_paths \
   "$HOME/.cache/rebar3/bin" \
-  "$GOPATH/bin" \
   "$HOME/.cargo/bin" \
   "$HOME/.homesick/repos/homeshick/bin" \
   "$HOME/.local/bin" \
   "$HOME/.rbenv/bin" \
-  "$HOME/.opam/system/bin" \
   "$HOME/bin"
+
+  # "$HOME/.opam/system/bin" \
+
 
 # Aliases
 
@@ -52,7 +53,6 @@ set __fish_git_prompt_char_untrackedfiles '?'
 
 function fish_prompt -d "Write out the prompt"
   set laststatus $status
-  set_color -b black
 
   printf '%s%s %s%s%s%s%s' \
     (set_color green) $USER \
