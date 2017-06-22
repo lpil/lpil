@@ -27,8 +27,7 @@ source "$HOME/.aliases.sh"
 # Autojump
 if test -e /usr/local/share/autojump/autojump.fish
   source /usr/local/share/autojump/autojump.fish
-end
-if test -e /usr/share/autojump/autojump.fish
+else if test -e /usr/share/autojump/autojump.fish
   source /usr/share/autojump/autojump.fish
 end
 
@@ -37,11 +36,6 @@ if test -e $HOME/.rbenv/bin/rbenv
   set PATH $HOME/.rbenv/bin $PATH
   set PATH $HOME/.rbenv/shims $PATH
   rbenv rehash >/dev/null ^&1
-end
-
-# Hub
-if command --search /usr/local/share/autojump/autojump.fish >/dev/null
-  eval (hub alias -s)
 end
 
 # Prompt
