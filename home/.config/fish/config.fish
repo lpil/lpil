@@ -28,6 +28,9 @@ source "$HOME/.aliases.sh"
 if test -e /usr/local/share/autojump/autojump.fish
   source /usr/local/share/autojump/autojump.fish
 end
+if test -e /usr/share/autojump/autojump.fish
+  source /usr/share/autojump/autojump.fish
+end
 
 # rbenv ruby version manager
 if test -e $HOME/.rbenv/bin/rbenv
