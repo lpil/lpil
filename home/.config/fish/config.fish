@@ -38,6 +38,11 @@ if test -e $HOME/.rbenv/bin/rbenv
   rbenv rehash >/dev/null ^&1
 end
 
+# asdf version manager
+if test -e $HOME/.asdf/asdf.fish
+  source ~/.asdf/asdf.fish
+end
+
 # Prompt
 
 set __fish_git_prompt_showdirtystate 'yes'
@@ -68,4 +73,3 @@ set -gx OCAML_TOPLEVEL_PATH "$HOME/.opam/system/lib/toplevel";
 set -gx PERL5LIB "$HOME/.opam/system/lib/perl5:$PERL5LIB";
 set -gx MANPATH "$MANPATH" "$HOME/.opam/system/man";
 set -gx OPAMUTF8MSGS "1";
-set -gx CAML_LD_LIBRARY_PATH "$HOME/.opam/system/lib/stublibs:/usr/local/lib/ocaml/stublibs";

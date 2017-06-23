@@ -1,4 +1,5 @@
-#!/usr/bin/env bash
+#!/bin/sh
+set -euo pipefail
 
 # Hide mouse cursor when not in use
 pidof unclutter >& /dev/null
