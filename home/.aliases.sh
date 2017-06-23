@@ -1,6 +1,6 @@
 alias bell='echo -e \\a'
 
-alias up='time ping 4.2.2.2'
+alias up='time ping 8.8.8.8'
 
 alias x='startx'
 
