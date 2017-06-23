@@ -2,6 +2,9 @@
 set --export EDITOR "/usr/bin/env nvim"
 set --export TERM xterm
 
+# Disable greeting
+set fish_greeting
+
 # Postgres config
 set --export PGHOST localhost
 set --export PGUSER postgres
