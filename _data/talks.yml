@@ -81,3 +81,7 @@
 - presenter: Ryan Newton
   title: "Haskell taketh away: limiting side effects for parallel programming"
   url: https://www.youtube.com/watch?v=lC5UWG5N8oY
+
+- presenter: Simon Peyton-Jones
+  title: "Escape from the ivory tower: the Haskell journey"
+  url: https://www.youtube.com/watch?v=re96UgMk6GQ
