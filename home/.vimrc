@@ -37,6 +37,7 @@ Plug 'marcweber/vim-addon-mw-utils'
 Plug 'mxw/vim-jsx', { 'for': 'javascript' }
 Plug 'neovimhaskell/haskell-vim', { 'for' : 'haskell' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+Plug 'parsonsmatt/intero-neovim', { 'for' : 'haskell' }
 Plug 'powerman/vim-plugin-ansiesc', { 'for': 'elixir' } " Used by alchemist
 Plug 'raichoo/purescript-vim', { 'for': 'purescript' }
 Plug 'rhysd/clever-f.vim'
