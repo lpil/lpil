@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 set -euo pipefail
 
 # Hide mouse cursor when not in use
@@ -28,3 +28,6 @@ pidof mpd >& /dev/null
 if [ $? -ne 0 ]; then
   (mpd && sleep 4 && mpc single off && mpc consume on) &
 fi
+
+# TODO: Start power manager
+# TODO: nm-applet

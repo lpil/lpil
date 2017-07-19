@@ -45,6 +45,7 @@ Plug 'rhysd/vim-crystal', { 'for': 'crystal' }
 Plug 'rust-lang/rust.vim', { 'for': ['rust', 'markdown'] }
 Plug 'sbdchd/neoformat'
 Plug 'sbl/scvim', { 'for': 'supercollider' }
+Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/syntastic'
 Plug 'shougo/deoplete.nvim', { 'do': function('DoRemote') }
 Plug 'shougo/vimproc.vim', { 'do' : 'make' } " used by ghcmod-vim

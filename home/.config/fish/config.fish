@@ -76,3 +76,9 @@ set -gx OCAML_TOPLEVEL_PATH "$HOME/.opam/system/lib/toplevel";
 set -gx PERL5LIB "$HOME/.opam/system/lib/perl5:$PERL5LIB";
 set -gx MANPATH "$MANPATH" "$HOME/.opam/system/man";
 set -gx OPAMUTF8MSGS "1";
+
+# The next line updates PATH for the Google Cloud SDK.
+set GOOGLE_SDK_PATH "/home/louis/bin/google-cloud-sdk"
+if [ -f "$GOOGLE_SDK_PATH/path.fish.inc" ]
+  source "$GOOGLE_SDK_PATH/path.fish.inc"
+end
