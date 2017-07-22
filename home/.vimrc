@@ -30,6 +30,7 @@ Plug 'guns/vim-sexp', { 'for': lisp_languages }
 Plug 'hashivim/vim-terraform', { 'for': 'terraform' }
 Plug 'honza/vim-snippets'
 Plug 'idris-hackers/idris-vim', { 'for': 'idris' }
+Plug 'jparise/vim-graphql', { 'for': 'graphql' }
 Plug 'kylef/apiblueprint.vim', { 'for': 'apiblueprint' }
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 Plug 'lfe-support/vim-lfe', { 'for': 'lfe' }
@@ -40,6 +41,7 @@ Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'parsonsmatt/intero-neovim', { 'for' : 'haskell' }
 Plug 'powerman/vim-plugin-ansiesc', { 'for': 'elixir' } " Used by alchemist
 Plug 'raichoo/purescript-vim', { 'for': 'purescript' }
+Plug 'reasonml-editor/vim-reason', { 'for': 'reason' }
 Plug 'rhysd/clever-f.vim'
 Plug 'rhysd/vim-crystal', { 'for': 'crystal' }
 Plug 'rust-lang/rust.vim', { 'for': ['rust', 'markdown'] }
