@@ -48,7 +48,6 @@ Plug 'rust-lang/rust.vim', { 'for': ['rust', 'markdown'] }
 Plug 'sbdchd/neoformat'
 Plug 'sbl/scvim', { 'for': 'supercollider' }
 Plug 'scrooloose/nerdtree'
-Plug 'scrooloose/syntastic'
 Plug 'shougo/deoplete.nvim', { 'do': function('DoRemote') }
 Plug 'shougo/vimproc.vim', { 'do' : 'make' } " used by ghcmod-vim
 Plug 'sirver/ultisnips'
@@ -68,6 +67,7 @@ Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
 Plug 'vim-scripts/matchit.zip'
+Plug 'w0rp/ale'
 
 call plug#end()
 
