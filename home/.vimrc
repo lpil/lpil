@@ -17,7 +17,6 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'dag/vim-fish', { 'for': 'fish' }
 Plug 'derekwyatt/vim-scala', { 'for': 'scala' }
 Plug 'digitaltoad/vim-pug', { 'for': ['pug', 'jade'] }
-Plug 'eagletmt/ghcmod-vim', { 'for' : 'haskell' }
 Plug 'elixir-lang/vim-elixir', { 'for': ['elixir', 'markdown'] }
 Plug 'elmcast/elm-vim', { 'for': 'elm' }
 Plug 'evanmiller/nginx-vim-syntax', { 'for': 'nginx' }
@@ -36,6 +35,7 @@ Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 Plug 'lfe-support/vim-lfe', { 'for': 'lfe' }
 Plug 'marcweber/vim-addon-mw-utils'
 Plug 'mxw/vim-jsx', { 'for': 'javascript' }
+Plug 'neomake/neomake'
 Plug 'neovimhaskell/haskell-vim', { 'for' : 'haskell' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'parsonsmatt/intero-neovim', { 'for' : 'haskell' }
@@ -49,7 +49,6 @@ Plug 'sbdchd/neoformat'
 Plug 'sbl/scvim', { 'for': 'supercollider' }
 Plug 'scrooloose/nerdtree'
 Plug 'shougo/deoplete.nvim', { 'do': function('DoRemote') }
-Plug 'shougo/vimproc.vim', { 'do' : 'make' } " used by ghcmod-vim
 Plug 'sirver/ultisnips'
 Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
 Plug 'tomtom/tlib_vim'
@@ -65,9 +64,9 @@ Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': lisp_languages }
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
 Plug 'vim-scripts/matchit.zip'
-Plug 'w0rp/ale'
 
 call plug#end()
 
