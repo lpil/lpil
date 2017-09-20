@@ -41,6 +41,8 @@ alias feh='feh -.'
 alias be='bundle exec'
 alias ber='bundle exec rake'
 
+alias slideshow='feh --randomize --recursive --draw-filename --slideshow-delay 4 --image-bg black --auto-zoom'
+
 # pop up server
 alias serve='ruby -run -e httpd . -p 4000'
 
