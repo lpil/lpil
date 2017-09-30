@@ -1,0 +1,14 @@
+{
+  "name": "reasonably-serverless-graphql",
+  "version": "0.1.0",
+  "bsc-flags": ["-bs-super-errors"],
+  "sources": [
+    "src"
+  ],
+  "bs-dependencies" : [
+    "bs-express",
+    "bs-graphql",
+    "bs-graphql-tools",
+    "bs-apollo-server-express"
+  ]
+}
