@@ -3,7 +3,7 @@ let integer = Modules_a.integer;
 let print_things = {
   open Printf;
   let my_data = ["a", "beautiful", "day"];
-  List.iter (fun s => printf "%s\n" s) my_data
+  List.iter (printf "%s\n") my_data
 };
 
 module Nested = {
