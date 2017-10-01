@@ -1,0 +1,11 @@
+{
+  "name": "bs-safe-graphql",
+  "version": "0.1.0",
+  "keywords": [
+    "BuckleScript"
+  ],
+  "license": "BSD-3-Clause",
+  "devDependencies": {
+    "bs-platform": "1.9.0"
+  }
+}
