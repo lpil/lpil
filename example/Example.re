@@ -16,7 +16,7 @@ let episode_type =
   GraphQl.(
     type_ "Episode"
     |> field "name" String (fun e c => e.name)
-    |> field "number" String (fun e c => e.number)
+    |> field "number" Int (fun e c => e.number)
   );
 
 let schema =
