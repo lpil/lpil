@@ -3,16 +3,20 @@ type t = {
   number: int
 };
 
+/*
+   Mock data
+ */
 let hope = {name: "A New Hope", number: 4};
 
 let empire = {name: "The Empire Strikes Back", number: 5};
 
 let jedi = {name: "The Return of the Jedi", number: 6};
 
-let getName e => e.name;
+/*
+   Persistence functions
+ */
+let all () => [|hope, empire, jedi|];
 
-let getNumber e => e.number;
+let favourite () => empire;
 
-let typeDef = "type Episode { name: String!, number: Int! }";
-
-let resolvers = {"name": getName, "number": getNumber};
+let count () => Array.length (all ());

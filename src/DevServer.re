@@ -1,6 +1,6 @@
 external bodyParserJson : unit => Express.Middleware.t = "json" [@@bs.module "body-parser"];
 
-let start () => {
+let () = {
   let port = 8080;
   let app = Express.App.make ();
   let graphql_path = "/graphql";
