@@ -9,9 +9,3 @@ type Episode {
 }
 
 |};
-
-let getName (e: Episode.t) => e.name;
-
-let getNumber (e: Episode.t) => e.number;
-
-let resolvers = {"name": getName, "number": getNumber};

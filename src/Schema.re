@@ -1,7 +1,5 @@
 let typeDefs = [GraphQlQuery.typeDef, GraphQlEpisode.typeDef] |> List.fold_left (^) "";
 
-let schema =
-  GraphQLTools.makeExecutableSchema {
-    "typeDefs": typeDefs,
-    "resolvers": {"Query": GraphQlQuery.resolvers, "Episode": GraphQlEpisode.resolvers}
-  };
+let schema = GraphQL.Utilities.buildSchema typeDefs;
+
+let runQuery query => GraphQL.run schema rootValue::GraphQlQuery.resolvers query;

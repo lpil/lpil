@@ -6,12 +6,12 @@
   ],
   "license": "BSD-3-Clause",
   "dependencies": {
-    "bs-platform": "1.9.0",
     "body-parser": "^1.18.2",
     "bs-apollo-server-express": "^0.3.1",
     "bs-express": "^0.0.2",
     "bs-graphql": "^0.3.1",
     "bs-graphql-tools": "^0.3.1",
+    "bs-platform": "1.9.0",
     "express": "^4.16.1",
     "graphql": "^0.11.6"
   }

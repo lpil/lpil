@@ -1,16 +1,13 @@
-type t = {
-  name: string,
-  number: int
-};
+type t = Js.t {. name : string, number : int};
 
 /*
    Mock data
  */
-let hope = {name: "A New Hope", number: 4};
+let hope: t = {"name": "A New Hope", "number": 4};
 
-let empire = {name: "The Empire Strikes Back", number: 5};
+let empire: t = {"name": "The Empire Strikes Back", "number": 5};
 
-let jedi = {name: "The Return of the Jedi", number: 6};
+let jedi: t = {"name": "The Return of the Jedi", "number": 6};
 
 /*
    Persistence functions

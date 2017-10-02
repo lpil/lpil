@@ -24,4 +24,15 @@ start: ## Start a dev server
 
 clean: ## Remove compiled artifacts
 	bsb -clean-world
+	rm -fr dist
 .PHONY: clean
+
+
+deploy: clean build ## Deploy to GCP Cloud Functions
+	mkdir dist
+	cp package.json dist/
+	cp -r ./node_modules/bs-platform/lib/js dist/bs-platform
+	cp lib/js/src/* dist/
+	find dist -type f -exec sed -i 's|bs-platform/lib/js|./bs-platform|g' {} +
+	./bin/deploy.sh
+.PHONY: deploy
