@@ -1,39 +1,69 @@
-type episode = {
+open GraphQl;
+
+type role =
+  | User
+  | Admin;
+
+type user = {
+  id: int,
   name: string,
-  number: int
+  role
 };
 
-type context_data = {current_user: user};
+let users = [
+  {id: 1, name: "Kai", role: Admin},
+  {id: 2, name: "Bob", role: User},
+  {id: 3, name: "Amy", role: User}
+];
 
-/*
-   Schema/Nodes definition.
+let role =
+  Schema.(
+    enum {
+      name: "role",
+      doc: "The role of the user",
+      values: [enum_value "USER" User, enum_value "Admin" Admin]
+    }
+  );
 
-   These functions build up a graph data structure that describes the schema.
-   We can later traverse this graph in order to build the schema.
-
- */
-let episode_type =
-  GraphQl.(
-    type_ "Episode"
-    |> field "name" String (fun e c => e.name)
-    |> field "number" Int (fun e c => e.number)
+let user =
+  Schema.(
+    object_ {
+      name: "user",
+      doc: "A user in the system",
+      fields: fun _ => [
+        field {
+          name: "id",
+          doc: "Unique user identifier",
+          type_: non_null int,
+          args: Arg.empty,
+          resolve: fun () p => p.id
+        },
+        field {
+          name: "name",
+          doc: "Name of the user",
+          type_: non_null string,
+          args: Arg.empty,
+          resolve: fun () p => p.name
+        },
+        field {
+          name: "role",
+          doc: "Role of the user",
+          type_: non_null role,
+          args: Arg.empty,
+          resolve: fun () p => p.role
+        }
+      ]
+    }
   );
 
 let schema =
-  GraphQl.(
-    schema
-    |> field "numEpisodes" Int Episode.count
-    |> field "favoriteEpisode" episode_type Episode.favourite
-    |> field "episodes" (List episode_type) Episode.all
+  Schema.(
+    schema [
+      field {
+        name: users,
+        type_: non_null (list (non_null user)),
+        args: Arg.empty,
+        resolve: fun () () => users
+      }
+    ]
   );
-
-/*
-   Query execution.
-
-   Schema is transformed into the `executable_schema` once as it's potentially
-   an expensive operation.
-
- */
-let executable_schema = GraphQl.make_executable_schema schema;
-
-let run_query current_user query => GraphQl.run_query {current_user: user} query;
