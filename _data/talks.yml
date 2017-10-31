@@ -85,3 +85,7 @@
 - presenter: Simon Peyton-Jones
   title: "Escape from the ivory tower: the Haskell journey"
   url: https://www.youtube.com/watch?v=re96UgMk6GQ
+
+- presenter: Richard Eisenberg
+  title: "A Practical Introduction to Haskell GADTs"
+  url: https://www.youtube.com/watch?v=re96UgMk6GQ
