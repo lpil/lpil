@@ -1,5 +1,7 @@
 # Cube
 
+See `./kuard-pod.yml` for an example pod config.
+
 ### Setup
 
 ```sh
@@ -60,4 +62,7 @@ kubectl exec -it MY_POD_NAME -- bash
 
 # Copy a file from a container to the local filesystem
 kubectl cp MY_POD_NAME:/path/to/remote/file /path/to/local/target
+
+# Bind a local port to a pod's port
+kubectl port-forward MY_POD_NAME 8080:8080
 ```
