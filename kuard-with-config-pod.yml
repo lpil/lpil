@@ -1,0 +1,39 @@
+# This file describes a pod that makes use of config from the my-config
+# ConfigMap
+#
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kuard-with-config
+spec:
+  containers:
+    - name: test-container
+      image: gcr.io/kuar-demo/kuard-amd64:1
+      imagePullPolicy: Always
+      command:
+        - "/kuard"
+        - "$(EXTRA_PARAM)" # Hey look, a param is used here!
+
+      # Define environment variables that are pulled from the ConfigMap
+      env:
+        - name: ANOTHER_PARAM
+          valueFrom:
+            configMapKeyRef:
+              name: my-config
+              key: another-param
+
+        - name: EXTRA_PARAM
+          valueFrom:
+            configMapKeyRef:
+              name: my-config
+              key: extra-param
+
+      volumeMounts:
+        - name: config-volume
+          mountPath: /config
+
+  volumes:
+    # Mount the ConfigMap as a volume, each key being a file.
+    - name: config-volume
+      configMap:
+        name: my-config

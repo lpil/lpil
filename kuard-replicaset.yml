@@ -7,14 +7,14 @@
 #
 # Check status with
 #
-#   kubectl get rs
+#   kubectl get replicaSets
 #
 apiVersion: extensions/v1beta1
 kind: ReplicaSet
 metadata:
   name: kuard
 spec:
-  replicas: 2
+  replicas: 10
   template:
     metadata:
       labels:
