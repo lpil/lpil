@@ -1,0 +1,26 @@
+# This file describes a ReplicaSet, which is an object that creates a number
+# of replicated pods. The number of pods in the set can be scaled.
+#
+# Apply this to the cluster with
+#
+#   kubectl apply -f kuard-replicaset.yml
+#
+# Check status with
+#
+#   kubectl get rs
+#
+apiVersion: extensions/v1beta1
+kind: ReplicaSet
+metadata:
+  name: kuard
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: kuard
+        version: "2"
+    spec:
+      containers:
+        - name: kuard
+          image: "gcr.io/kuar-demo/kuard-amd64:2"
