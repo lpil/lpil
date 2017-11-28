@@ -16,15 +16,15 @@ Style/TrailingCommaInArguments:
 
 
 # Allow use of empty lines to visually group code into 'paragraphs'
-Layout/EmptyLines:
+Style/EmptyLines:
   Enabled: false
-Layout/EmptyLinesAroundBlockBody:
+Style/EmptyLinesAroundBlockBody:
   Enabled: false
-Layout/EmptyLinesAroundClassBody:
+Style/EmptyLinesAroundClassBody:
   Enabled: false
-Layout/EmptyLinesAroundMethodBody:
+Style/EmptyLinesAroundMethodBody:
   Enabled: false
-Layout/EmptyLinesAroundModuleBody:
+Style/EmptyLinesAroundModuleBody:
   Enabled: false
 
 # https://viget.com/extend/just-use-double-quoted-ruby-strings

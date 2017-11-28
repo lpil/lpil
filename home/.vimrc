@@ -251,6 +251,9 @@ nnoremap <leader>ev :e $MYVIMRC<cr>
 " Generate ctags
 nnoremap <leader>ct :! ctags -R .<cr>
 
+" Go pretty
+nnoremap gp :Neoformat<CR>
+
 """""""""""""""""""
 " Toggling stuff! "
 """""""""""""""""""
@@ -258,7 +261,6 @@ nnoremap <leader>ct :! ctags -R .<cr>
 nnoremap <F1> :set hlsearch!<CR>
 nnoremap <F4> :setlocal spell!<CR>
 nnoremap <F5> :SyntasticToggleMode<CR>
-
 
 " Reverse selection
 if has('macunix')
