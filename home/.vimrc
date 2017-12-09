@@ -66,6 +66,7 @@ Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
+Plug 'udalov/kotlin-vim', { 'for': 'kotlin' }
 Plug 'vim-scripts/matchit.zip'
 
 call plug#end()
