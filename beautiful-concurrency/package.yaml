@@ -1,0 +1,21 @@
+name:                beautiful-concurrency
+version:             0.1.0.0
+#synopsis:
+#description:
+homepage:            https://github.com/lpil/beautiful-concurrency#readme
+license:             BSD3
+author:              Louis Pilfold
+maintainer:          louis@lpil.uk
+copyright:           2017 Louis Pilfold
+category:            Web
+extra-source-files:
+- README.md
+
+dependencies:
+  - base >= 4.7 && < 5
+  - stm
+
+executables:
+  beautiful-concurrency:
+    source-dirs:      src
+    main:             Main.hs
