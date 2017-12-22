@@ -8,6 +8,5 @@ discard p = keep (not . p)
 
 keep :: (a -> Bool) -> [a] -> [a]
 keep p [] = []
-keep p (x:xs)
-  | p x = x : keep p xs
-  | otherwise = keep p xs
+keep p (x:xs) | p x       = x : keep p xs
+              | otherwise = keep p xs

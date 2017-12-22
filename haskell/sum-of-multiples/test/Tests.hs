@@ -8,17 +8,16 @@ import Test.Hspec.Runner (configFastFail, defaultConfig, hspecWith)
 import SumOfMultiples (sumOfMultiples)
 
 main :: IO ()
-main = hspecWith defaultConfig {configFastFail = True} specs
+main = hspecWith defaultConfig { configFastFail = True } specs
 
 specs :: Spec
 specs = describe "sumOfMultiples" $ for_ cases test
-  where
-    test Case {..} = it description assertion
-      where
-        description = unwords [show factors, show limit]
-        assertion = expression `shouldBe` fromIntegral expected
-        expression =
-          sumOfMultiples (fromIntegral <$> factors) (fromIntegral limit)
+ where
+  test Case {..} = it description assertion
+   where
+    description = unwords [show factors, show limit]
+    assertion   = expression `shouldBe` fromIntegral expected
+    expression  = sumOfMultiples (fromIntegral <$> factors) (fromIntegral limit)
 
 data Case = Case
   { factors :: [Integer]

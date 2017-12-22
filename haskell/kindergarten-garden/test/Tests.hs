@@ -6,7 +6,7 @@ import Garden
         lookupPlants)
 
 main :: IO ()
-main = hspecWith defaultConfig {configFastFail = True} specs
+main = hspecWith defaultConfig { configFastFail = True } specs
 
 specs :: Spec
 specs = do
@@ -33,7 +33,7 @@ specs = do
   it "non-alphabetical student list" $ do
     let plants s = lookupPlants s $ garden students plantList
         plantList = "VCRRGVRG\nRVGCCGCV"
-        students = ["Samantha", "Patricia", "Xander", "Roger"]
+        students  = ["Samantha", "Patricia", "Xander", "Roger"]
     plants "Patricia" `shouldBe` [Violets, Clover, Radishes, Violets]
     plants "Roger" `shouldBe` [Radishes, Radishes, Grass, Clover]
     plants "Samantha" `shouldBe` [Grass, Violets, Clover, Grass]

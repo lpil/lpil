@@ -8,14 +8,14 @@ import Robot
         simulate, turnLeft, turnRight)
 
 main :: IO ()
-main = hspecWith defaultConfig {configFastFail = True} specs
+main = hspecWith defaultConfig { configFastFail = True } specs
 
 specs :: Spec
 specs = do
   describe "mkRobot" $
     -- The function described by the reference file
     -- as `create` is called `mkRobot` in this track.
-   do
+                       do
     it "A robot is created with a position and a direction" $ do
       let robot = mkRobot North (0, 0)
       coordinates robot `shouldBe` (0, 0)
@@ -41,22 +41,27 @@ specs = do
   describe "simulate advance" $
     -- The function described by the reference file as `advance`
     -- doesn't exist in this track, so we test `simulate` with "A".
-   do
+                                do
     let dir `from` pos = simulate (mkRobot dir pos) "A"
-    it "does not change the direction" $
-      bearing (North `from` (0, 0)) `shouldBe` North
-    it "increases the y coordinate one when facing north" $
-      coordinates (North `from` (0, 0)) `shouldBe` (0, 1)
-    it "decreases the y coordinate by one when facing south" $
-      coordinates (South `from` (0, 0)) `shouldBe` (0, -1)
-    it "increases the x coordinate by one when facingn east" $
-      coordinates (East `from` (0, 0)) `shouldBe` (1, 0)
-    it "decreases the x coordinate by one when facing west" $
-      coordinates (West `from` (0, 0)) `shouldBe` (-1, 0)
+    it "does not change the direction"
+      $          bearing (North `from` (0, 0))
+      `shouldBe` North
+    it "increases the y coordinate one when facing north"
+      $          coordinates (North `from` (0, 0))
+      `shouldBe` (0, 1)
+    it "decreases the y coordinate by one when facing south"
+      $          coordinates (South `from` (0, 0))
+      `shouldBe` (0, -1)
+    it "increases the x coordinate by one when facingn east"
+      $          coordinates (East `from` (0, 0))
+      `shouldBe` (1, 0)
+    it "decreases the x coordinate by one when facing west"
+      $          coordinates (West `from` (0, 0))
+      `shouldBe` (-1, 0)
   describe "simulate" $
     -- The function described by the reference file as
     -- `instructions` is called `simulate` in this track.
-   do
+                        do
     let simulation pos dir = simulate (mkRobot dir pos)
     it "instructions to move west and north" $ do
       let robot = simulation (0, 0) North "LAAARALA"

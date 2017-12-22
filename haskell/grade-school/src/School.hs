@@ -23,7 +23,8 @@ empty :: School
 empty = School Map.empty
 
 grade :: Int -> School -> [String]
-grade gradeNum (School school) = sort . fromMaybe [] . Map.lookup gradeNum $ school
+grade gradeNum (School school) =
+  sort . fromMaybe [] . Map.lookup gradeNum $ school
 
 sorted :: School -> [(Int, [String])]
 sorted (School school) = map (second sort) . Map.toList $ school

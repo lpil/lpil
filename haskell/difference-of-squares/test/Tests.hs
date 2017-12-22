@@ -6,7 +6,7 @@ import Test.Hspec.Runner (configFastFail, defaultConfig, hspecWith)
 import Squares (difference, squareOfSums, sumOfSquares)
 
 main :: IO ()
-main = hspecWith defaultConfig {configFastFail = True} specs
+main = hspecWith defaultConfig { configFastFail = True } specs
 
 specs :: Spec
 specs = do
@@ -25,20 +25,26 @@ specs = do
     -- Track-specific tests.
   describe "Integral tests" $ do
     describe "squareOfSums" $ do
-      it "squareOfSums (6 :: Int)" $
-        squareOfSums (6 :: Int) `shouldBe` (441 :: Int)
-      it "squareOfSums (7 :: Integer)" $
-        squareOfSums (7 :: Integer) `shouldBe` (784 :: Integer)
+      it "squareOfSums (6 :: Int)"
+        $          squareOfSums (6 :: Int)
+        `shouldBe` (441 :: Int)
+      it "squareOfSums (7 :: Integer)"
+        $          squareOfSums (7 :: Integer)
+        `shouldBe` (784 :: Integer)
     describe "sumOfSquares" $ do
-      it "sumOfSquares (8 :: Int)" $
-        sumOfSquares (8 :: Int) `shouldBe` (204 :: Int)
-      it "sumOfSquares (9 :: Integer)" $
-        sumOfSquares (9 :: Integer) `shouldBe` (285 :: Integer)
+      it "sumOfSquares (8 :: Int)"
+        $          sumOfSquares (8 :: Int)
+        `shouldBe` (204 :: Int)
+      it "sumOfSquares (9 :: Integer)"
+        $          sumOfSquares (9 :: Integer)
+        `shouldBe` (285 :: Integer)
     describe "difference" $ do
-      it "difference (11 :: Int)" $
-        difference (11 :: Int) `shouldBe` (3850 :: Int)
-      it "difference (12 :: Integer)" $
-        difference (12 :: Integer) `shouldBe` (5434 :: Integer)
+      it "difference (11 :: Int)"
+        $          difference (11 :: Int)
+        `shouldBe` (3850 :: Int)
+      it "difference (12 :: Integer)"
+        $          difference (12 :: Integer)
+        `shouldBe` (5434 :: Integer)
       {-
       describe "huge difference" $
         it "difference (1234567890 :: Integer)" $

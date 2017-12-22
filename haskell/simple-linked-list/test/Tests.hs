@@ -18,19 +18,19 @@ nthDatum xs 0 = datum xs
 nthDatum xs n = nthDatum (next xs) (pred n)
 
 main :: IO ()
-main = hspecWith defaultConfig {configFastFail = True} specs
+main = hspecWith defaultConfig { configFastFail = True } specs
 
 specs :: Spec
 specs = do
-  let n1 = new (1 :: Int) nil
-  let n21 = new 2 n1
+  let n1   = new (1 :: Int) nil
+  let n21  = new 2 n1
   let n321 = new 3 n21
-  let fl1 = fromList [1 :: Int]
+  let fl1  = fromList [1 :: Int]
   let fl21 = fromList [2, 1 :: Int]
-  let r1 = reverseLinkedList n1
-  let r12 = reverseLinkedList n21
+  let r1   = reverseLinkedList n1
+  let r12  = reverseLinkedList n21
   let r123 = reverseLinkedList n321
-  let msg = "Should work for any type, not just Int!"
+  let msg  = "Should work for any type, not just Int!"
   it "constructor" $ do
     isNil nil `shouldBe` True
     isNil n1 `shouldBe` False
@@ -70,19 +70,18 @@ specs = do
   it "has an unconstrained type variable" $ do
     (toList . fromList) msg `shouldBe` msg
     (toList . fromList) [1 .. 10] `shouldBe` ([1 .. 10] :: [Integer])
-  it "arbitrary reverseLinkedList" $
-    property $ \(xs :: LinkedList Int) ->
-      reverseLinkedList xs == (fromList . reverse . toList) xs
-  it "arbitrary (fromList . toList)" $
-    property $ \(xs :: LinkedList Int) -> (fromList . toList) xs == xs
-  it "arbitrary (toList . fromList)" $
-    property $ \(xs :: [Int]) -> (toList . fromList) xs == xs
-  it "arbitrary (reverseLinkedList . reverseLinkedList)" $
-    property $ \(xs :: LinkedList Int) ->
-      (reverseLinkedList . reverseLinkedList) xs == xs
-  it "arbitrary datum" $
-    property $ \(xs :: [Int]) ->
-      let ll = fromList xs
-          sameNthDatum n = nthDatum ll n == xs !! n
-          indices = [0 .. pred $ length xs]
-      in all sameNthDatum indices
+  it "arbitrary reverseLinkedList" $ property $ \(xs :: LinkedList Int) ->
+    reverseLinkedList xs == (fromList . reverse . toList) xs
+  it "arbitrary (fromList . toList)" $ property $ \(xs :: LinkedList Int) ->
+    (fromList . toList) xs == xs
+  it "arbitrary (toList . fromList)" $ property $ \(xs :: [Int]) ->
+    (toList . fromList) xs == xs
+  it "arbitrary (reverseLinkedList . reverseLinkedList)"
+    $ property
+    $ \(xs :: LinkedList Int) ->
+        (reverseLinkedList . reverseLinkedList) xs == xs
+  it "arbitrary datum" $ property $ \(xs :: [Int]) ->
+    let ll = fromList xs
+        sameNthDatum n = nthDatum ll n == xs !! n
+        indices = [0 .. pred $ length xs]
+    in  all sameNthDatum indices

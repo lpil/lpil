@@ -4,9 +4,9 @@ module DNA
 
 toRNA :: String -> Maybe String
 toRNA = mapM translateBase
-  where
-    translateBase 'G' = Just 'C'
-    translateBase 'C' = Just 'G'
-    translateBase 'T' = Just 'A'
-    translateBase 'A' = Just 'U'
-    translateBase _ = Nothing
+ where
+  translateBase 'G' = Just 'C'
+  translateBase 'C' = Just 'G'
+  translateBase 'T' = Just 'A'
+  translateBase 'A' = Just 'U'
+  translateBase _   = Nothing

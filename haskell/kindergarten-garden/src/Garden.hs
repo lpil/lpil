@@ -18,34 +18,35 @@ data Plant
   deriving (Eq, Show)
 
 defaultGarden :: String -> Map String [Plant]
-defaultGarden =
-  garden
-    [ "Alice"
-    , "Bob"
-    , "Charlie"
-    , "David"
-    , "Eve"
-    , "Fred"
-    , "Ginny"
-    , "Harriet"
-    , "Ileana"
-    , "Joseph"
-    , "Kincaid"
-    , "Larry"
-    ]
+defaultGarden = garden
+  [ "Alice"
+  , "Bob"
+  , "Charlie"
+  , "David"
+  , "Eve"
+  , "Fred"
+  , "Ginny"
+  , "Harriet"
+  , "Ileana"
+  , "Joseph"
+  , "Kincaid"
+  , "Larry"
+  ]
 
 garden :: [String] -> String -> Map String [Plant]
 garden students plants =
-  fromListWith (flip (++)) $
-  concatMap assignRow $ convertPlantRow <$> lines plants
-  where
-    assignRow rowPlants = zip (sort students) (chunksOf 2 rowPlants)
-    convertPlantRow = mapMaybe convertPlant
-    convertPlant 'C' = Just Clover
-    convertPlant 'G' = Just Grass
-    convertPlant 'R' = Just Radishes
-    convertPlant 'V' = Just Violets
-    convertPlant _ = Nothing
+  fromListWith (flip (++))
+    $   concatMap assignRow
+    $   convertPlantRow
+    <$> lines plants
+ where
+  assignRow rowPlants = zip (sort students) (chunksOf 2 rowPlants)
+  convertPlantRow = mapMaybe convertPlant
+  convertPlant 'C' = Just Clover
+  convertPlant 'G' = Just Grass
+  convertPlant 'R' = Just Radishes
+  convertPlant 'V' = Just Violets
+  convertPlant _   = Nothing
 
 lookupPlants :: String -> Map String [Plant] -> [Plant]
 lookupPlants student garden = garden ! student

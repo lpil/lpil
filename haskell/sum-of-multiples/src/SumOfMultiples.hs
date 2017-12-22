@@ -9,6 +9,6 @@ import qualified Data.Set
 sumOfMultiples :: [Integer] -> Integer -> Integer
 sumOfMultiples factors limit =
   (concatMap validMultiples >>> Data.Set.fromList >>> sum) factors
-  where
-    multiples x = map (x *) [1 ..]
-    validMultiples = takeWhile (< limit) . multiples
+ where
+  multiples x = map (x *) [1 ..]
+  validMultiples = takeWhile (< limit) . multiples
