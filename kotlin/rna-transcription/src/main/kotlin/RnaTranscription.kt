@@ -3,17 +3,17 @@ fun transcribeToRna(dna: String): String {
 }
 
 private fun baseToRna(c: Char): Char {
-  return when (c) {
-    'G' ->
-      'C'
+    return when (c) {
+        'G' ->
+            'C'
 
-    'A' ->
-      'U'
+        'A' ->
+            'U'
 
-    'T' ->
-      'A'
+        'T' ->
+            'A'
 
-    else ->
-      'G'
-  }
+        else ->
+            'G'
+    }
 }
