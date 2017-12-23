@@ -15,6 +15,8 @@ nnoremap <Leader>it :InteroTypeInsert<CR>
 " Go to definition:
 nnoremap <c-]> :InteroGoToDef<CR>
 
+let g:neoformat_enabled_haskell = ['brittany']
+
 augroup filetype_haskell
   autocmd!
   autocmd BufWritePre *.hs Neoformat

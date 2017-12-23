@@ -83,3 +83,8 @@ set GOOGLE_SDK_PATH "/home/louis/bin/google-cloud-sdk"
 if [ -f "$GOOGLE_SDK_PATH/path.fish.inc" ]
   source "$GOOGLE_SDK_PATH/path.fish.inc"
 end
+
+# https://github.com/rust-lang-nursery/rustfmt/issues/1687
+if type -q rustc
+  set --export LD_LIBRARY_PATH (rustc --print sysroot)/lib
+end

@@ -24,6 +24,7 @@ Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'flowtype/vim-flow', { 'for': ['javascript'] }
 Plug 'foosoft/vim-argwrap', { 'on': 'ArgWrap' }
 Plug 'frigoeu/psc-ide-vim', { 'for': 'purescript' }
+Plug 'kongo2002/fsharp-vim', { 'for': 'fsharp' }
 Plug 'godlygeek/tabular'
 Plug 'guns/vim-sexp', { 'for': lisp_languages }
 Plug 'hashivim/vim-terraform', { 'for': 'terraform' }
@@ -38,7 +39,6 @@ Plug 'mxw/vim-jsx', { 'for': 'javascript' }
 Plug 'neomake/neomake'
 Plug 'neovimhaskell/haskell-vim', { 'for' : 'haskell' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
-Plug 'parsonsmatt/intero-neovim', { 'for' : 'haskell' }
 Plug 'powerman/vim-plugin-ansiesc', { 'for': 'elixir' } " Used by alchemist
 Plug 'raichoo/purescript-vim', { 'for': 'purescript' }
 Plug 'reasonml-editor/vim-reason', { 'for': 'reason' }
