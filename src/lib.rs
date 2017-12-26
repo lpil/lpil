@@ -2,11 +2,12 @@ use std::net::{TcpListener, TcpStream};
 use std::io::Read;
 use std::io::Write;
 
-pub struct Server {}
+#[derive(Default)]
+pub struct Server;
 
 impl Server {
     pub fn new() -> Self {
-        Self {}
+        Default::default()
     }
 
     /// Start the HTTP server.
