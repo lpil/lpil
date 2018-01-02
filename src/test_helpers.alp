@@ -1,0 +1,8 @@
+module test_helpers
+
+export assert_equal/2
+
+let assert_equal x y =
+  match x == y with
+    | true -> :ok
+    | _ -> throw (:not_equal, x, y)
