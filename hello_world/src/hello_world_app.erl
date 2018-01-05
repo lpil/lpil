@@ -15,7 +15,7 @@
 %%====================================================================
 
 start(_StartType, _StartArgs) ->
-    hello_world_sup:start_link().
+    alpaca_hello_world_sup:start_link(ok).
 
 %%--------------------------------------------------------------------
 stop(_State) ->
