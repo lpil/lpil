@@ -1,0 +1,55 @@
+sections:
+  - section_title: Computational Art
+    items:
+      - title: Elm Hearts
+        github: lpil/elm-hearts
+        url: https://lpil.uk/elm-hearts
+        thumbnail: /img/elm-hearts.gif
+        description: |
+          A 💖-y looping animation inspired by 90s cartoons. Rendered in the
+          browser using the HTML5 canvas API and written in
+          [Elm](https://elm-lang.org), a functional language from the ML
+          family.
+
+          The canvas rendering makes use of the Elm graphics library
+          which is similar to processing, though declaritive and without
+          mutable state. The graphics library handles only plotting to the
+          canvas so the animation progression and window resizing is
+          hand-rolled in Elm's standard program design pattern.
+
+      - title: Ka li da scope
+        github: lpil/ka-li-da-scope
+        url: https://lpil.uk/ka-li-da-scope/
+        thumbnail: /img/ka-li-da-scope.gif
+        description: |
+          An interactive kaleidescope toy, written with a student to introduce
+          the basics of Javascript and creative coding.
+
+          The number of points is randomised on load, so hit refresh for
+          different patterns!
+
+      - title: Clanger Simulator
+        github: lpil/clanger-simulator
+        url: https://lpil.uk/clanger-simulator/
+        # thumbnail: /img/ka-li-da-scope.gif
+        description: |
+
+      - title: The Watching Room
+        github: lpil/the-watching-room
+        url: https://lpil.uk/the-watching-room
+        thumbnail: /img/the-watching-room.gif
+
+      - title: Conversion Bars
+        github: lpil/conversion-bars
+        url: https://lpil.uk/conversion-bars
+        thumbnail: /img/conversion-bars.gif
+
+      - title: Tunnel
+        github: lpil/tunnel
+        url: https://lpil.uk/tunnel
+        thumbnail: /img/tunnel.gif
+
+      - title: Stepper
+        github: lpil/stepper
+        url: https://lpil.uk/stepper
+        thumbnail: /img/stepper.gif

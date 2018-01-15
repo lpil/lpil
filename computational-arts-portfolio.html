@@ -1,0 +1,34 @@
+---
+layout: default
+title: Computational Arts Portfolio
+---
+{% for section in site.data.portfolio.sections %}
+  <section class="portfolio-section">
+    <h2>{{ section.title }}</h2>
+    <ul>
+      {% for item in section.items %}
+        <li class="portfolio-item">
+          <a href="{{ item.url }}" class="portfolio-item__main-link" target="_blank">
+            {% if item.thumbnail %}
+              <img class="portfolio-item__thumbnail" alt="{{ item.title }}" src="{{ item.thumbnail }}">
+            {% else %}
+              <img class="portfolio-item__thumbnail" alt="{{ item.title }}" src="/img/grey-pixel.gif">
+            {% endif %}
+            <h2 class="portfolio-item__title">{{ item.title }}</h2>
+          </a>
+
+          <div class="portfolio-item__description">
+            {{ item.description | markdownify }}
+          </div>
+
+          <ul class="portfolio-item__links">
+            <li>
+              <a href="https://github.com/{{ item.github }}" target="_blank">Source code</a>
+            </li>
+          </ul
+
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+{% endfor %}

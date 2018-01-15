@@ -5,7 +5,7 @@ markdown: kramdown
 
 permalink: "/blog/:title/"
 
-gems:
+plugins:
   - jekyll-redirect-from
 
 whitelist:

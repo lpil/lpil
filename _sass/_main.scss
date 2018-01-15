@@ -1,12 +1,12 @@
 @import url(//fonts.googleapis.com/css?family=PT+Sans|PT+Mono);
 
-@import 'vendor/normalize';
-@import 'vendor/syntax';
+@import "vendor/normalize";
+@import "vendor/syntax";
 
 $text-colour: #353535;
 $link-colour: #008080;
-$font-family: 'PT Sans', sans-serif;
-$monospace-font-family: 'PT Mono', monospace;
+$font-family: "PT Sans", sans-serif;
+$monospace-font-family: "PT Mono", monospace;
 $max-page-width: 700px;
 
 * {
@@ -19,7 +19,6 @@ ul {
   padding-left: 0;
 }
 
-
 html {
   font-family: $font-family;
   font-size: 1.1em;
@@ -30,7 +29,7 @@ p {
   margin-bottom: 1em;
 }
 
-a, p {
+p a, p {
   line-height: 1.6em;
 }
 
@@ -74,6 +73,10 @@ p code {
   margin-left: auto;
   margin-right: auto;
   max-width: $max-page-width;
+}
+
+.post__link {
+  line-height: 1.6em;
 }
 
 .post__content {
@@ -173,4 +176,45 @@ p code {
   .arts {
     justify-content: space-between;
   }
+}
+
+// Portfolio
+
+$space: 14px;
+
+.portfolio-item {
+  display: flow-root;
+  clear: both;
+  margin: 0 $space (3 * $space) $space;
+}
+
+.portfolio-item__thumbnail {
+  display: block;
+  margin: 0 auto $space auto;
+  width: 196px;
+  height: 110px;
+
+  @media (min-width: $max-page-width) {
+    float: left;
+    margin: 0 $space 0 0;
+  }
+}
+
+.portfolio-item__main-link {
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.portfolio-item__title {
+  font-size: 32px;
+  text-align: center;
+
+  @media (min-width: $max-page-width) {
+    text-align: left;
+  }
+}
+
+.portfolio-item__description p {
+  margin: $space 0;
 }
