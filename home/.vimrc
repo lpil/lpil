@@ -13,24 +13,26 @@ let lisp_languages = ['scheme', 'clojure', 'lfe']
 
 Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'scss.css'] }
 Plug 'cespare/vim-toml', { 'for': 'toml' }
+Plug 'lepoetemaudit/alpaca_vim', { 'for': 'alpaca' }
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'dag/vim-fish', { 'for': 'fish' }
-Plug 'derekwyatt/vim-scala', { 'for': 'scala' }
+Plug 'derekwyatt/vim-scala', { 'for': ['scala', 'markdown'] }
 Plug 'digitaltoad/vim-pug', { 'for': ['pug', 'jade'] }
+Plug 'dleonard0/pony-vim-syntax', { 'for': 'pony' }
 Plug 'elixir-lang/vim-elixir', { 'for': ['elixir', 'markdown'] }
-Plug 'elmcast/elm-vim', { 'for': 'elm' }
+Plug 'elmcast/elm-vim', { 'for': ['elm', 'markdown'] }
 Plug 'evanmiller/nginx-vim-syntax', { 'for': 'nginx' }
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'flowtype/vim-flow', { 'for': ['javascript'] }
 Plug 'foosoft/vim-argwrap', { 'on': 'ArgWrap' }
 Plug 'frigoeu/psc-ide-vim', { 'for': 'purescript' }
-Plug 'kongo2002/fsharp-vim', { 'for': 'fsharp' }
 Plug 'godlygeek/tabular'
 Plug 'guns/vim-sexp', { 'for': lisp_languages }
 Plug 'hashivim/vim-terraform', { 'for': 'terraform' }
 Plug 'honza/vim-snippets'
 Plug 'idris-hackers/idris-vim', { 'for': 'idris' }
 Plug 'jparise/vim-graphql', { 'for': 'graphql' }
+Plug 'kongo2002/fsharp-vim', { 'for': 'fsharp' }
 Plug 'kylef/apiblueprint.vim', { 'for': 'apiblueprint' }
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 Plug 'lfe-support/vim-lfe', { 'for': 'lfe' }
@@ -179,12 +181,14 @@ let g:markdown_fenced_languages = [
       \'clojure',
       \'css',
       \'elixir',
+      \'elm',
       \'erlang',
       \'haskell',
       \'html',
       \'javascript',
       \'js=javascript',
       \'json=javascript',
+      \'ocaml',
       \'python',
       \'ruby',
       \'sass',
