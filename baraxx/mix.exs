@@ -25,7 +25,9 @@ defmodule Baraxx.MixProject do
       # Web app API
       {:raxx, "~> 0.13"},
       # Web server
-      {:ace, "~> 0.15"}
+      {:ace, "~> 0.15"},
+      # Release tool
+      {:distillery, "~> 1.5", runtime: false}
     ]
   end
 end

@@ -1,5 +1,6 @@
 %{
   "ace": {:hex, :ace, "0.15.9", "efda341f1c99b494b1c1fbfc788eb0dbe0ddf4710da5690803a40d9e1f1b1bfa", [:mix], [{:hpack, "~> 0.2.3", [hex: :hpack_erl, repo: "hexpm", optional: false]}, {:raxx, "~> 0.14.5", [hex: :raxx, repo: "hexpm", optional: false]}], "hexpm"},
+  "distillery": {:hex, :distillery, "1.5.2", "eec18b2d37b55b0bcb670cf2bcf64228ed38ce8b046bb30a9b636a6f5a4c0080", [:mix], [], "hexpm"},
   "hpack": {:hex, :hpack_erl, "0.2.3", "17670f83ff984ae6cd74b1c456edde906d27ff013740ee4d9efaa4f1bf999633", [:rebar3], [], "hexpm"},
   "raxx": {:hex, :raxx, "0.14.6", "1530ffabe2602e90c784389250f23b3be26381452eb906bb8fa8b8c6caa71a35", [:mix], [], "hexpm"},
 }
