@@ -24,11 +24,12 @@ end
 # will be used by default
 
 release :baraxx do
-  set(version: current_version(:baraxx))
+  set(version: current_version(:core))
 
-  set(
-    applications: [
-      :runtime_tools
-    ]
-  )
+  baraxx_apps =
+    Path.wildcard("apps/*")
+    |> Enum.map(&Path.basename/1)
+    |> Enum.map(&String.to_atom/1)
+
+  set(applications: [:runtime_tools | baraxx_apps])
 end

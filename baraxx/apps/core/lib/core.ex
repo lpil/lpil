@@ -1,6 +1,6 @@
-defmodule Baraxx do
+defmodule Core do
   @moduledoc """
-  Documentation for Baraxx.
+  Documentation for Core.
   """
 
   @doc """
@@ -8,7 +8,7 @@ defmodule Baraxx do
 
   ## Examples
 
-      iex> Baraxx.hello
+      iex> Core.hello
       :world
 
   """

@@ -13,11 +13,16 @@ RUN mix do local.hex --force, local.rebar --force
 COPY config/ $HOME/config/
 COPY mix.exs mix.lock $HOME/
 
+COPY apps/web/mix.exs $HOME/apps/web/
+COPY apps/web/config/ $HOME/apps/web/config/
+
+COPY apps/core/mix.exs $HOME/apps/core/
+COPY apps/core/config/ $HOME/apps/core/config/
+
 RUN mix do deps.get --only $MIX_ENV, deps.compile
 
-COPY . $HOME/
-
 # Release
+COPY . $HOME/
 WORKDIR $HOME
 RUN mix release --env=$MIX_ENV --verbose
 
@@ -47,4 +52,4 @@ WORKDIR $HOME
 RUN tar -xzf baraxx.tar.gz
 
 ENTRYPOINT ["/opt/app/bin/baraxx"]
-CMD ["foreground"]
+CMD ["help"]

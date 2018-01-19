@@ -1,4 +1,4 @@
-defmodule Baraxx.Application do
+defmodule Core.Application do
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
   @moduledoc false
@@ -6,22 +6,15 @@ defmodule Baraxx.Application do
   use Application
 
   def start(_type, _args) do
-    ace_options = [
-      port: 4000,
-      # certfile: certfile,
-      # keyfile: keyfile,
-      connections: 1_000,
-      # No TLS
-      cleartext: true
-    ]
-
+    # List all child processes to be supervised
     children = [
-      {Ace.HTTP.Service, [{Baraxx.Web, []}, ace_options]}
+      # Starts a worker by calling: Core.Worker.start_link(arg)
+      # {Core.Worker, arg},
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: Baraxx.Supervisor]
+    opts = [strategy: :one_for_one, name: Core.Supervisor]
     Supervisor.start_link(children, opts)
   end
 end

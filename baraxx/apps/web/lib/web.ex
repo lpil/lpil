@@ -1,4 +1,4 @@
-defmodule Baraxx.Web do
+defmodule Web do
   use Raxx.Server
 
   @impl Raxx.Server
