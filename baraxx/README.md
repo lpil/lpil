@@ -6,9 +6,9 @@ A test Raxx based web app
 # Start app
 iex -S mix
 
-# Build a release
-MIX_ENV=prod mix release
+# Build a docker image
+docker build . -t baraxx
 
-# Start the release
-_build/prod/rel/baraxx/bin/baraxx start
+# Run a docker container
+docker run -p 4000:4000 -it --rm baraxx console
 ```
