@@ -9,4 +9,5 @@
    ### greet Some("Alice")
    "Hello, Alice!"
 *)
-val greet: string option -> string
+
+val greet : string option -> string

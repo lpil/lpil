@@ -1,4 +1,4 @@
 let greet subject =
   match subject with
-    None -> "Hello, World!"
+  | None -> "Hello, World!"
   | Some name -> "Hello, " ^ name ^ "!"

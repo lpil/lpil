@@ -1,1 +1,1 @@
-val leap_year: int -> bool
+val leap_year : int -> bool
