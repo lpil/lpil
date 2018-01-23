@@ -1,9 +1,5 @@
 open Core
 
-let ( |> ) x f = f x
-
-let identity x = x
-
 let square num = num * num
 
 let square_of_sum num =
