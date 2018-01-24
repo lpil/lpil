@@ -292,11 +292,6 @@ let g:ctrlp_custom_ignore = {
 
 let g:deoplete#enable_at_startup = 1
 
-if !exists('g:deoplete#omni_patterns')
-  let g:deoplete#omni#input_patterns = {}
-endif
-let g:deoplete#omni#input_patterns.ocaml = '[^. *\t]\.\w*|\s\w*|#'
-
 """"""""""""""""""
 "  OCaml merlin  "
 """"""""""""""""""
