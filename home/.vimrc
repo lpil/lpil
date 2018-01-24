@@ -13,7 +13,6 @@ let lisp_languages = ['scheme', 'clojure', 'lfe']
 
 Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'scss.css'] }
 Plug 'cespare/vim-toml', { 'for': 'toml' }
-Plug 'lepoetemaudit/alpaca_vim', { 'for': 'alpaca' }
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'dag/vim-fish', { 'for': 'fish' }
 Plug 'derekwyatt/vim-scala', { 'for': ['scala', 'markdown'] }
@@ -34,6 +33,7 @@ Plug 'jparise/vim-graphql', { 'for': 'graphql' }
 Plug 'kongo2002/fsharp-vim', { 'for': 'fsharp' }
 Plug 'kylef/apiblueprint.vim', { 'for': 'apiblueprint' }
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
+Plug 'lepoetemaudit/alpaca_vim', { 'for': 'alpaca' }
 Plug 'lfe-support/vim-lfe', { 'for': 'lfe' }
 Plug 'marcweber/vim-addon-mw-utils'
 Plug 'mxw/vim-jsx', { 'for': 'javascript' }
@@ -49,6 +49,7 @@ Plug 'rust-lang/rust.vim', { 'for': ['rust', 'markdown'] }
 Plug 'sbdchd/neoformat'
 Plug 'sbl/scvim', { 'for': 'supercollider' }
 Plug 'scrooloose/nerdtree'
+Plug 'shougo/deoplete.nvim', { 'do': ':updateremoteplugins' }
 Plug 'shougo/deoplete.nvim', { 'do': function('DoRemote') }
 Plug 'sirver/ultisnips'
 Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
@@ -290,6 +291,17 @@ let g:ctrlp_custom_ignore = {
 """""""""""""""""""""""""
 
 let g:deoplete#enable_at_startup = 1
+
+if !exists('g:deoplete#omni_patterns')
+  let g:deoplete#omni#input_patterns = {}
+endif
+let g:deoplete#omni#input_patterns.ocaml = '[^. *\t]\.\w*|\s\w*|#'
+
+""""""""""""""""""
+"  OCaml merlin  "
+""""""""""""""""""
+let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
+execute "set rtp+=" . g:opamshare . "/merlin/vim"
 
 """""""""""""""""""""""""""""""""""""
 " And finally, per-project .vimrc's "
