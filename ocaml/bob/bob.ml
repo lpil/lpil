@@ -2,7 +2,7 @@ open Core
 
 let has_alpha = String.exists ~f:Char.is_alpha
 
-let all_upper str = String.uppercase str = str
+let all_upper str = not (String.exists ~f:Char.is_lowercase str)
 
 let is_silence = ( = ) ""
 
