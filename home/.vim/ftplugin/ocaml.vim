@@ -4,6 +4,8 @@ augroup filetype_ocaml
   autocmd BufWritePre *.mli Neoformat
 augroup END
 
+set commentstring=(*%s*)
+
 " Enable Merlin based completion
 if !exists('g:deoplete#omni_patterns')
   let g:deoplete#omni#input_patterns = {}
