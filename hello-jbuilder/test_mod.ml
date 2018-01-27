@@ -1,4 +1,3 @@
-(* Build with `ocamlbuild -pkg alcotest simple.byte` *)
 (* A module with functions to test *)
 module Mod = struct
   let capit letter = Char.uppercase_ascii letter
