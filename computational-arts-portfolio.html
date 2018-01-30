@@ -22,11 +22,15 @@ title: Computational Arts Portfolio
           </div>
 
           <ul class="portfolio-item__links">
+            {% if item.url %}
+              <li>
+                <a href="{{ item.url }}" target="_blank">View piece</a>
+              </li>
+            {% endif %}
             <li>
-              <a href="https://github.com/{{ item.github }}" target="_blank">Source code</a>
+              <a href="https://github.com/{{ item.github }}" target="_blank">View source code</a>
             </li>
           </ul
-
         </li>
       {% endfor %}
     </ul>
