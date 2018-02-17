@@ -35,6 +35,7 @@ Plug 'kylef/apiblueprint.vim', { 'for': 'apiblueprint' }
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 Plug 'lepoetemaudit/alpaca_vim', { 'for': 'alpaca' }
 Plug 'lfe-support/vim-lfe', { 'for': 'lfe' }
+Plug 'lpil/gleam.vim', { 'for': 'gleam' }
 Plug 'marcweber/vim-addon-mw-utils'
 Plug 'mxw/vim-jsx', { 'for': 'javascript' }
 Plug 'neomake/neomake'
@@ -47,7 +48,7 @@ Plug 'rhysd/clever-f.vim'
 Plug 'rhysd/vim-crystal', { 'for': 'crystal' }
 Plug 'rust-lang/rust.vim', { 'for': ['rust', 'markdown'] }
 Plug 'sbdchd/neoformat'
-Plug 'sbl/scvim', { 'for': 'supercollider' }
+Plug 'supercollider/scvim', { 'for': 'supercollider' }
 Plug 'scrooloose/nerdtree'
 Plug 'shougo/deoplete.nvim', { 'do': ':updateremoteplugins' }
 Plug 'shougo/deoplete.nvim', { 'do': function('DoRemote') }
@@ -284,6 +285,7 @@ nnoremap <C-o> :CtrlPMixed<CR>
 
 let g:ctrlp_custom_ignore = {
   \ 'dir': '\v[\/](\.git|\.hg|\.svn|_site|target|node_modules|bower_components|_build|dist|output|elm-stuff|coverage|deps|tmp)$',
+  \ 'file': '\.beam$'
   \ }
 
 """""""""""""""""""""""""
