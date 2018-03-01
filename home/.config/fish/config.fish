@@ -12,6 +12,10 @@ set --export PGUSER postgres
 set --export ANSIBLE_VAULT_PASSWORD_FILE "$HOME/.ansible/vault_password/honeycomb"
 set --export ERL_AFLAGS "-kernel shell_history enabled"
 
+# Openframeworks config
+set --export OF_ROOT "/home/louis/projects/openframeworks"
+set --export PG_OF_PATH "/home/louis/projects/openframeworks"
+
 # Path
 set fish_user_paths \
   "$HOME/.cache/rebar3/bin" \
