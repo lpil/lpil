@@ -4,7 +4,7 @@ defmodule Fcat.Mixfile do
   def project do
     [
       app: :fcat,
-      version: "0.0.1",
+      version: "0.1.0",
       elixir: "~> 1.4",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
@@ -42,7 +42,11 @@ defmodule Fcat.Mixfile do
       # Web server
       {:cowboy, "~> 1.0"},
       # Performance monitoring
-      {:appsignal, "~> 1.0"}
+      {:appsignal, "~> 1.0"},
+      # Automatic test runner
+      {:mix_test_watch, "~> 0.4", only: [:dev], runtime: false},
+      # Release builder
+      {:distillery, "~> 1.5", runtime: false}
     ]
   end
 end

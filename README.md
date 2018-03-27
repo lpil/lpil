@@ -1,19 +1,22 @@
 # Fcat
 
-To start your Phoenix server:
+## Quick Reference
 
-  * Install dependencies with `mix deps.get`
-  * Install Node.js dependencies with `cd assets && npm install`
-  * Start Phoenix endpoint with `mix phx.server`
+```sh
+# Install deps
+mix deps.get
+yarn install
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+# Run the tests
+mix test
+mix test.watch
 
-Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
+# Run the app
+mix phx.server
 
-## Learn more
+# Build a docker image
+docker build . -t fcat
 
-  * Official website: http://www.phoenixframework.org/
-  * Guides: http://phoenixframework.org/docs/overview
-  * Docs: https://hexdocs.pm/phoenix
-  * Mailing list: http://groups.google.com/group/phoenix-talk
-  * Source: https://github.com/phoenixframework/phoenix
+# Run docker container from image
+docker run --env ERLANG_COOKIE=some-secret-value -p 4000:4000 -it --rm fcat
+```

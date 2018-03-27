@@ -12,7 +12,7 @@ defmodule FcatWeb.Endpoint do
     Plug.Static,
     at: "/",
     from: :fcat,
-    gzip: false
+    gzip: true
     # only: ~w(css fonts images js favicon.ico robots.txt)
   )
 
