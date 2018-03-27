@@ -1,0 +1,14 @@
+{
+  "repository": {},
+  "license": "MIT",
+  "scripts": {
+    "deploy": "parcel assets/main.js --out-dir priv/static/",
+    "watch": "parcel watch assets/main.js --out-dir priv/static/"
+  },
+  "dependencies": {
+    "parcel-bundler": "^1.6.2",
+    "phoenix": "file:./deps/phoenix",
+    "phoenix_html": "file:./deps/phoenix_html"
+  },
+  "devDependencies": {}
+}
