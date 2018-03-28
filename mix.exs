@@ -41,6 +41,9 @@ defmodule Fcat.Mixfile do
       {:gettext, "~> 0.11"},
       # Web server
       {:cowboy, "~> 1.0"},
+      # Auth plugin system
+      {:ueberauth, "~> 0.5"},
+      {:ueberauth_auth0, "~> 0.3"},
       # Performance monitoring
       {:appsignal, "~> 1.0"},
       # Automatic test runner

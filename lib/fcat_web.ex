@@ -29,7 +29,7 @@ defmodule FcatWeb do
   def view do
     quote do
       use Phoenix.View,
-        root: "lib/fcat_web/templates",
+        root: "lib/fcat_web",
         namespace: FcatWeb
 
       # Import convenience functions from controllers

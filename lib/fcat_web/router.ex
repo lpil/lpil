@@ -14,14 +14,15 @@ defmodule FcatWeb.Router do
   end
 
   scope "/", FcatWeb do
-    # Use the default browser stack
     pipe_through(:browser)
 
     get("/", PageController, :index)
+
+    get("/login/:provider", AuthController, :request)
+    get("/login/:provider/callback", AuthController, :callback)
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", FcatWeb do
-  #   pipe_through :api
-  # end
+  scope "/v1", FcatWeb do
+    pipe_through(:api)
+  end
 end
