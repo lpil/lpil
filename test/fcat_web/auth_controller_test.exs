@@ -12,6 +12,6 @@ defmodule FcatWeb.AuthControllerTest do
              "https://example.auth0.com/authorize?client_id=client_id&redirect_uri=http%3A%2F%2Fwww.example.com%2Flogin%2Fauth0%2Fcallback&response_type=code&scope=openid+profile+email"
   end
 
-  # How do we test this? It will hit auth0. Hum.
-  test "GET /login/auth0/callback"
+  # TODO: Golden path selenium style integration test for login.
+  # We can't meaningfully test the auth0 oauth interaction at this level.
 end

@@ -1,0 +1,8 @@
+-
+  title: 'User interaction'
+  graphs:
+    -
+      title: 'Auth'
+      kind: counter
+      filter: ^auth/
+      format: number
