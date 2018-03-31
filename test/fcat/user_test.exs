@@ -14,21 +14,24 @@ defmodule Fcat.UserTest do
       assert is_integer(inserted_at)
     end
 
-    @tag :skip
     test "invalid - no id" do
-      assert {:error, _} = User.insert(Map.put(@params, :id, nil))
+      assert User.insert(Map.put(@params, :id, nil)) ==
+               {:invalid, [{:error, :id, :presence, "must be present"}]}
     end
 
-    @tag :skip
     test "invalid - no email" do
-      assert {:error, _} = User.insert(Map.put(@params, :email, nil))
+      assert {:invalid, errors} = User.insert(Map.put(@params, :email, nil))
+
+      assert errors == [
+               {:error, :email, :presence, "must be present"},
+               {:error, :email, :format, "must have the correct format"}
+             ]
     end
 
     test "pre-existing" do
       assert {:ok, _user} = User.insert(@params)
-      assert {:error, [code: code, message: message]} = User.insert(@params)
-      assert code == "Neo.ClientError.Schema.ConstraintValidationFailed"
-      assert message =~ "already exists with label `User` and property `id` = '123'"
+      assert {:invalid, errors} = User.insert(@params)
+      assert errors == [{:error, :id, :uniqueness, "has already been taken"}]
     end
   end
 
@@ -41,8 +44,7 @@ defmodule Fcat.UserTest do
 
     test "pre-existing" do
       assert {:ok, user} = User.fetch_or_insert(@params)
-      params = Map.put(@params, :email, "")
-      assert User.fetch_or_insert(params) == {:ok, user}
+      assert User.fetch_or_insert(@params) == {:ok, user}
     end
   end
 

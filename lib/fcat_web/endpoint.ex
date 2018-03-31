@@ -35,7 +35,7 @@ defmodule FcatWeb.Endpoint do
 
   plug(Plug.MethodOverride)
   plug(Plug.Head)
-  plug(Plug.Session, Application.get_env(:fcat,FcatWeb.Endpoint)[:session_opts])
+  plug(Plug.Session, Application.get_env(:fcat, FcatWeb.Endpoint)[:session_opts])
   plug(FcatWeb.Router)
 
   @doc """

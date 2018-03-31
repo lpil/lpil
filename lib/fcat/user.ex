@@ -27,17 +27,22 @@ defmodule Fcat.User do
     end
   end
 
+  # Validation of insert params
   defmodule Insert do
+    @moduledoc false
+    use Vex.Struct
+
     @enforce_keys [:id, :email]
     defstruct [:id, :email]
+
+    validates(:id, presence: true)
+    validates(:email, presence: true, format: ~r/.@.+\../)
   end
 
   @doc """
   Insert a new user into the database.
   """
   def insert(%Insert{} = params) do
-    # TODO: Validate params
-
     cypher = """
     CREATE (user:User {
       email: $email,
