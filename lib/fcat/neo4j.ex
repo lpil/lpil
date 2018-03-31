@@ -10,11 +10,19 @@ defmodule Fcat.Neo4j do
   @type cypher :: String.t()
 
   @spec query(cypher, map) :: {:ok, Bolt.Sips.Response} | {:error, Bolt.Sips.Error}
-  def query(cypher, params) do
+  def query(cypher, params \\ %{}) do
     Metrics.increment_counter("neo4j/query", 1)
 
     Metrics.record_event("neo4j_query", cypher, fn ->
       Bolt.Sips.query(Bolt.Sips.conn(), cypher, params)
     end)
+  end
+
+  @doc """
+  Ping the database.
+  """
+  @spec ping?() :: boolean
+  def ping? do
+    match?({:ok, _}, query("RETURN 1"))
   end
 end

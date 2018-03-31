@@ -24,5 +24,7 @@ defmodule FcatWeb.Router do
 
   scope "/v1", FcatWeb do
     pipe_through(:api)
+
+    get("/status", StatusController, :show)
   end
 end
