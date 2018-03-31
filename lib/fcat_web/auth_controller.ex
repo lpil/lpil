@@ -24,7 +24,11 @@ defmodule FcatWeb.AuthController do
   def callback(%{assigns: %{ueberauth_auth: auth}} = conn, _params) do
     Metrics.increment_counter("auth/login/success")
 
+    IO.inspect(auth)
+    IO.inspect(auth.uid == "auth0|5abbf33b80a10a330d742b50")
+
     user_email = auth.info.email
+    user_id = auth.uid
     # TODO
     user = user_email
 

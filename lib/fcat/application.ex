@@ -9,6 +9,8 @@ defmodule Fcat.Application do
     children = [
       # Neo4j database connection pool
       {Bolt.Sips, Application.get_env(:bolt_sips, Bolt)},
+      # Neo4j schema updater
+      Fcat.Neo4j.Migrator,
       # Web application endpoint
       FcatWeb.Endpoint
     ]
