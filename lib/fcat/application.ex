@@ -8,10 +8,10 @@ defmodule Fcat.Application do
 
     # Define workers and child supervisors to be supervised
     children = [
-      # Start the endpoint when the application starts
-      supervisor(FcatWeb.Endpoint, [])
-      # Start your own worker by calling: Fcat.Worker.start_link(arg1, arg2, arg3)
-      # worker(Fcat.Worker, [arg1, arg2, arg3]),
+      # Neo4j database connection pool
+      {Bolt.Sips, Application.get_env(:bolt_sips, Bolt)},
+      # Web application endpoint
+      FcatWeb.Endpoint
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

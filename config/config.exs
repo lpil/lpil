@@ -9,5 +9,6 @@ import_config "logger.exs"
 import_config "phoenix.exs"
 import_config "appsignal.exs"
 import_config "ueberauth.exs"
+import_config "neo4j.exs"
 
 import_config "#{Mix.env()}.secret.exs"

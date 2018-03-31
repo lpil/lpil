@@ -2,6 +2,8 @@
 
 ## Quick Reference
 
+An instance of the Neo4j database is expected to be running on `localhost`.
+
 ```sh
 # Install deps
 mix deps.get
