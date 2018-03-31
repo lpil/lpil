@@ -1,4 +1,4 @@
-defmodule FcatWeb.ChannelCase do
+defmodule ParticleWeb.ChannelCase do
   @moduledoc """
   This module defines the test case to be used by
   channel tests.
@@ -21,7 +21,7 @@ defmodule FcatWeb.ChannelCase do
       use Phoenix.ChannelTest
 
       # The default endpoint for testing
-      @endpoint FcatWeb.Endpoint
+      @endpoint ParticleWeb.Endpoint
     end
   end
 

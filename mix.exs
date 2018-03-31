@@ -1,9 +1,9 @@
-defmodule Fcat.Mixfile do
+defmodule Particle.Mixfile do
   use Mix.Project
 
   def project do
     [
-      app: :fcat,
+      app: :particle,
       version: "0.1.0",
       elixir: "~> 1.4",
       elixirc_paths: elixirc_paths(Mix.env()),
@@ -18,7 +18,7 @@ defmodule Fcat.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {Fcat.Application, []},
+      mod: {Particle.Application, []},
       extra_applications: [:logger, :runtime_tools]
     ]
   end

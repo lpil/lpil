@@ -1,4 +1,4 @@
-defmodule FcatWeb.ConnCase do
+defmodule ParticleWeb.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -19,10 +19,10 @@ defmodule FcatWeb.ConnCase do
     quote do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
-      import FcatWeb.Router.Helpers
+      import ParticleWeb.Router.Helpers
 
       # The default endpoint for testing
-      @endpoint FcatWeb.Endpoint
+      @endpoint ParticleWeb.Endpoint
     end
   end
 
@@ -31,10 +31,10 @@ defmodule FcatWeb.ConnCase do
   end
 
   def session_conn() do
-    secret_key_base = Application.get_env(:fcat, FcatWeb.Endpoint)[:secret_key_base]
+    secret_key_base = Application.get_env(:particle, ParticleWeb.Endpoint)[:secret_key_base]
 
     session_opts =
-      Application.get_env(:fcat, FcatWeb.Endpoint)[:session_opts]
+      Application.get_env(:particle, ParticleWeb.Endpoint)[:session_opts]
       |> Plug.Session.init()
 
     Phoenix.ConnTest.build_conn()

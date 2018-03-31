@@ -29,7 +29,7 @@ end
 # when running `mix release`, the first release in the file
 # will be used by default
 
-release :fcat do
-  set(version: current_version(:fcat))
+release :particle do
+  set(version: current_version(:particle))
   set(applications: [:runtime_tools])
 end

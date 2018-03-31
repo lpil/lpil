@@ -1,4 +1,4 @@
-# Frankencat!
+# Particle
 
 ## Quick Reference
 
@@ -17,8 +17,8 @@ mix test.watch
 mix phx.server
 
 # Build a docker image
-docker build . -t fcat
+docker build . -t particle
 
 # Run docker container from image
-docker run --env ERLANG_COOKIE=some-secret-value -p 4000:4000 -it --rm fcat
+docker run --env ERLANG_COOKIE=some-secret-value -p 4000:4000 -it --rm particle
 ```

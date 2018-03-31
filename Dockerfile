@@ -41,15 +41,15 @@ EXPOSE 4000 \
 WORKDIR $HOME
 
 COPY --from=release-builder \
-  $HOME/_build/prod/rel/fcat/releases/$APP_VERSION/fcat.tar.gz \
+  $HOME/_build/prod/rel/particle/releases/$APP_VERSION/particle.tar.gz \
   $HOME
 
 RUN apk add --no-cache ncurses-libs openssl bash \
-  && tar -xzf fcat.tar.gz \
-  && adduser -S www-fcat \
+  && tar -xzf particle.tar.gz \
+  && adduser -S www-particle \
   && mkdir -p /app \
-  && chown www-fcat /app
-USER www-fcat
+  && chown www-particle /app
+USER www-particle
 
-ENTRYPOINT ["/app/bin/fcat"]
+ENTRYPOINT ["/app/bin/particle"]
 # CMD ["foreground"]
