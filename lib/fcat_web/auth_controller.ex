@@ -1,6 +1,7 @@
 defmodule FcatWeb.AuthController do
   use FcatWeb, :controller
-  alias Fcat.Metrics
+  alias Fcat.{Metrics, User}
+  require Logger
 
   # Implements request handlers for authentication methods.
   plug(Ueberauth)
@@ -12,43 +13,24 @@ defmodule FcatWeb.AuthController do
 
   # This callback/2 function is called by Ueberauth after
   # an auth attempt has been made. Here we handle success or failure.
-  #
-  def callback(%{assigns: %{ueberauth_failure: _fails}} = conn, _params) do
-    Metrics.increment_counter("auth/login/failure")
 
-    conn
-    |> put_flash(:error, "Failed to authenticate.")
-    |> redirect(to: "/")
-  end
+  # def callback(%{assigns: %{ueberauth_failure: _fails}} = conn, _params) do
+  #   Metrics.increment_counter("auth/login/failure")
+  #   conn
+  #   |> put_flash(:error, "Failed to authenticate.")
+  #   |> redirect(to: "/")
+  # end
 
   def callback(%{assigns: %{ueberauth_auth: auth}} = conn, _params) do
+    id = auth.uid
+    email = auth.info.email
+    {:ok, _user} = User.fetch_or_insert(%User.Insert{id: id, email: email})
+
     Metrics.increment_counter("auth/login/success")
-
-    IO.inspect(auth)
-    IO.inspect(auth.uid == "auth0|5abbf33b80a10a330d742b50")
-
-    user_email = auth.info.email
-    user_id = auth.uid
-    # TODO
-    user = user_email
+    Logger.info("auth/login/success #{email}", id: id, email: email)
 
     conn
-    |> put_flash(:info, "Successfully authenticated. #{inspect(auth)}")
-    |> put_session(:current_user, user)
+    |> put_session(:uid, id)
     |> redirect(to: "/")
-
-    # TODO: Implement user persistence
-
-    # case UserFromAuth.find_or_create(auth) do
-    #   {:ok, user} ->
-    #     conn
-    #     |> put_flash(:info, "Successfully authenticated.")
-    #     |> put_session(:current_user, user)
-    #     |> redirect(to: "/")
-    #   {:error, reason} ->
-    #     conn
-    #     |> put_flash(:error, reason)
-    #     |> redirect(to: "/")
-    # end
   end
 end

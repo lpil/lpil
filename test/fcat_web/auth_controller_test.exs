@@ -1,5 +1,7 @@
 defmodule FcatWeb.AuthControllerTest do
-  use FcatWeb.ConnCase
+  use FcatWeb.ConnCase, async: false
+  alias Fcat.User
+  import TestHelper
 
   test "GET /login/unknown-provider", %{conn: conn} do
     assert_raise Phoenix.Router.NoRouteError, fn -> get(conn, "/login/unknown-provider") end
@@ -14,4 +16,21 @@ defmodule FcatWeb.AuthControllerTest do
 
   # TODO: Golden path selenium style integration test for login.
   # We can't meaningfully test the auth0 oauth interaction at this level.
+
+  describe "callback/2" do
+    setup [:truncate_database]
+
+    test "auth success", %{conn: conn} do
+      auth = %Ueberauth.Auth{uid: "123456", info: %{email: "some@email.net"}}
+
+      conn =
+        conn
+        |> Plug.Conn.assign(:ueberauth_auth, auth)
+        |> FcatWeb.AuthController.callback([])
+
+      assert redirected_to(conn, 302) == "/"
+      assert {:ok, user} = User.fetch("123456")
+      assert user.email == "some@email.net"
+    end
+  end
 end

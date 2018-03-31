@@ -3,7 +3,7 @@ defmodule Fcat.User do
   A user of the system. How exotic!
   """
 
-  alias Fcat.Neo4j
+  alias Fcat.{Metrics, Neo4j}
 
   defstruct [:id, :email, :inserted_at]
 
@@ -48,6 +48,8 @@ defmodule Fcat.User do
     """
 
     with {:ok, data} <- Neo4j.query_one(cypher, params) do
+      Metrics.increment_counter("user/insert")
+
       data
       |> from_result()
       |> Term.ok()
@@ -55,7 +57,8 @@ defmodule Fcat.User do
   end
 
   @doc """
-  Insert a new User into the database, fetching it if it already exists.
+  Insert a new User into the database, fetching it there already is one
+  with the given id.
   """
   def fetch_or_insert(%Insert{} = params) do
     with :not_found <- fetch(params.id) do

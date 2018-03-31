@@ -5,7 +5,11 @@ config :fcat, FcatWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "dglKVKL1TcO4MifvgqofEU19CBvnBA+iEy896hrfy0c+n+f5XaYPzofdpw5Fl9Br",
   render_errors: [view: FcatWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Fcat.PubSub, adapter: Phoenix.PubSub.PG2]
+  pubsub: [name: Fcat.PubSub, adapter: Phoenix.PubSub.PG2],
+  # The session will be stored in the cookie and signed,
+  # this means its contents can be read but not tampered with.
+  # Set :encryption_salt if you would also like to encrypt it.
+  session_opts: [store: :cookie, key: "_fcat_key", signing_salt: "TZk+t3cB"]
 
 case Mix.env() do
   :dev ->
