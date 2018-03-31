@@ -4,6 +4,11 @@ set -eu
 CARDS=$(cat /proc/asound/cards)
 
 case "$CARDS" in
+  *"XONEK2"*)
+    echo "Using A&H XONE:K2"
+    /usr/bin/jackd -R -P 95 -d alsa -d hw:XONEK2 -r 44100 -p 256
+    ;;
+
   *"Native Instruments Traktor Audio 2 MK2"*)
     echo Using NI Traktor Audio 2 MK2
     /usr/bin/jackd -R -P 95 -d alsa -d hw:MK2 -r 44100 -p 256
