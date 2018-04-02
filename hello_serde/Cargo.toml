@@ -1,0 +1,9 @@
+[package]
+name = "hello_serde"
+version = "0.1.0"
+authors = ["Louis Pilfold <louis@lpil.uk>"]
+
+[dependencies]
+serde = "1.0"
+serde_derive = "1.0"
+toml = "0.4"
