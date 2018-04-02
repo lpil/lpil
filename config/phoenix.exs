@@ -83,6 +83,7 @@ case Mix.env() do
     # which you typically run after static files are built.
     config :particle, ParticleWeb.Endpoint,
       load_from_system_env: true,
+      # TODO: URLs!
       url: [host: "example.com", port: 80],
       cache_static_manifest: "priv/static/cache_manifest.json"
 

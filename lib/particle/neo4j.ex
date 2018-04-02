@@ -8,6 +8,7 @@ defmodule Particle.Neo4j do
   alias Particle.Metrics
 
   @type cypher :: String.t()
+  @type params :: map | list
 
   @doc """
   Run a query against the database.
@@ -15,7 +16,7 @@ defmodule Particle.Neo4j do
   If the params are a struct this function will attempt to validate
   it using `Vex.validate/1` and only run the query if valid.
   """
-  @spec query(cypher, map) :: {:ok, Bolt.Sips.Response} | {:error, Bolt.Sips.Error}
+  @spec query(cypher, params) :: {:ok, [map]} | Particle.invalid()
   def query(cypher, params \\ %{})
 
   def query(cypher, params) when is_list(params) do
@@ -61,15 +62,17 @@ defmodule Particle.Neo4j do
 
         {:invalid, [{:error, field, :uniqueness, "has already been taken"}]}
 
-      _ ->
-        {:error, error}
+      code ->
+        raise Bolt.Sips.Exception, code: code, message: error[:message]
     end
   end
 
+  @spec query_one(cypher, params) :: {:ok, map} | :not_found | Particle.invalid()
   def query_one(cypher, params \\ %{}) do
     case query(cypher, params) do
       {:ok, []} -> :not_found
       {:ok, [entity]} -> {:ok, entity}
+      {:ok, _more_than_one} -> raise("query_one got multiple nodes\n#{cypher}")
       error -> error
     end
   end

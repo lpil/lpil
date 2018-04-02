@@ -9,6 +9,7 @@ defmodule Particle.Mixfile do
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
+      dialyzer: [ignore_warnings: ".dialyzerignore"],
       deps: deps()
     ]
   end
@@ -50,6 +51,8 @@ defmodule Particle.Mixfile do
       {:ueberauth_auth0, "~> 0.3"},
       # Performance monitoring
       {:appsignal, "~> 1.0"},
+      # Type checker
+      {:dialyxir, "~> 0.5", only: [:dev], runtime: false},
       # Automatic test runner
       {:mix_test_watch, "~> 0.4", only: [:dev], runtime: false},
       # Release builder

@@ -8,6 +8,7 @@
   "cowlib": {:hex, :cowlib, "1.0.2", "9d769a1d062c9c3ac753096f868ca121e2730b9a377de23dec0f7e08b1df84ee", [:make], [], "hexpm"},
   "db_connection": {:git, "https://github.com/elixir-ecto/db_connection.git", "3b34256817f19430e0f1e654097d127c75ea73d7", []},
   "decorator": {:hex, :decorator, "1.2.3", "258681ae943e57bd92d821ea995e3994b4e0b62ae8404b5d892cb8b23b55b050", [:mix], [], "hexpm"},
+  "dialyxir": {:hex, :dialyxir, "0.5.1", "b331b091720fd93e878137add264bac4f644e1ddae07a70bf7062c7862c4b952", [:mix], [], "hexpm"},
   "distillery": {:hex, :distillery, "1.5.2", "eec18b2d37b55b0bcb670cf2bcf64228ed38ce8b046bb30a9b636a6f5a4c0080", [:mix], [], "hexpm"},
   "file_system": {:hex, :file_system, "0.2.4", "f0bdda195c0e46e987333e986452ec523aed21d784189144f647c43eaf307064", [:mix], [], "hexpm"},
   "fuzzyurl": {:hex, :fuzzyurl, "0.9.1", "81ed7a5f6b42706b65e3948958e6f584d38e3749a5445d5a26d5f80ac1121033", [:mix], [], "hexpm"},

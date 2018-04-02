@@ -42,6 +42,7 @@ defmodule Particle.User do
   @doc """
   Insert a new user into the database.
   """
+  @spec insert(%Insert{}) :: {:ok, t} | Particle.invalid()
   def insert(%Insert{} = params) do
     cypher = """
     CREATE (user:User {
@@ -65,6 +66,7 @@ defmodule Particle.User do
   Insert a new User into the database, fetching it there already is one
   with the given id.
   """
+  @spec fetch_or_insert(%Insert{}) :: {:ok, t} | Particle.invalid()
   def fetch_or_insert(%Insert{} = params) do
     with :not_found <- fetch(params.id) do
       insert(params)
