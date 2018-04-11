@@ -24,9 +24,8 @@ case Mix.env() do
       code_reloader: true,
       check_origin: false,
       watchers: [
-        yarn: [
-          "watch"
-        ]
+        yarn: ["bsb-watch", cd: Path.expand("../assets", __DIR__)],
+        yarn: ["webpack-watch", cd: Path.expand("../assets", __DIR__)]
       ]
 
     # ## SSL Support

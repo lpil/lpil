@@ -1,3 +1,5 @@
 <h1>
   Home page! Woo
 </h1>
+
+<div id="app"></div>
