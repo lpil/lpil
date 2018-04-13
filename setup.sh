@@ -21,7 +21,7 @@ then
 fi
 
 # Setup undo history
-mkdir -p ~/.vim/undo/
+mkdir -p ~/.vim/tmp/
 
 if [ "$(uname)" == "Darwin" ]; then
   cd

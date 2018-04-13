@@ -7,7 +7,7 @@ let g:neoformat_enabled_reason = ['refmt']
 
 augroup filetype_reason
   autocmd!
-  autocmd BufWritePre *.re Neoformat
+  " autocmd BufWritePre *.re Neoformat
 augroup END
 
 " Enable Merlin based completion

@@ -161,12 +161,10 @@ set shiftwidth=2    "An indent is 2 spaces
 set softtabstop=2   "Insert 2 spaces when tab is pressed
 set tabstop=2       "A tab is 2 spaces
 
-
-"""""""""""""""""""
-" Persistent Undo "
-"""""""""""""""""""
+set backupdir=~/.vim/tmp
+set directory=~/.vim/tmp
+set undodir=~/.vim/tmp      " where to save undo histories
 set undofile                " Save undo's after file closes
-set undodir=~/.vim/undo     " where to save undo histories
 set undolevels=1000         " How many undos
 set undoreload=10000        " number of lines to save for undo
 
