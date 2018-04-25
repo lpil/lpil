@@ -2,11 +2,11 @@ defmodule ParticleWeb.StatusController do
   use ParticleWeb, :controller
 
   def show(conn, _params) do
-    neo4j_connected = Particle.Neo4j.ping?()
-    ok = neo4j_connected
+    orientdb_connected = Orientdb.ping()
+    ok = orientdb_connected
 
     data = %{
-      neo4j_connected: neo4j_connected
+      orientdb_connected: orientdb_connected
     }
 
     conn

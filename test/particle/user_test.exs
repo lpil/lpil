@@ -5,25 +5,28 @@ defmodule Particle.UserTest do
 
   setup [:truncate_database]
 
-  @params %User.Insert{email: "e@ma.il", id: "123"}
+  @params %{email: "e@ma.il"}
 
   describe "insert/1" do
     test "new" do
-      assert {:ok, user} = User.insert(@params)
-      assert %Particle.User{email: "e@ma.il", id: "123", inserted_at: inserted_at} = user
-      assert is_integer(inserted_at)
-    end
-
-    test "invalid - no id" do
-      assert User.insert(Map.put(@params, :id, nil)) ==
-               {:invalid, [{:error, :id, :presence, "must be present"}]}
+      assert {:ok, %Particle.User{} = user} = User.insert(@params)
+      assert user.email == "e@ma.il"
+      assert user.id =~ ~r"........-....-....-....-............"
+      assert user.inserted_at =~ ~r"\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d"
     end
 
     test "invalid - no email" do
-      assert {:invalid, errors} = User.insert(Map.put(@params, :email, nil))
+      assert {:invalid, errors} = User.insert(Map.delete(@params, :email))
 
       assert errors == [
-               {:error, :email, :presence, "must be present"},
+               {:error, :email, :presence, "must be present"}
+             ]
+    end
+
+    test "invalid - incorrect email format" do
+      assert {:invalid, errors} = User.insert(Map.put(@params, :email, "1"))
+
+      assert errors == [
                {:error, :email, :format, "must have the correct format"}
              ]
     end
@@ -31,15 +34,14 @@ defmodule Particle.UserTest do
     test "pre-existing" do
       assert {:ok, _user} = User.insert(@params)
       assert {:invalid, errors} = User.insert(@params)
-      assert errors == [{:error, :id, :uniqueness, "has already been taken"}]
+      assert errors == [{:error, :email, :uniqueness, "has already been taken"}]
     end
   end
 
   describe "fetch_or_insert/1" do
     test "new" do
       assert {:ok, user} = User.fetch_or_insert(@params)
-      assert %Particle.User{email: "e@ma.il", id: "123", inserted_at: inserted_at} = user
-      assert is_integer(inserted_at)
+      assert user.email == "e@ma.il"
     end
 
     test "pre-existing" do
@@ -54,9 +56,9 @@ defmodule Particle.UserTest do
     end
 
     test "found" do
-      assert {:ok, _} = User.fetch_or_insert(%User.Insert{email: "e@ma.il", id: "123"})
-      assert {:ok, user} = User.fetch("123")
-      assert %User{id: "123", email: "e@ma.il"} = user
+      assert {:ok, %{id: id}} = User.insert(%{email: "e@ma.il"})
+      assert {:ok, user} = User.fetch(id)
+      assert %User{email: "e@ma.il"} = user
     end
   end
 end

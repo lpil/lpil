@@ -3,7 +3,7 @@ defmodule Particle.User do
   A user of the system. How exotic!
   """
 
-  alias Particle.{Metrics, Neo4j}
+  alias Particle.Metrics
 
   defstruct [:id, :email, :inserted_at]
 
@@ -14,68 +14,72 @@ defmodule Particle.User do
   """
   @spec fetch(String.t()) :: {:ok, t} | :not_found
   def fetch(id) do
-    cypher = """
-    MATCH (user:User {id: $id})
-    RETURN user
-    LIMIT 1
+    sql = """
+    SELECT FROM User
+    WHERE id = :id
     """
 
-    with {:ok, data} <- Neo4j.query_one(cypher, id: id) do
-      data
-      |> from_result()
-      |> Term.ok()
+    case Orientdb.command(sql, id: id) do
+      {:ok, %{"result" => [record]}} ->
+        record
+        |> Term.parse_struct(__MODULE__)
+        |> Term.tag(:ok)
+
+      {:ok, %{"result" => []}} ->
+        :not_found
     end
   end
 
-  # Validation of insert params
-  defmodule Insert do
-    @moduledoc false
-    use Vex.Struct
+  @doc """
+  Look up the user with the given email in the database.
+  """
+  @spec fetch_by_email(String.t()) :: {:ok, t} | :not_found
+  def fetch_by_email(email) do
+    sql = """
+    SELECT FROM User
+    WHERE email = :email
+    """
 
-    @enforce_keys [:id, :email]
-    defstruct [:id, :email]
+    case Orientdb.command(sql, email: email) do
+      {:ok, %{"result" => [record]}} ->
+        record
+        |> Term.parse_struct(__MODULE__)
+        |> Term.tag(:ok)
 
-    validates(:id, presence: true)
-    validates(:email, presence: true, format: ~r/.@.+\../)
+      {:ok, %{"result" => []}} ->
+        :not_found
+    end
   end
 
   @doc """
   Insert a new user into the database.
   """
-  @spec insert(%Insert{}) :: {:ok, t} | Particle.invalid()
-  def insert(%Insert{} = params) do
-    cypher = """
-    CREATE (user:User {
-      email: $email,
-      id: $id,
-      inserted_at: timestamp()
-    })
-    RETURN user
+  @spec insert(map | keyword) :: {:ok, t} | Particle.invalid()
+  def insert(params) do
+    sql = """
+    INSERT INTO User SET
+    email = :email
     """
 
-    with {:ok, data} <- Neo4j.query_one(cypher, params) do
+    with {:ok, data} <- Orientdb.command(sql, params) do
       Metrics.increment_counter("user/insert")
 
       data
-      |> from_result()
-      |> Term.ok()
+      |> Map.fetch!("result")
+      |> hd()
+      |> Term.parse_struct(__MODULE__)
+      |> Term.tag(:ok)
     end
   end
 
   @doc """
   Insert a new User into the database, fetching it there already is one
-  with the given id.
+  with the given email.
   """
-  @spec fetch_or_insert(%Insert{}) :: {:ok, t} | Particle.invalid()
-  def fetch_or_insert(%Insert{} = params) do
-    with :not_found <- fetch(params.id) do
+  @spec fetch_or_insert(map | keyword) :: {:ok, t} | Particle.invalid()
+  def fetch_or_insert(params) do
+    with :not_found <- fetch_by_email(params[:email]) do
       insert(params)
     end
-  end
-
-  defp from_result(data) do
-    data
-    |> Map.fetch!("user")
-    |> Neo4j.properties_to_struct(__MODULE__)
   end
 end

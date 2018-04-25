@@ -7,10 +7,8 @@ defmodule Particle.Application do
 
   def start(_type, _args) do
     children = [
-      # Neo4j database connection pool
-      {Bolt.Sips, Application.get_env(:bolt_sips, Bolt)},
-      # Neo4j schema updater
-      Particle.Neo4j.Migrator,
+      # OrientDB schema updater
+      Particle.DbMigrator,
       # Web application endpoint
       ParticleWeb.Endpoint
     ]

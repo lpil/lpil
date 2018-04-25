@@ -24,7 +24,7 @@ defmodule ParticleWeb.AuthController do
   def callback(%{assigns: %{ueberauth_auth: auth}} = conn, _params) do
     id = auth.uid
     email = auth.info.email
-    {:ok, _user} = User.fetch_or_insert(%User.Insert{id: id, email: email})
+    {:ok, _user} = User.fetch_or_insert(%{id: id, email: email})
 
     Metrics.increment_counter("auth/login/success")
     Logger.info("auth/login/success #{email}", id: id, email: email)

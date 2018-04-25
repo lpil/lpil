@@ -42,8 +42,8 @@ defmodule Particle.Mixfile do
       {:gettext, "~> 0.11"},
       # Web server
       {:cowboy, "~> 1.0"},
-      # Neo4j database driver
-      {:bolt_sips, github: "florinpatrascu/bolt_sips", ref: "0adb827"},
+      # HTTP client
+      {:httpoison, "~> 1.1", override: true},
       # Data validation
       {:vex, github: "CargoSense/vex", ref: "3a1311a"},
       # Auth plugin system

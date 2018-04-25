@@ -4,6 +4,6 @@ defmodule ParticleWeb.StatusControllerTest do
   test "GET /", %{conn: conn} do
     conn = get(conn, "/v1/status")
 
-    assert json_response(conn, 200) == %{"neo4j_connected" => true}
+    assert json_response(conn, 200) == %{"orientdb_connected" => true}
   end
 end

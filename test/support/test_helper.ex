@@ -1,6 +1,6 @@
 defmodule TestHelper do
   def truncate_database(_) do
-    {:ok, _} = Particle.Neo4j.query("MATCH (n) DETACH DELETE n")
+    {:ok, _} = Orientdb.command("TRUNCATE CLASS User")
     :ok
   end
 end

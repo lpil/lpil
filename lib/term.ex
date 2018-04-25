@@ -8,25 +8,17 @@ defmodule Term do
   """
 
   @doc """
-  Wrap a term in an ok tuple.
+  Wrap a term in an tag tuple.
 
-      iex> Term.ok(1)
-      {:ok, 1}
+      iex> Term.tag(1, :invalid)
+      {:invalid, 1}
+
+      iex> Term.tag(50, :maybe)
+      {:maybe, 50}
   """
-  @spec ok(term) :: {:ok, term}
-  def ok(x) do
-    {:ok, x}
-  end
-
-  @doc """
-  Wrap a term in an error tuple.
-
-      iex> Term.error(1)
-      {:error, 1}
-  """
-  @spec error(term) :: {:error, term}
-  def error(x) do
-    {:error, x}
+  @spec tag(term, atom) :: {atom, term}
+  def tag(x, tag) do
+    {tag, x}
   end
 
   @doc """
@@ -41,5 +33,34 @@ defmodule Term do
   @spec default(nil | term, term) :: term
   def default(x, default) do
     x || default
+  end
+
+  @doc """
+  Parse a struct from a dict with string keys.
+  """
+  @spec parse_struct(map, atom) :: map
+  def parse_struct(props, struct_atom) do
+    atom_props =
+      props
+      |> Enum.map(fn {k, v} -> {to_atom_or_nil(k), v} end)
+      |> Enum.filter(fn {k, _} -> k != nil end)
+
+    struct!(struct_atom, atom_props)
+  end
+
+  @doc """
+  Convert a string to an existing atom, or nil.
+
+      iex> Term.to_atom_or_nil("ok")
+      :ok
+
+      iex> Term.to_atom_or_nil("fwewkghwkjeghwjkgeh")
+      nil
+  """
+  @spec to_atom_or_nil(String.t()) :: atom() | nil
+  def to_atom_or_nil(string) do
+    String.to_existing_atom(string)
+  rescue
+    _ -> nil
   end
 end

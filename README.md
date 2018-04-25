@@ -9,6 +9,11 @@ An instance of the Neo4j database is expected to be running on `localhost`.
 mix deps.get
 yarn install
 
+# Run the database (if you don't already have it)
+docker run -e ORIENTDB_ROOT_PASSWORD=orientdb -t -d -p 2424:2424 -p 2480:2480 --name orientdb orientdb
+# Set up the database
+make db-setup
+
 # Run the tests
 mix test
 mix test.watch
