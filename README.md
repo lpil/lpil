@@ -1,5 +1,7 @@
 # Particle
 
+[![CircleCI](https://circleci.com/gh/lpil/particle.svg?style=shield&circle-token=c54e5a3e5e0bd68e4bd37e0de6be4d3d85ba7f95)](https://circleci.com/gh/lpil/particle)
+
 ## Quick Reference
 
 An instance of the Neo4j database is expected to be running on `localhost`.

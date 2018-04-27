@@ -44,8 +44,6 @@ defmodule Particle.Mixfile do
       {:cowboy, "~> 1.0"},
       # HTTP client
       {:httpoison, "~> 1.1", override: true},
-      # Data validation
-      {:vex, github: "CargoSense/vex", ref: "3a1311a"},
       # Auth plugin system
       {:ueberauth, "~> 0.5"},
       {:ueberauth_auth0, "~> 0.3"},

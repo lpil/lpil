@@ -1,0 +1,47 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/particle
+    docker:
+      - image: bitwalker/alpine-elixir:1.6.3
+      - image: orientdb:2.2.33
+        environment:
+          - ORIENTDB_ROOT_PASSWORD: orientdb
+    environment:
+      - MIX_ENV: test
+    steps:
+      - checkout
+      - run: cp mix.lock mix.lock.bak
+
+      # Restore cache
+      - run: apk add --update tar alpine-sdk coreutils curl curl-dev docker make
+      - restore_cache:
+          key: particle-elixir-{{ checksum "mix.lock.bak" }}
+
+      # Install deps
+      - run: mix local.hex --force
+      - run: mix local.rebar --force
+      - run: mix deps.get
+      - run: mix deps.compile
+
+      # Cache deps
+      - run: mix clean
+      - save_cache:
+          key: particle-elixir-{{ checksum "mix.lock.bak" }}
+          paths:
+            - deps
+            - _build
+
+      # Setup database
+      - run: make db-setup
+
+      # Compile
+      - run: mix compile --warnings-as-errors
+
+      # Test
+      - run: mix test
+      - run: mix format --check-formatted
+
+      # TODO: Build and push docker image
+      # - setup_remote_docker
+      # - run: ./bin/docker-ci-build.sh

@@ -7,8 +7,5 @@ db-console:
 .PHONY: db-console
 
 db-setup:
-	docker run --rm -it --network host orientdb /orientdb/bin/console.sh "\
-		CREATE DATABASE remote:localhost/particle-dev root orientdb plocal; \
-		CREATE DATABASE remote:localhost/particle-test root orientdb plocal; \
-		"
+	bin/create-orientdb-databases.sh
 .PHONY: db-setup
