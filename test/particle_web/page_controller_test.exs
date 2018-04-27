@@ -3,6 +3,6 @@ defmodule ParticleWeb.PageControllerTest do
 
   test "GET /", %{conn: conn} do
     conn = get(conn, "/")
-    assert html_response(conn, 200) =~ "Home"
+    assert html_response(conn, 200) =~ "Particle"
   end
 end

@@ -7,6 +7,8 @@
     "webpack-watch": "webpack --mode development --color --watch --hot --stdin --display minimal"
   },
   "dependencies": {
+    "bootstrap": "^4.1.0",
+    "bootstrap-material-design": "^4.1.1",
     "phoenix": "file:../deps/phoenix",
     "phoenix_html": "file:../deps/phoenix_html",
     "react": "^16.3.1",
@@ -16,6 +18,9 @@
   "devDependencies": {
     "bs-platform": "^3.0.0",
     "bsb-js": "^1.0.2",
+    "css-loader": "^0.28.11",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "style-loader": "^0.21.0",
     "webpack-cli": "^2.0.14"
   }
 }
