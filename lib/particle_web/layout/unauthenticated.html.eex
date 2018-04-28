@@ -2,11 +2,8 @@
 <html lang="en">
   <%= render "head.html", assigns %>
   <body>
-    <div class="app-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
-      <%= render "header.html", assigns %>
-      <%= render "drawer.html", assigns %>
-
-      <main class="mdl-layout__content mdl-color--grey-100">
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <main class="mdl-layout__content">
         <div class="mdl-grid">
           <%= render "flash.html", conn: @conn, type: :info %>
           <%= render "flash.html", conn: @conn, type: :error %>

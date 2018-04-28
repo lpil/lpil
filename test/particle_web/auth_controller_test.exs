@@ -28,7 +28,7 @@ defmodule ParticleWeb.AuthControllerTest do
         |> Plug.Conn.assign(:ueberauth_auth, auth)
         |> ParticleWeb.AuthController.callback([])
 
-      assert redirected_to(conn, 302) == "/"
+      assert redirected_to(conn, 302) == "/dashboard"
       assert {:ok, _user} = User.fetch_by_email("some@email.net")
     end
   end

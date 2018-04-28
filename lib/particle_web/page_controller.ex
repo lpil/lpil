@@ -2,6 +2,8 @@ defmodule ParticleWeb.PageController do
   use ParticleWeb, :controller
 
   def index(conn, _params) do
-    render(conn, "index.html")
+    conn
+    |> put_layout("unauthenticated.html")
+    |> render("index.html")
   end
 end

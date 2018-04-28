@@ -3,6 +3,8 @@ defmodule Orientdb do
   Wrapper for the OrientDB HTTP REST API.
   """
 
+  import ParticleWeb.Gettext, only: [gettext: 1]
+
   @doc """
   Ping the database.
 
@@ -62,13 +64,13 @@ defmodule Orientdb do
 
     cond do
       caps = captures(~r/The field '.+\.(?<field>.+)' cannot be null/, e) ->
-        {:error, field(caps), :presence, "must be present"}
+        {:error, field(caps), :presence, gettext("must be present")}
 
       caps = captures(~r/The field '.+\.(?<field>.+)' does not match the regular exp/, e) ->
-        {:error, field(caps), :format, "must have the correct format"}
+        {:error, field(caps), :format, gettext("must have the correct format")}
 
       caps = captures(~r/found duplicated key '.+' in index '.+_(?<field>.+)'/, e) ->
-        {:error, field(caps), :uniqueness, "has already been taken"}
+        {:error, field(caps), :uniqueness, gettext("has already been taken")}
 
       Regex.match?(~r/Index with name (?<name>\w+) already exists/, e) ->
         e |> Term.tag(:duplicate_index) |> Term.tag(:orient_error) |> throw()

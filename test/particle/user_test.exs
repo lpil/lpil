@@ -5,7 +5,7 @@ defmodule Particle.UserTest do
 
   setup [:truncate_database]
 
-  @params %{email: "e@ma.il"}
+  @params Fixture.user_params()
 
   describe "insert/1" do
     test "new" do

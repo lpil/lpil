@@ -1,0 +1,25 @@
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="TODO">
+  <meta name="author" content="TODO">
+  <link rel="stylesheet" href="<%= static_path(@conn, "/main.css") %>">
+
+  <!-- <1!-- Add to homescreen for Chrome on Android --1> -->
+  <!-- <meta name="mobile-web-app-capable" content="yes"> -->
+  <!-- <link rel="icon" sizes="192x192" href="images/android-desktop.png"> -->
+
+  <!-- <1!-- Add to homescreen for Safari on iOS --1> -->
+  <!-- <meta name="apple-mobile-web-app-capable" content="yes"> -->
+  <!-- <meta name="apple-mobile-web-app-status-bar-style" content="black"> -->
+  <!-- <meta name="apple-mobile-web-app-title" content="Material Design Lite"> -->
+  <!-- <link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png"> -->
+
+  <!-- <1!-- Tile icon for Win8 (144x144 + tile color) --1> -->
+  <!-- <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png"> -->
+  <!-- <meta name="msapplication-TileColor" content="#3372DF"> -->
+
+  <!-- Load this asyncronously? -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <title>Particle</title>
+</head>

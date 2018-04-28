@@ -18,40 +18,40 @@ html,
 body {
   font-family: "Roboto", "Helvetica", sans-serif;
 }
-.demo-avatar {
+.app-avatar {
   width: 48px;
   height: 48px;
   border-radius: 24px;
 }
-.demo-layout .mdl-layout__header .mdl-layout__drawer-button {
+.app-layout .mdl-layout__header .mdl-layout__drawer-button {
   color: rgba(0, 0, 0, 0.54);
 }
 .mdl-layout__drawer .avatar {
   margin-bottom: 16px;
 }
-.demo-drawer {
+.app-drawer {
   border: none;
 }
 /* iOS Safari specific workaround */
-.demo-drawer .mdl-menu__container {
+.app-drawer .mdl-menu__container {
   z-index: -1;
 }
-.demo-drawer .demo-navigation {
+.app-drawer .app-navigation {
   z-index: -2;
 }
 /* END iOS Safari specific workaround */
-.demo-drawer .mdl-menu .mdl-menu__item {
+.app-drawer .mdl-menu .mdl-menu__item {
   display: flex;
   align-items: center;
 }
-.demo-drawer-header {
+.app-drawer-header {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   padding: 16px;
 }
-.demo-avatar-dropdown {
+.app-avatar-dropdown {
   display: flex;
   position: relative;
   flex-direction: row;
@@ -59,21 +59,21 @@ body {
   width: 100%;
 }
 
-.demo-navigation {
+.app-navigation {
   flex-grow: 1;
 }
-.demo-layout .demo-navigation .mdl-navigation__link {
+.app-layout .app-navigation .mdl-navigation__link {
   display: flex !important;
   flex-direction: row;
   align-items: center;
   color: rgba(255, 255, 255, 0.56);
   font-weight: 500;
 }
-.demo-layout .demo-navigation .mdl-navigation__link:hover {
+.app-layout .app-navigation .mdl-navigation__link:hover {
   background-color: #00bcd4;
   color: #37474f;
 }
-.demo-navigation .mdl-navigation__link .material-icons {
+.app-navigation .mdl-navigation__link .material-icons {
   font-size: 24px;
   color: rgba(255, 255, 255, 0.56);
   margin-right: 32px;
