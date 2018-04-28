@@ -1,1 +1,10 @@
-/* @import "./phoenix.css"; */
+/*
+ * Customise the theme?
+ * https://getmdl.io/customize/index.html
+ */
+@import "~material-design-lite/material.min.css";
+@import "material-design-lite-dashboard.css";
+
+p {
+  font-size: 16px;
+}

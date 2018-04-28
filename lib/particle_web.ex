@@ -37,6 +37,7 @@ defmodule ParticleWeb do
 
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
+      import MaterialDesignLite
 
       import ParticleWeb.Router.Helpers
       import ParticleWeb.ErrorHelpers
