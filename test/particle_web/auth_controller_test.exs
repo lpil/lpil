@@ -14,6 +14,12 @@ defmodule ParticleWeb.AuthControllerTest do
              "https://example.auth0.com/authorize?client_id=client_id&redirect_uri=http%3A%2F%2Fwww.example.com%2Flogin%2Fauth0%2Fcallback&response_type=code&scope=openid+profile+email"
   end
 
+  test "DELETE /session", ctx do
+    conn = ctx.conn |> put_session(:uid, "1") |> delete("/session")
+    assert get_session(conn, :uid) == nil
+    assert redirected_to(conn, 302) == "/"
+  end
+
   # TODO: Golden path selenium style integration test for login.
   # We can't meaningfully test the auth0 oauth interaction at this level.
 

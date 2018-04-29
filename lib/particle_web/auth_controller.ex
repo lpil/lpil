@@ -32,4 +32,10 @@ defmodule ParticleWeb.AuthController do
     |> put_session(:uid, user.id)
     |> redirect(to: dashboard_path(conn, :show))
   end
+
+  def delete(conn, _params) do
+    conn
+    |> delete_session(:uid)
+    |> redirect(to: page_path(conn, :index))
+  end
 end

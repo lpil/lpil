@@ -27,6 +27,7 @@ defmodule ParticleWeb.Router do
     get("/", PageController, :index)
     get("/login/:provider", AuthController, :request, as: :login)
     get("/login/:provider/callback", AuthController, :callback)
+    delete("/session", AuthController, :delete, as: :logout)
   end
 
   # Authenticated browser routes
