@@ -2,6 +2,7 @@ defmodule ParticleWeb.DashboardController do
   use ParticleWeb, :controller
 
   def show(conn, _params) do
-    render(conn, "show.html")
+    conn
+    |> render("show.html")
   end
 end

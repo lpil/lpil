@@ -8,8 +8,8 @@ defmodule Orientdb do
   @doc """
   Ping the database.
 
-      iex> OrientDb.ping()
-      :ok
+      iex> Orientdb.ping()
+      true
   """
   def ping do
     match?({:ok, %{"result" => [%{"1" => 1}]}}, command("SELECT 1"))
@@ -26,19 +26,58 @@ defmodule Orientdb do
 
   def command(sql, params) do
     body = Poison.encode!(%{command: sql, parameters: params})
-    creds = Application.get_env(:particle, :orientdb) |> Enum.into(%{})
+    creds = get_creds()
 
-    headers = [
-      {"Authorization", "Basic " <> Base.encode64(creds.username <> ":" <> creds.password)}
-    ]
+    "http://#{creds.host}:#{creds.port}/command/#{creds.db_name}/sql"
+    |> HTTPoison.post!(body, headers(creds))
+    |> handle_response()
+  end
 
-    resp =
-      HTTPoison.post!(
-        "http://#{creds.host}:#{creds.port}/command/#{creds.db_name}/sql",
-        body,
-        headers
-      )
+  @doc """
+  Run a series of commands in one request.
+  If a single SQL string is given it is split on `;`.
 
+  ## Options
+
+  - `:transaction` Whether to wrap the batch in a transaction. Defaults to false.
+  """
+  def batch(sql_commands, params \\ %{}, args \\ [])
+
+  def batch(sql_commands, params, args) when is_list(params) do
+    batch(sql_commands, Enum.into(params, %{}), args)
+  end
+
+  def batch(sql_commands, params, args) when is_binary(sql_commands) do
+    sql_commands
+    |> String.split(";")
+    |> batch(Enum.into(params, %{}), args)
+  end
+
+  def batch(sql_commands, params, args) do
+    transaction = args[:transaction] || false
+
+    body =
+      Poison.encode!(%{
+        transaction: transaction,
+        operations: [
+          %{
+            type: "script",
+            language: "sql",
+            script: sql_commands,
+            # TODO: Does this work? There's no mention of this in the docs.
+            params: params
+          }
+        ]
+      })
+
+    creds = get_creds()
+
+    "http://#{creds.host}:#{creds.port}/batch/#{creds.db_name}"
+    |> HTTPoison.post!(body, headers(creds))
+    |> handle_response()
+  end
+
+  defp handle_response(resp) do
     case {resp.status_code, resp.body} do
       {200, body} ->
         {:ok, Poison.decode!(body)}
@@ -57,6 +96,16 @@ defmodule Orientdb do
   catch
     {:orient_error, error} ->
       error
+  end
+
+  defp get_creds do
+    Application.get_env(:particle, :orientdb) |> Enum.into(%{})
+  end
+
+  defp headers(creds) do
+    [
+      {"Authorization", "Basic " <> Base.encode64(creds.username <> ":" <> creds.password)}
+    ]
   end
 
   defp parse_error(error) do

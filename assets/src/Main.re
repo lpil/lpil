@@ -2,7 +2,7 @@
 
 let () = {
   requireAsset("phoenix_html");
-  requireAsset("./main.css");
   requireAsset("material-design-lite/material.min.js");
+  requireAsset("./style/main.css");
 };
 /* ReactDOMRe.renderToElementWithId(<Page message="Hi from Reason!" />, "app"); */
