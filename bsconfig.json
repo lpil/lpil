@@ -1,0 +1,25 @@
+{
+  "name": "particle",
+  "bsc-flags": ["-bs-no-version-header", "-bs-super-errors"],
+  "reason": {
+    "react-jsx": 2
+  },
+  "bs-dependencies": ["reason-react"],
+  "sources": [
+    {
+      "dir": "src",
+      "subdirs": true
+    }
+  ],
+  "package-specs": {
+    // TODO: Use es modules
+    "module": "commonjs",
+    "in-source": true
+  },
+  "warnings": {
+    "error": "+101"
+  },
+  "namespace": true,
+  "suffix": ".bs.js",
+  "refmt": 3
+}
