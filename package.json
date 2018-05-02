@@ -1,17 +1,16 @@
 {
   "name": "blondie",
   "version": "0.1.0",
-  "scripts": {
-    "build": "bsb -make-world",
-    "start": "bsb -make-world -w",
-    "clean": "bsb -clean-world"
+  "author": "Louis Pilfold <louis@lpil.uk>",
+  "license": "UNLICENCED",
+  "jest": {
+    "testMatch": [
+      "**/*test.bs.js",
+      "**/*test.js"
+    ]
   },
-  "keywords": [
-    "BuckleScript"
-  ],
-  "author": "",
-  "license": "MIT",
   "devDependencies": {
+    "@glennsl/bs-jest": "^0.4.2",
     "bs-platform": "^3.0.0"
   }
 }
