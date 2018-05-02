@@ -40,7 +40,7 @@ EOF
 
 resource "aws_lambda_function" "tick_function" {
   function_name    = "${var.env}_blondie_tick"
-  handler          = "main.handler"
+  handler          = "tick.handler"
   runtime          = "nodejs8.10"
   filename         = "dist/function.zip"
   source_code_hash = "${base64sha256(file("dist/function.zip"))}"

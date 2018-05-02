@@ -7,6 +7,7 @@ help:
 	@echo 'Use `make command ENV=prod` to target non-dev env'
 
 start: ## Start dev compilers
+	./node_modules/.bin/webpack --watch --display minimal &
 	./node_modules/.bin/bsb -make-world -w
 .PHONY: start
 
@@ -53,9 +54,7 @@ logs-tick: ## Tail logs of the tick function
 
 # TODO: Use webpack or something.
 dist/function.zip: build
-	mkdir -p dist
-	cp src/Main.bs.js dist/main.js
-	cd dist && zip -r function.zip main.js
+	cd dist && zip -r function.zip tick.js
 
 .terraform:
 	terraform init

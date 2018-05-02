@@ -6,7 +6,7 @@
  };
  */
 let handler = (_event, _context, callback) => {
-  let msg = "Hello, mum!!";
+  let msg = "Hello, sailor!!";
   Js.log(msg);
   callback(. Js.null, msg);
 };

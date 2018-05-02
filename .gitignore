@@ -9,3 +9,4 @@ dist
 *.bs.js
 *.tfstate.backup
 *.tfstate
+yarn-error.log

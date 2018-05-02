@@ -13,17 +13,17 @@ provider "aws" {
   region = "eu-west-1"
 }
 
-module "blondie_dev" {
+module "dev_blondie" {
   source = "./terraform"
   env    = "dev"
 }
 
-module "blondie_staging" {
+module "staging_blondie" {
   source = "./terraform"
   env    = "staging"
 }
 
-module "blondie_prod" {
+module "prod_blondie" {
   source = "./terraform"
   env    = "prod"
 }
