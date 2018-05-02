@@ -42,6 +42,10 @@ tf-destroy: .terraform dist/function.zip ## Teardown all infra (!!!)
 	terraform destroy
 .PHONY: tf-destroy
 
+logs-tick: ## Tail logs of the tick function
+	./node_modules/.bin/cwtail --follow /aws/lambda/blondie_tick
+.PHONY: logs-tick
+
 # TODO: Use webpack or something.
 dist/function.zip: build
 	mkdir -p dist
