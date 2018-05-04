@@ -6,6 +6,11 @@ help:
 	@echo
 	@echo 'Use `make command ENV=prod` to target non-dev env'
 
+server: ## Start dev compilers
+	./node_modules/.bin/webpack-dev-server --quiet &
+	./node_modules/.bin/bsb -make-world -w
+.PHONY: start
+
 start: ## Start dev compilers
 	./node_modules/.bin/webpack --watch --display minimal &
 	./node_modules/.bin/bsb -make-world -w

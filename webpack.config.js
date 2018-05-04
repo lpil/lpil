@@ -1,25 +1,44 @@
 const path = require("path");
 const webpack = require("webpack");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 const isProd = process.env.NODE_ENV === "production";
+const mode = isProd ? "production" : "development";
+const stats = "minimal";
 
 const outputDir = path.join(__dirname, "dist/");
 const srcDir = path.join(__dirname, "src/");
 
-module.exports = {
-  entry: {
-    tick: "./src/Main.bs.js"
-  },
+const nodeConfig = {
+  mode,
+  stats,
   target: "node",
-  mode: isProd ? "production" : "development",
+  entry: {
+    tick: "./src/TickFunction.bs.js"
+  },
   output: {
     path: outputDir,
     filename: "[name].js",
     libraryTarget: "commonjs"
+  }
+};
+
+const webConfig = {
+  mode,
+  stats,
+  entry: {
+    website: "./src/Website.bs.js"
   },
-  // plugins: [new webpack.HotModuleReplacementPlugin()],
+  output: {
+    path: outputDir,
+    filename: "[name].js"
+  },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new HtmlWebpackPlugin({ inject: true })
+  ],
   devServer: {
-    stats: "minimal",
+    stats,
     inline: true,
     hot: true,
     open: true,
@@ -29,3 +48,5 @@ module.exports = {
     }
   }
 };
+
+module.exports = [nodeConfig, webConfig];
