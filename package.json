@@ -1,0 +1,14 @@
+{
+  "name": "treasure",
+  "author": "Louis Pilfold <louis@lpil.uk>",
+  "license": "AGPL-3.0",
+  "devDependencies": {
+    "parcel": "^1.8.1"
+  },
+  "dependencies": {
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
+    "react-images": "^0.5.17",
+    "react-photo-gallery": "^6.0.25"
+  }
+}
