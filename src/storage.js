@@ -42,9 +42,9 @@ export const getSignedUrls = paths => {
   datetime.setHours(datetime.getHours() + 1);
   const expires = datetime.toISOString();
 
-  const promises = paths.map(p =>
+  const promises = paths.map(path =>
     bucket
-      .file(p)
+      .file(path)
       .getSignedUrl({ action: "read", expires })
       .then(data => data[0])
   );
