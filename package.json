@@ -3,9 +3,12 @@
   "author": "Louis Pilfold <louis@lpil.uk>",
   "license": "AGPL-3.0",
   "devDependencies": {
+    "express": "^4.16.3",
+    "nodemon": "^1.17.4",
     "parcel": "^1.8.1"
   },
   "dependencies": {
+    "@google-cloud/storage": "^1.6.0",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-images": "^0.5.17",
