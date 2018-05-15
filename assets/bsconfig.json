@@ -21,7 +21,8 @@
     "in-source": true
   },
   "warnings": {
-    "error": "+101"
+    "error": "+A-27-6",
+    "warning": "+A-6"
   },
   "namespace": true,
   "suffix": ".bs.js",

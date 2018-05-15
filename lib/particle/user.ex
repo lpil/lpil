@@ -3,9 +3,21 @@ defmodule Particle.User do
   A user of the system. How exotic!
   """
 
-  alias Particle.Metrics
+  use Ecto.Schema
+  require Ecto.Query
+  import Ecto.Changeset
+  alias Particle.Repo
+  alias Ecto.Query
 
-  defstruct [:id, :email, :inserted_at]
+  @optional_params []
+  @required_params [:email]
+
+  @primary_key {:id, :binary_id, autogenerate: true}
+  @foreign_key_type :binary_id
+  schema "users" do
+    field(:email, :string)
+    timestamps(type: :utc_datetime)
+  end
 
   @type t :: %__MODULE__{}
 
@@ -14,20 +26,9 @@ defmodule Particle.User do
   """
   @spec fetch(String.t()) :: {:ok, t} | :not_found
   def fetch(id) do
-    sql = """
-    SELECT FROM User
-    WHERE id = :id
-    """
-
-    case Orientdb.command(sql, id: id) do
-      {:ok, %{"result" => [record]}} ->
-        record
-        |> Term.parse_struct(__MODULE__)
-        |> Term.tag(:ok)
-
-      {:ok, %{"result" => []}} ->
-        :not_found
-    end
+    __MODULE__
+    |> Query.where(id: ^id)
+    |> Repo.fetch()
   end
 
   @doc """
@@ -35,51 +36,39 @@ defmodule Particle.User do
   """
   @spec fetch_by_email(String.t()) :: {:ok, t} | :not_found
   def fetch_by_email(email) do
-    sql = """
-    SELECT FROM User
-    WHERE email = :email
-    """
-
-    case Orientdb.command(sql, email: email) do
-      {:ok, %{"result" => [record]}} ->
-        record
-        |> Term.parse_struct(__MODULE__)
-        |> Term.tag(:ok)
-
-      {:ok, %{"result" => []}} ->
-        :not_found
-    end
+    __MODULE__
+    |> Query.where(email: ^email)
+    |> Repo.fetch()
   end
 
   @doc """
   Insert a new user into the database.
   """
-  @spec insert(map | keyword) :: {:ok, t} | Particle.invalid()
+  @spec insert(map | keyword) :: {:ok, t} | {:error, Ecto.Changeset.t()}
   def insert(params) do
-    sql = """
-    INSERT INTO User SET
-    email = :email
-    """
-
-    with {:ok, data} <- Orientdb.command(sql, params) do
-      Metrics.increment_counter("user/insert")
-
-      data
-      |> Map.fetch!("result")
-      |> hd()
-      |> Term.parse_struct(__MODULE__)
-      |> Term.tag(:ok)
-    end
+    %__MODULE__{}
+    |> changeset(params)
+    |> Repo.insert()
   end
 
   @doc """
   Insert a new User into the database, fetching it there already is one
   with the given email.
   """
-  @spec fetch_or_insert(map | keyword) :: {:ok, t} | Particle.invalid()
+  @spec fetch_or_insert(map | keyword) :: {:ok, t} | {:error, Ecto.Changeset.t()}
   def fetch_or_insert(params) do
     with :not_found <- fetch_by_email(params[:email]) do
       insert(params)
     end
+  end
+
+  @doc false
+  def changeset(user, params \\ %{}) do
+    user
+    |> cast(params, @required_params)
+    |> cast(params, @optional_params)
+    |> validate_required(@required_params)
+    |> validate_format(:email, ~r/.@.+\../)
+    |> unique_constraint(:email)
   end
 end

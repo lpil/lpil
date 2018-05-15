@@ -4,9 +4,11 @@ jobs:
     working_directory: ~/particle
     docker:
       - image: bitwalker/alpine-elixir:1.6.3
-      - image: orientdb:2.2.33
+      - image: circleci/postgres:10
         environment:
-          - ORIENTDB_ROOT_PASSWORD: orientdb
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: particle_test
     environment:
       - MIX_ENV: test
     steps:
@@ -32,11 +34,11 @@ jobs:
             - deps
             - _build
 
-      # Setup database
-      - run: make db-setup
-
       # Compile
       - run: mix compile --warnings-as-errors
+
+      # Setup database
+      - run: mix ecto.setup
 
       # Test
       - run: mix test

@@ -2,11 +2,11 @@ defmodule ParticleWeb.StatusController do
   use ParticleWeb, :controller
 
   def show(conn, _params) do
-    orientdb_connected = Orientdb.ping()
-    ok = orientdb_connected
+    postgres_connected = Particle.Repo.ping?()
+    ok = postgres_connected
 
     data = %{
-      orientdb_connected: orientdb_connected
+      postgres_connected: postgres_connected
     }
 
     conn

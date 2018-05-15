@@ -1,8 +1,5 @@
 defmodule ParticleWeb.DashboardControllerTest do
   use ParticleWeb.ConnCase
-  import TestHelper
-
-  setup [:truncate_database]
 
   test "GET /dashboard when not logged in", %{conn: conn} do
     conn = get(conn, "/dashboard")

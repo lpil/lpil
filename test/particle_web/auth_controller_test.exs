@@ -1,7 +1,6 @@
 defmodule ParticleWeb.AuthControllerTest do
   use ParticleWeb.ConnCase, async: false
   alias Particle.User
-  import TestHelper
 
   test "GET /login/unknown-provider", %{conn: conn} do
     assert_raise Phoenix.Router.NoRouteError, fn -> get(conn, "/login/unknown-provider") end
@@ -24,8 +23,6 @@ defmodule ParticleWeb.AuthControllerTest do
   # We can't meaningfully test the auth0 oauth interaction at this level.
 
   describe "callback/2" do
-    setup [:truncate_database]
-
     test "auth success", %{conn: conn} do
       auth = %Ueberauth.Auth{uid: "123456", info: %{email: "some@email.net"}}
 

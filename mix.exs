@@ -10,6 +10,7 @@ defmodule Particle.Mixfile do
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       dialyzer: [ignore_warnings: ".dialyzerignore"],
+      aliases: aliases(),
       deps: deps()
     ]
   end
@@ -38,6 +39,10 @@ defmodule Particle.Mixfile do
       {:phoenix_pubsub, "~> 1.0"},
       {:phoenix_html, "~> 2.10"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
+      # Database toolkit
+      {:phoenix_ecto, "~> 3.2"},
+      # Postgres DB client
+      {:postgrex, "~> 0.13"},
       # Internationalisation
       {:gettext, "~> 0.11"},
       # Web server
@@ -55,6 +60,14 @@ defmodule Particle.Mixfile do
       {:mix_test_watch, "~> 0.4", only: [:dev], runtime: false},
       # Release builder
       {:distillery, "~> 1.5", runtime: false}
+    ]
+  end
+
+  defp aliases do
+    [
+      "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
+      "ecto.reset": ["ecto.drop", "ecto.setup"],
+      test: ["ecto.create --quiet", "ecto.migrate", "test"]
     ]
   end
 end

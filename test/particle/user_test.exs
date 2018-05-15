@@ -1,40 +1,32 @@
 defmodule Particle.UserTest do
-  use ExUnit.Case, async: false
-  import TestHelper
+  use Particle.DataCase, async: true
   alias Particle.User
-
-  setup [:truncate_database]
 
   @params Fixture.user_params()
 
   describe "insert/1" do
     test "new" do
       assert {:ok, %Particle.User{} = user} = User.insert(@params)
-      assert user.email == "e@ma.il"
       assert user.id =~ ~r"........-....-....-....-............"
-      assert user.inserted_at =~ ~r"\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d"
+      assert user.email == "e@ma.il"
+      assert user.inserted_at
+      assert user.updated_at
     end
 
     test "invalid - no email" do
-      assert {:invalid, errors} = User.insert(Map.delete(@params, :email))
-
-      assert errors == [
-               {:error, :email, :presence, "must be present"}
-             ]
+      assert {:error, changeset} = User.insert(Map.delete(@params, :email))
+      assert errors_on(changeset) == %{email: ["can't be blank"]}
     end
 
     test "invalid - incorrect email format" do
-      assert {:invalid, errors} = User.insert(Map.put(@params, :email, "1"))
-
-      assert errors == [
-               {:error, :email, :format, "must have the correct format"}
-             ]
+      assert {:error, changeset} = User.insert(Map.put(@params, :email, "1"))
+      assert errors_on(changeset) == %{email: ["has invalid format"]}
     end
 
     test "pre-existing" do
       assert {:ok, _user} = User.insert(@params)
-      assert {:invalid, errors} = User.insert(@params)
-      assert errors == [{:error, :email, :uniqueness, "has already been taken"}]
+      assert {:error, changeset} = User.insert(@params)
+      assert errors_on(changeset) == %{email: ["has already been taken"]}
     end
   end
 
@@ -52,13 +44,27 @@ defmodule Particle.UserTest do
 
   describe "fetch/1" do
     test "not found" do
-      assert User.fetch("unknown") == :not_found
+      uuid = Ecto.UUID.generate()
+      assert User.fetch(uuid) == :not_found
     end
 
     test "found" do
       assert {:ok, %{id: id}} = User.insert(%{email: "e@ma.il"})
       assert {:ok, user} = User.fetch(id)
       assert %User{email: "e@ma.il"} = user
+    end
+  end
+
+  describe "fetch_by_email/1" do
+    test "not found" do
+      assert User.fetch_by_email("nope") == :not_found
+    end
+
+    test "found" do
+      email = "e@ma.il"
+      assert {:ok, _} = User.insert(%{email: email})
+      assert {:ok, user} = User.fetch_by_email(email)
+      assert user.email == email
     end
   end
 end

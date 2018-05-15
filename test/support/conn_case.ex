@@ -26,10 +26,6 @@ defmodule ParticleWeb.ConnCase do
     end
   end
 
-  setup _tags do
-    {:ok, conn: session_conn()}
-  end
-
   def session_conn() do
     secret_key_base = Application.get_env(:particle, ParticleWeb.Endpoint)[:secret_key_base]
 
@@ -41,5 +37,15 @@ defmodule ParticleWeb.ConnCase do
     |> Map.put(:secret_key_base, secret_key_base)
     |> Plug.Session.call(session_opts)
     |> Plug.Conn.fetch_session()
+  end
+
+  setup tags do
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Particle.Repo)
+
+    unless tags[:async] do
+      Ecto.Adapters.SQL.Sandbox.mode(Particle.Repo, {:shared, self()})
+    end
+
+    {:ok, conn: session_conn()}
   end
 end

@@ -7,8 +7,8 @@ defmodule Particle.Application do
 
   def start(_type, _args) do
     children = [
-      # OrientDB schema updater
-      Particle.DbMigrator,
+      # Database connection pool
+      Particle.Repo,
       # Web application endpoint
       ParticleWeb.Endpoint
     ]
