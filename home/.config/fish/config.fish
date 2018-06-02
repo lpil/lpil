@@ -92,3 +92,12 @@ end
 if type -q rustc
   set --export LD_LIBRARY_PATH (rustc --print sysroot)/lib
 end
+
+# Automatic paging with ripgrep
+function rg
+  if isatty stdout
+    command rg -p $argv | less -RMFXK
+  else
+    command rg $argv
+  end
+end

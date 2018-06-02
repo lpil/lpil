@@ -295,8 +295,8 @@ let g:deoplete#enable_at_startup = 1
 """"""""""""""""""
 "  OCaml merlin  "
 """"""""""""""""""
-let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
-execute "set rtp+=" . g:opamshare . "/merlin/vim"
+" let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
+" execute "set rtp+=" . g:opamshare . "/merlin/vim"
 
 """""""""""""""""""""""""""""""""""""
 " And finally, per-project .vimrc's "
