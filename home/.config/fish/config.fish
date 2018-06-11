@@ -21,15 +21,12 @@ set fish_user_paths \
   "$HOME/.cache/rebar3/bin" \
   "$HOME/.cargo/bin" \
   "$HOME/.homesick/repos/homeshick/bin" \
-  "$HOME/.local/bin" \
-  "$HOME/.rbenv/bin" \
-  "$HOME/bin"
+  "$HOME/.local/bin"
 
   # "$HOME/.opam/system/bin" \
 
 
 # Aliases
-
 source "$HOME/.aliases.sh"
 
 # Autojump
