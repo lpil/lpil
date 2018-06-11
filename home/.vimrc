@@ -43,7 +43,7 @@ Plug 'neovimhaskell/haskell-vim', { 'for' : 'haskell' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'powerman/vim-plugin-ansiesc', { 'for': 'elixir' } " Used by alchemist
 Plug 'raichoo/purescript-vim', { 'for': 'purescript' }
-Plug 'reasonml-editor/vim-reason', { 'for': 'reason' }
+Plug 'reasonml-editor/vim-reason-plus', { 'for': 'reason' }
 Plug 'rhysd/clever-f.vim'
 Plug 'rhysd/vim-crystal', { 'for': 'crystal' }
 Plug 'rust-lang/rust.vim', { 'for': ['rust', 'markdown'] }
