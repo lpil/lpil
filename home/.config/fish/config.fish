@@ -23,8 +23,6 @@ set fish_user_paths \
   "$HOME/.homesick/repos/homeshick/bin" \
   "$HOME/.local/bin"
 
-  # "$HOME/.opam/system/bin" \
-
 
 # Aliases
 source "$HOME/.aliases.sh"
