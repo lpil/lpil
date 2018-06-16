@@ -54,9 +54,17 @@ tf-destroy: .terraform dist/tick_function.zip dist/api_function.zip ## Teardown 
 	terraform destroy -target=module.$(ENV)_blondie
 .PHONY: tf-destroy
 
+tf-output: .terraform ## View terraform output values
+	terraform output -module=$(ENV)_blondie
+.PHONY: tf-output
+
 logs-tick: ## Tail logs of the tick function
 	./node_modules/.bin/cwtail --follow /aws/lambda/$(ENV)_blondie_tick
 .PHONY: logs-tick
+
+logs-api: ## Tail logs of the api function
+	./node_modules/.bin/cwtail --follow /aws/lambda/$(ENV)_blondie_api
+.PHONY: logs-api
 
 dist/api_function.zip: build
 	cd dist && zip -r api_function.zip api_function.js

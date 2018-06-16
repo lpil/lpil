@@ -34,9 +34,8 @@ resource "aws_lambda_function" "function" {
   }
 }
 
-resource "aws_iam_policy" "function_policy" {
+resource "aws_iam_policy" "function_logging" {
   name        = "${var.env}_lambda_logging_${var.function_name}"
-  path        = "/"
   description = "IAM policy for logging from a lambda"
 
   policy = <<EOF
@@ -59,5 +58,5 @@ EOF
 
 resource "aws_iam_role_policy_attachment" "function_policy_attachment" {
   role       = "${aws_iam_role.function_role.name}"
-  policy_arn = "${aws_iam_policy.function_policy.arn}"
+  policy_arn = "${aws_iam_policy.function_logging.arn}"
 }
