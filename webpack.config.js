@@ -14,7 +14,8 @@ const nodeConfig = {
   stats,
   target: "node",
   entry: {
-    tick: "./src/TickFunction.bs.js"
+    tick_function: "./src/TickFunction.bs.js",
+    api_function: "./src/ApiFunction.bs.js"
   },
   output: {
     path: outputDir,
