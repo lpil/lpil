@@ -1,4 +1,4 @@
-open GraphQl;
+open Graphql.Schema;
 
 type role =
   | User
@@ -7,66 +7,55 @@ type role =
 type user = {
   id: int,
   name: string,
-  role
+  role,
 };
 
 let users = [
-  {id: 1, name: "Kai", role: Admin},
+  {id: 1, name: "Alice", role: Admin},
   {id: 2, name: "Bob", role: User},
-  {id: 3, name: "Amy", role: User}
 ];
 
-let role =
-  Schema.(
-    enum {
-      name: "role",
-      doc: "The role of the user",
-      values: [
-        {name: "USER", doc: "Normal permissions", value: User},
-        {name: "Admin", doc: "Super permissions", value: Admin}
-      ]
-    }
+let role: typ(unit, option(role)) =
+  enum(
+    "role",
+    ~doc="The role of a user",
+    ~values=[
+      enum_value("USER", ~value=User),
+      enum_value("ADMIN", ~value=Admin),
+    ],
   );
 
-let user =
-  Schema.(
-    object_ {
-      name: "user",
-      doc: "A user in the system"
-      /* fields: fun _ => [ */
-      /*   field { */
-      /*     name: "id", */
-      /*     doc: "Unique user identifier", */
-      /*     type_: non_null int, */
-      /*     args: Arg.empty, */
-      /*     resolve: fun () p => p.id */
-      /*   }, */
-      /*   field { */
-      /*     name: "name", */
-      /*     doc: "Name of the user", */
-      /*     type_: non_null string, */
-      /*     args: Arg.empty, */
-      /*     resolve: fun () p => p.name */
-      /*   }, */
-      /*   field { */
-      /*     name: "role", */
-      /*     doc: "Role of the user", */
-      /*     type_: non_null role, */
-      /*     args: Arg.empty, */
-      /*     resolve: fun () p => p.role */
-      /*   } */
-      /* ] */
-    }
-  );
+let user = {
+  let id =
+    field(
+      "id",
+      ~doc="Unique user identifier",
+      ~typ=non_null(int),
+      ~args=Arg.Nil,
+      ~resolve=(_ctx, p) =>
+      p.id
+    );
+
+  let name =
+    field("name", ~typ=non_null(string), ~args=Arg.Nil, ~resolve=(_ctx, p) =>
+      p.name
+    );
+
+  let role =
+    field("role", ~typ=non_null(role), ~args=Arg.Nil, ~resolve=(_ctx, p) =>
+      p.role
+    );
+
+  obj("user", ~doc="A user in the system", ~fields=_ => [id, name, role]);
+};
 
 let schema =
-  Schema.(
-    schema [
-      field {
-        name: users,
-        type_: non_null (list (non_null user)),
-        args: Arg.empty,
-        resolve: fun () () => users
-      }
-    ]
-  );
+  schema([
+    field(
+      "users",
+      ~typ=non_null(list(non_null(user))),
+      ~args=Arg.Nil,
+      ~resolve=(_ctx, ()) =>
+      users
+    ),
+  ]);

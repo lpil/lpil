@@ -4,8 +4,8 @@
   "keywords": [
     "BuckleScript"
   ],
-  "license": "BSD-3-Clause",
+  "license": "MIT",
   "devDependencies": {
-    "bs-platform": "1.9.0"
+    "bs-platform": "3.1.5"
   }
 }
