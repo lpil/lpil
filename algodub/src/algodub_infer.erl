@@ -96,23 +96,23 @@ env_lookup(Env, Name) ->
 
 occurs_check_adjust_levels(TVarId, TVarLevel, Type) ->
   F = fun
-    (F, #type_var{var = #tvar_link{type = LinkedType}}) ->
-      F(F, LinkedType);
+    (F, #type_var{var = TVarRef}) ->
+      case get_tvar_ref(TVarRef) of
+        #tvar_link{type = LinkedType} ->
+          F(F, LinkedType);
 
-    (_, #type_var{var = #tvar_generic{}}) ->
-      error("occurs_check_adjust_levels assert false");
+        #tvar_generic{} ->
+          error("occurs_check_adjust_levels assert false");
 
-    (_, #type_var{var = OtherTVarReference}) ->
-      OtherTVar = get_tvar_ref(OtherTVarReference),
-      #tvar_unbound{id = OtherId, level = OtherLevel} = OtherTVar,
+        #tvar_unbound{id = OtherId, level = OtherLevel} = OtherTVar ->
 
-      case OtherId =:= TVarId of
-        true -> infer_error(recursive_types);
-        false -> case OtherLevel > TVarLevel of
-          true -> put_tvar_ref(OtherTVarReference,
-                               #tvar_unbound{id = OtherId, level = TVarLevel});
-          false -> ok
-        end
+          case OtherId =:= TVarId of
+            true -> infer_error(recursive_types);
+            false -> case OtherLevel > TVarLevel of
+              true -> put_tvar_ref(TVarRef, #tvar_unbound{id = OtherId, level = TVarLevel});
+              false -> ok
+            end
+          end
       end;
 
     (F, #type_app{type = AppType, args = TypeArgList}) ->
@@ -192,11 +192,12 @@ unify(Ty1, Ty2) ->
     {#type_app{type = Type1, args = TyArgList1},
      #type_app{type = Type2, args = TyArgList2}} ->
       unify(Type1, Type2),
-      lists:foreach(fun unify/2, lists:zip(TyArgList1, TyArgList2));
+      lists:foreach(fun({X, Y}) -> unify(X, Y) end, lists:zip(TyArgList1, TyArgList2));
 
     {#type_arrow{args = ParamTyList1, return = ReturnTy1},
      #type_arrow{args = ParamTyList2, return = ReturnTy2}} ->
-      lists:foreach(fun unify/2, lists:zip(ParamTyList1, ParamTyList2)),
+      lists:foreach(fun({X, Y}) -> unify(X, Y) end,
+                    lists:zip(ParamTyList1, ParamTyList2)),
       unify(ReturnTy1, ReturnTy2);
 
     {#type_var{var = TVarRef}, Ty} ->
@@ -267,6 +268,53 @@ generalize(Level, Type) ->
 % 	in
 % 	f ty
 
+thread_map(Fun, List, State) ->
+  Reducer = fun(Item, {AccList, AccState}) ->
+    {NewItem, NewState} = Fun(Item, AccState),
+    {[NewItem|AccList], NewState}
+  end,
+  {MappedList, NewState} = lists:foldl(Reducer, {[], State}, List),
+  {lists:reverse(MappedList), NewState}.
+
+
+instantiate(Level, Ty) ->
+  F = fun
+    (_, #type_const{} = Type, _) ->
+      Type;
+
+    (F, #type_app{type = Type, args = TypeArgList}, IdVarMap) ->
+      {NewTypeArgsList, IdVarMap2} = thread_map(F, TypeArgList, IdVarMap),
+      {NewType, IdVarMap3} = F(F, Type, IdVarMap2),
+      NewApp = #type_app{type = NewType, args = NewTypeArgsList},
+      {NewApp, IdVarMap3};
+
+    (F, #type_arrow{args = TypeArgList, return = Type}, IdVarMap) ->
+      {NewTypeArgsList, IdVarMap2} = thread_map(F, TypeArgList, IdVarMap),
+      {NewType, IdVarMap3} = F(F, Type, IdVarMap2),
+      NewArrow = #type_arrow{args = NewTypeArgsList, return = NewType},
+      {NewArrow, IdVarMap3};
+
+    (F, #type_var{var = TVarRef}, IdVarMap) ->
+      case get_tvar_ref(TVarRef) of
+        #tvar_link{type = Type} ->
+          F(F, Type, IdVarMap);
+
+        #tvar_generic{id = Id} ->
+          case maps:find(Id, IdVarMap) of
+            {ok, Type} ->
+              {Type, IdVarMap};
+
+            error ->
+              Var = new_var(Level),
+              {Var, maps:put(Id, Var, IdVarMap)}
+          end;
+
+        #tvar_unbound{} = Type->
+          Type
+      end
+  end,
+  {NewType, _NewIdVarMap} = F(F, Ty, maps:new()),
+  NewType.
 
 % let rec match_fun_ty num_params = function
 % 	| TArrow(param_ty_list, return_ty) ->

@@ -21,7 +21,7 @@
 -type id() :: integer().
 -type level() :: integer().
 
--type type_var_reference() :: reference().
+-type type_var_reference() :: {tvar_ref, integer()}.
 
 % type ty =
 % 	| TConst of name                    (* type constant: `int` or `bool` *)
