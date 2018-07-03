@@ -8,12 +8,12 @@
 % 	| Fun of name list * expr               (* abstraction *)
 % 	| Let of name * expr * expr             (* let *)
 
--record(var, {name :: name()}).
--record(call, {func :: expr(), args :: list(expr())}).
--record(func, {args :: list(name()), body :: expr()}).
--record(let_, {name :: name(), value :: expr(), then :: expr()}).
+-record(ast_var, {name :: name()}).
+-record(ast_call, {func :: ast(), args :: list(ast())}).
+-record(ast_fun, {args :: list(name()), body :: ast()}).
+-record(ast_let, {name :: name(), value :: ast(), then :: ast()}).
 
--type expr() :: #var{} | #call{} | #func{} | #let_{}.
+-type ast() :: #ast_var{} | #ast_call{} | #ast_fun{} | #ast_let{}.
 
 % type id = int
 % type level = int

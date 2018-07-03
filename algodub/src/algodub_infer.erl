@@ -1,7 +1,7 @@
 -module(algodub_infer).
 -include("algodub.hrl").
 
--export([unify/2]).
+-export([infer/3]).
 
 -ifdef(TEST).
 -include_lib("eunit/include/eunit.hrl").
@@ -70,7 +70,7 @@ env_extend(Env, Name, Type) ->
   maps:put(Name, Type, Env).
 
 env_lookup(Env, Name) ->
-  maps:get(Name, Env).
+  maps:find(Name, Env).
 
 % let occurs_check_adjust_levels tvar_id tvar_level ty =
 % 	let rec f = function
@@ -104,8 +104,7 @@ occurs_check_adjust_levels(TVarId, TVarLevel, Type) ->
         #tvar_generic{} ->
           error("occurs_check_adjust_levels assert false");
 
-        #tvar_unbound{id = OtherId, level = OtherLevel} = OtherTVar ->
-
+        #tvar_unbound{id = OtherId, level = OtherLevel} ->
           case OtherId =:= TVarId of
             true -> infer_error(recursive_types);
             false -> case OtherLevel > TVarLevel of
@@ -192,7 +191,8 @@ unify(Ty1, Ty2) ->
     {#type_app{type = Type1, args = TyArgList1},
      #type_app{type = Type2, args = TyArgList2}} ->
       unify(Type1, Type2),
-      lists:foreach(fun({X, Y}) -> unify(X, Y) end, lists:zip(TyArgList1, TyArgList2));
+      lists:foreach(fun({X, Y}) -> unify(X, Y) end,
+                    lists:zip(TyArgList1, TyArgList2));
 
     {#type_arrow{args = ParamTyList1, return = ReturnTy1},
      #type_arrow{args = ParamTyList2, return = ReturnTy2}} ->
@@ -269,10 +269,11 @@ generalize(Level, Type) ->
 % 	f ty
 
 thread_map(Fun, List, State) ->
-  Reducer = fun(Item, {AccList, AccState}) ->
-    {NewItem, NewState} = Fun(Item, AccState),
-    {[NewItem|AccList], NewState}
-  end,
+  Reducer =
+    fun(Item, {AccList, AccState}) ->
+      {NewItem, NewState} = Fun(Item, AccState),
+      {[NewItem|AccList], NewState}
+    end,
   {MappedList, NewState} = lists:foldl(Reducer, {[], State}, List),
   {lists:reverse(MappedList), NewState}.
 
@@ -336,6 +337,38 @@ instantiate(Level, Ty) ->
 % 			param_ty_list, return_ty
 % 	| _ -> error "expected a function"
 
+match_fun_type(NumParams, Ty) ->
+  case Ty of
+    #type_arrow{args = ParamTyList, return = ReturnTy} ->
+      case length(ParamTyList) =:= NumParams of
+        false -> infer_error(unexpected_number_of_arguments);
+        true -> {ParamTyList, ReturnTy}
+      end;
+
+    #type_var{var = TVarRef} ->
+      case get_tvar_ref(TVarRef) of
+        #tvar_link{type = Type} ->
+          match_fun_type(NumParams, Type);
+
+        #tvar_unbound{level = Level} ->
+          ExpandArgs =
+            fun
+              (_, 0) -> [];
+              (F, N) -> [new_var(Level)|F(N - 1)]
+            end,
+          ParamTyList = ExpandArgs(ExpandArgs, NumParams),
+          ReturnTy = new_var(Level),
+          FunType = #type_arrow{args = ParamTyList, return = ReturnTy},
+          put_tvar_ref(TVarRef, #tvar_link{type = FunType}),
+          {ParamTyList, ReturnTy};
+
+        _OtherType ->
+          infer_error(expected_a_function)
+      end;
+
+    _OtherType ->
+      infer_error(expected_a_function)
+  end.
 
 % let rec infer env level = function
 % 	| Var name -> begin
@@ -364,3 +397,37 @@ instantiate(Level, Ty) ->
 % 				param_ty_list arg_list
 % 			;
 % 			return_ty
+
+infer(Env, Level, AstNode) ->
+  case AstNode of
+    #ast_var{name = Name} ->
+      case maps:find(Name, Env) of
+        {ok, Var} -> instantiate(Level, Var);
+        error -> infer_error({variable_not_found, Name})
+      end;
+
+    #ast_fun{args = ParamList, body = BodyExpr} ->
+      ParamTypeList = lists:map(fun(_) -> new_var(Level) end, ParamList),
+      Insert =
+        fun({ParamName, ParamType}, AccEnv) ->
+          env_extend(AccEnv, ParamName, ParamType)
+        end,
+      FnEnv = lists:foldl(Insert, Env, lists:zip(ParamList, ParamTypeList)),
+      ReturnType = infer(FnEnv, Level, BodyExpr),
+      #type_arrow{args = ParamTypeList, return = ReturnType};
+
+    #ast_let{name = VarName, value = ValueExpr, then = BodyExpr} ->
+      VarType = infer(Env, Level + 1, ValueExpr),
+      GeneralizedType = generalize(Level, VarType),
+      infer(env_extend(Env, VarName, GeneralizedType), Level, BodyExpr);
+
+    #ast_call{func = FnExpr, args = ArgList} ->
+      {ParamTypeList, ReturnType} =
+        match_fun_type(length(ArgList), infer(Env, Level, FnExpr)),
+      Check =
+        fun({ParamType, ArgExpr}) ->
+          unify(ParamType, infer(Env, Level, ArgExpr))
+        end,
+      lists:foreach(Check, lists:zip(ParamTypeList, ArgList)),
+      ReturnType
+  end.
