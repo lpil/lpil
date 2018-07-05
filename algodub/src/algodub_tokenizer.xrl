@@ -33,15 +33,15 @@ fun        : {token, {'fun', TokenLine}}.
 let        : {token, {'let', TokenLine}}.
 in         : {token, {in, TokenLine}}.
 forall     : {token, {forall, TokenLine}}.
-'\('       : {token, {'(', TokenChars}}.
-'\)'       : {token, {')', TokenChars}}.
-'\['       : {token, {'[', TokenChars}}.
-'\]'       : {token, {']', TokenChars}}.
-'='        : {token, {'=', TokenChars}}.
-'->'       : {token, {'->', TokenChars}}.
-','        : {token, {',', TokenChars}}.
-'\''       : {token, {'\'', TokenChars}}.
-{Ident}    : {token, {ident, TokenChars}}.
+\(         : {token, {'(', TokenLine}}.
+\)         : {token, {')', TokenLine}}.
+\[         : {token, {'[', TokenLine}}.
+\]         : {token, {']', TokenLine}}.
+=          : {token, {'=', TokenLine}}.
+->         : {token, {'->', TokenLine}}.
+,          : {token, {',', TokenLine}}.
+\'         : {token, {'\'', TokenLine}}.
+{Ident}    : {token, {ident, TokenLine, TokenChars}}.
 {WS}       : skip_token.
 
 

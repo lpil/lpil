@@ -162,5 +162,5 @@ replace_type_constants_with_vars(VarNameList, Type) ->
   LinkTypeVars(LinkTypeVars, Type).
 
 
-v({_, V}) ->
+v({_, _, V}) ->
   V.

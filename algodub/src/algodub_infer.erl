@@ -1,7 +1,8 @@
 -module(algodub_infer).
 -include("algodub.hrl").
 
--export([infer/3, env_extend/3, env_lookup/2, env_empty/0, new_gen_var/0]).
+-export([infer/1, infer/3, env_extend/3, env_lookup/2, env_empty/0,
+         new_gen_var/0]).
 
 -ifdef(TEST).
 -include_lib("eunit/include/eunit.hrl").
@@ -20,7 +21,10 @@
 %   put(current_infer_id, 0).
 
 next_id() ->
-  Id = get(current_infer_id) orelse 0,
+  Id = case get(current_infer_id) of
+    undefined -> 0;
+    X -> X
+  end,
   put(current_infer_id, Id + 1),
   Id.
 
@@ -28,7 +32,10 @@ next_id() ->
 % let new_gen_var () = TVar (ref (Generic(next_id ())))
 
 new_tvar_ref(TVar) ->
-  Id = get(current_tvar_ref_id) orelse 0,
+  Id = case get(current_tvar_ref_id) of
+    undefined -> 0;
+    X -> X
+  end,
   put(current_tvar_ref_id, Id + 1),
   put({tvar_ref, Id}, TVar),
   {tvar_ref, Id}.
@@ -66,7 +73,9 @@ infer_error(Msg) ->
 env_empty() ->
   maps:new().
 
-env_extend(Env, Name, Type) ->
+env_extend(Env, {ident, _, Name}, Type) ->
+  env_extend(Env, Name, Type);
+env_extend(Env, Name, Type) when is_list(Name) ->
   maps:put(Name, Type, Env).
 
 env_lookup(Env, Name) ->
@@ -280,8 +289,8 @@ thread_map(Fun, List, State) ->
 
 instantiate(Level, Ty) ->
   F = fun
-    (_, #type_const{} = Type, _) ->
-      Type;
+    (_, #type_const{} = Type, IdVarMap) ->
+      {Type, IdVarMap};
 
     (F, #type_app{type = Type, args = TypeArgList}, IdVarMap) ->
       {NewTypeArgsList, IdVarMap2} = thread_map(F, TypeArgList, IdVarMap),
@@ -311,7 +320,7 @@ instantiate(Level, Ty) ->
           end;
 
         #tvar_unbound{} = Type->
-          Type
+          {Type, IdVarMap}
       end
   end,
   {NewType, _NewIdVarMap} = F(F, Ty, maps:new()),
@@ -430,4 +439,12 @@ infer(Env, Level, AstNode) ->
         end,
       lists:foreach(Check, lists:zip(ParamTypeList, ArgList)),
       ReturnType
+  end.
+
+infer(AstNode) ->
+  try infer(env_empty(), 1, AstNode) of
+    % Type -> {ok, algodub:type_to_string(Type)}
+    Type -> Type
+  catch
+    error:{algodub_infer_error, Error} -> {error, Error}
   end.
