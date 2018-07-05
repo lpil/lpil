@@ -1,7 +1,7 @@
 -module(algodub_infer).
 -include("algodub.hrl").
 
--export([infer/3]).
+-export([infer/3, env_extend/3, env_lookup/2, env_empty/0, new_gen_var/0]).
 
 -ifdef(TEST).
 -include_lib("eunit/include/eunit.hrl").
@@ -16,8 +16,8 @@
 
 % let reset_id () = current_id := 0
 
-reset_id() ->
-  put(current_infer_id, 0).
+% reset_id() ->
+%   put(current_infer_id, 0).
 
 next_id() ->
   Id = get(current_infer_id) orelse 0,
@@ -44,8 +44,8 @@ new_var(Level) ->
   TVar = #tvar_unbound{id = next_id(), level = Level},
   #type_var{var = new_tvar_ref(TVar)}.
 
-new_gen_var(Level) ->
-  TVar = #tvar_unbound{id = next_id(), level = Level},
+new_gen_var() ->
+  TVar = #tvar_generic{id = next_id()},
   #type_var{var = new_tvar_ref(TVar)}.
 
 % exception Error of string
