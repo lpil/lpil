@@ -2,7 +2,7 @@
 
 -include("algodub.hrl").
 
-% -export([type_to_string/1]).
+-export([type_to_string/1]).
 
 % let string_of_ty ty : string =
 % 	let id_name_map = Hashtbl.create 10 in
@@ -49,4 +49,46 @@
 % 	else
 % 		ty_str
 
-% type_to_string(Type) ->
+type_to_string(Type) ->
+  put(algodub_id_name_map, #{}),
+  put(algodub_type_to_string_count, 0),
+  NextName =
+    fun() ->
+      I = get(algodub_type_to_string_count),
+      put(algodub_type_to_string_count, I + 1),
+      [97 + I rem 26]
+    end,
+  ToString =
+    fun
+      (_, _, #type_const{name = Name}) ->
+        Name;
+
+      (F, _, #type_app{type = AppType, args = TypeArgList}) ->
+        F(F, true, AppType)
+        ++ "["
+        ++ lists:map(fun(X) -> F(F, false, X) end, TypeArgList)
+        ++ "]";
+
+      (F, _, #type_arrow{args = [ParamType], return = ReturnType}) ->
+        F(F, true, ParamType)
+        ++ " -> "
+        ++ F(F, false, ReturnType);
+
+      (F, _, #type_arrow{args = ParamTypeList, return = ReturnType}) ->
+        "("
+        ++ lists:join(", ", lists:map(fun(X) -> F(F, false, X) end, ParamTypeList))
+        ++ ") -> "
+        ++ F(F, false, ReturnType);
+
+      (F, IsSimple, #type_var{var = TVarRef}) ->
+        case algodub_infer:get_tvar_ref(TVarRef) of
+          % #tvar_generic{id = Id} ->
+
+          #tvar_unbound{id = Id} ->
+            "'_" ++ integer_to_list(Id);
+
+          #tvar_link{type = OtherType} ->
+            F(F, IsSimple, OtherType)
+        end
+    end,
+  ToString(ToString, false, Type).

@@ -54,7 +54,7 @@ expr -> 'fun' ident_list '->' expr : #ast_fun{args = '$2', body = '$4'}.
 simple_expr -> ident : #ast_var{name = v('$1')}.
 simple_expr -> '(' expr ')' : '$2'.
 simple_expr -> simple_expr '(' expr_comma_list ')' : #ast_call{func = '$1', args = '$3'}.
-simple_expr -> simple_expr '(' ')' : #ast_call{func = '1', args = []}.
+simple_expr -> simple_expr '(' ')' : #ast_call{func = '$1', args = []}.
 
 %ident_list:
 %	| IDENT               { [$1] }

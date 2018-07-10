@@ -10,23 +10,25 @@
 % x_test() ->
 %   check("x", {error, {variable_not_found, "x"}}).
 
+% x_in_y_test() ->
+%   check("let x = x in y", {error, {variable_not_found, "x"}}).
+
 % x_in_x_test() ->
-% 	check("let x = x in x", {error, {variable_not_found, "x"}}).
-
-	% {"let x = id in x", OK "forall[a] a -> a"},
-
-% let_id_fun_literal_test() ->
-	% {"let x = fun y -> y in x", OK "forall[a] a -> a"},
-  % check("let x = fun y -> y in x", {ok, {variable_not_found, "x"}}).
+%   {"let x = id in x", OK "forall[a] a -> a"},
 
 id_fun_literal_test() ->
-	% {"fun x -> x", OK "forall[a] a -> a"},
-  check("fun y -> y", {ok, "forall[a] a -> a"}).
+  check("fun y -> y", {ok, "'a -> 'a"}).
+
+let_id_fun_literal_test() ->
+  check("let x = fun y -> y in x", {ok, "'a -> 'a"}).
 
 	% {"fun x -> x", OK "forall[int] int -> int"},
 	% {"pair", OK "forall[a b] {a, b) -> pair[a, b]") ,
 	% {"pair", OK "forall[z x] {x, z) -> pair[x, z]") ,
-	% {"fun x -> let y = fun z -> z in y", OK "forall[a b] a -> b -> b"},
+
+% fun_x_let_y_fun_z_test() ->
+%   check("fun x -> let y = fun z -> z in y", {ok, "a -> b -> b"}).
+
 	% {"let f = fun x -> x in let id = fun y -> y in eq{f, id)", OK "bool"},
 	% {"let f = fun x -> x in let id = fun y -> y in eq_curry{f){id)", OK "bool"},
 	% {"let f = fun x -> x in eq{f, succ)", OK "bool"},
@@ -67,4 +69,10 @@ id_fun_literal_test() ->
 check(Source, Expected) ->
   {ok, Tokens, _} = algodub_tokenizer:string(Source),
   {ok, AST} = algodub_parser:parse(Tokens),
-  ?assertEqual(Expected, algodub_infer:infer(AST)).
+  case algodub_infer:infer(AST) of
+    {ok, Type} ->
+      ?assertEqual(Expected, {ok, algodub:type_to_string(Type)});
+
+    Error ->
+      ?assertEqual(Expected, Error)
+  end.

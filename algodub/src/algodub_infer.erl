@@ -2,7 +2,7 @@
 -include("algodub.hrl").
 
 -export([infer/1, infer/3, env_extend/3, env_lookup/2, env_empty/0,
-         new_gen_var/0]).
+         new_gen_var/0, get_tvar_ref/1]).
 
 -ifdef(TEST).
 -include_lib("eunit/include/eunit.hrl").
@@ -17,14 +17,8 @@
 
 % let reset_id () = current_id := 0
 
-% reset_id() ->
-%   put(current_infer_id, 0).
-
 next_id() ->
-  Id = case get(current_infer_id) of
-    undefined -> 0;
-    X -> X
-  end,
+  Id = get(current_infer_id),
   put(current_infer_id, Id + 1),
   Id.
 
@@ -32,10 +26,7 @@ next_id() ->
 % let new_gen_var () = TVar (ref (Generic(next_id ())))
 
 new_tvar_ref(TVar) ->
-  Id = case get(current_tvar_ref_id) of
-    undefined -> 0;
-    X -> X
-  end,
+  Id = get(current_tvar_ref_id),
   put(current_tvar_ref_id, Id + 1),
   put({tvar_ref, Id}, TVar),
   {tvar_ref, Id}.
@@ -69,6 +60,8 @@ infer_error(Msg) ->
 % 	let extend env name ty = StringMap.add name ty env
 % 	let lookup env name = StringMap.find name env
 % end
+
+-type env() :: map().
 
 env_empty() ->
   maps:new().
@@ -229,6 +222,7 @@ unify(Ty1, Ty2) ->
 % 	| TVar {contents = Link ty} -> generalize level ty
 % 	| TVar {contents = Generic _} | TVar {contents = Unbound _} | TConst _ as ty -> ty
 
+-spec generalize(non_neg_integer(), type()) -> type().
 generalize(Level, Type) ->
   case Type of
     #type_var{var = TVarRef} ->
@@ -240,7 +234,7 @@ generalize(Level, Type) ->
         #tvar_link{type = LinkedType} ->
           generalize(Level, LinkedType);
 
-        _other ->
+        _Other ->
           Type
       end;
 
@@ -287,6 +281,7 @@ thread_map(Fun, List, State) ->
   {lists:reverse(MappedList), NewState}.
 
 
+-spec instantiate(non_neg_integer(), type()) -> type().
 instantiate(Level, Ty) ->
   F = fun
     (_, #type_const{} = Type, IdVarMap) ->
@@ -299,7 +294,9 @@ instantiate(Level, Ty) ->
       {NewApp, IdVarMap3};
 
     (F, #type_arrow{args = TypeArgList, return = Type}, IdVarMap) ->
-      {NewTypeArgsList, IdVarMap2} = thread_map(F, TypeArgList, IdVarMap),
+      {NewTypeArgsList, IdVarMap2} = thread_map(fun(X, Acc) -> F(F, X, Acc) end,
+                                                TypeArgList,
+                                                IdVarMap),
       {NewType, IdVarMap3} = F(F, Type, IdVarMap2),
       NewArrow = #type_arrow{args = NewTypeArgsList, return = NewType},
       {NewArrow, IdVarMap3};
@@ -319,8 +316,8 @@ instantiate(Level, Ty) ->
               {Var, maps:put(Id, Var, IdVarMap)}
           end;
 
-        #tvar_unbound{} = Type->
-          {Type, IdVarMap}
+        #tvar_unbound{} ->
+          {Ty, IdVarMap}
       end
   end,
   {NewType, _NewIdVarMap} = F(F, Ty, maps:new()),
@@ -407,6 +404,7 @@ match_fun_type(NumParams, Ty) ->
 % 			;
 % 			return_ty
 
+-spec infer(env(), non_neg_integer(), ast()) -> type().
 infer(Env, Level, AstNode) ->
   case AstNode of
     #ast_var{name = Name} ->
@@ -428,7 +426,14 @@ infer(Env, Level, AstNode) ->
     #ast_let{name = VarName, value = ValueExpr, then = BodyExpr} ->
       VarType = infer(Env, Level + 1, ValueExpr),
       GeneralizedType = generalize(Level, VarType),
-      infer(env_extend(Env, VarName, GeneralizedType), Level, BodyExpr);
+      NewEnv = env_extend(Env, VarName, GeneralizedType),
+      erlang:display({"the pdict is", get()}),
+      erlang:display({"the env is", NewEnv}),
+      erlang:display({"about to infer let body expr", BodyExpr}),
+      Z = infer(NewEnv, Level, BodyExpr),
+      erlang:display({"we think the let body expr type is", Z}),
+      erlang:display({"the pdict is", get()}),
+      Z;
 
     #ast_call{func = FnExpr, args = ArgList} ->
       {ParamTypeList, ReturnType} =
@@ -441,10 +446,13 @@ infer(Env, Level, AstNode) ->
       ReturnType
   end.
 
+-spec infer(ast()) -> {ok, type()} | {error, any()}.
 infer(AstNode) ->
+  put(current_infer_id, 0),
+  put(current_tvar_ref_id, 0),
   try infer(env_empty(), 1, AstNode) of
-    % Type -> {ok, algodub:type_to_string(Type)}
-    Type -> Type
+    Type ->
+      {ok, Type}
   catch
     error:{algodub_infer_error, Error} -> {error, Error}
   end.
