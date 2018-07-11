@@ -52,12 +52,12 @@
 type_to_string(Type) ->
   put(algodub_id_name_map, #{}),
   put(algodub_type_to_string_count, 0),
-  NextName =
-    fun() ->
-      I = get(algodub_type_to_string_count),
-      put(algodub_type_to_string_count, I + 1),
-      [97 + I rem 26]
-    end,
+  % NextName =
+  %   fun() ->
+  %     I = get(algodub_type_to_string_count),
+  %     put(algodub_type_to_string_count, I + 1),
+  %     [97 + I rem 26]
+  %   end,
   ToString =
     fun
       (_, _, #type_const{name = Name}) ->
@@ -82,7 +82,8 @@ type_to_string(Type) ->
 
       (F, IsSimple, #type_var{var = TVarRef}) ->
         case algodub_infer:get_tvar_ref(TVarRef) of
-          % #tvar_generic{id = Id} ->
+          #tvar_generic{id = Id} ->
+            [$', 97 + Id];
 
           #tvar_unbound{id = Id} ->
             "'_" ++ integer_to_list(Id);

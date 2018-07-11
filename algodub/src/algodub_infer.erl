@@ -360,7 +360,7 @@ match_fun_type(NumParams, Ty) ->
           ExpandArgs =
             fun
               (_, 0) -> [];
-              (F, N) -> [new_var(Level)|F(N - 1)]
+              (F, N) -> [new_var(Level)|F(F, N - 1)]
             end,
           ParamTyList = ExpandArgs(ExpandArgs, NumParams),
           ReturnTy = new_var(Level),
@@ -406,6 +406,7 @@ match_fun_type(NumParams, Ty) ->
 
 -spec infer(env(), non_neg_integer(), ast()) -> type().
 infer(Env, Level, AstNode) ->
+  erlang:display(AstNode),
   case AstNode of
     #ast_var{name = Name} ->
       case maps:find(Name, Env) of
@@ -427,13 +428,7 @@ infer(Env, Level, AstNode) ->
       VarType = infer(Env, Level + 1, ValueExpr),
       GeneralizedType = generalize(Level, VarType),
       NewEnv = env_extend(Env, VarName, GeneralizedType),
-      erlang:display({"the pdict is", get()}),
-      erlang:display({"the env is", NewEnv}),
-      erlang:display({"about to infer let body expr", BodyExpr}),
-      Z = infer(NewEnv, Level, BodyExpr),
-      erlang:display({"we think the let body expr type is", Z}),
-      erlang:display({"the pdict is", get()}),
-      Z;
+      infer(NewEnv, Level, BodyExpr);
 
     #ast_call{func = FnExpr, args = ArgList} ->
       {ParamTypeList, ReturnType} =
@@ -452,7 +447,7 @@ infer(AstNode) ->
   put(current_tvar_ref_id, 0),
   try infer(env_empty(), 1, AstNode) of
     Type ->
-      {ok, Type}
+      {ok, generalize(-1, Type)}
   catch
     error:{algodub_infer_error, Error} -> {error, Error}
   end.

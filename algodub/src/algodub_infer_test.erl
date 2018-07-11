@@ -7,27 +7,26 @@
 % one_test() ->
 	% {"one", OK "int"},
 
-% x_test() ->
-%   check("x", {error, {variable_not_found, "x"}}).
+x_test() ->
+  check("x", {error, {variable_not_found, "x"}}).
 
-% x_in_y_test() ->
-%   check("let x = x in y", {error, {variable_not_found, "x"}}).
+x_in_y_test() ->
+  check("let x = x in y", {error, {variable_not_found, "x"}}).
 
-% x_in_x_test() ->
-%   {"let x = id in x", OK "forall[a] a -> a"},
+% let_id_test() ->
+%   check("let x = id in x", {ok, "a -> a"}).
 
 id_fun_literal_test() ->
   check("fun y -> y", {ok, "'a -> 'a"}).
 
 let_id_fun_literal_test() ->
-  check("let x = fun y -> y in x", {ok, "'a -> 'a"}).
+  check("let x = fun y -> y in x", {ok, "'b -> 'b"}).
 
-	% {"fun x -> x", OK "forall[int] int -> int"},
 	% {"pair", OK "forall[a b] {a, b) -> pair[a, b]") ,
 	% {"pair", OK "forall[z x] {x, z) -> pair[x, z]") ,
 
-% fun_x_let_y_fun_z_test() ->
-%   check("fun x -> let y = fun z -> z in y", {ok, "a -> b -> b"}).
+fun_x_let_y_fun_z_test() ->
+  check("fun x -> let y = fun z -> z in y", {ok, "'a -> 'b -> 'b"}).
 
 	% {"let f = fun x -> x in let id = fun y -> y in eq{f, id)", OK "bool"},
 	% {"let f = fun x -> x in let id = fun y -> y in eq_curry{f){id)", OK "bool"},
@@ -50,7 +49,10 @@ let_id_fun_literal_test() ->
 	% {"plus{one)", error "unexpected number of arguments"},
 	% {"fun x -> let y = x in y", OK "forall[a] a -> a"},
 	% {"fun x -> let y = let z = x{fun x -> x) in z in y", OK "forall[a b] {{a -> a) -> b) -> b"},
-	% {"fun x -> fun y -> let x = x{y) in x{y)", OK "forall[a b] {a -> a -> b) -> a -> b"},
+hof_test() ->
+  check("fun x -> fun y -> let x = x(y) in x(y)",
+	{ok, "forall[a b] {a -> a -> b) -> a -> b"}).
+
 	% {"fun x -> let y = fun z -> x{z) in y", OK "forall[a b] {a -> b) -> a -> b"},
 	% {"fun x -> let y = fun z -> x in y", OK "forall[a b] a -> b -> a"},
 	% {"fun x -> fun y -> let x = x{y) in fun x -> y{x)",
