@@ -129,12 +129,6 @@ occurs_check_adjust_levels(TVarId, TVarLevel, Type) ->
   end,
   F(F, Type).
 
--ifdef(TEST).
-% thing_test() ->
-%   TVar = #type_var{var = #tvar_link{type = 100}},
-%   Result = occurs_check_adjust_levels(1, 1, TVar).
--endif.
-
 % let rec unify ty1 ty2 =
 % 	if ty1 == ty2 then () else
 % 	match (ty1, ty2) with
@@ -160,6 +154,7 @@ occurs_check_adjust_levels(TVarId, TVarLevel, Type) ->
 % 		| _, _ -> error ("cannot unify types " ^ string_of_ty ty1 ^ " and " ^ string_of_ty ty2)
 
 unify(Ty1, Ty2) ->
+  erlang:display(unify),
   CheckTVar = fun(TVarRef, Ty) ->
     case get_tvar_ref(TVarRef) of
       #tvar_link{type = Type} -> unify(Type, Ty);
@@ -172,12 +167,15 @@ unify(Ty1, Ty2) ->
                 error("Should only be a single instance of a type variable");
 
               _ ->
+                erlang:display(linking),
                 occurs_check_adjust_levels(Id, Level, Ty),
                 put_tvar_ref(TVarRef, #tvar_link{type = Ty})
             end;
 
           _ ->
+            erlang:display(linking),
             occurs_check_adjust_levels(Id, Level, Ty),
+            erlang:display(Ty),
             put_tvar_ref(TVarRef, #tvar_link{type = Ty})
         end
     end
@@ -243,8 +241,10 @@ generalize(Level, Type) ->
                 args = lists:map(fun(T) -> generalize(Level, T) end, ArgsTypes)};
 
     #type_arrow{args = ArgsTypes, return = ReturnType} ->
-      #type_arrow{return = generalize(Level, ReturnType),
-                  args = lists:map(fun(T) -> generalize(Level, T) end, ArgsTypes)};
+      Params = lists:map(fun(T) -> generalize(Level, T) end, ArgsTypes),
+      Return = generalize(Level, ReturnType),
+      #type_arrow{args = Params,
+                  return = Return};
 
     #type_const{} ->
       Type
@@ -285,15 +285,18 @@ thread_map(Fun, List, State) ->
 instantiate(Level, Ty) ->
   F = fun
     (_, #type_const{} = Type, IdVarMap) ->
+      erlang:display(instantiate_const),
       {Type, IdVarMap};
 
     (F, #type_app{type = Type, args = TypeArgList}, IdVarMap) ->
+      erlang:display(instantiate_app),
       {NewTypeArgsList, IdVarMap2} = thread_map(F, TypeArgList, IdVarMap),
       {NewType, IdVarMap3} = F(F, Type, IdVarMap2),
       NewApp = #type_app{type = NewType, args = NewTypeArgsList},
       {NewApp, IdVarMap3};
 
     (F, #type_arrow{args = TypeArgList, return = Type}, IdVarMap) ->
+      erlang:display(instantiate_arrow),
       {NewTypeArgsList, IdVarMap2} = thread_map(fun(X, Acc) -> F(F, X, Acc) end,
                                                 TypeArgList,
                                                 IdVarMap),
@@ -304,9 +307,11 @@ instantiate(Level, Ty) ->
     (F, #type_var{var = TVarRef}, IdVarMap) ->
       case get_tvar_ref(TVarRef) of
         #tvar_link{type = Type} ->
+          erlang:display(instantiate_link),
           F(F, Type, IdVarMap);
 
         #tvar_generic{id = Id} ->
+          erlang:display(instantiate_generic),
           case maps:find(Id, IdVarMap) of
             {ok, Type} ->
               {Type, IdVarMap};
@@ -317,6 +322,7 @@ instantiate(Level, Ty) ->
           end;
 
         #tvar_unbound{} ->
+          erlang:display(instantiate_unbound),
           {Ty, IdVarMap}
       end
   end,
@@ -406,15 +412,16 @@ match_fun_type(NumParams, Ty) ->
 
 -spec infer(env(), non_neg_integer(), ast()) -> type().
 infer(Env, Level, AstNode) ->
-  % erlang:display(AstNode),
   case AstNode of
     #ast_var{name = Name} ->
+      erlang:display(infer_var),
       case maps:find(Name, Env) of
         {ok, Var} -> instantiate(Level, Var);
         error -> infer_error({variable_not_found, Name})
       end;
 
     #ast_fun{args = ParamList, body = BodyExpr} ->
+      erlang:display(infer_fun),
       ParamTypeList = lists:map(fun(_) -> new_var(Level) end, ParamList),
       Insert =
         fun({ParamName, ParamType}, AccEnv) ->
@@ -424,13 +431,18 @@ infer(Env, Level, AstNode) ->
       ReturnType = infer(FnEnv, Level, BodyExpr),
       #type_arrow{args = ParamTypeList, return = ReturnType};
 
+    % FIXME: Let adds a layer of function for some reason to the type.
+    % I don't know if this is where the problem is located.
     #ast_let{name = VarName, value = ValueExpr, then = BodyExpr} ->
+      % let var_ty = infer env (level + 1) value_expr in
       VarType = infer(Env, Level + 1, ValueExpr),
+      % let generalized_ty = generalize level var_ty in
       GeneralizedType = generalize(Level, VarType),
-      NewEnv = env_extend(Env, VarName, GeneralizedType),
-      infer(NewEnv, Level, BodyExpr);
+      % infer (Env.extend env var_name generalized_ty) level body_expr
+      infer(env_extend(Env, VarName, GeneralizedType), Level, BodyExpr);
 
     #ast_call{func = FnExpr, args = ArgList} ->
+      erlang:display(infer_call),
       {ParamTypeList, ReturnType} =
         match_fun_type(length(ArgList), infer(Env, Level, FnExpr)),
       Check =
