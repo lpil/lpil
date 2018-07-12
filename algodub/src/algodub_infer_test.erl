@@ -2,7 +2,7 @@
 -include_lib("eunit/include/eunit.hrl").
 
 % id_test() ->
-	% {"id", OK "forall[a] a -> a"},
+	% {"id", OK "a -> a"},
 
 % one_test() ->
 	% {"one", OK "int"},
@@ -20,53 +20,96 @@ id_fun_literal_test() ->
   check("fun y -> y", {ok, "'a -> 'a"}).
 
 let_id_fun_literal_test() ->
-  check("let x = fun y -> y in x", {ok, "'b -> 'b"}).
+  check("let x = fun y -> y in x", {ok, "'a -> 'a"}).
 
-	% {"pair", OK "forall[a b] {a, b) -> pair[a, b]") ,
-	% {"pair", OK "forall[z x] {x, z) -> pair[x, z]") ,
+let_id_fun_literal_recur_test() ->
+  check("let x = fun y -> y in x(x(x))", {ok, "'a -> 'a"}).
+
+	% {"pair", OK "(a, b) -> pair[a, b]") ,
+	% {"pair", OK "(x, z) -> pair[x, z]") ,
 
 fun_x_let_y_fun_z_test() ->
-  check("fun x -> let y = fun z -> z in y", {ok, "'a -> 'b -> 'b"}).
+  check("fun x -> let y = fun z -> z in y",
+	{ok, "'a -> 'b -> 'b"}).
 
 	% {"let f = fun x -> x in let id = fun y -> y in eq{f, id)", OK "bool"},
 	% {"let f = fun x -> x in let id = fun y -> y in eq_curry{f){id)", OK "bool"},
-	% {"let f = fun x -> x in eq{f, succ)", OK "bool"},
-	% {"let f = fun x -> x in eq_curry{f){succ)", OK "bool"},
-	% {"let f = fun x -> x in pair{f{one}, f{true))", OK "pair[int, bool]"},
-	% {"fun f -> pair{f{one}, f{true))", fail},
-	% {"let f = fun x y -> let a = eq{x, y) in eq{x, y) in f", OK "forall[a] {a, a) -> bool"},
-	% {"let f = fun x y -> let a = eq_curry{x){y) in eq_curry{x){y) in f",
-	% 	OK "forall[a] {a, a) -> bool"},
-	% {"id{id)", OK "forall[a] a -> a"},
-	% {"choose{fun x y -> x, fun x y -> y)", OK "forall[a] {a, a) -> a"},
-	% {"choose_curry{fun x y -> x){fun x y -> y)", OK "forall[a] {a, a) -> a"},
-	% {"let x = id in let y = let z = x{id) in z in y", OK "forall[a] a -> a"},
-	% {"cons{id, nil)", OK "forall[a] list[a -> a]"},
-	% {"cons_curry{id){nil)", OK "forall[a] list[a -> a]"},
-	% {"let lst1 = cons{id, nil) in let lst2 = cons{succ, lst1) in lst2", OK "list[int -> int]"},
-	% {"cons_curry{id){cons_curry{succ){cons_curry{id){nil)))", OK "list[int -> int]"},
-	% {"plus{one, true)", error "cannot unify types int and bool"},
-	% {"plus{one)", error "unexpected number of arguments"},
-	% {"fun x -> let y = x in y", OK "forall[a] a -> a"},
-	% {"fun x -> let y = let z = x{fun x -> x) in z in y", OK "forall[a b] {{a -> a) -> b) -> b"},
+	% {"let f = fun x -> x in eq(f, succ)", OK "bool"},
+	% {"let f = fun x -> x in eq_curry(f)(succ)", OK "bool"},
+	% {"let f = fun x -> x in pair(f(one}, f(true))", OK "pair[int, bool]"},
+	% {"fun f -> pair(f(one}, f(true))", fail},
+	% {"let f = fun x y -> let a = eq(x, y) in eq(x, y) in f", OK "(a, a) -> bool"},
+	% {"let f = fun x y -> let a = eq_curry(x)(y) in eq_curry(x)(y) in f",
+	% 	OK "(a, a) -> bool"},
+	% {"id(id)", OK "a -> a"},
+	% {"choose(fun x y -> x, fun x y -> y)", OK "(a, a) -> a"},
+	% {"choose_curry(fun x y -> x)(fun x y -> y)", OK "(a, a) -> a"},
+	% {"let x = id in let y = let z = x(id) in z in y", OK "a -> a"},
+	% {"cons(id, nil)", OK "list[a -> a]"},
+	% {"cons_curry(id)(nil)", OK "list[a -> a]"},
+	% {"let lst1 = cons(id, nil) in let lst2 = cons(succ, lst1) in lst2", OK "list[int -> int]"},
+	% {"cons_curry(id)(cons_curry(succ)(cons_curry(id)(nil)))", OK "list[int -> int]"},
+	% {"plus(one, true)", error "cannot unify types int and bool"},
+	% {"plus(one)", error "unexpected number of arguments"},
+another_id_test() ->
+  check("fun x -> let y = x in y",
+	{ok, "'a -> 'a"}).
+
+funky_hof_test() ->
+  check("fun x -> let y = let z = x(fun x -> x) in z in y",
+	{ok, "(('a -> 'a) -> 'b) -> 'b"}).
+
 hof_test() ->
   check("fun x -> fun y -> let x = x(y) in x(y)",
-	{ok, "forall[a b] {a -> a -> b) -> a -> b"}).
+	{ok, "('a -> 'a -> 'b) -> 'a -> 'b"}).
 
-	% {"fun x -> let y = fun z -> x{z) in y", OK "forall[a b] {a -> b) -> a -> b"},
-	% {"fun x -> let y = fun z -> x in y", OK "forall[a b] a -> b -> a"},
-	% {"fun x -> fun y -> let x = x{y) in fun x -> y{x)",
-	% 	OK "forall[a b c] {{a -> b) -> c) -> {a -> b) -> a -> b"},
-	% {"fun x -> let y = x in y{y)", error "recursive types"},
-	% {"fun x -> let y = fun z -> z in y{y)", OK "forall[a b] a -> b -> b"},
-	% {"fun x -> x{x)", error "recursive types"},
-	% {"one{id)", error "expected a function"},
-	% {"fun f -> let x = fun g y -> let _ = g{y) in eq{f, g) in x",
-	% 	OK "forall[a b] {a -> b) -> {a -> b, a) -> bool"},
-	% {"let const = fun x -> fun y -> x in const", OK "forall[a b] a -> b -> a"},
-	% {"let apply = fun f x -> f{x) in apply", OK "forall[a b] {a -> b, a) -> b"},
-	% {"let apply_curry = fun f -> fun x -> f{x) in apply_curry", OK "forall[a b] {a -> b) -> a -> b"}
-	% ].
+hof_2_test() ->
+  check("fun x -> fun z -> x(z)",
+	{ok, "('a -> 'b) -> 'a -> 'b"}).
+
+% hof_3_test() ->
+%   check("fun x -> let y = fun z -> x(z) in y",
+% 	{ok, "(a -> b) -> a -> b"}).
+
+% const_test() ->
+%   check("fun x -> let y = fun z -> x in y",
+% 	{ok, "'a -> 'b -> 'a"}).
+
+	% {"fun x -> fun y -> let x = x(y) in fun x -> y(x)",
+	% 	OK "((a -> b) -> c) -> (a -> b) -> a -> b"},
+
+recursive_type_test() ->
+  check("fun x -> let y = x in y(y)",
+	{error, recursive_types}).
+
+recursive_type_2_test() ->
+  check("fun x -> x(x)",
+	{error, recursive_types}).
+
+extra_arg_identity_test() ->
+  check("fun x -> let y = fun z -> z in y(y)",
+	{ok, "'a -> 'b -> 'b"}).
+
+	% {"one(id)", error "expected a function"},
+	% {"fun f -> let x = fun g y -> let _ = g(y) in eq(f, g) in x",
+	% 	OK "(a -> b) -> (a -> b, a) -> bool"},
+	% {"let const = fun x -> fun y -> x in const", OK "a -> b -> a"},
+
+apply_test() ->
+  check("let apply = fun f x -> f(x) in apply",
+	{ok, "('a -> 'b, 'a) -> 'b"}).
+
+apply_curry_test() ->
+  check("let apply_curry = fun f -> fun x -> f(x) in apply_curry",
+	{ok, "('a -> 'b) -> 'a -> 'b"}).
+
+curry_test() ->
+  check("fun f -> fun x -> fun y -> f(x, y)",
+	{ok, "(('a, 'b) -> 'c) -> 'a -> 'b -> 'c"}).
+
+uncurry_test() ->
+  check("fun f -> fun x y -> f(x)(y)",
+	{ok, "('a -> 'b -> 'c) -> ('a, 'b) -> 'c"}).
 
 check(Source, Expected) ->
   {ok, Tokens, _} = algodub_tokenizer:string(Source),

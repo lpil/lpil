@@ -52,12 +52,12 @@
 type_to_string(Type) ->
   put(algodub_id_name_map, #{}),
   put(algodub_type_to_string_count, 0),
-  % NextName =
-  %   fun() ->
-  %     I = get(algodub_type_to_string_count),
-  %     put(algodub_type_to_string_count, I + 1),
-  %     [97 + I rem 26]
-  %   end,
+  NextName =
+    fun() ->
+      I = get(algodub_type_to_string_count),
+      put(algodub_type_to_string_count, I + 1),
+      [$', 97 + I rem 26]
+    end,
   ToString =
     fun
       (_, _, #type_const{name = Name}) ->
@@ -69,21 +69,39 @@ type_to_string(Type) ->
         ++ lists:map(fun(X) -> F(F, false, X) end, TypeArgList)
         ++ "]";
 
-      (F, _, #type_arrow{args = [ParamType], return = ReturnType}) ->
-        F(F, true, ParamType)
-        ++ " -> "
-        ++ F(F, false, ReturnType);
+      (F, IsSimple, #type_arrow{args = ParamTypeList, return = ReturnType}) ->
+        ArrowTypeString =
+          case ParamTypeList of
+            [ParamType] ->
+              F(F, true, ParamType)
+              ++ " -> "
+              ++ F(F, false, ReturnType);
 
-      (F, _, #type_arrow{args = ParamTypeList, return = ReturnType}) ->
-        "("
-        ++ lists:join(", ", lists:map(fun(X) -> F(F, false, X) end, ParamTypeList))
-        ++ ") -> "
-        ++ F(F, false, ReturnType);
+            _Other ->
+              "("
+              ++ lists:concat(lists:join(", ", lists:map(fun(X) -> F(F, false, X) end,
+                                                         ParamTypeList)))
+              ++ ") -> "
+              ++ F(F, false, ReturnType)
+          end,
+        case IsSimple of
+          true -> "(" ++ ArrowTypeString ++ ")";
+          false -> ArrowTypeString
+        end;
 
       (F, IsSimple, #type_var{var = TVarRef}) ->
         case algodub_infer:get_tvar_ref(TVarRef) of
           #tvar_generic{id = Id} ->
-            [$', 97 + Id];
+            Names = get(algodub_id_name_map),
+            case maps:find(Id, Names) of
+              {ok, Name} ->
+                Name;
+
+              error ->
+                Name = NextName(),
+                put(algodub_id_name_map, maps:put(Id, Name, Names)),
+                Name
+            end;
 
           #tvar_unbound{id = Id} ->
             "'_" ++ integer_to_list(Id);

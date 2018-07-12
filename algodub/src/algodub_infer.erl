@@ -406,7 +406,7 @@ match_fun_type(NumParams, Ty) ->
 
 -spec infer(env(), non_neg_integer(), ast()) -> type().
 infer(Env, Level, AstNode) ->
-  erlang:display(AstNode),
+  % erlang:display(AstNode),
   case AstNode of
     #ast_var{name = Name} ->
       case maps:find(Name, Env) of

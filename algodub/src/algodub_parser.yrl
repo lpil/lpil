@@ -67,8 +67,8 @@ ident_list -> ident ident_list : ['$1'|'$2'].
 %	| expr                          { [$1] }
 %	| expr COMMA expr_comma_list    { $1 :: $3 }
 
-expr_comma_list -> ident : ['$1'].
-expr_comma_list -> ident ',' ident_list : ['$1'|'$3'].
+expr_comma_list -> expr : ['$1'].
+expr_comma_list -> expr ',' expr_comma_list : ['$1'|'$3'].
 
 %ty_forall:
 %	| ty                                        { $1 }
