@@ -5,7 +5,7 @@
 extern crate byteorder;
 
 use byteorder::{LittleEndian, WriteBytesExt};
-use std::io::{self, Write};
+use std::io;
 
 const MAX_16BIT_SIGNED_INT_AS_FLOAT: f32 = 32767.0;
 const SAMPLE_RATE: f32 = 44100.0;
