@@ -96,3 +96,6 @@ function rg
     command rg $argv
   end
 end
+
+# Golang
+set --export GOPATH $HOME/projects/go
