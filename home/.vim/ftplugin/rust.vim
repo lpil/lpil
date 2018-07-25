@@ -1,7 +1,12 @@
-" Highlight chars in col 80
+" Highlight chars in col 100
 2mat ErrorMsg '\%100v.'
 
-let g:rustfmt_autosave=1
+augroup filetype_rust
+  autocmd!
+  autocmd BufWritePre *.rs Neoformat
+augroup END
+
+let g:rustfmt_autosave=0
 
 set shiftwidth=4
 set softtabstop=4
