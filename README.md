@@ -1,5 +1,10 @@
 # Throne
 
+## Notes
+
+- https://github.com/yobert/alsa/blob/master/cmd/beep/main.go
+- https://github.com/tomaka/cpal/blob/master/examples/beep.rs
+
 ## Build
 
 For Ubuntu.
