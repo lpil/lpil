@@ -6,7 +6,7 @@ For Ubuntu.
 
 ```sh
 # Install ARM linker
-sudo apt-get install -qq gcc-arm-linux-gnueabihf
+sudo apt-get install gcc-arm-linux-gnueabihf
 
 # Configure Rust build tool to cross compile
 rustup target add armv7-unknown-linux-gnueabihf

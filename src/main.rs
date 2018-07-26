@@ -22,8 +22,7 @@ fn main() {
     };
 
     loop {
-        io::stdout()
-            .write_i16::<LittleEndian>(next_sample() as i16)
-            .unwrap();
+        let sample = next_sample() as i16;
+        io::stdout().write_i16::<LittleEndian>(sample).unwrap();
     }
 }
