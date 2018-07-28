@@ -3,10 +3,6 @@ if has('nvim')
   tnoremap <Esc> <C-\><C-n>
 endif
 
-function! DoRemote(arg)
-  UpdateRemotePlugins
-endfunction
-
 call plug#begin('~/.vim/plugged')
 
 let lisp_languages = ['scheme', 'clojure', 'lfe']
@@ -50,8 +46,7 @@ Plug 'rhysd/vim-crystal', { 'for': 'crystal' }
 Plug 'rust-lang/rust.vim', { 'for': ['rust', 'markdown'] }
 Plug 'sbdchd/neoformat'
 Plug 'scrooloose/nerdtree'
-Plug 'shougo/deoplete.nvim', { 'do': ':updateremoteplugins' }
-Plug 'shougo/deoplete.nvim', { 'do': function('DoRemote') }
+Plug 'shougo/deoplete.nvim'
 Plug 'sirver/ultisnips'
 Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
 Plug 'supercollider/scvim', { 'for': 'supercollider' }
@@ -72,6 +67,7 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
 Plug 'udalov/kotlin-vim', { 'for': 'kotlin' }
 Plug 'vim-scripts/matchit.zip'
+Plug 'zchee/deoplete-go', { 'do': 'make'}
 
 call plug#end()
 

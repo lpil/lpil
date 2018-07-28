@@ -20,6 +20,7 @@ set --export PG_OF_PATH "/home/louis/projects/openframeworks"
 set fish_user_paths \
   "$HOME/.cache/rebar3/bin" \
   "$HOME/.cargo/bin" \
+  "$HOME/projects/go/bin" \
   "$HOME/.homesick/repos/homeshick/bin" \
   "$HOME/.local/bin"
 
