@@ -1,0 +1,48 @@
+name: bricky
+version: '0.1.0.0'
+category: Web
+author: Louis Pilfold
+maintainer: louis@lpil.uk
+copyright: 2017 Louis Pilfold
+license: BSD3
+github: lpil/bricky
+extra-source-files:
+- README.md
+
+library:
+  source-dirs: src
+  exposed-modules:
+  - Lib
+  dependencies:
+  - base >=4.7 && <5
+
+executables:
+  bricky-exe:
+    main: Main.hs
+    source-dirs: app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - base
+    - bricky
+    - brick
+    - text
+    - vty
+    - microlens
+    - microlens-th
+    - vector
+    - text-zipper
+
+tests:
+  bricky-test:
+    main: Spec.hs
+    source-dirs: test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - base
+    - bricky

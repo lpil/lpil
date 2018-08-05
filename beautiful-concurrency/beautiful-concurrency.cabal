@@ -1,0 +1,31 @@
+-- This file has been generated from package.yaml by hpack version 0.20.0.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: 18a24f3d84d60cd96a1d311ed2ceda5349bfede279682ccd2adb99ef8dc25f6b
+
+name:           beautiful-concurrency
+version:        0.1.0.0
+category:       Web
+homepage:       https://github.com/lpil/beautiful-concurrency#readme
+author:         Louis Pilfold
+maintainer:     louis@lpil.uk
+copyright:      2017 Louis Pilfold
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+cabal-version:  >= 1.10
+
+extra-source-files:
+    README.md
+
+executable beautiful-concurrency
+  main-is: Main.hs
+  hs-source-dirs:
+      src
+  build-depends:
+      base >=4.7 && <5
+    , stm
+  other-modules:
+      Paths_beautiful_concurrency
+  default-language: Haskell2010
