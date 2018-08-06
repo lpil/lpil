@@ -1,0 +1,4 @@
+[package]
+name = "dining_philosophers"
+version = "0.1.0"
+authors = ["Louis Pilfold <louis@lpil.uk>"]
