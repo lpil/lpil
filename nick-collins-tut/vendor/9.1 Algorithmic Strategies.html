@@ -1,0 +1,415 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1038.36">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 40.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Helvetica; min-height: 22.0px}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Helvetica}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Helvetica; color: #cd1713}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Helvetica; color: #102ac2}
+    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Helvetica; color: #cd1713; min-height: 22.0px}
+    span.s1 {color: #000000}
+    span.s2 {color: #008325}
+    span.s3 {color: #102ac2}
+    span.s4 {color: #cd1713}
+    span.s5 {color: #737373}
+    span.Apple-tab-span {white-space:pre}
+  </style>
+</head>
+<body>
+<p class="p1">Strategies for Algorithmic Composition<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">-- Any machinery from mathematics/computer science/artificial intelligence is potentially applicable</p>
+<p class="p2"><br></p>
+<p class="p3">-- Critical issues of musical representation; how to model music on a computer?</p>
+<p class="p2"><br></p>
+<p class="p3">-- Building the model led by musicological analysis and intuition, or by more automated statistical analysis of a corpus</p>
+<p class="p2"><br></p>
+<p class="p3">For discussion of different motivations and methodologies for the modeling of composition by computer, recommended you read:<span class="Apple-converted-space"> </span></p>
+<p class="p3">Pearce, M., Meredith, D. and Wiggins, G. A. (2002) Motivations and Methodologies for Automation of the Compositional Process. Musicae Scientiae 6(2): 119-147</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">//for examples</p>
+<p class="p3">(</p>
+<p class="p5">SynthDef<span class="s1">(</span><span class="s2">\acsound</span><span class="s1">,{</span>|freq=440,amp=0.1,dur= 0.2,cutoff=2000|</p>
+<p class="p3"><span class="s3">var</span> sound, filter;</p>
+<p class="p2"><br></p>
+<p class="p3">sound= <span class="s3">Saw</span>.ar(freq, amp)*<span class="s3">EnvGen</span>.kr(<span class="s3">Env</span>([0,1,1,0],[0.01,0.05,(dur.max(0.07))-0.06]),doneAction:2); <span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">filter= <span class="s3">LPF</span>.ar(sound,<span class="s3">Line</span>.kr(cutoff,300,dur));<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s3">Out</span>.ar(0,filter.dup(2))</p>
+<p class="p3">}).add;</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Practical probability</b></p>
+<p class="p2"><br></p>
+<p class="p3">See the accompanying 'Probability distributions' tutorial later for a more mathematical approach from first principles (skip it if it worries you). We'll use helper functions herein for now.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">Probability is one of the great tools for algorithmic composition work. Rather than deterministic works, fixed given a starting state, we can create probabilistic works, different with every run.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">(Actually, in truth, the random number generation we'll use depends on deterministic 'pseudo-random' functions in the background, cued from some factor like the current system time, but for our intents and purposes, they give the statistically legitimatised variation we seek).<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">A host of probabilistic functions are available in SuperCollider. We'll try some practically useful ones for algorithmic composition now, and also see the [Randomness] help file for some more hints, both language functions and UGens.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Probability theory allows selection from a space of options. Different options can have different chances of being chosen on any given 'roll of the dice'.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">In the simplest form, choices amongst objects might be equally likely (equiprobable, uniform distribution):</p>
+<p class="p2"><br></p>
+<p class="p4">//try these:<span class="Apple-converted-space"> </span></p>
+<p class="p4"><span class="s1">2.rand<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//generates an integer, either 0 or 1</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">2.0.rand<span class="Apple-tab-span">	</span></span>//from 0.0 up to 2.0</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">2.rand2<span class="Apple-tab-span">	</span></span>// -2 to 2</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">2.0.rand2<span class="Apple-tab-span">	</span></span>//-2.0 to 2.0</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">rrand(2,4)<span class="Apple-tab-span">	</span></span>//range from 2 to 4, so one of 2,3,4</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">rrand(2.0,4.0)<span class="Apple-tab-span">	</span></span>//floating point range</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">[3,6,8,19].choose </span>//choose one option from the Array</p>
+<p class="p2"><br></p>
+<p class="p3">All these functions are making selections where the numbers in the range or options in the Array have an equal chance of turning up.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">But the choices can also be weighted differently.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">We might weight lower numbers as more likely than high:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">1.0.linrand </span>//linear distribution; not the same as uniform! Linearly decreasing weighting, so low numbers have more chance of turning up<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s3">Array</span><span class="s1">.fill(1000,{linrand(1.0)}).sort.plot </span>//see this visually by creating 1000 numbers using this generator, sorting them in order, then plotting the results</p>
+<p class="p6"><br></p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">1.0.bilinrand </span>//similar, goes between positive and negative 1.0, more weight towards 0 in all cases</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s3">Array</span>.fill(1000,{bilinrand(1.0)}).sort.plot <span class="s4">//see this visually</span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">1.0.sum3rand </span>//sum of 3 uniform random numbers between plus and minus 1.0 (will come out with more chance of numbers nearer 0, since values can cancel between positive and negative; in general, a sum of distributions tends to a centre-weighted normal distribution)</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s3">Array</span>.fill(1000,{sum3rand(1.0)}).sort.plot <span class="s4">//see this visually</span></p>
+<p class="p6"><br></p>
+<p class="p4">//show similarity</p>
+<p class="p4"><span class="s3">Array</span><span class="s1">.fill(1000,{({1.0.rand2}!3).sum * 0.33}).sort.plot </span>//see this visually by creating 1000 numbers using this generator, sorting them in order, then<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">exprand(1.0,10.0)<span class="Apple-tab-span">	</span></span>//uniform choice, but over an exponentially mapped range, more likely to choose low<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">gauss(0.0,1.0) </span>//famous bell-shaped Gaussian, normal distribution; has two parameters, mean and standard deviation. Most output values are within three standard deviations each side of the mean</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s3">Array</span>.fill(1000,{gauss(0.0,1.0)}).sort.plot <span class="s4">//see this visually</span></p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">gauss(1.0,0.1) </span>//mean 1.0, most output values within 0.3 (3*0.1) either side, so 0.7 to 1.3</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Most often, you use arbitrary weights amongst a discrete set of options. Think of choosing amongst a set of possible MIDI notes, or dynamic levels, or durations.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">[60,62,64,67].wchoose([0.5, 0.25, 0.2, 0.05]) </span>//the first array is the array of options; the second is the array of weights</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s3">Array</span>.fill(1000,{ [60,62,64,67].wchoose([0.5, 0.25, 0.2, 0.05]) }).sort.plot(minval:50, maxval:72) <span class="s4">//see this visually</span></p>
+<p class="p2"><br></p>
+<p class="p3">When you use wchoose, the array of weights has to add up to 1.0 (a standard feature of a probability distribution). There is a helper function for this:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">[14, 3.7, 5.6, 8, 11].normalizeSum </span>//make array add up to 1.0 by dividing by the sum of the entries<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Finally, for rolls of the dice in decision making, the coin function is very useful:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">0.5.coin </span>//fair coin, equal chance of heads or tails: true or false as output<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">0.2.coin </span>//unfair coin, 20% chance true</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">0.95.coin </span>//unfair coin, 95% chance true</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">You can achieve a lot just with controlled use of probability distributions in this way.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">You may also want to explore using different probability distributions at different points in time during a piece, perhaps by varying parameters in gauss, changing the weights for wchoose, or moving between entirely different functions. You can remap the values to different ranges at different points in time, or restrict which parts of a distribution you select from. We've seen similar ideas before in terms of time varying availability; e.g. 'tendency masks' in granular synthesis for allowed parameter ranges at different points in time.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Use of conditionals</b></p>
+<p class="p2"><br></p>
+<p class="p3">Algorithmic music exploits the fundamental building blocks of computer algorithms. Conditional execution empowers computerised decision making; based on the current state, you can choose the next action in either a rigid deterministic way, or with (psuedo-)probabilistic choice.</p>
+<p class="p2"><br></p>
+<p class="p4">//examples:<span class="Apple-converted-space"> </span></p>
+<p class="p4">//deterministic</p>
+<p class="p3">(</p>
+<p class="p3"><span class="s3">var</span> pitch=60, amp=1.0;<span class="Apple-converted-space"> </span></p>
+<p class="p3">if(pitch==60,{amp= 0.2});</p>
+<p class="p3">amp</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p4">//probabilistic</p>
+<p class="p3">(</p>
+<p class="p3"><span class="s3">var</span> pitch=60, amp=1.0;<span class="Apple-converted-space"> </span></p>
+<p class="p4"><span class="s1">if(pitch==60 and: 0.5.coin,{amp= 0.2}); </span>//amp gets set to 0.5 on average half the time<span class="Apple-converted-space"> </span></p>
+<p class="p3">amp</p>
+<p class="p3">)</p>
+<p class="p2"><span class="Apple-converted-space">  </span></p>
+<p class="p2"><br></p>
+<p class="p3">In music, different states might correspond to:</p>
+<p class="p3">-- different parameter settings for musical attributes (as above)</p>
+<p class="p3">-- different playing modes ('mellow', 'aggressive', etc.)</p>
+<p class="p3">-- different models of harmony, tonality, melody... <span class="Apple-converted-space"> </span></p>
+<p class="p3">-- etc</p>
+<p class="p2"><br></p>
+<p class="p3">One interesting analogy is the idea of a finite state machine as a model of computation: the computer has a set of program states it can be in, and at each step can transition to a variety of other states (including staying where it is).<span class="Apple-converted-space">   </span></p>
+<p class="p2"><br></p>
+<p class="p3">It is for you to build the model of music; there are as many music theories as you want to explore. Of course, not all correspond well to existing 'styles' or 'genres', and there is much scope for experiment.<span class="Apple-converted-space">   </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Conditional probability</b></p>
+<p class="p2"><br></p>
+<p class="p3">If some event is known to have happened, this gives information about the situation which restricts what else may happen alongside it. Such reductions from a full choice within probability space to a more restricted area is the domain of conditional probability.</p>
+<p class="p2"><br></p>
+<p class="p3">P (B | A) = P (A and B) / P (A) <span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">where P (B | A) means the probability of B given that A is known to have happened.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">If A is observed, to find P (B | A), look at the probability that both A and B can happen (the intersection of the areas of the probability space represented by A and B) relative to the probability of A happening in the first place. <span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">(sidenote: Bayes theorem follows from the above, as P(B | A)= P(A | B) P(B)/P(A). Bayes theorem is useful for calculating one conditional probability in terms of another, ie A might be some observations and B a world state;<span class="Apple-converted-space">  </span>Bayes theorem lets us calculate the most likely world state, by looking at how each potential world state explains the observations)</p>
+<p class="p2"><br></p>
+<p class="p3">We can also think about this in terms of an event observed a moment ago further constraining what could happen next:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">P (B occurs at time n | A occurs at time n-1) = P (A at time n-1 and B at time n) / P (A occurs at time n-1)</p>
+<p class="p2"><br></p>
+<p class="p3">In general, decisions can take account of not only the current situation, but the history of past states. We move away from '0th-order' systems where each choice is entirely independent of anything else that has happened.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Markovian systems</b></p>
+<p class="p2"><br></p>
+<p class="p3">The idea of the current choice being dependent on past choices is encapsulated in a Markov system of order n, where n is the number of previous choices at stake. Simple Markov processes need to keep track of a larger and larger number of possibilities in a combinatorial explosion. Say there are 3 options at a given time, say, three notes to choose from:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">[</span><span class="s2">\a</span><span class="s1">, </span><span class="s2">\b</span><span class="s1">, </span><span class="s2">\c</span><span class="s1">].choose<span class="Apple-tab-span">	</span></span>//0th order system, uniform selection</p>
+<p class="p2"><br></p>
+<p class="p3">Now say that the choice depends on the choice just made, a 1st order system:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">[<span class="s2">\a</span>, <span class="s2">\b</span>, <span class="s2">\c</span>].wchoose([0.7,0.2,0.1]) <span class="Apple-converted-space">  </span><span class="s4">//if previously choose \a</span></p>
+<p class="p2"><br></p>
+<p class="p3">[<span class="s2">\a</span>, <span class="s2">\b</span>, <span class="s2">\c</span>].wchoose([0.0,0.5,0.5]) <span class="Apple-converted-space">  </span><span class="s4">//if previously choose \b</span></p>
+<p class="p2"><br></p>
+<p class="p3">[<span class="s2">\a</span>, <span class="s2">\b</span>, <span class="s2">\c</span>].wchoose([0.1,0.4,0.5]) <span class="Apple-converted-space">  </span><span class="s4">//if previously choose \c</span></p>
+<p class="p2"><br></p>
+<p class="p3">Then in general there are 3*3= 9 probabilities to specify. For each increase in order, we'd gain another multiple of 3, so a second order Markov system requires 3*3*3 probabilities to be set up, and an Nth order needs 3**(N+1)</p>
+<p class="p2"><br></p>
+<p class="p3">Higher order Markovian systems require exponentially bigger multi-dimensional matrices of probabilities.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">//1st order Markov system example</p>
+<p class="p3">(</p>
+<p class="p3"><span class="s3">var</span> markovmatrix;<span class="Apple-converted-space"> </span></p>
+<p class="p3">var currentstate=3.rand; //start in one of three states</p>
+<p class="p2"><br></p>
+<p class="p3">markovmatrix= [</p>
+<p class="p3">[0.7,0.2,0.1],</p>
+<p class="p3">[0.0,0.5,0.5],</p>
+<p class="p3">[0.3,0.4,0.3]</p>
+<p class="p3">];</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">{</p>
+<p class="p3"><span class="Apple-tab-span">	</span>20.do{</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s3"><span class="Apple-tab-span">	</span>Synth</span>(<span class="s2">\acsound</span>,[<span class="s2">\freq</span>, [48,60,64].at(currentstate).midicps]);<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>//which probability distribution to use depends on what state we're in right now</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>currentstate = [0,1,2].wchoose(markovmatrix[currentstate]);<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0.25.wait;</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>};</p>
+<p class="p2"><br></p>
+<p class="p3">}.fork;</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">For fixed and variable order Markovian modeling see also the MathLib and ContextSnake Quarks.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Search</b></p>
+<p class="p2"><br></p>
+<p class="p3">Search is a fundamental operation in computer algorithms. Musical parameterisations lead to combinatorially explosive search spaces, and issues of computational tractability. <b>Heuristics</b> are rules of thumb to cut down the amount of brute search by pruning the search tree. <span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">Charles Ames differentiates:</p>
+<p class="p2"><br></p>
+<p class="p3"><b>comparative search</b>: an exhaustive search through all options. Can find an optimal solution, but usually too computationally intensive</p>
+<p class="p2"><br></p>
+<p class="p3"><b>constrained search</b>: finds a `good' solution by approximate methods, i.e., heuristics. <span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">An early strategy (used back in 1955 by Hiller and Isaacson's) was <b>generate and test</b>. Random numbers are generated until they pass a test. The passed number becomes the latest choice, and a new selection is then made. Alternatively, we might restrict generations to only acceptable options in the first place (by heuristics).</p>
+<p class="p2"><br></p>
+<p class="p3">More complicated strategies include <b>back tracking</b> (jumping back to an earlier decision point when a path has led to an impasse) and <b>dynamic programming</b> (greedy selection of the best option according to a cost function at any point, to comparison of multiple paths taking into account all steps but keeping down the proliferation of possible paths by only following best scoring paths to any given branching point).<span class="Apple-converted-space">   </span></p>
+<p class="p2"><br></p>
+<p class="p3">You should see that any machinery from AI (whether GOFAI symbolic or connectionist) may be imported to problems of musical search.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">//generate and test</p>
+<p class="p3">(</p>
+<p class="p3"><span class="s3">var</span> currentvalue= rrand(60,72);<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="s3">var</span> generateandtest;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">generateandtest= {<span class="s3">|previous=60|</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s3">var</span> number=rrand(24,127);<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s3">var</span> keeplooking;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p4"><span class="s1"><span class="Apple-tab-span">	</span></span>//keep searching until a number passes the tests</p>
+<p class="p3"><span class="Apple-tab-span">	</span>while({</p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>keeplooking= <span class="s3">false</span>; <span class="s4">//can only fail</span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p4"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//note we could replace this test with just generating number in the allowable range to start with</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>if (abs(number-previous)&gt;12) {</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>keeplooking= <span class="s3">true</span>;<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>};</p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p4"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//avoid certain intervals</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>if (#[-5,-3,4,7,11].includes(number-previous)) {</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>keeplooking= <span class="s3">true</span>;<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>};</p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>((number.asString)++(if(keeplooking,<span class="s5">" rejected"</span>,<span class="s5">"accepted"</span>))).postln;</p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>keeplooking</p>
+<p class="p3"><span class="Apple-tab-span">	</span>},{</p>
+<p class="p4"><span class="s1"><span class="Apple-tab-span">	</span></span>//no need to do anything here, all done in while test function</p>
+<p class="p3"><span class="Apple-tab-span">	</span>number=rrand(24,127);<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>});</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>number</p>
+<p class="p3">}; <span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p3">{</p>
+<p class="p3"><span class="Apple-tab-span">	</span>20.do{</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>currentvalue = generateandtest.(currentvalue);</p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s3">Synth</span>(<span class="s2">\acsound</span>,[<span class="s2">\freq</span>, currentvalue.midicps]);<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0.25.wait;</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>};</p>
+<p class="p2"><br></p>
+<p class="p3">}.fork;</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Sonification of mathematics</b></p>
+<p class="p2"><br></p>
+<p class="p3">Given the wonderful resources of mathematics, it's very tempting to translate mathematical structures into musical output. But be warned that the transformation does not often make perceptual sense, and can be very contrived. On the other hand, it may lead you to stimulating output you wouldn't otherwise have conceived.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">//logistic map function used to generate pitch values</p>
+<p class="p3">(</p>
+<p class="p3"><span class="s3">var</span> currentvalue= 1.0.rand;<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="s3">var</span> logisticmap, r;</p>
+<p class="p2"><br></p>
+<p class="p3">r=3.74; <span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">logisticmap= {<span class="s3">|previous=60|</span></p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>((1.0-previous)*previous*r).postln;</p>
+<p class="p3">}; <span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p3">{</p>
+<p class="p3"><span class="Apple-tab-span">	</span>50.do{</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>currentvalue = logisticmap.(currentvalue);</p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p4"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//must convert from the value in the range 0.0 to 1.0 to a musically useful pitch value</p>
+<p class="p4"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//quartertones here</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s3">Synth</span>(<span class="s2">\acsound</span>,[<span class="s2">\freq</span>, (60+((currentvalue*12).round(0.5))).midicps]);<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0.125.wait;</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>};</p>
+<p class="p2"><br></p>
+<p class="p3">}.fork;</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">The example here demonstrates how the logistic map acts as a <b>generator</b> of values at the required rate for musical events set required, much as a UGen is a (usually much faster running) generator of sample values at audio rate. Analogous networks of number generation and modification (synthesis and processing) can be formed in algorithmic composition to determine musical parameter values for event streams.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">We'll continue this next year in advanced computer music by discussing mappings and musical modeling in general. For example, we haven't touched here on data-driven modeling where a corpus is automatically analyzed to create a generative model. You may still approach such things intuitively, by formulating rules via your own personal analyses of musical style. <span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+</body>
+</html>

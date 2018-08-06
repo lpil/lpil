@@ -1,0 +1,207 @@
+<html>
+<head>
+<title>SuperCollider tutorial by Nick Collins</title>
+<link rel=stylesheet type="text/css" href="styles.css">
+
+</head>
+
+<body text="#90000" bgcolor="white" link="#0000FF" vlink="#551A8B" alink="#0000FF">
+<center>
+
+<a href="http://composerprogrammer.com/index.html">Nick Collins' Website</a>
+
+<H2>SuperCollider tutorial</H2>
+
+Also available as a downloadable zip of RTF, HTML and text files:<br>
+<a href="http://composerprogrammer.com/code/sctutorial.zip">sctutorial.zip</a><br><br>
+
+
+Shortcuts:<br>
+
+<a href="#chapter1">1. Introduction and Overview</a><br>
+<a href="#chapter2">2. Sound Synthesis 1: Additive, Subtractive, Modulation</a><br>
+<a href="#chapter3">3. Sequencing</a><br>
+<a href="#chapter4">4. Interaction 1</a><br>
+<a href="#chapter5">5. Sound Synthesis 2: Sample-based, Granular</a><br>
+<a href="#chapter6">6. Effects</a><br>
+<a href="#chapter7">7. Interaction 2</a><br>
+<a href="#chapter8">8. Timing and Psychology of Rhythm</a><br>
+<a href="#chapter9">9. Algorithmic Composition</a><br>
+<a href="#chapter10">10. Open Sound Control, Server Messaging, Network Music</a><br>
+<a href="#chapter11">11. Sound Synthesis 3 - Physical Modelling</a><br>
+<a href="#chapter12">12. Sound Analysis</a><br>
+<a href="#chapter13">Extra exercises and SC technicalities: from arrays to classes</a><br>
+<!--<a href="#chapter14">14. Sound Design</a><br>-->
+
+
+<br>
+
+<H3><a name="chapter1">1. Introduction and Overview</a></H3>
+
+<a href="1.1 Getting Started.html">1.1 Getting Started.html</a><br><br>
+<a href="1.2 Getting Around in SC3.html">1.2 Getting Around in SC3.html</a><br><br>
+<a href="1.3 Obtaining SC3.html">1.3 Obtaining SC3.html</a><br><br>
+
+<b>Week 1 exercise: Explore SuperCollider!</b><br>
+
+<br><br><br>
+
+<H3><a name="chapter2">2. Sound Synthesis 1: Additive, Subtractive, Modulation</a></H3>
+
+<a href="2.1 Subtractive and Additive Synthesis.html">2.1 Subtractive and Additive Synthesis.html</a><br><br>
+<a href="2.2 Mul and add.html">2.2 Mul and add.html</a><br><br>
+<a href="2.3 Controlling Synths.html">2.3 Controlling Synths.html</a><br><br>
+<a href="2.4 Modulation Synthesis.html">2.4 Modulation Synthesis.html</a><br><br>
+<a href="2.5 More Synthesis Examples.html">2.5 More Synthesis Examples.html</a><br><br>
+
+<b>Week 2 exercise: explore the materials thoroughly, looking up anything you don't understand; create additive,  subtractive and modulation synthesis patches of your own</b><br>
+
+<br><br><br>
+
+<H3><a name="chapter3">3. Sequencing</a></H3>
+
+<a href="3.1 Envelopes.html">3.1 Envelopes.html</a><br><br>
+<a href="3.2 SynthDefs.html">3.2 SynthDefs.html</a><br><br>
+<a href="3.3 Sequencing.html">3.3 Sequencing.html</a><br><br>
+<a href="3.4 Server-side Sequencing and Triggers.html">3.4 Server-side Sequencing and Triggers.html</a><br><br>
+<a href="3.5 Nested Scheduling.html">3.5 Nested Scheduling.html</a><br><br>
+
+<br><br>
+
+<b>Week 3 exercise: Practice creating some SynthDefs (which should have a doneAction:2 in them), and make simple sequences where you schedule Synths over time in an entertaining way</b><br><br>
+
+<br><br><br>
+
+<H3><a name="chapter4">4. Interaction 1</a></H3>
+
+<a href="4.1 Interaction 1.html">4.1 Interaction 1.html</a><br><br>
+<a href="4.2 Graphical User Interfaces.html">4.2 Graphical User Interfaces.html</a><br><br>
+<a href="4.3 Further GUI Example.html">4.3 Further GUI Example.html</a><br><br>
+
+<b>Week 4 exercise: Mock up a simple prototype GUI that controls some simple sound synthesis. If you're stuck for ideas, make a subtractive synthesizer with GUI controls for the filter. Or convert any of your existing sound synthesis patches for GUI control</b><br>
+
+<br><br><br>
+
+<H3><a name="chapter5">5. Sound Synthesis 2: Sample-based, Granular</a></H3>
+
+<a href="5.1 Buffers and Sound Files.html">5.1 Buffers and Sound Files.html</a><br><br>
+<a href="5.2 Granular Synthesis.html">5.2 Granular Synthesis.html</a><br><br>
+<a href="5.3 GUI+Loop Example.html">5.3 GUI+Loop Example.html</a><br><br>
+<a href="5.4 Granular Bonus Examples.html">5.4 Granular Bonus Examples.html</a><br><br>
+
+<b>Week 5 exercise: Explore processing sound files in SuperCollider; create a simple granular synthesizer with some GUI controls.</b><br><br>
+
+<br><br><br>
+
+<H3><a name="chapter6">6. Effects</a></H3>
+
+<a href="6.1 Buses.html">6.1 Buses.html</a><br><br>
+<a href="6.2 Control Buses.html">6.2 Control Buses.html</a><br><br>
+<a href="6.3 Nodes.html">6.3 Nodes.html</a><br><br>
+<a href="6.4 Effects 1.html">6.4 Effects 1.html</a><br><br>
+<a href="6.5 Effects 2.html">6.5 Effects 2.html</a><br><br>
+
+<b>Week 6 exercise: Build an example patch with a global effects unit (such as a reverb or distortion). You should construct the effects unit using a separate Synth; this effect should be applied to any other Synths (which might use any of the SynthDefs you've built so far on the course). Execution order is critical here and you will need to understand 6.3 to achieve this.</b><br><br>
+
+<br><br><br>
+
+
+<H3><a name="chapter7">7. Interaction 2</a></H3>
+
+<a href="7.1 Interaction 2.html">7.1 Interaction 2.html</a><br><br>
+
+<b>Week 7 exercise: Try out MIDI control of sound using MIDI keyboards, or audio input feature control. You might trigger new short-lived Synths based on input, or modulate parameters of an existing sustained Synth</b><br><br>
+
+<br><br><br>
+
+
+<H3><a name="chapter8">8. Timing and Psychology of Rhythm</a></H3>
+
+<a href="8.1 Precise Timing in SC.html">8.1 Precise Timing in SC.html</a><br><br>
+<a href="8.2 Some Time and Rhythm Demoes.html">8.2 Some Time and Rhythm Demoes.html</a><br><br>
+
+<b>Week 8 exercise: explore, and vary, the examples of psychology of rhythm. Can you also implement any more advanced compositional rhythmic structures (such as multiple simultanous tempi, or metric modulation)?</b><br><br>
+
+<br><br><br>
+
+
+<H3><a name="chapter9">9. Algorithmic Composition</a></H3>
+<a href="9.1 Algorithmic Strategies.html">9.1 Algorithmic Strategies.html</a><br><br>
+<a href="9.2 Patterns.html">9.2 Patterns.html</a><br><br>
+<a href="9.3 Probability Distributions (optional).html">9.3 Probability Distributions (optional).html</a><br><br>
+
+<b>Plan an algorithmic composition, deciding upon style, and algorithmic structuring. You might like to consider: what aspects of the work could change with each run of the program?</b>
+
+<br><br><br>
+
+
+<H3><a name="chapter10">10. Network Music</a></H3>
+
+<a href="10.1 Open Sound Control.html">10.1 Open Sound Control.html</a><br><br>
+<a href="10.2 Messaging Style.html">10.2 Messaging Style.html</a><br><br>
+<a href="10.3 Network Music Lab.html">10.3 Network Music Lab.html</a><br><br>
+<a href="10.4 Mouse To Lang.html">10.4 Mouse To Lang.html</a><br><br>
+
+<b>Week 10 exercise: Try passing musical information between two computers, or two programs on one computer. You can always send information via the loopback node to the same instance of SuperCollider if you're stuck.</b><br><br>
+
+<br><br><br>
+
+
+
+<H3><a name ="chapter11">11. Sound Synthesis 3: Physical Modelling</a></H3>
+<a href="11.1 Physical Modelling.html">11.1 Physical Modelling.html</a><br><br>
+<a href="11.2 Analogue Modelling.html">11.2 Analogue Modelling.html</a><br><br>
+
+<b>Week 11 exercise: Explore physical modelling synthesis, creating patches of your own especially using the source (excitation signal) + filter (body resonator) model</b><br><br>
+
+<br><br><br>
+
+
+
+<H3><a name="chapter12">12. Sound Analysis</a></H3>
+<a href="12.1 FFT.html">12.1 FFT.html</a><br><br>
+<a href="12.2 Singing Voice Synthesis.html">12.2 Singing Voice Synthesis.html</a><br><br>
+
+<b>Week 12 exercise: Try out the FFT based UGens to do spectral processing</b><br><br>
+
+<br><br><br>
+
+
+<H3><a name ="chapter13">Extra exercises and SC technicalities: from arrays to classes</a></H3>
+
+
+<a href="Exercises/SC Programming Exercises.html">SC Programming Exercises.html</a><br><br>
+<a href="Exercises/Patterns Exercises.html">Patterns Exercises.html</a><br><br><br>
+
+
+<a href="Technicalities/01 Programming.html">01 Programming.html</a><br><br>
+<a href="Technicalities/02 Arrays.html">02 Arrays.html</a><br><br>
+<a href="Technicalities/03 Plotting.html">03 Plotting.html</a><br><br>
+<a href="Technicalities/04 Global Variables and Environments.html">04 Global Variables and Environments.html</a><br><br>
+<a href="Technicalities/05 Clocks and Scheduling.html">05 Clocks and Scheduling.html</a><br><br>
+<a href="Technicalities/06 Routines and Tasks.html">06 Routines and Tasks.html</a><br><br>
+<a href="Technicalities/07 Dealing with Large Projects.html">07 Dealing with Large Projects.html</a><br><br>
+<a href="Technicalities/08 Writing Classes.html">08 Writing Classes.html</a><br>
+You will need these two class files:<br>
+<a href="Technicalities/writingclassesexamples/NastySynth.sc">NastySynth.sc</a><br>
+<a href="Technicalities/writingclassesexamples/SuperMario.sc">SuperMario.sc</a><br>
+<br><br>
+<a href="Technicalities/09 Programming (advanced).html">09 Programming (advanced).html</a><br><br>
+<a href="Technicalities/10 Extending SuperCollider.html">10 Extending SuperCollider.html</a><br><br>
+
+<b>Classes exercise: Convert one of your existing programs into a class and client code; how does this neaten and clarify your work? Consider how to use classes to tidy up your portofolio- is there any reusable code you can factor into classes? After you've done this, explore third party libraries galore!</b><br><br>
+
+Some links to extensions:<br>
+<a href="http://sourceforge.net/projects/sc3-plugins/">SourceForge sc3-plugins project (including many third party library projects)</a><br>
+<a href="http://swiki.hfbk-hamburg.de:8888/MusicTechnology/532">The Swiki open resource site has links to many SC extensions</a><br>
+
+<br><br><br>
+
+
+
+</center>
+
+
+</body>
+
+</html>

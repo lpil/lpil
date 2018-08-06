@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1038.36">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 24.0px Monaco}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; min-height: 25.0px}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #cd1713}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #102ac2; min-height: 25.0px}
+    span.s1 {color: #102ac2}
+    span.s2 {color: #737373}
+    span.s3 {color: #000000}
+    span.Apple-tab-span {white-space:pre}
+  </style>
+</head>
+<body>
+<p class="p1">Dealing with large projects</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">There comes a point with SuperCollider when your code begins to grow and grow</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">If you find yourself writing one huge file for your piece, you must start to consider spreading work over multiple files.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">You can bring in further files within the current one:</p>
+<p class="p2"><br></p>
+<p class="p3">Create a file called extrafile.rtf by making a new window and copying in the following code</p>
+<p class="p2"><br></p>
+<p class="p3">{<span class="s1">SinOsc</span>.ar(440,0,0.1)}.play</p>
+<p class="p2"><br></p>
+<p class="p3">then save the file in your SuperCollider application directory under that name.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">Now run</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">"extrafile.rtf"</span><span class="s3">.loadPath; </span>//after creating extrafile.rtf</p>
+<p class="p2"><br></p>
+<p class="p3">which runs the interpreter on that file:</p>
+<p class="p5"><br></p>
+<p class="p4">//put in appropriate pathname</p>
+<p class="p3"><span class="s1">thisProcess</span>.interpreter.executeFile(<span class="s2">"extrafile.rtf"</span>);</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">This is often useful in particular for loading large datasets. There are also specific file reading and writing capabilities (ie File, see the main help page).</p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">In terms of breaking up complex programs, a better approach is to use classes. You should always aim to encapsulate and modularise re-usable code. See the tutorial chapters on writing classes, and read up on object-oriented design. <span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+</body>
+</html>

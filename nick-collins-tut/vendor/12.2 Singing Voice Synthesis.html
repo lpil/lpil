@@ -1,0 +1,373 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1038.36">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 24.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 24.0px Helvetica; min-height: 29.0px}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 24.0px Helvetica; color: #102ac2}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 24.0px Helvetica; color: #cd1713}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 24.0px Helvetica; color: #008325}
+    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 24.0px Helvetica; color: #cd1713; min-height: 29.0px}
+    span.s1 {color: #102ac2}
+    span.s2 {color: #000000}
+    span.s3 {color: #008325}
+    span.s4 {color: #cd1713}
+    span.Apple-tab-span {white-space:pre}
+  </style>
+</head>
+<body>
+<p class="p1">The Human Voice<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">Use internal server:</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="s1">Server</span>.default= s= <span class="s1">Server</span>.internal</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">The voice can be considered as a source and filter system where the source is a periodic oscillation at the vocal folds (for vowel like sounds), or aperiodic air turbulence (for consonantal sounds).<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">So the simplest models might look like :</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">(</p>
+<p class="p3">SynthDef<span class="s2">(</span><span class="s3">\voicesound1</span><span class="s2">,{</span>|voiced=1 freq=440 amp=0.1|</p>
+<p class="p1"><span class="s1">var</span> source, filter;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">//flag for voiced (periodic) or unvoiced (aperiodic, noise source)</p>
+<p class="p2"><br></p>
+<p class="p1">source = if(voiced,<span class="s1">Impulse</span>.ar(freq),<span class="s1">WhiteNoise</span>.ar(0.2));</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">filter= </span><span class="s1">BLowPass</span><span class="s2">.ar(</span><span class="s1">BPF</span><span class="s2">.ar(source,2000,0.1, source),4000, 0.25,100); </span>//add a boost to source around 2000 Hz, and also low pass overall</p>
+<p class="p2"><span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="s1">Out</span>.ar(0,amp*filter.dup)</p>
+<p class="p1">}).add</p>
+<p class="p1">)</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s2">a= </span><span class="s1">Synth</span><span class="s2">(</span>\voicesound1<span class="s2">)</span></p>
+<p class="p2"><br></p>
+<p class="p1">a.set(<span class="s3">\voiced</span>, 0)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">However, this doesn't yet sound even slightly convincing.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">One necessary complication is in the filtering. Our nose and throat is a complex system, with many independent muscle groups acting to control the position of tongue, lips, air spaces and relative flow into the nose. In order to make more convincing syntheses, we need better filter data. Each phone (distinct sound which the voice can create) has particular physical settings, and associated filtering.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">One way of modeling the filtering is to look at important peaks and troughs in the frequency spectrum of a given sound; we model the spectral envelope. The major peaks are called the formants, and for a vowel or voiced consonant there tend to be up to five major peaks. Formant data varies between voice types, but charts are available (one table of formants is available here: <span class="s4">http://ecmc.rochester.edu/onlinedocs/Csound/Appendices/table3.html</span>)<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">formant positions:<span class="Apple-converted-space"> </span></p>
+<p class="p4">//soprano 'a' sound, direct additive synthesis, one source per formant<span class="Apple-converted-space"> </span></p>
+<p class="p6"><br></p>
+<p class="p1">(</p>
+<p class="p3">SynthDef<span class="s2">(</span><span class="s3">\voicesound2</span><span class="s2">,{</span>|voiced=1 freq= 440 amp=0.1|<span class="s2"><span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1">var</span> formantfreqs, formantamps, formantbandwidths; <span class="s4">//data for formants</span></p>
+<p class="p1"><span class="s1">var</span> output;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">formantfreqs= [800,1150,2900,3900,4950]; <span class="s4">//centre frequencies of formants</span></p>
+<p class="p1">formantamps= ([0 ,-6,-32,-20,-50]-6).dbamp; <span class="s4">//peaks of formants</span></p>
+<p class="p1">formantbandwidths=[80,90,120,130,140];<span class="Apple-converted-space">  </span><span class="s4">//bandwidths</span></p>
+<p class="p2"><br></p>
+<p class="p1">output= <span class="s1">Mix</span>(<span class="s1">SinOsc</span>.ar(formantfreqs,0,formantamps))*amp;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="s1">Out</span>.ar(0,output.dup)</p>
+<p class="p1">}).play</p>
+<p class="p1">)</p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p4">//soprano 'a' sound, subtractive synthesis, pass source waveform through formant filtering<span class="Apple-converted-space"> </span></p>
+<p class="p6"><br></p>
+<p class="p1">(</p>
+<p class="p3">SynthDef<span class="s2">(</span><span class="s3">\voicesound3</span><span class="s2">,{</span>|voiced=1 freq= 440 amp=0.1|<span class="s2"><span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1">var</span> formantfreqs, formantamps, formantbandwidths; <span class="s4">//data for formants</span></p>
+<p class="p1"><span class="s1">var</span> source, output;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">formantfreqs= [800,1150,2900,3900,4950]; <span class="s4">//centre frequencies of formants</span></p>
+<p class="p1">formantamps= ([0 ,-6,-32,-20,-50]-6).dbamp; <span class="s4">//peaks of formants</span></p>
+<p class="p1">formantbandwidths=[80,90,120,130,140];<span class="Apple-converted-space">  </span><span class="s4">//bandwidths</span></p>
+<p class="p2"><br></p>
+<p class="p1">source = if(voiced,<span class="s1">Impulse</span>.ar(freq),<span class="s1">WhiteNoise</span>.ar(0.2));</p>
+<p class="p2"><br></p>
+<p class="p1">output= <span class="s1">Mix</span>(<span class="s1">BPF</span>.ar(source, formantfreqs,formantbandwidths/formantfreqs,formantamps))*10*amp;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="s1">Out</span>.ar(0,output.dup)</p>
+<p class="p1">}).add</p>
+<p class="p1">)</p>
+<p class="p6"><br></p>
+<p class="p5"><span class="s2">a= </span><span class="s1">Synth</span><span class="s2">(</span>\voicesound3<span class="s2">)</span></p>
+<p class="p2"><br></p>
+<p class="p1">a.set(<span class="s3">\voiced</span>, 0)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">//viewing through the frequency scope, humps in the spectrum are visible; note how the Whitenoise is too noisy, and the impulse sound too pure a chain of harmonics!<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">FreqScope.new</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p6"><br></p>
+<p class="p4">//let's tweak things by adding in some more complicated sources with vibrato:<span class="Apple-converted-space"> </span></p>
+<p class="p6"><br></p>
+<p class="p1">(</p>
+<p class="p3">SynthDef<span class="s2">(</span><span class="s3">\voicesound4</span><span class="s2">,{</span>|voiced=1 freq= 440 amp=0.1|<span class="s2"><span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1">var</span> formantfreqs, formantamps, formantbandwidths; <span class="s4">//data for formants</span></p>
+<p class="p1"><span class="s1">var</span> periodicsource, aperiodicsource, source, output;<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="s1">var</span> vibrato;<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="s1">var</span> vibratonoise= <span class="s1">LFNoise1</span>.kr(10);<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">formantfreqs= [800,1150,2900,3900,4950]; <span class="s4">//centre frequencies of formants</span></p>
+<p class="p1">formantamps= ([0 ,-6,-32,-20,-50]-6).dbamp; <span class="s4">//peaks of formants</span></p>
+<p class="p1">formantbandwidths=[80,90,120,130,140];<span class="Apple-converted-space">  </span><span class="s4">//bandwidths</span></p>
+<p class="p2"><br></p>
+<p class="p4">//with vibrato up to quartertone, rate of vibrato around 6+-1 Hz</p>
+<p class="p4">//calculate vibrato in midi note (log frequency) domain; final .midicps takes it back to frequency</p>
+<p class="p4">//line generator delays onset of vibrato like a real singer</p>
+<p class="p1">vibrato= ((freq.cpsmidi)+(<span class="s1">Line</span>.kr(0.0,1.0,2.5)*<span class="s1">SinOsc</span>.kr(6+(1.0*vibratonoise),0,0.5))).midicps;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">//</span> low pass filter on Impulse to avoid high harmonics making it too bright</p>
+<p class="p1">periodicsource= <span class="s1">LPF</span>.ar(<span class="s1">Impulse</span>.ar(vibrato),5000);</p>
+<p class="p2"><br></p>
+<p class="p4">//pink noise drops off as frequency increases at -dB per octave,</p>
+<p class="p1">aperiodicsource= <span class="s1">PinkNoise</span>.ar(0.7);</p>
+<p class="p2"><br></p>
+<p class="p4">//take now as mixture of periodic and aperiodic</p>
+<p class="p1">source= (voiced*periodicsource)+((1.0-voiced)*aperiodicsource);<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">output= <span class="s1">Mix</span>(<span class="s1">BPF</span>.ar(source, formantfreqs,formantbandwidths/formantfreqs,formantamps))*100*amp;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="s1">Out</span>.ar(0,output.dup)</p>
+<p class="p1">}).add</p>
+<p class="p1">)</p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p5"><span class="s2">a= </span><span class="s1">Synth</span><span class="s2">(</span>\voicesound4<span class="s2">)</span></p>
+<p class="p2"><br></p>
+<p class="p4">//can now set to intermediate mixes of vowel and consonant<span class="Apple-converted-space"> </span></p>
+<p class="p1">a.set(<span class="s3">\voiced</span>, 0.8)</p>
+<p class="p6"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">For further realism, might modulate subtly the formant data, and experiment with other source waveforms than the impulse</p>
+<p class="p2"><br></p>
+<p class="p6"><br></p>
+<p class="p1">(</p>
+<p class="p3">SynthDef<span class="s2">(</span><span class="s3">\voicesound5</span><span class="s2">,{</span>|voiced=1 freq= 440 amp=0.1|<span class="s2"><span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1">var</span> formantfreqs, formantamps, formantbandwidths; <span class="s4">//data for formants</span></p>
+<p class="p1"><span class="s1">var</span> periodicsource, aperiodicsource, source, output;<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="s1">var</span> vibrato;<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="s1">var</span> vibratonoise= <span class="s1">LFNoise1</span>.kr(10);<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">formantfreqs= [800,1150,2900,3900,4950]; <span class="s4">//centre frequencies of formants</span></p>
+<p class="p1">formantamps= ([0 ,-6,-32,-20,-50]-6).dbamp; <span class="s4">//peaks of formants</span></p>
+<p class="p1">formantbandwidths=[80,90,120,130,140];<span class="Apple-converted-space">  </span><span class="s4">//bandwidths</span></p>
+<p class="p2"><br></p>
+<p class="p4">//with vibrato up to quartertone, rate of vibrato around 6+-1 Hz</p>
+<p class="p4">//calculate vibrato in midi note (log frequency) domain; final .midicps takes it back to frequency</p>
+<p class="p4">//line generator delays onset of vibrato like a real singer</p>
+<p class="p1">vibrato= ((freq.cpsmidi)+(<span class="s1">Line</span>.kr(0.0,1.0,2.5)*<span class="s1">SinOsc</span>.kr(6+(1.0*vibratonoise),0,0.5))).midicps;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">// low pass filter to avoid high harmonics making it too bright</p>
+<p class="p1">periodicsource= <span class="s1">LPF</span>.ar(<span class="s1">Pulse</span>.ar(vibrato,<span class="s1">LFNoise2</span>.kr(<span class="s1">LFNoise1</span>.kr(1,0.25,0.5),0.1,0.5)),5000);</p>
+<p class="p2"><br></p>
+<p class="p4">//pink noise drops off as frequency increases at -dB per octave,</p>
+<p class="p1">aperiodicsource= <span class="s1">PinkNoise</span>.ar(0.7);</p>
+<p class="p2"><br></p>
+<p class="p4">//take now as mixture of periodic and aperiodic</p>
+<p class="p1">source= (voiced*periodicsource)+((1.0-voiced)*aperiodicsource);<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">output= <span class="s1">Mix</span>(<span class="s1">BPF</span>.ar(source, formantfreqs,(formantbandwidths+<span class="s1">LFNoise2</span>.kr(<span class="s1">LFNoise1</span>.kr(1,0.5,4),10))/formantfreqs,formantamps))*100*amp;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="s1">Out</span>.ar(0,output.dup)</p>
+<p class="p1">}).add</p>
+<p class="p1">)</p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p5"><span class="s2">a= </span><span class="s1">Synth</span><span class="s2">(</span>\voicesound5<span class="s2">)</span></p>
+<p class="p2"><br></p>
+<p class="p4">//can now set to intermediate mixes of vowel and consonant<span class="Apple-converted-space"> </span></p>
+<p class="p1">a.set(<span class="s3">\voiced</span>, 0.7)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">Let's take a moment to look at the formants in our own voices</p>
+<p class="p2"><br></p>
+<p class="p1">{<span class="s1">SoundIn</span>.ar}.play</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">To best analyse these over time, hold a stable mouth shape and pitch (sing 'ah' at a comfortable and stable pitch) and look for peaks in the spectrogram (which should stay relatively stable since you are holding stable, give or take some slight noise due to the character of your own voice). <span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">There are some UGens in SuperCollider which assist in synthesising formants, that is, prominent energy peaks above a fundamental frequency.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s2">[</span>Formlet<span class="s2">]</span></p>
+<p class="p2"><br></p>
+<p class="p1">Formlet is a filter which imposes a resonance at a specified frequency. The filter has a similar response to a classical method of synthesising formant waveforms called Fonction d'onde formantique (FOF) as used in IRCAM's Chant synthesiser from the 1980s (see the Roads Computer Music Tutorial, or http://www-ccrma.stanford.edu/~serafin/320/lab3/FOF_synthesis.html, for example)<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">single formant:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">{ <span class="s1">Formlet</span>.ar(<span class="s1">Impulse</span>.ar(440, 0.5,0.1),<span class="s1">MouseX</span>.kr(300,3000,<span class="s3">'exponential'</span>), 0.01, <span class="s1">MouseY</span>.kr(0.1,1.0,<span class="s3">'exponential'</span>)) }.play;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">used for voice synthesis:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">(</p>
+<p class="p3">SynthDef<span class="s2">(</span><span class="s3">\voicesound6</span><span class="s2">,{</span>|voiced=1 freq= 440 amp=0.1 resonancescaling=5|<span class="s2"><span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1">var</span> formantfreqs, formantamps, formantbandwidths; <span class="s4">//data for formants</span></p>
+<p class="p1"><span class="s1">var</span> periodicsource, aperiodicsource, source, output;<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="s1">var</span> vibrato;<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="s1">var</span> vibratonoise= <span class="s1">LFNoise1</span>.kr(10);<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">formantfreqs= [800,1150,2900,3900,4950]; <span class="s4">//centre frequencies of formants</span></p>
+<p class="p1">formantamps= ([0 ,-6,-32,-20,-50]-6).dbamp; <span class="s4">//peaks of formants</span></p>
+<p class="p1">formantbandwidths=[80,90,120,130,140];<span class="Apple-converted-space">  </span><span class="s4">//bandwidths</span></p>
+<p class="p2"><br></p>
+<p class="p4">//with vibrato up to quartertone, rate of vibrato around 6+-1 Hz</p>
+<p class="p4">//calculate vibrato in midi note (log frequency) domain; final .midicps takes it back to frequency</p>
+<p class="p4">//line generator delays onset of vibrato like a real singer</p>
+<p class="p1">vibrato= ((freq.cpsmidi)+(<span class="s1">Line</span>.kr(0.0,1.0,2.5)*<span class="s1">SinOsc</span>.kr(6+(1.0*vibratonoise),0,0.5))).midicps;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">// low pass filter on Impulse to avoid high harmonics making it too bright</p>
+<p class="p1">periodicsource= <span class="s1">LPF</span>.ar(<span class="s1">Impulse</span>.ar(vibrato),5000);</p>
+<p class="p2"><br></p>
+<p class="p4">//pink noise drops off as frequency increases at -dB per octave,</p>
+<p class="p1">aperiodicsource= <span class="s1">PinkNoise</span>.ar(0.7);</p>
+<p class="p2"><br></p>
+<p class="p4">//take now as mixture of periodic and aperiodic</p>
+<p class="p1">source= (voiced*periodicsource)+((1.0-voiced)*aperiodicsource);<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">//the decaytime of the formlet is the filter's resonant decay time; a small bandwidth corresponds to a long decay (a 'ringing' filter). So I take the reciprocal of the formant bandwidth as an estimate of decaytime here, multiplied by a scaling factor for degree of resonance</p>
+<p class="p1">output= <span class="s1">Mix</span>(<span class="s1">Formlet</span>.ar(source, formantfreqs, 0.001, resonancescaling*formantbandwidths.reciprocal, formantamps))*10*amp;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="s1">Out</span>.ar(0,output.dup)</p>
+<p class="p1">}).add</p>
+<p class="p1">)</p>
+<p class="p2"><br></p>
+<p class="p6"><br></p>
+<p class="p5"><span class="s2">a= </span><span class="s1">Synth</span><span class="s2">(</span>\voicesound6<span class="s2">)</span></p>
+<p class="p2"><br></p>
+<p class="p4">//can now set to intermediate mixes of vowel and consonant<span class="Apple-converted-space"> </span></p>
+<p class="p1">a.set(<span class="s3">\voiced</span>, 0.9)</p>
+<p class="p5"><span class="s2">a.set(</span>\resonancescaling<span class="s2">, 20)</span></p>
+<p class="p5"><span class="s2">a.set(</span>\resonancescaling<span class="s2">, 2)</span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">It is also possible to get formant like bulges in a sound's spectrum above the fundamental frequency, by using hard sync type oscillators. One variant from the late 1970s is called VOSIM and a simulation UGen is available in the sc3-plugins pack. It is also possible to create hard sync via some UGens like SyncSaw or just by retriggering an envelope used as a waveform. In these settings, the attributes of the source which is getting retriggered with each hard sync signal is critical in determining the spectral content. <span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><span class="Apple-converted-space">  </span></p>
+<p class="p2"><span class="Apple-converted-space">  </span></p>
+<p class="p2"><span class="Apple-converted-space">  </span></p>
+<p class="p2"><span class="Apple-converted-space">  </span></p>
+<p class="p2"><span class="Apple-converted-space">  </span></p>
+<p class="p2"><span class="Apple-converted-space">  </span></p>
+<p class="p2"><span class="Apple-converted-space">  </span></p>
+<p class="p2"><span class="Apple-converted-space">  </span></p>
+<p class="p2"><span class="Apple-converted-space">  </span></p>
+<p class="p2"><span class="Apple-converted-space">  </span></p>
+<p class="p2"><span class="Apple-converted-space">  </span></p>
+<p class="p1">The dual to synthesis is analysis, as already alluded to from our spectral examination of the voice above. There are various voice analysis methods which have been developed in speech telecommunications, which are of use in analyzing the singing voice and other instruments. <span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">A classic technique is <b>vocoding</b> (voice encoding). A set of band pass filters is used in analysis of an original sound (tracking amplitude), and another similar bank of filters are used in resynthesis acting on a (typically simpler) source sound, modulated by the amplitude. In the basic implementation, the filter parameters are fixed in advance and not themselves input signal dependent. The method allows compression for telecommunications if the rate at which amplitudes are taken (window size) is smaller than the size of the filterbank itself.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">An example should make this clearer:</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">(</p>
+<p class="p3">SynthDef<span class="s2">(</span><span class="s3">\vocoder</span><span class="s2">,{</span>|freq=200 voiced=1 amp=4|</p>
+<p class="p1"><span class="s1">var</span> centrefreqs, amps, bandwidths, rq; <span class="s4">//data for formants</span></p>
+<p class="p1"><span class="s1">var</span> analysissignal, synthesissignal, periodicsource, aperiodicsource;<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="s1">var</span> analysisfilters, synthesisfilters;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">centrefreqs= (1..10)*440; </span>//choose centre frequencies</p>
+<p class="p1">amps= (0.dup(10)).dbamp;<span class="Apple-converted-space"> </span></p>
+<p class="p4"><span class="s2">bandwidths= </span>300.dup(10); //<span class="s2">(1..10)*200;<span class="Apple-converted-space"> </span></span> //bandwidths</p>
+<p class="p4"><span class="s2">rq= bandwidths/centrefreqs;<span class="Apple-tab-span">	</span></span>//reciprocal of q; bandwidth/centrefreq</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">analysissignal= </span><span class="s1">SoundIn</span><span class="s2">.ar; </span>//analyze audio input on machine</p>
+<p class="p2"><br></p>
+<p class="p1">periodicsource=<span class="s1">Saw</span>.ar(freq);<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">//pink noise drops off as frequency increases at -dB per octave,</p>
+<p class="p1">aperiodicsource= <span class="s1">PinkNoise</span>.ar(0.7);</p>
+<p class="p2"><br></p>
+<p class="p4">//take now as mixture of periodic and aperiodic</p>
+<p class="p1">synthesissignal= (voiced*periodicsource)+((1.0-voiced)*aperiodicsource);<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">//do the analysis in the specified bands, finding the amplitude in each band</p>
+<p class="p1">analysisfilters = <span class="s1">Amplitude</span>.kr(<span class="s1">BPF</span>.ar(analysissignal, centrefreqs, rq));</p>
+<p class="p2"><br></p>
+<p class="p4">//modulate bandwise the resynthesis</p>
+<p class="p1">synthesisfilters = analysisfilters*<span class="s1">BPF</span>.ar(synthesissignal, centrefreqs, rq);</p>
+<p class="p2"><br></p>
+<p class="p4">//amp compensates for energy lost by filters</p>
+<p class="p1"><span class="s1">Out</span>.ar(0,(amp*<span class="s1">Mix</span>(synthesisfilters)).dup)</p>
+<p class="p1">}).add</p>
+<p class="p1">)</p>
+<p class="p2"><br></p>
+<p class="p6"><br></p>
+<p class="p5"><span class="s2">a= </span><span class="s1">Synth</span><span class="s2">(</span>\vocoder<span class="s2">)</span></p>
+<p class="p2"><br></p>
+<p class="p1">a.set(\freq, 100)</p>
+<p class="p2"><br></p>
+<p class="p1">a.set(<span class="s3">\voiced</span>, 0.2)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">//you can swap in other sources, filters, make the effects time varying and generally energise the sound.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">(also see work by Josh Parmenter in his sc3-plugins packs; Vocoder, Vocode and VocodeBand classes). <span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">Analysis methods must attempt to model the (changing) spectral envelope of a sound, and each must choose a compromise between following all the (noisy) detail in the spectrum, and approximating it (finding formant areas). They are generally useful beyond the voice, in that they are a way of picking up on timbral characteristics of sounds, and designing a filter which has a spectral response like a given sound.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">Two classic methods to mention here are:<span class="Apple-converted-space"> </span></p>
+<p class="p1">LPC = Linear Predictive Coding <span class="Apple-converted-space"> </span></p>
+<p class="p1">MFCC = Mel Frequency Cepstral Coefficients<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">Some SC UGens to explore these:<span class="Apple-converted-space"> </span></p>
+<p class="p4"><span class="s1">LPCAnalyzer</span><span class="s2"> </span>//in the NCAnalysis sc3-plugins extension; also some LPC resynthesis UGens work by Josh Parmenter in his own sc3-plugins set</p>
+<p class="p4"><span class="s1">MFCC</span><span class="s2"> </span>//in core</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">Note that with vibrato, the spectral envelope stays fixed, and the harmonics of the periodic source change amplitude, mapping out the spectral envelope pattern. So vibrato can assist in hearing out formants associated with a particular vowel sound (Xavier Rodet and Diemo Schwarz. "Spectral envelopes and additive+residual analysis/synthesis". In James Beauchamp, editor. Analysis, Synthesis and Perception of Musical Sounds. Springer, New York, NY, 2007, pages 175–227.)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">High quality singing voice synthesis (i.e., Vocaloid) is acheived using large pre-analyzed databases of voice phones and diphones (transitions between two phones). These are strung together as required, a form of "concatenative synthesis". In general, singing voice synthesis remains a challenging problem in computer music. <span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+</body>
+</html>

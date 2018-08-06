@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1038.36">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #008325}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; min-height: 25.0px}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Geneva}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Geneva; min-height: 25.0px}
+    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Geneva; color: #cd1713}
+    p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #cd1713}
+    span.s1 {color: #102ac2}
+    span.s2 {font: 18.0px Geneva}
+  </style>
+</head>
+<body>
+<p class="p1">Buses</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s1">Server</span>.default=s=<span class="s1">Server</span>.local;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">When instantiating Synths we've begun to worry about audio buses, because we're now starting to use the Out UGen (and there is also an In UGen).<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">First a note about Audio inputs and outputs. The scsynth server application has 128 buses by default. These can be thought of as mixer channels or tracks within which independent audio can be running. One quirk is that the inputs and outputs for your soundcard always reserve the first<span class="Apple-converted-space">  </span>contiguous run of these.</p>
+<p class="p2"><br></p>
+<p class="p4">You set how many ins and outs your machine has in the ServerOptions class, and that depends on the capabilities of your soundcard. <span class="s2">The critical lines are:</span></p>
+<p class="p5"><br></p>
+<p class="p6">//default<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="s1">Server</span>.local.options.numOutputBusChannels = 8;</p>
+<p class="p3"><span class="s1">Server</span>.local.options.numInputBusChannels = 8;</p>
+<p class="p7">//you might change this to 2 in 2 out for a straight stereo setup</p>
+<p class="p2"><br></p>
+<p class="p4">(this code has to be run before you boot the server in question- it won't change anything in a current running server, just the next time you start up)<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">8 in, 8 out is the default btw, and probably best if you stick with that.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">Assuming we have 8 out, 8 in, I know that of the 128 buses, indices</p>
+<p class="p2"><br></p>
+<p class="p4">0-7 are the 8 outs</p>
+<p class="p4">8-15 are the 8 ins</p>
+<p class="p4">16-127 are for whatever rendering purposes I desire.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">These numbers are precisely those you see when you use the Out and In unit generators in SynthDefs.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p7">//mono sound, just plays in left ear because that's the first audio out on my soundcard</p>
+<p class="p4">{<span class="s1">Out</span>.ar(0,<span class="s1">SinOsc</span>.ar(440,0,0.1))}.play</p>
+<p class="p2"><br></p>
+<p class="p7">//mono sound, in right ear</p>
+<p class="p4">{<span class="s1">Out</span>.ar(1,<span class="s1">SinOsc</span>.ar(440,0,0.1))}.play</p>
+<p class="p2"><br></p>
+<p class="p7">//can't hear it, though its playing, because my machine only has stereo out capability</p>
+<p class="p4">{<span class="s1">Out</span>.ar(2,<span class="s1">SinOsc</span>.ar(440,0,0.1))}.play</p>
+<p class="p7">//you'll see it if you use the scope (remember to boot and -&gt;default the internal server on the Mac, or just use .jscope with SwingOSC)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p7">//get the first audio input, route to the left ear</p>
+<p class="p4">{<span class="s1">Out</span>.ar(0,<span class="s1">In.ar(8,1)</span>)}.play</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">A critical point is that if you have an n-channel sound, which you put onto bus x, it will overlap onto buses x to x+n-1.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p7">//stereo sound put onto bus 0 plays first channel on 0, second on 1: so stereo out</p>
+<p class="p4">{<span class="s1">Out</span>.ar(0,<span class="s1">SinOsc</span>.ar([440,880],0,0.1))}.play</p>
+<p class="p2"><br></p>
+<p class="p7">//This would work if I had 8 ins and 8 outs...</p>
+<p class="p7">//I get all 8 inputs and route to all 8 outputs.<span class="Apple-converted-space"> </span></p>
+<p class="p4">{<span class="s1">Out</span>.ar(0,<span class="s1">In</span>.ar(8,8))}.play</p>
+<p class="p2"><br></p>
+<p class="p7">//Similar, will output this 16 channel sound to buses 16-31 (you won't hear anything)</p>
+<p class="p4">{<span class="s1">Out</span>.ar(16,<span class="s1">SinOsc</span>.ar(<span class="s1">Array</span>.series(16,400,100),0,0.1))}.play</p>
+<p class="p2"><br></p>
+<p class="p7">//this gets them back to hearing, mixing to central field<span class="Apple-converted-space"> </span></p>
+<p class="p4">{<span class="s1">Out</span>.ar(0,<span class="s1">Pan2</span>.ar(<span class="s1">Mix</span>.ar(<span class="s1">InFeedback</span>.ar(16,16)),0.0))}.play</p>
+<p class="p7">//The InFeedback is necessary to avoid execution order problems we will only cover soon</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+</body>
+</html>

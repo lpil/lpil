@@ -1,0 +1,553 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1038.36">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 24.0px Geneva}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Geneva; color: #cd1713; min-height: 25.0px}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Geneva}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Geneva; min-height: 25.0px}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Geneva; color: #102ac2}
+    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Geneva; color: #cd1713}
+    p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 10.0px Geneva}
+    p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Geneva; color: #00f94f}
+    span.s1 {color: #102ac2}
+    span.s2 {color: #737373}
+    span.s3 {color: #000000}
+    span.s4 {color: #1738f5}
+    span.s5 {color: #008024}
+    span.Apple-tab-span {white-space:pre}
+  </style>
+</head>
+<body>
+<p class="p1">Using and Writing Classes in SuperCollider</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s1">Server</span>.default=s=<span class="s1">Server</span>.internal;</p>
+<p class="p2"><br></p>
+<p class="p4"><br></p>
+<p class="p3">What is Object Oriented Programming?<span class="Apple-converted-space"> </span></p>
+<p class="p4"><br></p>
+<p class="p3">Think of a jelly mould; it is a template from which we can make as many jellies as we have time and gelatinous matter. There is only one mould, but lots of jellies.<span class="Apple-converted-space"> </span></p>
+<p class="p4"><br></p>
+<p class="p3">In object oriented programming we call the mould a class, and the jellies we make from it objects or instances.<span class="Apple-converted-space">   </span></p>
+<p class="p4"><br></p>
+<p class="p3">A class is an abstract description of properties of some category. We can make a class for whatever concept we choose- if we made a class for Giraffe, it might descibe the potential for long necks and four long legs and a certain range of allowable stripiness. Using the class, we can instantiate actual giraffe objects, and make as many of them as we like, a whole herd. The individual giraffes might vary slightly in the length of their necks and legs, the stripiness of their bodies and how aggressive they are towards tourists, but they will basically conform to the category, the Giraffe class, describing giraffedom.<span class="Apple-converted-space"> </span></p>
+<p class="p4"><br></p>
+<p class="p3">There is more to Object Oriented Programming than that, but I'll reveal it slowly.</p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p3">SuperCollider is an Object Oriented Programming Language, and you should have noticed by now that words keep turning up with capital letters at the start:</p>
+<p class="p4"><br></p>
+<p class="p5">SinOsc</p>
+<p class="p5">LFSaw</p>
+<p class="p5">LPF</p>
+<p class="p4"><br></p>
+<p class="p3">These are the classes, the abstract descriptions for particular types of audio object. When we make objects from the recipes, we get particular instances of a sine oscillator, or a low frequency saw wave or a low pass filter. We can have as many sine oscillator objects as we like in our piece, but we create them from the SinOsc class.</p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p3">{<span class="s1">Mix</span>.new([<span class="s1">SinOsc</span>.ar(440),<span class="s1">SinOsc</span>.ar(550),<span class="s1">SinOsc</span>.ar(660)])*0.3}.play</p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p3">The way the SinOsc class is making each SinOsc object here is through a class method of the class, ar.</p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p3">A class method is just a function, but it is a function tied to a class. Typically, such class methods are the recipes for making objects. In fact, the most common one is new:</p>
+<p class="p4"><br></p>
+<p class="p3">w=<span class="s1">SCWindow</span>.new(<span class="s2">"new window object"</span>, <span class="s1">Rect</span>.new(100,100,400,400));</p>
+<p class="p4"><br></p>
+<p class="p3">which is used so commonly in SC, that there is a special shortcut of missing it out:</p>
+<p class="p4"><br></p>
+<p class="p3">w= <span class="s1">SCWindow</span>(<span class="s2">"new window object"</span>, <span class="s1">Rect</span>.new(100,100,400,400));</p>
+<p class="p4"><br></p>
+<p class="p6"><span class="s3">w= </span><span class="s1">SCWindow</span><span class="s3">(); </span>//accept defaults</p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p3">As well as class methods, we have instance methods. These are functions which any created instance (object) can respond to.</p>
+<p class="p4"><br></p>
+<p class="p6"><span class="s3">w.front;<span class="Apple-tab-span">	</span></span>//make window appear by calling an instance method on the instance (object) we just made</p>
+<p class="p4"><br></p>
+<p class="p6">//call an instance method (backColor_) on the view object belonging to the window object</p>
+<p class="p3">w.view.backColor_(<span class="s1">rgb</span>(255,0,45));</p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p3">Note how in the first case we called a function (using the dot) on a class name- <span class="s1">SCWindow</span>.new and in the second we called a function on a variable holding an individual object- w.front</p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p3">How do you know what the class methods and instance methods of any class are? You can see<span class="Apple-converted-space"> </span></p>
+<p class="p3">this as follows:</p>
+<p class="p4"><br></p>
+<p class="p6"><span class="s1">SCWindow</span><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//select the text and press cmd+d to get the Help file</p>
+<p class="p4"><br></p>
+<p class="p6"><span class="s1">SCWindow</span><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//select the text and press cmd+J to go to the code definition</p>
+<p class="p4"><br></p>
+<p class="p6"><span class="s3">new<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//select the text and press cmd+Y to see all the classes that respond to new</p>
+<p class="p4"><br></p>
+<p class="p3">Try the last procedure with the following:</p>
+<p class="p4"><br></p>
+<p class="p3">ar</p>
+<p class="p4"><br></p>
+<p class="p3">backColor_</p>
+<p class="p4"><br></p>
+<p class="p3">series</p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p3">Whenever you see a response like Meta_SomeClass:, this is a class method</p>
+<p class="p3">When you see SomeClass:, this is an instance method.<span class="Apple-converted-space"> </span></p>
+<p class="p4"><br></p>
+<p class="p3">If you go to the class definition file using cmd+J, you'll see lists of functions. Some have names that begin with a *, like *ar or *new- these are class methods. Some have names with no asterisk- these are instance methods.<span class="Apple-converted-space"> </span></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p3">Now, a feature of SuperCollider is that every class you ever make has some position within a class hierarchy. This is a taxonomy of all the different things you can make, and how they relate to one another.<span class="Apple-converted-space"> </span></p>
+<p class="p4"><br></p>
+<p class="p3">For instance, a<span class="s1"> SinOsc</span> is a type of <span class="s1">UGen</span> (unit generator).<span class="Apple-converted-space"> </span></p>
+<p class="p4"><br></p>
+<p class="p5"><span class="s3">An </span>Array<span class="s3"> is a type of</span> ArrayedCollection<span class="s3">.<span class="Apple-converted-space"> </span></span></p>
+<p class="p4"><br></p>
+<p class="p3">This relating of types allows classes to share common properties and avoids the programmer<span class="Apple-converted-space"> </span></p>
+<p class="p3">having to code lots of similar functions again and again- they can be kept in one place. <span class="Apple-converted-space"> </span></p>
+<p class="p4"><br></p>
+<p class="p3">Witness:</p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p6"><span class="s1">Collection</span><span class="s3">.dumpClassSubtree </span>//show all classes derived from Collection</p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p3">for further information on querying the class hierarchy see:</p>
+<p class="p4"><br></p>
+<p class="p7">[<a href="SC://Internal-Snooping"><span class="s4">Internal-Snooping</span></a>]<span class="Apple-tab-span">	</span>//select the text within the brackets and press cmd+d</p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p3">In fact, everything derives at root from a basic class, confusingly called Object. In SuperCollider, all other classes inherit the properties of the Object class. We say that all classes derive from Object.</p>
+<p class="p4"><br></p>
+<p class="p6"><span class="s1">Object</span><span class="s3">.dumpClassSubtree<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//try running this to see the whole hierarchy</p>
+<p class="p4"><br></p>
+<p class="p3">There is a big tree structure of classes. As we go down the hierarchy from Object, classes become increasingly specialised.<span class="Apple-converted-space">  </span>Classes that specialise, that derive from something else, are called subclasses. The class they derive from is the superclass.<span class="Apple-converted-space"> </span></p>
+<p class="p4"><br></p>
+<p class="p3">When you create new classes you derive from an existing class using the colon. Hence</p>
+<p class="p4"><br></p>
+<p class="p6"><span class="s1">SinOsc</span><span class="s3"><span class="Apple-converted-space">  </span>: </span><span class="s1">UGen</span><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//SinOsc is a subclass of UGen; UGen is the super class for SinOsc</p>
+<p class="p4"><br></p>
+<p class="p3">This means that SinOsc is a more specialised UGen, one that deals exclusively with making sine waves.<span class="Apple-converted-space"> </span></p>
+<p class="p4"><br></p>
+<p class="p3">By default, you derive from Object, so if you don't specify any class to derive from explicitly, you are making a subclass of Object.<span class="Apple-converted-space"> </span></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p3">In making our own derivations, we start general and get more specific, hence we might have</p>
+<p class="p4"><br></p>
+<p class="p3">SavannahBeast: SavannahHerbivore: Giraffe: AlbinoGiraffe</p>
+<p class="p4"><br></p>
+<p class="p3">As part of our hierarchy, but we could have a more extensive set of categories. The tree might look like:</p>
+<p class="p4"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>SavannahBeast</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>/<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>\</p>
+<p class="p3">SavannahCarnivore<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>SavannahHerbivore<span class="Apple-tab-span">	</span>/<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>\<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>/ <span class="Apple-converted-space">              </span>\</p>
+<p class="p3">Lion<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Hyena<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Giraffe <span class="Apple-converted-space">          </span>Thomson's Gazelle</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>|</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>AlbinoGiraffe</p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p3">This is just hypothetical, and obviously real animals are much more complex than the simple models I'm suggesting here, but its enough for you to see the way we can go about classifying relationships between the categories we wish to work with.<span class="Apple-converted-space"> </span></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p3">As well as methods, classes and objects can have associated variables. This is because in Object Oriented programming the data is stored with the functions that act on that data. You can see this is common sense, for going back to our Giraffe class, we might want data to tell us how tall an individual giraffe is (held in an instance variable) or we might want data telling us the natural predators of the giraffe species (held in a class variable, since I assume it's the same for every giraffe).<span class="Apple-converted-space"> </span></p>
+<p class="p4"><br></p>
+<p class="p3">in the class definitions,<span class="Apple-converted-space"> </span></p>
+<p class="p4"><br></p>
+<p class="p6"><span class="s1">var</span><span class="s3"> &lt;&gt;height; <span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//is an instance variable</p>
+<p class="p4"><br></p>
+<p class="p6"><span class="s1">classvar</span><span class="s3"> &lt;&gt;predators; <span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//is a class variable</p>
+<p class="p4"><br></p>
+<p class="p3">in the client code (the code that uses my hypothetical Giraffe class) I might have:</p>
+<p class="p4"><br></p>
+<p class="p3">g= <span class="s1">Giraffe</span>.new;<span class="Apple-converted-space"> </span></p>
+<p class="p4"><br></p>
+<p class="p6"><span class="s3">g.height = 2.4; <span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//set the height in metres of this particular Giraffe</p>
+<p class="p4"><br></p>
+<p class="p6"><span class="s1">Giraffe</span><span class="s3">.predators = [</span><span class="s5">\lion</span><span class="s3">, </span><span class="s5">\hyena</span><span class="s3">, </span><span class="s5">\man</span><span class="s3">];<span class="Apple-tab-span">	</span></span>//set the predators of the entire giraffe species</p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p3">Note how the instance variable is called from an instance stored in a variable, but the class variable is called via the class name.<span class="Apple-converted-space"> </span></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p3">An important issue is that of access. Some data is only used internally in a class, for secret calculations that normal users don't need to know about; other data is freely available to people who use the class.<span class="Apple-converted-space"> </span></p>
+<p class="p4"><br></p>
+<p class="p3">This is shown by the &lt; and &gt; signs.<span class="Apple-converted-space"> </span></p>
+<p class="p4"><br></p>
+<p class="p3">&lt; is the getter method, meaning that someone outside the class can read this data</p>
+<p class="p3">&gt; is the setter method, meaning that someone outside the class can write new values for this data.</p>
+<p class="p4"><br></p>
+<p class="p3">If neither is there, nobody outside the class can access that data, but it is freely available to the code written for the class itself.<span class="Apple-converted-space"> </span></p>
+<p class="p4"><br></p>
+<p class="p3">So if we have the simple class definition: <span class="Apple-converted-space">  </span><span class="s1">Giraffe</span> { <span class="s1">var</span> &lt;height; }</p>
+<p class="p4"><br></p>
+<p class="p3">I can go<span class="Apple-converted-space"> </span></p>
+<p class="p4"><br></p>
+<p class="p3">g=<span class="s1">Giraffe</span>.new;<span class="Apple-converted-space"> </span></p>
+<p class="p4"><br></p>
+<p class="p6"><span class="s3">h= g.height; <span class="Apple-tab-span">	</span><span class="Apple-converted-space">      </span></span>//there is a getter, so I can read the current value</p>
+<p class="p4"><br></p>
+<p class="p3">but I cannot go</p>
+<p class="p4"><br></p>
+<p class="p6"><span class="s3">g.height = 2.3;<span class="Apple-tab-span">	</span></span>//there is no setter</p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p8">Using extension libraries and recompiling the library</p>
+<p class="p4"><br></p>
+<p class="p3">Go to the SCClassLibrary folder in the SuperCollider application directory.<span class="Apple-converted-space"> </span></p>
+<p class="p4"><br></p>
+<p class="p3">We can add or remove class definition files (those that end in .sc) from here, and then we recompile the library using cmd+K to update our class definitions.<span class="Apple-converted-space"> </span></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p3">When you get hold of extension libraries for SuperCollider you're getting hold of lots of additional classes that people have written. Installing the third party library consists of you adding it into your SCClassLibrary so that it is compiled as part of SuperCollider. <span class="Apple-converted-space"> </span></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p3">(note: you can also put the classes in a specific extensions directory on your system, which will be discussed with third party libraries next week)</p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p3">The claret symbol ^</p>
+<p class="p4"><br></p>
+<p class="p3">We are in a position to make our own classes now. The final syntax you just need to be aware of is the use of the claret symbol ^, which is used in the methods (the functions) of the class to denote where a function returns.</p>
+<p class="p4"><br></p>
+<p class="p3">In defining your own normal functions<span class="Apple-converted-space"> </span></p>
+<p class="p4"><br></p>
+<p class="p6"><span class="s3">f= {</span><span class="s1">arg</span><span class="s3"> a; a*a}<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//return the square of the argument <span class="Apple-converted-space"> </span></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p3">In a method for a class, there's no need for an equals sign, this is defining an instance method called 'f':</p>
+<p class="p4"><br></p>
+<p class="p3">f {<span class="s1">arg</span> a;<span class="Apple-converted-space">  </span>^a*a}</p>
+<p class="p4"><br></p>
+<p class="p3">You are probably wondering why the claret is used at all; why bother? The reason is that a method can return at any point, or at multiple points based on the logic:</p>
+<p class="p4"><br></p>
+<p class="p3">mymethod {<span class="s1">arg</span> a;<span class="Apple-converted-space">  </span>if(a==4, ^7);<span class="Apple-converted-space">  </span>a=(a*9)%7; ^if(a==6, 5, a)}</p>
+<p class="p4"><br></p>
+<p class="p3">A normal function could not do this.<span class="Apple-converted-space"> </span></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p3">Making a new class</p>
+<p class="p4"><br></p>
+<p class="p5">NastySynth<span class="s3"> {</span></p>
+<p class="p3"><span class="s1"><span class="Apple-tab-span">	</span>classvar</span> &lt;&gt;wackiness=200;</p>
+<p class="p4"><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>*ar {<span class="s1">arg</span> wackymult=1;<span class="Apple-converted-space"> </span></p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>^<span class="s1">CombN</span>.ar(</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>(<span class="s1">SinOsc</span>.ar(</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">LFNoise0</span>.ar(9, wackymult*wackiness, <span class="s1">MouseY</span>.kr(100,400)), 7, <span class="s1">MouseX</span>.kr(0.0,0.75)</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>)%0.3)</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>,0.3,0.3, 5)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>}</p>
+<p class="p4"><br></p>
+<p class="p3">}</p>
+<p class="p4"><br></p>
+<p class="p3">Put this definition in a new window, save it as NastySynth.sc in the SCClassLibrary folder.</p>
+<p class="p3">Recompile- the class count should go up. <span class="Apple-converted-space"> </span></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p3">Now run this client code one line at a time-</p>
+<p class="p4"><br></p>
+<p class="p3"><span class="s1">NastySynth</span>.wackiness= 200;<span class="Apple-converted-space"> </span></p>
+<p class="p3">{<span class="s1">NastySynth</span>.ar}.play</p>
+<p class="p3">{<span class="s1">NastySynth</span>.ar(0.01)}.play</p>
+<p class="p3">{<span class="s1">NastySynth</span>.ar(<span class="s1">SinOsc</span>.kr(<span class="s1">MouseX</span>.kr(0,100)))}.play</p>
+<p class="p3"><span class="s1">NastySynth</span>.wackiness= 4000;<span class="Apple-converted-space"> </span></p>
+<p class="p3">{<span class="s1">NastySynth</span>.ar}.play</p>
+<p class="p3">{<span class="s1">NastySynth</span>.ar(0.01)}.play</p>
+<p class="p3">{<span class="s1">NastySynth</span>.ar(<span class="s1">SinOsc</span>.kr(<span class="s1">MouseX</span>.kr(0,100)))}.play</p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p3">Finally, lets show the use of derived classes</p>
+<p class="p4"><br></p>
+<p class="p3">Put the file SuperMario.sc in your DefaultLibrary and recompile.<span class="Apple-converted-space"> </span></p>
+<p class="p4"><br></p>
+<p class="p3">Now run this client code:</p>
+<p class="p4"><br></p>
+<p class="p3">(</p>
+<p class="p3"><span class="s1">var</span> sm;</p>
+<p class="p4"><br></p>
+<p class="p5"><span class="s3">sm=</span>SuperMario<span class="s3">(1.5);</span></p>
+<p class="p3"><span class="s1">SuperMario</span>.companyaffiliation= <span class="s5">\Nintendo</span>;</p>
+<p class="p3">sm.graspofItalian= 1.0;<span class="Apple-converted-space"> </span></p>
+<p class="p3">sm.dostuff;</p>
+<p class="p3">)</p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p3">(</p>
+<p class="p3">u=<span class="s1">UltraPlumber</span>.new.height_(1.5);</p>
+<p class="p4"><br></p>
+<p class="p3"><span class="s1">UltraPlumber</span>.dungareesupplier= <span class="s5">\Levi</span>;</p>
+<p class="p3"><span class="s1">SuperMario</span>.companyaffiliation.postln;</p>
+<p class="p4"><br></p>
+<p class="p3">u.graspofItalian= 0.7;<span class="Apple-converted-space"> </span></p>
+<p class="p4"><br></p>
+<p class="p3">u.dostuff;</p>
+<p class="p3">)</p>
+<p class="p4"><br></p>
+<p class="p6">//and you can run these lines whilst its playing</p>
+<p class="p3">u.craftiness= 1500;<span class="Apple-tab-span">	</span></p>
+<p class="p3">u.height= 7.3;<span class="Apple-converted-space"> </span></p>
+<p class="p3">u.ubendification= 0.1;</p>
+<p class="p3">u.sizeoftool=2.0;</p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+</body>
+</html>

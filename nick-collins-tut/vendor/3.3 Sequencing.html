@@ -1,0 +1,459 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1038.36">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #008325}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; min-height: 25.0px}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #cd1713}
+    span.s1 {color: #102ac2}
+    span.s2 {color: #008325}
+    span.s3 {color: #000000}
+    span.s4 {color: #737373}
+    span.s5 {color: #cd1713}
+    span.Apple-tab-span {white-space:pre}
+  </style>
+</head>
+<body>
+<p class="p1">Sequencing events in SuperCollider<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">There are various mechanisms in SuperCollider to cause events to play over time. Popularly known as sequencing, this is also called scheduling in the computer music literature. In computer science speak, an event might be scheduled for a certain future occurrence time; the scheduler takes care of makng this happen.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">At this stage, we'll learn some code mechanisms that get us going quickly with placing events in time (more technical detail can be discussed later in the course). We've already learnt two essential adjuncts to doing this; using envelope and doneAction:2 to create time-limited self-deallocating Synths, and packaging reusable synthesis code as a SynthDef so multiple Synths can be made from one recipe.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">In a separate file, we'll explore a few mechanisms to do scheduling on the server alone, but here we'll look at sequencing Synths from the language.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Let's start with a SynthDef we can use for our experiments:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">( <span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="s1">SynthDef</span>(<span class="s2">\event</span>,{ <span class="s1">arg</span> freq=440, amp=0.5, pan=0.0; <span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s1">var</span> env;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>env = <span class="s1">EnvGen</span>.ar(<span class="Apple-converted-space">  </span><span class="s1">Env</span>([0,1,1,0],[0.01, 0.1, 0.2]),<span class="Apple-converted-space">  </span>doneAction:2); <span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s1">Out</span>.ar(0,<span class="Apple-converted-space">  </span><span class="s1">Pan2</span>.ar(<span class="s1">Blip</span>.ar(freq) * env * amp, pan)) <span class="Apple-converted-space"> </span></p>
+<p class="p3">}).add; <span class="Apple-converted-space"> </span></p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">//test event sound</p>
+<p class="p4"><span class="s1">Synth</span><span class="s3">(</span><span class="s2">\event</span><span class="s3">)<span class="Apple-tab-span">	</span></span>//accepts defaults. Event shouldn't hang around once envelope finished due to doneAction:2</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">//specifying values</p>
+<p class="p4"><span class="s1">Synth</span><span class="s3">(</span><span class="s2">\event</span><span class="s3">,[</span><span class="s2">\freq</span><span class="s3">,880,</span><span class="s2">\amp</span><span class="s3">,0.2,</span><span class="s2">\pan</span><span class="s3">,1.0]) </span>//pan 1.0 should send to right ear</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">//let's go straight to seeing some code to schedule/sequence 2 events, evenly spaced:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3">{</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><span class="s3"><span class="Apple-tab-span">	</span></span><span class="s1">Synth</span><span class="s3">(</span>\event<span class="s3">);<span class="Apple-converted-space"> </span></span></p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p4"><span class="s3"><span class="Apple-tab-span">	</span>1.0.wait;<span class="Apple-tab-span">	</span></span>//wait for 1 time unit of default tempo, will probably work out to 1 second</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><span class="s3"><span class="Apple-tab-span">	</span></span><span class="s1">Synth</span><span class="s3">(</span>\event<span class="s3">);<span class="Apple-converted-space"> </span></span></p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p4"><span class="s3">}.fork; <span class="Apple-tab-span">	</span></span>//.fork is a computer science term for setting a new process (sequence) in action</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">//now 4 events, all evenly spaced</p>
+<p class="p3">(</p>
+<p class="p3">{</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><span class="s3"><span class="Apple-tab-span">	</span></span><span class="s1">Synth</span><span class="s3">(</span>\event<span class="s3">);<span class="Apple-converted-space"> </span></span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>1.0.wait;<span class="Apple-tab-span">	</span></p>
+<p class="p1"><span class="s3"><span class="Apple-tab-span">	</span></span><span class="s1">Synth</span><span class="s3">(</span>\event<span class="s3">);<span class="Apple-converted-space"> </span></span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>1.0.wait;<span class="Apple-tab-span">	</span></p>
+<p class="p1"><span class="s3"><span class="Apple-tab-span">	</span></span><span class="s1">Synth</span><span class="s3">(</span>\event<span class="s3">);<span class="Apple-converted-space"> </span></span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>1.0.wait;<span class="Apple-tab-span">	</span></p>
+<p class="p1"><span class="s3"><span class="Apple-tab-span">	</span></span><span class="s1">Synth</span><span class="s3">(</span>\event<span class="s3">);<span class="Apple-converted-space"> </span></span></p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">}.fork;<span class="Apple-converted-space"> <span class="Apple-tab-span">	</span></span></p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">//which could be more concisely written using encapsulation:<span class="Apple-converted-space"> </span></p>
+<p class="p3">(</p>
+<p class="p3">{</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>4.do {</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Synth</span>(<span class="s2">\event</span>);<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>1.0.wait;<span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>};</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">}.fork;<span class="Apple-converted-space"> <span class="Apple-tab-span">	</span></span></p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">If the 4.do is confusing, let's try it in isolation to do something 4 times over:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s3">4.do {</span><span class="s4">"hello"</span><span class="s3">.postln}; </span>//run; what do you see in your post window?<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">btw, the function that is done is passed an argument, which tells it how many times it was called already:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">4.do {<span class="s1">arg</span> repeatnumber; repeatnumber.postln; <span class="s4">"iteration complete"</span>.postln;}; <span class="s5">//run; what do you see in your post window?<span class="Apple-converted-space"> </span></span></p>
+<p class="p2"><br></p>
+<p class="p3">Such an argument can come in very handy for programmatically changing parameters over time based on where you are along in a sequence of iterations.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">//now 8 events, all evenly spaced, but with a random frequency each time</p>
+<p class="p3">(</p>
+<p class="p3">{</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>8.do {</p>
+<p class="p4"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//rrand(low, hi) gets a uniform random number in that range</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Synth</span>(<span class="s2">\event</span>,[<span class="s2">\freq</span>, rrand(440,880)]);<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>1.0.wait;<span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>};</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">}.fork;<span class="Apple-converted-space"> <span class="Apple-tab-span">	</span></span></p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">//now 8 events, unevenly spaced</p>
+<p class="p3">(</p>
+<p class="p3">{</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>8.do {</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Synth</span>(<span class="s2">\event,[\freq</span>, rrand(440,880)<span class="s2">]</span>);<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>rrand(0.2,0.6).wait;<span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>};</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">}.fork;<span class="Apple-converted-space"> <span class="Apple-tab-span">	</span></span></p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">//now 8 events, unevenly spaced, followed by 4 quick evenly spaced events</p>
+<p class="p3">(</p>
+<p class="p3">{</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>8.do {</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Synth</span>(<span class="s2">\event</span>,[<span class="s2">\freq</span>, rrand(110,220)]);<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>rrand(0.2,0.6).wait;<span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>};</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>4.do {</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Synth</span>(<span class="s2">\event</span>);<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0.25.wait;<span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>};</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">}.fork;<span class="Apple-converted-space"> <span class="Apple-tab-span">	</span></span></p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Got the idea yet?<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">Write your list of instructions of code to schedule, down the page. The scheduler will deal with calling them in order with the correct time gaps.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">In many cases you'd prefer to work relative to some tempo, for instance, if you want to schedule events in terms of beats and measures.</p>
+<p class="p2"><br></p>
+<p class="p3">SuperCollider measures tempi in beats per second (bps) rather than beats per minute, i.e</p>
+<p class="p2"><br></p>
+<p class="p3">1 bps = 60 bpm</p>
+<p class="p2"><br></p>
+<p class="p3">1.6666667 bps = 100 bpm</p>
+<p class="p2"><br></p>
+<p class="p3">2 bps = 120 bpm</p>
+<p class="p2"><br></p>
+<p class="p3">2.4 bps = 144 bpm</p>
+<p class="p2"><br></p>
+<p class="p3">3 bps = 180 bpm</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">(multiply by 60 to go from bps to bpm, divide by 60 in the other direction)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">For sequencing, you can change the clock with respect to which the timings are worked out. There is a default (which was being used above)<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">TempoClock</span><span class="s3">.default </span>//default clock</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">TempoClock</span><span class="s3">.default.tempo </span>//get tempo in beats per second.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">Note that 1 bps means 1 beat = 1 second, so the wait timings above are in seconds if 1 bps</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s1">TempoClock</span>.default.tempo<span class="Apple-converted-space">  </span>= 2 //set tempo, now 2 beats per second, e.g. 120 beats per minute</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">You can also make your own clock:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3"><span class="s1">var</span> tempoclock = <span class="s1">TempoClock</span>(3);<span class="Apple-converted-space">  </span><span class="s5">//3 beats per second</span></p>
+<p class="p3">{</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>8.do {</p>
+<p class="p4"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//rrand(low, hi) gets a uniform random number in that range</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Synth</span>(<span class="s2">\event</span>,[<span class="s2">\freq</span>, rrand(440,880)]);<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>1.0.wait;<span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>};</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p4"><span class="s3">}.fork(tempoclock); </span>//make sure the fork knows to use this clock rather than the default<span class="Apple-converted-space"> <span class="Apple-tab-span">	</span></span></p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">You can make things repeat forever by using the special keyword inf (infinity). But be very careful there is a wait time in the loop; otherwise your computer will try to do an infinite number of things as fast as possible, which tends to lock up your machine.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3"><span class="s1">var</span> tempoclock = <span class="s1">TempoClock</span>(1);<span class="Apple-converted-space">  </span><span class="s5">//1 beat per second</span></p>
+<p class="p3">{</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>//inf.do does something forever. Make very sure that there is a .wait of some duration inside the loop!</p>
+<p class="p3"><span class="Apple-tab-span">	</span>inf.do {</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Synth</span>(<span class="s2">\event</span>,[<span class="s2">\freq</span>, rrand(440,880)]);<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>1.0.wait;<span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>};</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">}.fork(tempoclock);<span class="Apple-converted-space"> </span></p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p3">This sequence will keep going until you press cmd+period to stop it. You could also have written<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">a = {<span class="Apple-converted-space">  </span>...somestuff... }.fork</p>
+<p class="p2"><br></p>
+<p class="p3">and later called:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">a.stop</p>
+<p class="p2"><br></p>
+<p class="p3">which shows the importance of keeping a handle on active processes; variable a is used to store the forked process here.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Exercises:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">1) Create an isochronous (evenly spaced) sequence of 16 events, separated by waiting 0.25 time units</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">2) At 126 bpm create four events separated by beats (a four to the floor, so to speak) followed by 16 events separated by 0.25 beat gaps. The four inital events should all be a middle C (hint: try 60.midicps). The 16 faster paced events should go up in frequency over their course. Remember that 'do' is passed the iteration count as an argument. <span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Further mechanisms for sequencing<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">There are many other ways to schedule events in SuperCollider.</p>
+<p class="p2"><br></p>
+<p class="p3">Basics of server-side sequencing is covered next, in another file.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">There is a library called Patterns that comes with SC that provides its own ways to explore the notion of algorithmically placing events in time. We'll look more at this later.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">You can explicitly schedule things in the future using functionality provided by clocks. For example, using the actual computer system clock:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-converted-space"> </span></p>
+<p class="p3">(</p>
+<p class="p4"><span class="s1">SystemClock</span><span class="s3">.sched(1.0,</span>//start at 1.0 second from now</p>
+<p class="p4"><span class="s3"><span class="Apple-tab-span">	</span>{</span>//a function which states what you wish to schedule</p>
+<p class="p1"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span><span class="s1">Synth</span><span class="s3">(</span>\event<span class="s3">);</span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p4"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span><span class="s1">nil</span><span class="s3"> </span>//return nil to do just once</p>
+<p class="p4"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//1<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>//return 1 to repeat every second</p>
+<p class="p3"><span class="Apple-tab-span">	</span>}</p>
+<p class="p3">)</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">The {}.fork construction here is a fast way to get going (and is a wrapper for some other code we may discuss later; but you can just use it without worrying for now). We haven't solved the full problems of having hierarchical time structures like bars/measures here. 3.5 explores nested scheduling, where one sequence causes other sequences to be triggered; this is like having a higher level time unit, such as a measure, within which inner events are scheduled on their own independent sequences.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+</body>
+</html>

@@ -1,0 +1,331 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1038.36">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #008325}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; min-height: 25.0px}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #737373}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #cd1713}
+    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #102ac2}
+    span.s1 {color: #102ac2}
+    span.s2 {color: #000000}
+    span.s3 {color: #cd1713}
+    span.s4 {color: #737373}
+    span.s5 {color: #008325}
+    span.s6 {text-decoration: underline ; color: #102ac2}
+    span.s7 {color: #fe59f7}
+    span.s8 {text-decoration: underline}
+    span.Apple-tab-span {white-space:pre}
+  </style>
+</head>
+<body>
+<p class="p1">Buffers and Sound Files</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s1">Server</span>.default=s=<span class="s1">Server</span>.local;</p>
+<p class="p3">s.boot;</p>
+<p class="p2"><br></p>
+<p class="p3">To do sample playback and manipulation, for streaming files off disk, for recording and wavetables and many other processes, it is necessary to handle memory buffers on the Server.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">Note: SuperCollider versions from 3.5 on have the default sound files that come with SuperCollider in a different location. You will see the path as:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">Platform</span><span class="s2">.resourceDir +/+ </span>"sounds/a11wlk01.wav"<span class="s2"> </span><span class="s3">//3.5 or later</span></p>
+<p class="p2"><br></p>
+<p class="p3">Which is the version used in the examples in these tutorials. If you are on 3.4 or earlier, the correct path is just:<span class="Apple-converted-space"> </span></p>
+<p class="p4">"sounds/a11wlk01.wav"</p>
+<p class="p2"><br></p>
+<p class="p3">Note that if you need a path for a sound file, you can drag and drop to the text window in SuperCollider to get the path.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">There are 1024 individual buffers by default. The Buffer memory is allocated as needed from the operating system.</p>
+<p class="p2"><br></p>
+<p class="p3">(Advanced: You can check defaults by looking at the ServerOptions class and Main:startup. The Buffer memory is not the memSize option; memSize is just some reserved memory for use by plug-ins like delay lines. So you should still set memSize big because UGens like CombN or DelayN need to use it for their allocations. <span class="Apple-converted-space"> </span></p>
+<p class="p3">)<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">We'll deal with buffers using the convenience wrapper class appropriately called Buffer.</p>
+<p class="p2"><br></p>
+<p class="p5">//allocate a one channel buffer of 441000 sample frames (10 sec at standard sampling rate)</p>
+<p class="p5"><span class="s2">b=</span><span class="s1">Buffer</span><span class="s2">.alloc(s, 10*44100, 1);<span class="Apple-converted-space">  </span></span>// s= server, 10*44100 num frames, 1 = 1 channel, i.e. mono</p>
+<p class="p2"><br></p>
+<p class="p3">If you check scsynth's memory use in your operating system (e.g., for OS X use the Terminal with the top command or Activity Monitor) before and after running this line (top command would work) you should see it has gone up.</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s2">b.bufnum <span class="Apple-tab-span">	</span></span>//which buffer are we using? This is an essential parameter to pass to lots of UGens</p>
+<p class="p2"><br></p>
+<p class="p5">//restore that memory and free that bufferID</p>
+<p class="p3">b.free</p>
+<p class="p2"><br></p>
+<p class="p3">To prepare buffers for playback by loopers or disk streamers, there are other methods of the Buffer class you'll see called.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">To work with sample playback there are a variety of possible UGens to use.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">PlayBuf</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p5">//this loads into a buffer the default sound that comes with SuperCollider</p>
+<p class="p5">//.read brings in the whole sound at once</p>
+<p class="p5"><span class="s2">b = </span><span class="s1">Buffer</span><span class="s2">.read(s,</span><span class="s1">Platform</span><span class="s2">.resourceDir +/+ </span><span class="s4">"sounds/a11wlk01.wav"</span><span class="s2">); </span>//store handle to Buffer in global variable b</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s1">SynthDef</span>(<span class="s4">"playbuf"</span>,{ <span class="s1">arg</span> out=0,bufnum=0, rate=1, trigger=1, startPos=0, loop=1;</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s1">Out</span>.ar(out,</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Pan2</span>.ar(<span class="s1">PlayBuf</span>.ar(1,bufnum, <span class="s1">BufRateScale</span>.kr(bufnum)*rate, trigger, <span class="s1">BufFrames</span>.ir(bufnum)*startPos, loop),0.0)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>)</p>
+<p class="p3">}).add;<span class="Apple-converted-space"> </span></p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p3">BufRateScale is vital because the soundfile I've loaded is actually at 11025Hz sampling rate, and my audio output is at 44100Hz - so it adjusts for different possible sampling rates. The BufFrames UGen returns, well, the number of frames in the soundfile. But note the .ir - this is initialisation rate, i.e., the UGen only runs once when first created, it doesn't need to be continually recalculated.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p5">//note how even though the soundfile doesn't loop, the Synth is not deallocated when done</p>
+<p class="p5">//(it has no envelope function). you'll need to cmd+period to kill it <span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="s1">Synth</span>(<span class="s5">\playbuf</span>, [<span class="s5">\out</span>, 0, <span class="s5">\bufnum</span>, b.bufnum]);</p>
+<p class="p2"><span class="Apple-converted-space"> </span></p>
+<p class="p5"><span class="s2"><span class="Apple-converted-space"> </span></span>//play at half rate</p>
+<p class="p3"><span class="s1">Synth</span>(<span class="s5">\playbuf</span>, [<span class="s5">\out</span>, 0, <span class="s5">\bufnum</span>, b.bufnum, <span class="s5">\rate</span>, 0.5]);</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p5">//Example with GUI controlling Synth<span class="Apple-converted-space"> </span></p>
+<p class="p3">(</p>
+<p class="p3"><span class="s1">var</span> w, rateslid, trigslid, startposslid, loopslid, a;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">a=<span class="s1">Synth</span>(<span class="s5">\playbuf</span>, [<span class="s5">\out</span>, 0, <span class="s5">\bufnum</span>, b.bufnum]);</p>
+<p class="p2"><br></p>
+<p class="p3">w=<span class="s1">Window</span>(<span class="s4">"PlayBuf Example"</span>,<span class="s1">Rect</span>(10,200,300,150));</p>
+<p class="p2"><br></p>
+<p class="p3">w.front;</p>
+<p class="p2"><br></p>
+<p class="p5">//control positioning of new GUI elements so I don't have to think too hard about it</p>
+<p class="p3">w.view.decorator= <span class="s1">FlowLayout</span>(w.view.bounds);</p>
+<p class="p2"><br></p>
+<p class="p5">//James' shortcut slider class</p>
+<p class="p5">//250@24 means a Point of size 250 by 24</p>
+<p class="p5">//|ez| is the same as arg ez;<span class="Apple-converted-space">  </span>- the EZSlider object is being passed into the callback action function</p>
+<p class="p3">rateslid= <span class="s1">EZSlider</span>(w, 250@24, <span class="s4">"Rate"</span>, <span class="s1">ControlSpec</span>(0.5, 10, <span class="s5">'exponential'</span>, 0.1), {<span class="s1">|ez|</span> a.set(<span class="s5">\rate</span>,ez.value)}, 1);</p>
+<p class="p2"><br></p>
+<p class="p3">trigslid= <span class="s1">EZSlider</span>(w, 250@24, <span class="s4">"Trigger"</span>, <span class="s1">ControlSpec</span>(0, 1, <span class="s5">'lin'</span>, 1), {<span class="s1">|ez|</span> a.set(<span class="s5">\trigger</span>,ez.value)}, 1);</p>
+<p class="p2"><br></p>
+<p class="p3">startposslid= <span class="s1">EZSlider</span>(w, 250@24, <span class="s4">"StartPos"</span>, <span class="s1">ControlSpec</span>(0.0, 1.0, <span class="s5">'lin'</span>, 0.01), {<span class="s1">|ez|</span> a.set(<span class="s5">\startPos</span>,ez.value)}, 0);</p>
+<p class="p2"><br></p>
+<p class="p3">loopslid= <span class="s1">EZSlider</span>(w, 250@24, <span class="s4">"Loop"</span>, <span class="s1">ControlSpec</span>(0, 1, <span class="s5">'lin'</span>, 0.1), {<span class="s1">|ez|</span> a.set(<span class="s5">\loop</span>,ez.value)}, 1);</p>
+<p class="p2"><br></p>
+<p class="p3">w.onClose_({a.free;});</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">BufRd</p>
+<p class="p2"><br></p>
+<p class="p3">BufRd is similar to PlayBuf but lets you directly read from a buffer (note you could also use this with non-soundfiles) via a phase argument. This is more convenient for taking custom control of how you read through a sample.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p5">//this loads into a buffer the default sound that comes with SuperCollider</p>
+<p class="p5">//.read brings in the whole sound at once</p>
+<p class="p3">b = <span class="s1">Buffer</span>.read(s,<span class="s1">Platform</span>.resourceDir +/+ <span class="s4">"sounds/a11wlk01.wav"</span>);</p>
+<p class="p2"><br></p>
+<p class="p5">//using Mouse to scrub through- X position is normalised position 0 to 1 phase through the source file<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="s1">SynthDef</span>(<span class="s4">"bufrd"</span>,{ <span class="s1">arg</span> out=0,bufnum=0;</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s1">Out</span>.ar(out,</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Pan2</span>.ar(<span class="s1">BufRd</span>.ar(1, bufnum, <span class="s1">K2A</span>.ar(<span class="s1">BufFrames</span>.ir(b.bufnum)*<span class="s1">MouseX</span>.kr(0.0,1.0)).lag(<span class="s1">MouseY</span>.kr(0.0,1.0))),0.0)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>)</p>
+<p class="p3">}).play(s);<span class="Apple-converted-space"> </span></p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p3">The K2A is needed to convert control rate Mouse to run at audio rate. This is because the BufRd needs to know where it is reading for every sample.</p>
+<p class="p2"><br></p>
+<p class="p3">.lag (which is a shortcut to get a Lag UGen) puts a smooth 'catch-up delay' (amount controlled by MouseY) on the scratching.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s2">[</span><span class="s6">BufRd</span><span class="s2">] </span>//the help file has more examples</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">DiskIn</p>
+<p class="p2"><br></p>
+<p class="p3">Here we only read a small part of the soundfile at a time; you would use this for streaming a large file off disk.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p5">//Prepare to stream. You can use a big file for streaming: replace the filename here with one valid for your machine. Note that dragging and dropping a file into the SC text editor posts the full path of that file as text for you to use in your code.<span class="Apple-converted-space"> </span></p>
+<p class="p3">b=<span class="s1">Buffer</span>.cueSoundFile(s,<span class="s1">Platform</span>.resourceDir +/+ <span class="s4">"sounds/a11wlk01.wav"</span>,0, 1);</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s1">SynthDef</span>(<span class="s5">\diskin</span>,{<span class="s1">Out</span>.ar(0,<span class="s1">DiskIn</span>.ar(1, b.bufnum))}).play(s);</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">You can only playback, you can't modulate the streaming rate in any way (there is a more advanced UGen, VDiskIn, that allows some extra functionality here). But this allows you to bring in files for any processing you desire to do.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s2">[</span><span class="s6">DiskIn</span><span class="s2">] </span>//help file- you will probably want to look at the 'Object messaging style' further down the page, for now.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Wavetables and oscillators</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">The implementation of most oscillator UGens is to read sample values from a <span class="s7">wavetable</span>. A short wavetable is read through again and again in a loop, at a particular rate (giving a fixed pitch).<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s2">{</span><span class="s1">SinOsc</span><span class="s2">.ar(100)}.plot(0.05)<span class="Apple-tab-span">	</span></span>//plot 5 cycles of a SinOsc sine oscillator: reads through the sine wavetable 5 times</p>
+<p class="p2"><br></p>
+<p class="p3">This is similar to sampling, just with small tables which are continuously reused many times per second (as many times as the frequency). Scanning through a fixed length table at variable rates means that you sometimes fall inbetween table positions; this can be covered by interpolation, generating those inbetween values on the fly. <span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">You can specify the waveform shape for a wavetable yourself. SuperCollider has a special efficient wavetable format to pack a buffer.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s2">b = </span><span class="s1">Buffer</span><span class="s2">.alloc(s, 512, 1); </span>//make a Buffer storage area</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s2">b.sine1(1.0/[1,2,3,4,5,6], </span><span class="s1">true</span><span class="s2">, </span><span class="s1">false</span><span class="s2">, </span><span class="s1">true</span><span class="s2">);<span class="Apple-converted-space">  </span></span>//fill the Buffer with wavetable data</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s2">b.plot; </span>//stored shape (not in special SuperCollider Wavetable format, for clarity)</p>
+<p class="p2"><br></p>
+<p class="p3">{<span class="s1">OscN</span>.ar(b,<span class="s1">MouseX</span>.kr(10,1000),0,0.1)}.play<span class="Apple-converted-space">  </span><span class="s3">//OscN; N means non-interpolating</span></p>
+<p class="p2"><br></p>
+<p class="p6"><span class="s2">[</span><span class="s8">Osc</span><span class="s2">]</span></p>
+<p class="p6"><span class="s2">[</span><span class="s8">OscN</span><span class="s2">]</span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">There are various other UGens that leverage buffers. You might try exploring the help files for<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s2">[</span><span class="s6">Index</span><span class="s2">]<span class="Apple-tab-span">	</span> </span>//buffer as array of data for UGen</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s2">[</span><span class="s6">Shaper</span><span class="s2">] </span>//buffer for wave shaping distortion/complex sound generation</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s2">[</span><span class="s6">FFT</span><span class="s2">]<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span> </span>//buffer as complex Fourier data, gets passed through the phase vocoder processing chain</p>
+<p class="p2"><br></p>
+<p class="p3">Note that Shaper and FFT will re-appear in future weeks for effects and spectral analysis discussions.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">You'll probably see some other ways of using the Buffer class to set or get information in server side Buffers from the language.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">(Sometimes communication with buffers uses the messaging style: the exhaustive list is here: [<span class="s8">Server-Command-Reference</span>] and is a more advanced topic. Just be forewarned that some help file examples might show some explicit message passing to handle buffers)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+</body>
+</html>

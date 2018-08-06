@@ -1,0 +1,340 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1038.36">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #cd1713; min-height: 25.0px}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; min-height: 25.0px}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #102ac2; min-height: 25.0px}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #008325}
+    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #cd1713}
+    p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #737373}
+    span.s1 {color: #102ac2}
+    span.s2 {color: #000000}
+    span.s3 {color: #008024}
+    span.s4 {color: #cd1713}
+    span.s5 {text-decoration: underline}
+    span.s6 {color: #737373}
+    span.Apple-tab-span {white-space:pre}
+  </style>
+</head>
+<body>
+<p class="p1">Interaction via Mouse and Keyboard</p>
+<p class="p2"><br></p>
+<p class="p1">Let's return to the localhost Server now:</p>
+<p class="p3"><br></p>
+<p class="p1">(</p>
+<p class="p1"><span class="s1">Server</span>.default=s=<span class="s1">Server</span>.local;</p>
+<p class="p1">s.boot;</p>
+<p class="p1">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">MouseX/Y</p>
+<p class="p2"><br></p>
+<p class="p1">Using the mouse as a controller is a quick and easy way of interacting with a patch</p>
+<p class="p3"><br></p>
+<p class="p1"><span class="s1">MouseX</span>.kr(leftscreenval, rightscreenval, warp, lag)</p>
+<p class="p4"><br></p>
+<p class="p1"><span class="s1">MouseY</span>.kr(topscreenval, bottomscreenval, warp, lag)</p>
+<p class="p3"><br></p>
+<p class="p5"><span class="s2">warp can be </span>\linear<span class="s2"> or </span>\exponential<span class="s2"><span class="Apple-converted-space"> </span></span></p>
+<p class="p3"><br></p>
+<p class="p1">lag is a smoothing factor to avoid sudden jumps in value if you move the mouse really quickly across the screen</p>
+<p class="p3"><span class="Apple-tab-span">	</span></p>
+<p class="p1">Compare these hearing tests (be careful, they're piercing)</p>
+<p class="p3"><br></p>
+<p class="p1">{<span class="s1">SinOsc</span>.ar(<span class="s1">MouseX</span>.kr(20,20000, <span class="s3">'linear'</span>),0,0.1)}.play</p>
+<p class="p3"><br></p>
+<p class="p1">and</p>
+<p class="p3"><br></p>
+<p class="p1">{<span class="s1">SinOsc</span>.ar(<span class="s1">MouseY</span>.kr(20,20000, <span class="s3">'exponential'</span>),0,0.1)}.play</p>
+<p class="p3"><br></p>
+<p class="p1">The exponential mapping is far more comforting as a proportion of screen space than the linear one!</p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p1">Since it crops up a lot in SuperCollider, let's illustrate linear and exponential mappings as mathematical functions.<span class="Apple-converted-space"> </span></p>
+<p class="p3"><br></p>
+<p class="p1">100 points are plotted (try (0..99) in isolation if you're not sure what that part of the code does). The original points have been remapped, first with a linear mapping (via linlin, transforming a linear input range to a linear output range) and secondly via an exponential (via linexp for linear to exponential)<span class="Apple-converted-space"> </span></p>
+<p class="p3"><br></p>
+<p class="p1">(0..99).linlin(0,100,10,1000).plot2</p>
+<p class="p3"><br></p>
+<p class="p1">(0..99).linexp(0,100,10,1000).plot2</p>
+<p class="p3"><br></p>
+<p class="p1">We'll see more of this with GUIs in the use of ControlSpec objects. By the way, there are also UGen equivalents for these language side mapping functions:<span class="Apple-converted-space"> </span></p>
+<p class="p3"><br></p>
+<p class="p1">linlin language side = LinLin server side</p>
+<p class="p1">linexp language side = LinExp server side</p>
+<p class="p3"><br></p>
+<p class="p1">(You'll also see shortcuts used on UGens like: range (for linear) and exprange (for linear to exponential), and there are explin and expexp too)</p>
+<p class="p3"><br></p>
+<p class="p1">For those curious, the mappings as mathematics are:<span class="Apple-converted-space"> </span></p>
+<p class="p3"><br></p>
+<p class="p6">//to convert number input x in range [a, b] to output y in [c,d]</p>
+<p class="p3"><br></p>
+<p class="p1">y<span class="Apple-converted-space">  </span>= ((x-a)/(b-a))*(d-c) + c <span class="s4">//linear</span></p>
+<p class="p3"><br></p>
+<p class="p6"><span class="s2">y = c*((d/c)**((x-a)/(b-a))) </span>//exponential (power operator is **) note that c can't be zero</p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p1">If you'd like to restrict a controller to a discrete range, you can use the Index UGen</p>
+<p class="p3"><br></p>
+<p class="p1"><span class="s1">Index</span>.kr(array, indexing signal)</p>
+<p class="p6">//the indexing signal is clipped to keep it in range; it points to an array of data in the first input. Note that an array can't be used directly in this slot (because it would confuse multi-channel expansion) so a Buffer of data is used via the LocalBuf UGen</p>
+<p class="p2"><br></p>
+<p class="p6">//there are three distinct states</p>
+<p class="p1">(</p>
+<p class="p1"><span class="s1">var</span> vals;</p>
+<p class="p3"><br></p>
+<p class="p6"><span class="s2">vals= [100,200,300]; </span>//change me and the code should adapt</p>
+<p class="p3"><br></p>
+<p class="p1">{<span class="s1">SinOsc</span>.ar(<span class="s1">Index</span>.ar(<span class="s1">LocalBuf</span>.newFrom(vals), <span class="s1">MouseX</span>.kr(0, vals.size-0.001)))*0.2}.play</p>
+<p class="p1">)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">(</p>
+<p class="p1"><span class="s1">var</span> vals;</p>
+<p class="p1"><span class="s1">var</span> numharm,basefreq;</p>
+<p class="p3"><br></p>
+<p class="p6"><span class="s2">numharm=11; <span class="Apple-tab-span">	</span></span>//number of harmonics</p>
+<p class="p6"><span class="s2">basefreq=66;<span class="Apple-tab-span">	</span></span>//base frequency of series</p>
+<p class="p3"><br></p>
+<p class="p1">s=<span class="s1">Server</span>.local;</p>
+<p class="p3"><br></p>
+<p class="p1">vals= basefreq*(<span class="s1">Array</span>.series(numharm,1,1));</p>
+<p class="p3"><br></p>
+<p class="p1">{<span class="s1">SinOsc</span>.ar(<span class="s1">Index</span>.kr(LocalBuf.newFrom(vals),<span class="s1">MouseX</span>.kr(0,numharm-0.001)),0,0.1)}.play</p>
+<p class="p3"><br></p>
+<p class="p1">)</p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p2"><br></p>
+<p class="p1">The Mouse might also be used as a trigger</p>
+<p class="p2"><br></p>
+<p class="p1">(</p>
+<p class="p1">{</p>
+<p class="p1"><span class="s1">var</span> trig,mx;</p>
+<p class="p1">mx=<span class="s1">MouseX</span>.kr(0.0,1.0);</p>
+<p class="p6"><span class="s2">trig= mx&gt;0.5;<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//this is a UGen which compares mx to the constant signal 0.5 at krate</p>
+<p class="p3"><br></p>
+<p class="p1"><span class="s1">SinOsc</span>.ar(440,0,0.1*trig)</p>
+<p class="p1">}.play;</p>
+<p class="p1">)</p>
+<p class="p3"><br></p>
+<p class="p6"><span class="s2">(<span class="Apple-tab-span">	</span></span>//trigger in a given region</p>
+<p class="p1">{</p>
+<p class="p1"><span class="s1">var</span> trig,mx,my;</p>
+<p class="p1">mx=<span class="s1">MouseX</span>.kr(0.0,1.0);</p>
+<p class="p1">my=<span class="s1">MouseY</span>.kr(0.0,1.0);</p>
+<p class="p1">trig= if((mx&gt;0.3) * (mx&lt;0.5) * (my&gt;0.3) * (my&lt;0.7),1,0);<span class="Apple-converted-space"> </span></p>
+<p class="p6">//if is a UGen here, * is equivalent to logical AND</p>
+<p class="p1"><span class="s1">SinOsc</span>.ar(440,0,0.1*trig)</p>
+<p class="p1">}.play;</p>
+<p class="p1">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">To show a more involved example of the principle, here's one of my favourite<span class="Apple-converted-space"> </span></p>
+<p class="p1">SuperCollider example patches (by James McCartney):</p>
+<p class="p2"><br></p>
+<p class="p1">(</p>
+<p class="p6"><span class="s2"><span class="Apple-converted-space">    </span></span>// strummable guitar</p>
+<p class="p6"><span class="s2"><span class="Apple-converted-space">    </span></span>// use mouse to strum strings</p>
+<p class="p1">{</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="s1">var</span> pitch, mousex, out;</p>
+<p class="p1"><span class="Apple-tab-span">	</span>pitch = [ 52, 57, 62, 67, 71, 76 ];<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">// e a d g b e</span></p>
+<p class="p1"><span class="Apple-tab-span">	</span>mousex = <span class="s1">MouseX</span>.kr;</p>
+<p class="p1"><span class="Apple-tab-span">	</span>out = <span class="s1">Mix</span>.fill(pitch.size, { <span class="s1">arg</span> i;</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">var</span> trigger, pluck, period, string;</p>
+<p class="p6"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// place trigger points from 0.25 to 0.75</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>trigger = <span class="s1">HPZ1</span>.kr(mousex &gt; (0.25 + (i * 0.1))).abs;</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>pluck = <span class="s1">PinkNoise</span>.ar(<span class="s1">Decay</span>.kr(trigger, 0.05));</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>period = pitch.at(i).midicps.reciprocal;</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>string = <span class="s1">CombL</span>.ar(pluck, period, period, 4);</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Pan2</span>.ar(string, i * 0.2 - 0.5);</p>
+<p class="p1"><span class="Apple-tab-span">	</span>});</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="s1">LPF</span>.ar(out, 12000);</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="s1">LeakDC</span>.ar(out);</p>
+<p class="p1">}.play;</p>
+<p class="p1">)</p>
+<p class="p2"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p1">There is also a MouseButton UGen that can be used as a trigger (it usually works better to use GUIs here, see the next tutorial)</p>
+<p class="p3"><br></p>
+<p class="p6">//first argument to MouseButton is the off value, second on on, when pressed button</p>
+<p class="p1">{ <span class="s1">SinOsc</span>.ar(<span class="s1">MouseButton</span>.kr(400, 440), 0, 0.1) }.play;</p>
+<p class="p3"><span class="Apple-tab-span">	</span></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><span class="s5"></span><br></p>
+<p class="p3"><span class="s5"></span><br></p>
+<p class="p3"><span class="s5"></span><br></p>
+<p class="p3"><span class="s5"></span><br></p>
+<p class="p3"><span class="s5"></span><br></p>
+<p class="p3"><span class="s5"></span><br></p>
+<p class="p3"><span class="s5"></span><br></p>
+<p class="p3"><span class="s5"></span><br></p>
+<p class="p3"><span class="s5"></span><br></p>
+<p class="p1">Keyboard</p>
+<p class="p2"><br></p>
+<p class="p1">You can also use the keyboard to trigger things.</p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p6">//key code 0 = 'a' key</p>
+<p class="p1">{ <span class="s1">SinOsc</span>.ar(800, 0, <span class="s1">KeyState</span>.kr(0, 0, 0.1)) }.play; <span class="s4">//Server-side<span class="Apple-converted-space"> </span></span></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p1">On the language side, this is usually done with GUIs which respond to certain keys, to trigger action functions (also known in computer science as callbacks, a function that gets called when a certain action is taken by the user or system). The view that responds to the key must be in focus (see the GUI tutorial).<span class="Apple-converted-space"> </span></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p1">For SC3.5 or earlier with the Document class, you can work by setting action functions in the text documents themselves. Here is an example of a callback from the Document as you type:</p>
+<p class="p3"><br></p>
+<p class="p1">(</p>
+<p class="p1"><span class="s1">var</span> doc;</p>
+<p class="p3"><br></p>
+<p class="p1"><span class="s1">SynthDef</span>(<span class="s6">"typeofsound"</span>,{<span class="s1">Out</span>.ar(0,<span class="s1">Line</span>.kr(1,0,0.1,doneAction:2)*<span class="s1">VarSaw</span>.ar(<span class="s1">Rand</span>(100,1000),0,<span class="s1">Rand</span>(0.1,0.8),0.1))}).add;</p>
+<p class="p3"><br></p>
+<p class="p6"><span class="s2">doc = </span><span class="s1">Document</span><span class="s2">.current; </span>//this text window you're reading from!<span class="Apple-converted-space"> </span></p>
+<p class="p1">doc.keyDownAction_({<span class="s1">arg</span> ...args;</p>
+<p class="p1"><span class="Apple-tab-span">	</span>[args[1],args[3]].postln;</p>
+<p class="p7"><span class="s2"><span class="Apple-tab-span">	</span></span><span class="s1">Synth</span><span class="s2">(</span>"typeofsound"<span class="s2">);</span></p>
+<p class="p1">});</p>
+<p class="p1">)</p>
+<p class="p3"><br></p>
+<p class="p6">//turn this off</p>
+<p class="p1">(</p>
+<p class="p1"><span class="s1">Document</span>.current.keyDownAction_(<span class="s1">nil</span>);</p>
+<p class="p1">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p6"><span class="s2">[</span><span class="s1">Document</span><span class="s2">] </span>//the Document help file has other examples of this</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+</body>
+</html>

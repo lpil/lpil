@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1038.36">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #00f94f}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; min-height: 25.0px}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #cd1713}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #008325}
+    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #737373}
+    span.s1 {color: #000000}
+    span.s2 {color: #102ac2}
+    span.s3 {color: #008325}
+    span.s4 {color: #737373}
+    span.Apple-tab-span {white-space:pre}
+  </style>
+</head>
+<body>
+<p class="p1">Control Buses</p>
+<p class="p2"><br></p>
+<p class="p3">Just like .kr is control rate and .ar audio rate, there are Control Buses as well as the Audio Buses.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">a= </span><span class="s2">Bus</span><span class="s1">.audio(s,1) </span>//makes a 1-channel (mono) virtual audio bus</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">c= </span><span class="s2">Bus</span><span class="s1">.control(s,1) </span>//makes a 1-channel (mono) virtual control bus</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">a.index </span>//index of this bus</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">c.index </span>//and of the control bus</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">When you set a value you are setting the current value held by the bus. You can also write to and from any bus using In and Out:</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">c.set(9); </span>//set current value to 9</p>
+<p class="p2"><br></p>
+<p class="p3">If in a SynthDef I used<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">Out</span><span class="s1">.kr(c.index, </span><span class="s2">SinOsc</span><span class="s1">.kr)<span class="Apple-converted-space">  </span></span>//Any other .kr UGen other than SinOsc could go here</p>
+<p class="p2"><br></p>
+<p class="p3">I would be writing at control rate to the control bus over time, and might read it somewhere else:</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">In</span><span class="s1">.kr(c.index, 1) </span>//read 1 channel from this control bus location</p>
+<p class="p2"><br></p>
+<p class="p3">This is a standard method of inter-Node communication- different Synths can read or write to the same bus.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">Any argument of a Synth can be mapped to by control buses:</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3"><span class="s2">SynthDef</span>(<span class="s3">\mapexample</span>,{<span class="s2">arg</span> freq=440;</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s2">Out</span>.ar(0,<span class="s2">SinOsc</span>.ar(freq,0,0.1))</p>
+<p class="p3">}).add</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s1">g= </span><span class="s2">Synth</span><span class="s1">(</span>\mapexample<span class="s1">);</span></p>
+<p class="p2"><br></p>
+<p class="p3">c.set(660);</p>
+<p class="p2"><br></p>
+<p class="p3">g.map(<span class="s3">\freq</span>, c.index)</p>
+<p class="p2"><br></p>
+<p class="p3">c.set(770);</p>
+<p class="p2"><br></p>
+<p class="p3">h= {<span class="s2">Out</span>.kr(c.index, <span class="s2">SinOsc</span>.ar(550,0,100,1000))}.play;</p>
+<p class="p2"><br></p>
+<p class="p3">h.free;</p>
+<p class="p2"><br></p>
+<p class="p3">g.set(<span class="s3">\freq</span>, 550)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Here is an additional example involving PlayBuf</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p4">//this loads into a buffer the default sound that comes with SuperCollider</p>
+<p class="p4">//.read brings in the whole sound at once</p>
+<p class="p3">b = <span class="s2">Buffer</span>.read(s,<span class="s2">Platform</span>.resourceDir +/+<span class="s4">"sounds/a11wlk01.wav"</span>);</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s2">SynthDef</span>(<span class="s4">"playbuf"</span>,{ <span class="s2">arg</span> out=0,bufnum=0, rate=1, trigger=1, startPos=0, loop=1;</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s2">Out</span>.ar(out,</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s2">Pan2</span>.ar(<span class="s2">PlayBuf</span>.ar(1,bufnum, <span class="s2">BufRateScale</span>.kr(bufnum)*rate, trigger, <span class="s2">BufFrames</span>.ir(b.bufnum)*startPos, loop),0.0)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>)</p>
+<p class="p3">}).add;<span class="Apple-converted-space"> </span></p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p4">//make a new control Synth, playing on control buses</p>
+<p class="p3">(</p>
+<p class="p6"><span class="s2">SynthDef</span><span class="s1">(</span>"playbufcontrols"<span class="s1">,{</span></p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p4"><span class="s1"><span class="Apple-tab-span">	</span></span>//control for retrigger (impulse with modulated rate)</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s2">Out</span>.kr(0,<span class="s2">Impulse</span>.kr(<span class="s2">LFNoise0</span>.kr(0.5, 5, 6)));</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p4"><span class="s1"><span class="Apple-tab-span">	</span></span>//control for jump position in sample (any random frame)</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s2">Out</span>.kr(1,<span class="s2">LFNoise0</span>.kr(0.25,0.5,0.5));</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">}).play(s);<span class="Apple-converted-space"> </span></p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s1">a=</span><span class="s2">Synth</span><span class="s1">(</span>\playbuf<span class="s1">, [</span>\out<span class="s1">, 0, </span>\bufnum<span class="s1">, b.bufnum, </span>\rate<span class="s1">, 1, </span>\trigger<span class="s1">, </span><span class="s4">"c0"</span><span class="s1">, </span>\startPos<span class="s1">, </span><span class="s4">"c1"</span><span class="s1">]);</span></p>
+<p class="p2"><br></p>
+<p class="p4">//showing unmapping of control signals- unmap the modulation of jump position when retriggered, it will now be fixed</p>
+<p class="p5"><span class="s1">a.set(</span>\startPos<span class="s1">,</span><span class="s4">"c"</span><span class="s1">)</span></p>
+<p class="p2"><br></p>
+<p class="p4">//set fixed chosen start frame</p>
+<p class="p3">a.set(<span class="s3">\startPos</span>,30000)</p>
+<p class="p2"><span class="Apple-converted-space"> </span></p>
+</body>
+</html>

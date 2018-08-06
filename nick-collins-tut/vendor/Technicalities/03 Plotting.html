@@ -1,0 +1,201 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1038.36">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 25.0px Monaco}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 25.0px Monaco; min-height: 33.0px}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 25.0px Monaco; color: #cd1713}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 17.0px Monaco; min-height: 22.0px}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 17.0px Monaco}
+    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 1.0px Monaco; min-height: 1.0px}
+    p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 16.0px Monaco; color: #cd1713}
+    p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 16.0px Monaco}
+    span.s1 {color: #000000}
+    span.s2 {color: #102ac2}
+    span.s3 {color: #737373}
+    span.s4 {color: #cd1713}
+    span.s5 {color: #008325}
+  </style>
+</head>
+<body>
+<p class="p1">Plotting with SC</p>
+<p class="p2"><br></p>
+<p class="p1">I assume you're familiar with Stethoscope ({}.scope) and FreqScope ({}.freqscope) already</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s1">plot </span>//highlight the method name 'plot' and ask for classes which implement it (cmd+Y on Mac)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">Function plotting lets you check synthesis and draw diagrams!</p>
+<p class="p2"><br></p>
+<p class="p3">//one cycle of a triangle wave at 100 Hz</p>
+<p class="p1">{<span class="s2">LFTri</span>.ar(100)}.plot(0.01)</p>
+<p class="p2"><br></p>
+<p class="p3">//observe frequency modulation close up</p>
+<p class="p1">{<span class="s2">SinOsc</span>.ar(400+<span class="s2">SinOsc</span>.ar(100,0,200))}.plot(0.025)</p>
+<p class="p2"><br></p>
+<p class="p3">//observe stereo frequency modulation at a distance</p>
+<p class="p1">{<span class="s2">SinOsc</span>.ar(400+<span class="s2">SinOsc</span>.ar([10,100],0,[200,100]))}.plot(0.2)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">Envelopes</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s2">Env</span><span class="s1">([0,1,1,0],[0.5,1.0,2.0],[10,0,-4]).plot </span>//this one you've probably seen before in learning about Env?</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">i= <span class="s2">InterplEnv</span>([0,1,1,0],[0.5,1.0,2.0],[10,0,-4]).plot</p>
+<p class="p2"><br></p>
+<p class="p1">If you've not seen InterplEnv before, it's used with an IEnvGen</p>
+<p class="p2"><br></p>
+<p class="p1">{<span class="s2">SinOsc</span>.ar(<span class="s2">IEnvGen</span>.kr(i,<span class="s2">MouseX</span>.kr(0,3.5))*500+200,0,0.2)}.play</p>
+<p class="p2"><br></p>
+<p class="p1">It can therefore replace using the Index UGen (which requires a buffer to be allocated), but also allows continuous ranges</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">Plotting an ArrayedCollection</p>
+<p class="p2"><br></p>
+<p class="p1">[0,5,1,3,2,4].plot</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">Plotting a Buffer</p>
+<p class="p2"><br></p>
+<p class="p1">b=<span class="s2">Buffer</span>.read(s,Platform.resourceDir +/+ <span class="s3">"sounds/a11wlk01.wav"</span>);<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">b.plot</p>
+<p class="p2"><br></p>
+<p class="p1">{<span class="s2">PlayBuf</span>.ar(1,b)}.play</p>
+<p class="p2"><br></p>
+<p class="p3">//get to language safely</p>
+<p class="p1">b.loadToFloatArray(0,-1,{<span class="s2">arg</span> data; a=data;})</p>
+<p class="p2"><br></p>
+<p class="p1">a.plot</p>
+<p class="p2"><br></p>
+<p class="p3">//manipulate using language</p>
+<p class="p1">a= a.collect{<span class="s2">|val|</span> if(0.1.coin,{val*val},{val*val*val}) };<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">a.plot</p>
+<p class="p2"><br></p>
+<p class="p3">//return to buffer</p>
+<p class="p1">b.loadCollection(a);<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">b.plot</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">Wavetable</p>
+<p class="p2"><br></p>
+<p class="p1">(also see Shaper, Osc, Signal, Wavetable help files)</p>
+<p class="p2"><br></p>
+<p class="p1">A wavetable has a special efficient data format which can be loaded to a buffer for use with the Osc and Shaper UGens.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">You either have to use some special Wavetable creating class methods (for example, sineFill and chebyFill) or create one via a Signal</p>
+<p class="p2"><br></p>
+<p class="p1">a= <span class="s2">Signal</span>.fill(256,{<span class="s2">arg</span> i; <span class="s2">var</span> t= (i/255.0)+0.1.rand;<span class="Apple-converted-space">  </span>(t*t)-t+(0.3*t*t*t)});<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">a= a.asWavetable</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s1">a.size </span>//doubles size; adds interpolated values that are the secret ingredient of a wavetable</p>
+<p class="p2"><br></p>
+<p class="p1">Plotting a wavetable will show you the wavetable with the special interpolating values hidden.</p>
+<p class="p2"><br></p>
+<p class="p1">a.plot</p>
+<p class="p2"><br></p>
+<p class="p1">b=<span class="s2">Buffer</span>.alloc(s,512,1);</p>
+<p class="p2"><br></p>
+<p class="p1">b.loadCollection(a);</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s1">b.plot </span>//this will show the hidden values too; looks weirder!</p>
+<p class="p2"><br></p>
+<p class="p1">{<span class="s2">Osc</span>.ar(b,440,0,0.2)}.play <span class="s4">//buzzy Synth</span></p>
+<p class="p2"><br></p>
+<p class="p1">{<span class="s2">LPF</span>.ar(<span class="s2">Osc</span>.ar(b,<span class="s2">MouseX</span>.kr(50,500,<span class="s5">'exponential'</span>),0,0.2),<span class="s2">MouseY</span>.kr(100,10000,<span class="s5">'exponential'</span>))}.play <span class="s4">//filter, but probably already aliasing</span></p>
+<p class="p2"><br></p>
+<p class="p2"><span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">SoundFiles</p>
+<p class="p2"><br></p>
+<p class="p1">f= <span class="s2">SoundFile</span>.openRead(<span class="s2">Platform</span>.resourceDir +/+ <span class="s3">"sounds/a11wlk01.wav"</span>);</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s1">f.plot </span>//uses the SCSoundFileView</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">Some other graphing functions</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">histograms via Collection:histo</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="s2">Array</span>.rand(1000,0.0,1.0).histo(10,0,1).plot(minval:0,maxval:200) <span class="Apple-converted-space">  </span><span class="s4">//histo first argument is number of histogram bins</span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4"><br></p>
+<p class="p5">---------------------------------------------------------</p>
+<p class="p5">advanced (requires use of Extensions folder/Quarks, see Extending SC):<span class="Apple-converted-space"> </span></p>
+<p class="p5">For fun: Dan Stowell's HeatMap (it's a Quark, example from the help file)</p>
+<p class="p4"><br></p>
+<p class="p6"><br></p>
+<p class="p7">// This distribution is interesting, but .plot doesn't really show why:</p>
+<p class="p8">a = 20.collect{<span class="s2">|x|</span>20.collect{<span class="s2">|y|</span> (x+y/pi).sin.rand}}.flat;</p>
+<p class="p8">a.plot(numChannels:20);</p>
+<p class="p8">a.heatMap(20); <span class="s4">// Much better!</span></p>
+<p class="p7">// Choose your colour scheme:</p>
+<p class="p8">a.heatMap(20, colscheme: <span class="s5">\red</span>);</p>
+<p class="p8">a.heatMap(20, colscheme: <span class="s5">\brw</span>);</p>
+<p class="p8">a.heatMap(20, colscheme: <span class="s5">\coals</span>);</p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+</body>
+</html>

@@ -1,0 +1,321 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1038.36">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 24.0px Monaco}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; min-height: 25.0px}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #102ac2}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #cd1713}
+    span.s1 {color: #102ac2}
+    span.s2 {color: #008325}
+    span.s3 {color: #000000}
+    span.s4 {color: #737373}
+    span.Apple-tab-span {white-space:pre}
+  </style>
+</head>
+<body>
+<p class="p1">SynthDefs (Synth Definitions)</p>
+<p class="p2"><br></p>
+<p class="p3">The {}.play notation is not the preferred one for SuperCollider 3, but it allowed us to get started with synthesis quickly. What you will often see from now on is use of the SynthDef construct to define networks of unit generators instead. Lots of synths are then created from a single SynthDef recipe, which is much more reusable, and especially important for making clouds of similar sounds and other granular and ensemble processes.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">SynthDef = Synthesis Definition</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">In order to synthesise and process sounds in SuperCollider you have to write a recipe for the UGen network in program code. This recipe is formally written using a particular language construct, the SynthDef.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s1">SynthDef</span>(<span class="s2">\sine</span>, {<span class="s1">Out</span>.ar(0,<span class="s1">SinOsc</span>.ar(<span class="s1">Rand</span>(440,880),0,0.1))}).add;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">The only differences to the classic {SinOsc.ar(440,0,0.1)}.play example are:</p>
+<p class="p3">-- the SynthDef wrapper <span class="s1">SynthDef</span>(<span class="s2">\nameofsynthdef</span>, { ...someUGens... }).add</p>
+<p class="p3">--use of the <span class="s1">Out</span> UGen. The full explanation of the Out UGen is deferred until we discuss busses, but you can think of it for now as saying 'play on the first audio output of the computer'.<span class="Apple-converted-space"> </span></p>
+<p class="p3">--<span class="s1">Rand</span>(440,880) instead of a fixed constant frequency; this is to make things more interesting when we reuse the SynthDef for creating Synths.</p>
+<p class="p2"><br></p>
+<p class="p3">Once a recipe is known to the system, you can create an individual Synth object to that specification:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">Synth<span class="s3">(</span><span class="s2">\sine</span><span class="s3">);<span class="Apple-converted-space"> </span></span></p>
+<p class="p2"><br></p>
+<p class="p3">In fact, it can be used as many times over as you desire (run these lines one at a time):</p>
+<p class="p2"><br></p>
+<p class="p3">a=<span class="s1">Synth</span>(<span class="s2">\sine</span>); <span class="Apple-converted-space"> </span></p>
+<p class="p3">b=<span class="s1">Synth</span>(<span class="s2">\sine</span>); <span class="Apple-converted-space"> </span></p>
+<p class="p3">c=<span class="s1">Synth</span>(<span class="s2">\sine</span>);<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-converted-space"> </span></p>
+<p class="p3">And these lines one at a time to individually stop each synth:</p>
+<p class="p2"><br></p>
+<p class="p3">a.free;</p>
+<p class="p3">b.free;</p>
+<p class="p3">c.free;</p>
+<p class="p2"><br></p>
+<p class="p3">Note how each of the Synths got initialised to a random frequency from 440 to 880 when created; this is due to the Rand UGen in the SynthDef above.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">You may see some variations in the way the SynthDef is made and used:</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s1">SynthDef</span>(<span class="s4">"aaa"</span>,{<span class="s1">Out</span>.ar(0,<span class="s1">SinOsc</span>.ar(440,0,0.1))}).add</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s1">Synth</span><span class="s3">(</span><span class="s4">"aaa"</span><span class="s3">); </span>//now this</p>
+<p class="p2"><br></p>
+<p class="p3">\aaa is the same as "aaa" for the purposes of naming the SynthDef recipe here (\aaa is a Symbol, one fixed value; "aaa" is a string where you can individually access each character)</p>
+<p class="p2"><br></p>
+<p class="p3">Note that your SynthDef is sent to the current default Server, and that if no synthesis server is booted, you haven't actually acheived anything. Keep an eye on your Server windows to make sure the Server is booted, and that the</p>
+<p class="p3"><span class="Apple-converted-space"> </span>-&gt; default<span class="Apple-converted-space"> </span></p>
+<p class="p3">button is green.<span class="Apple-converted-space"> </span></p>
+<p class="p3">You can also check things programmatically:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s1">Server</span><span class="s3">.default </span>//should return the server, usually localhost or internal; global variable s also typically points to the same<span class="Apple-converted-space"> </span></p>
+<p class="p5"><span class="s3">s.serverRunning </span>//check if it is on; should return true</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Warnings about using SynthDef<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">Particularly amongst older code (pre SuperCollider 3.4), you may also see variants to 'add', like:</p>
+<p class="p3">send(s)<span class="Apple-tab-span">	</span></p>
+<p class="p3">load(s)<span class="Apple-tab-span">	</span></p>
+<p class="p3">memStore</p>
+<p class="p3">store</p>
+<p class="p3">writeDefFile</p>
+<p class="p3">writeOnce</p>
+<p class="p3">storeOnce</p>
+<p class="p3">Though they can have uses in particular circumstances (such as whether to make a copy of a SynthDef on disk or not for permanent availability), add will be your default way of making sure a SynthDef is known to the synthesizer and the system in general. The only issue with add to bear in mind is that the SynthDef is only known (once added) as long as the server is booted; if you quit the synthesizer, you will have to boot again and then add once more before the SynthDef is again available.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">There is even a shortcut to create a SynthDef and run a Synth based on it in one step:</p>
+<p class="p3"><span class="s1">SynthDef</span>(<span class="s2">\saw</span>, {<span class="s1">Out</span>.ar(0,<span class="s1">Saw</span>.ar(<span class="s1">Rand</span>(440,880),0.1))}).play(s);</p>
+<p class="p3">This is not recommended except perhaps for debugging, since it undermines the sense of setting up the recipe, then using that recipe multiple times to make actual goodies. If you want quick prototyping, {}.play is usually the quickest way; but you should eventually package reusable recipes up with SynthDef, and then invoke Synths to use that definition.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">To explain one reason for the existence of these variations, if you look in the synthdefs folder in the SuperCollider application directory, you'll see various files that each represent individual SynthDefs. These are automatically loaded up when you start the synthesis server (e.g., via that Boot button, or via s.boot).<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">.add - just sends the SynthDef to the synthesis server at this moment, doesn't place any file on disk</p>
+<p class="p2"><br></p>
+<p class="p3">.writeDefFile - just writes the SynthDef into a file on disk, doesn't load it to the synthesis server.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">.store - writes the file on disk, so it's loaded every time you start the synthesis server from now on, and also sends it immediately so it's available right away.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-converted-space"> </span></p>
+<p class="p3">So for permanent existence on disk, use .store; but there are often ways round this by using add at an initialisation stage before running a particular composition.<span class="Apple-converted-space">  </span>Otherwise you may find you're cluttering up your disk unnecessarily.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Let's now have a look at adding arguments to a SynthDef:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s1">SynthDef</span><span class="s3">(</span><span class="s2">\sine</span><span class="s3">,{</span><span class="s1">arg</span><span class="s3"> freq=440, amp=0.1; </span><span class="s1">Out</span><span class="s3">.ar(0,</span><span class="s1">SinOsc</span><span class="s3">.ar(freq,0,amp))}).add; </span>//added frequency and amp arguments to recipe; make sure they have default values (e.g. freq=440)</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s1">Synth</span><span class="s3">(</span><span class="s4">"sine"</span><span class="s3">); </span>//now this accepts the defaults</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s1">Synth</span><span class="s3">(</span><span class="s4">"sine"</span><span class="s3">,[</span><span class="s2">\freq</span><span class="s3">,880]); </span>//this makes another Synth from the recipe an octave up, by being explicit about the frequency argument to the SynthDef</p>
+<p class="p2"><br></p>
+<p class="p3">You can see how this allows us to make lots of related Synths from a common recipe with slight variations in sound between them.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">a=<span class="s1">Synth</span>(<span class="s2">\sine</span>); <span class="Apple-converted-space"> </span></p>
+<p class="p3">b=<span class="s1">Synth</span>(<span class="s2">\sine</span>,[<span class="s2">\freq</span>,550]); <span class="Apple-converted-space"> </span></p>
+<p class="p3">c=<span class="s1">Synth</span>(<span class="s2">\sine</span>,[<span class="s2">\freq</span>,660, <span class="s2">\amp</span>, 0.5]);<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">We can continue to set the named inputs when we feel like it:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">c.set(<span class="s2">\freq</span>, 1000);</p>
+<p class="p3">b.set(<span class="s2">\amp</span>, 0.3, <span class="s2">\freq</span>, 100)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">And can use these lines one at a time to individually stop each synth:</p>
+<p class="p2"><br></p>
+<p class="p3">a.free;</p>
+<p class="p3">b.free;</p>
+<p class="p3">c.free;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Exercise:</p>
+<p class="p2"><br></p>
+<p class="p3">Try taking a simple synthesis patch you've been working on and turn it into a SynthDef.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">As a prototype you want something like:</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p5"><span class="s1">SynthDef</span><span class="s3">(</span><span class="s2">\synthdefname</span><span class="s3">,{</span><span class="s1">arg</span><span class="s3"> input1= defaultvalue; </span>//any arguments go here, make sure they have default values</p>
+<p class="p2"><br></p>
+<p class="p5">//some code for UGens - the sort of thing that went inside {}.play before</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s1">Out</span><span class="s3">.ar(0, finaloutput) </span>//finaloutput is the final result UGen you want to hear</p>
+<p class="p3">}).add</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s1">Synth</span><span class="s3">(</span><span class="s2">\synthdefname</span><span class="s3">, [</span><span class="s2">\input1</span><span class="s3">, inputval1]); </span>//inputval1 is the constant starting value for argument input1</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">One common query: recovering SynthDefs and SynthDesc</p>
+<p class="p2"><br></p>
+<p class="p3">People often ask if the SynthDef code can be recovered from the synthdef file on disk, or the data over on the server. This is not possible, except for limited circumstances, where you want the code for a SynthDef you added earlier in the session (of course, in that case, you've probably got the code lying around already anyhow).</p>
+<p class="p2"><br></p>
+<p class="p3">In parallel to sending data over to the server, the add message for SynthDef will also store some meta-data, as a SynthDesc inside the SynthDescLib which is a language-side construction (it's not over on the synthesis server but here in SuperCollider's main program). The SynthDesc is particularly critical to the Patterns library, which is one extension set you can explore later in the course.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s1">SynthDescLib</span><span class="s3">.global.synthDescs[</span><span class="s2">\sine</span><span class="s3">].def.func.postcs </span>//post code used to make SynthDef for \sine (assumes you added the \sine SynthDef above)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s1">SynthDescLib</span><span class="s3">.global.browse; </span>// browse the properties of available SynthDescs in the system</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p5">//iterate through all available, posting any known function code</p>
+<p class="p3">(</p>
+<p class="p3"><span class="s1">SynthDescLib</span>.global.synthDescs.do { <span class="s1">|desc|</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>if(desc.def.notNil) {</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">"\nSynthDef %\n"</span>.postf(desc.name.asCompileString);</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>desc.def.func.postcs;</p>
+<p class="p3"><span class="Apple-tab-span">	</span>};</p>
+<p class="p3">};</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+</body>
+</html>

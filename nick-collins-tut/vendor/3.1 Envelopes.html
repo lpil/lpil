@@ -1,0 +1,353 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1038.36">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #00f94f}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; min-height: 25.0px}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #cd1713}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #00c63d}
+    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #cd1713; min-height: 25.0px}
+    p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #102ac2}
+    span.s1 {color: #000000}
+    span.s2 {color: #102ac2}
+    span.s3 {color: #cd1713}
+    span.s4 {color: #008325}
+    span.Apple-tab-span {white-space:pre}
+  </style>
+</head>
+<body>
+<p class="p1">Time varying sounds</p>
+<p class="p2"><br></p>
+<p class="p3">We have been making sounds so far that go on forever until we press a key to stop synthesising (sometimes they faded to silence, but were still running in the background after that!).<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">Most of the time, we'll want to make sounds that go on for a limited time, and stop of their own accord.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">Listen to the difference between these two:</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">{</span><span class="s2">SinOsc</span><span class="s1">.ar(440,0,0.1)}.scope<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//Sine Oscillator goes on forever</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">{</span><span class="s2">SinOsc</span><span class="s1">.ar(440,0,</span><span class="s2">Line</span><span class="s1">.kr(0.1,0.0,1.0))}.scope<span class="Apple-tab-span">	</span> <span class="Apple-tab-span">	</span></span>//One second for the sine to disappear entirely</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">In the second example, I multiplied the sine wave by a line generator that started at 0.1 but went<span class="Apple-converted-space"> </span></p>
+<p class="p3">to zero over the course of a second.</p>
+<p class="p2"><br></p>
+<p class="p3">However, whilst the second sound fades out, both Synths hang around on the synthesis server unless you sent the stop command explicitly.<span class="Apple-converted-space">   </span></p>
+<p class="p2"><br></p>
+<p class="p3">Compare (by watching your Synth count on the server graphic, for instance):</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">{</span><span class="s2">SinOsc</span><span class="s1">.ar(440,0,</span><span class="s2">Line</span><span class="s1">.kr(0.1,0,1,doneAction:2))}.scope<span class="Apple-tab-span">	</span> <span class="Apple-tab-span">	</span></span>//doneAction:2 causes the Synth to be terminated once the line generator gets to the end of its line</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p5">Envelopes</p>
+<p class="p2"><br></p>
+<p class="p3">In general, we want total control over how parameters of a sound (like volume or frequency) vary over time.<span class="Apple-converted-space"> </span></p>
+<p class="p3">This is often done by using envelopes.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4"><span class="Apple-converted-space"> </span>//help files- [Env] [EnvGen]</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">Env</span><span class="s1">([1,0,1],[1,1]).plot<span class="Apple-converted-space">  </span></span>//This makes an Envelope with three control points, at y positions given by the first array, and separated in x by the values in the second (see the Env help file). The curve drawn out should actually look like a letter envelope!</p>
+<p class="p2"><br></p>
+<p class="p3">The .plot gives a quick way of seeing the envelope. We won't need it for synthesis but it helps for you to see some envelope shapes.</p>
+<p class="p2"><br></p>
+<p class="p4">//various types of envelope demonstrated:</p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p4"><span class="s2">Env</span><span class="s1">([0,1,0],[1.0,0.5]).plot<span class="Apple-converted-space">  </span></span>//one second 0 to 1 then half a second 1 to 0</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">Env</span><span class="s1">.linen(0.03,0.5,0.1).plot<span class="Apple-converted-space">  </span></span>//linen has attackTime, sustainTime, releaseTime, level, curve</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">Env</span><span class="s1">.adsr(0.01, 0.5, 0.5, 0.1, 1.0, 0).plot<span class="Apple-converted-space">  </span></span>//attackTime, decayTime, sustainLevel, releaseTime,</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>peakLevel, curve</p>
+<p class="p4">//note that the sustain portion is not shown in time; this particular envelope type deals with variable hold times, and the hold is missed out in the plot</p>
+<p class="p2"><br></p>
+<p class="p3">Here's another type of Envelope, good for making percussion sounds:</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">Env</span><span class="s1">.perc(0.05,0.5,1.0,0).plot </span>//arguments attackTime, releaseTime, level, curve: good for percussive hit envelopes</p>
+<p class="p2"><br></p>
+<p class="p3">There are many more types of Envelope to discover and deploy</p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Let's start using Envelopes for synthesis. We use EnvGen to run the desired Envelope over time.</p>
+<p class="p2"><br></p>
+<p class="p3">This is the envelope we'll run:</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s2">Env</span>([1,0],[1.0]).plot<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p2"><br></p>
+<p class="p3">The following just runs the Envelope: its too slow to hear any sounds (your ears only pick frequencies over 16-20Hz)</p>
+<p class="p2"><br></p>
+<p class="p3">{<span class="s2">EnvGen</span>.ar(<span class="s2">Env</span>([1,0],[1.0]))}.scope</p>
+<p class="p2"><br></p>
+<p class="p3">This is multiplying a simple sine tone at 440Hz by the envelope over time, to make a limited duration sound</p>
+<p class="p2"><br></p>
+<p class="p3">{<span class="s2">SinOsc</span>.ar(440,0,0.1)*<span class="s2">EnvGen</span>.kr(<span class="s2">Env</span>([1,0],[1.0]))}.scope</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Let's try a slightly more complex example.</p>
+<p class="p2"><br></p>
+<p class="p3">I'm going to use an envelope for frequency:</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s2">Env</span>([1000,20],[1.0]).plot<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p6"><br></p>
+<p class="p3">The EnvGen gets plugged into the frequency input of the Saw wave:</p>
+<p class="p2"><br></p>
+<p class="p3">{<span class="s2">Saw</span>.ar(<span class="s2">EnvGen</span>.ar(<span class="s2">Env</span>([1000,20],[1.0])),0.1)}.scope<span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p3">Now I'll change the frequency of Saw over 0.5 second and have its amplitude go to zero over 2 seconds:</p>
+<p class="p2"><br></p>
+<p class="p3">{<span class="s2">Saw</span>.ar(<span class="s2">EnvGen</span>.ar(<span class="s2">Env</span>([10000,20],[0.5])),<span class="s2">EnvGen</span>.ar(<span class="s2">Env</span>([0.1,0],[2.0])))}.scope<span class="Apple-tab-span">	</span><span class="Apple-converted-space"> <span class="Apple-tab-span">	</span></span></p>
+<p class="p3">(A fast frequency sweep is called a chirp in engineering literature, btw).</p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p3">You can see how the nesting can get more and more complex, and it's now very difficult to read<span class="Apple-converted-space"> </span></p>
+<p class="p3">the code to see what's going on. This should really be neatened up by writing over a few lines:</p>
+<p class="p2"><br></p>
+<p class="p3">({</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s2">Saw</span>.ar(</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s2">EnvGen</span>.kr(<span class="s2">Env</span>([10000,20],[0.5])),<span class="Apple-converted-space">  </span><span class="s3">//frequency input</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s2">EnvGen</span>.kr(<span class="s2">Env</span>([0.1,0],[2.0]))<span class="Apple-converted-space">      </span><span class="s3">//amplitude input</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>)</p>
+<p class="p3">}.play</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p3">In SuperCollider you find yourself having to work out what is plugged into what for complex networks,</p>
+<p class="p3">all written as text. Remember that it may help you if you draw a diagram on paper of the connections.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">I made one subtle difference when I rewrote it: I ran the EnvGen ar control rate (.kr) rather than audio rate (.ar).<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">We've tried both .kr or .ar and there's no real difference to our ears (the changes are relatively slow, at least compared to audio oscillator calculations for high frequencies).</p>
+<p class="p2"><br></p>
+<p class="p3">We often use .kr when possible, because it means a lower CPU load and ultimately we can run many more</p>
+<p class="p3">UGens at once.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Envelopes have a further use of prime importance: they can cause a running collection of UGens to be deallocated once a multiplier envelope has run through its course.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">We'll need this when creating temporary events live. You don't want completed voices hanging around and wasting your CPU when you could be synthesising new voices.</p>
+<p class="p2"><br></p>
+<p class="p4">//FM sound</p>
+<p class="p3">({</p>
+<p class="p7">SinOsc<span class="s1">.ar(</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s2">SinOsc</span>.ar(10,0,10,440),</p>
+<p class="p3"><span class="Apple-tab-span">	</span>0.0,</p>
+<p class="p4"><span class="s1"><span class="Apple-tab-span">	</span></span><span class="s2">EnvGen</span><span class="s1">.kr(</span><span class="s2">Env</span><span class="s1">([0.5,0.0],[1.0]), doneAction:2) <span class="Apple-converted-space">  </span></span>//doneAction:2 appears again, the deallocation operation</p>
+<p class="p3"><span class="Apple-tab-span">	</span>)</p>
+<p class="p3">}.scope</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p3">The doneAction argument means that the envelope, on completion, causes its enclosing Synth to be freed.</p>
+<p class="p2"><br></p>
+<p class="p3">The only thing that matters is how long the envelope lasts in time: the following also deallocates<span class="Apple-converted-space"> </span></p>
+<p class="p3">when the envelope ends, though it is controlling frequency rather than amplitude:<span class="Apple-converted-space"> </span></p>
+<p class="p6"><br></p>
+<p class="p3">{<span class="s2">Saw</span>.ar(<span class="s2">EnvGen</span>.kr(<span class="s2">Env</span>([500,100],[1.0]),doneAction:2),0.1)}.scope</p>
+<p class="p2"><br></p>
+<p class="p3">Note how the graphical server status GUI shows no running Synths once this is deallocated.<span class="Apple-converted-space"> </span></p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">We already saw some UGens that can be used like Envelopes, without the two stage<span class="Apple-converted-space"> </span></p>
+<p class="p3">Env/EnvGen construction. They work in deallocation too - here are examples:</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">Line</span><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//straight line generator<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">XLine</span><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//exponential line generator</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">{<span class="s2">Saw</span>.ar(<span class="s2">SinOsc</span>.ar(1,0,10,440),<span class="s2">Line</span>.kr(0,1,1,doneAction:2))}.scope</p>
+<p class="p2"><br></p>
+<p class="p3">{<span class="s2">Saw</span>.ar(<span class="s2">SinOsc</span>.ar(1,0,10,440),<span class="s2">XLine</span>.kr(0.0001,1,1,doneAction:2))}.scope</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">There is a remaining thing to explain. I introduced the adsr Env type, and said it could deal with holding open for an unknown time, but did not go further then.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">If you explore the Env help file you'll find references to the releaseNode and loopNode. Let's explain these; they may come in handy later.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Releasing envelopes</p>
+<p class="p2"><br></p>
+<p class="p3">Whilst some envelopes just run through their stages without intervention:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">{<span class="s2">EnvGen</span>.ar(<span class="s2">Env</span>([0,0.1,0],[0.1,0.9]),doneAction:2)*<span class="s2">SinOsc</span>.ar(330)}.play</p>
+<p class="p2"><br></p>
+<p class="p3">others will freeze at a certain point, requiring a further instruction to 'release':</p>
+<p class="p2"><br></p>
+<p class="p3">a = {<span class="s2">EnvGen</span>.ar(<span class="s2">Env</span>.asr(0.1,0.1,1.0),doneAction:2)*<span class="s2">SinOsc</span>.ar(330)}.play <span class="s3">//sound continues</span></p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">a.release(2.0); </span>//let it finish, taking 2.0 seconds to fade out (it then deallocates, due to the doneAction:2)</p>
+<p class="p2"><br></p>
+<p class="p4">//similar, but explicitly using gate argument, which holds the envelope at the releaseNode</p>
+<p class="p3">a = {<span class="s2">arg</span> gate=1; <span class="s2">EnvGen</span>.ar(<span class="s2">Env</span>.asr(0.1,0.1,0.9),gate,doneAction:2)*<span class="s2">SinOsc</span>.ar(330)}.play</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">a.set(</span><span class="s4">\gate</span><span class="s1">,0) </span>//when gate is set to 0, the envelope can finish, and takes 0.9 seconds to fade out (releaseTime argument to Env.asr set above)</p>
+<p class="p2"><br></p>
+<p class="p3">You will normally have a gate argument in these situations; one was missed out above when introducing release just for simplicity of exposition.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">To count the releaseNode number for an arbitrary envelope, imagine that the series of amplitude levels AFTER THE FIRST are indexed; each level and corresponding time gap leading to it is one node</p>
+<p class="p2"><br></p>
+<p class="p3">For<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">e = </span><span class="s2">Env</span><span class="s1">([0.2,1.0,0.0],[0.1,3.0],0,1); </span>//releaseNode at node 1, which is the pair of 0.0 level in the first array and 3.0 seconds in the second.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">a= {<span class="s2">arg</span> gate=1; <span class="s2">EnvGen</span>.ar(e,gate,doneAction:2)*<span class="s2">SinOsc</span>.ar(550,0,0.1)}.play</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">a.set(</span><span class="s4">\gate</span><span class="s1">, 0); </span>//takes 3.0 seconds to fade out</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Looping envelopes</p>
+<p class="p2"><br></p>
+<p class="p3">You can also get an envelope to go into a loop between the releaseNode minus one and the loopNode (the loopNode must be earlier than the releaseNode to be useful). Again, when receiving the release message or explicitly setting gate=0, the envelope transitions to the releaseNode and thence to the close. <span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">e = <span class="s2">Env</span>([0.0,0.0,1.0,0.0],[0.5,1.0,2.0],0,2,0); <span class="s3">//releaseNode at 2, loopNode at 0</span></p>
+<p class="p2"><br></p>
+<p class="p3">a= {<span class="s2">arg</span> gate=1; <span class="s2">EnvGen</span>.ar(e,gate,doneAction:2)*<span class="s2">SinOsc</span>.ar(550,0,0.1)}.play</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">a.set(</span><span class="s4">\gate</span><span class="s1">, 0); </span>//takes 2.0 seconds to fade out</p>
+<p class="p2"><br></p>
+<p class="p3">If you set the envelope looping fast enough, you can get interesting control signals and even head towards audio rate waveforms.</p>
+<p class="p2"><br></p>
+<p class="p3">e = <span class="s2">Env</span>([0.0,1.0,-1.0,0.0],[0.01,0.01,2.0],0,2,0); <span class="s3">//releaseNode at 2, loopNode at 0</span></p>
+<p class="p2"><br></p>
+<p class="p3">e.plot</p>
+<p class="p2"><br></p>
+<p class="p3">a= {<span class="s2">arg</span> gate=1; <span class="s2">EnvGen</span>.ar(e,gate,timeScale:MouseX.kr(0.1,2.0),doneAction:2)}.play</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">a.set(</span><span class="s4">\gate</span><span class="s1">, 0); </span>//stops immediately since release transition to 0.0 occurs over 2 seconds, too slow to be a pitched oscillation</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+</body>
+</html>

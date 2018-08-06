@@ -1,0 +1,242 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1038.36">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 24.0px Helvetica; color: #00f94f}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; min-height: 25.0px}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 26.0px Monaco; min-height: 35.0px}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #737373}
+    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+    p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #737373}
+    p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #cd1713}
+    p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+    p.p10 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #102ac2}
+    span.s1 {text-decoration: underline}
+    span.s2 {font: 17.0px Monaco}
+    span.s3 {color: #000000}
+    span.s4 {color: #102ac2}
+    span.s5 {color: #737373}
+    span.s6 {color: #008325}
+    span.Apple-tab-span {white-space:pre}
+  </style>
+</head>
+<body>
+<p class="p1">Extending SuperCollider</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">As well as rich libraries of classes and UGens which come with SuperCollider, there are many third party extensions (examples, classes and UGens) which you can download from various places:</p>
+<p class="p2"><br></p>
+<p class="p3">the swiki site</p>
+<p class="p3"><span class="s1">http://swiki.hfbk-hamburg.de:8888/MusicTechnology/6</span></p>
+<p class="p2"><br></p>
+<p class="p3">the sc-plugins SourceForge project:</p>
+<p class="p3"><span class="s1">http://sourceforge.net/projects/sc3-plugins/</span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">the Quarks repository (see [<span class="s1">Quarks</span>])</p>
+<p class="p2"><br></p>
+<p class="p3">Various third party websites</p>
+<p class="p2"><br></p>
+<p class="p3">Off the sc-users mailing list (archive via Google if you search with sc-users in the search line, or via the swiki site or Nabble archives)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">The easiest way to install such packages is to put all help files, .sc class files and plugin files (like .scx, .sco and similar) into a platform specific Extensions directory.</p>
+<p class="p2"><br></p>
+<p class="p3">On my Mac this is :</p>
+<p class="p2"><br></p>
+<p class="p3">/Library/Application Support/SuperCollider/Extensions/</p>
+<p class="p2"><br></p>
+<p class="p3">You can check where it is on your system with:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">Platform.userExtensionDir</p>
+<p class="p2"><br></p>
+<p class="p3">Notwe that you may need to create a folder called 'Extensions' at the required location if you do not have one there already.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Once you have put the new materials in your extensions folder, then startup SuperCollider or recompile SuperCollider if it is already open (cmd+K on a Mac 3.5 or earlier, cmd+shift+L 3.6). Now open any main help file for the library in SC, boot the server and try the examples.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">Most extensions should come with a readme file with instructions.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">Customising SuperCollider</p>
+<p class="p2"><br></p>
+<p class="p3">You may also wish to change the default options in SuperCollider.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">You might do this by modifying these classes:</p>
+<p class="p2"><br></p>
+<p class="p3">ServerOptions<span class="Apple-converted-space"> </span></p>
+<p class="p3">Main</p>
+<p class="p2"><br></p>
+<p class="p3">But it is much more straight forward to modify a platform specific startup file.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">On a Mac, this is located at:</p>
+<p class="p4"><br></p>
+<p class="p5">"/Library/Application Support/SuperCollider/<span class="s2">startup.sc"</span></p>
+<p class="p2"><br></p>
+<p class="p3">(i.e. parallel to the Extensions directory)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">To give an example of the sort of thing that can go in there, here is an extract from one of mine:</p>
+<p class="p6"><span class="Apple-converted-space">       </span></p>
+<p class="p7">"Nick's Startup File"<span class="s3">.postln; <span class="Apple-converted-space">   </span></span></p>
+<p class="p6"><span class="Apple-converted-space">     </span></p>
+<p class="p8">//avoid Rendezvous, ServerOptions</p>
+<p class="p9"><span class="s4">Server</span>.local.options.zeroConf = <span class="s4">false</span>;<span class="Apple-converted-space">     </span></p>
+<p class="p9"><span class="s4">Server</span>.internal.options.zeroConf = <span class="s4">false</span>;<span class="Apple-converted-space">   </span></p>
+<p class="p6"><span class="Apple-converted-space">     </span></p>
+<p class="p9"><span class="s4">Server</span>.local.options.numOutputBusChannels = 8;</p>
+<p class="p9"><span class="s4">Server</span>.local.options.numInputBusChannels = 8;</p>
+<p class="p9"><span class="s4">Server</span>.internal.options.numOutputBusChannels = 8;</p>
+<p class="p9"><span class="s4">Server</span>.internal.options.numInputBusChannels = 8;</p>
+<p class="p8"><span class="s4">Server</span><span class="s3">.local.options.memSize = 10*8192;<span class="Apple-converted-space">  </span></span>//so lots of memory for delay lines in Comb UGens etc</p>
+<p class="p9"><span class="s4">Server</span>.internal.options.memSize = 10*8192;</p>
+<p class="p6"><span class="Apple-tab-span">	</span></p>
+<p class="p8"><span class="s4">Server</span><span class="s3">.local.latency=0.045; </span>//low latency is helpful for optimal performance for some machine listening processes</p>
+<p class="p9"><span class="s4">Server</span>.internal.latency= 0.025;</p>
+<p class="p6"><br></p>
+<p class="p8">//"SC_PLUGIN_PATH".setenv("/Volumes/data/sc3code/plugins/".standardizePath); // all defs in this directory will be loaded at startup</p>
+<p class="p8">//"echo \"Loading Plugins From '$SC_PLUGIN_PATH'\"".unixCmd;</p>
+<p class="p6"><br></p>
+<p class="p8">//~/scwork/synthdefs/</p>
+<p class="p7"><span class="s4">SynthDef</span><span class="s3">.synthDefDir_(</span>"/Volumes/data/sc3code/synthdefs/"<span class="s3">.standardizePath);</span></p>
+<p class="p6"><br></p>
+<p class="p8">//load on startup of server</p>
+<p class="p8"><span class="s5">"SC_SYNTHDEF_PATH"</span><span class="s3">.setenv(</span><span class="s5">"/Volumes/data/sc3code/synthdefs/"</span><span class="s3">.standardizePath); </span>// all defs in this directory will be loaded at startup</p>
+<p class="p10"><span class="s5">"echo \"</span>Loading<span class="s3"> </span>SynthDefs<span class="s3"> </span>From<span class="s3"> </span><span class="s6">'$SC_SYNTHDEF_PATH'</span><span class="s3">\</span><span class="s5">""</span><span class="s3">.unixCmd;</span></p>
+<p class="p6"><span class="Apple-tab-span">	</span></p>
+<p class="p6"><span class="Apple-tab-span">	</span></p>
+<p class="p8">//Server.local.recSampleFormat_("int16");<span class="Apple-tab-span">	</span>//I sometimes might use this for standard wav file out as deafult, but currently accepting the float default</p>
+<p class="p8">//Server.internal.recSampleFormat_("int16");<span class="Apple-tab-span">	</span></p>
+<p class="p9"><span class="s4">Server</span>.local.recHeaderFormat_(<span class="s5">"wav"</span>);<span class="Apple-tab-span">	</span></p>
+<p class="p9"><span class="s4">Server</span>.internal.recHeaderFormat_(<span class="s5">"wav"</span>);<span class="Apple-tab-span">	</span></p>
+<p class="p6"><br></p>
+<p class="p8">//Server.local.options.device = "Test";</p>
+<p class="p8">//Server.internal.options.device = "Test";</p>
+<p class="p6"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">It is also possible to overwrite existing methods of classes or add extra methods to classes, without modifying original source files: this is really helpful if you are frequently updating SuperCollider and don't want to have to change anything in a new download.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">To hack my own Server window GUIs I made a class file of the form</p>
+<p class="p2"><br></p>
+<p class="p10"><span class="s3">+ </span>Server<span class="s3"> {</span></p>
+<p class="p9"><span class="Apple-tab-span">	</span>makeWindow { <span class="s4">arg</span> w;</p>
+<p class="p6"><span class="Apple-tab-span">	</span></p>
+<p class="p9"><span class="Apple-tab-span">	</span>...</p>
+<p class="p6"><span class="Apple-tab-span">	</span></p>
+<p class="p9"><span class="Apple-tab-span">	</span>}</p>
+<p class="p6"><span class="Apple-tab-span">	</span></p>
+<p class="p9"><span class="Apple-tab-span">	</span>}</p>
+<p class="p2"><br></p>
+<p class="p3">The + Server part means that this class file is adding extra methods to the Server class (which can be instance or class methods). If a method exists already, it can be overwritten- hence my suppressal of the standard Server GUI.</p>
+<p class="p2"><br></p>
+<p class="p2"><span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Because SC3 is open source, it is even possible to compile SuperCollider yourself after modifying the server or language code. This, however, is not recommended for the faint hearted (see the Writing Primitives help file and sc-dev mailing list archives). The furthest you might go in normal practise is writing new plug-ins for the server (new UGens) which is carried out with C programming.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+</body>
+</html>

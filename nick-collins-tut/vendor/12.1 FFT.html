@@ -1,0 +1,213 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1038.36">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 42.0px Monaco}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 21.0px Monaco; min-height: 28.0px}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 21.0px Monaco}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 21.0px Monaco; color: #102ac2}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 21.0px Monaco; color: #1738f5}
+    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 19.0px Monaco}
+    p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 19.0px Monaco; color: #cd1713}
+    p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 19.0px Monaco; min-height: 26.0px}
+    p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco}
+    span.s1 {text-decoration: underline}
+    span.s2 {text-decoration: underline ; color: #000000}
+    span.s3 {color: #102ac2}
+    span.s4 {color: #000000}
+    span.s5 {font: 21.0px Monaco}
+    span.s6 {font: 19.0px Monaco}
+    span.s7 {font: 19.0px Monaco; color: #102ac2}
+    span.s8 {color: #737373}
+    span.Apple-tab-span {white-space:pre}
+  </style>
+</head>
+<body>
+<p class="p1">FFT Processing</p>
+<p class="p2"><br></p>
+<p class="p3">Also see:<span class="Apple-converted-space"> </span></p>
+<p class="p4"><span class="s1"><a href="file:///Volumes/data/SuperCollider/SuperCollider3/build/Help/UGens/FFT/FFT%20Overview.html">FFT<span class="s2"> </span>Overview</a></span></p>
+<p class="p5"><a href="SC://FFT">FFT</a></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">The Fast Fourier Transform (FFT) is a central technnology in computer music, allowing an efficient transformation between the time domain (amplitude-time waveforms) and the frequency domain (spectrum, representing the phase and energy of component pure frequencies). It enables a variety of useful spectral processing techniques, and Fourier re-synthesis back into the time domain can be accomplished by an IFFT (Inverse FFT) or a third party additive synthesis UGen. <span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">To process sound SuperCollider has a selection of PV (Phase Vocoder) UGens which are commonly used as in place operators on the FFT data:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">input -&gt; FFT -&gt; PV_UGen1 ... PV_UGenN... -&gt; IFFT -&gt; output</p>
+<p class="p2"><br></p>
+<p class="p3">See the code examples below for how this 'chain' looks in actual SC code form</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">example 1: do nothing transformation<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p6">s = <span class="s3">Server</span>.local.boot;</p>
+<p class="p7"><span class="s4">b = </span><span class="s3">Buffer</span><span class="s4">.alloc(s,1024,1); </span>//a buffer must be allocated which gives the size of the FFT; 1024 sample window size in this case. The hop size is half the window by default.</p>
+<p class="p8"><span class="Apple-tab-span">	</span></p>
+<p class="p6">(</p>
+<p class="p6">{ <span class="s3">var</span> in, chain;</p>
+<p class="p8"><span class="Apple-tab-span">	</span></p>
+<p class="p6"><span class="Apple-tab-span">	</span>in = <span class="s3">WhiteNoise</span>.ar(0.8);</p>
+<p class="p8"><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="s4"><span class="Apple-tab-span">	</span>chain = </span><span class="s3">FFT</span><span class="s4">(b, in);<span class="Apple-tab-span">	</span></span>//go from time domain to frequency domain; note that the UGen does not appear to run at a conventional rate (no .ar or .kr); in actual fact, FFT and PV_UGens are at control rate, but only calculate when there is data to act on; IFFT is at audio rate to produce output samples</p>
+<p class="p8"><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//the output chain will always be -1 except when a block of fft data has been calculated; a trigger is then sent, essentially<span class="s4"> </span>by returning the buffer number containing the data (i.e., b.bufnum in this case)<span class="Apple-converted-space"> </span></p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="s4"><span class="Apple-tab-span">	</span>[</span><span class="s3">IFFT</span><span class="s4">(chain),in];<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//convert the data back to the time domain when input chain is a valid buffer number; I'm outputting in stereo with the IFFT output on the left and the original input on the right channel for comparison</p>
+<p class="p6">}.play(s);</p>
+<p class="p6">)</p>
+<p class="p8"><br></p>
+<p class="p7"><span class="s4">b.free; </span>//frees the resource</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">example 2 PV UGen example; spectral filtering</p>
+<p class="p2"><br></p>
+<p class="p6">b = <span class="s3">Buffer</span>.alloc(s,1024,1);<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p6">(</p>
+<p class="p6">{ <span class="s3">var</span> in, chain;</p>
+<p class="p8"><span class="Apple-tab-span">	</span></p>
+<p class="p6"><span class="Apple-tab-span">	</span>in = <span class="s3">WhiteNoise</span>.ar(0.8);</p>
+<p class="p8"><br></p>
+<p class="p6"><span class="Apple-tab-span">	</span>chain = <span class="s3">FFT</span>(b, in);<span class="Apple-tab-span">	</span></p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="s4"><span class="Apple-tab-span">	</span></span>//PV_BrickWall acts as a spectral filter, low pass when second argument (wipe) is -1 to 0 and high pass for 0 to 1<span class="Apple-converted-space">   <span class="Apple-tab-span">	</span></span></p>
+<p class="p6"><span class="Apple-tab-span">	</span>chain= <span class="s3">PV_BrickWall</span>(chain, <span class="s3">Line</span>.kr(-1,1,10));</p>
+<p class="p8"><span class="Apple-tab-span">	</span></p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="s3">Pan2</span>.ar(<span class="s3">IFFT</span>(chain),0.0)</p>
+<p class="p6">}.play(s);</p>
+<p class="p6">)</p>
+<p class="p8"><br></p>
+<p class="p7"><span class="s4">b.free; </span>//frees the resource</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">example 3 Multiple PV UGens across two chains!</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p6">b = <span class="s3">Buffer</span>.alloc(s,1024,1);<span class="Apple-converted-space"> </span></p>
+<p class="p6">c = <span class="s3">Buffer</span>.alloc(s,1024,1);<span class="Apple-converted-space"> </span></p>
+<p class="p7"><span class="s4">d = </span><span class="s3">Buffer</span><span class="s4">.alloc(s,1024,1); </span>//buffer for a copy of spectral data</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p6">(</p>
+<p class="p6">{ <span class="s3">var</span> in1, in2, chain1, chain2, copychain;</p>
+<p class="p8"><span class="Apple-tab-span">	</span></p>
+<p class="p6"><span class="Apple-tab-span">	</span>in1 = <span class="s3">Saw</span>.ar(440,0.8);</p>
+<p class="p6"><span class="Apple-tab-span">	</span>in2 = <span class="s3">SoundIn</span>.ar(0);</p>
+<p class="p8"><br></p>
+<p class="p6"><span class="Apple-tab-span">	</span>chain1 = <span class="s3">FFT</span>(b, in1);<span class="Apple-tab-span">	</span></p>
+<p class="p6"><span class="Apple-tab-span">	</span>chain2 = <span class="s3">FFT</span>(c, in2);</p>
+<p class="p7"><span class="s4"><span class="Apple-tab-span">	</span>copychain= </span><span class="s3">PV_Copy</span><span class="s4">(chain2, d); </span>//copy of FFT analysis of SoundIn<span class="Apple-converted-space"> </span></p>
+<p class="p6"><span class="Apple-tab-span">	</span>chain1 = <span class="s3">PV_MagMul</span>(chain1,chain2);<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="s4"><span class="Apple-tab-span">	</span>copychain = </span><span class="s3">PV_MagFreeze</span><span class="s4">(copychain,</span><span class="s3">LFNoise0.kr(10)</span><span class="s4">); </span>//random spectral freeze effect, when random numbers (generated at 10 times a second) go above 0</p>
+<p class="p8"><span class="Apple-tab-span">	</span></p>
+<p class="p6"><span class="Apple-tab-span">	</span>[0.25*<span class="s3">IFFT</span>(chain1),<span class="s3">IFFT</span>(copychain)]</p>
+<p class="p6">}.play(s);</p>
+<p class="p6">)</p>
+<p class="p8"><br></p>
+<p class="p6">(</p>
+<p class="p7"><span class="s4">b.free; </span>//frees the resource</p>
+<p class="p3">c.free;</p>
+<p class="p3">d.free;</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">example 4 Individually modifying spectral data using other UGens</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s4">See <a href="SC://pvcollect"><span class="s5">pvcollect</span></a></span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p6">b = <span class="s3">Buffer</span>.alloc(s,1024,1);<span class="Apple-converted-space"> </span></p>
+<p class="p9"><span class="s6">c = </span><span class="s7">Buffer</span><span class="s6">.read(s,</span>if(<span class="s3">Main</span>.versionAtLeast(3,5),{<span class="s3">Platform</span>.resourceDir +/+ <span class="s8">"sounds/a11wlk01.wav"</span>},{<span class="s8">"sounds/a11wlk01.wav"</span>})<span class="s6">);<span class="Apple-converted-space"> <span class="Apple-tab-span">	</span></span></span></p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p6">(</p>
+<p class="p6">{ <span class="s3">var</span> in, chain;</p>
+<p class="p8"><span class="Apple-tab-span">	</span></p>
+<p class="p6"><span class="Apple-tab-span">	</span>in = <span class="s3">PlayBuf</span>.ar(1,c,<span class="s3">BufRateScale</span>.kr(c),loop:1);</p>
+<p class="p8"><br></p>
+<p class="p6"><span class="Apple-tab-span">	</span>chain = <span class="s3">FFT</span>(b, in);<span class="Apple-tab-span">	</span></p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p6"><span class="Apple-tab-span">	</span>chain= chain.pvcollect(b.numFrames,{<span class="s3">|mag, phase, index|</span></p>
+<p class="p7"><span class="s4"><span class="Apple-tab-span">	</span></span>//this function gets called once for every bin<span class="Apple-converted-space"> </span></p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="s3">var</span> noise;</p>
+<p class="p8"><span class="Apple-tab-span">	</span></p>
+<p class="p6"><span class="Apple-tab-span">	</span>noise= <span class="s3">LFNoise1</span>.kr(rrand(0.5,1.1));</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p6"><span class="Apple-tab-span">	</span>[noise*mag,noise.range(-pi,pi)]<span class="Apple-tab-span">	</span></p>
+<p class="p6"><span class="Apple-tab-span">	</span>},<span class="Apple-converted-space"> </span></p>
+<p class="p6"><span class="Apple-tab-span">	</span>frombin:0, tobin:250,zeroothers:1);</p>
+<p class="p8"><span class="Apple-tab-span">	</span></p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="s3">Pan2</span>.ar(<span class="s3">IFFT</span>(chain),0.0)</p>
+<p class="p6">}.play(s);</p>
+<p class="p6">)</p>
+<p class="p8"><br></p>
+<p class="p6">(</p>
+<p class="p7"><span class="s4">b.free; </span>//frees the resource</p>
+<p class="p3">c.free;</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Some third party sources:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">Non-realtime analysis using LORIS, SPEAR and ATS, and real-time resynthesis: work by Scott Wilson and Josh Parmenter.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">JoshUGens library from sc3-plugins project has many additional PV_UGens</p>
+<p class="p2"><br></p>
+<p class="p3">FFT also used as a first stage in various machine listening UGens:<span class="Apple-converted-space"> </span></p>
+<p class="p5"><a href="SC://Onsets">Onsets</a></p>
+<p class="p5"><a href="SC://MFCC">MFCC</a></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Technical Note: It is possible to run multiple machine listening UGens on a single FFT (since they usually do not disturb the data source itself); but unless you know what you're doing (i.e., are willing to check the source code for the UGens!) it is usually safest to assume they are changing the fft data in place. PV_Copy can be used to create copies of the FFT output without having to run the actual FFT itself again.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><span class="Apple-converted-space"> </span></p>
+</body>
+</html>

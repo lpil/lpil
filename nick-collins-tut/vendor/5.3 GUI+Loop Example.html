@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1038.36">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #cd1713}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #cd1713; min-height: 25.0px}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; min-height: 25.0px}
+    span.s1 {color: #102ac2}
+    span.s2 {color: #737373}
+    span.s3 {color: #008325}
+    span.s4 {color: #000000}
+    span.s5 {color: #cd1713}
+    span.Apple-tab-span {white-space:pre}
+  </style>
+</head>
+<body>
+<p class="p1">//In this example code, a sound file can be made to loop at any selection in the graphical display</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">//load soundfile onto Server</p>
+<p class="p3">b = <span class="s1">Buffer</span>.read(s,<span class="s1">Platform</span>.resourceDir +/+ <span class="s2">"sounds/a11wlk01.wav"</span>);</p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p1">//SynthDef (making Synth straight away) which has arguments for the loop points<span class="Apple-converted-space"> </span></p>
+<p class="p3">c= <span class="s1">SynthDef</span>(<span class="s3">\loopbuffer</span>, {<span class="s1">arg</span> start=0, end=10000; <span class="s1">Out</span>.ar(0,<span class="s1">Pan2</span>.ar(<span class="s1">BufRd</span>.ar(1, 0, <span class="s1">Phasor</span>.ar(0, <span class="s1">BufRateScale</span>.kr(b.bufnum), start, end),0.0)))}).play(s);</p>
+<p class="p1">//*BufFrames.ir(b.bufnum) //this isn't needed since the GUI gives us positions directly in samples</p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p1"><span class="s4">(<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// make a simple SCSoundFileView</p>
+<p class="p3">w = <span class="s1">Window</span>(<span class="s2">"soundfiles looper"</span>, <span class="s1">Rect</span>(10, 700, 750, 100));</p>
+<p class="p3">w.front;</p>
+<p class="p3">a = <span class="s1">SoundFileView</span>(w, <span class="s1">Rect</span>(20,20, 700, 60));</p>
+<p class="p4"><br></p>
+<p class="p3">f = <span class="s1">SoundFile</span>.new;</p>
+<p class="p3">f.openRead(<span class="s1">Platform</span>.resourceDir +/+ <span class="s2">"sounds/a11wlk01.wav"</span>);</p>
+<p class="p4"><br></p>
+<p class="p3">a.soundfile = f;<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s5">// set soundfile</span></p>
+<p class="p1"><span class="s4">a.read(0, f.numFrames);<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// read in the entire file.</p>
+<p class="p1"><span class="s4">a.refresh;<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// refresh to display the file.</p>
+<p class="p4"><br></p>
+<p class="p1">//set a function which is called when the mouse is let go, i.e. just after dragging out a selection in the window</p>
+<p class="p3">a.mouseUpAction_({<span class="s1">arg</span> view;<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="s1"><span class="Apple-tab-span">	</span>var</span> where;</p>
+<p class="p4"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><span class="s4"><span class="Apple-tab-span">	</span>where= (view.selections[0]); </span>//get the latest selection (assuming no other selections going on)</p>
+<p class="p4"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><span class="s4"><span class="Apple-tab-span">	</span>where.postln; </span>//post where - start sample and length in samples of selection</p>
+<p class="p4"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><span class="s4"><span class="Apple-tab-span">	</span>c.set(</span><span class="s3">\start</span><span class="s4">, where[0], </span><span class="s3">\end</span><span class="s4">, where[0]+where[1]); </span>//convert to start and end samples for loop area</p>
+<p class="p3">});</p>
+<p class="p3">)</p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+</body>
+</html>
