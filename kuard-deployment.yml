@@ -1,0 +1,32 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  # annotations:
+  #   deployment.kubernetes.io/revision: "1"
+  # labels:
+  #   run: nginx
+  name: nginx
+  namespace: default
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      run: nginx
+  revisionHistoryLimit: 20
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        run: nginx
+    spec:
+      containers:
+        - name: nginx
+          # image: nginx:1.7.12
+          image: nginx:1.13.6
+          imagePullPolicy: Always
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
