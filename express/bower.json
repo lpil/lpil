@@ -1,0 +1,13 @@
+{
+  "name": "express",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "output"
+  ],
+  "dependencies": {
+    "purescript-express": "^0.6.0"
+  },
+  "devDependencies": {}
+}
