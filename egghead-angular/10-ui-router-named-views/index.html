@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html ng-app="MyApp">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Angular.</title>
+
+    <style type="text/css" media="screen">
+html { font-size: 90%; }
+.active { font-weight: bold; }
+    </style>
+  </head>
+  <body ng-controller="MainCtrl">
+    <div ui-view="categories">
+    </div>
+    <div ui-view="bookmarks">
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.min.js"></script>
+
+    <script src="app/main.js"></script>
+    <script src="app/categories/categories.js"></script>
+    <script src="app/categories/bookmarks/bookmarks.js"></script>
+    <script src="app/categories/bookmarks/create/bookmark-create.js"></script>
+    <script src="app/categories/bookmarks/edit/bookmark-edit.js"></script>
+    <script src="app/common/models/bookmarks-model.js"></script>
+    <script src="app/common/models/categories-model.js"></script>
+  </body>
+</html>
