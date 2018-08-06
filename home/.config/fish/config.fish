@@ -99,4 +99,4 @@ function rg
 end
 
 # Golang
-set --export GOPATH $HOME/projects/go
+set --export GOPATH $HOME
