@@ -1,0 +1,33 @@
+module hello_world
+
+export hello/0
+
+let hello =
+  "Hello, world!"
+
+-- import test_helpers.assert_equal
+
+-- This is the right one
+-- type iolist
+--   = list iolist
+--   | string
+
+-- type iolist
+--   = list (list string)
+--   | list string
+--   | string
+--
+-- val my_iolist : iolist
+-- let my_iolist =
+--   ["h", ["i", ["!"]]]
+--
+--
+-- let iolist_to_binary iolist =
+--   -- <<"hi">>
+--   beam :erlang :iolist_to_binary [iolist] with
+--     | result -> result
+--     | (:error, err) -> throw err
+
+-- test "iolist" =
+--   let iolist = ["h", [["i"]]] in
+--   assert_equal (iolist_to_binary iolist) "hi"

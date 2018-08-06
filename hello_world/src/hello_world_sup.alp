@@ -1,0 +1,18 @@
+module hello_world_sup
+
+export init/1, start_link/1
+
+let server =
+  :alpaca_hello_world_sup
+
+-- API functions
+
+let start_link () =
+  beam :supervisor :start_link [(:local, server), server, []] with
+  | result -> result
+
+-- Supervisor callbacks
+
+-- Child :: {Id,StartFunc,Restart,Shutdown,Type,Modules}
+let init _ =
+  (:ok, ((:one_for_all, 0, 1), []))
