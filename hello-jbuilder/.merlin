@@ -1,0 +1,11 @@
+B _build/default
+FLG -w -40
+PKG alcotest
+PKG astring
+PKG bytes
+PKG cmdliner
+PKG fmt
+PKG fmt.cli
+PKG fmt.tty
+PKG result
+PKG unix
