@@ -89,3 +89,7 @@
 - presenter: Richard Eisenberg
   title: "A Practical Introduction to Haskell GADTs"
   url: https://www.youtube.com/watch?v=re96UgMk6GQ
+
+- presenter: Daniel Spiewak
+  title: "Uncovering the Unknown: Principles of Type Inference"
+  url: https://www.youtube.com/watch?v=fDTt_uo0F-g
