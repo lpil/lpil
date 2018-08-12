@@ -1,3 +1,4 @@
+// There is a more safe version of this visitor pattern in ../interface-visitor
 package main
 
 import "fmt"
