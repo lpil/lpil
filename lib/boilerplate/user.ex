@@ -40,10 +40,19 @@ defmodule Boilerplate.User do
   @doc """
   Extract and validate changes to a user relevent to registration.
   """
-  def registration_changeset(user, params) do
+  def registration_changeset(user, params \\ %{}) do
     user
     |> changeset(params)
     |> validate_required([:password])
+  end
+
+  @doc """
+  Allows a user to self-register.
+  """
+  def register(params) do
+    %__MODULE__{}
+    |> registration_changeset(params)
+    |> Repo.insert()
   end
 
   @doc """
@@ -101,6 +110,9 @@ defmodule Boilerplate.User do
   @doc """
   Attempt to find a user for a given email/password combination.
   """
+  def fetch_for_credentials(nil, _), do: :email_required
+  def fetch_for_credentials("", _), do: :email_required
+
   def fetch_for_credentials(email, password) do
     with {:ok, user} <- fetch_by_email(email),
          true <- Bcrypt.verify_pass(password, user.password_hash) do

@@ -40,11 +40,14 @@ defmodule Boilerplate.Session do
 
     case Boilerplate.User.fetch_for_credentials(email, password) do
       :not_found ->
-        changeset_with_error(:email, gettext("does not belong to an account"))
-        |> Term.tag(:error)
+        {:not_found, email}
 
       :incorrect_password ->
         changeset_with_error(:password, gettext("is not correct"))
+        |> Term.tag(:error)
+
+      :email_required ->
+        changeset_with_error(:email, gettext("must be present"))
         |> Term.tag(:error)
 
       {:ok, _user} = result ->

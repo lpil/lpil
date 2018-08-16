@@ -1,14 +1,14 @@
 ####{BSB GENERATED: NO EDIT
 B lib/bs
 FLG -open Particle
-FLG -ppx '/home/louis/projects/blondie/assets/node_modules/bs-platform/lib/reactjs_jsx_ppx_2.exe'
-FLG -ppx /home/louis/projects/blondie/assets/node_modules/bs-platform/lib/bsppx.exe
-S /home/louis/projects/blondie/assets/node_modules/bs-platform/lib/ocaml
-B /home/louis/projects/blondie/assets/node_modules/bs-platform/lib/ocaml
+FLG -ppx '/home/louis/src/phoenix-boilerplate/assets/node_modules/bs-platform/lib/reactjs_jsx_ppx_2.exe'
+FLG -ppx /home/louis/src/phoenix-boilerplate/assets/node_modules/bs-platform/lib/bsppx.exe
+S /home/louis/src/phoenix-boilerplate/assets/node_modules/bs-platform/lib/ocaml
+B /home/louis/src/phoenix-boilerplate/assets/node_modules/bs-platform/lib/ocaml
 FLG -nostdlib -no-alias-deps -color always
 FLG -w -30-40+6+7+27+32..39+44+45+101
-S /home/louis/projects/blondie/assets/node_modules/reason-react/lib/ocaml
-B /home/louis/projects/blondie/assets/node_modules/reason-react/lib/ocaml
+S /home/louis/src/phoenix-boilerplate/assets/node_modules/reason-react/lib/ocaml
+B /home/louis/src/phoenix-boilerplate/assets/node_modules/reason-react/lib/ocaml
 S src
 B lib/bs/src
 ####BSB GENERATED: NO EDIT}

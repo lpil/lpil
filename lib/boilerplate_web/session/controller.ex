@@ -1,7 +1,10 @@
 defmodule BoilerplateWeb.Session.Controller do
   @moduledoc """
   Handles the creation and destruction of user sessions for HTML
-  pages. Creates a new user record if one is not already present.
+  pages.
+
+  In the event that the account does not exist it redirects to
+  the registration form.
   """
 
   use BoilerplateWeb, :controller
@@ -23,6 +26,10 @@ defmodule BoilerplateWeb.Session.Controller do
         conn
         |> put_session(:uid, user.id)
         |> redirect(to: dashboard_path(conn, :show))
+
+      {:not_found, email} ->
+        conn
+        |> redirect(to: registration_path(conn, :new, %{email: email}))
     end
   end
 end

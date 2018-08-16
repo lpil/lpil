@@ -28,6 +28,9 @@ defmodule BoilerplateWeb.Router do
 
     get("/login", Session.Controller, :new, as: :session)
     post("/login", Session.Controller, :create, as: :session)
+
+    get("/register", Registration.Controller, :new, as: :registration)
+    post("/register", Registration.Controller, :create, as: :registration)
   end
 
   # Authenticated browser routes

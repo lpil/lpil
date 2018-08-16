@@ -6,7 +6,6 @@ defmodule BoilerplateWeb.Session.ControllerTest do
     test "200", %{conn: conn} do
       conn = get(conn, "/login")
       assert body = html_response(conn, 200)
-      assert body =~ "Register"
       assert body =~ "Login"
     end
   end
@@ -16,10 +15,15 @@ defmodule BoilerplateWeb.Session.ControllerTest do
 
     test "new user", %{conn: conn} do
       conn = post(conn, "/login", %{creds: @params})
-      # TODO: Send to the registration page with from pre-filled
-      # assert redirected_to(conn) == "/register"
+
+      assert redirected_to(conn) == "/register?" <> Plug.Conn.Query.encode(email: @params.email)
+    end
+
+    test "no email", %{conn: conn} do
+      {:ok, _} = User.insert(@params)
+      conn = post(conn, "/login", %{"creds" => Map.put(@params, :email, "")})
       assert body = html_response(conn, 422)
-      assert body =~ "does not belong to an account"
+      assert body =~ "must be present"
     end
 
     test "exiting user, incorrect password", %{conn: conn} do
