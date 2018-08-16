@@ -40,4 +40,16 @@ defmodule BoilerplateWeb.Session.ControllerTest do
       assert Plug.Conn.get_session(conn, :uid) == user.id
     end
   end
+
+  describe "DELETE /session" do
+    test "success", %{conn: conn} do
+      conn =
+        conn
+        |> Plug.Conn.put_session(:uid, 100)
+        |> delete("/session")
+
+      assert redirected_to(conn) == "/"
+      assert Plug.Conn.get_session(conn, :uid) == nil
+    end
+  end
 end

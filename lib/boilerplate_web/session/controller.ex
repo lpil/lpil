@@ -32,4 +32,10 @@ defmodule BoilerplateWeb.Session.Controller do
         |> redirect(to: registration_path(conn, :new, %{email: email}))
     end
   end
+
+  def delete(conn, _params) do
+    conn
+    |> delete_session(:uid)
+    |> redirect(to: "/")
+  end
 end
