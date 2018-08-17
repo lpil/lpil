@@ -5,7 +5,7 @@ defmodule Boilerplate.Organisation do
 
   use Ecto.Schema
   require Ecto.Query
-  alias Boilerplate.{Repo, Membership}
+  alias Boilerplate.{Repo, Membership, User}
   alias Ecto.Query
 
   @optional_params []

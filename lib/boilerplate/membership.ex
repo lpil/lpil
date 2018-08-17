@@ -7,6 +7,7 @@ defmodule Boilerplate.Membership do
   require Ecto.Query
   alias Boilerplate.{Repo, Organisation, User}
 
+  @type membership_type() :: :admin | :user
   require EctoEnum
   EctoEnum.defenum(TypeEnum, :membership_type, [:admin, :user])
 
@@ -19,7 +20,7 @@ defmodule Boilerplate.Membership do
 
   @type t :: %__MODULE__{}
 
-  @spec insert(User.t(), Organisation.t(), TypeEnum.t()) ::
+  @spec insert(User.t(), Organisation.t(), membership_type()) ::
           {:ok, t} | {:error, Ecto.Changeset.t()}
   def insert(user, organisation, type) do
     import Ecto.Changeset
