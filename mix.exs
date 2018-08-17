@@ -48,11 +48,6 @@ defmodule Boilerplate.Mixfile do
       {:gettext, "~> 0.11"},
       # Web server
       {:cowboy, "~> 1.0"},
-      # HTTP client
-      {:httpoison, "~> 1.1", override: true},
-      # Auth plugin system
-      {:ueberauth, "~> 0.5"},
-      {:ueberauth_auth0, "~> 0.3"},
       # Password hashing
       {:bcrypt_elixir, "~> 1.0"},
       # Type checker

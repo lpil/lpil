@@ -14,11 +14,11 @@
   <body>
     <nav>
       <%= case @conn.assigns[:user] do %>
-        <%= nil -> %>
+        <% nil -> %>
           <%= link(gettext("Log in"), to: session_path(@conn, :new)) %>
           <%= link(gettext("Register"), to: registration_path(@conn, :new)) %>
 
-        <%= user -> %>
+        <% _user -> %>
           <%= link(gettext("Log out"), to: session_path(@conn, :delete), method: :delete) %>
       <% end %>
     </nav>
