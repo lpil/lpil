@@ -76,4 +76,12 @@ defmodule Boilerplate.UserTest do
       assert user.email == @params.email
     end
   end
+
+  test "confirm_email/1" do
+    {:ok, user} = @params |> Map.delete(:email_confirmed_at) |> User.insert()
+    refute user.email_confirmed_at
+    assert :ok = User.confirm_email(user)
+    {:ok, new_user} = User.fetch(user.id)
+    assert new_user.email_confirmed_at
+  end
 end

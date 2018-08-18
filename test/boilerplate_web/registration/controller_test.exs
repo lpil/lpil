@@ -1,6 +1,7 @@
 defmodule BoilerplateWeb.Registration.ControllerTest do
   use BoilerplateWeb.ConnCase
   alias Boilerplate.User
+  import Swoosh.TestAssertions
 
   describe "GET /register" do
     test "200", %{conn: conn} do
@@ -22,9 +23,11 @@ defmodule BoilerplateWeb.Registration.ControllerTest do
 
     test "success", %{conn: conn} do
       conn = post(conn, "/register", %{user: @params})
-      assert redirected_to(conn, 302) == "/dashboard"
+      assert redirected_to(conn, 302) == "/email-confirmation"
       assert {:ok, user} = User.fetch_by_email(@params.email)
       assert Plug.Conn.get_session(conn, :uid) == user.id
+      assert user.email_confirmed_at == nil
+      assert_email_sent(subject: "Welcome to Boilerplate! Please confirm your email")
     end
 
     test "exiting user", %{conn: conn} do

@@ -4,7 +4,6 @@ defmodule Boilerplate.Membership do
   """
 
   use Ecto.Schema
-  require Ecto.Query
   alias Boilerplate.{Repo, Organisation, User}
 
   @type membership_type() :: :admin | :user

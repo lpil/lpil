@@ -8,7 +8,8 @@ defmodule Fixture do
     |> Enum.into(%{
       name: "Ginny Weasley",
       email: "ginny#{i()}@weasley.family",
-      password: "potterisacutie!"
+      password: "potterisacutie!",
+      email_confirmed_at: DateTime.utc_now()
     })
   end
 

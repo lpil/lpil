@@ -4,7 +4,8 @@ defmodule BoilerplateWeb.Registration.Controller do
   """
 
   use BoilerplateWeb, :controller
-  alias Boilerplate.User
+  alias Boilerplate.{User, EmailConfirmationToken}
+  alias BoilerplateWeb.Registration
 
   def new(conn, params) do
     changeset = User.registration_changeset(%User{}, %{email: params["email"]})
@@ -21,9 +22,16 @@ defmodule BoilerplateWeb.Registration.Controller do
         |> render("new.html", changeset: changeset)
 
       {:ok, user} ->
+        {:ok, token} = EmailConfirmationToken.for_user(user)
+
+        {:ok, _} =
+          user
+          |> Registration.Email.confirmation_email(token)
+          |> BoilerplateWeb.Mailer.deliver()
+
         conn
         |> put_session(:uid, user.id)
-        |> redirect(to: dashboard_path(conn, :show))
+        |> redirect(to: email_confirmation_path(conn, :index))
     end
   end
 end

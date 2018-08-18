@@ -1,0 +1,12 @@
+<h2>
+  <%= gettext "Thanks for registering!" %>
+</h2>
+
+<p>
+  <%= gettext "Please click this link to confirm your email and activate your account." %>
+</p>
+
+<p>
+  <% url = email_confirmation_url(BoilerplateWeb.Endpoint, :show, @token_id) %>
+  <%= link(url, to: url) %>
+</p>

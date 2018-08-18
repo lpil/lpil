@@ -5,7 +5,7 @@ the base for whatever project.
 
 - Cowboy webserver
 - Phoenix web framework
-- Yesql & Ecto for persistence & validation
+- Ecto for persistence & validation
 - Ueberauth for authentication
 
 ## Quick Reference
@@ -32,5 +32,7 @@ mix phx.server
 docker build . -t myapp
 
 # Run docker container from image
-docker run --env ERLANG_COOKIE=some-secret-value -p 4000:4000 -it --rm particle
+docker run --env ERLANG_COOKIE=some-secret-value -p 4000:4000 -it --rm myapp
 ```
+
+Sent Emails can be viewed in development at http://localhost:4000/dev/mailbox.

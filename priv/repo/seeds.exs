@@ -56,67 +56,78 @@ case Mix.env() do
     luna =
       insert!(%User{
         name: "Lune Lovegood",
-        email: "luna.lovegood@thequibbler.net"
+        email: "luna.lovegood@thequibbler.net",
+        email_confirmed_at: DateTime.utc_now()
       })
 
     dean =
       insert!(%User{
         name: "Dean Thmoas",
-        email: "dean.thomas@footballfanz.co.uk"
+        email: "dean.thomas@footballfanz.co.uk",
+        email_confirmed_at: DateTime.utc_now()
       })
 
     cho =
       insert!(%User{
         name: "Cho Chang",
-        email: "cho.chang@dumbledoresarmy.org"
+        email: "cho.chang@dumbledoresarmy.org",
+        email_confirmed_at: DateTime.utc_now()
       })
 
     hannah =
       insert!(%User{
         name: "Hannah Abbott",
-        email: "hannah.abbott@dumbledoresarmy.org"
+        email: "hannah.abbott@dumbledoresarmy.org",
+        email_confirmed_at: DateTime.utc_now()
       })
 
     millicent =
       insert!(%User{
         name: "Millicent Bulstrode",
-        email: "millicent.bulstrode@inquisitorial-squad.gov"
+        email: "millicent.bulstrode@inquisitorial-squad.gov",
+        email_confirmed_at: DateTime.utc_now()
       })
 
     mcgonagall =
       insert!(%User{
         name: "Minerva McGonagall",
-        email: "minerva.mcgonagall@hogwarts.edu"
+        email: "minerva.mcgonagall@hogwarts.edu",
+        email_confirmed_at: DateTime.utc_now()
       })
 
     flitwick =
       insert!(%User{
         name: "Filius Flitwick",
-        email: "filius.flitwick@hogwarts.edu"
+        email: "filius.flitwick@hogwarts.edu",
+        email_confirmed_at: DateTime.utc_now()
       })
 
     sprout =
       insert!(%User{
         name: "Pomona Sprout",
-        email: "pomona.sprout@hogwarts.edu"
+        email: "pomona.sprout@hogwarts.edu",
+        email_confirmed_at: DateTime.utc_now()
       })
 
     snape =
       insert!(%User{
         name: "Severus Snape",
-        email: "severus.snape@hogwarts.edu"
+        email: "severus.snape@hogwarts.edu",
+        email_confirmed_at: DateTime.utc_now()
       })
 
     fudge =
       insert!(%User{
         name: "Cornelius Fudge",
-        email: "cornelius.fudge@ministryofmagic.gov"
+        email: "cornelius.fudge@ministryofmagic.gov",
+        email_confirmed_at: DateTime.utc_now()
       })
 
     scrimgeour =
       insert!(%User{
         name: "Rufus Scrimgeour",
-        email: "rufus.scrimgeour@ministryofmagic.gov"
+        email: "rufus.scrimgeour@ministryofmagic.gov",
+        email_confirmed_at: DateTime.utc_now()
       })
 
     #

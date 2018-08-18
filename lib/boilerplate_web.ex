@@ -65,4 +65,9 @@ defmodule BoilerplateWeb do
   defmacro __using__(which) when is_atom(which) do
     apply(__MODULE__, which, [])
   end
+
+  # TODO: Get email from env
+  def noreply_email_address do
+    "noreply@example.com"
+  end
 end

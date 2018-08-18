@@ -9,5 +9,6 @@ import_config "logger.exs"
 import_config "phoenix.exs"
 import_config "ecto.exs"
 import_config "bcrypt.exs"
+import_config "swoosh.exs"
 
 import_config "#{Mix.env()}.secret.exs"

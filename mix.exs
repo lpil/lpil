@@ -50,6 +50,8 @@ defmodule Boilerplate.Mixfile do
       {:cowboy, "~> 1.0"},
       # Password hashing
       {:bcrypt_elixir, "~> 1.0"},
+      # Email sending
+      {:phoenix_swoosh, "~> 0.2"},
       # Type checker
       {:dialyxir, "~> 0.5", only: [:dev], runtime: false},
       # Automatic test runner

@@ -11,10 +11,29 @@ defmodule Boilerplate.Repo.Migrations.HelloWorld do
       add(:email, :string, null: false)
       add(:name, :string, null: false)
       add(:password_hash, :string)
+      add(:email_confirmed_at, :utc_datetime)
       timestamps()
     end
 
     create(unique_index(:users, [:email]))
+
+    #
+    # Email confirmation tokens
+    #
+
+    create table(:email_confirmation_tokens, primary_key: false) do
+      add(:id, :uuid, primary_key: true)
+
+      add(
+        :user_id,
+        references(:users, on_delete: :delete_all, type: :uuid),
+        null: false
+      )
+
+      timestamps()
+    end
+
+    create(unique_index(:email_confirmation_tokens, [:user_id]))
 
     #
     # Organisations
@@ -36,13 +55,20 @@ defmodule Boilerplate.Repo.Migrations.HelloWorld do
 
     create table(:memberships) do
       add(:type, :membership_type, null: false, default: "user")
+
+      add(
+        :user_id,
+        references(:users, on_delete: :delete_all, type: :uuid),
+        null: false
+      )
+
+      add(
+        :organisation_id,
+        references(:organisations, on_delete: :delete_all, type: :uuid),
+        null: false
+      )
+
       timestamps()
-
-      user_ref = references(:users, on_delete: :delete_all, type: :uuid)
-      add(:user_id, user_ref, null: false)
-
-      org_ref = references(:organisations, on_delete: :delete_all, type: :uuid)
-      add(:organisation_id, org_ref, null: false)
     end
 
     create(unique_index(:memberships, [:user_id, :organisation_id]))

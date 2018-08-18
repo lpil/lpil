@@ -9,13 +9,13 @@ defmodule Boilerplate.User do
   alias Boilerplate.{Repo, Membership}
   alias Ecto.Query
 
-  @optional_params [:password]
   @required_params [:email, :name]
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "users" do
     field(:email, :string)
+    field(:email_confirmed_at, :utc_datetime)
     field(:name, :string)
     field(:password_hash, :string)
     field(:password, :string, virtual: true)
@@ -25,10 +25,8 @@ defmodule Boilerplate.User do
 
   @type t :: %__MODULE__{}
 
-  def changeset(user, params) do
-    user
-    |> cast(params, @required_params)
-    |> cast(params, @optional_params)
+  defp validate(changeset) do
+    changeset
     |> validate_required(@required_params)
     |> validate_format(:email, ~r/.@.+\../)
     |> validate_length(:password, min: 8, max: 100)
@@ -37,13 +35,21 @@ defmodule Boilerplate.User do
     |> put_password_hash()
   end
 
+  def changeset(user, params) do
+    user
+    |> cast(params, @required_params)
+    |> cast(params, [:password, :email_confirmed_at])
+    |> validate()
+  end
+
   @doc """
   Extract and validate changes to a user relevent to registration.
   """
   def registration_changeset(user, params \\ %{}) do
     user
-    |> changeset(params)
+    |> cast(params, [:password | @required_params])
     |> validate_required([:password])
+    |> validate()
   end
 
   @doc """
@@ -124,5 +130,18 @@ defmodule Boilerplate.User do
       false ->
         :incorrect_password
     end
+  end
+
+  @doc """
+  Set the `email_confirmed_at` field to the current time.
+  """
+  @spec confirm_email(t()) :: {:ok, t()}
+  def confirm_email(user) do
+    {:ok, _} =
+      user
+      |> Ecto.Changeset.change(%{email_confirmed_at: DateTime.utc_now()})
+      |> Repo.update()
+
+    :ok
   end
 end

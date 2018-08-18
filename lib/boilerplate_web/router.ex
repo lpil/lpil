@@ -10,7 +10,10 @@ defmodule BoilerplateWeb.Router do
     plug(:put_secure_browser_headers)
   end
 
-  # Middleware stack used for routes that require auth
+  pipeline :email_confirmed do
+    plug(BoilerplateWeb.Session.EmailConfirmed)
+  end
+
   pipeline :authenticated do
     plug(BoilerplateWeb.Session.Enforce)
   end
@@ -34,9 +37,21 @@ defmodule BoilerplateWeb.Router do
     post("/register", Registration.Controller, :create, as: :registration)
   end
 
-  # Authenticated browser routes
+  # Authenticated but not confirmed browser routes
   scope "/", BoilerplateWeb do
     pipe_through([:browser, :authenticated])
+
+    resources(
+      "/email-confirmation",
+      EmailConfirmation.Controller,
+      only: [:index, :create, :show],
+      as: :email_confirmation
+    )
+  end
+
+  # Authenticated browser routes
+  scope "/", BoilerplateWeb do
+    pipe_through([:browser, :authenticated, :email_confirmed])
 
     get("/dashboard", Dashboard.Controller, :show, as: :dashboard)
   end
@@ -46,5 +61,14 @@ defmodule BoilerplateWeb.Router do
     pipe_through(:api)
 
     get("/status", Status.Controller, :show)
+  end
+
+  # Magic development routes
+  if Mix.env() == :dev do
+    scope "/dev" do
+      pipe_through([:browser])
+
+      forward("/mailbox", Plug.Swoosh.MailboxPreview, base_path: "/dev/mailbox")
+    end
   end
 end
