@@ -1,5 +1,5 @@
 defmodule BoilerplateWeb.Registration.EmailTest do
-  use ExUnit.Case, async: true
+  use Boilerplate.DataCase, async: true
   alias Boilerplate.{User, EmailConfirmationToken}
   alias BoilerplateWeb.Registration
 

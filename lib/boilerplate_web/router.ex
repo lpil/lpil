@@ -29,12 +29,28 @@ defmodule BoilerplateWeb.Router do
 
     get("/", Page.Controller, :index, as: :page)
 
-    get("/login", Session.Controller, :new, as: :session)
-    post("/login", Session.Controller, :create, as: :session)
-    delete("/session", Session.Controller, :delete, as: :session)
+    resources(
+      "/login",
+      Session.Controller,
+      singleton: true,
+      only: [:show, :create, :delete],
+      as: :session
+    )
 
-    get("/register", Registration.Controller, :new, as: :registration)
-    post("/register", Registration.Controller, :create, as: :registration)
+    resources(
+      "/register",
+      Registration.Controller,
+      singleton: true,
+      only: [:show, :create],
+      as: :registration
+    )
+
+    resources(
+      "/password-reset",
+      PasswordReset.Controller,
+      only: [:new, :create, :show, :update],
+      as: :password_reset
+    )
   end
 
   # Authenticated but not confirmed browser routes

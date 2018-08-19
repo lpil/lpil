@@ -10,7 +10,7 @@ defmodule BoilerplateWeb.Session.Controller do
   use BoilerplateWeb, :controller
   alias Boilerplate.Session
 
-  def new(conn, _params) do
+  def show(conn, _params) do
     conn
     |> render("new.html", changeset: Session.Creds.changeset())
   end
@@ -29,7 +29,7 @@ defmodule BoilerplateWeb.Session.Controller do
 
       {:not_found, email} ->
         conn
-        |> redirect(to: registration_path(conn, :new, %{email: email}))
+        |> redirect(to: registration_path(conn, :show, %{email: email}))
     end
   end
 

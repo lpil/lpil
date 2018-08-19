@@ -52,6 +52,8 @@ defmodule Boilerplate.Mixfile do
       {:bcrypt_elixir, "~> 1.0"},
       # Email sending
       {:phoenix_swoosh, "~> 0.2"},
+      # Time data structure helpers
+      {:timex, "~> 3.1"},
       # Type checker
       {:dialyxir, "~> 0.5", only: [:dev], runtime: false},
       # Automatic test runner

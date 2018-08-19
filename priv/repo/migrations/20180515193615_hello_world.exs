@@ -36,6 +36,25 @@ defmodule Boilerplate.Repo.Migrations.HelloWorld do
     create(unique_index(:email_confirmation_tokens, [:user_id]))
 
     #
+    # Password reset tokens
+    #
+
+    create table(:password_reset_tokens, primary_key: false) do
+      add(:id, :uuid, primary_key: true)
+      add(:expires_at, :utc_datetime)
+
+      add(
+        :user_id,
+        references(:users, on_delete: :delete_all, type: :uuid),
+        null: false
+      )
+
+      timestamps()
+    end
+
+    create(unique_index(:password_reset_tokens, [:user_id]))
+
+    #
     # Organisations
     #
 

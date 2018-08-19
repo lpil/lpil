@@ -23,3 +23,7 @@
     <%= submit "Submit", class: "btn btn-primary" %>
   </div>
 <% end %>
+
+<p>
+  <%= link gettext("Forgotten your password?"), to: password_reset_path(@conn, :new) %>
+</p>

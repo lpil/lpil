@@ -7,6 +7,7 @@ defmodule BoilerplateWeb.EmailConfirmation.Controller do
   use BoilerplateWeb, :controller
   alias BoilerplateWeb.{Registration, Mailer, Error}
   alias Boilerplate.{User, EmailConfirmationToken}
+  require Logger
 
   def index(conn, _params) do
     conn
@@ -38,6 +39,12 @@ defmodule BoilerplateWeb.EmailConfirmation.Controller do
       ^token_id ->
         :ok = EmailConfirmationToken.delete(token)
         :ok = User.confirm_email(user)
+
+        Logger.info(
+          "user #{user.id} confirmed their email",
+          action: :user_email_confirmed,
+          user_id: user.id
+        )
 
         conn
         |> put_flash(:info, gettext("Thanks! Your email has been confirmed"))

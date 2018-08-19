@@ -22,7 +22,7 @@ defmodule BoilerplateWeb.Session.Enforce do
       :not_found ->
         conn
         |> Phoenix.Controller.put_flash(:error, gettext("Please login to continue"))
-        |> Phoenix.Controller.redirect(to: Router.Helpers.session_path(conn, :new))
+        |> Phoenix.Controller.redirect(to: Router.Helpers.session_path(conn, :show))
         |> Plug.Conn.halt()
     end
   end

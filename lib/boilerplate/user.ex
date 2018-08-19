@@ -144,4 +144,13 @@ defmodule Boilerplate.User do
 
     :ok
   end
+
+  @spec update_password(t(), String.t()) :: {:ok, t()} | {:error, Ecto.Changeset.t()}
+  def update_password(user, new_password) do
+    user
+    |> Ecto.Changeset.change(password: new_password)
+    |> put_password_hash
+    |> validate()
+    |> Repo.update()
+  end
 end

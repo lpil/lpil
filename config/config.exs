@@ -12,3 +12,8 @@ import_config "bcrypt.exs"
 import_config "swoosh.exs"
 
 import_config "#{Mix.env()}.secret.exs"
+
+if Mix.env() == :dev do
+  config :mix_test_watch,
+    clear: true
+end

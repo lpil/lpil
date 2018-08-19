@@ -1,4 +1,4 @@
-defmodule EmailConfirmationTokenTest do
+defmodule Boilerplate.EmailConfirmationTokenTest do
   use Boilerplate.DataCase, async: true
   alias Boilerplate.{User, EmailConfirmationToken}
 
