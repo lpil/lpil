@@ -4,7 +4,6 @@ defmodule BoilerplateWeb.Session.EmailConfirmed do
   email. If the email is not confirmed in it redirects the user elsewhere.
   """
 
-  alias Boilerplate.User
   alias BoilerplateWeb.Router
   import Boilerplate.Gettext, only: [gettext: 1]
 

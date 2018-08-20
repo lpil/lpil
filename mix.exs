@@ -59,7 +59,7 @@ defmodule Boilerplate.Mixfile do
       # Automatic test runner
       {:mix_test_watch, "~> 0.4", only: [:dev], runtime: false},
       # Release builder
-      {:distillery, "~> 1.5", runtime: false}
+      {:distillery, "~> 2.0", runtime: false}
     ]
   end
 
