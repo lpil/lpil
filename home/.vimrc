@@ -15,7 +15,7 @@ Plug 'dag/vim-fish', { 'for': 'fish' }
 Plug 'derekwyatt/vim-scala', { 'for': ['scala', 'markdown'] }
 Plug 'digitaltoad/vim-pug', { 'for': ['pug', 'jade'] }
 Plug 'dleonard0/pony-vim-syntax', { 'for': 'pony' }
-Plug 'elixir-lang/vim-elixir', { 'for': ['elixir', 'markdown'] }
+Plug 'elixir-lang/vim-elixir', { 'for': ['elixir', 'markdown', 'eelixir'] }
 Plug 'elmcast/elm-vim', { 'for': ['elm', 'markdown'] }
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'flowtype/vim-flow', { 'for': ['javascript'] }
