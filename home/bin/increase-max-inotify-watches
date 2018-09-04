@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -eu
+
+run() {
+  echo $@
+  $@
+}
+
+run sudo sysctl fs.inotify.max_user_watches=524288
+run sudo sysctl -p
