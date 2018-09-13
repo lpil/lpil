@@ -230,10 +230,6 @@ nnoremap <C-down> <C-w>j
 nnoremap <C-up> <C-w>k
 nnoremap <C-right> <C-w>l
 
-" Improve up/down movement on wrapped lines
-nnoremap j gj
-nnoremap k gk
-
 " Easier increment/decrement
 nnoremap + <C-a>
 nnoremap - <C-x>
