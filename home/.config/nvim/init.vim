@@ -159,20 +159,16 @@ set softtabstop=2   "Insert 2 spaces when tab is pressed
 set tabstop=2       "A tab is 2 spaces
 
 set backupcopy=yes
-set backupdir=~/.vim/tmp
-set directory=~/.vim/tmp
-set undodir=~/.vim/tmp      " where to save undo histories
-set undofile                " Save undo's after file closes
-set undolevels=1000         " How many undos
-set undoreload=10000        " number of lines to save for undo
+set backupdir=~/.config/nvim/tmp
+set directory=~/.config/nvim/tmp
+set undodir=~/.config/nvim/tmp " where to save undo histories
+set undofile                   " Save undo's after file closes
+set undolevels=1000            " How many undos
+set undoreload=10000           " number of lines to save for undo
 
 """"""""""""""""
 " Highlighting "
 """"""""""""""""
-" Highlight chars in col 80
-2mat ErrorMsg '\%80v.'
-    " clear with :2mat
-
 " Highlight fenced code blocks in markdown docs
 let g:markdown_fenced_languages = [
       \'clojure',
@@ -188,6 +184,7 @@ let g:markdown_fenced_languages = [
       \'ocaml',
       \'python',
       \'ruby',
+      \'rust',
       \'sass',
       \'scala',
       \'scheme',
