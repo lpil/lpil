@@ -8,6 +8,7 @@ set fish_greeting
 # Postgres config
 set --export PGHOST localhost
 set --export PGUSER postgres
+set --export PGPASSWORD postgres
 
 set --export ANSIBLE_VAULT_PASSWORD_FILE "$HOME/.ansible/vault_password/honeycomb"
 set --export ERL_AFLAGS "-kernel shell_history enabled"
