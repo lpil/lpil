@@ -6,7 +6,7 @@
   ui = true
 
 [core]
-  excludesfile = ~/.gitglobalignore
+  excludesfile = ~/.config/git/ignore
   editor = nvim
   pager = less -S
 
