@@ -3,7 +3,7 @@ if has('nvim')
   tnoremap <Esc> <C-\><C-n>
 endif
 
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.config/nvim/plugged')
 
 let lisp_languages = ['scheme', 'clojure', 'lfe']
 
@@ -51,6 +51,7 @@ Plug 'sirver/ultisnips'
 Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
 Plug 'supercollider/scvim', { 'for': 'supercollider' }
 Plug 'tomtom/tlib_vim'
+Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-cucumber', { 'for': 'cucumber' }
 Plug 'tpope/vim-endwise'
