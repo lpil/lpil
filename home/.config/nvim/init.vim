@@ -10,7 +10,6 @@ let lisp_languages = ['scheme', 'clojure', 'lfe']
 Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'scss.css'] }
 Plug 'cespare/vim-toml', { 'for': 'toml' }
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'dag/vim-fish', { 'for': 'fish' }
 Plug 'derekwyatt/vim-scala', { 'for': ['scala', 'markdown'] }
 Plug 'digitaltoad/vim-pug', { 'for': ['pug', 'jade'] }
@@ -27,6 +26,8 @@ Plug 'hashivim/vim-terraform', { 'for': 'terraform' }
 Plug 'honza/vim-snippets'
 Plug 'idris-hackers/idris-vim', { 'for': 'idris' }
 Plug 'jparise/vim-graphql', { 'for': 'graphql' }
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
 Plug 'kongo2002/fsharp-vim', { 'for': 'fsharp' }
 Plug 'kylef/apiblueprint.vim', { 'for': 'apiblueprint' }
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
@@ -265,18 +266,6 @@ else
   command! -range=% Reverse :'<,'>!tac
 endif
 
-
-""""""""""""""""""
-" plugin: ctrlp "
-""""""""""""""""""
-
-" Search MRU, buffers, and files
-nnoremap <C-o> :CtrlPMixed<CR>
-
-let g:ctrlp_custom_ignore = {
-  \ 'dir': '\v[\/](\.git|\.hg|\.svn|_site|target|node_modules|bower_components|_build|dist|output|elm-stuff|coverage|deps|tmp)$',
-  \ 'file': '\.beam$'
-  \ }
 
 """""""""""""""""""""""""
 " Plugin: deocomplcache "
