@@ -99,3 +99,7 @@ end
 
 # Golang
 set --export GOPATH $HOME
+
+# FZF
+# Use fd to list files for fzf as it respects gitignore
+set --export FZF_DEFAULT_COMMAND fd
