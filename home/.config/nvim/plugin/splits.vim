@@ -1,11 +1,13 @@
-
 function! Open3Columns()
   vsplit
   vsplit
+  wincmd l
+  wincmd l
   split
   terminal
   wincmd j
   terminal
+  wincmd k
 endfunction
 
 command! ThreeColumns call Open3Columns()
