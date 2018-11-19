@@ -10,7 +10,7 @@ end
 let test_set =
   [ ( "Capitalize"
     , `Quick
-    , fun () -> Alcotest.(check char) "same chars" 'A' (Mod.capit 'b') )
+    , fun () -> Alcotest.(check char) "same chars" 'A' (Mod.capit 'A') )
   ; ( "Add entries"
     , `Slow
     , fun () -> Alcotest.(check int) "same ints" 7 (Mod.plus [1; 1; 2; 3]) ) ]
