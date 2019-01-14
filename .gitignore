@@ -1,0 +1,15 @@
+*.log
+*.pid
+*.seed
+.lock-wscript
+.node_repl_history
+.npm
+.nyc_output
+build/Release
+coverage
+lib-cov
+logs
+node_modules
+npm-debug.log*
+pids
+dist
