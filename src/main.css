@@ -1,0 +1,41 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+
+.title {
+  height: 80px;
+  margin: 0;
+  line-height: 80px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.board {
+  height: calc(100% - 80px); /* viewport - .title height */
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.cell {
+  width: 35%;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cell::after {
+  content: '';
+  display: block;
+  float: left;
+  padding-top: 100%;
+}
