@@ -1,0 +1,21 @@
+$base-font-family: "Karla", "Trebuchet MS", sans-serif;
+$base-italic-font-family: "Karla-Italic", "Trebuchet MS", sans-serif;
+$heading-font-family: "Bureau Grot Cond Bd", "Karla", "Trebuchet MS", sans-serif;
+
+body {
+  font-family: $base-font-family;
+  line-height: 1.4;
+  font-size: 18px;
+}
+
+h1, h2, h3, h4, h5 {
+  font-size: 28px;
+  margin-bottom: 0.2em;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-family: $heading-font-family;
+}
+
+p {
+  margin-bottom: 1em;
+}

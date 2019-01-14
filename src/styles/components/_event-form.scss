@@ -1,0 +1,28 @@
+$height: $event-value-height;
+
+input {
+  height: $height;
+  line-height: $height;
+
+  $horizontal-padding: 0.5em;
+  padding-left: $horizontal-padding;
+  padding-right: $horizontal-padding;
+
+  display: block;
+  width: 100%;
+}
+
+label {
+  height: $height;
+  line-height: $height;
+  display: block;
+  font-weight: bold;
+}
+
+label:after {
+  content: ': ';
+}
+
+.event-form__field {
+  margin-bottom: $event-field-spacer;
+}

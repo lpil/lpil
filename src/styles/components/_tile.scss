@@ -1,0 +1,21 @@
+.tiles {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+
+  margin-left: -$panel-gutter-size / 2;
+  margin-right: -$panel-gutter-size / 2;
+}
+
+.loading-tile,
+.new-event-tile,
+.event-tile {
+  margin-left: $panel-gutter-size / 2;
+  margin-right: $panel-gutter-size / 2;
+  margin-top: $panel-gutter-size;
+  flex-grow: 1;
+  flex: 1;
+  min-width: 300px;
+  min-height: 100px;
+  padding: $tile-padding;
+}

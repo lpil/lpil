@@ -1,0 +1,16 @@
+.event-tile {
+  animation: 0.5s fade-in;
+  background-color: $c-brand-pink;
+}
+
+.event-tile__title:hover {
+  text-decoration: underline;
+}
+
+.event-tile__value {
+  height: $event-value-height;
+}
+
+.event-tile__field {
+  margin-bottom: $event-field-spacer;
+}
