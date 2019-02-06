@@ -1,5 +1,6 @@
 ---
 title: Testing CSS computed styles with Capybara
+published: false
 date: 2015-05-07 12:58 UTC
 tags:
   - Ruby

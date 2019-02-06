@@ -1,5 +1,6 @@
 ---
 title: Parsing URLs with Javascript
+published: false
 categories:
   - Javascript
   - Web dev

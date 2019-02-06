@@ -1,5 +1,6 @@
 ---
 title:  "DRYing up Minitest tests with metaprogramming"
+published: false
 categories:
   - Web dev
   - Rails
@@ -99,7 +100,7 @@ end
 Here we're using `define_method`, which (surprise surprise) defines a method on
 the class it's called from. If we add an array of method names, and some string
 interpolation, and we can create a new test for each method that we wish to
-test on the model! 
+test on the model!
 
 You don't have to just use this technique for checking whether model responds a
 certain method call, anywhere were you've got multiple near-identical test
@@ -111,5 +112,5 @@ So there we have it, DRY-er tests that don't hide the details from us. And
 because we've done it with metaprogramming, we get Rubyist street cred.
 Banging.
 
-Cheers,  
+Cheers,
 Louis

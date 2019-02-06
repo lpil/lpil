@@ -1,5 +1,6 @@
 ---
 title: Automatically running Rust unit tests
+published: false
 categories:
   - Rust
   - Testing

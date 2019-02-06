@@ -1,5 +1,6 @@
 ---
 title: Using SASS, ES6 Javascript, and Node modules with Brunch
+published: false
 date: 2015-08-31 21:37 UTC
 tags:
   - Frontend
@@ -202,7 +203,7 @@ exports.config = {
     javascripts: { joinTo: 'main.js'  },
     templates:   { joinTo: 'main.js'  },
     stylesheets: { joinTo: 'main.css' },
- 
+
     npm: { enabled: true },
   },
 };
