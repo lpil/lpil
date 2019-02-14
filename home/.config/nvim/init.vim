@@ -187,6 +187,7 @@ let g:markdown_fenced_languages = [
       \'python',
       \'ruby',
       \'rust',
+      \'rust,noplaypen=rust',
       \'sass',
       \'scala',
       \'scheme',
