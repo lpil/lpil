@@ -47,7 +47,6 @@ Plug 'rhysd/vim-crystal', { 'for': 'crystal' }
 Plug 'rust-lang/rust.vim', { 'for': ['rust', 'markdown'] }
 Plug 'sbdchd/neoformat'
 Plug 'scrooloose/nerdtree'
-Plug 'shougo/deoplete.nvim'
 Plug 'sirver/ultisnips'
 Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
 Plug 'supercollider/scvim', { 'for': 'supercollider' }
@@ -61,6 +60,8 @@ Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rails', { 'for': 'ruby' }
 Plug 'tpope/vim-repeat'
+Plug 'ncm2/ncm2'
+Plug 'roxma/nvim-yarp'
 Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': lisp_languages }
 Plug 'tpope/vim-sleuth'
@@ -69,7 +70,6 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
 Plug 'udalov/kotlin-vim', { 'for': 'kotlin' }
 Plug 'vim-scripts/matchit.zip'
-Plug 'zchee/deoplete-go', { 'do': 'make'}
 
 call plug#end()
 
@@ -267,12 +267,34 @@ else
   command! -range=% Reverse :'<,'>!tac
 endif
 
+""""""""""""""""""
+"  Plugin: ncm2  "
+""""""""""""""""""
 
-"""""""""""""""""""""""""
-" Plugin: deocomplcache "
-"""""""""""""""""""""""""
+" enable ncm2 for all buffers
+autocmd BufEnter * call ncm2#enable_for_buffer()
 
-let g:deoplete#enable_at_startup = 1
+" IMPORTANT: :help Ncm2PopupOpen for more information
+set completeopt=noinsert,menuone,noselect
+set shortmess+=c
+
+
+"""""""""""""""""""""""""""""""""""
+"  Plugin: languageclient-neovim  "
+"""""""""""""""""""""""""""""""""""
+
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+    \ 'go': ['gopls']
+    \ }
+
+let g:LanguageClient_diagnosticsList = "Location"
+let g:LanguageClient_diagnosticsSignsMax = 0
+
+nnoremap <leader><leader> :call LanguageClient_contextMenu()<CR>
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> <C-]> :call LanguageClient#textDocument_definition()<CR>
+
 
 """"""""""""""""""
 "  OCaml merlin  "

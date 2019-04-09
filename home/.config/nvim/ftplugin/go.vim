@@ -9,11 +9,8 @@ let g:go_fmt_autosave=0
 " Use location list instead of quickfix
 let g:go_list_type = "locationlist"
 
-" Don't open scratch preview buffer for completion options
-set completeopt-=preview
-
-set shiftwidth=4
-set softtabstop=4
-set tabstop=4
+set shiftwidth=8
+set softtabstop=8
+set tabstop=8
 
 nnoremap <leader>w :w<CR>:GoBuild<CR>
