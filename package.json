@@ -1,0 +1,43 @@
+{
+  "name": "ivy",
+  "version": "0.0.1",
+  "description": "Content API thing",
+  "main": "bin/start.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lpil/ivy.git"
+  },
+  "author": "Louis Pilfold <louis@lpil.uk>",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/lpil/ivy/issues"
+  },
+  "homepage": "https://github.com/lpil/ivy#readme",
+  "dependencies": {
+    "babel-brunch": "^5.1.2",
+    "brunch": "^1.8.5",
+    "clean-css-brunch": "^1.7.2",
+    "css-brunch": "^1.7.0",
+    "dotenv": "^1.2.0",
+    "express": "^4.13.3",
+    "helmet": "^0.12.0",
+    "jade": "^1.11.0",
+    "javascript-brunch": "^1.7.1",
+    "morgan": "^1.6.1",
+    "pg": "^4.4.2",
+    "pg-hstore": "^2.3.2",
+    "sass-brunch": "^1.9.1",
+    "sequelize": "^3.9.0",
+    "sequelize-cli": "^1.9.1",
+    "uglify-js-brunch": "^1.7.8"
+  },
+  "devDependencies": {
+    "jscs": "^2.1.1",
+    "mocha": "^2.3.3",
+    "mocha-jscs": "^3.0.0",
+    "mocha-jshint": "^2.2.3",
+    "nodemon": "^1.7.1",
+    "supertest": "^1.1.0"
+  }
+}

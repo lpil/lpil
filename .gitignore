@@ -1,0 +1,13 @@
+*.log
+*.pid
+*.seed
+.grunt
+.lock-wscript
+build/Release
+coverage
+lib-cov
+logs
+node_modules
+npm-debug.log*
+pids
+public

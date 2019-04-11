@@ -1,0 +1,14 @@
+block variables
+
+doctype
+html
+  head
+    meta(charset='utf-8')
+    meta(name='viewport' content='width=device-width')
+    if title
+      title Ivy - #{title}
+    else
+      title Ivy
+
+  body
+    block content
