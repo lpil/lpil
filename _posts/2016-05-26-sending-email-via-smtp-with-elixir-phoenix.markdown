@@ -1,5 +1,6 @@
 ---
 title: Sending Email via SMTP with Elixir Phoenix
+hidden: true
 tags:
   - Elixir
   - Phoenix

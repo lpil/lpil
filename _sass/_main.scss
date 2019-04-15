@@ -1,4 +1,4 @@
-@import url(//fonts.googleapis.com/css?family=PT+Sans|PT+Mono);
+@import url(//fonts.googleapis.com/css?family=PT+Sans);
 
 @import "vendor/normalize";
 @import "vendor/syntax";
@@ -6,7 +6,7 @@
 $text-colour: #353535;
 $link-colour: #008080;
 $font-family: "PT Sans", sans-serif;
-$monospace-font-family: "PT Mono", monospace;
+$monospace-font-family: monospace;
 $max-page-width: 700px;
 
 * {
@@ -22,6 +22,10 @@ ul {
 html {
   font-family: $font-family;
   font-size: 1.1em;
+}
+
+body {
+  background-color: #fffbf9;
 }
 
 p {
@@ -49,7 +53,6 @@ h1, h2, h3, h4, h5, h6 {
 
 pre, code {
   font-family: $monospace-font-family;
-  font-size: .91em;
 }
 
 pre,
@@ -217,4 +220,20 @@ $space: 14px;
 
 .portfolio-item__description p {
   margin: $space 0;
+}
+
+.highlight {
+  .nf {
+    color: #6f42c1;
+    font-weight: normal;
+  }
+
+  .k {
+    color: #d73a49;
+    font-weight: normal;
+  }
+
+  .mi {
+    color: #005cc5;
+  }
 }

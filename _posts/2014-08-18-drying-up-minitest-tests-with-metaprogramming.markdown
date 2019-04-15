@@ -1,6 +1,6 @@
 ---
 title:  "DRYing up Minitest tests with metaprogramming"
-published: false
+hidden: true
 categories:
   - Web dev
   - Rails

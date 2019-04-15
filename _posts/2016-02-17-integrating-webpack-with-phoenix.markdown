@@ -1,6 +1,6 @@
 ---
 title: Integrating webpack with Phoenix
-published: false
+hidden: true
 tags:
   - Elixir
   - Phoenix

@@ -1,5 +1,6 @@
 ---
 title:  "I made a site"
+hidden: true
 categories:
   - lpil.uk
   - Web dev

@@ -1,6 +1,6 @@
 ---
 title: Using SASS, ES6 Javascript, and Node modules with Brunch
-published: false
+hidden: true
 date: 2015-08-31 21:37 UTC
 tags:
   - Frontend
