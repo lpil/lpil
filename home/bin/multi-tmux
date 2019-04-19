@@ -1,32 +1,59 @@
 #!/bin/bash
-# ssh-multi
-# D.Kovalov
-# Based on http://linuxpixies.blogspot.jp/2011/06/tmux-copy-mode-and-how-to-control.html
-# Copied from https://gist.github.com/dmytro/3984680
+#
+# The MIT License (MIT)
+#
+# Copyright (c) 2013 Chris Yuen
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
 
-# a script to ssh multiple servers over multiple tmux panes
+# Adapted from https://gist.github.com/kizzx2/4739236
 
+set -e
 
-starttmux() {
-    if [ -z "$HOSTS" ]; then
-       echo -n "Please provide of list of commands separated by spaces [ENTER]: "
-       read HOSTS
-    fi
+if [ $# -lt 2 ]
+then
+  echo "Usage: $0 [command_1]..."
+  exit 1
+fi
 
-    local hosts=( $HOSTS )
+session=session_$(head -c 4 /dev/urandom | base64)
 
+tmux start-server
+tmux new -d -s $session
 
-    tmux new-window "ssh ${hosts[0]}"
-    unset hosts[0];
-    for i in "${hosts[@]}"; do
-        tmux split-window -h  "$i"
-        tmux select-layout tiled > /dev/null
-    done
-    tmux select-pane -t 0
-    tmux set-window-option synchronize-panes on > /dev/null
-
+on_error() {
+  tmux kill-session -t $session
 }
+trap on_error ERR
 
-HOSTS=${HOSTS:=$*}
+cmd1=$1
+shift
 
-starttmux
+tmux send -t $session:0 "$cmd1" C-m
+
+for i in "$@"
+do
+  tmux splitw -t $session -l 1
+  tmux send -t $session:0.1 "$i" C-m
+  tmux selectp -t $session:0.0
+  tmux selectl -t $session tiled
+done
+
+tmux setw synchronize-panes on
+tmux a -t $session
