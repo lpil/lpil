@@ -44,7 +44,7 @@ alias ber='bundle exec rake'
 alias slideshow='feh --randomize --recursive --draw-filename --slideshow-delay 4 --image-bg black --auto-zoom'
 
 # pop up server
-alias serve='ruby -run -e httpd . -p 4000'
+alias serve='ruby -run -e httpd . -p 3000'
 
 alias i="echo You\'re already in insert mode, you numpty."
 

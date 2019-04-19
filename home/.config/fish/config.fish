@@ -99,6 +99,7 @@ end
 
 # Golang
 set --export GOPATH $HOME
+set --export GOBIN $HOME/bin
 
 # FZF
 # Use fd to list files for fzf as it respects gitignore
