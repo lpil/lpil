@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+
+set -e
+set -u
+set -o pipefail
+
+ENVS=(dev staging prod)
+CMDS=(init plan apply destroy)
+
+function array_contains_element() {
+  local e match="$1"
+  shift
+  for e; do [[ "$e" == "$match" ]] && return 0; done
+  return 1
+}
+
+function print_usage() {
+  echo "usage:" 1>&2;
+  echo "    bin/deploy ENV COMMAND" 1>&2;
+  echo "" 1>&2;
+  echo "envs:     ${ENVS[*]}" 1>&2;
+  echo "commands: ${CMDS[*]}" 1>&2;
+}
+
+if [ -z ${1+some-default} ] || [ -z ${2+some-default} ]; then
+  print_usage
+  exit 1
+fi
+
+ENV=$1
+COMMAND=$2
+
+array_contains_element $ENV ${ENVS[*]} || {
+  print_usage
+  exit 1
+}
+
+case $COMMAND in
+  init)
+    cd env/$ENV
+    terraform init
+    ;;
+
+  plan)
+    cd env/$ENV
+    terraform plan
+    ;;
+
+  apply)
+    cd env/$ENV
+    terraform apply
+    ;;
+
+  destroy)
+    cd env/$ENV
+    terraform destroy
+    ;;
+
+  *)
+    print_usage
+    exit 1
+    ;;
+esac
+
+cd ../..
