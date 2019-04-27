@@ -22,7 +22,9 @@ function retry {
 
 retry docker run \
   -d \
-  -p 80:80 \
+  -p ${VPS_PORT}:${DOCKER_PORT} \
+  -e PORT=${DOCKER_PORT} \
+  --restart always \
   ${DOCKER_TAG}
 
 echo "Done"

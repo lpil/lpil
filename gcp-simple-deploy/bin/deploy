@@ -5,7 +5,7 @@ set -u
 set -o pipefail
 
 ENVS=(dev staging prod)
-CMDS=(init plan apply destroy)
+CMDS=(init plan apply output destroy)
 
 function array_contains_element() {
   local e match="$1"
@@ -49,6 +49,11 @@ case $COMMAND in
   apply)
     cd env/$ENV
     terraform apply
+    ;;
+
+  output)
+    cd env/$ENV
+    terraform output
     ;;
 
   destroy)
