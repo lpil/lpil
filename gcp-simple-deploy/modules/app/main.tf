@@ -1,6 +1,9 @@
+# TODO: forwarding rule, url map, HTTP proxy
+
+# https://www.terraform.io/docs/providers/google/r/compute_managed_ssl_certificate.html
+
 locals {
   container_port = "80"
-  vps_port = "80"
 }
 
 # The template with which VPS instances are created to serve the application.
@@ -42,9 +45,8 @@ data "template_file" "startup_script" {
   template = "${file("${path.module}/startup_script.template.sh")}"
 
   vars {
-    DOCKER_TAG = "tutum/hello-world"
+    DOCKER_TAG  = "tutum/hello-world"
     DOCKER_PORT = "${local.container_port}"
-    VPS_PORT = "${local.vps_port}"
   }
 }
 
@@ -57,7 +59,6 @@ resource "google_compute_region_instance_group_manager" "app" {
   base_instance_name = "app"
   region             = "${var.region}"
   target_size        = "${var.replicas}"
-  target_pools       = ["${google_compute_target_pool.app.self_link}"]
 
   update_policy {
     type                  = "PROACTIVE"
@@ -69,7 +70,7 @@ resource "google_compute_region_instance_group_manager" "app" {
 
   named_port {
     name = "http"
-    port = "${local.vps_port}"
+    port = "80"
   }
 
   # auto_healing_policies {
@@ -83,52 +84,35 @@ resource "google_compute_region_instance_group_manager" "app" {
   }
 }
 
-## A health check which which the group manager checks if an instance is up
-##
-#resource "google_compute_health_check" "autohealing" {
-#  name                = "autohealing-health-check"
-#  check_interval_sec  = 5
-#  timeout_sec         = 5
-#  healthy_threshold   = 2
-#  unhealthy_threshold = 10                         # 50 seconds
-
-#  http_health_check {
-#    request_path = "/healthz"
-#    port         = "8080"
-#  }
-#}
-
-# Specified which instances the load balancer should send traffic to
+# A health check for application instances
 #
-resource "google_compute_target_pool" "app" {
-  name             = "app-target-pool"
-  session_affinity = "NONE"
+resource "google_compute_health_check" "app" {
+  name                = "app"
+  check_interval_sec  = 5
+  timeout_sec         = 5
+  healthy_threshold   = 2
+  unhealthy_threshold = 2
 
-  # health_checks = [
-  #   "${google_compute_http_health_check.default.name}",
-  # ]
+  http_health_check {
+    request_path = "/"
+    port         = "80"
+  }
+}
+
+# A backend service for the load balancer to sent traffic to.
+# Made up of the application instances.
+#
+resource "google_compute_backend_service" "app" {
+  name          = "backend-service"
+  health_checks = ["${google_compute_health_check.app.self_link}"]
 }
 
 # The load balancer that sends traffic to our app instances
 #
 resource "google_compute_forwarding_rule" "app" {
-  name                  = "app"
-  target                = "${google_compute_target_pool.app.self_link}"
+  name            = "app"
+  ports           = ["80"]
+  backend_service = "${google_compute_backend_service.app.self_link}"
+
   # load_balancing_scheme = "EXTERNAL"
-  port_range            = "${local.vps_port}"
-}
-
-# Allow traffic to the app instances so that the  load balancer can use them
-#
-resource "google_compute_firewall" "app" {
-  name    = "app-lb"
-  network = "default"
-
-  allow {
-    protocol = "tcp"
-    ports    = ["${local.vps_port}"]
-  }
-
-  source_ranges = ["0.0.0.0/0"]
-  target_tags   = ["app"]
 }
