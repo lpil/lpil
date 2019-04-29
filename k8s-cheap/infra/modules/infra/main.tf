@@ -13,10 +13,6 @@ resource "google_container_cluster" "primary" {
     username = ""
     password = ""
   }
-
-  lifecycle {
-    prevent_destroy = "${var.env == "prod"}"
-  }
 }
 
 resource "google_container_node_pool" "primary" {
@@ -37,9 +33,5 @@ resource "google_container_node_pool" "primary" {
       "https://www.googleapis.com/auth/logging.write",
       "https://www.googleapis.com/auth/monitoring",
     ]
-  }
-
-  lifecycle {
-    prevent_destroy = "${var.env == "prod"}"
   }
 }
