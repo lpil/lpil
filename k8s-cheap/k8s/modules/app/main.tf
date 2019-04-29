@@ -1,5 +1,6 @@
 locals {
-  namespace = "app-${var.env}"
+  namespace      = "app-${var.env}"
+  container_port = 80
 }
 
 resource "kubernetes_namespace" "app" {
@@ -19,12 +20,21 @@ resource "kubernetes_deployment" "app" {
   }
 
   spec {
-    replicas = 3
+    replicas = 2
 
     selector {
       match_labels {
         workload = "app"
         role     = "web_server"
+      }
+    }
+
+    strategy {
+      type = "RollingUpdate"
+
+      rolling_update = {
+        max_unavailable = "1%"
+        max_surge       = 2
       }
     }
 
@@ -40,7 +50,27 @@ resource "kubernetes_deployment" "app" {
         container {
           image = "hashicorp/http-echo"
           name  = "app"
-          args  = ["-text=purple", "-listen=:80"]
+          args  = ["-text=yellow", "-listen=:80"]
+
+          readiness_probe {
+            initial_delay_seconds = 10
+            period_seconds        = 5
+
+            http_get {
+              path = "/ready"
+              port = "${local.container_port}"
+            }
+          }
+
+          liveness_probe {
+            initial_delay_seconds = 10
+            period_seconds        = 5
+
+            http_get {
+              path = "/alive"
+              port = "${local.container_port}"
+            }
+          }
         }
       }
     }
@@ -61,7 +91,7 @@ resource "kubernetes_service" "app" {
 
     port {
       port        = 8080
-      target_port = 80
+      target_port = "${local.container_port}"
     }
 
     type = "NodePort"
