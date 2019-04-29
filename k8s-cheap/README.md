@@ -17,5 +17,9 @@ bin/infra ops apply
 # This command can also be found in the GCP GKE clusters list under "connect"
 gcloud beta container clusters get-credentials learning-k8s-cheap--ops --region europe-west1 --project gcp-simple-app-dev
 
+bin/k8s dev init
+bin/k8s dev plan
+bin/k8s dev apply
+
 bin/infra ops destroy
 ```
