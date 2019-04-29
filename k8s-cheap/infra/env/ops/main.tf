@@ -27,10 +27,6 @@ provider "google" {
   version = "~> 2.5"
 }
 
-provider "template" {
-  version = "~> 2.1"
-}
-
 module "infra" {
   source = "../../modules/infra"
   region = "europe-west1"

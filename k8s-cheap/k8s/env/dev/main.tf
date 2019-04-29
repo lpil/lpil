@@ -12,6 +12,14 @@ provider "kubernetes" {
   version = "~> 1.6"
 }
 
+provider "template" {
+  version = "~> 2.1"
+}
+
+provider "null" {
+  version = "~> 2.1"
+}
+
 module "infra" {
   source = "../../modules/app"
   env    = "dev"
