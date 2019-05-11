@@ -12,9 +12,9 @@ set --export PGPASSWORD postgres
 
 set --export ERL_AFLAGS "-kernel shell_history enabled"
 
-# Openframeworks config
-set --export OF_ROOT "/home/louis/projects/openframeworks"
-set --export PG_OF_PATH "/home/louis/projects/openframeworks"
+# Erlang installer config
+set --export KERL_INSTALL_MANPAGES true
+set --export KERL_INSTALL_HTMLDOCS true
 
 # Path
 set fish_user_paths \
