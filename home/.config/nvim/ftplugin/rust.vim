@@ -1,6 +1,3 @@
-" Highlight chars in col 100
-2mat ErrorMsg '\%100v.'
-
 augroup filetype_rust
   autocmd!
   autocmd BufWritePre *.rs Neoformat
