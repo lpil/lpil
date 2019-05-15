@@ -57,11 +57,20 @@ set __fish_git_prompt_char_dirtystate '*'
 set __fish_git_prompt_char_stagedstate '+'
 set __fish_git_prompt_char_untrackedfiles '?'
 
+# Nationwide messed up my user name.
+function not_ugly_user_name
+  if test $USER = louis.pilfordnationwide.co.uk
+    echo "louis"
+  else
+    echo $USER
+  end
+end
+
 function fish_prompt -d "Write out the prompt"
   set laststatus $status
 
   printf '%s%s %s%s%s%s%s' \
-    (set_color green) $USER \
+    (set_color green) (not_ugly_user_name) \
     (set_color yellow) (echo $PWD | sed -e "s|^$HOME|~|") \
     (set_color white) (__fish_git_prompt) \
     (set_color white)
