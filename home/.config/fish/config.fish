@@ -108,8 +108,8 @@ function rg
 end
 
 # Golang
-set --export GOPATH $HOME
-set --export GOBIN $HOME/bin
+set --export GOPATH $HOME/src/gopath
+set --export GOBIN $GOPATH
 
 # FZF
 # Use fd to list files for fzf as it respects gitignore
