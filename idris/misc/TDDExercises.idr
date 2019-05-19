@@ -40,5 +40,5 @@ top_ten =
 over_length : Nat -> List String -> Nat
 over_length minLen strings =
   List.length
-  $ filter (\x => (length x) > minLen)
+  . filter (\x => (length x) > minLen)
   $ strings
