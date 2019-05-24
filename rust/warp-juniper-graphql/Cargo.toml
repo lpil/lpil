@@ -1,0 +1,12 @@
+[package]
+name = "berry"
+version = "0.1.0"
+authors = ["Louis Pilfold <louis@lpil.uk>"]
+edition = "2018"
+
+[dependencies]
+juniper = "0.12"
+juniper_warp = "0.3"
+log = "0.4"
+pretty_env_logger = "0.3"
+warp = "0.1.15"
