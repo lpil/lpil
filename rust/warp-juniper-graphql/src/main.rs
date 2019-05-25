@@ -21,35 +21,25 @@ fn main() {
 
 fn routes() -> impl warp::Filter<Extract = (impl warp::Reply), Error = warp::Rejection> + Clone {
     use warp::path::*;
-    use warp::{any, get2};
-
-    // GET /
-    let home = get2().and(end()).map(home);
-
-    // GET /user/:id
-    let show_user = get2()
-        .and(path("user"))
-        .and(param())
-        .and(end())
-        .map(show_user);
+    use warp::{any, get2 as get};
 
     // GET /-/ready
-    let ready_check = get2()
+    let ready_check = get()
         .and(path("-"))
         .and(path("ready"))
         .and(end())
         .map(ready_check);
 
     // GET /-/health
-    let health_check = get2()
+    let health_check = get()
         .and(path("-"))
         .and(path("health"))
         .and(end())
         .map(health_check);
 
     // GET /graphiql/...
-    let graphiql_ui = get2()
-        .and(path("graphiql"))
+    let graphiql_ui = get()
+        .and(end())
         .and(juniper_warp::graphiql_filter("/graphql"));
 
     // * /graphql
@@ -60,20 +50,11 @@ fn routes() -> impl warp::Filter<Extract = (impl warp::Reply), Error = warp::Rej
 
     let not_found = any().map(not_found);
 
-    home.or(show_user)
-        .or(health_check)
+    health_check
         .or(ready_check)
         .or(graphiql_ui)
         .or(graphql_endpoint)
         .or(not_found)
-}
-
-fn home() -> &'static str {
-    "Hello, world!"
-}
-
-fn show_user(name: String) -> impl warp::Reply {
-    format!("{}'s page", name)
 }
 
 fn not_found() -> impl warp::Reply {
@@ -111,8 +92,16 @@ struct Query;
     Context = Ctx,
 )]
 impl Query {
-    fn favoriteEpisode(context: &Ctx) -> FieldResult<Episode> {
+    fn api_version() -> &str {
+        "1.0"
+    }
+
+    fn favorite_episode(context: &Ctx) -> FieldResult<Episode> {
         Ok(context.0)
+    }
+
+    fn all_episodes() -> Vec<Episode> {
+        vec![Episode::NewHope, Episode::Empire, Episode::Jedi]
     }
 }
 
