@@ -1,4 +1,3 @@
-#![deny(warnings)]
 use warp::http::Response;
 use warp::{http::StatusCode, Filter};
 
@@ -48,11 +47,24 @@ fn routes() -> impl warp::Filter<Extract = (impl warp::Reply), Error = warp::Rej
         .and(end())
         .map(health_check);
 
+    // GET /graphiql/...
+    let graphiql_ui = get2()
+        .and(path("graphiql"))
+        .and(juniper_warp::graphiql_filter("/graphql"));
+
+    // * /graphql
+    let state = warp::any().map(move || Ctx(Episode::NewHope));
+    let schema = Schema::new(Query, EmptyMutation::<Ctx>::new());
+    let graphql_endpoint =
+        path("graphql").and(juniper_warp::make_graphql_filter(schema, state.boxed()));
+
     let not_found = any().map(not_found);
 
     home.or(show_user)
         .or(health_check)
         .or(ready_check)
+        .or(graphiql_ui)
+        .or(graphql_endpoint)
         .or(not_found)
 }
 
@@ -75,3 +87,35 @@ fn ready_check() -> impl warp::Reply {
 fn health_check() -> impl warp::Reply {
     StatusCode::OK
 }
+
+// copypasta
+
+use juniper::{EmptyMutation, FieldResult};
+
+#[derive(juniper::GraphQLEnum, Debug, Clone, Copy)]
+enum Episode {
+    NewHope,
+    Empire,
+    Jedi,
+}
+
+// Arbitrary context data.
+#[derive(Debug, Clone)]
+struct Ctx(Episode);
+
+impl juniper::Context for Ctx {}
+
+struct Query;
+
+#[juniper::object(
+    Context = Ctx,
+)]
+impl Query {
+    fn favoriteEpisode(context: &Ctx) -> FieldResult<Episode> {
+        Ok(context.0)
+    }
+}
+
+// A root schema consists of a query and a mutation.
+// Request queries can be executed against a RootNode.
+type Schema = juniper::RootNode<'static, Query, EmptyMutation<Ctx>>;
