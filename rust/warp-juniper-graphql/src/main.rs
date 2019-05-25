@@ -14,28 +14,34 @@ fn main() {
         .and_then(|s| s.parse().ok())
         .unwrap_or(3000);
 
+    let stack = routes().with(warp::log("berry"));
+
     log::info!("Starting on 0.0.0.0:{}", port);
-    run_server(port)
+    warp::serve(stack).run(([0, 0, 0, 0], port));
 }
 
-fn run_server(port: u16) {
+fn routes() -> impl warp::Filter<Extract = (impl warp::Reply), Error = warp::Rejection> + Clone {
     use warp::path::*;
     use warp::{any, get2};
 
+    // GET /
     let home = get2().and(end()).map(home);
 
+    // GET /user/:id
     let show_user = get2()
         .and(path("user"))
         .and(param())
         .and(end())
         .map(show_user);
 
+    // GET /-/ready
     let ready_check = get2()
         .and(path("-"))
         .and(path("ready"))
         .and(end())
         .map(ready_check);
 
+    // GET /-/health
     let health_check = get2()
         .and(path("-"))
         .and(path("health"))
@@ -44,18 +50,13 @@ fn run_server(port: u16) {
 
     let not_found = any().map(not_found);
 
-    let routes = home
-        .or(show_user)
+    home.or(show_user)
         .or(health_check)
         .or(ready_check)
-        .or(not_found);
-
-    let stack = routes.with(warp::log("berry"));
-
-    warp::serve(stack).run(([0, 0, 0, 0], port));
+        .or(not_found)
 }
 
-fn home() -> impl warp::Reply {
+fn home() -> &'static str {
     "Hello, world!"
 }
 
