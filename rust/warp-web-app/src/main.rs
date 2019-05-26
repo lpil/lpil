@@ -1,6 +1,7 @@
 mod graphql;
 
 use askama::Template;
+use serde::Deserialize;
 use warp::http::Response;
 use warp::{http::StatusCode, Filter};
 
@@ -24,7 +25,7 @@ fn main() {
 
 fn routes() -> impl warp::Filter<Extract = (impl warp::Reply), Error = warp::Rejection> + Clone {
     use warp::path::*;
-    use warp::{any, get2 as get};
+    use warp::{any, get2 as get, post2 as post};
 
     let home = get().and(end()).map(home);
 
@@ -42,6 +43,12 @@ fn routes() -> impl warp::Filter<Extract = (impl warp::Reply), Error = warp::Rej
         .and(end())
         .map(health_check);
 
+    let create_session = post()
+        .and(path("session"))
+        .and(warp::body::form())
+        .and(end())
+        .map(create_session);
+
     // GET /graphiql/...
     let graphiql_ui = get()
         .and(path("graphiql"))
@@ -57,6 +64,7 @@ fn routes() -> impl warp::Filter<Extract = (impl warp::Reply), Error = warp::Rej
         .or(ready_check)
         .or(graphiql_ui)
         .or(graphql_endpoint)
+        .or(create_session)
         .or(not_found)
 }
 
@@ -69,10 +77,22 @@ struct HelloTemplate {
 fn home() -> impl warp::Reply {
     let datetime: chrono::DateTime<chrono::offset::Utc> = std::time::SystemTime::now().into();
     let time = format!("{}", datetime.format("%d/%m/%Y %T"));
+    let body = HelloTemplate { time }.render().unwrap();
     Response::builder()
         .status(200)
         .header("content-type", "text/html")
-        .body(HelloTemplate { time }.render().unwrap())
+        .body(body)
+}
+
+#[derive(Deserialize, Debug)]
+struct CreateSessionForm {
+    email: String,
+    password: String,
+}
+
+fn create_session(form: CreateSessionForm) -> impl warp::Reply {
+    println!("{:?}", form);
+    StatusCode::OK
 }
 
 fn not_found() -> impl warp::Reply {
@@ -86,5 +106,3 @@ fn ready_check() -> impl warp::Reply {
 fn health_check() -> impl warp::Reply {
     StatusCode::OK
 }
-
-// copypasta
