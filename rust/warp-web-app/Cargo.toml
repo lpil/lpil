@@ -10,5 +10,5 @@ juniper_warp = "0.3"
 log = "0.4"
 pretty_env_logger = "0.3"
 warp = "0.1.15"
-
-# https://github.com/djc/askama
+askama = "0.8"
+chrono = "0.4"

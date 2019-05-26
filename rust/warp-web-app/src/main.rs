@@ -1,5 +1,6 @@
 mod graphql;
 
+use askama::Template;
 use warp::http::Response;
 use warp::{http::StatusCode, Filter};
 
@@ -25,6 +26,8 @@ fn routes() -> impl warp::Filter<Extract = (impl warp::Reply), Error = warp::Rej
     use warp::path::*;
     use warp::{any, get2 as get};
 
+    let home = get().and(end()).map(home);
+
     // GET /-/ready
     let ready_check = get()
         .and(path("-"))
@@ -41,6 +44,7 @@ fn routes() -> impl warp::Filter<Extract = (impl warp::Reply), Error = warp::Rej
 
     // GET /graphiql/...
     let graphiql_ui = get()
+        .and(path("graphiql"))
         .and(end())
         .and(juniper_warp::graphiql_filter("/graphql"));
 
@@ -49,11 +53,26 @@ fn routes() -> impl warp::Filter<Extract = (impl warp::Reply), Error = warp::Rej
 
     let not_found = any().map(not_found);
 
-    health_check
+    home.or(health_check)
         .or(ready_check)
         .or(graphiql_ui)
         .or(graphql_endpoint)
         .or(not_found)
+}
+
+#[derive(Template)]
+#[template(path = "home.html")]
+struct HelloTemplate {
+    time: String,
+}
+
+fn home() -> impl warp::Reply {
+    let datetime: chrono::DateTime<chrono::offset::Utc> = std::time::SystemTime::now().into();
+    let time = format!("{}", datetime.format("%d/%m/%Y %T"));
+    Response::builder()
+        .status(200)
+        .header("content-type", "text/html")
+        .body(HelloTemplate { time }.render().unwrap())
 }
 
 fn not_found() -> impl warp::Reply {
