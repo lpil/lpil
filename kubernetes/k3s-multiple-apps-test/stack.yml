@@ -36,7 +36,8 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: app-1
-  app: app-1
+  labels:
+    app: app-1
 spec:
   replicas: 1
   template:
@@ -69,7 +70,8 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: app-2
-  app: app-2
+  labels:
+    app: app-2
 spec:
   replicas: 1
   template:
