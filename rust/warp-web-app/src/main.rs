@@ -106,3 +106,39 @@ fn ready_check() -> impl warp::Reply {
 fn health_check() -> impl warp::Reply {
     StatusCode::OK
 }
+
+#[test]
+fn home_test() {
+    let res = warp::test::request()
+        .path("/")
+        .method("GET")
+        .reply(&routes());
+    assert_eq!(200, res.status());
+}
+
+#[test]
+fn not_found_test() {
+    let res = warp::test::request()
+        .path("/whatever")
+        .method("GET")
+        .reply(&routes());
+    assert_eq!(404, res.status());
+}
+
+#[test]
+fn health_test() {
+    let res = warp::test::request()
+        .path("/-/health")
+        .method("GET")
+        .reply(&routes());
+    assert_eq!(200, res.status());
+}
+
+#[test]
+fn ready_test() {
+    let res = warp::test::request()
+        .path("/-/ready")
+        .method("GET")
+        .reply(&routes());
+    assert_eq!(200, res.status());
+}
