@@ -1,0 +1,3 @@
+<%= card do %>
+  <p>Hello, world!</p>
+<% end %>
