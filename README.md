@@ -1,5 +1,7 @@
 # BlockParty
 
+An interactive networked step sequencer built during a hackathon at ROLI.
+
 Install Node.js and Elixir.
 
 ```sh
