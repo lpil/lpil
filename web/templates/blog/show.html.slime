@@ -1,0 +1,4 @@
+h1= @article.title
+
+.article
+  = body_content(@article)

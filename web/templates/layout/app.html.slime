@@ -1,0 +1,27 @@
+doctype html
+html lang="en"
+  head
+    meta charset="utf-8"
+    meta http-equiv="X-UA-Compatible" content="IE=edge"
+    meta name="viewport" content="width=device-width, initial-scale=1"
+    meta name="description" content=""
+    meta type="text/plain" name="author" href="/humans.txt"
+
+    title Hello Fawkes
+    link rel="stylesheet" href="#{static_path(@conn, "/assets/main.css")}"
+
+  body
+    = if Guardian.Plug.authenticated?(@conn) do
+      p= link "Logout", to: session_path(@conn, :delete), method: :delete
+    - else
+      p= link "Sign In", to: session_path(@conn, :new)
+
+    p.alert--info role="alert"
+      = get_flash(@conn, :info)
+    p.alert--danger role="alert"
+      = get_flash(@conn, :error)
+
+    main role="main"
+      = render(@view_module, @view_template, assigns)
+
+    script src="#{static_path(@conn, "/assets/main.js")}"

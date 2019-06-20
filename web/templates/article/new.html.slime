@@ -1,0 +1,42 @@
+h1 New article
+
+
+= form_for @changeset, article_path(@conn, :create), fn f ->
+  = if @changeset.action do
+    .alert
+      p Oops, something went wrong! Please check the errors below.
+
+  .form-group
+    = label f, :title
+    = text_input f, :title
+    = error_tag f, :title
+
+  .form-group
+    = label f, :slug
+    = text_input f, :slug
+    = error_tag f, :slug
+
+  .form-group
+    = label f, :published_at
+    = datetime_select f, :published_at
+    = error_tag f, :published_at
+
+  .form-group
+    = label f, :body
+    #js-scribe-toolbar
+      a href="#" data-command-name="undo" Undo
+      a href="#" data-command-name="redo" Redo
+      a href="#" data-command-name="bold" Bold
+      a href="#" data-command-name="italic" Italic
+      a href="#" data-command-name="underline" Underline
+      a href="#" data-command-name="insertOrderedList" Ordered List
+      a href="#" data-command-name="insertUnorderedList" Unordered List
+    #js-scribe-editor contenteditable="true"
+    = hidden_input f, :body, id: "js-scribe-output", readonly: true
+    = error_tag f, :body
+
+  .form-group
+    = submit "Submit"
+
+.page-nav
+  = link "Back", to: "/"
