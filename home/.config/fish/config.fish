@@ -26,13 +26,6 @@ else if test -e /usr/share/autojump/autojump.fish
   source /usr/share/autojump/autojump.fish
 end
 
-# rbenv ruby version manager
-if test -e $HOME/.rbenv/bin/rbenv
-  set PATH $HOME/.rbenv/bin $PATH
-  set PATH $HOME/.rbenv/shims $PATH
-  rbenv rehash >/dev/null ^&1
-end
-
 # asdf version manager
 if test -e $HOME/.asdf/asdf.fish
   source ~/.asdf/asdf.fish
