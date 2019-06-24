@@ -1,0 +1,15 @@
+#!/bin/sh
+
+set -eu
+
+echo Killing Chrome
+killall Google\ Chrome || true
+
+echo Killing bgpagent
+sudo killall bgpagent || true
+
+echo Killing Profile_Agent
+sudo killall Profile_Agent || true
+
+echo Restarting Chrome
+open /Applications/Google\ Chrome.app/
