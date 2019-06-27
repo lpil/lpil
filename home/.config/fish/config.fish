@@ -103,6 +103,7 @@ set --export FZF_DEFAULT_COMMAND fd
 set fish_user_paths \
   "$HOME/.cache/rebar3/bin" \
   "$GOBIN" \
+  "$HOME/.cargo/bin" \
   "$HOME/src/gopath/bin" \
   "$HOME/.homesick/repos/homeshick/bin" \
   "$HOME/.local/bin" \
