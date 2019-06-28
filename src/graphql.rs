@@ -16,12 +16,77 @@ impl juniper::Context for Ctx {}
 
 struct Query;
 
+pub struct Survey {
+    pub id: i32,
+    pub date: chrono::DateTime<chrono::Utc>,
+    pub title: String,
+    pub description: Option<String>,
+    pub colour: Option<String>,
+    pub tags: Vec<String>,
+    pub feedback: Vec<Feedback>,
+}
+
+#[derive(juniper::GraphQLObject)]
+pub struct Feedback {
+    pub mood: Mood,
+}
+
+#[derive(juniper::GraphQLEnum)]
+pub enum Mood {
+    Happy,
+    Meh,
+    Sad,
+}
+
+#[juniper::object]
+/// A request for feedback, either happy, meh, or sad.
+impl Survey {
+    fn id(&self) -> i32 {
+        self.id
+    }
+
+    /// When the survey was created.
+    fn date(&self) -> chrono::DateTime<chrono::Utc> {
+        self.date
+    }
+
+    /// A concise title for the survey.
+    fn title(&self) -> &str {
+        self.title.as_str()
+    }
+
+    /// Extra detail on the survey.
+    fn description(&self) -> &Option<String> {
+        &self.description
+    }
+
+    /// A colour which may be used to accent the survey when displayed to the user.
+    fn colour(&self) -> &Option<String> {
+        &self.colour
+    }
+
+    /// Tags associated with the survey. These may indicate which groups the survey are of interest
+    /// to.
+    fn tags(&self) -> &Vec<String> {
+        &self.tags
+    }
+
+    /// Feedback submitted for the survey.
+    fn feedback(&self) -> &Vec<Feedback> {
+        &self.feedback
+    }
+}
+
 #[juniper::object(
     Context = Ctx,
 )]
 impl Query {
     fn api_version() -> &str {
         "1.0"
+    }
+
+    fn all_surveys() -> Vec<Survey> {
+        crate::db::all_surveys()
     }
 }
 

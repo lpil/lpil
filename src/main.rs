@@ -1,3 +1,4 @@
+mod db;
 mod graphql;
 
 use warp::http::Response;
