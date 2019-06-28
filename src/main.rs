@@ -9,14 +9,42 @@ use termion::screen::AlternateScreen;
 use tui::backend::TermionBackend;
 use tui::layout::{Alignment, Constraint, Direction, Layout};
 use tui::style::{Color, Modifier, Style};
-use tui::widgets::{Block, Borders, Paragraph, SelectableList, Text, Widget};
+use tui::widgets::{Block, Borders, Paragraph, SelectableList, Tabs, Text, Widget};
 use tui::Terminal;
 
 use crate::event::{Event, Events};
 
+#[derive(Debug, Clone)]
+enum Mood {
+    Happy,
+    Meh,
+    Sad,
+}
+
+impl Mood {
+    pub fn from_usize(x: usize) -> Option<Mood> {
+        match x {
+            0 => Some(Mood::Happy),
+            1 => Some(Mood::Meh),
+            2 => Some(Mood::Sad),
+            _ => None,
+        }
+    }
+
+    pub fn to_string(&self) -> String {
+        match self {
+            Mood::Happy => "happy",
+            Mood::Meh => "meh",
+            Mood::Sad => "sad",
+        }
+        .to_string()
+    }
+}
+
 struct App {
     surveys: Vec<Survey>,
-    selected: usize,
+    survey_index: usize,
+    mood_index: usize,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -37,11 +65,36 @@ fn main() -> Result<(), failure::Error> {
 
     println!("Connecting to HappyLabs...");
     let RespBody { surveys } = reqwest::Client::new()
-        .get("https://b7f836b1-6cad-4f88-94d2-0ef92541f5f3.mock.pstmn.io/surveys")
-        // .get("http://api.happylabs.io/surveys")
+        // .get("https://b7f836b1-6cad-4f88-94d2-0ef92541f5f3.mock.pstmn.io/surveys")
+        .get("http://api.happylabs.io/surveys")
         .send()?
         .json()?;
 
+    if let Some(mood) = run_tui(surveys)? {
+        send_feedback(mood)?;
+    }
+    Ok(())
+}
+
+fn send_feedback(tup: (Mood, Survey)) -> Result<(), failure::Error> {
+    let (mood, survey) = tup;
+    #[derive(Debug, Serialize, Deserialize)]
+    struct Body {
+        mood: String,
+    }
+    let url = format!("http://api.happylabs.io/surveys/{}/feedback", survey.id);
+
+    dbg!(reqwest::Client::new()
+        .post(&url)
+        .json(&Body {
+            mood: mood.clone().to_string()
+        })
+        .send()?);
+    println!("Sent {} feedback to HappyLabs", mood.to_string());
+    Ok(())
+}
+
+fn run_tui(surveys: Vec<Survey>) -> Result<Option<(Mood, Survey)>, failure::Error> {
     let stdout = io::stdout().into_raw_mode()?;
     let stdout = MouseTerminal::from(stdout);
     let stdout = AlternateScreen::from(stdout);
@@ -51,9 +104,9 @@ fn main() -> Result<(), failure::Error> {
 
     let events = Events::new();
 
-    // App
     let mut app = App {
-        selected: 0,
+        mood_index: 0,
+        survey_index: 0,
         surveys,
     };
 
@@ -61,7 +114,14 @@ fn main() -> Result<(), failure::Error> {
         terminal.draw(|mut f| {
             let chunks = Layout::default()
                 .direction(Direction::Vertical)
-                .constraints([Constraint::Length(10), Constraint::Percentage(100)].as_ref())
+                .constraints(
+                    [
+                        Constraint::Length(10),
+                        Constraint::Length(3),
+                        Constraint::Percentage(100),
+                    ]
+                    .as_ref(),
+                )
                 .split(f.size());
 
             let block = Block::default()
@@ -77,18 +137,25 @@ fn main() -> Result<(), failure::Error> {
                         .map(|s| &s.title)
                         .collect::<Vec<&String>>(),
                 )
-                .select(Some(app.selected))
+                .select(Some(app.survey_index))
                 .style(style)
                 .highlight_style(style.fg(Color::Cyan).modifier(Modifier::BOLD))
                 .highlight_symbol("😁")
                 .render(&mut f, chunks[0]);
+
+            Tabs::default()
+                .block(block.clone())
+                .titles(&["💚 Happy", "😒 Meh", "💔 Sad"])
+                .select(app.mood_index)
+                .highlight_style(Style::default().fg(Color::Cyan).modifier(Modifier::BOLD))
+                .render(&mut f, chunks[1]);
 
             let Survey {
                 description,
                 title,
                 tags,
                 ..
-            } = app.surveys[app.selected].clone();
+            } = app.surveys[app.survey_index].clone();
 
             let text = [
                 Text::styled(title, Style::default().modifier(Modifier::BOLD)),
@@ -104,20 +171,19 @@ fn main() -> Result<(), failure::Error> {
                 .block(block.clone())
                 .alignment(Alignment::Left)
                 .wrap(true)
-                .render(&mut f, chunks[1]);
+                .render(&mut f, chunks[2]);
         })?;
 
         match events.next()? {
             Event::Input(input) => match input {
-                Key::Char('q') => break,
-                Key::Esc => break,
-                Key::Down => app.selected = (app.selected + 1) % app.surveys.len(),
-                Key::Up => {
-                    app.selected = if app.selected > 0 {
-                        app.selected - 1
-                    } else {
-                        app.surveys.len() - 1
-                    }
+                Key::Char('q') | Key::Esc => break,
+                Key::Down => app.survey_index = inc(app.survey_index, app.surveys.len()),
+                Key::Up => app.survey_index = dec(app.survey_index, app.surveys.len()),
+                Key::Right => app.mood_index = inc(app.mood_index, 3),
+                Key::Left => app.mood_index = dec(app.mood_index, 3),
+                Key::Char('\n') => {
+                    return Ok(Mood::from_usize(app.mood_index)
+                        .map(|m| (m, app.surveys[app.survey_index].clone())))
                 }
                 _ => {}
             },
@@ -125,5 +191,17 @@ fn main() -> Result<(), failure::Error> {
         }
     }
 
-    Ok(())
+    Ok(None)
+}
+
+fn inc(x: usize, max: usize) -> usize {
+    (x + 1) % max
+}
+
+fn dec(x: usize, max: usize) -> usize {
+    if x > 0 {
+        x - 1
+    } else {
+        max - 1
+    }
 }
