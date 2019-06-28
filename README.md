@@ -2,6 +2,8 @@
 
 A command line client for HappyLabs!
 
+![A screenshot of the HappyLabs TUI](docs/screenshot.png)
+
 ## Installation
 
 You've got Rust installed, right?
