@@ -14,7 +14,7 @@ pub enum Mood {
     Sad,
 }
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct Survey {
     pub id: u32,
     pub date: chrono::DateTime<chrono::Utc>,
@@ -23,8 +23,19 @@ pub struct Survey {
     pub colour: Option<String>,
     pub tags: Vec<String>,
     #[serde(skip_serializing)]
+    #[serde(default = "Vec::new")]
     pub feedback: Vec<Feedback>,
 }
+
+// Data required to insert a new Survey
+#[derive(Debug, Clone, PartialEq, serde::Deserialize)]
+pub struct InsertSurvey {
+    pub title: String,
+    pub description: Option<String>,
+    pub colour: Option<String>,
+    pub tags: Vec<String>,
+}
+
 pub enum InsertFeedbackError {
     NotFound,
 }
@@ -41,12 +52,6 @@ impl Database {
         Database {
             arc: Arc::new(RwLock::new(vec![])),
         }
-    }
-
-    pub fn new_with_seeds() -> Self {
-        let db = Self::new();
-        db.seed();
-        db
     }
 
     pub fn seed(&self) {
@@ -157,5 +162,20 @@ impl Database {
             Some(survey) => Ok(survey.feedback.push(feedback)),
             None => Err(InsertFeedbackError::NotFound),
         }
+    }
+
+    pub fn insert_survey(&self, survey: InsertSurvey) -> Survey {
+        let mut lock = self.arc.write().unwrap();
+        let survey = Survey {
+            title: survey.title,
+            description: survey.description,
+            colour: survey.colour,
+            tags: survey.tags,
+            date: chrono::Utc::now(),
+            feedback: vec![],
+            id: (lock.len() + 1) as u32,
+        };
+        lock.push(survey.clone());
+        survey
     }
 }

@@ -51,3 +51,21 @@ pub fn create_feedback(survey_id: u32, json: FullBody, db: Database) -> impl war
         Err(NotFound) => Response::builder().status(404).body("".to_string()),
     }
 }
+
+pub fn create_survey(json: FullBody, db: Database) -> impl warp::Reply {
+    let survey = match serde_json::from_slice(json.bytes()) {
+        Ok(survey) => survey,
+        Err(e) => {
+            let errors = Errors::single("survey".to_string(), e.to_string());
+            return Response::builder()
+                .status(400)
+                .body(serde_json::to_string(&errors).unwrap());
+        }
+    };
+
+    let survey = db.insert_survey(survey);
+
+    Response::builder()
+        .status(201)
+        .body(serde_json::to_string(&survey).unwrap())
+}

@@ -7,7 +7,7 @@ use warp::http::Response;
 use warp::Filter;
 
 #[cfg(test)]
-use crate::survey::{Feedback, Mood};
+use crate::survey::{Feedback, Mood, Survey};
 
 pub fn routes(
     db: Database,
@@ -65,8 +65,16 @@ pub fn routes(
         .and(path("feedback"))
         .and(end())
         .and(warp::body::concat())
-        .and(with_db)
+        .and(with_db.clone())
         .map(crate::web::survey::create_feedback);
+
+    // POST /surveys
+    let create_survey = post()
+        .and(path("surveys"))
+        .and(end())
+        .and(warp::body::concat())
+        .and(with_db)
+        .map(crate::web::survey::create_survey);
 
     let not_found = any().map(|| Response::builder().status(404).body("Not found"));
 
@@ -75,6 +83,7 @@ pub fn routes(
         .or(surveys_index)
         .or(survey_feedback_index)
         .or(create_survey_feedback)
+        .or(create_survey)
         // .or(graphiql_ui)
         // .or(graphql_endpoint)
         .or(not_found)
@@ -282,4 +291,57 @@ fn create_survey_feedback_invalid_test() {
     );
 
     assert_eq!(db.all_surveys().len(), 0)
+}
+
+#[test]
+fn create_survey_invalid_test() {
+    let db = Database::new();
+
+    let res = warp::test::request()
+        .method("POST")
+        .path("/surveys")
+        .body(r#"{}"#)
+        .reply(&routes(db.clone()));
+    assert_eq!(400, res.status());
+    assert_eq!(
+        serde_json::json!({
+            "errors": {
+                "survey": [
+                    "missing field `title` at line 1 column 2"
+                ]
+            }
+        }),
+        serde_json::from_str::<serde_json::Value>(&String::from_utf8_lossy(res.body())).unwrap()
+    );
+
+    assert_eq!(db.all_surveys().len(), 0)
+}
+
+#[test]
+fn create_survey_ok_test() {
+    let db = Database::new();
+
+    let res = warp::test::request()
+        .method("POST")
+        .path("/surveys")
+        .body(
+            r##"{
+                "title": "Hello, world!",
+                "description": "Magic",
+                "tags": ["one", "two"],
+                "colour": "#ffffff"
+            }"##,
+        )
+        .reply(&routes(db.clone()));
+    assert_eq!(201, res.status());
+
+    let survey: Survey = serde_json::from_str(&String::from_utf8_lossy(res.body())).unwrap();
+    assert_eq!(survey.id, 1);
+    assert_eq!(survey.title, "Hello, world!".to_string());
+    assert_eq!(survey.description, Some("Magic".to_string()));
+    assert_eq!(survey.tags, vec!["one".to_string(), "two".to_string()]);
+    assert_eq!(survey.colour, Some("#ffffff".to_string()));
+    assert_eq!(survey.feedback, vec![]);
+
+    assert_eq!(db.get_survey(1), Some(survey))
 }
