@@ -97,6 +97,7 @@ fn health_test() {
 
 #[test]
 fn surveys_index_test() {
+    crate::survey::dangerously_dump_and_seed_database();
     let res = warp::test::request()
         .path("/surveys")
         .method("GET")
@@ -169,6 +170,7 @@ fn surveys_index_test() {
 
 #[test]
 fn surveys_feedback_index_ok_test() {
+    crate::survey::dangerously_dump_and_seed_database();
     let res = warp::test::request()
         .path("/surveys/1/feedback")
         .method("GET")
@@ -191,6 +193,7 @@ fn surveys_feedback_index_ok_test() {
 
 #[test]
 fn surveys_feedback_index_not_found_test() {
+    crate::survey::dangerously_dump_and_seed_database();
     let res = warp::test::request()
         .path("/surveys/0/feedback")
         .method("GET")

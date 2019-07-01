@@ -1,17 +1,20 @@
-#[derive(Debug, PartialEq, serde::Serialize, serde::Deserialize, juniper::GraphQLObject)]
+use chrono::prelude::*;
+use std::sync::RwLock;
+
+#[derive(Debug, Clone, PartialEq, serde::Serialize, juniper::GraphQLObject)]
 pub struct Feedback {
     pub mood: Mood,
 }
 
 #[serde(rename_all = "lowercase")]
-#[derive(Debug, PartialEq, serde::Serialize, serde::Deserialize, juniper::GraphQLEnum)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, juniper::GraphQLEnum)]
 pub enum Mood {
     Happy,
     Meh,
     Sad,
 }
 
-#[derive(Debug, PartialEq, serde::Serialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize)]
 pub struct Survey {
     pub id: u32,
     pub date: chrono::DateTime<chrono::Utc>,
@@ -23,14 +26,16 @@ pub struct Survey {
     pub feedback: Vec<Feedback>,
 }
 
-use chrono::prelude::*;
-
-pub fn get_survey(id: u32) -> Option<Survey> {
-    all_surveys().into_iter().find(|s| s.id == id)
+lazy_static! {
+    /// We use a read-write lock to create this global mutable state which will serve as our
+    /// surveys database.
+    ///
+    static ref SURVEYS_DATABASE: RwLock<Vec<Survey>> = RwLock::new(vec![]);
 }
 
-pub fn all_surveys() -> Vec<Survey> {
-    vec![
+pub fn dangerously_dump_and_seed_database() {
+    let mut lock = SURVEYS_DATABASE.write().unwrap();
+    *lock = vec![
         Survey {
             title: "The Iron Throne".to_string(),
             description: Some("How do you feel about the final GoT episode?".to_string()),
@@ -115,5 +120,18 @@ pub fn all_surveys() -> Vec<Survey> {
                 Feedback { mood: Mood::Happy },
             ],
         },
-    ]
+    ];
+}
+
+pub fn get_survey(id: u32) -> Option<Survey> {
+    SURVEYS_DATABASE
+        .read()
+        .unwrap()
+        .iter()
+        .find(|s| s.id == id)
+        .map(|s| (*s).clone())
+}
+
+pub fn all_surveys() -> Vec<Survey> {
+    (*SURVEYS_DATABASE.read().unwrap()).clone()
 }

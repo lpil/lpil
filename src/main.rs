@@ -2,6 +2,9 @@
 #[macro_use]
 extern crate pretty_assertions;
 
+#[macro_use]
+extern crate lazy_static;
+
 mod graphql;
 mod survey;
 mod web;
@@ -14,6 +17,8 @@ fn main() {
         std::env::set_var("RUST_LOG", "happylabs-graphql=info");
     }
     pretty_env_logger::init();
+
+    crate::survey::dangerously_dump_and_seed_database();
 
     let port = std::env::var("PORT")
         .ok()

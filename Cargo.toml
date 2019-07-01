@@ -5,16 +5,27 @@ authors = ["Louis Pilfold <louis@lpil.uk>"]
 edition = "2018"
 
 [dependencies]
+# GraphQL server framework
 juniper = "0.12"
 juniper_warp = "0.3"
+
+# Logging
 log = "0.4"
 pretty_env_logger = "0.3"
+
+# Web server
 warp = "0.1.15"
-askama = "0.8"
+
+# DateTime data structures
 chrono = { version = "0.4", features = ["serde"] }
+
+# JSON (de)serialization
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 
-[dev-dependencies]
-pretty_assertions = "0.5"
+# Initialization of "const" values at runtime
+lazy_static="*"
 
+[dev-dependencies]
+# Easier to read output in tests
+pretty_assertions = "0.5"
