@@ -1,3 +1,4 @@
+use crate::survey::{Feedback, Survey};
 use juniper::EmptyMutation;
 
 pub fn filter() -> warp::filters::BoxedFilter<(warp::http::response::Response<Vec<u8>>,)> {
@@ -16,33 +17,11 @@ impl juniper::Context for Ctx {}
 
 struct Query;
 
-pub struct Survey {
-    pub id: i32,
-    pub date: chrono::DateTime<chrono::Utc>,
-    pub title: String,
-    pub description: Option<String>,
-    pub colour: Option<String>,
-    pub tags: Vec<String>,
-    pub feedback: Vec<Feedback>,
-}
-
-#[derive(juniper::GraphQLObject)]
-pub struct Feedback {
-    pub mood: Mood,
-}
-
-#[derive(juniper::GraphQLEnum)]
-pub enum Mood {
-    Happy,
-    Meh,
-    Sad,
-}
-
 #[juniper::object]
 /// A request for feedback, either happy, meh, or sad.
 impl Survey {
     fn id(&self) -> i32 {
-        self.id
+        self.id as i32
     }
 
     /// When the survey was created.
@@ -86,7 +65,7 @@ impl Query {
     }
 
     fn all_surveys() -> Vec<Survey> {
-        crate::db::all_surveys()
+        crate::survey::all_surveys()
     }
 }
 

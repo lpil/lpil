@@ -1,5 +1,33 @@
-use crate::graphql::{Feedback, Mood, Survey};
+#[derive(Debug, PartialEq, serde::Serialize, serde::Deserialize, juniper::GraphQLObject)]
+pub struct Feedback {
+    pub mood: Mood,
+}
+
+#[serde(rename_all = "lowercase")]
+#[derive(Debug, PartialEq, serde::Serialize, serde::Deserialize, juniper::GraphQLEnum)]
+pub enum Mood {
+    Happy,
+    Meh,
+    Sad,
+}
+
+#[derive(Debug, PartialEq, serde::Serialize)]
+pub struct Survey {
+    pub id: u32,
+    pub date: chrono::DateTime<chrono::Utc>,
+    pub title: String,
+    pub description: Option<String>,
+    pub colour: Option<String>,
+    pub tags: Vec<String>,
+    #[serde(skip_serializing)]
+    pub feedback: Vec<Feedback>,
+}
+
 use chrono::prelude::*;
+
+pub fn get_survey(id: u32) -> Option<Survey> {
+    all_surveys().into_iter().find(|s| s.id == id)
+}
 
 pub fn all_surveys() -> Vec<Survey> {
     vec![
@@ -9,7 +37,7 @@ pub fn all_surveys() -> Vec<Survey> {
             tags: vec!["Game of Thrones".to_string(), "Finale".to_string()],
             colour: Some("#ffccbb".to_string()),
             id: 1,
-            date: Utc::now(),
+            date: DateTime::from_utc(NaiveDate::from_ymd(2016, 7, 8).and_hms(0, 0, 0), Utc),
             feedback: vec![
                 Feedback { mood: Mood::Happy },
                 Feedback { mood: Mood::Happy },
@@ -31,7 +59,7 @@ pub fn all_surveys() -> Vec<Survey> {
             ],
             colour: Some("#99ccee".to_string()),
             id: 3,
-            date: Utc::now(),
+            date: DateTime::from_utc(NaiveDate::from_ymd(2016, 7, 8).and_hms(0, 0, 0), Utc),
             feedback: vec![
                 Feedback { mood: Mood::Meh },
                 Feedback { mood: Mood::Happy },
@@ -49,7 +77,7 @@ pub fn all_surveys() -> Vec<Survey> {
             tags: vec!["cat".to_string(), "cute".to_string()],
             colour: Some("#99ccee".to_string()),
             id: 4,
-            date: Utc::now(),
+            date: DateTime::from_utc(NaiveDate::from_ymd(2016, 7, 8).and_hms(0, 0, 0), Utc),
             feedback: vec![
                 Feedback { mood: Mood::Happy },
                 Feedback { mood: Mood::Happy },
@@ -62,7 +90,7 @@ pub fn all_surveys() -> Vec<Survey> {
             tags: vec!["politics".to_string()],
             colour: None,
             id: 5,
-            date: Utc::now(),
+            date: DateTime::from_utc(NaiveDate::from_ymd(2016, 7, 8).and_hms(0, 0, 0), Utc),
             feedback: vec![
                 Feedback { mood: Mood::Meh },
                 Feedback { mood: Mood::Sad },
@@ -80,7 +108,7 @@ pub fn all_surveys() -> Vec<Survey> {
             tags: vec!["ndap".to_string(), "av".to_string(), "meeting".to_string()],
             colour: None,
             id: 6,
-            date: Utc::now(),
+            date: DateTime::from_utc(NaiveDate::from_ymd(2016, 7, 8).and_hms(0, 0, 0), Utc),
             feedback: vec![
                 Feedback { mood: Mood::Meh },
                 Feedback { mood: Mood::Meh },
