@@ -1,13 +1,21 @@
+mod errors;
 mod health;
 mod survey;
 
+use crate::survey::Database;
 use warp::http::Response;
 use warp::Filter;
 
-pub fn routes() -> impl warp::Filter<Extract = (impl warp::Reply), Error = warp::Rejection> + Clone
-{
+#[cfg(test)]
+use crate::survey::{Feedback, Mood};
+
+pub fn routes(
+    db: Database,
+) -> impl warp::Filter<Extract = (impl warp::Reply), Error = warp::Rejection> + Clone {
     use warp::path::*;
     use warp::{any, get2 as get, post2 as post};
+
+    let with_db = any().map(move || db.clone());
 
     // GET /-/ready
     let ready_check = get()
@@ -23,57 +31,70 @@ pub fn routes() -> impl warp::Filter<Extract = (impl warp::Reply), Error = warp:
         .and(end())
         .map(crate::web::health::health);
 
-    // GET /
-    let graphiql_ui = get()
-        .and(end())
-        .and(juniper_warp::graphiql_filter("/graphql"));
+    // // GET /
+    // let graphiql_ui = get()
+    //     .and(end())
+    //     .and(juniper_warp::graphiql_filter("/graphql"));
 
-    // POST /graphql
-    let graphql_endpoint = post()
-        .and(path("graphql"))
-        .and(end())
-        .and(crate::graphql::filter());
+    // // POST /graphql
+    // let graphql_endpoint = post()
+    //     .and(path("graphql"))
+    //     .and(end())
+    //     .and(crate::graphql::filter());
 
     // GET /surveys
     let surveys_index = get()
         .and(path("surveys"))
         .and(end())
+        .and(with_db.clone())
         .map(crate::web::survey::index);
 
     // GET /surveys/:id/feedback
-    let show_survey_feedback = get()
+    let survey_feedback_index = get()
         .and(path("surveys"))
         .and(param())
         .and(path("feedback"))
         .and(end())
+        .and(with_db.clone())
         .map(crate::web::survey::feedback_index);
+
+    // POST /surveys/:id/feedback
+    let create_survey_feedback = post()
+        .and(path("surveys"))
+        .and(param())
+        .and(path("feedback"))
+        .and(end())
+        .and(warp::body::concat())
+        .and(with_db)
+        .map(crate::web::survey::create_feedback);
 
     let not_found = any().map(|| Response::builder().status(404).body("Not found"));
 
-    graphiql_ui
-        .or(health_check)
+    health_check
         .or(ready_check)
         .or(surveys_index)
-        .or(show_survey_feedback)
-        .or(graphql_endpoint)
+        .or(survey_feedback_index)
+        .or(create_survey_feedback)
+        // .or(graphiql_ui)
+        // .or(graphql_endpoint)
         .or(not_found)
 }
 
-#[test]
-fn graphiql_test() {
-    let res = warp::test::request()
-        .path("/")
-        .method("GET")
-        .reply(&routes());
-    assert_eq!(200, res.status());
-}
+// #[test]
+// fn graphiql_test() {
+//     let res = warp::test::request()
+//         .path("/")
+//         .method("GET")
+//         .reply(&routes(Database::new()));
+//     assert_eq!(200, res.status());
+// }
 
 #[test]
 fn not_found_test() {
     let res = warp::test::request()
         .path("/whatever")
         .method("GET")
-        .reply(&routes());
+        .reply(&routes(Database::new()));
     assert_eq!(404, res.status());
 }
 
@@ -82,7 +103,7 @@ fn ready_test() {
     let res = warp::test::request()
         .path("/-/ready")
         .method("GET")
-        .reply(&routes());
+        .reply(&routes(Database::new()));
     assert_eq!(200, res.status());
 }
 
@@ -91,17 +112,19 @@ fn health_test() {
     let res = warp::test::request()
         .path("/-/health")
         .method("GET")
-        .reply(&routes());
+        .reply(&routes(Database::new()));
     assert_eq!(200, res.status());
 }
 
 #[test]
 fn surveys_index_test() {
-    crate::survey::dangerously_dump_and_seed_database();
+    let db = Database::new();
+    db.seed();
+
     let res = warp::test::request()
         .path("/surveys")
         .method("GET")
-        .reply(&routes());
+        .reply(&routes(db));
     assert_eq!(200, res.status());
     assert_eq!(
         serde_json::json!({
@@ -170,11 +193,13 @@ fn surveys_index_test() {
 
 #[test]
 fn surveys_feedback_index_ok_test() {
-    crate::survey::dangerously_dump_and_seed_database();
+    let db = Database::new();
+    db.seed();
+
     let res = warp::test::request()
         .path("/surveys/1/feedback")
         .method("GET")
-        .reply(&routes());
+        .reply(&routes(db));
     assert_eq!(200, res.status());
     assert_eq!(
         serde_json::json!({
@@ -187,17 +212,74 @@ fn surveys_feedback_index_ok_test() {
                 {"mood": "happy"},
             ]
         }),
-        serde_json::from_str::<serde_json::Value>(&String::from_utf8_lossy(res.body())).unwrap()
+        serde_json::from_slice::<serde_json::Value>(res.body()).unwrap()
     );
 }
 
 #[test]
 fn surveys_feedback_index_not_found_test() {
-    crate::survey::dangerously_dump_and_seed_database();
+    let db = Database::new();
+
     let res = warp::test::request()
         .path("/surveys/0/feedback")
         .method("GET")
-        .reply(&routes());
+        .reply(&routes(db));
     assert_eq!(404, res.status());
     assert_eq!("", String::from_utf8_lossy(res.body()));
+}
+
+#[test]
+fn create_survey_feedback_not_found_test() {
+    let res = warp::test::request()
+        .method("POST")
+        .path("/surveys/0/feedback")
+        .body(r#"{"mood": "happy"}"#)
+        .reply(&routes(Database::new()));
+    assert_eq!(404, res.status());
+    assert_eq!("", String::from_utf8_lossy(res.body()));
+}
+
+#[test]
+fn create_survey_feedback_ok_test() {
+    let db = Database::new();
+    db.seed();
+
+    let survey = db.get_survey(1).unwrap();
+    assert_eq!(survey.feedback.len(), 6);
+
+    let res = warp::test::request()
+        .method("POST")
+        .path("/surveys/1/feedback")
+        .body(r#"{"mood": "sad"}"#)
+        .reply(&routes(db.clone()));
+    assert_eq!(201, res.status());
+    assert_eq!("", String::from_utf8_lossy(res.body()));
+
+    let survey = db.get_survey(1).unwrap();
+    assert_eq!(survey.feedback.len(), 7);
+    assert_eq!(survey.feedback[6], Feedback { mood: Mood::Sad });
+}
+
+#[test]
+fn create_survey_feedback_invalid_test() {
+    let db = Database::new();
+
+    let res = warp::test::request()
+        .method("POST")
+        .path("/surveys/1/feedback")
+        .body(r#"{"mood": "kinda ok I guess"}"#)
+        .reply(&routes(db.clone()));
+    assert_eq!(400, res.status());
+    assert_eq!(
+        serde_json::json!({
+            "errors": {
+                "feedback": [
+                    "unknown variant `kinda ok I guess`, expected one of `happy`, `meh`, `sad` at line 1 column 27"
+                ]
+            }
+        }),
+        serde_json::from_str::<serde_json::Value>(&String::from_utf8_lossy(res.body())).unwrap()
+    );
+
+    assert_eq!(db.all_surveys().len(), 0)
 }

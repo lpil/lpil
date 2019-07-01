@@ -2,9 +2,6 @@
 #[macro_use]
 extern crate pretty_assertions;
 
-#[macro_use]
-extern crate lazy_static;
-
 mod graphql;
 mod survey;
 mod web;
@@ -18,14 +15,17 @@ fn main() {
     }
     pretty_env_logger::init();
 
-    crate::survey::dangerously_dump_and_seed_database();
+    let db = crate::survey::Database::new();
+    db.seed();
 
     let port = std::env::var("PORT")
         .ok()
         .and_then(|s| s.parse().ok())
         .unwrap_or(3000);
 
-    let stack = crate::web::routes().with(warp::log("happylabs-api-rust"));
+    let stack = crate::web::routes(db)
+        .with(warp::log("happylabs-api-rust"))
+        .with(warp::cors().allow_any_origin());
 
     log::info!("Starting on localhost:{}", port);
     warp::serve(stack).run(([127, 0, 0, 1], port));

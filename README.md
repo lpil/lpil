@@ -1,6 +1,6 @@
-# HappyLabs GraphQL
+# HappyLabs Rust API
 
-An alternative GraphQL based API for HappyLabs!
+An implementation of the HappyLabs API in Rust!
 
 ## Development quick reference
 
