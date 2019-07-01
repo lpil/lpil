@@ -11,7 +11,11 @@ RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 # Release
 # FROM alpine:latest
 FROM scratch
-COPY --from=build /home/rust/src/target/x86_64-unknown-linux-musl/release/happylabs-graphql .
+COPY --from=build /home/rust/src/target/x86_64-unknown-linux-musl/release/happylabs-api .
 COPY --from=alpine /etc/passwd /etc/passwd
 USER appuser
-ENTRYPOINT ["./happylabs-graphql"]
+
+ENV PORT 3000
+EXPOSE ${PORT}
+
+ENTRYPOINT ["/happylabs-api"]

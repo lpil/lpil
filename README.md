@@ -14,5 +14,5 @@ cargo test
 cargo run
 
 # Build the docker image
-docker build . -t happylabs-graphql
+docker build . -t lpil/happylabs-api-rust:whatever-version
 ```

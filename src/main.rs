@@ -11,7 +11,7 @@ fn main() {
 
     // Show info level logs by default
     if std::env::var_os("RUST_LOG").is_none() {
-        std::env::set_var("RUST_LOG", "happylabs-graphql=info");
+        std::env::set_var("RUST_LOG", "info");
     }
     pretty_env_logger::init();
 
@@ -24,9 +24,9 @@ fn main() {
         .unwrap_or(3000);
 
     let stack = crate::web::routes(db)
-        .with(warp::log("happylabs-api-rust"))
+        .with(warp::log("happylabs-api"))
         .with(warp::cors().allow_any_origin());
 
-    log::info!("Starting on localhost:{}", port);
-    warp::serve(stack).run(([127, 0, 0, 1], port));
+    // warp::serve(stack).run(([127, 0, 0, 1], port));
+    warp::serve(stack).run(([0, 0, 0, 0], port));
 }
