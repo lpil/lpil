@@ -4,6 +4,12 @@ use std::sync::{Arc, RwLock};
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, juniper::GraphQLObject)]
 pub struct Feedback {
     pub mood: Mood,
+    pub inserted_at: chrono::DateTime<chrono::Utc>,
+}
+
+#[derive(Debug, Clone, PartialEq, serde::Deserialize, juniper::GraphQLObject)]
+pub struct InsertFeedback {
+    pub mood: Mood,
 }
 
 #[serde(rename_all = "lowercase")]
@@ -58,56 +64,163 @@ impl Database {
         let mut lock = self.arc.write().unwrap();
         *lock = vec![
             Survey {
-                title: "The Iron Throne".to_string(),
-                description: Some("How do you feel about the final GoT episode?".to_string()),
-                tags: vec!["Game of Thrones".to_string(), "Finale".to_string()],
+                title: "Reflection".to_string(),
+                description: Some("Reflection next steps".to_string()),
+                tags: vec!["ndap".to_string(), "meeting".to_string()],
                 colour: Some("#ffccbb".to_string()),
                 id: 1,
                 date: DateTime::from_utc(NaiveDate::from_ymd(2016, 7, 8).and_hms(0, 0, 0), Utc),
                 feedback: vec![
-                    Feedback { mood: Mood::Happy },
-                    Feedback { mood: Mood::Happy },
-                    Feedback { mood: Mood::Sad },
-                    Feedback { mood: Mood::Sad },
-                    Feedback { mood: Mood::Meh },
-                    Feedback { mood: Mood::Happy },
+                    Feedback {
+                        inserted_at: DateTime::from_utc(
+                            NaiveDate::from_ymd(2019, 6, 29).and_hms(12, 10, 0),
+                            Utc,
+                        ),
+                        mood: Mood::Happy,
+                    },
+                    Feedback {
+                        inserted_at: DateTime::from_utc(
+                            NaiveDate::from_ymd(2019, 6, 29).and_hms(12, 12, 0),
+                            Utc,
+                        ),
+                        mood: Mood::Happy,
+                    },
+                    Feedback {
+                        inserted_at: DateTime::from_utc(
+                            NaiveDate::from_ymd(2019, 6, 29).and_hms(12, 15, 0),
+                            Utc,
+                        ),
+                        mood: Mood::Sad,
+                    },
+                    Feedback {
+                        inserted_at: DateTime::from_utc(
+                            NaiveDate::from_ymd(2019, 6, 29).and_hms(12, 19, 0),
+                            Utc,
+                        ),
+                        mood: Mood::Happy,
+                    },
+                    Feedback {
+                        inserted_at: DateTime::from_utc(
+                            NaiveDate::from_ymd(2019, 6, 29).and_hms(12, 24, 0),
+                            Utc,
+                        ),
+                        mood: Mood::Meh,
+                    },
+                    Feedback {
+                        inserted_at: DateTime::from_utc(
+                            NaiveDate::from_ymd(2019, 6, 29).and_hms(12, 30, 0),
+                            Utc,
+                        ),
+                        mood: Mood::Happy,
+                    },
                 ],
             },
             Survey {
-                title: "Did you see that ludicrous display last night?".to_string(),
-                description: Some(
-                    "What was Wenger thinking sending Walcott on that early?".to_string(),
-                ),
+                title: "JIRA Workflow".to_string(),
+                description: Some("Are we happy with the new JIRA workflow".to_string()),
                 tags: vec![
-                    "football".to_string(),
-                    "sport".to_string(),
-                    "totally-normal".to_string(),
+                    "process".to_string(),
+                    "ndap".to_string(),
+                    "jira".to_string(),
                 ],
                 colour: Some("#99ccee".to_string()),
                 id: 3,
-                date: DateTime::from_utc(NaiveDate::from_ymd(2016, 7, 8).and_hms(0, 0, 0), Utc),
+                date: DateTime::from_utc(NaiveDate::from_ymd(2019, 6, 28).and_hms(0, 0, 0), Utc),
                 feedback: vec![
-                    Feedback { mood: Mood::Meh },
-                    Feedback { mood: Mood::Happy },
-                    Feedback { mood: Mood::Sad },
-                    Feedback { mood: Mood::Happy },
-                    Feedback { mood: Mood::Happy },
-                    Feedback { mood: Mood::Sad },
-                    Feedback { mood: Mood::Happy },
-                    Feedback { mood: Mood::Sad },
+                    Feedback {
+                        inserted_at: DateTime::from_utc(
+                            NaiveDate::from_ymd(2019, 6, 29).and_hms(11, 10, 0),
+                            Utc,
+                        ),
+                        mood: Mood::Meh,
+                    },
+                    Feedback {
+                        inserted_at: DateTime::from_utc(
+                            NaiveDate::from_ymd(2019, 6, 29).and_hms(11, 50, 0),
+                            Utc,
+                        ),
+                        mood: Mood::Happy,
+                    },
+                    Feedback {
+                        inserted_at: DateTime::from_utc(
+                            NaiveDate::from_ymd(2019, 6, 29).and_hms(12, 01, 0),
+                            Utc,
+                        ),
+                        mood: Mood::Meh,
+                    },
+                    Feedback {
+                        inserted_at: DateTime::from_utc(
+                            NaiveDate::from_ymd(2019, 6, 29).and_hms(12, 10, 0),
+                            Utc,
+                        ),
+                        mood: Mood::Happy,
+                    },
+                    Feedback {
+                        inserted_at: DateTime::from_utc(
+                            NaiveDate::from_ymd(2019, 6, 29).and_hms(12, 11, 0),
+                            Utc,
+                        ),
+                        mood: Mood::Happy,
+                    },
+                    Feedback {
+                        inserted_at: DateTime::from_utc(
+                            NaiveDate::from_ymd(2019, 6, 29).and_hms(12, 11, 10),
+                            Utc,
+                        ),
+                        mood: Mood::Meh,
+                    },
+                    Feedback {
+                        inserted_at: DateTime::from_utc(
+                            NaiveDate::from_ymd(2019, 6, 30).and_hms(8, 10, 0),
+                            Utc,
+                        ),
+                        mood: Mood::Happy,
+                    },
+                    Feedback {
+                        inserted_at: DateTime::from_utc(
+                            NaiveDate::from_ymd(2019, 6, 30).and_hms(8, 11, 0),
+                            Utc,
+                        ),
+                        mood: Mood::Happy,
+                    },
+                    Feedback {
+                        inserted_at: DateTime::from_utc(
+                            NaiveDate::from_ymd(2019, 6, 30).and_hms(8, 33, 0),
+                            Utc,
+                        ),
+                        mood: Mood::Sad,
+                    },
                 ],
             },
             Survey {
-                title: "Rate my cat".to_string(),
-                description: Some("Their name is fluffy".to_string()),
-                tags: vec!["cat".to_string(), "cute".to_string()],
+                title: "Announcements".to_string(),
+                description: Some("Announcements".to_string()),
+                tags: vec!["ndap".to_string()],
                 colour: Some("#99ccee".to_string()),
                 id: 4,
                 date: DateTime::from_utc(NaiveDate::from_ymd(2016, 7, 8).and_hms(0, 0, 0), Utc),
                 feedback: vec![
-                    Feedback { mood: Mood::Happy },
-                    Feedback { mood: Mood::Happy },
-                    Feedback { mood: Mood::Happy },
+                    Feedback {
+                        inserted_at: DateTime::from_utc(
+                            NaiveDate::from_ymd(2019, 6, 29).and_hms(12, 10, 0),
+                            Utc,
+                        ),
+                        mood: Mood::Happy,
+                    },
+                    Feedback {
+                        inserted_at: DateTime::from_utc(
+                            NaiveDate::from_ymd(2019, 6, 29).and_hms(12, 10, 0),
+                            Utc,
+                        ),
+                        mood: Mood::Happy,
+                    },
+                    Feedback {
+                        inserted_at: DateTime::from_utc(
+                            NaiveDate::from_ymd(2019, 6, 29).and_hms(12, 10, 0),
+                            Utc,
+                        ),
+                        mood: Mood::Happy,
+                    },
                 ],
             },
             Survey {
@@ -118,12 +231,41 @@ impl Database {
                 id: 5,
                 date: DateTime::from_utc(NaiveDate::from_ymd(2016, 7, 8).and_hms(0, 0, 0), Utc),
                 feedback: vec![
-                    Feedback { mood: Mood::Meh },
-                    Feedback { mood: Mood::Sad },
-                    Feedback { mood: Mood::Happy },
-                    Feedback { mood: Mood::Sad },
-                    Feedback { mood: Mood::Happy },
-                    Feedback { mood: Mood::Happy },
+                    Feedback {
+                        inserted_at: DateTime::from_utc(
+                            NaiveDate::from_ymd(2019, 5, 1).and_hms(12, 10, 0),
+                            Utc,
+                        ),
+                        mood: Mood::Meh,
+                    },
+                    Feedback {
+                        inserted_at: DateTime::from_utc(
+                            NaiveDate::from_ymd(2019, 5, 2).and_hms(12, 10, 0),
+                            Utc,
+                        ),
+                        mood: Mood::Meh,
+                    },
+                    Feedback {
+                        inserted_at: DateTime::from_utc(
+                            NaiveDate::from_ymd(2019, 5, 5).and_hms(12, 10, 0),
+                            Utc,
+                        ),
+                        mood: Mood::Meh,
+                    },
+                    Feedback {
+                        inserted_at: DateTime::from_utc(
+                            NaiveDate::from_ymd(2019, 5, 7).and_hms(12, 10, 0),
+                            Utc,
+                        ),
+                        mood: Mood::Sad,
+                    },
+                    Feedback {
+                        inserted_at: DateTime::from_utc(
+                            NaiveDate::from_ymd(2019, 5, 8).and_hms(12, 10, 0),
+                            Utc,
+                        ),
+                        mood: Mood::Sad,
+                    },
                 ],
             },
             Survey {
@@ -136,10 +278,37 @@ impl Database {
                 id: 6,
                 date: DateTime::from_utc(NaiveDate::from_ymd(2016, 7, 8).and_hms(0, 0, 0), Utc),
                 feedback: vec![
-                    Feedback { mood: Mood::Meh },
-                    Feedback { mood: Mood::Meh },
-                    Feedback { mood: Mood::Happy },
+                    Feedback {
+                        inserted_at: DateTime::from_utc(
+                            NaiveDate::from_ymd(2019, 6, 29).and_hms(12, 10, 0),
+                            Utc,
+                        ),
+                        mood: Mood::Meh,
+                    },
+                    Feedback {
+                        inserted_at: DateTime::from_utc(
+                            NaiveDate::from_ymd(2019, 6, 29).and_hms(12, 10, 0),
+                            Utc,
+                        ),
+                        mood: Mood::Meh,
+                    },
+                    Feedback {
+                        inserted_at: DateTime::from_utc(
+                            NaiveDate::from_ymd(2019, 6, 29).and_hms(12, 10, 0),
+                            Utc,
+                        ),
+                        mood: Mood::Happy,
+                    },
                 ],
+            },
+            Survey {
+                title: "Rate my cat".to_string(),
+                description: Some("Their name is fluffy".to_string()),
+                tags: vec!["cute".to_string(), "cat".to_string()],
+                colour: None,
+                id: 7,
+                date: DateTime::from_utc(NaiveDate::from_ymd(2016, 7, 8).and_hms(0, 0, 0), Utc),
+                feedback: vec![],
             },
         ];
     }
@@ -157,7 +326,15 @@ impl Database {
         (*self.arc.read().unwrap()).clone()
     }
 
-    pub fn insert_feedback(&self, id: u32, feedback: Feedback) -> Result<(), InsertFeedbackError> {
+    pub fn insert_feedback(
+        &self,
+        id: u32,
+        feedback: InsertFeedback,
+    ) -> Result<(), InsertFeedbackError> {
+        let feedback = Feedback {
+            mood: feedback.mood,
+            inserted_at: chrono::Utc::now(),
+        };
         match self.arc.write().unwrap().iter_mut().find(|s| s.id == id) {
             Some(survey) => Ok(survey.feedback.push(feedback)),
             None => Err(InsertFeedbackError::NotFound),

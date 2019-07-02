@@ -7,7 +7,7 @@ use warp::http::Response;
 use warp::Filter;
 
 #[cfg(test)]
-use crate::survey::{Feedback, Mood, Survey};
+use crate::survey::{Mood, Survey};
 
 pub fn routes(
     db: Database,
@@ -141,35 +141,34 @@ fn surveys_index_test() {
                 {
                     "id": 1,
                     "date": "2016-07-08T00:00:00Z",
-                    "title": "The Iron Throne",
-                    "description": "How do you feel about the final GoT episode?",
+                    "title": "Reflection",
+                    "description": "Reflection next steps",
                     "colour": "#ffccbb",
                     "tags": [
-                        "Game of Thrones",
-                        "Finale"
+                        "ndap",
+                        "meeting"
                     ]
                 },
                 {
                     "id": 3,
-                    "date": "2016-07-08T00:00:00Z",
-                    "title": "Did you see that ludicrous display last night?",
-                    "description": "What was Wenger thinking sending Walcott on that early?",
+                    "date": "2019-06-28T00:00:00Z",
+                    "title": "JIRA Workflow",
+                    "description": "Are we happy with the new JIRA workflow",
                     "colour": "#99ccee",
                     "tags": [
-                        "football",
-                        "sport",
-                        "totally-normal"
+                        "process",
+                        "ndap",
+                        "jira"
                     ]
                 },
                 {
                     "id": 4,
                     "date": "2016-07-08T00:00:00Z",
-                    "title": "Rate my cat",
-                    "description": "Their name is fluffy",
+                    "title": "Announcements",
+                    "description": "Announcements",
                     "colour": "#99ccee",
                     "tags": [
-                        "cat",
-                        "cute"
+                        "ndap"
                     ]
                 },
                 {
@@ -193,7 +192,18 @@ fn surveys_index_test() {
                         "av",
                         "meeting"
                     ]
-                }
+                },
+                {
+                    "id": 7,
+                    "date": "2016-07-08T00:00:00Z",
+                    "title": "Rate my cat",
+                    "description": "Their name is fluffy",
+                    "colour": null,
+                    "tags": [
+                        "cute",
+                        "cat"
+                    ]
+                },
             ]
         }),
         serde_json::from_str::<serde_json::Value>(&String::from_utf8_lossy(res.body())).unwrap()
@@ -213,12 +223,30 @@ fn surveys_feedback_index_ok_test() {
     assert_eq!(
         serde_json::json!({
             "feedback": [
-                {"mood": "happy"},
-                {"mood": "happy"},
-                {"mood": "sad"},
-                {"mood": "sad"},
-                {"mood": "meh"},
-                {"mood": "happy"},
+                {
+                    "mood": "happy",
+                    "inserted_at": "2019-06-29T12:10:00Z"
+                },
+                {
+                    "mood": "happy",
+                    "inserted_at": "2019-06-29T12:12:00Z"
+                },
+                {
+                    "mood": "sad",
+                    "inserted_at": "2019-06-29T12:15:00Z"
+                },
+                {
+                    "mood": "happy",
+                    "inserted_at": "2019-06-29T12:19:00Z"
+                },
+                {
+                    "mood": "meh",
+                    "inserted_at": "2019-06-29T12:24:00Z"
+                },
+                {
+                    "mood": "happy",
+                    "inserted_at": "2019-06-29T12:30:00Z"
+                },
             ]
         }),
         serde_json::from_slice::<serde_json::Value>(res.body()).unwrap()
@@ -266,7 +294,7 @@ fn create_survey_feedback_ok_test() {
 
     let survey = db.get_survey(1).unwrap();
     assert_eq!(survey.feedback.len(), 7);
-    assert_eq!(survey.feedback[6], Feedback { mood: Mood::Sad });
+    assert_eq!(survey.feedback[6].mood, Mood::Sad);
 }
 
 #[test]
