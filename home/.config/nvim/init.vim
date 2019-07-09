@@ -33,9 +33,11 @@ Plug 'kylef/apiblueprint.vim', { 'for': 'apiblueprint' }
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 Plug 'lepoetemaudit/alpaca_vim', { 'for': 'alpaca' }
 Plug 'lfe-support/vim-lfe', { 'for': 'lfe' }
+Plug 'lnl7/vim-nix', { 'for': 'nix' }
 Plug 'lpil/gleam.vim', { 'for': 'gleam' }
 Plug 'marcweber/vim-addon-mw-utils'
 Plug 'mxw/vim-jsx', { 'for': 'javascript' }
+Plug 'ncm2/ncm2'
 Plug 'neomake/neomake'
 Plug 'neovimhaskell/haskell-vim', { 'for' : 'haskell' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
@@ -44,6 +46,7 @@ Plug 'raichoo/purescript-vim', { 'for': 'purescript' }
 Plug 'reasonml-editor/vim-reason-plus', { 'for': 'reason' }
 Plug 'rhysd/clever-f.vim'
 Plug 'rhysd/vim-crystal', { 'for': 'crystal' }
+Plug 'roxma/nvim-yarp'
 Plug 'rust-lang/rust.vim', { 'for': ['rust', 'markdown'] }
 Plug 'sbdchd/neoformat'
 Plug 'scrooloose/nerdtree'
@@ -60,8 +63,6 @@ Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rails', { 'for': 'ruby' }
 Plug 'tpope/vim-repeat'
-Plug 'ncm2/ncm2'
-Plug 'roxma/nvim-yarp'
 Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': lisp_languages }
 Plug 'tpope/vim-surround'

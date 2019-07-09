@@ -1,3 +1,4 @@
 oh-my-fish/plugin-bundler
 evanlucas/fish-kubectl-completions
 edc/bass
+lilyball/nix-env.fish
