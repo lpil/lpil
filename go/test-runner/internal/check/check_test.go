@@ -7,17 +7,17 @@ import (
 
 func TestRunConcurrently(t *testing.T) {
 	checks := []Check{
-		testCheck{true, "ok"},
-		testCheck{false, "ok"},
-		testCheck{true, ":)"},
+		testCheck{CheckPass{}},
+		testCheck{CheckFail{"sad"}},
+		testCheck{CheckError{"mad"}},
 	}
 
 	results := RunConcurrently(checks)
 
 	expected := []CheckResult{
-		CheckResult{true, "ok"},
-		CheckResult{false, "ok"},
-		CheckResult{true, ":)"},
+		CheckPass{},
+		CheckFail{"sad"},
+		CheckError{"mad"},
 	}
 
 	if !reflect.DeepEqual(expected, results) {
@@ -28,8 +28,7 @@ func TestRunConcurrently(t *testing.T) {
 // A test Check that returns the contained values.
 
 type testCheck struct {
-	pass        bool
-	description string
+	result CheckResult
 }
 
 func (_ testCheck) Description() string {
@@ -41,5 +40,5 @@ func (_ testCheck) Name() string {
 }
 
 func (t testCheck) Exec() CheckResult {
-	return CheckResult{t.pass, t.description}
+	return t.result
 }

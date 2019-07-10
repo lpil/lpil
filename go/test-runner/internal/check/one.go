@@ -11,5 +11,5 @@ func (_ One) Description() string {
 }
 
 func (_ One) Exec() CheckResult {
-	return pass()
+	return CheckPass{}
 }

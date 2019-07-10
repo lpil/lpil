@@ -6,18 +6,7 @@ type Check interface {
 	Exec() CheckResult
 }
 
-type CheckResult struct {
-	Pass   bool
-	Detail string
-}
-
-func pass() CheckResult {
-	return CheckResult{true, ""}
-}
-
-func fail(detail string) CheckResult {
-	return CheckResult{false, detail}
-}
+// Running multiple checks
 
 func RunConcurrently(checks []Check) []CheckResult {
 	type indexedCheckResult struct {
@@ -28,7 +17,7 @@ func RunConcurrently(checks []Check) []CheckResult {
 	channel := make(chan indexedCheckResult)
 	results := make([]CheckResult, len(checks))
 
-	// Fan out, spawning a goroutine per check
+	// Fan out, running all checks at once
 	//
 	performCheck := func(i int, check Check) {
 		channel <- indexedCheckResult{i, check.Exec()}
@@ -43,6 +32,8 @@ func RunConcurrently(checks []Check) []CheckResult {
 		r := <-channel
 		results[r.i] = r.result
 	}
+
+	// We have N checks and have received N results so we can safely close the channel
 	close(channel)
 
 	return results
