@@ -30,10 +30,11 @@ func RunConcurrently(checks []Check) []CheckResult {
 
 	// Fan out, spawning a goroutine per check
 	//
+	performCheck := func(i int, check Check) {
+		channel <- indexedCheckResult{i, check.Exec()}
+	}
 	for i, check := range checks {
-		go func(i int, check Check) {
-			channel <- indexedCheckResult{i, check.Exec()}
-		}(i, check)
+		go performCheck(i, check)
 	}
 
 	// Fan in, collecting results from each check
@@ -42,6 +43,7 @@ func RunConcurrently(checks []Check) []CheckResult {
 		r := <-channel
 		results[r.i] = r.result
 	}
+	close(channel)
 
 	return results
 
