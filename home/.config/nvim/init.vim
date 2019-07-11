@@ -274,21 +274,28 @@ endif
 " enable ncm2 for all buffers
 autocmd BufEnter * call ncm2#enable_for_buffer()
 
-" IMPORTANT: :help Ncm2PopupOpen for more information
+" :help Ncm2PopupOpen for more information
 set completeopt=noinsert,menuone,noselect
 set shortmess+=c
-
 
 """""""""""""""""""""""""""""""""""
 "  Plugin: languageclient-neovim  "
 """""""""""""""""""""""""""""""""""
 
-
 let g:LanguageClient_serverCommands = {
-    \ 'rust': ['rustup', 'run', 'stable', 'rls'],
-    \ 'python': ['pyls'],
-    \ 'go': ['gopls']
-    \ }
+      \ 'rust': ['rustup', 'run', 'stable', 'rls'],
+      \ 'python': ['pyls'],
+      \ 'go': ['gopls']
+      \ }
+
+let g:LanguageClient_rootMarkers = {
+      \ 'javascript': ['project.json'],
+      \ 'typescript': ['project.json'],
+      \ 'python': ['Pipfile', 'requirements.txt'],
+      \ 'rust': ['Cargo.toml'],
+      \ 'elixir': ['mix.exs'],
+      \ 'go': ['go.mod'],
+      \ }
 
 let g:LanguageClient_diagnosticsList = "Location"
 let g:LanguageClient_diagnosticsSignsMax = 0
@@ -296,7 +303,6 @@ let g:LanguageClient_diagnosticsSignsMax = 0
 nnoremap <leader><leader> :call LanguageClient_contextMenu()<CR>
 nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
 nnoremap <silent> <C-]> :call LanguageClient#textDocument_definition()<CR>
-
 
 """"""""""""""""""
 "  OCaml merlin  "
