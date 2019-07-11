@@ -1,7 +1,7 @@
 package check
 
 import (
-	"fmt"
+	log "github.com/sirupsen/logrus"
 )
 
 type Check interface {
@@ -28,8 +28,8 @@ func RunConcurrently(checks []Check, reporter func(CheckResult, Check)) []CheckR
 	//
 	performCheck := func(i int, check Check) {
 		result := check.Exec()
-		channel <- indexedCheckResult{i, result}
 		reporter(result, check)
+		channel <- indexedCheckResult{i, result}
 	}
 	for i, check := range checks {
 		go performCheck(i, check)
@@ -51,5 +51,17 @@ func RunConcurrently(checks []Check, reporter func(CheckResult, Check)) []CheckR
 // A logger that prints a line for a given check result.
 //
 func LogResult(result CheckResult, check Check) {
-	fmt.Printf("[%s] %s\n", result.String(), check.Name())
+	fields := log.Fields{
+		"what":   "check_finished",
+		"in":     check.Name(),
+		"result": result.String(),
+		"detail": result.Detail(),
+	}
+	logger := log.WithFields(fields)
+
+	if result.IsError() {
+		logger.Errorf("%s finished with %s\n", check.Name(), result.String())
+	} else {
+		logger.Infof("%s finished with %s\n", check.Name(), result.String())
+	}
 }

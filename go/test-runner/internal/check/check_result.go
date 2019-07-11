@@ -4,6 +4,7 @@ type CheckResult interface {
 	String() string
 	Detail() string
 	IsOk() bool
+	IsError() bool
 }
 
 // Pass
@@ -13,6 +14,10 @@ type CheckPass struct{}
 
 func (_ CheckPass) IsOk() bool {
 	return true
+}
+
+func (_ CheckPass) IsError() bool {
+	return false
 }
 
 func (_ CheckPass) String() string {
@@ -29,6 +34,10 @@ func (_ CheckPass) Detail() string {
 type CheckFail struct{ detail string }
 
 func (_ CheckFail) IsOk() bool {
+	return false
+}
+
+func (_ CheckFail) IsError() bool {
 	return false
 }
 
@@ -51,6 +60,10 @@ type CheckError struct{ detail string }
 
 func (_ CheckError) IsOk() bool {
 	return false
+}
+
+func (_ CheckError) IsError() bool {
+	return true
 }
 
 func (_ CheckError) String() string {
