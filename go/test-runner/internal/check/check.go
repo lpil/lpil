@@ -1,5 +1,9 @@
 package check
 
+import (
+	"fmt"
+)
+
 type Check interface {
 	Name() string
 	Description() string
@@ -7,8 +11,11 @@ type Check interface {
 }
 
 // Running multiple checks
+// A reporter callback function is used to allow the caller to inject some
+// functionality to be undertaken immediately as each check ends (for example,
+// logging and metrics recording).
 
-func RunConcurrently(checks []Check) []CheckResult {
+func RunConcurrently(checks []Check, reporter func(CheckResult, Check)) []CheckResult {
 	type indexedCheckResult struct {
 		i      int
 		result CheckResult
@@ -20,7 +27,9 @@ func RunConcurrently(checks []Check) []CheckResult {
 	// Fan out, running all checks at once
 	//
 	performCheck := func(i int, check Check) {
-		channel <- indexedCheckResult{i, check.Exec()}
+		result := check.Exec()
+		channel <- indexedCheckResult{i, result}
+		reporter(result, check)
 	}
 	for i, check := range checks {
 		go performCheck(i, check)
@@ -37,5 +46,10 @@ func RunConcurrently(checks []Check) []CheckResult {
 	close(channel)
 
 	return results
+}
 
+// A logger that prints a line for a given check result.
+//
+func LogResult(result CheckResult, check Check) {
+	fmt.Printf("[%s] %s\n", result.String(), check.Name())
 }

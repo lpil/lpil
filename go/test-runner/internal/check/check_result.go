@@ -8,7 +8,7 @@ type CheckResult interface {
 
 // Pass
 // Everything is OK!
-
+//
 type CheckPass struct{}
 
 func (_ CheckPass) IsOk() bool {
@@ -25,7 +25,7 @@ func (_ CheckPass) Detail() string {
 
 // Fail
 // The target failed to pass the check, there is a problem.
-
+//
 type CheckFail struct{ detail string }
 
 func (_ CheckFail) IsOk() bool {
@@ -46,7 +46,7 @@ func (r CheckFail) Detail() string {
 // We represent errors using this variant rather than panicking because it may
 // take a long time to run all the checks and thus we don't want a singular
 // error to stop us from getting the results from the other unaffected checks.
-
+//
 type CheckError struct{ detail string }
 
 func (_ CheckError) IsOk() bool {

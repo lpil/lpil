@@ -12,7 +12,7 @@ func main() {
 		check.One{},
 	}
 
-	results := check.RunConcurrently(checks)
+	results := check.RunConcurrently(checks, check.LogResult)
 
 	fmt.Printf("%#v\n", results)
 }

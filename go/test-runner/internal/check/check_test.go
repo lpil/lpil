@@ -12,7 +12,14 @@ func TestRunConcurrently(t *testing.T) {
 		testCheck{CheckError{"mad"}},
 	}
 
-	results := RunConcurrently(checks)
+	type pair struct {
+		CheckResult
+		Check
+	}
+	reportedResults := make([]pair, 0, 3)
+	reporter := func(r CheckResult, c Check) { reportedResults = append(reportedResults, pair{r, c}) }
+
+	results := RunConcurrently(checks, reporter)
 
 	expected := []CheckResult{
 		CheckPass{},
@@ -22,6 +29,10 @@ func TestRunConcurrently(t *testing.T) {
 
 	if !reflect.DeepEqual(expected, results) {
 		t.Errorf("\n\nExpected\n%#v\n\nGot\n%#v", expected, results)
+	}
+
+	if !reflect.DeepEqual(expected, results) {
+		t.Errorf("\n\nExpected\n%#v\n\nGot\n%#v", expected, reportedResults)
 	}
 }
 
