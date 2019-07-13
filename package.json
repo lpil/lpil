@@ -1,0 +1,17 @@
+{
+  "name": "xcss",
+  "version": "0.1.0",
+  "description": "The revolution no one has been waiting for",
+  "main": "n/a",
+  "repository": "git@github.com:lpil/xcss.git",
+  "author": "Louis Pilfold <louis@lpil.uk>",
+  "license": "MPL-2.0",
+  "dependencies": {
+    "postcss": "^6.0.8"
+  },
+  "devDependencies": {
+    "bower": "^1.8.0",
+    "pulp": "^11.0.0",
+    "purescript": "^0.11.6"
+  }
+}
