@@ -1,8 +1,0 @@
-<p>
-  <%= gettext "We've sent you an email. Please click the confirmation link within to get started." %>
-</p>
-
-<p>
-  Haven't received your email?
-  <%= link(gettext("Click to resend your confirmation email."), to: email_confirmation_path(@conn, :create), method: :post) %>
-</p>

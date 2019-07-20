@@ -1,8 +1,0 @@
-<h3>
-  <%= gettext "Reset your password" %>
-</h3>
-
-<%= form_for @conn, password_reset_path(@conn, :create), fn f -> %>
-  <%= email_input f, :email %>
-  <%= submit gettext("Reset password") %>
-<% end %>

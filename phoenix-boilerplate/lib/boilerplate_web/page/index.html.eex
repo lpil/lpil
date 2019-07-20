@@ -1,5 +1,0 @@
-<p>Hello, world!</p>
-
-<%# <%= link(to: login_path(@conn, :request, "auth0")) do %1> %>
-<%#   <%= gettext("Login") %1> %>
-<%# <% end %1> %>
