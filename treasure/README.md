@@ -1,6 +1,6 @@
 # Treasure
 
-A password protected photo gallery app.
+A password protected photo gallery app. Made for Aja
 
 ## Dev setup
 
