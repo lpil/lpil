@@ -41,7 +41,9 @@ end
 
 # asdf version manager
 if test -e $HOME/.asdf/asdf.fish
-  source ~/.asdf/asdf.fish
+  source $HOME/.asdf/asdf.fish
+else
+  echo $HOME/.asdf/asdf.fish not present
 end
 
 # Prompt
