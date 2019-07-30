@@ -1,5 +1,8 @@
 # DigitalOcean Nix Hello World
 
+There's no built in state file management so it seems much less useful than
+terraform. :/
+
 ```sh
 export DIGITAL_OCEAN_AUTH_TOKEN=token-goes-here
 
