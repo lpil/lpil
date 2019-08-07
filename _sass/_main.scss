@@ -86,7 +86,7 @@ p code {
   margin: 1em 0;
 
   h1, h2, h3, h4 {
-    margin-top: 1em;
+    margin-top: 42px;
   }
 }
 
@@ -223,6 +223,11 @@ $space: 14px;
 }
 
 .highlight {
+  .err {
+    color: unset;
+    background-color: unset;
+  }
+
   .nf {
     color: #6f42c1;
     font-weight: normal;
