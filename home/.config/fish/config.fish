@@ -100,12 +100,3 @@ end
 # FZF
 # Use fd to list files for fzf as it respects gitignore
 set --export FZF_DEFAULT_COMMAND fd
-
-# Path
-set fish_user_paths \
-  "$HOME/.cache/rebar3/bin" \
-  "$GOBIN" \
-  "$HOME/.cargo/bin" \
-  "$HOME/.homesick/repos/homeshick/bin" \
-  "$HOME/.local/bin" \
-  "$HOME/bin"
