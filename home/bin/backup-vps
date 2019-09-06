@@ -1,0 +1,3 @@
+#!/bin/sh
+
+scp -r root@irc.lpil.uk:data /mnt/chromeos/GoogleDrive/MyDrive/backups/irc/
