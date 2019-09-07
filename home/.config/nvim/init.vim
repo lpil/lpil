@@ -283,22 +283,25 @@ set shortmess+=c
 """""""""""""""""""""""""""""""""""
 
 let g:LanguageClient_serverCommands = {
-      \ 'rust': ['rustup', 'run', 'stable', 'rls'],
-      \ 'python': ['pyls'],
-      \ 'go': ['gopls']
-      \ }
+  \ 'rust': ['rustup', 'run', 'stable', 'rls'],
+  \ 'elm': ['elm-language-server', '--stdio'],
+  \ 'python': ['pyls'],
+  \ 'go': ['gopls']
+  \ }
 
 let g:LanguageClient_rootMarkers = {
-      \ 'javascript': ['project.json'],
-      \ 'typescript': ['project.json'],
-      \ 'python': ['Pipfile', 'requirements.txt'],
-      \ 'rust': ['Cargo.toml'],
-      \ 'elixir': ['mix.exs'],
-      \ 'go': ['go.mod'],
-      \ }
+  \ 'javascript': ['project.json'],
+  \ 'typescript': ['project.json'],
+  \ 'python': ['Pipfile', 'requirements.txt'],
+  \ 'rust': ['Cargo.toml'],
+  \ 'elm': ['elm.json'],
+  \ 'elixir': ['mix.exs'],
+  \ 'go': ['go.mod'],
+  \ }
 
-let g:LanguageClient_diagnosticsList = "Location"
+let g:LanguageClient_diagnosticsList = 'Location'
 let g:LanguageClient_diagnosticsSignsMax = 0
+let g:LanguageClient_loggingFile = expand('/tmp/LanguageClient-neovim.log')
 
 nnoremap <leader><leader> :call LanguageClient_contextMenu()<CR>
 nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
