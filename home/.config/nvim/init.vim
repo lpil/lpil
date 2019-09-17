@@ -41,7 +41,6 @@ Plug 'ncm2/ncm2'
 Plug 'neomake/neomake'
 Plug 'neovimhaskell/haskell-vim', { 'for' : 'haskell' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
-Plug 'powerman/vim-plugin-ansiesc', { 'for': 'elixir' } " Used by alchemist
 Plug 'raichoo/purescript-vim', { 'for': 'purescript' }
 Plug 'reasonml-editor/vim-reason-plus', { 'for': 'reason' }
 Plug 'rhysd/clever-f.vim'
@@ -51,7 +50,6 @@ Plug 'rust-lang/rust.vim', { 'for': ['rust', 'markdown'] }
 Plug 'sbdchd/neoformat'
 Plug 'scrooloose/nerdtree'
 Plug 'sirver/ultisnips'
-Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
 Plug 'supercollider/scvim', { 'for': 'supercollider' }
 Plug 'tomtom/tlib_vim'
 Plug 'tpope/vim-abolish'
