@@ -14,7 +14,7 @@ application, pops up over my work in the floating scratchpad window. And
 because it's in the floating scratchpad, it doesn't disturb my window layout.
 Super handy.
 
-# Configuration
+## Configuration
 
 First off we're going to need to tell i3 what to do with the applications we
 wish to be in the scratchpad. Here I'm going to mark these applications with
@@ -52,7 +52,7 @@ and give it your full attention for a few seconds this would be ideal for.
 Hope you've found this useful. If you've got any other tricks to share, shoot
 me an email :)
 
-Cheers,  
+Cheers,
 Louis
 
 [i3wm]: http://i3wm.org/

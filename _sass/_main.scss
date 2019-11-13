@@ -9,6 +9,7 @@ $shadow-slight: 0 0 0 1px rgba(50, 50, 93, 0.075), 0 0 1px #e9ecef, 0 2px 4px -2
 
 $monospace-font-family: monospace;
 $max-page-width: 900px;
+$small-width: 500px;
 
 * {
   box-sizing: border-box;
@@ -26,8 +27,13 @@ html {
 }
 
 body {
-  border-left: 16px solid $pink;
-  border-right: 16px solid $pink;
+  border-left: 4px solid $pink;
+  border-right: 4px solid $pink;
+
+  @media (min-width: $small-width) {
+    border-left: 16px solid $pink;
+    border-right: 16px solid $pink;
+  }
 }
 
 p {
@@ -62,19 +68,19 @@ h6 {
 }
 
 h1 {
-  font-size: 4rem;
+  font-size: 2.5rem;
 }
 
 h2 {
-  font-size: 3.5rem;
+  font-size: 2.25rem;
 }
 
 h3 {
-  font-size: 3rem;
+  font-size: 2rem;
 }
 
 h4 {
-  font-size: 2rem;
+  font-size: 1.75rem;
 }
 
 h5 {
@@ -83,6 +89,32 @@ h5 {
 
 h6 {
   font-size: 1rem;
+}
+
+@media (min-width: $small-width) {
+  h1 {
+    font-size: 4rem;
+  }
+
+  h2 {
+    font-size: 3.5rem;
+  }
+
+  h3 {
+    font-size: 3rem;
+  }
+
+  h4 {
+    font-size: 2rem;
+  }
+
+  h5 {
+    font-size: 1.5rem;
+  }
+
+  h6 {
+    font-size: 1rem;
+  }
 }
 
 pre,
@@ -120,7 +152,7 @@ p code {
 
 .post-page-header {
   text-align: center;
-  margin: 2rem 1rem;
+  padding: 2rem 1rem;
 
   h1 {
     font-size: 2rem;
