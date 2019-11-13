@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>lpil{% if page.title %} &ndash; {{ page.title }}{% endif %}</title>
+  <title>{% if page.title %}{{ page.title }} &ndash; {% endif %}Otter Nonsense</title>
   <meta name="viewport" content="width=device-width">
-  <meta name="description" content="The website of a code monkey named Louis Pilfold.">
+  <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}What a load of Otter Nonsense{% endif %}">
   <meta name="google-site-verification" content="_AfeEurR8a0dWtm37cDqfrZkyOqz_lZWvb_RY-AKM60"/>
   <meta property="og:image" content="https://secure.gravatar.com/avatar/11a70fd3673e3bc3931ea118cc3d12f5?s=300" />
   <link rel="stylesheet" href="/main.css" charset="utf-8">
