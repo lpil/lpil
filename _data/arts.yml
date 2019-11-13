@@ -4,20 +4,27 @@
   url: https://lpil.uk/elm-hearts
   thumbnail: /img/elm-hearts.gif
   displayed: true
+  notes: |
+    A 💖-y animation inspired by 90s cartoons. Made using the web canvas API
+    and [Elm](https://elm-lang.org), a strongly typed functional programming
+    language from the ML family.
 
 - title: Ka li da scope
   date: 2017-01-09
   github: altcodegirl/p5js-art
   url: https://altcodegirl.github.io/p5js-art/ka-li-da-scope/
-  notes: Pairing + exploring p5.js with Emma Donnelly
   thumbnail: /img/ka-li-da-scope.gif
   displayed: true
+  notes: |
+    An interactive kaleidescope made with a student using vanilla Javascript,
+    [p5.js](https://p5js.org/), and the web canvas API.
 
 - title: Rainbow Wash
   date: 2016-10-08
   github: lpil/rainbow-wash
   url: https://lpil.uk/rainbow-wash
-  notes: Super quick Hackathing hackathon project.
+  notes: |
+    Super quick Hackathing hackathon project.
 
 - title: The Watching Room
   date: 2016-07-26
@@ -25,6 +32,9 @@
   url: https://lpil.uk/the-watching-room
   thumbnail: /img/the-watching-room.gif
   displayed: true
+  notes: |
+    A Moiré pattern animation. The shapes are three empty elements, filled using an
+    SVG pattern, and then animated using CSS animations. No Javascript here!
 
 - title: Polaris
   date: 2016-07-17
@@ -42,6 +52,9 @@
   url: https://lpil.uk/conversion-bars
   thumbnail: /img/conversion-bars.gif
   displayed: true
+  notes: |
+    A Moiré pattern animation. The shapes are HTML elements built with
+    Javascript, then animated using CSS animations.
 
 - title: Tunnel
   date: 2016-05-15
@@ -49,11 +62,16 @@
   url: https://lpil.uk/tunnel
   thumbnail: /img/tunnel.gif
   displayed: true
+  notes: |
+    An animation made using the web canvas API, Javascript, perlin noise, and
+    some nifty buffer data structures. This artwork has unit tests, how novel!
 
 - title: Stepper
   date: 2016-05-01
   github: lpil/stepper
   url: https://lpil.uk/stepper
-  notes: Made in prep for joining Red Badger. i.e. to learn React + Redux.
   thumbnail: /img/stepper.gif
   displayed: true
+  notes: >
+    An interactive musical instrument for techno beats. Made using the web
+    audio API, as well as a healthy dollop of React.js for fun.

@@ -1,17 +1,25 @@
 ---
 layout: default
 ---
-<article class="post">
-  <header class="post__header">
-    <h1>{{ page.title }}</h1>
-    <p class="post__date">{{ page.date | date: "%b %-d %Y" }}</span>
-  </header>
+<header class="post-page-header">
+  <a href="/">
+    <h1>Otter Nonsense</h1>
+  </a>
+</header>
 
-  <section class="post__content">
-    {{ content }}
-  </section>
+<div class="content">
+  <article class="post">
+    <header class="post__header">
+      <h1>{{ page.title }}</h1>
+      <p class="post__date">{{ page.date | date: "%b %-d %Y" }}</span>
+    </header>
 
-  <nav class="post__nav">
-    <a href="/">Back</a>
-  </nav>
-</article>
+    <section class="post__content">
+      {{ content }}
+    </section>
+
+    <nav class="post__nav">
+      <a href="/">Back home</a>
+    </nav>
+  </article>
+</div>

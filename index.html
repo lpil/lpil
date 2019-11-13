@@ -1,36 +1,45 @@
 ---
-layout: default
+layout: home
 redirect_from:
   - /about/
 ---
 <div class="home">
-  <p class="about__intro">
-    Hi, I'm Louis.
-    <a href="https://github.com/lpil" target="_blank">I make things</a>.
+  <p class="home-intro">
+    Hi, I'm Louis, and this is Otter Nonsense.<br>
+    We make all manner of <a href="https://github.com/lpil" target="_blank">software things</a>
+    and we can help you with your next project.
   </p>
+
+  <h3 class="index-section-title" id="art">
+    Art
+  </h3>
 
   <ul class="arts">
     {% for art in site.data.arts %}{% if art.displayed %}
       <li class="art">
-        <a class="art__link" target="_blank" href="{{ art.url }}">
+        <a target="_blank" href="{{ art.url }}">
           {% if art.thumbnail %}
-            <img class="art__thumbnail" alt="{{ art.title }}" src="{{ art.thumbnail }}"/>
+            <img class="art-thumbnail" alt="{{ art.title }}" src="{{ art.thumbnail }}"/>
           {% else %}
-            <img class="art__thumbnail" alt="{{ art.title }}" src="/img/grey-pixel.gif"/>
+            <img class="art-thumbnail" alt="{{ art.title }}" src="/img/grey-pixel.gif"/>
           {% endif %}
+          <h5>{{ art.title }}</h5>
         </a>
+        {{ art.notes | markdownify }}
       </li>
     {% endif %}{% endfor %}
   </ul>
 
-  <h3>Ramblings</h3>
+  <h3 class="index-section-title" id="ramblings">
+    Ramblings
+  </h3>
 
   <ul class="posts">
     {% for post in site.posts %}
     {% unless post.hidden %}
     <li>
+      <a class="post__link" href="{{ post.url }}"><h5>{{ post.title }}</h5></a>
       <span class="posts__date">{{ post.date | date: "%d %b, %Y" }}</span>
-      <a class="post__link" href="{{ post.url }}">{{ post.title }}</a>
     </li>
     {% endunless %}
     {% endfor %}
