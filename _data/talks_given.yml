@@ -1,3 +1,37 @@
+- title: "Gleam: Lean BEAM typing machine"
+  date: 2019-11-07
+  event: Code Mesh 2019
+  venue: ILEC Conference Centre, SW6
+
+- title: "Gleam: Lean BEAM typing machine"
+  date: 2019-10-11
+  event: Code BEAM Lite Berlin 2019
+  venue: BETAHAUS, Berlin Neukölln
+
+- title: "Gleam: Lean BEAM typing machine"
+  date: 2019-10-11
+  event: Code BEAM Lite Berlin
+  # venue: Churchhill house in Old Street. Can't remember the company.
+
+- title: "Gleam: Extreme BEAM typing machine"
+  date: 2019-08-25
+  event: The London Elixir Meetup
+  # venue: Churchhill house in Old Street. Can't remember the company.
+
+- title: Getting Pretty Serious
+  date: 2017-08-17
+  event: Elixir LDN Conference 2017
+  venue: 155 Bishopsgate, EC2
+
+- title: Exploring Interpretation
+  date: 2017-03-29
+  event: The London Elixir Meetup
+  venue: Skills Matter CodeNode
+
+- title: A Look at Elixir
+  date: 2016-09-26
+  event: Red Badger Engineering Day
+
 - title: Build Your Own Elixir
   date: 2016-09-22
   event: Elixir LDN Conference 2016
@@ -36,3 +70,7 @@
     I made, and show some of the things I learnt about the compiler in doing
     so. This was my first public programming talk, and it inspired the
     excellent `--stale` option of `mix test`, Elixir's regular test runner.
+
+- title: 100 Seconds of Sonic Pi
+  date: 2015-12-11
+  event: ROLI Team Time
