@@ -8,11 +8,6 @@
   event: Code BEAM Lite Berlin 2019
   venue: BETAHAUS, Berlin Neukölln
 
-- title: "Gleam: Lean BEAM typing machine"
-  date: 2019-10-11
-  event: Code BEAM Lite Berlin
-  # venue: Churchhill house in Old Street. Can't remember the company.
-
 - title: "Gleam: Extreme BEAM typing machine"
   date: 2019-08-25
   event: The London Elixir Meetup
@@ -43,7 +38,7 @@
       url: http://lpil.uk/talk-slides/build-your-own-elixir/
     - text: Elixir LDN Conference
       url: http://www.elixir.london/
-  description: |
+  notes: |
     Over two years of working with Elixir I (almost accidentally) went from
     knowing nothing about compilers to having my own programming language
     running on the BEAM. In this talk I detail this journey, and share the rich
@@ -61,7 +56,7 @@
       url: https://github.com/lpil/mix-test.watch
     - text: mix test --stale
       url: https://github.com/elixir-lang/elixir/pull/4696
-  description: |
+  notes: |
     Automatic test runners are my go-to tool for creating a fast feedback loop
     when writing software. Alas, Elixir didn't have one back in the days of
     version 1.0, so I had to make my own.

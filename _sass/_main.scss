@@ -8,7 +8,7 @@ $font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Ar
 $shadow-slight: 0 0 0 1px rgba(50, 50, 93, 0.075), 0 0 1px #e9ecef, 0 2px 4px -2px rgba(138, 141, 151, 0.6);
 
 $monospace-font-family: monospace;
-$max-page-width: 900px;
+$max-page-width: 820px;
 $small-width: 500px;
 
 * {
@@ -182,9 +182,13 @@ p code {
   }
 }
 
-.index-section-title {
-  margin-top: 3.5rem;
+.home-section-title {
+  margin-top: 4.0rem;
   margin-bottom: 1.5rem;
+}
+
+.home-section-blurb {
+  margin: 1.5rem 0;
 }
 
 .posts {
@@ -219,7 +223,7 @@ p code {
 }
 
 .home-intro {
-  margin-top: 2rem;
+  margin-top: 3rem;
 }
 
 .home-nav {
