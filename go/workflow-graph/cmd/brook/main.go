@@ -17,5 +17,5 @@ func main() {
 	visitor := workflow.VisitorExec{transcodeService}
 
 	root := *rootPointer
-	root.Visit(visitor)
+	root.Step.Visit(visitor)
 }

@@ -1,4 +1,4 @@
-package workflow
+package database
 
 type Link struct {
 	ParentId int

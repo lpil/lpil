@@ -29,8 +29,9 @@ func TestGetWorkflowRoot_MultipleRoots(t *testing.T) {
 func TestGetWorkflowRoot_Ok(t *testing.T) {
 	root, err := GetWorkflowRoot(SimpleTranscodeWorkflowId)
 	assert.Nil(t, err)
-	assert.Equal(t, workflow.StepCheckSize{
+	assert.Equal(t, Step{
 		Id:         1,
 		WorkflowId: SimpleTranscodeWorkflowId,
+		Step:       workflow.StepCheckSize{},
 	}, *root)
 }

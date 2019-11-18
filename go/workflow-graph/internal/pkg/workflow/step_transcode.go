@@ -5,19 +5,9 @@ import (
 )
 
 type StepTranscode struct {
-	Id         int
-	WorkflowId int
 }
 
 // StepTranscode implements the Step interface
-
-func (step StepTranscode) GetId() int {
-	return step.Id
-}
-
-func (step StepTranscode) GetWorkflowId() int {
-	return step.WorkflowId
-}
 
 func (step StepTranscode) Visit(visitor StepVisitor) error {
 	return visitor.VisitTranscode(step)
