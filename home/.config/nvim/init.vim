@@ -176,6 +176,7 @@ let g:markdown_fenced_languages = [
       \'elixir',
       \'elm',
       \'erlang',
+      \'go',
       \'haskell',
       \'html',
       \'javascript',
@@ -190,7 +191,10 @@ let g:markdown_fenced_languages = [
       \'scala',
       \'scheme',
       \'sh',
+      \'toml',
       \'xml'
+      \'yaml',
+      \'yml=yaml',
       \]
 
 """"""""""""""""""
