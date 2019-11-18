@@ -30,8 +30,7 @@ func TestGetWorkflowRoot_Ok(t *testing.T) {
 	root, err := GetWorkflowRoot(SimpleTranscodeWorkflowId)
 	assert.Nil(t, err)
 	assert.Equal(t, workflow.StepCheckSize{
-		Id:           1,
-		WorkflowId:   SimpleTranscodeWorkflowId,
-		ParentStepId: nil,
+		Id:         1,
+		WorkflowId: SimpleTranscodeWorkflowId,
 	}, *root)
 }

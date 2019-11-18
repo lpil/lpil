@@ -15,52 +15,66 @@ const (
 )
 
 var databaseStepRows = []workflow.Step{}
+var databaseLinkRows = []workflow.Link{}
 
 func init() {
 	ResetDatabase()
 }
 
 func ResetDatabase() {
-	databaseStepRows = []workflow.Step{
-		// A simple OK workflow
-		workflow.StepCheckSize{
-			Id:           nextId(),
-			WorkflowId:   SimpleTranscodeWorkflowId,
-			ParentStepId: nil,
-		},
-		workflow.StepTranscode{
-			Id:           nextId(),
-			WorkflowId:   SimpleTranscodeWorkflowId,
-			ParentStepId: pointerInt(previousId),
-		},
+	// A simple OK workflow
+	s1 := insertStep(workflow.StepCheckSize{
+		Id:         nextId(),
+		WorkflowId: SimpleTranscodeWorkflowId,
+	})
+	s2 := insertStep(workflow.StepTranscode{
+		Id:         nextId(),
+		WorkflowId: SimpleTranscodeWorkflowId,
+	})
+	insertLink(s1, s2)
 
-		// A workflow that is invalid because it has no root (steps with no parent)
-		workflow.StepTranscode{
-			Id:           nextId(),
-			WorkflowId:   InvalidNoRootWorkflowId,
-			ParentStepId: pointerInt(0),
-		},
+	// A workflow that is invalid because it has no root (steps with no parent)
+	s3 := insertStep(workflow.StepTranscode{
+		Id:         nextId(),
+		WorkflowId: InvalidNoRootWorkflowId,
+	})
+	insertLink(s3, s3) // it is its own parent so there is no root
 
-		// A workflow that is invalid because it has multiple roots (steps with no parent)
-		workflow.StepTranscode{
-			Id:           nextId(),
-			WorkflowId:   InvalidDoubleRootWorkflowId,
-			ParentStepId: nil,
-		},
-		workflow.StepTranscode{
-			Id:           nextId(),
-			WorkflowId:   InvalidDoubleRootWorkflowId,
-			ParentStepId: nil,
-		},
-	}
+	// A workflow that is invalid because it has multiple roots (steps with no parent)
+	insertStep(workflow.StepTranscode{
+		Id:         nextId(),
+		WorkflowId: InvalidDoubleRootWorkflowId,
+	})
+	insertStep(workflow.StepTranscode{
+		Id:         nextId(),
+		WorkflowId: InvalidDoubleRootWorkflowId,
+	})
+}
+
+func insertStep(step workflow.Step) workflow.Step {
+	databaseStepRows = append(databaseStepRows, step)
+	return step
+}
+
+func insertLink(parent, child workflow.Step) {
+	databaseLinkRows = append(databaseLinkRows, workflow.Link{
+		ParentId: parent.GetId(),
+		ChildId:  child.GetId(),
+	})
 }
 
 func GetWorkflowRoot(workflowId int) (*workflow.Step, error) {
 	roots := []workflow.Step{}
 
-	// SELECT * FROM steps WHERE parent_id IS NULL LIMIT 2;
+	// Find a step that is doesn't have any links for which it is the child
+step:
 	for _, step := range databaseStepRows {
-		if step.GetParentStepId() == nil && step.GetWorkflowId() == workflowId {
+		if step.GetWorkflowId() == workflowId {
+			for _, link := range databaseLinkRows {
+				if link.ChildId == step.GetId() {
+					continue step
+				}
+			}
 			roots = append(roots, step)
 		}
 	}

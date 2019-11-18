@@ -5,9 +5,8 @@ import (
 )
 
 type StepTranscode struct {
-	Id           int
-	WorkflowId   int
-	ParentStepId *int
+	Id         int
+	WorkflowId int
 }
 
 // StepTranscode implements the Step interface
@@ -18,10 +17,6 @@ func (step StepTranscode) GetId() int {
 
 func (step StepTranscode) GetWorkflowId() int {
 	return step.WorkflowId
-}
-
-func (step StepTranscode) GetParentStepId() *int {
-	return step.ParentStepId
 }
 
 func (step StepTranscode) Visit(visitor StepVisitor) error {

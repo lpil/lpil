@@ -1,9 +1,8 @@
 package workflow
 
 type StepCheckSize struct {
-	Id           int
-	WorkflowId   int
-	ParentStepId *int
+	Id         int
+	WorkflowId int
 }
 
 // StepCheckSize implements the Step interface
@@ -14,10 +13,6 @@ func (step StepCheckSize) GetId() int {
 
 func (step StepCheckSize) GetWorkflowId() int {
 	return step.WorkflowId
-}
-
-func (step StepCheckSize) GetParentStepId() *int {
-	return step.ParentStepId
 }
 
 func (step StepCheckSize) Visit(visitor StepVisitor) error {
