@@ -41,7 +41,8 @@ p {
 }
 
 p a,
-p {
+p,
+li {
   line-height: 1.6em;
 }
 
@@ -49,6 +50,7 @@ a {
   text-decoration: none;
 }
 
+li a,
 p a {
   color: $link-colour;
 }
@@ -167,6 +169,11 @@ p code {
   h3,
   h4 {
     margin-top: 42px;
+  }
+
+  ul {
+    list-style: unset;
+    padding-left: 2em;
   }
 }
 
