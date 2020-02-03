@@ -192,7 +192,7 @@ let g:markdown_fenced_languages = [
       \'scheme',
       \'sh',
       \'toml',
-      \'xml'
+      \'xml',
       \'yaml',
       \'yml=yaml',
       \]

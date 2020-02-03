@@ -22,7 +22,7 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 
-alias dl='cd ~/downloads'
+alias k="kubectl"
 
 alias grep='grep -i --color=auto'
 alias fgrep='fgrep -i --color=auto'
