@@ -296,8 +296,9 @@ let g:LanguageClient_rootMarkers = {
   \ 'typescript': ['package.json'],
   \ 'python': ['Pipfile', 'requirements.txt'],
   \ 'rust': ['Cargo.toml'],
-  \ 'elm': ['elm.json'],
   \ 'elixir': ['mix.exs'],
+  \ 'ruby': ['Gemfile'],
+  \ 'elm': ['elm.json'],
   \ 'go': ['go.mod'],
   \ }
 
