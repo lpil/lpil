@@ -292,8 +292,8 @@ let g:LanguageClient_serverCommands = {
   \ }
 
 let g:LanguageClient_rootMarkers = {
-  \ 'javascript': ['project.json'],
-  \ 'typescript': ['project.json'],
+  \ 'javascript': ['package.json'],
+  \ 'typescript': ['package.json'],
   \ 'python': ['Pipfile', 'requirements.txt'],
   \ 'rust': ['Cargo.toml'],
   \ 'elm': ['elm.json'],
