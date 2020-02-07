@@ -36,6 +36,7 @@ Plug 'lfe-support/vim-lfe', { 'for': 'lfe' }
 Plug 'lnl7/vim-nix', { 'for': 'nix' }
 Plug 'lpil/gleam.vim', { 'for': 'gleam' }
 Plug 'marcweber/vim-addon-mw-utils'
+Plug 'mbbill/undotree'
 Plug 'mxw/vim-jsx', { 'for': 'javascript' }
 Plug 'ncm2/ncm2'
 Plug 'neomake/neomake'
