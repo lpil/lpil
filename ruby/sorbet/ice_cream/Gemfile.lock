@@ -1,0 +1,28 @@
+PATH
+  remote: .
+  specs:
+    ice_cream (0.1.0)
+      sorbet-runtime
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    minitest (5.14.0)
+    rake (10.5.0)
+    sorbet (0.5.5360)
+      sorbet-static (= 0.5.5360)
+    sorbet-runtime (0.5.5360)
+    sorbet-static (0.5.5360-universal-darwin-14)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  bundler (~> 2.0)
+  ice_cream!
+  minitest (~> 5.0)
+  rake (~> 10.0)
+  sorbet
+
+BUNDLED WITH
+   2.1.2
