@@ -23,6 +23,7 @@ set --export GOBIN $HOME/.local/bin
 # Path
 set fish_user_paths \
   "$GOBIN" \
+  "$HOME/.asdf/shims" \
   "$HOME/.cache/rebar3/bin" \
   "$HOME/.cargo/bin" \
   "$HOME/.homesick/repos/homeshick/bin" \
