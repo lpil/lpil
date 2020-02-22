@@ -5,34 +5,25 @@ endif
 
 call plug#begin('~/.config/nvim/plugged')
 
-let lisp_languages = ['scheme', 'clojure', 'lfe']
-
 Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'scss.css'] }
 Plug 'cespare/vim-toml', { 'for': 'toml' }
 Plug 'dag/vim-fish', { 'for': 'fish' }
 Plug 'derekwyatt/vim-scala', { 'for': ['scala', 'markdown'] }
-Plug 'digitaltoad/vim-pug', { 'for': ['pug', 'jade'] }
-Plug 'dleonard0/pony-vim-syntax', { 'for': 'pony' }
 Plug 'elixir-lang/vim-elixir', { 'for': ['elixir', 'markdown', 'eelixir'] }
 Plug 'elmcast/elm-vim', { 'for': ['elm', 'markdown'] }
 Plug 'fatih/vim-go', { 'for': 'go' }
-Plug 'flowtype/vim-flow', { 'for': ['javascript'] }
 Plug 'foosoft/vim-argwrap', { 'on': 'ArgWrap' }
 Plug 'frigoeu/psc-ide-vim', { 'for': 'purescript' }
 Plug 'godlygeek/tabular'
-Plug 'guns/vim-sexp', { 'for': lisp_languages }
 Plug 'hashivim/vim-terraform', { 'for': 'terraform' }
 Plug 'honza/vim-snippets'
 Plug 'idris-hackers/idris-vim', { 'for': 'idris' }
 Plug 'jparise/vim-graphql', { 'for': 'graphql' }
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'kongo2002/fsharp-vim', { 'for': 'fsharp' }
 Plug 'kylef/apiblueprint.vim', { 'for': 'apiblueprint' }
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
-Plug 'lepoetemaudit/alpaca_vim', { 'for': 'alpaca' }
-Plug 'lfe-support/vim-lfe', { 'for': 'lfe' }
 Plug 'lnl7/vim-nix', { 'for': 'nix' }
 Plug 'lpil/gleam.vim', { 'for': 'gleam' }
 Plug 'marcweber/vim-addon-mw-utils'
@@ -45,7 +36,6 @@ Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'raichoo/purescript-vim', { 'for': 'purescript' }
 Plug 'reasonml-editor/vim-reason-plus', { 'for': 'reason' }
 Plug 'rhysd/clever-f.vim'
-Plug 'rhysd/vim-crystal', { 'for': 'crystal' }
 Plug 'roxma/nvim-yarp'
 Plug 'rust-lang/rust.vim', { 'for': ['rust', 'markdown'] }
 Plug 'sbdchd/neoformat'
@@ -55,19 +45,15 @@ Plug 'supercollider/scvim', { 'for': 'supercollider' }
 Plug 'tomtom/tlib_vim'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-cucumber', { 'for': 'cucumber' }
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-eunuch'
-Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rails', { 'for': 'ruby' }
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-rsi'
-Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': lisp_languages }
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
-Plug 'udalov/kotlin-vim', { 'for': 'kotlin' }
 Plug 'vim-scripts/matchit.zip'
 
 call plug#end()
