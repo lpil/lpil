@@ -182,6 +182,10 @@ p code {
     display: block;
     box-shadow: $shadow;
   }
+
+  p {
+    overflow-x: auto;
+  }
 }
 
 .post__nav {
