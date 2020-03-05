@@ -1,7 +1,12 @@
 // TODO: how to we load the database from disk at boot?
-// TODO: can we avoid cloning the module name repeatedly?
 
-type ModuleName = Vec<String>;
+// TODO: how can we handle the cycle error if a programmer erroneously makes
+// a module that depends upon itself?
+
+use std::sync::Arc;
+
+type ModuleName = Arc<Vec<String>>;
+type CompilerResult<T> = Result<Arc<T>, Arc<Error>>;
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 enum Error {
@@ -24,32 +29,34 @@ trait Gleam: salsa::Database {
     #[salsa::input]
     fn input_source(&self, key: ModuleName) -> String;
 
-    fn parse(&self, key: ModuleName) -> Result<AST<()>, Error>;
+    fn parse(&self, key: ModuleName) -> CompilerResult<AST<()>>;
 
-    fn type_check(&self, key: ModuleName) -> Result<AST<Type>, Error>;
+    fn type_check(&self, key: ModuleName) -> CompilerResult<AST<Type>>;
 
-    fn codegen(&self, key: ModuleName) -> Result<String, Error>;
+    fn codegen(&self, key: ModuleName) -> CompilerResult<String>;
 }
 
-fn parse(db: &impl Gleam, name: ModuleName) -> Result<AST<()>, Error> {
+fn parse(db: &impl Gleam, name: ModuleName) -> CompilerResult<AST<()>> {
     // Get the source code for the module
     let _source = db.input_source(name.clone());
 
     // Parse the source code
     println!("parsing {:?}", name);
     if name.len() == 4 {
-        Err(Error::Parse)
+        Err(Arc::new(Error::Parse))
     } else {
-        Ok(AST::Node(()))
+        Ok(Arc::new(AST::Node(())))
     }
 }
 
-fn type_check(db: &impl Gleam, name: ModuleName) -> Result<AST<Type>, Error> {
+fn type_check(db: &impl Gleam, name: ModuleName) -> CompilerResult<AST<Type>> {
     // Parse the module
     let _ast = db.parse(name.clone())?;
 
     // Type check some modules that this module pretends to depend upon
     let deps = if name.as_slice() == &["main"] {
+        // NOTE: Uncomment this to create an import cycle
+        // vec![vec!["main".to_string()]]
         vec![vec!["lib".to_string()]]
     } else if name.as_slice() == &["test"] {
         vec![vec!["lib".to_string()], vec!["main".to_string()]]
@@ -57,24 +64,24 @@ fn type_check(db: &impl Gleam, name: ModuleName) -> Result<AST<Type>, Error> {
         vec![]
     };
     for dep in deps {
-        db.type_check(dep)?;
+        db.type_check(Arc::new(dep))?;
     }
 
     // Type check the AST
     println!("type checking {:?}", name);
     if name.len() == 5 {
-        Err(Error::Type)
+        Err(Arc::new(Error::Type))
     } else {
-        Ok(AST::Node(Type::Yup))
+        Ok(Arc::new(AST::Node(Type::Yup)))
     }
 }
 
-fn codegen(db: &impl Gleam, name: ModuleName) -> Result<String, Error> {
+fn codegen(db: &impl Gleam, name: ModuleName) -> CompilerResult<String> {
     // Get the typed AST
     let _typed_ast = db.type_check(name.clone())?;
     println!("codegening {:?}", name);
     // Generate code for the AST
-    Ok("-module(app).".to_string())
+    Ok(Arc::new("-module(app).".to_string()))
 }
 
 #[salsa::database(GleamStorage)]
@@ -96,14 +103,14 @@ impl salsa::Database for Database {
 
 pub fn main() {
     let mut database = Database::default();
+    let test = Arc::new(vec!["test".to_string()]);
+    let lib = Arc::new(vec!["lib".to_string()]);
+    let main = Arc::new(vec!["main".to_string()]);
 
-    database.set_input_source(vec!["main".to_string()], "".to_string());
-    database.set_input_source(vec!["lib".to_string()], "".to_string());
-    database.set_input_source(vec!["test".to_string()], "".to_string());
+    database.set_input_source(main, "".to_string());
+    database.set_input_source(lib, "".to_string());
+    database.set_input_source(test.clone(), "".to_string());
 
-    println!("compiling {:?}", database.codegen(vec!["test".to_string()]));
-    println!(
-        "compiling again {:?}",
-        database.codegen(vec!["test".to_string()])
-    );
+    println!("compiling {:?}\n", database.codegen(test.clone()));
+    println!("compiling again {:?}\n", database.codegen(test));
 }
