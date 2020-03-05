@@ -101,5 +101,9 @@ pub fn main() {
     database.set_input_source(vec!["lib".to_string()], "".to_string());
     database.set_input_source(vec!["test".to_string()], "".to_string());
 
-    println!("{:?}", database.codegen(vec!["test".to_string()]));
+    println!("compiling {:?}", database.codegen(vec!["test".to_string()]));
+    println!(
+        "compiling again {:?}",
+        database.codegen(vec!["test".to_string()])
+    );
 }
