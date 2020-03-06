@@ -1,8 +1,5 @@
 // TODO: how to we load the database from disk at boot?
 
-// TODO: how can we handle the cycle error if a programmer erroneously makes
-// a module that depends upon itself?
-
 use std::sync::Arc;
 
 type ModuleName = Arc<Vec<String>>;
@@ -10,6 +7,7 @@ type CompilerResult<T> = Result<Arc<T>, Arc<Error>>;
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 enum Error {
+    Cycle { modules: Vec<String> },
     Parse,
     Type,
 }
@@ -31,6 +29,7 @@ trait Gleam: salsa::Database {
 
     fn parse(&self, key: ModuleName) -> CompilerResult<AST<()>>;
 
+    #[salsa::cycle(recover_type_check_cycle)]
     fn type_check(&self, key: ModuleName) -> CompilerResult<AST<Type>>;
 
     fn codegen(&self, key: ModuleName) -> CompilerResult<String>;
@@ -56,8 +55,8 @@ fn type_check(db: &impl Gleam, name: ModuleName) -> CompilerResult<AST<Type>> {
     // Type check some modules that this module pretends to depend upon
     let deps = if name.as_slice() == &["main"] {
         // NOTE: Uncomment this to create an import cycle
-        // vec![vec!["main".to_string()]]
-        vec![vec!["lib".to_string()]]
+        vec![vec!["test".to_string()]]
+    // vec![vec!["lib".to_string()]]
     } else if name.as_slice() == &["test"] {
         vec![vec!["lib".to_string()], vec!["main".to_string()]]
     } else {
@@ -82,6 +81,18 @@ fn codegen(db: &impl Gleam, name: ModuleName) -> CompilerResult<String> {
     println!("codegening {:?}", name);
     // Generate code for the AST
     Ok(Arc::new("-module(app).".to_string()))
+}
+
+fn recover_type_check_cycle(
+    _db: &impl Gleam,
+    x: &Vec<String>,
+    cycle: &ModuleName,
+) -> CompilerResult<AST<Type>> {
+    println!("x {:#?}", x);
+    println!("cycle {:#?}", cycle);
+    Err(Arc::new(Error::Cycle {
+        modules: cycle.iter().map(|s| s.to_string()).collect(),
+    }))
 }
 
 #[salsa::database(GleamStorage)]
