@@ -10,6 +10,10 @@ set --export PGHOST localhost
 set --export PGUSER postgres
 set --export PGPASSWORD postgres
 
+# MySQL config
+set --export MYSQL_HOST 127.0.0.1
+
+# Erlang config
 set --export ERL_AFLAGS "-kernel shell_history enabled"
 
 # Erlang installer config
