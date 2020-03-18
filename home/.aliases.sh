@@ -57,4 +57,4 @@ alias get-docker-neo4j="docker run -t -d -e NEO4J_AUTH=none -p 7474:7474 -p 7473
 alias get-docker-orientdb="docker run -e ORIENTDB_ROOT_PASSWORD=orientdb -t -d -p 2424:2424 -p 2480:2480 --name orientdb orientdb"
 alias get-docker-postgres-9.4="docker run -t -d -p 5432:5432 --name postgres-9-4 postgres:9.4.15"
 alias get-docker-postgres="docker run -t -d -p 5432:5432 --name postgres postgres"
-alias get-docker-redis="docker run -t -d -p 6379:6379 --name redis redis"
+alias get-docker-redis="docker run -t -d -p 6379:6379 --name redis redis --bind 0.0.0.0"
