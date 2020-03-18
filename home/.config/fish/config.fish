@@ -99,8 +99,12 @@ end
 
 # https://github.com/rust-lang-nursery/rustfmt/issues/1687
 if type -q rustc
-  set --export LD_LIBRARY_PATH (rustc --print sysroot)/lib
+  set --export LD_LIBRARY_PATH $LD_LIBRARY_PATH:(rustc --print sysroot)/lib
 end
+
+# libvips
+set --export VIPSHOME /usr/local
+set --export LD_LIBRARY_PATH $LD_LIBRARY_PATH:$VIPSHOME/lib
 
 # FZF
 # Use fd to list files for fzf as it respects gitignore
