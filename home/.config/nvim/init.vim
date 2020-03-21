@@ -41,6 +41,7 @@ Plug 'rust-lang/rust.vim', { 'for': ['rust', 'markdown'] }
 Plug 'sbdchd/neoformat'
 Plug 'scrooloose/nerdtree'
 Plug 'sirver/ultisnips'
+Plug 'slim-template/vim-slim', { 'for': 'slim' }
 Plug 'supercollider/scvim', { 'for': 'supercollider' }
 Plug 'tomtom/tlib_vim'
 Plug 'tpope/vim-abolish'
