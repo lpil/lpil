@@ -109,3 +109,9 @@ set --export LD_LIBRARY_PATH $LD_LIBRARY_PATH:$VIPSHOME/lib
 # FZF
 # Use fd to list files for fzf as it respects gitignore
 set --export FZF_DEFAULT_COMMAND fd
+
+# Vagrant on Windows WSL
+if test -e "/mnt/c/Program Files/Oracle/VirtualBox"
+  set --export VAGRANT_WSL_ENABLE_WINDOWS_ACCESS "1"
+  set --export PATH $PATH "/mnt/c/Program Files/Oracle/VirtualBox"
+end
