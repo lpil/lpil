@@ -1,4 +1,4 @@
-augroup filetype_scss
-  autocmd!
-  autocmd BufWritePre *.scss Neoformat
-augroup END
+" augroup filetype_scss
+"   autocmd!
+"   autocmd BufWritePre *.scss Neoformat
+" augroup END
