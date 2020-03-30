@@ -273,6 +273,7 @@ set shortmess+=c
 """""""""""""""""""""""""""""""""""
 
 let g:LanguageClient_serverCommands = {
+  \ 'typescript': ['typescript-language-server', '--stdio'],
   \ 'rust': ['rustup', 'run', 'stable', 'rls'],
   \ 'elm': ['elm-language-server', '--stdio'],
   \ 'python': ['pyls'],
