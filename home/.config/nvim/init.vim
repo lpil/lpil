@@ -62,10 +62,6 @@ call plug#end()
 filetype plugin indent on
 filetype plugin on
 
-""""""""""""""""
-" Generic crap "
-""""""""""""""""
-
 " Allow switching buffers without saving current buffer
 set hidden
 
@@ -275,6 +271,7 @@ set shortmess+=c
 let g:LanguageClient_serverCommands = {
   \ 'typescript': ['typescript-language-server', '--stdio'],
   \ 'rust': ['rustup', 'run', 'stable', 'rls'],
+  \ 'ruby': ['bundle', 'exec', 'srb', 'tc', '--lsp', '--disable-watchman'],
   \ 'elm': ['elm-language-server', '--stdio'],
   \ 'python': ['pyls'],
   \ 'go': ['gopls']
@@ -286,7 +283,7 @@ let g:LanguageClient_rootMarkers = {
   \ 'python': ['Pipfile', 'requirements.txt'],
   \ 'rust': ['Cargo.toml'],
   \ 'elixir': ['mix.exs'],
-  \ 'ruby': ['Gemfile'],
+  \ 'ruby': ['sorbet/config'],
   \ 'elm': ['elm.json'],
   \ 'go': ['go.mod'],
   \ }
