@@ -1,6 +1,6 @@
 let g:neoformat_gleam_format = {
   \ 'exe': 'gleam',
-  \ 'args': ['format'],
+  \ 'args': ['format', '--stdin'],
   \ 'stdin': 1,
   \ }
 
