@@ -50,8 +50,11 @@ alias i="echo You\'re already in insert mode, you numpty."
 
 alias transfer-random-data-new-music-to-media-usb-music="find data/new-music/*/* -maxdepth 0 | shuf | tr '\n' '\0' | xargs -0 -i cp -rv --no-clobber {} /media/usb/music/"
 
+# Sorbet: Ruby type checker
 alias sorbet-counts="rg typed: --no-filename --no-line-number | sort | uniq -c"
+alias sorbet-ignored="rg typed:\ ignore | fpp"
 
+# Run things in containers
 alias get-docker-couchdb="docker run -t -d -p 5984:5984 --name couchdb klaemo/couchdb"
 alias get-docker-elasticsearch-6.6="docker run -d --name elasticsearch-6.6 -p 9200:9200 -p 9300:9300 -e 'discovery.type=single-node' elasticsearch:6.6.1"
 alias get-docker-mysql-5.7="docker run -t -d -p 3306:3306 --name mysql-5.7 -e MYSQL_ALLOW_EMPTY_PASSWORD=1 mysql:5.7 --bind-address=0.0.0.0"
