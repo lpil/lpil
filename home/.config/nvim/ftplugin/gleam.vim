@@ -1,7 +1,4 @@
-let g:neoformat_gleam_format = {
-  \ 'exe': 'gleam',
-  \ 'args': ['format', '--stdin'],
-  \ 'stdin': 1,
-  \ }
-
-let g:neoformat_enabled_gleam = ['format']
+augroup filetype_gleam
+  autocmd!
+  autocmd BufWritePre *.gleam Neoformat
+augroup END
