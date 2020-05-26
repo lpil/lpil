@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  {% capture title %}{% if page.title %}{{ page.title | strip }} – by {% endif %}Otter Nonsense{% endcapture %}
+  {% capture description %}{% if page.description %}{{ page.description | strip }}{% else %}What a load of Otter Nonsense{% endif %}{% endcapture %}
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>{% if page.title %}{{ page.title }} &ndash; {% endif %}Otter Nonsense</title>
+  <title>{{ title }}</title>
   <meta name="viewport" content="width=device-width">
-  <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}What a load of Otter Nonsense{% endif %}">
-  <meta name="google-site-verification" content="_AfeEurR8a0dWtm37cDqfrZkyOqz_lZWvb_RY-AKM60"/>
-  <meta property="og:image" content="https://secure.gravatar.com/avatar/11a70fd3673e3bc3931ea118cc3d12f5?s=300" />
+  <meta name="description" content="{{ description }}">
+  <meta name="google-site-verification" content="_AfeEurR8a0dWtm37cDqfrZkyOqz_lZWvb_RY-AKM60">
+  <meta property="og:image" content="https://secure.gravatar.com/avatar/11a70fd3673e3bc3931ea118cc3d12f5?s=300">
+  <meta property="og:title" content="{{ title }}">
+  <meta property="og:description" content="{{ description }}">
+  <meta property="og:url" content="{{ site.url }}{{ page.url }}">
   <link rel="stylesheet" href="/main.css" charset="utf-8">
 </head>
 <body>
