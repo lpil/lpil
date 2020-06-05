@@ -30,6 +30,7 @@ html {
 body {
   border-left: 4px solid $pink;
   border-right: 4px solid $pink;
+  min-height: 100vh;
 
   @media (min-width: $small-width) {
     border-left: 16px solid $pink;
@@ -163,7 +164,7 @@ p code {
 }
 
 .post__content {
-  margin: 1em 0;
+  margin: 1.4em 0;
 
   h1,
   h2,
