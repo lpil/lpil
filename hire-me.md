@@ -6,7 +6,7 @@ title: Looking to join a team
 Hi, I'm Louis. I'm an experienced software engineer, and I'm looking for an
 excellent London based team to join on a permanent or contract basis.
 
-I'm a polyglot programmer with a diverse set of technical skills and
+I'm a top-notch programmer with a diverse set of technical skills and
 experiences; from full stack web development and cloud computing, to graphics
 and audio programming, to static analysis, type systems, and compiler
 implementation. Whatever your business problem I am confident I would be a
@@ -25,7 +25,7 @@ where I can help junior engineers grow and progress!
 
 I've 7+ years of professional experience as a software engineer, the details
 of which can be seen on [my LinkedIn profile][linkedin], alongside
-recommendations from former my colleagues. I'm a generalist and polyglot
+recommendations from my former colleagues. I'm a generalist and polyglot
 developer, though I most frequently work with Elixir, Erlang, Rust, Go,
 Haskell, and JavaScript.
 
