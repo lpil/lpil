@@ -23,6 +23,9 @@ they can dedicate time to learning, and so they can adapt to unexpected
 challenges and setbacks. I enjoy mentoring and would love to work on a team
 where I can help junior engineers grow and progress!
 
+I would also like to work for a company that is a force for good in the world,
+so that I can take extra pride in my work and really invest in the company.
+
 I've 7+ years of professional experience as a software engineer, the details
 of which can be seen on [my LinkedIn profile][linkedin], alongside
 recommendations from my former colleagues. I'm a generalist and polyglot
@@ -42,9 +45,6 @@ I'm proud that the Gleam community contains people of different genders and
 demographics, and I hope that any company I join would value diversity too.
 Having a diverse team with a diverse set of ideas and experiences both
 enriches the culture of the company and the product they produce.
-
-I would also like to work for a company that is a force for good in the world,
-so that I can take extra pride in my work and really invest in the company.
 
 If you think that our values align and that I would made a good addition to
 your team please do get touch via [email](mailto:louis@lpil.uk) or via direct
