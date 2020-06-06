@@ -8,45 +8,51 @@ const TerserPlugin = require("terser-webpack-plugin");
 const LiveReloadPlugin = require("webpack-livereload-plugin");
 
 const configurator = {
-  entries: function(){
+  entries: function() {
     var entries = {
       application: [
-        './node_modules/jquery-ujs/src/rails.js',
-        './assets/css/application.scss',
-      ],
-    }
+        "./node_modules/jquery-ujs/src/rails.js",
+        "./assets/css/application.scss"
+      ]
+    };
 
-    Glob.sync("./assets/*/*.*").forEach((entry) => {
-      if (entry === './assets/css/application.scss') {
-        return
+    Glob.sync("./assets/*/*.*").forEach(entry => {
+      if (entry === "./assets/css/application.scss") {
+        return;
       }
 
-      let key = entry.replace(/(\.\/assets\/(src|js|css|go)\/)|\.(ts|js|s[ac]ss|go)/g, '')
-      if(key.startsWith("_") || (/(ts|js|s[ac]ss|go)$/i).test(entry) == false) {
-        return
+      let key = entry.replace(
+        /(\.\/assets\/(src|js|css|go)\/)|\.(ts|js|s[ac]ss|go)/g,
+        ""
+      );
+      if (key.startsWith("_") || /(ts|js|s[ac]ss|go)$/i.test(entry) == false) {
+        return;
       }
 
-      if( entries[key] == null) {
-        entries[key] = [entry]
-        return
+      if (entries[key] == null) {
+        entries[key] = [entry];
+        return;
       }
 
-      entries[key].push(entry)
-    })
-    return entries
+      entries[key].push(entry);
+    });
+    return entries;
   },
 
   plugins() {
     var plugins = [
-      new Webpack.ProvidePlugin({$: "jquery",jQuery: "jquery"}),
-      new MiniCssExtractPlugin({filename: "[name].[contenthash].css"}),
-      new CopyWebpackPlugin([{from: "./assets",to: ""}], {copyUnmodified: true,ignore: ["css/**", "js/**", "src/**"] }),
-      new Webpack.LoaderOptionsPlugin({minimize: true,debug: false}),
-      new ManifestPlugin({fileName: "manifest.json"}),
+      new Webpack.ProvidePlugin({ $: "jquery", jQuery: "jquery" }),
+      new MiniCssExtractPlugin({ filename: "[name].[contenthash].css" }),
+      new CopyWebpackPlugin([{ from: "./assets", to: "" }], {
+        copyUnmodified: true,
+        ignore: ["css/**", "js/**", "src/**"]
+      }),
+      new Webpack.LoaderOptionsPlugin({ minimize: true, debug: false }),
+      new ManifestPlugin({ fileName: "manifest.json" }),
       new CleanObsoleteChunks()
     ];
 
-    return plugins
+    return plugins;
   },
 
   moduleOptions: function() {
@@ -56,22 +62,28 @@ const configurator = {
           test: /\.s[ac]ss$/,
           use: [
             MiniCssExtractPlugin.loader,
-            { loader: "css-loader", options: {sourceMap: true}},
-            { loader: "postcss-loader", options: {sourceMap: true}},
-            { loader: "sass-loader", options: {sourceMap: true}}
+            { loader: "css-loader", options: { sourceMap: true } },
+            { loader: "postcss-loader", options: { sourceMap: true } },
+            { loader: "sass-loader", options: { sourceMap: true } }
           ]
         },
-        { test: /\.tsx?$/, use: "ts-loader", exclude: /node_modules/},
-        { test: /\.jsx?$/,loader: "babel-loader",exclude: /node_modules/ },
-        { test: /\.(woff|woff2|ttf|svg)(\?v=\d+\.\d+\.\d+)?$/,use: "url-loader"},
-        { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,use: "file-loader" },
-        { test: require.resolve("jquery"),use: "expose-loader?jQuery!expose-loader?$"},
-        { test: /\.go$/, use: "gopherjs-loader"}
+        { test: /\.tsx?$/, use: "ts-loader", exclude: /node_modules/ },
+        { test: /\.jsx?$/, loader: "babel-loader", exclude: /node_modules/ },
+        {
+          test: /\.(woff|woff2|ttf|svg)(\?v=\d+\.\d+\.\d+)?$/,
+          use: "url-loader"
+        },
+        { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, use: "file-loader" },
+        {
+          test: require.resolve("jquery"),
+          use: "expose-loader?jQuery!expose-loader?$"
+        },
+        { test: /\.go$/, use: "gopherjs-loader" }
       ]
-    }
+    };
   },
 
-  buildConfig: function(){
+  buildConfig: function() {
     // NOTE: If you are having issues with this not being set "properly", make
     // sure your GO_ENV is set properly as `buffalo build` overrides NODE_ENV
     // with whatever GO_ENV is set to or "development".
@@ -80,17 +92,20 @@ const configurator = {
     var config = {
       mode: env,
       entry: configurator.entries(),
-      output: {filename: "[name].[hash].js", path: `${__dirname}/public/assets`},
+      output: {
+        filename: "[name].[hash].js",
+        path: `${__dirname}/public/assets`
+      },
       plugins: configurator.plugins(),
       module: configurator.moduleOptions(),
       resolve: {
-        extensions: ['.ts', '.js', '.json']
+        extensions: [".ts", ".js", ".json"]
       }
-    }
+    };
 
-    if( env === "development" ){
-      config.plugins.push(new LiveReloadPlugin({appendScriptTag: true}))
-      return config
+    if (env === "development") {
+      config.plugins.push(new LiveReloadPlugin({ appendScriptTag: true }));
+      return config;
     }
 
     const terser = new TerserPlugin({
@@ -100,18 +115,18 @@ const configurator = {
           keep_fnames: true
         },
         output: {
-          comments: false,
-        },
+          comments: false
+        }
       },
-      extractComments: false,
-    })
+      extractComments: false
+    });
 
     config.optimization = {
       minimizer: [terser]
-    }
+    };
 
-    return config
+    return config;
   }
-}
+};
 
-module.exports = configurator.buildConfig()
+module.exports = configurator.buildConfig();
