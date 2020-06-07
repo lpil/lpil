@@ -2,4 +2,3 @@
 #   srb rbi todo
 
 # typed: strong
-module ActiveRecord::CollectionCacheKey; end
