@@ -5,9 +5,11 @@
 #
 #   https://github.com/sorbet/sorbet-typed/edit/master/lib/activerecord/>=5.2/activerecord.rbi
 #
-# typed: strong
+# typed: ignore
 
 class ActiveRecord::Base
+  extend ActiveRecord::Delegation::DelegateCache
+  extend ActiveRecord::CollectionCacheKey
   include ActiveRecord::DefineCallbacks
   include ActiveRecord::TouchLater
   include ActiveRecord::SecureToken

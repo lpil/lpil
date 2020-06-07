@@ -15,3 +15,7 @@ end
 class ActiveSupport::TestCase
   def self.fixtures(formatter); end
 end
+
+class ActionDispatch::Routing::Mapper
+  def devise_for(x); end
+end
