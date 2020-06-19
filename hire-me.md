@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Looking to join a team
+description: A little about me and what I'm looking for. :)
 ---
 
 Hi, I'm Louis. I'm an experienced software engineer, and I'm looking for an
