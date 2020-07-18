@@ -1,8 +1,11 @@
 nonzero_exit_errors = "true"
 table_mode = "light"
+prompt = "= `{{$(ansi yellow)}}{{$(short-pwd)}}{{$(do -i { git rev-parse --abbrev-ref HEAD | trim | format \" {$(ansi reset)}({$(ansi green)}{$it}{$(ansi reset)})\" })}}{{$(ansi reset)}}> `"
 startup = [
   "alias l [msg] { ls $msg }",
   "alias c [msg] { cd $msg }",
   "alias g [msg] { git $msg }",
+  "alias ga [msg] { git add . }",
   "alias n [msg] { nvim $msg }",
+  "alias short-pwd [] { pwd | str find-replace $(echo '^/home/' $(echo $nu | get env.USER) | str collect) '~' }",
 ]
