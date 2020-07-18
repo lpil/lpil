@@ -1,0 +1,8 @@
+nonzero_exit_errors = "true"
+table_mode = "light"
+startup = [
+  "alias l [msg] { ls $msg }",
+  "alias c [msg] { cd $msg }",
+  "alias g [msg] { git $msg }",
+  "alias n [msg] { nvim $msg }",
+]
