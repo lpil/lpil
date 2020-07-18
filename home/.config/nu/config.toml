@@ -1,6 +1,6 @@
 nonzero_exit_errors = "true"
 table_mode = "light"
-prompt = "= `{{$(ansi green)}}{{$(prompt-user)}} {{$(ansi yellow)}}{{$(prompt-pwd)}}{{$(do -i { prompt-git })}}{{$(ansi reset)}} $ `"
+prompt = "= `{{$(ansi green)}}{{$(prompt-user)}} {{$(ansi yellow)}}{{$(prompt-pwd)}}{{$(do -i { prompt-git })}}{{$(ansi reset)}} > `"
 startup = [
   "alias l [msg] { ls $msg }",
   "alias c [msg] { cd $msg }",
