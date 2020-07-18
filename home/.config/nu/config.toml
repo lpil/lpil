@@ -1,6 +1,6 @@
 nonzero_exit_errors = "true"
 table_mode = "light"
-prompt = "= `{{$(ansi yellow)}}{{$(prompt-pwd)}}{{$(do -i { prompt-git })}}{{$(ansi reset)}}> `"
+prompt = "= `{{$(ansi green)}}{{$(prompt-user)}} {{$(ansi yellow)}}{{$(prompt-pwd)}}{{$(do -i { prompt-git })}}{{$(ansi reset)}} $ `"
 startup = [
   "alias l [msg] { ls $msg }",
   "alias c [msg] { cd $msg }",
@@ -10,4 +10,5 @@ startup = [
   "alias n [msg] { nvim $msg }",
   "alias prompt-git [] { git rev-parse --abbrev-ref HEAD | trim | format \" {$(ansi reset)}({$(ansi green)}{$it}{$(ansi reset)})\" }",
   "alias prompt-pwd [] { pwd | str find-replace $(echo '^/home/' $(echo $nu | get env.USER) | str collect) '~' }",
+  "alias prompt-user [] { echo $nu | get env.USER }",
 ]
