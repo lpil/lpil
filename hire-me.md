@@ -33,14 +33,14 @@ recommendations from my former colleagues. I'm a generalist and polyglot
 developer, though I most frequently work with Elixir, Erlang, Rust, Go,
 Haskell, and JavaScript.
 
-Outside of paid work I am active open source contributor, primarily working in
-the Erlang ecosystem. I've spent the last 3 years designing and implementing
-the [Gleam programming language][gleam-github], a highly scalable and strongly
-typed language for the Erlang virtual machine. As well as a technical
-exercise, Gleam is an exercise in communication and leadership; I have
-successfully nurtured a small, friendly, and growing community of people who
-kindly donate their free time to help build the language and Gleam ecosystem.
-I do a bit of [public speaking][gleam-talk] on the subject too.
+Outside of paid work I am an active open source contributor, primarily working
+in the Erlang ecosystem. I've spent the last 3 years designing and
+implementing the [Gleam programming language][gleam-github], a highly scalable
+and strongly typed language for the Erlang virtual machine. As well as a
+technical exercise, Gleam is an exercise in communication and leadership; I
+have successfully nurtured a small, friendly, and growing community of people
+who kindly donate their free time to help build the language and Gleam
+ecosystem. I do a bit of [public speaking][gleam-talk] on the subject too.
 
 I'm proud that the Gleam community contains people of different genders and
 demographics, and I hope that any company I join would value diversity too.
