@@ -3,7 +3,7 @@ table_mode = "light"
 prompt = "= `{{$(ansi green)}}{{$(prompt-user)}} {{$(ansi yellow)}}{{$(prompt-pwd)}}{{$(do -i { prompt-git })}}{{$(ansi reset)}} > `"
 use_starship = false
 startup = [
-  "alias l [a b c d e f] { ls $a $b $c $d $e $f }",
+  "alias l [a] { ls $a }",
   "alias c [msg] { cd $msg }",
   "alias g [a b c d e f] { git $a $b $c $d $e $f }",
   "alias ga [msg] { git add . }",
