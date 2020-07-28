@@ -32,3 +32,5 @@
   git = "!git"
 [fetch]
 	prune = true
+[init]
+	defaultBranch = main
