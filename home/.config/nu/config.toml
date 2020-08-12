@@ -1,6 +1,6 @@
 nonzero_exit_errors = "true"
 table_mode = "light"
-prompt = "= `{{$(ansi green)}}{{$(prompt-user)}} {{$(ansi yellow)}}{{$(prompt-pwd)}}{{$(prompt-git)}}{{$(ansi reset)}} > `"
+prompt = "= `{{$(prompt-zoxide)}}{{$(ansi green)}}{{$(prompt-user)}} {{$(ansi yellow)}}{{$(prompt-pwd)}}{{$(prompt-git)}}{{$(ansi reset)}} > `"
 use_starship = false
 skip_welcome_message = true
 startup = [
@@ -13,7 +13,11 @@ startup = [
   "alias ga [msg] { git add . }",
   "alias gs [msg] { git status }",
   "alias n [a b c d e f] { nvim $a $b $c $d $e $f }",
+  "alias j [a b c d] { cd $(zoxide query $a $b $c $d | trim) }",
+  "alias z [a b c d] { cd $(zoxide query $a $b $c $d | trim) }",
+  "alias zi [a b c d] { cd $(zoxide query -i $a $b $c $d | trim) }",
   "alias prompt-git [] { do -i { git rev-parse --abbrev-ref HEAD } | trim | format \" {$(ansi reset)}({$(ansi green)}{$it}{$(ansi reset)})\" }",
   "alias prompt-pwd [] { pwd | str find-replace $(echo '^/home/' $(echo $nu | get env.USER) | str collect) '~' }",
   "alias prompt-user [] { echo $nu | get env.USER }",
+  "alias prompt-zoxide [] { do -i { zoxide add } }",
 ]
