@@ -2,6 +2,7 @@ nonzero_exit_errors = "true"
 table_mode = "light"
 prompt = "= `{{$(ansi green)}}{{$(prompt-user)}} {{$(ansi yellow)}}{{$(prompt-pwd)}}{{$(do -i { prompt-git })}}{{$(ansi reset)}} > `"
 use_starship = false
+skip_welcome_message = true
 startup = [
   "alias l [a] { ls $a }",
   "alias c [msg] { cd $msg }",
