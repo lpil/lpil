@@ -55,27 +55,29 @@ defmodule NextBreakFits do
         ) :: boolean()
         when entries: [{integer(), mode(), t()}]
 
-  defp fits?(w, k, _) when k > w, do: false
-  defp fits?(_, _, []), do: true
+  defp fits?(w, k, _) when k > w,
+    do: false
 
-  ## Breaks no flat
+  defp fits?(_, _, []),
+    do: true
 
   defp fits?(w, k, [{i, _, doc_fits(x)} | t]),
     do: fits?(w, k, [{i, :next_break_fits, x} | t])
 
-  defp fits?(_, _, [{_, :next_break_fits, doc_break(_)} | _]), do: true
+  defp fits?(_, _, [{_, :next_break_fits, doc_break(_)} | _]),
+    do: true
 
-  ## Breaks
-
-  defp fits?(_, _, [{_, :break, doc_break(_)} | _]), do: true
+  defp fits?(_, _, [{_, :break, doc_break(_)} | _]),
+    do: true
 
   defp fits?(w, k, [{i, :break, doc_group(x)} | t]),
     do: fits?(w, k, [{i, :flat, x} | t])
 
-  ## Catch all
+  defp fits?(w, k, [{_, _, s} | t]) when is_binary(s),
+    do: fits?(w, k + byte_size(s), t)
 
-  defp fits?(w, k, [{_, _, s} | t]) when is_binary(s), do: fits?(w, k + byte_size(s), t)
-  defp fits?(w, k, [{_, _, doc_break(s)} | t]), do: fits?(w, k + byte_size(s), t)
+  defp fits?(w, k, [{_, _, doc_break(s)} | t]),
+    do: fits?(w, k + byte_size(s), t)
 
   defp fits?(w, k, [{i, m, doc_nest(x, j)} | t]),
     do: fits?(w, k, [{i + j, m, x} | t])
@@ -86,10 +88,20 @@ defmodule NextBreakFits do
   defp fits?(w, k, [{i, m, doc_group(x)} | t]),
     do: fits?(w, k, [{i, m, x} | t])
 
+  #
+  # Format
+  #
+
   defp format(_, _, []), do: []
-  defp format(w, k, [{i, m, doc_cons(x, y)} | t]), do: format(w, k, [{i, m, x}, {i, m, y} | t])
-  defp format(w, k, [{_, _, s} | t]) when is_binary(s), do: [s | format(w, k + byte_size(s), t)]
-  defp format(w, k, [{i, m, doc_fits(x)} | t]), do: format(w, k, [{i, m, x} | t])
+
+  defp format(w, k, [{i, m, doc_cons(x, y)} | t]),
+    do: format(w, k, [{i, m, x}, {i, m, y} | t])
+
+  defp format(w, k, [{_, _, s} | t]) when is_binary(s),
+    do: [s | format(w, k + byte_size(s), t)]
+
+  defp format(w, k, [{i, m, doc_fits(x)} | t]),
+    do: format(w, k, [{i, m, x} | t])
 
   defp format(w, k, [{i, mode, doc_nest(x, j)} | t]),
     do: format(w, k, [{i + j, mode, x} | t])
