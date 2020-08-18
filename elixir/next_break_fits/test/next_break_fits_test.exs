@@ -1,7 +1,7 @@
 defmodule NextBreakFitsTest do
   use ExUnit.Case
 
-  import Inspect.Algebra
+  import NextBreakFits
 
   defp render(doc, limit) do
     doc |> group() |> format(limit) |> IO.iodata_to_binary()
@@ -10,12 +10,7 @@ defmodule NextBreakFitsTest do
   test "greets the world" do
     elems =
       break("")
-      |> concat("1,")
-      |> concat(break())
-      |> concat("2,")
-      |> concat(break())
-      |> concat("3")
-      |> group()
+      |> concat("1")
       |> nest(2)
       |> concat(break(""))
 
@@ -26,34 +21,28 @@ defmodule NextBreakFitsTest do
       |> group()
 
     doc =
-      "assert "
-      |> concat(next_break_fits(list, :enabled))
+      list
+      |> next_break_fits()
       |> concat(" = ")
       |> concat(list)
       |> concat("\n")
 
-    assert render(doc, 20) == """
-           assert [1, 2, 3] = [
-             1,
-             2,
-             3
+    assert render(doc, 7) == """
+           [1] = [
+             1
            ]
            """
 
-    assert render(doc, 10) == """
-           assert [
-             1,
-             2,
-             3
+    assert render(doc, 2) == """
+           [
+             1
            ] = [
-             1,
-             2,
-             3
+             1
            ]
            """
 
-    assert render(doc, 30) == """
-           assert [1, 2, 3] = [1, 2, 3]
+    assert render(doc, 16) == """
+           [1] = [1]
            """
   end
 end
