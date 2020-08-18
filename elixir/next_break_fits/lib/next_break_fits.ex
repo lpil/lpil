@@ -51,42 +51,40 @@ defmodule NextBreakFits do
   @spec fits?(
           width :: non_neg_integer(),
           column :: non_neg_integer(),
-          break? :: boolean(),
           entries
         ) :: boolean()
         when entries: [{integer(), mode(), t()}]
 
-  defp fits?(w, k, b?, _) when k > w and b?, do: false
-  defp fits?(_, _, _, []), do: true
-  defp fits?(w, k, _, {:tail, b?, t}), do: fits?(w, k, b?, t)
+  defp fits?(w, k, _) when k > w, do: false
+  defp fits?(_, _, []), do: true
 
   ## Breaks no flat
 
-  defp fits?(w, k, b?, [{i, _, doc_fits(x)} | t]),
-    do: fits?(w, k, b?, [{i, :next_break_fits, x} | t])
+  defp fits?(w, k, [{i, _, doc_fits(x)} | t]),
+    do: fits?(w, k, [{i, :next_break_fits, x} | t])
 
-  defp fits?(_, _, _, [{_, :next_break_fits, doc_break(_)} | _]), do: true
+  defp fits?(_, _, [{_, :next_break_fits, doc_break(_)} | _]), do: true
 
   ## Breaks
 
-  defp fits?(_, _, _, [{_, :break, doc_break(_)} | _]), do: true
+  defp fits?(_, _, [{_, :break, doc_break(_)} | _]), do: true
 
-  defp fits?(w, k, b?, [{i, :break, doc_group(x)} | t]),
-    do: fits?(w, k, b?, [{i, :flat, x} | t])
+  defp fits?(w, k, [{i, :break, doc_group(x)} | t]),
+    do: fits?(w, k, [{i, :flat, x} | t])
 
   ## Catch all
 
-  defp fits?(w, k, b?, [{_, _, s} | t]) when is_binary(s), do: fits?(w, k + byte_size(s), b?, t)
-  defp fits?(w, k, _, [{_, _, doc_break(s)} | t]), do: fits?(w, k + byte_size(s), true, t)
+  defp fits?(w, k, [{_, _, s} | t]) when is_binary(s), do: fits?(w, k + byte_size(s), t)
+  defp fits?(w, k, [{_, _, doc_break(s)} | t]), do: fits?(w, k + byte_size(s), t)
 
-  defp fits?(w, k, b?, [{i, m, doc_nest(x, j)} | t]),
-    do: fits?(w, k, b?, [{i + j, m, x} | t])
+  defp fits?(w, k, [{i, m, doc_nest(x, j)} | t]),
+    do: fits?(w, k, [{i + j, m, x} | t])
 
-  defp fits?(w, k, b?, [{i, m, doc_cons(x, y)} | t]),
-    do: fits?(w, k, b?, [{i, m, x}, {i, m, y} | t])
+  defp fits?(w, k, [{i, m, doc_cons(x, y)} | t]),
+    do: fits?(w, k, [{i, m, x}, {i, m, y} | t])
 
-  defp fits?(w, k, b?, [{i, m, doc_group(x)} | t]),
-    do: fits?(w, k, b?, [{i, m, x} | t])
+  defp fits?(w, k, [{i, m, doc_group(x)} | t]),
+    do: fits?(w, k, [{i, m, x} | t])
 
   defp format(_, _, []), do: []
   defp format(w, k, [{i, m, doc_cons(x, y)} | t]), do: format(w, k, [{i, m, x}, {i, m, y} | t])
@@ -105,7 +103,7 @@ defmodule NextBreakFits do
   end
 
   defp format(w, k, [{i, _, doc_group(x)} | t]) do
-    if fits?(w, k, false, [{i, :flat, x}]) do
+    if fits?(w, k, [{i, :flat, x}]) do
       format(w, k, [{i, :flat, x} | t])
     else
       format(w, k, [{i, :break, x} | t])
