@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+# Adapted from https://github.com/caseychu/spotify-backup
+
 import argparse
 import codecs
 import http.client
