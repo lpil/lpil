@@ -34,20 +34,31 @@ class Spotify {
   }
 }
 
+type Track = {
+  uri: string;
+  name: string;
+  artists: string;
+  album: string;
+};
+
 class Library {
-  playlists: any = {};
+  playlists: Record<string, Track[]> = {};
 
   addPlaylist(name: string, tracks: Array<any>) {
-    this.playlists[name] = tracks.map((track: any) => ({
-      uri: track.track.uri,
-      name: track.track.name,
-      artists: track.track.artists.map((a: any) => a.name).join(", "),
-      album: track.track.album.name
-    }));
+    this.playlists[name] = tracks.map(this.toTrack);
   }
 
   toJson() {
     return JSON.stringify(this.playlists, null, 2);
+  }
+
+  private toTrack(track: any): Track {
+    return {
+      uri: track.track.uri,
+      name: track.track.name,
+      artists: track.track.artists.map((a: any) => a.name).join(", "),
+      album: track.track.album.name
+    };
   }
 }
 
@@ -101,4 +112,4 @@ library.addPlaylist("All liked tracks", liked);
 await Deno.writeTextFile("./spotify-library.json", library.toJson());
 console.log("Done! Written library to spotify-library.json");
 
-await server.close()
+await server.close();
