@@ -12,7 +12,7 @@ startup = [
   "alias ga [] { git add . }",
   "alias gs [] { git status }",
   "alias n [a b c d e f] { nvim $a $b $c $d $e $f }",
-  "alias j [a b c d] { cd $(zoxide query $a $b $c $d | trim) }",
-  "alias z [a b c d] { cd $(zoxide query $a $b $c $d | trim) }",
-  "alias zi [a b c d] { cd $(zoxide query -i $a $b $c $d | trim) }",
+  "alias j [a b c d] { cd $(zoxide query $a $b $c $d | str trim) }",
+  "alias z [a b c d] { cd $(zoxide query $a $b $c $d | str trim) }",
+  "alias zi [a b c d] { cd $(zoxide query -i $a $b $c $d | str trim) }",
 ]
