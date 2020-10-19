@@ -1,0 +1,8 @@
+add_newline = false
+
+# Getting the Rust version is slow
+[rust]
+disabled = true
+
+[git_branch]
+symbol = "🌱 "
