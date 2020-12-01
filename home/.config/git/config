@@ -7,14 +7,13 @@
 
 [core]
   excludesfile = ~/.config/git/ignore
-  editor = nvim
   pager = less -S
 
 [push]
   default = simple
 
 [credential]
-  helper = cache
+  helper = manager
 
 [alias]
   br = branch
@@ -31,6 +30,10 @@
   fpp = "!git st | fpp"
   git = "!git"
 [fetch]
-	prune = true
+  prune = true
 [init]
-	defaultBranch = main
+  defaultBranch = main
+[pull]
+  rebase = true
+[rebase]
+  autostash = true
