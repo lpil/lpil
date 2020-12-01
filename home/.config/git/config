@@ -13,7 +13,7 @@
   default = simple
 
 [credential]
-  helper = manager
+  helper = cache
 
 [alias]
   br = branch
