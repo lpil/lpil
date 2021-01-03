@@ -1,0 +1,102 @@
+{
+  "breadcrumbs.enabled": false,
+  "editor.accessibilitySupport": "off",
+  "editor.cursorBlinking": "solid",
+  "editor.cursorSurroundingLines": 8,
+  "editor.fontSize": 13,
+  "editor.fontFamily": "Fira Code, Consolas, Comic Mono, 'Courier New', monospace",
+  "editor.fontLigatures": true,
+  "editor.lineNumbers": "on",
+  "editor.minimap.enabled": false,
+  "editor.overviewRulerBorder": false,
+  "editor.renderFinalNewline": false,
+  "editor.renderIndentGuides": false,
+  "editor.tabSize": 2,
+  "editor.trimAutoWhitespace": true,
+  "editor.wordWrap": "on",
+  "editor.wrappingIndent": "none",
+  "editor.wrappingStrategy": "advanced",
+  "explorer.confirmDelete": false,
+  "explorer.confirmDragAndDrop": false,
+  "explorer.openEditors.visible": 0,
+  "files.autoSave": "onFocusChange",
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "git.autofetch": true,
+  "terminal.integrated.shell.windows": "C:\\Program Files\\nu\\bin\\nu.exe",
+  "window.menuBarVisibility": "toggle",
+  "workbench.activityBar.visible": false,
+  "workbench.colorTheme": "One Dark Pro",
+  "workbench.editor.showIcons": false,
+  "workbench.editor.showTabs": true,
+  "workbench.editor.tabSizing": "fit",
+  "workbench.panel.defaultLocation": "right",
+  "workbench.statusBar.visible": true,
+
+  // Vim keybindings
+  "vim.useSystemClipboard": true,
+  "vim.normalModeKeyBindingsNonRecursive": [
+    { "before": [";"], "after": [":"] },
+    { "before": ["Y"], "after": ["y", "$"] },
+    { "before": ["<c-h>"], "after": ["<c-w>", "h"] },
+    { "before": ["<c-j>"], "after": ["<c-w>", "j"] },
+    { "before": ["<c-k>"], "after": ["<c-w>", "k"] },
+    { "before": ["<c-l>"], "after": ["<c-w>", "l"] }
+  ],
+
+  "cSpell.enableFiletypes": ["markdown"],
+  "cSpell.showStatus": false,
+  "cSpell.diagnosticLevel": "Hint",
+  "cSpell.userWords": [
+    "Embark's",
+    "arity",
+    "bools",
+    "clippy",
+    "codegen",
+    "deps",
+    "despawn",
+    "gzipped",
+    "interactable",
+    "kubernetes",
+    "normalise",
+    "stdlib",
+    "toposort",
+    "wasm"
+  ],
+
+  "[json]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
+  "[jsonc]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
+  "[elixir]": {
+    "editor.formatOnSave": true
+  },
+
+  "rust-analyzer.cargo.allFeatures": true,
+  "rust-analyzer.inlayHints.typeHints": false,
+  "rust-analyzer.inlayHints.enable": false,
+  "[rust]": {
+    "editor.tabSize": 4,
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "matklad.rust-analyzer"
+  },
+
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
+  "[javascript]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "window.zoomLevel": 0,
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}
