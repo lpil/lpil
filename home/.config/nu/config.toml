@@ -1,18 +1,25 @@
-nonzero_exit_errors = "true"
+nonzero_exit_errors = false
 table_mode = "light"
 prompt = "do -i { zoxide add }; echo $(starship prompt)"
 skip_welcome_message = true
+path = [
+  "~/.asdf/bin", 
+  "~/.asdf/shims",
+  "~/.local/bin",
+  "~/.cache/rebar3/bin",
+  "~/.cargo/bin",
+  "~/.homesick/repos/homeshick/bin",
+]
 startup = [
-  "alias l [a] { ls $a }",
-  "alias ll [a] { ls -l $a }",
-  "alias la [a] { ls -a $a }",
-  "alias lla [a] { ls -la $a }",
-  "alias c [a] { cd $a }",
-  "alias g [a b c d e f] { git $a $b $c $d $e $f }",
-  "alias ga [] { git add . }",
-  "alias gs [] { git status }",
-  "alias n [a b c d e f] { nvim $a $b $c $d $e $f }",
-  "alias j [a b c d] { cd $(zoxide query $a $b $c $d | str trim) }",
-  "alias z [a b c d] { cd $(zoxide query $a $b $c $d | str trim) }",
-  "alias zi [a b c d] { cd $(zoxide query -i $a $b $c $d | str trim) }",
+  "alias l = ls",
+  "alias ll = ls -l",
+  "alias la = ls -a",
+  "alias lla = ls -la",
+  "alias c = cd",
+  "alias g = git",
+  "alias ga = git add .",
+  "alias gs = git status",
+  "alias n = nvim",
+  "def z [a] { cd $(zoxide query $a | str trim) }",
+  "def zi [a] { cd $(zoxide query -i $a | str trim) }",
 ]
