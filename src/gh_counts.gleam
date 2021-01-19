@@ -18,26 +18,36 @@ pub fn main(args: List(CharList)) {
   start_application_and_deps(atom.create_from_string("gh_counts"))
   let args = list.map(args, char_list_to_string)
   assert Ok(token) = parse_args(args)
-  assert Ok(counts) = count_github_gleam_uses(token)
-  print_counts(counts)
+  assert Ok(state) = count_github_gleam_uses(token)
+  print_counts(state.counts)
 }
 
-fn count_github_gleam_uses(token: String) -> Result(Counts, String) {
-  loop(SearchState(
-    counts: Counts(set.new(), set.new(), set.new()),
-    token: token,
-    page: 0,
-  ))
+fn count_github_gleam_uses(token: String) -> Result(SearchState, String) {
+  let nils = [Nil, Nil, Nil, Nil, Nil]
+  let times = int.to_string(list.length(nils))
+  io.println(string.concat(["Crawling GitHub search API ", times, " times"]))
+  io.println("This will take several minutes. Time for a tea break.")
+  // The search API returns different results each time, so we crawl it multiple
+  // times and then return the union of all those queries.
+  list.try_fold(
+    nils,
+    SearchState(
+      counts: Counts(set.new(), set.new(), set.new()),
+      token: token,
+      page: 0,
+    ),
+    fn(_, state) { loop(SearchState(..state, page: 0)) },
+  )
 }
 
-fn loop(state: SearchState) -> Result(Counts, String) {
+fn loop(state: SearchState) -> Result(SearchState, String) {
   io.print(".")
   try json = query_search_api(state)
   try page = parse_search_json(json)
   case page {
     [] -> {
       io.println("")
-      Ok(state.counts)
+      Ok(state)
     }
     _ -> {
       let counts = count_page(page, state.counts)

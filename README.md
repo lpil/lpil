@@ -3,8 +3,9 @@
 A Gleam project that counts the number of Gleam files, repos, and users on
 GitHub in a hacky fashion using the GitHub search API.
 
-How accurate it is isn't clear as the search API seems non-deterministic, but
-it'll do as a rough estimate.
+The GitHub search API seems non-deterministic so we crawl this API multiple
+times and unify the results from each crawl.. This means that this script
+takes a long time to run, but it does now return consistent results.
 
 ## Quick start
 
