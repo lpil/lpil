@@ -3,12 +3,20 @@ table_mode = "light"
 prompt = "do -i { zoxide add }; echo $(starship prompt)"
 skip_welcome_message = true
 path = [
-  "~/.asdf/bin", 
+  "~/.asdf/bin",
   "~/.asdf/shims",
   "~/.local/bin",
   "~/.cache/rebar3/bin",
   "~/.cargo/bin",
   "~/.homesick/repos/homeshick/bin",
+  "~/bin",
+  "/home/louis/.asdf/bin",
+  "/home/louis/.asdf/shims",
+  "/home/louis/.local/bin",
+  "/home/louis/.cache/rebar3/bin",
+  "/home/louis/.cargo/bin",
+  "/home/louis/.homesick/repos/homeshick/bin",
+  "/home/louis/bin",
 ]
 startup = [
   "alias l = ls",
@@ -20,6 +28,7 @@ startup = [
   "alias ga = git add .",
   "alias gs = git status",
   "alias n = nvim",
+  "alias k = kubectl",
   "def z [a] { cd $(zoxide query $a | str trim) }",
   "def zi [a] { cd $(zoxide query -i $a | str trim) }",
 ]
