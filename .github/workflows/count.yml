@@ -3,7 +3,7 @@ name: count
 on:
   schedule:
     # Every day at 11pm
-    - cron: 0 23 * * *
+    - cron: 5 * * * *
 
 jobs:
   test:
