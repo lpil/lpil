@@ -1,10 +1,9 @@
-name: test
+name: count
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
+  schedule:
+    # Every day at 11pm
+    - cron: 0 23 * * *
 
 jobs:
   test:
@@ -16,7 +15,6 @@ jobs:
           otp-version: 23.2
       - uses: gleam-lang/setup-gleam@v1.0.2
         with:
-          gleam-version: 0.13.2
-      - run: rebar3 install_deps
-      - run: rebar3 eunit
-      - run: gleam format --check src test
+          gleam-version: 0.14.2
+      - run: rebar3 escriptize
+      - run: escript _build\default\bin\gh_counts ${{ secrets.GITHUB_TOKEN }}
