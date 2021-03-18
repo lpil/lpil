@@ -17,4 +17,4 @@ jobs:
         with:
           gleam-version: 0.14.2
       - run: rebar3 escriptize
-      - run: escript _build\default\bin\gh_counts ${{ secrets.GITHUB_TOKEN }}
+      - run: escript _build/default/bin/gh_counts ${{ secrets.GITHUB_TOKEN }}
