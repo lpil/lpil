@@ -114,8 +114,9 @@ fn query_search_api(state: SearchState) -> Result(String, String) {
 
   // Only 30 requests per minute are permitted to the search API
   // https://docs.github.com/en/rest/reference/search#rate-limit
-  // We attempt slightly fewer to be sure we don't hit the rate limit.
-  sleep(1000 * 60 / 25)
+  // We attempt fewer still because we started suddenly hitting the rate limit for unknown reasons.
+  // Some other undocumented limit?
+  sleep(1000 * 60 / 20)
 
   case resp.status {
     200 -> Ok(resp.body)
