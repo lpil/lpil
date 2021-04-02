@@ -116,7 +116,7 @@ fn query_search_api(state: SearchState) -> Result(String, String) {
   // https://docs.github.com/en/rest/reference/search#rate-limit
   // We attempt fewer still because we started suddenly hitting the rate limit for unknown reasons.
   // Some other undocumented limit?
-  sleep(1000 * 60 / 10)
+  sleep(1000 * 60 / 7)
 
   case resp.status {
     200 -> Ok(resp.body)
