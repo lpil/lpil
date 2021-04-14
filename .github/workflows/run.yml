@@ -20,6 +20,6 @@ jobs:
         with:
           gleam-version: 0.13.2
       - run: rebar3 eunit
-      - run: gleam format --check src test
+      # - run: gleam format --check src test
       - run: rebar3 escriptize
       - run: escript _build/default/bin/gh_counts ${{ secrets.GITHUB_TOKEN }}
