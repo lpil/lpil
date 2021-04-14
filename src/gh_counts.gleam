@@ -110,8 +110,6 @@ fn query_search_api(state: SearchState) -> Result(String, String) {
 
   // Only 30 requests per minute are permitted to the search API
   // https://docs.github.com/en/rest/reference/search#rate-limit
-  // We attempt fewer still because we started suddenly hitting the rate limit for unknown reasons.
-  // Some other undocumented limit?
   case resp.status {
     // Successful request
     200 -> {
@@ -132,6 +130,7 @@ fn query_search_api(state: SearchState) -> Result(String, String) {
       sleep(1000 * cooldown)
       query_search_api(state)
     }
+    // Dunno!
     _ -> {
       io.debug(resp)
       Error("Unexpected HTTP status")
