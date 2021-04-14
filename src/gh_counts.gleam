@@ -95,7 +95,10 @@ type SearchEntry {
 
 fn query_search_api(state: SearchState) -> Result(String, String) {
   let auth_header = string.append("bearer ", state.token)
-  let query = [#("q", "extension:gleam"), #("page", int.to_string(state.page))]
+  let query = [
+    tuple("q", "extension:gleam"), 
+    tuple("page", int.to_string(state.page))
+  ]
   try resp =
     http.default_req()
     |> http.set_method(http.Get)
