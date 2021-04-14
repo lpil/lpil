@@ -41,7 +41,6 @@ fn count_github_gleam_uses(token: String) -> Result(SearchState, String) {
 }
 
 fn loop(state: SearchState) -> Result(SearchState, String) {
-  io.print(".")
   try json = query_search_api(state)
   try page = parse_search_json(json)
   case page {
@@ -96,10 +95,7 @@ type SearchEntry {
 
 fn query_search_api(state: SearchState) -> Result(String, String) {
   let auth_header = string.append("bearer ", state.token)
-  let query = [
-    tuple("q", "extension:gleam"),
-    tuple("page", int.to_string(state.page)),
-  ]
+  let query = [#("q", "extension:gleam"), #("page", int.to_string(state.page))]
   try resp =
     http.default_req()
     |> http.set_method(http.Get)
@@ -116,10 +112,26 @@ fn query_search_api(state: SearchState) -> Result(String, String) {
   // https://docs.github.com/en/rest/reference/search#rate-limit
   // We attempt fewer still because we started suddenly hitting the rate limit for unknown reasons.
   // Some other undocumented limit?
-  sleep(1000 * 60 / 7)
-
   case resp.status {
-    200 -> Ok(resp.body)
+    // Successful request
+    200 -> {
+      io.print(".")
+      sleep(1000 * 60 / 30)
+      Ok(resp.body)
+    }
+    403 -> {
+      // Rate limited, sleep and try later
+      try cooldown =
+        resp
+        |> http.get_resp_header("retry-after")
+        |> result.replace_error("403 from API but no retry-after header")
+      io.print(string.concat(["limited[", cooldown, "s]"]))
+      try cooldown =
+        int.parse(cooldown)
+        |> result.replace_error("Could not parse retry-after header")
+      sleep(1000 * cooldown)
+      query_search_api(state)
+    }
     _ -> {
       io.debug(resp)
       Error("Unexpected HTTP status")
