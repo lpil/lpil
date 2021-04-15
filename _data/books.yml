@@ -29,6 +29,20 @@
     - programming
     - databases
     - sql
+  - title: Learning HTTP/2
+    authors:
+    - Javier Garza
+    - Stephen Ludin
+    tags:
+    - programming
+    - networks
+  - title: Grokking Algorithms
+    authors:
+    - Aditya Bhargava
+    tags:
+    - programming
+    - algorithms
+    - python
   - title: Compiling to Assembly From Scratch
     authors:
     - Vladimir Keleshev
