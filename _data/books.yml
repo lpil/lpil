@@ -1,0 +1,50 @@
+- year: 2019
+  books:
+  # Missing a few here... Can't remember
+  - title: The A-Z of Gender and Sexuality
+    authors:
+    - Morgan Lev Edward Holleb
+    tags:
+    - gender
+    - sexuality
+    - lgbtqia
+    - history
+    - politics
+    - rights
+  
+- year: 2020
+  books:
+  # Missing a few here... Can't remember
+  - title: The Rust Programming Language
+    authors:
+    - Carol Nichols
+    - Steve Klabnik
+    tags:
+    - programming
+    - rust
+  - title: The Art of PostgreSQL
+    authors:
+    - Dimitri Fountaine
+    tags:
+    - programming
+    - databases
+    - sql
+  - title: Compiling to Assembly From Scratch
+    authors:
+    - Vladimir Keleshev
+    tags:
+    - programming
+    - compilers
+    - assembly
+    - typescript
+
+- year: 2021
+  books:
+  - title: Domain Modeling Made Functional
+    authors:
+    - Scott Wlaschin
+    tags:
+    - programming
+    - types
+    - domain-driven-design
+    - f#
