@@ -62,3 +62,10 @@
     - types
     - domain-driven-design
     - f#
+  - title: SQL Antipatterns
+    authors:
+    - Bill Karwin
+    tags:
+    - programming
+    - sql
+    - meh
