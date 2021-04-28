@@ -50,6 +50,8 @@ alias i="echo You\'re already in insert mode, you numpty."
 
 alias transfer-random-data-new-music-to-media-usb-music="find data/new-music/*/* -maxdepth 0 | shuf | tr '\n' '\0' | xargs -0 -i cp -rv --no-clobber {} /media/usb/music/"
 
+alias dnslookup="dig +noall +answer"
+
 # Sorbet: Ruby type checker
 alias sorbet-counts="rg typed: --no-filename --no-line-number | sort | uniq -c"
 alias sorbet-ignored="rg typed:\ ignore | fpp"
