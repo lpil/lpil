@@ -5,7 +5,7 @@ endif
 
 call plug#begin('~/.config/nvim/plugged')
 
-Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
+" Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'scss.css'] }
 Plug 'cespare/vim-toml', { 'for': 'toml' }
 Plug 'dag/vim-fish', { 'for': 'fish' }
@@ -29,7 +29,7 @@ Plug 'lpil/gleam.vim', { 'for': 'gleam' }
 Plug 'marcweber/vim-addon-mw-utils'
 Plug 'mbbill/undotree'
 Plug 'mxw/vim-jsx', { 'for': 'javascript' }
-Plug 'ncm2/ncm2'
+" Plug 'ncm2/ncm2'
 Plug 'neomake/neomake'
 Plug 'neovimhaskell/haskell-vim', { 'for' : 'haskell' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
@@ -258,7 +258,7 @@ endif
 """"""""""""""""""
 
 " enable ncm2 for all buffers
-autocmd BufEnter * call ncm2#enable_for_buffer()
+" autocmd BufEnter * call ncm2#enable_for_buffer()
 
 " :help Ncm2PopupOpen for more information
 set completeopt=noinsert,menuone,noselect
