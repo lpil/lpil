@@ -95,10 +95,10 @@ type SearchEntry {
 
 fn query_search_api(state: SearchState) -> Result(String, String) {
   let auth_header = string.append("bearer ", state.token)
-  let query = [
-    tuple("q", "extension:gleam"), 
-    tuple("page", int.to_string(state.page))
-  ]
+  let query = [#("q", "extension:gleam"), #("page", int.to_string(state.page))]
+
+  // Only 30 requests per minute are permitted to the search API
+  // https://docs.github.com/en/rest/reference/search#rate-limit
   try resp =
     http.default_req()
     |> http.set_method(http.Get)
@@ -110,9 +110,6 @@ fn query_search_api(state: SearchState) -> Result(String, String) {
     |> http.prepend_req_header("content-type", "application/json")
     |> httpc.send
     |> result.replace_error("HTTP Request failed")
-
-  // Only 30 requests per minute are permitted to the search API
-  // https://docs.github.com/en/rest/reference/search#rate-limit
   case resp.status {
     // Successful request
     200 -> {
@@ -122,15 +119,8 @@ fn query_search_api(state: SearchState) -> Result(String, String) {
     }
     403 -> {
       // Rate limited, sleep and try later
-      try cooldown =
-        resp
-        |> http.get_resp_header("retry-after")
-        |> result.replace_error("403 from API but no retry-after header")
-      io.print(string.concat(["limited[", cooldown, "s]"]))
-      try cooldown =
-        int.parse(cooldown)
-        |> result.replace_error("Could not parse retry-after header")
-      sleep(1000 * cooldown)
+      io.print("limited")
+      sleep(1000 * 60)
       query_search_api(state)
     }
     // Dunno!
