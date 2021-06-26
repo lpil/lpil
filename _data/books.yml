@@ -95,3 +95,24 @@
     tags:
     - poetry
     - friends
+  - title: Domain Modeling Made Functional
+    authors:
+    - Scott Wlaschin
+    tags:
+    - programming
+    - types
+    - domain-driven-design
+    - f#
+  - title: SQL Antipatterns
+    authors:
+    - Bill Karwin
+    tags:
+    - programming
+    - sql
+    - meh
+  - title: The Man In The High Castle
+    authors:
+    - Philip K. Dick
+    tags:
+    - Fiction
+    - Alternate History
