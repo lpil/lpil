@@ -81,6 +81,10 @@ set __fish_git_prompt_char_untrackedfiles '?'
 function fish_prompt -d "Write out the prompt"
     set laststatus $status
 
+    if set -q VIRTUAL_ENV
+        printf "(%s) " (basename "$VIRTUAL_ENV")
+    end
+
     printf '%s%s %s%s%s%s%s' \
         (set_color green) (echo $USER) \
         (set_color yellow) (echo $PWD | sed -e "s|^$HOME|~|") \
@@ -111,3 +115,19 @@ set --export LD_LIBRARY_PATH $LD_LIBRARY_PATH:$VIPSHOME/lib
 # FZF
 # Use fd to list files for fzf as it respects gitignore
 set --export FZF_DEFAULT_COMMAND fd
+
+fish_add_path /opt/homebrew/opt/ruby/bin
+fish_add_path /opt/homebrew/lib/ruby/gems/3.0.0/bin/
+
+function dotenv --description 'Load environment variables from .env file'
+    set -l envfile ".env"
+    if [ (count $argv) -gt 0 ]
+        set envfile $argv[1]
+    end
+
+    if test -e $envfile
+        for line in (cat $envfile | grep -v "^#" | grep "=")
+            set -xg (echo $line | cut -d = -f 1) (echo $line | cut -d = -f 2-)
+        end
+    end
+end
