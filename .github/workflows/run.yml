@@ -1,8 +1,8 @@
 name: run
 
 on:
-  schedule:
-    - cron: "0 3 */3 * *"
+#  schedule:
+#    - cron: "0 3 */3 * *"
   push:
     branches:
       - main
