@@ -182,3 +182,15 @@
     - fiction
     - murder-mystery
     - ireland
+    
+- year: 2022
+  books:
+  - title: "A New Ireland: How Europe's Most Conservative Country Became Its Most Liberal"
+    authors:
+    - "Niall O'Dowd"
+    readers:
+    - Roger Clark
+    tags:
+    - ireland
+    - history
+    - civil-rights
