@@ -11,9 +11,9 @@ redirect_from:
   </a>
 
   <nav class="home-nav">
-    <a href="#art">Art</a>
     <a href="#blog">Blog</a>
     <a href="#speaking">Speaking</a>
+    <a href="#art">Art</a>
   </nav>
 </header>
 
@@ -24,26 +24,6 @@ redirect_from:
       We make all manner of <a href="https://github.com/lpil" target="_blank">software things</a>
       and we can help you with your next project.
     </p>
-
-    <h3 class="home-section-title" id="art">
-      Art
-    </h3>
-
-    <ul class="arts">
-      {% for art in site.data.arts %}{% if art.displayed %}
-        <li class="art">
-          <a target="_blank" href="{{ art.url }}">
-            {% if art.thumbnail %}
-              <img class="art-thumbnail" alt="{{ art.title }}" src="{{ art.thumbnail }}"/>
-            {% else %}
-              <img class="art-thumbnail" alt="{{ art.title }}" src="/img/grey-pixel.gif"/>
-            {% endif %}
-            <h5>{{ art.title }}</h5>
-          </a>
-          {{ art.notes | markdownify }}
-        </li>
-      {% endif %}{% endfor %}
-    </ul>
 
     <h3 class="home-section-title" id="blog">
       Blog
@@ -77,6 +57,26 @@ redirect_from:
           <!-- {{ talk.notes | markdownify }} -->
         </li>
       {% endfor %}
+    </ul>
+
+    <h3 class="home-section-title" id="art">
+      Art
+    </h3>
+
+    <ul class="arts">
+      {% for art in site.data.arts %}{% if art.displayed %}
+        <li class="art">
+          <a target="_blank" href="{{ art.url }}">
+            {% if art.thumbnail %}
+              <img class="art-thumbnail" alt="{{ art.title }}" src="{{ art.thumbnail }}"/>
+            {% else %}
+              <img class="art-thumbnail" alt="{{ art.title }}" src="/img/grey-pixel.gif"/>
+            {% endif %}
+            <h5>{{ art.title }}</h5>
+          </a>
+          {{ art.notes | markdownify }}
+        </li>
+      {% endif %}{% endfor %}
     </ul>
 
   </div>
