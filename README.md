@@ -1,5 +1,3 @@
-lpil.uk
-=======
+# Hi, I'm Louis
 
-    bundle install
-    make start
+This is my monorepo of odds and ends. Enjoy!
