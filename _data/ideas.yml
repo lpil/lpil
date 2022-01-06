@@ -1,2 +1,0 @@
-- idea: |
-    Use xref to find any functions that are not calls anywhere in a codebase.
