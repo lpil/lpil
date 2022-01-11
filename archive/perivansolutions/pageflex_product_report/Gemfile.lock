@@ -1,0 +1,12 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    ruby-ole (1.2.11.7)
+    spreadsheet (0.9.7)
+      ruby-ole (>= 1.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  spreadsheet
