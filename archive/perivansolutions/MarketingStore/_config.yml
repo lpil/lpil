@@ -1,0 +1,37 @@
+# Site settings
+title: Perivan Solutions
+url: http://marketingstore.lpil.uk
+# url: http://www.marketingstore.co.uk
+description: >
+  Perivan Solutions is a division of the Perivan Group. We start by questioning
+  why things are done a certain way and then find ways of doing them better.
+
+# Contact
+email: solutions@perivan.co.uk
+telephone: +44 (0)20 7562 2210
+fax: +44 (0)20 7562 2201
+address1: 21 Worship Street
+address2: London
+address3: EC2A 2DW
+
+# Navigation sections
+nav-sections:
+  - About Us
+
+# Build settings
+markdown: kramdown
+permalink: /news/:title
+
+exclude:
+  - dev_serve.sh
+  - Guardfile
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+
+sass:
+  style: :compressed
+  sass_dir: _scss
+
+gems:
+  - jekyll-sitemap

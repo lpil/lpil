@@ -1,0 +1,38 @@
+---
+layout: page
+title: Contact Us
+---
+<section class="contact__details">
+  <table>
+    <tr>
+      <td>
+        Tel:
+      </td>
+      <td>
+        {{ site.telephone }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Fax:
+      </td>
+      <td>
+        {{ site.fax }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Email:
+      </td>
+      <td>
+        <a href="mailto:{{ site.email }}">{{ site.email }}</a>
+      </td>
+    </tr>
+  </table>
+  <table>
+    <tr><td>{{ site.address1 }}</td></tr>
+    <tr><td>{{ site.address2 }}</td></tr>
+    <tr><td>{{ site.address3 }}</td></tr>
+  </table>
+</section>
+<iframe class="contact__map" src="{{ site.url }}/map.html" allowtransparency="true" width="100%" height="300px" type="text/html" frameborder="0" scrolling="no" style="border:0"></iframe>
