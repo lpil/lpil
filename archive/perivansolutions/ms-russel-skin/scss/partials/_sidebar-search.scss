@@ -1,0 +1,27 @@
+.categorySidebarHeader,
+.categorySidebarSearch {
+  background: $col-sidebar-search-bg;
+  padding: 15px;
+}
+
+.categorySidebarHeader {
+  padding-bottom: 0;
+}
+
+.searchInput {
+  background: #fff;
+  border: 1px;
+  border-radius: 1px;
+  color: #000;
+  font-size: 13px;
+  height: 22px;
+  margin-bottom: .7em;
+  padding: 2px 3px;
+}
+
+// Separator from category sidebar below
+.categorySidebarSearchRule {
+  background: #fff;
+  height: 15px;
+}
+

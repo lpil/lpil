@@ -1,0 +1,24 @@
+a.smallButton,
+a.siteButton,
+a.searchButton {
+  background: $col-button-bg;
+  border-radius: 3px;
+  color: #fff;
+  display: inline-block;
+  font-size: 12px;
+  padding: .7em 1em;
+  text-decoration: none;
+  text-transform: none;
+  white-space: nowrap;
+}
+
+a.smallButton {
+  padding: .5em .7em;
+}
+
+a.siteButton:hover,
+a.smallButton:hover,
+a.searchButton:hover {
+  background: lighten($col-button-bg, 3);
+}
+

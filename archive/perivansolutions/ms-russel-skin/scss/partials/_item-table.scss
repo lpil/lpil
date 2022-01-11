@@ -1,0 +1,80 @@
+// Tables of orders and items
+
+.itemTable,
+.itemTable,
+.itemTableHeader {
+  background: #fff;
+  border: 1px solid;
+  padding: 5px;
+  vertical-align: top;
+}
+
+.itemTableHeader {
+  background: #474747;
+  color: #fff;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.itemTable-Thumbnail {
+  height: 112px;
+  text-align: center;
+}
+
+.itemTableThumbnail {
+  border: 1px solid #fff;
+}
+
+.itemTable-Id {
+  color: #1b8b75;
+  font-size: 12px;
+}
+
+.itemTable-Description,
+.itemTable-Options {
+  color: #1b8b75;
+  font-size: 11px;
+}
+
+.itemTable-Product {
+  color: #1b8b75;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.itemTable-Date {
+  color: #1b8b75;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.itemTable-Price {
+  color: #1b8b75;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.itemTableSummary {
+  padding: 5px 5px00;
+  text-align: right;
+}
+
+.itemTableSummaryRule {
+  border-bottom: 1px solid #da710b;
+  line-height: 3px;
+}
+
+.itemTableSummaryLine {
+  color: #1b8b75;
+  font-size: 14px;
+  font-weight: bold;
+  padding-top: 3px;
+}
+
+.itemTableLabelWithIcon {
+  color: #1b8b75;
+  margin-left: 23px;
+  text-indent: -23px;
+}
