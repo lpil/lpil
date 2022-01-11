@@ -1,0 +1,417 @@
+<link type="text/css" rel="stylesheet" href="Custom/Themes/sjp_2014_06/CSS/helpPage.css"/>
+<script src="jquery-1.4.2.min.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function(e) {
+    $('.accor').find('.accor_toggle').click(function(){
+      $(this).next().slideToggle(500);
+      $('.accor_content').not($(this).next()).slideUp(500);
+
+
+      });
+    });
+</script>
+<div id='investor_insert' onload="hideAllDivs()">
+  <div class="wrapper accor">
+    <div class="header">
+      <img src="Custom/Themes/sjp_2014_06/Inserts/Images/HelpBanner.png" class="img1" />
+    </div>
+    <div class="container">
+      <div class="column">
+        <div class="section-box">
+          <h2>The Investor</h2>
+          <ul class="questions">
+            <li class='accor_toggle help_title' id='accor_toggle00'>Can you tell me my current Investor order?
+            <a href="http://www.sjpconnect.co.uk/sjp_pdfs/Approvals%20User%20Guide.pdf" target="blank" style="text-decoration: none">
+              <img src="http://www.sjpconnect.co.uk/Custom/themes/SJP/Inserts/images/pdf.gif"></a>
+            </li>
+            <div class='accor_content' id='accor_content00'>
+              <p class="answer">Ypu can check your current Investor order by clicking the Investor tab and click the link "Review Your Previous Investor And Investment Review Order Here".This will give you a breakdown of your order and also provide the latest PDF Perivan hold for your order. </p>
+            </div>
+            <li class='accor_toggle help title' id='accor_toggle01'>When can I amend the quantity on my Investor order?</li>
+            <div class='accor_content' id='accor_content01'>
+              <p class="answer">The Investor is open for a period of time each quarter for you to amend the quantity amongst other details. The general opening time is 4-6 weeks and in this period you must make the amendment. After this time Perivan will not be able to accept any changes to your order. </p>
+            </div>
+            <li class='accor_toggle help_title' id='accor_toggle02'>How do I amend my photo/signature?</li>
+            <div class='accor_content' id='accor_content02'>
+              <p class="answer">If you require a change of photo and signature you can submit your photo via the Investor tab above. You must make sure the photo is of a good size and resolution. Perivan will inform you if the photo is unsuitable. Once you submit the photo and signature it will send an email to Perivan who will upload them to your Partner profile. Please do not place any orders until you recieve a conformation email from Perivan confirming action has been taken.</p>
+            </div>
+            <li class='accor_toggle help_title' id='accor_toggle03'>How do I amend my personalisation?
+            <a href="http://www.sjpconnect.co.uk/sjp_pdfs/Approvals%20User%20Guide.pdf" target="blank" style="text-decoration: none">
+              <img src="http://www.sjpconnect.co.uk/Custom/themes/SJP/Inserts/images/VideoIcon.png"></a>
+            </li>
+
+            <div class='accor_content'id='accor_content03'>
+              <p class="answer">If your personal data has changed then you will need to update your profile on the store located in the “My Profile” tab. Once you have made the changes then you will need to click the link located in the menu titled “Investor” and click the subcategory "Personalised". The option you need to pick is “Amend Personalisation to an Existing Order”.If your unsure how to action this, we have provided a video and a guide located under the investor tab to help you. </p>
+            </div>
+            <li class='accor_toggle help_title' id='accor_toggle04'>My Investor hasn't been delivered to my address and the profile shows the correct address?</li>
+            <div class='accor_content' id='accor_content04'>
+              <p class="answer">Whenever your data changes on the store by either yourself or a office administrator and this affects your Investor order, please be aware you must always place a amended order. This applies to your delivery address and personalised details as this doesn’t update the existing order until you do this. If you do not make any changes to your order then it will continue to roll as per last editions. Please refer to the Investor Guide as this goes into greater detail. </p>
+            </div>
+            </ul>
+          </div>
+
+          <div class="section-box">
+            <h2>My Accounts</h2>
+            <ul class="questions">
+              <li class='accor_toggle help_title' id='accor_toggle05'>Sign In Details
+              <a href="http://www.sjpconnect.co.uk/sjp_pdfs/Approvals%20User%20Guide.pdf" target="blank" style="text-decoration: none">
+                <img src="http://www.sjpconnect.co.uk/Custom/themes/SJP/Inserts/images/VideoIcon.png"></a></li>
+              <div class='accor_content' id='accor_content05'>
+                <p class="answer">To log in, </p></br>
+                <ol>
+                  <li > Please enter the email address registered on your account, which will be your sjp email.</li><br>
+                  <li > Enter the password that is your partner code.<br>(remember the capitalization on the letter)</li><br>
+                  <li> Click “Login”</li>
+                </ol>
+                <p class="answer">If you receive the error message “Sorry, that combination is not valid” please use the reset link located under the password field. If your still having difficulties please contact Perivan who will reset your password.</a>
+              </p>
+            </div>
+            <li class='accor_toggle help_title' id='accor_toggle06'>Change Delivery Address</li>
+            <div class='accor_content' id='accor_content06'>
+              <p class="answer">Your office administrator can update your delivery address for you or you can action this on your profile. Click the function “Edit” and amend your data. This will be a permanent change. Please make sure if you are intending to amend this on your investor order aswell then you amend the order online.</p>
+            </div>
+            <li class='accor_toggle help_title' id='accor_toggle07'>Change of Address or Personal Information</li>
+            <div class='accor_content' id='accor_content07'>
+              <p class="answer">Your office administrator can update your personal information  for you or you can action change on your profile. Click the function “Edit” and amend your data. This will be a permanent change. Please make sure if you are intending to amend this on your investor order aswell then you must amend the order online. A guide is provided if your unsure how to do this.</p>
+            </div>
+            <li class='accor_toggle help_title' id='accor_toggle08'>What are my Allowances</li>
+            <div class='accor_content' id='accor_content08'>
+              <p class="answer">your allowances are calculated on your partner level. You are able to check these on the intranet or the office administrator will be able to provide this for you.</p>
+            </div>
+            <li class='accor_toggle help_title' id='accor_toggle09'>Track my Delivery</li>
+            <div class='accor_content' id='accor_content09'>
+              <p class="answer">You can track your delivery by clicking on “Create Order” and selecting “Order Tracking” on the right hand side and imputing your order reference number, please refer to the guide before you check your delivery so you can track the order correctly.  </p>
+            </div>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="column middle-column">
+        <div class="section-box">
+          <h2>Technical help</h2>
+          <ul class="questions">
+            <li class='accor_toggle help_title' id='accor_toggle10'>Impersonating page hasn't appeared</li>
+            <div class='accor_content' id='accor_content10'>
+              <p class="answer">If you have clicked on a Partner to impersonate and the new page doesn't appear then it will most likely be you're pop up blocker. <br>
+              Whenever the browser blocks pop-ups for a site, <img src="Custom/Themes/sjp_2014_06/Inserts/Images/Icon.png" /> the icon appears in the address bar. Click the icon to see the pop-ups that have been blocked and click the option to see the page</p>
+            </div>
+            <li class='accor_toggle help_title' id= 'accor_toggle11'>I am unable to see a Partner on my list</li>
+            <div class='accor_content' id='accor_content11'>
+              <p class="answer">If you have Partner recently moved into you're office location and are not able to see him please contact Perivan and they will investigate further for you. Please make sure you confirm the full Partner name and code as this will help them locate the Partner quickly for you</p>
+            </div>
+          </ul>
+        </div>
+
+        <div class="section-box">
+          <h2>My Order</h2>
+          <ul class="questions">
+            <li class='accor_toggle help_title' id='accor_toggle12'>Track my delivery
+            <a href="http://www.sjpconnect.co.uk/sjp_pdfs/Approvals%20User%20Guide.pdf" target="blank" style="text-decoration: none">
+              <img src="http://www.sjpconnect.co.uk/Custom/themes/SJP/Inserts/images/VideoIcon.png"></a>
+            </li>
+            <div class='accor_content' id='accor_content12'>
+              <p class="answer">You can track your delivery by clicking on “Create Order” and selecting “Order Tracking” on the right hand side and imputing your order reference number, please refer to the guide before you check your delivery so you can track the order correctly.
+              </p>
+            </div>
+            <li class='accor_toggle help_title' id='accor_toggle13'>Out of Stock/stock availability</li>
+            <div class='accor_content' id='accor_content13'>
+              <p class="answer">Items that are out of stock please refer to the note section on the product as this will provide information on the status.</br> We will always endeavourer to have stock available to Partners, however on occasions products may go out of stock due to high volumes being ordered. We work hard to make this rarity but ask you to refer to the notes as this will advise when the item will be available. </p>
+            </div>
+            <li class='accor_toggle help_title' id='accor_toggle14'>Has my order gone through?</li>
+            <div class='accor_content' id='accor_content14'>
+              <p class="answer">Once your order has been processed by the office location you will recieve a conformation email. If at anytime you are unsure whether its been placed then please refer to your order history. Your order history will hold the most update details of the orders placed on your profile.If you have any queries then contact your office location </p>
+            </div>
+            <li class='accor_toggle help_title' id='accor_toggle15'>I have received an incorrect product/products are missing</li>
+            <div class='accor_content' id='accor_content15'>
+              <p class="answer">If you have received items in your order you didn't order or items are missing then please contact Perivan who will investigate this further for</p>
+            </div>
+            <li class='accor_toggle help_title' id='accor_toggle41'>Delivery Schedules</li>
+            <div class='accor_content' id='accor_content41'>
+              <p class="answer">
+              <strong>Stocked Items - Out of Office Partners: i.e Marketing Literature, Folders, Envelopes, Continuation Paper etc.</strong></p>
+              <p class="answer">
+              We aim to deliver all orders placed for “Out of Office” Partners before 2pm Monday to Friday on the next working day. If your order hasn’t arrived after the time stated then please contact Perivan.</p>
+              <p class="answer">
+              <strong>Stocked Items – In Office Partners: i.e. Marketing Literature, Folders, Envelopes, Continuation Paper etc.</strong>
+              <p class="answer">We aim to deliver all orders placed for “Out of Office” Partners before 12pm Monday to Friday on the next working day. Please note “In Office” deliveries are often consolidated to minimize  delivery costs. Your office location may receive boxes that contain orders for more than one partner, please check all deliveries carefully. If your order hasn’t arrived after the time stated then please contact Perivan.</p>
+            </div>
+
+
+            <li class='accor_toggle help_title' id='accor_toggle43'>Print on Demand Literature</li>
+            <div class='accor_content' id='accor_content43'>
+              <p class="answer">We aim to deliver all orders for Print on Demand literature 4-5 working days from the date of your order. If your order hasn’t arrived after the time stated then please contact Perivan.</p>
+            </div>
+            <li class='accor_toggle help_title' id='accor_toggle44'>SJP Business Stationery </li>
+            <div class='accor_content' id='accor_content44'>
+              <p class="answer">i.e. Business Cards, Compliment Slips and Letterheads  We aim to deliver all orders for standard St. James’s Place branded business stationery 5-7 working days from the date it is approved via the online approvals system. If your order hasn’t arrived after the time stated then please contact Perivan.</p>
+            </div>
+            <li class='accor_toggle help_title' id='accor_toggle45'>Partner Branded Stationery </li>
+            <div class='accor_content' id='accor_content45'>
+              <p class="answer">i.e. Business Cards, Compliment Slips, Letterheads and Continuation Paper which have been personalized with your own bespoke logo or layout. We aim to deliver all orders for bespoke business stationery 10-12 working days from the date it is approved. If your order hasn’t arrived after the time stated then please contact Perivan.</p>
+            </div>
+            <li class='accor_toggle help_title' id='accor_toggle46'>How to cancel your order?</li>
+            <div class='accor_content' id='accor_content46'>
+              <p class="answer">
+              <strong>Stationary i.e.Business Cards, Compliment Slips and Letterheads  </strong></p>
+              <p class="answer">If you have approved incorrect stationery then please contact Perivan immediately. Depending on what stage your items have been processed you could incur administrative charges for cancelling or the full the cost of the stationery. So please take care in approving your order. </p>
+              <p class="answer">
+              <strong>Literature i.e. Marketing Literature, Folders, Envelopes, Continuation Paper etc.</strong>
+              <p class="answer">If you need to cancel your literature orders then please email your order reference number to Perivan. Also we would advise you call to highlight your email to the Perivan team as during high periods of enquires they may not reach your email in time to halt the delivery. Be advised the couriers arrive between 3.30pm and 4pm to dispatch Partners orders.</p>
+            </div>
+          </ul>
+        </div>
+      </div>
+
+      <div class="column">
+        <div class="section-box">
+          <h2>Large Projects</h2>
+          <ul class="questions">
+            <li class='accor_toggle help_title' id='accor_toggle16'>Calendars</li>
+            <div class='accor_content' id='accor_content16'>
+              <p class="answer">The St.James's Place branded calenders are designed to reflect the high quality service that you provide. They make perfect gifts for both clients and prospects and will keep you in their minds throughout the year.</br>
+              The calenders will be available in both wall and desk format, and offer you the opportunity to personalise each page with you're contact details. Partners often send calenders as a gift or part of a mailing campaign and by personalising you're order, clients and prospects will have subtle reminder of you throughout the year. Ordering for the above item is launched via Partnership Notes and an intranet headline at the appropriate time</p>
+            </div>
+            <li class='accor_toggle help_title' id='accor_toggle17'>Diaries</li>
+            <div class='accor_content' id='accor_content17'>
+              <p class="answer">xxxxxxxx</p>
+            </div>
+            <li class='accor_toggle help_title' id='accor_toggle18'>Investor</li>
+            <div class='accor_content' id='accor_content18'>
+              <p class="answer">XXXXXXXXX</p>
+            </div>
+            <li class='accor_toggle help_title' id='accor_toggle19'>Budget Report</li>
+            <div class='accor_content' id='accor_content19'>
+              <p class="answer">The Budget Report is produced and dispatched within 48 hours of the Chancellor's budget announcement. It is a 16 page A4 document branded St.James's Place Wealth Management and provides a detailed but easy to understand breakdown of the budget. You can personalise it with you're own contact details and give to clients. Ordering for the above item is launched via Partnership Notes and an intranet headline at the appropriate time.</p>
+            </div>
+            <li class='accor_toggle help_title' id='accor_toggle20'>Tax Focus Card</li>
+            <div class='accor_content' id='accor_content20'>
+              <p class="answer">This eight panel gate fold card is branded St.James's Place Wealth Management and dispatched within five working days of the budget announcement. It is used by both clients and prospects all year round as a considered and indispensible guide to the key points covered in the budget (eg Income Tax, Capital Gains Tax and Inheritance Tax etc). Ordering for the above item is launched via Partnership Notes and an intranet headline at the appropriate time.</p>
+            </div>
+            <li class='accor_toggle help_title' id='accor_toggle21'>Tax Guides</li>
+            <div class='accor_content' id='accor_content21'>
+              <p class="answer">The St.James's Place Tax Guide is a long-established, practical and user friendly hard backed guide which explains in simple terms how the UK tax system works and how best to minimise tax liabilities. You can personalise the tax Guide with you're own contact details and give to clients. Ordering for the above item is launched via Partnership Notes and an intranet headline at the appropriate time</p>
+            </div>
+          </div>
+
+          <div class="section-box">
+            <h2>General Store Information</h2>
+            <ul class="questions">
+              <li class='accor_toggle help_title' id='accor_toggle22'>Product range and services</li>
+              <div class='accor_content' id='accor_content22'>
+                <p class="answer">The products on the store are managed by Marketing and you may find not all the items shown on the intranet are available. If you're unsure then contact Marketing  Support who will be able to advise further.</p>
+              </div>
+              <li class='accor_toggle help_title' id='accor_toggle23'>How do I approve my stationery?</br>
+              <img onclick="openWin()" src="http://www.sjpconnect.co.uk/Custom/themes/SJP/Inserts/images/VideoIcon.png"></a>
+
+            <script>
+//Links through to rackspace and retrieves video code
+            function openWin()  {
+              window.open("http://2a23f3edcb27787b4e51-83f772dd0dac7820416f5115fe60d6ce.r18.cf3.rackcdn.com/SJP/Help/Video/Approve_Stationery/Approve_Stationery_Final.html","_blank","toolbar=no, scrollbars=no, resizable=no, top=400, left=400, width=645, height=485");
+            }
+            </script>
+
+            <a href="http://www.sjpconnect.co.uk/sjp_pdfs/Approvals%20User%20Guide.pdf" target="blank" stylesheet="text-decoration: none">
+              <img src="http://www.sjpconnect.co.uk/Custom/themes/SJP/Inserts/images/pdf.gif"></a></li>
+            <div class='accor_content' id='accor_content23'>
+              <p class="answer">Please click the link to watch a video of how to approve your stationery or click on the PDF link if you prefer. </p>
+            </div>
+            <li class='accor_toggle help_title' id='accor_toggle24'>I haven't received a revised proof after declining my stationery via the Marketing Store</li>
+            <div class='accor_content' id='accor_content24'>
+              <p class="answer">Your stationery is created by your office location so you will need to get in contact with them with regards to the status of the order.</p>
+            </div>
+            <li class='accor_toggle help_title' id='accor_toggle47'>Personalised Literature</li>
+            <div class='accor_content' id='accor_content47'>
+              <p class="answer">If you’re concerned about items that you have ordered that appear to be in approval, please see a list of items approved by Marketing Support. </p>
+              <ol>
+                <li>Business Service Charter</li>
+                <li> Why work with me? Personalised (SJP3986)</li>
+                <li> Working Relationships Brochure (SJP4226)</li>
+                <li>Prize Draw Card</li>
+                <li>Website Launch Card (A5)</li>
+                <li>Client Introduction Cards</li>
+                <li>Appointment Cards</li>
+                <li>Register Your Interest</li>
+                <li>Client Service Charter</li>
+                <li>Why work with me? Premier version (SJP3986)</li>
+                <li>Your Communication Preferences</li>
+                <li>Gratuity Cards and  Non Branded Posters</li>
+              </ol>
+              <p class="answer">If you need your order urgently then contact Marketing Support.</p>
+            </div>
+          </ul>
+        </div>
+      </div>
+
+      <div class="section-box" id="GeneralEnquiriesHeading" >
+        <div class="enquirieslinks">
+          <h2>Contact your Office Administrator</h2>
+          <script type="text/javascript">
+
+
+// Office Administrator contact details dropdown
+
+          function dropdown() {
+            var select = document.getElementById("selectMenu");
+            var location = select.options[select.selectedIndex].innerHTML;
+            var email
+              var number
+              var content = document.getElementById("content");
+            content.innerHTML = '';
+            switch (location) {
+              case 'Please select a location':
+                return;
+
+              case 'Aberdeen':
+                email = "Aberdeen.reception@sjp.co.uk";
+                number = "01224 202400";
+                break;
+
+              case 'Belfast':
+                email = "Belfast.business@sjp.co.uk";
+                number = "028 9072 6500";
+                break;
+
+              case 'Bristol':
+                email = "Bristol.business@sjp.co.uk";
+                number = "XXXXXX";
+                break;
+
+              case 'City':
+                email = "City.Business@sjp.co.uk";
+                number = "XXXXXX";
+                break;
+
+              case 'Edinburgh':
+                email = "Edinburgh.Reception@sjp.co.uk";
+                number = "XXXXXX";
+                break;
+
+              case 'Elstree':
+                email = "elstree.business@sjp.co.uk";
+                number = "XXXXXX";
+                break;
+
+              case 'Glasgow':
+                email = "Glasgow.business@sjp.co.uk";
+                number = "0141 304 1700";
+                break;
+
+              case 'Hamilton':
+                email = "HamiltonPlace.Business@sjp.co.uk";
+                number = "XXXXXX";
+                break;
+
+              case 'Kingsway':
+                email = "Kingsway.Business@sjp.co.uk";
+                number = "XXXXXX";
+                break;
+
+              case 'Leeds':
+                email = "leeds.business@sjp.co.uk";
+                number = "0113 244 4054";
+                break;
+
+              case 'Liverpool':
+                email = "Liverpool.business@sjp.co.uk";
+                number = "XXXXXX";
+                break;
+
+              case 'Manchester':
+                email = "Manchester.business@sjp.co.uk";
+                number = "XXXXXX";
+                break;
+
+              case 'Newbury':
+                email = "newbury.business@sjp.co.uk";
+                number = "XXXXXX";
+                break;
+
+              case 'Newcastle':
+                email = "Newcastle.business@sjp.co.uk";
+                number = "XXXXXX";
+                break;
+
+              case 'Nottingham':
+                email = "Nottingham.business@sjp.co.uk";
+                number = "0115 924 2899";
+                break;
+
+              case 'Solent':
+                email = "solent.business@sjp.co.uk";
+                number = "01489 881400";
+                break;
+
+              case 'Solihull':
+                email = "Solihull.reception@sjp.co.uk";
+                number = "0121 733 6733";
+                break;
+
+              case 'Westerham':
+                email = "Westerham.business@sjp.co.uk";
+                number = "01959 561606";
+                break;
+
+              case 'Witham':
+                email = "witham.business@sjp.co.uk";
+                number = "01376 501947";
+                break;
+            }
+
+            var mailLink = document.createElement('a');
+            mailLink.innerHTML = email;
+            mailLink.href = 'mailto:' + email;
+            var numberP = document.createElement('p');
+            numberP.innerHTML = number;
+            content.appendChild(document.createElement('br'));
+            content.appendChild(mailLink);
+            content.appendChild(numberP);
+          }
+          </script>
+
+
+          <select id="selectMenu" onchange="dropdown()">
+            <option selected="selected">Please select a location</option>
+            <option>Aberdeen</option>
+            <option>Belfast</option>
+            <option>Bristol</option>
+            <option>City</option>
+            <option>Edinburgh</option>
+            <option>Elstree</option>
+            <option>Glasgow</option>
+            <option>Hamilton</option>
+            <option>Kingsway</option>
+            <option>Leeds</option>
+            <option>Liverpool</option>
+            <option>Manchester</option>
+            <option>Newbury</option>
+            <option>Newcastle</option>
+            <option>Nottingham</option>
+            <option>Solent</option>
+            <option>Solihull</option>
+            <option>Westerham</option>
+            <option>Witham</option>
+          </select>
+          <div id="content"></div>
+        </div>
+
+        <div class="enquirieslinks">
+          <h2>General Numbers</h2>
+          <table style="width:450px">
+            <tr>
+              <td><strong>Marketing Support:</strong></td>
+              <td> Telephone: 01234 567890</td>
+              <td><a href="mailto:marketing@sjp.co.uk">Email: marketing@sjp.co.uk</a></td>
+            </tr>
+            <tr>
+              <td><strong> Perivan:</strong></td>
+              <td>Telephone: 020 7562 2270</td>
+              <td><a href="mailto:sjp@perivan.co.uk">Email: sjp@perivan.co.uk</a></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>
+  SJP Connect - The Investor
+</title>
+<!-- Javascript jQuery Accordion (No jQueryUI) -->
+<script type="text/javascript">
+$(document).ready(function($) {
+    $('#accor').find('.accor_toggle').click(function(){
+      //Expand or collapse this panel
+      $(this).next().slideToggle(500);
+      //Hide the other panels
+      $('.accor_content').not($(this).next()).slideUp(500);
+      });
+    });
+</script>
+
+<style type='text/css'>
+td.area {
+  padding: 45px 10px 0px 10px;
+}
+td.catalogItem {
+  background: #fff;
+  height: 125px;
+  text-align: center;
+  border: 2px solid #dfeef3;
+  padding: 10px;
+  width: 125px !important;
+}
+body#investor_insert {
+  padding: default;
+  margin: default;
+  font-size: default;
+  color: default;
+}
+#investor_insert .investor_title {
+  color: #202C4C;
+  text-transform: normal;
+  text-align: center;
+}
+#investor_insert h3 {
+  margin-top: 15px;
+}
+#investor_insert p ol ul li {
+  font-size: 15px;
+}
+.my_th {
+  padding: 0px 10px;
+  color: #202C4C;
+  font-size: 14px;
+}
+.my_td {
+  padding: 0px 10px;
+  text-align: left;
+  font-size: 14px;
+}
+
+/* Accordion CSS */
+#investor_insert .accor_toggle {
+  cursor: pointer;
+  margin: 0px;
+  padding: 10px 0px;
+  text-align: left;
+}
+#accor_content00 { margin: 0px; padding: 10px; }
+#accor_content01 { margin: 0px; padding: 10px; }
+#accor_content02 { margin: 0px; padding: 10px; }
+#accor_toggle00 { margin: 0px; padding: 0px; }
+#accor_toggle01 { margin: 0px; padding: 0px; }
+#accor_toggle02 { margin: 0px; padding: 0px; }
+#investor_insert .accor_content          { display: none; }
+#investor_insert .accor_content.default  { display: block; }
+#InvestorIcons img {
+  width: 125px;
+  height: 125px;
+}
+#InvestorIcons > a > img {
+  outline: none;
+  border-style: none;
+  text-decoration: none;
+}
+#MessageNoEntries { display:none; }
+#divCategoryPath { display:none; }
+h4 { font-size: 14px; }
+li { font-size: 14px; }
+h3 { font-size: 16px; }
+.sidebar { display: none; }
+.areaTitle { display: none; }
+.areaComment { display: none; }
+.areaComment-l { display: none; }
+.areaComment-r { display: none; }
+p { font-size: 14px; }
+</style>
+</head>
+<body id='investor_insert'>
+<p>
+  The Investor is a coffee-table style magazine that endorses our professional
+  and expert approach. We strongly recommended that Partners personalise copies
+  so their contact details and photo are contained within each issue. Once you
+  have placed an order this will keep rolling for all future editions unless
+  you place an amendment or cancellation to order during one of the relevant
+  windows below.
+</p>
+<h3 class='investor_title'>
+  Distribution Schedule
+</h3>
+<div style='text-align: center;'>
+  <p>The Investor Magazine is published quarterly:</p>
+  <br>
+  <table style='margin-left:auto;margin-right:auto;'>
+    <tr>
+      <th class='my_th'>Edition</th>
+      <th class='my_th'>Open</th>
+      <th class='my_th'>Delivery</th>
+    </tr>
+    <tr>
+      <td class='my_td'>Spring Edition</td>
+      <td class='my_td'>February</td>
+      <td class='my_td'>Last week in April</td>
+    </tr>
+    <tr>
+      <td class='my_td'>Summer Edition</td>
+      <td class='my_td'>May</td>
+      <td class='my_td'>Last week in July</td>
+    </tr>
+    <tr>
+      <td class='my_td'>Autumn Edition</td>
+      <td class='my_td'>August</td>
+      <td class='my_td'>Last week in October</td>
+    </tr>
+    <tr>
+      <td class='my_td'>Winter Edition</td>
+      <td class='my_td'>November</td>
+      <td class='my_td'>Last week in January</td>
+    </tr>
+  </table>
+  <br>
+<p style="text-align:center">
+<a href="http://www.sjpconnect.co.uk/sjp_pdfs/Guide%20to%20Investor%20Magazine.pdf">Click here for a guide to</a> troubleshooting your Investor order,
+</p>
+  <br>
+</div>
+
+<div id="accor">
+  <h4 class='accor_toggle investor_title' id='accor_toggle00'>
+    &bull; View Investor Allowances Here
+  </h4>
+  <div class='accor_content' id='accor_content00'>
+    <p>
+    There is a free allocation for Generic Investors (without
+    personalisation) as below: Your free allocation must be ordered. It will
+    not automatically be sent to you.
+    </p>
+    <ul>
+      <li>Senior Partner and above &mdash; 60 copies</li>
+      <li>Partner level &mdash; 25 copies</li>
+      <li>Associate Partner level &mdash; 10 copies</li>
+    </ul>
+    <p>
+    Any additional copies over and above the free allocation are charged at
+    65p per copy.
+    </p>
+    <p>
+    The cost for a Personalised Investor is 90p per copy (<b>there are no set
+      up costs and no free allocation for personalised</b>). There is a minimum
+    order quantity of 25.
+    </p>
+  </div>
+  <h4 class='accor_toggle investor_title' id='accor_toggle01'>
+    &bull; Review Your Previous Investor And Investment Review Order Here
+  </h4>
+  <div class='accor_content' id='accor_content01'>
+    <iframe src="http://perivansolutions.co.uk/sjpInvestor/index.html"
+      width="700" height="750" style='margin: 0px; border:none;'></iframe>
+  </div>
+  <h4 class='accor_toggle investor_title' id='accor_toggle02'>
+    &bull; Upload Your Photograph &amp; Signature Here
+  </h4>
+  <div class='accor_content' id='accor_content02'>
+    <iframe
+      src="http://www.perivansolutions.co.uk/SJP_PhotoForm/photosigupload.html"
+      width=500 height=400 style='margin: 0px; border:none;'></iframe>
+  </div>
+</div>
+
+<br>
+<h3 class='investor_title'>
+  Order Your Investor Here (Click on a thumbnail)
+</h3>
+<div style='margin: 20px 0px 10px 0px'></div>
+</body>
+</html>
