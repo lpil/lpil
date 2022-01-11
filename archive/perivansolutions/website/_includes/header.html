@@ -1,0 +1,13 @@
+<header class="header">
+  <section class="header__banner">
+    <a href="{{ site.url }}">
+      <img src="{{ site.url }}/images/logo.svg" alt="{{ site.title }}" />
+    </a>
+    <aside>
+      <span>Give us a call on</span> <span><b>{{ site.telephone }}</b> or
+        <a href="mailto:{{ site.email }}">email us</a></span>
+    </aside>
+  </section>
+  {% include nav-header.html %}
+  {% include nav-mobile.html %}
+</header>
