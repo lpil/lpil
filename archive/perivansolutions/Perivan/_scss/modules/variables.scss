@@ -1,0 +1,50 @@
+// Keeping the footer at the bottom of the page
+$footer-height: 180px;
+$footer-height--break-mid: 200px;
+
+//
+// Colours
+//
+
+// Brand colours
+$col-group-warm-grey: #998f86;
+
+$col-pod:  #798fa5;
+$col-sol:  #637120;
+$col-des:  #762808;
+$col-vbr:  #b1093d;
+$col-da:   #007086;
+$col-fin:  #002c48;
+$col-elec: #009be5;
+
+//
+// Top level colours
+// These need to be edited with each new colour scheme
+//
+$col-black: #111;
+$col-white: #fff;
+$col-primary:                $col-black;
+$col-primary-darker:         $col-black;
+$col-nav-dropdown:           $col-group-warm-grey;
+
+//
+// Second level colours
+// These will inherit from top level
+//
+// Typography colours
+$col-text:       $col-black;
+$col-link:       $col-da;
+$col-link-hover: $col-primary-darker;
+$col-h2h3h4:     $col-primary;
+
+// Major layout colours
+$col-colored-block:      $col-primary;
+$col-colored-block-text: $col-white;
+$col-footer-bg:          $col-group-warm-grey;
+$col-footer-fg:          $col-white;
+$footer-dot-col:         false;
+
+// Misc bits colours
+$col-quote:                $col-primary;
+$col-page-first-paragraph: $col-primary-darker;
+$col-center-tag-separator: $col-primary;

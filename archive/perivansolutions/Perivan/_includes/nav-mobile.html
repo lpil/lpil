@@ -1,0 +1,39 @@
+<nav class="nav--mobile">
+  <select onchange="if (this.value) window.location.href=this.value">
+    <option value="">Navigate the site…</option>
+    <optgroup label="{{ site.title }}">
+      <option value="{{ site.url }}">
+        Home</option>
+      <option value="{{ site.url }}/contact-us.html">
+        Contact us</option>
+      <option value="{{ site.url }}/history.html">
+        History</option>
+      <option value="{{ site.url }}/management-and-administration.html">
+        Management &amp; Administration</option>
+      <option value="{{ site.url }}/policies-and-the-environment.html">
+        Policies &amp; The Environment</option>
+    <optgroup label="Divisions">
+      <option value="http://www.perivanfinancial.co.uk">
+        Perivan Financial
+      </option>
+      <option value="http://www.perivanfinancialpod.co.uk">
+        Perivan Financial Print On Demand
+      </option>
+      <option value="http://www.perivansolutions.co.uk">
+        Perivan Solutions
+      </option>
+      <option value="http://www.perivandesign.co.uk">
+        Perivan Design
+      </option>
+      <option value="http://www.virtualboardroom.co.uk">
+        Virtual Boardroom
+      </option>
+      <option value="http://www.dotapprove.co.uk">
+        DotApprove
+      </option>
+      <option value="http://www.electrum.co.uk">
+        Electrum Multimedia
+      </option>
+    </optgroup>
+  </select>
+</nav>

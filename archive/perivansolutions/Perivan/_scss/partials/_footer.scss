@@ -1,0 +1,5 @@
+.footer__nav {
+  aside {
+    @include span-columns(4);
+  }
+}

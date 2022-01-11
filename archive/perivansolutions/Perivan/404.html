@@ -1,0 +1,64 @@
+---
+layout: none
+---
+<!DOCTYPE html>
+<html>
+  <head>
+    {% if site.development %}<script src="http://localhost:35729/livereload.js?snipver=1"></script>{% endif %}<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>404 - Perivan</title>
+    <style type="text/css" media="screen">
+html,
+body {
+  margin: 0;
+}
+body {
+  bottom: 0;
+  display: table;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+section {
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+}
+article {
+  display: inline-block;
+  max-width: 400px;
+  padding: 1em;
+}
+img {
+  margin-bottom: 10px;
+}
+a {
+  color: #798fa5;
+  text-decoration: none;
+}
+    </style>
+  </head>
+  <body>
+    <section>
+      <article>
+        <a href="http://www.perivan.co.uk/">
+          <img src="{{ site.url }}/images/logo.svg" width=300 alt="Perivan"/>
+        </a>
+        <p>
+          There doesn't seem to be a page here.
+        </p>
+        <p>
+          If you think this is a mistake, please let us know:
+          <a href="mailto:{{ site.email }}" target="_blank">
+            {{ site.email }}</a>
+        </p>
+        <script type="text/javascript" charset="utf-8">
+if (history.length > 1) {
+  document.write('<a href="javascript:history.back()">Back</a>');
+}
+        </script>
+      </article>
+    </section>
+  </body>
+</html>
