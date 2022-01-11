@@ -1,0 +1,19 @@
+<table class="columns">
+  <tr>
+    <th>Category name</th>
+    <th>Category parent</th>
+  </tr>
+  <% @categories.each do |category| %>
+    <tr>
+      <td>
+        <%= link_to category.name, category_path(category) %>
+      </td>
+      <td>
+        <%= category.parent ? category.parent.name : 'Root' %>
+      </td>
+      <td>
+        <%= link_to 'Edit', edit_category_path(category) %>
+      </td>
+    </tr>
+  <% end %>
+</table>

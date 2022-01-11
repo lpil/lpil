@@ -1,0 +1,7 @@
+<% provide :title, "Edit category: #{@category.name}" %>
+<section class="row">
+  <h1> Edit category: <%= @category.name %> </h1>
+
+  <%= render partial: 'category_form',
+        locals: { editing: true } %>
+</section>

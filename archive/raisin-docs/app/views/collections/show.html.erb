@@ -1,0 +1,8 @@
+<% provide :title, @collection.name %>
+<section class="row">
+  <h1>
+    <%= @collection.name %>
+  </h1>
+  <%= render partial: 'display_collections',
+        locals: { collections: [@collection] } %>
+</section>

@@ -1,0 +1,12 @@
+<% provide :title, "User #{@user.email}" %>
+<section class="row">
+  <h1 class="columns medium-12 small-centered"><%= @user.email %></h1>
+
+  <%= render partial: 'user_table', locals: { users: [@user] } %>
+
+  <% if current_user && current_user.admin? && !current_user?(@user) %>
+    <%= link_to 'Delete user', @user, method: :delete,
+      class: 'right button alert', data: {
+        confirm: 'This action is irreversible. Do you wish to continue?' } %>
+  <% end %>
+</section>

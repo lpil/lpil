@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>
+    <%= signed_in? ? current_user.collection.name : 'Raisin Docs' %>
+    <%= ' - ' << yield(:title) if content_for?(:title) %>
+  </title>
+
+  <%= stylesheet_link_tag    'application' %>
+  <%= javascript_include_tag 'vendor/modernizr' %>
+  <%= stylesheet_link_tag 'application', media: 'all',
+    'data-turbolinks-track' => true %>
+
+  <%= csrf_meta_tags %>
+</head>
+
+<body>
+  <%= render 'layouts/header' %>
+
+  <%= render 'layouts/flash' %>
+
+  <%= yield %>
+
+  <% if Rails.env.development? %>
+    <section class="row">
+      <article class="debug-dump panel middle-centered middle-6">
+        <%= debug params %>
+        <%= debug flash %>
+      </article>
+    </section>
+  <% end %>
+
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%# <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"> %>
+</body>
+</html>

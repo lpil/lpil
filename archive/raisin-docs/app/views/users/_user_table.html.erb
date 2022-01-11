@@ -1,0 +1,25 @@
+<table class="columns medium-12 small-centered">
+  <tr>
+    <th>Email</th>
+    <th>Name</th>
+    <th>Permissions</th>
+  </tr>
+  <% users.each do |user| %>
+    <tr>
+      <td><%= link_to user.email, user %></td>
+      <td><%= user.first_name %> <%= user.last_name %></td>
+      <td>
+        <%= perms = []
+            perms << 'Uploader' if user.uploader?
+            perms << 'Reporter' if user.reporter?
+            perms << 'Admin' if user.admin?
+            perms.to_sentence %>
+      </td>
+      <% if user == current_user || (current_user && current_user.admin?) %>
+      <td>
+        <%= link_to 'Edit', edit_user_path(user) %>
+      </td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>

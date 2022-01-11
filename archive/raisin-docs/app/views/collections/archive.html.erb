@@ -1,0 +1,12 @@
+<% provide :title, 'Archived collections' %>
+<section class="row">
+  <h1>Archived collections</h1>
+
+  <nav class="right">
+    <%= link_to 'Back to live collections', collections_path,
+      class: 'button' %>
+  </nav>
+
+  <%= render partial: 'display_collections',
+        locals: { collections: @collections } %>
+</section>

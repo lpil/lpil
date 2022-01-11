@@ -1,0 +1,53 @@
+<article class="row clearfix">
+  <%= form_for @user, class: 'row middle-centered middle-6' do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
+
+    <div class="columns">
+      <%= f.label :email %>
+      <%= f.text_field :email %>
+    </div>
+
+    <div class="columns medium-6">
+      <%= f.label :first_name %>
+      <%= f.text_field :first_name %>
+    </div>
+    <div class="columns medium-6">
+      <%= f.label :last_name %>
+      <%= f.text_field :last_name %>
+    </div>
+
+    <div class="columns medium-6">
+      <%= f.label :password %>
+      <%= f.password_field :password %>
+    </div>
+    <div class="columns medium-6">
+      <%= f.label :password_confirmation, 'Confirmation' %>
+      <%= f.password_field :password_confirmation %>
+    </div>
+
+    <% if current_user && current_user.admin? %>
+      <div class="columns medium-6">
+        <%= f.collection_select :collection_id,
+            Collection.order(:name), :id, :name %>
+      </div>
+      <div class="columns medium-6">
+        <%= f.check_box :uploader %>
+        <%= f.label :uploader %>
+
+        <%= f.check_box :reporter %>
+        <%= f.label :reporter %>
+
+        <%= f.check_box :admin, disabled: (f.object == current_user) %>
+        <%= f.label :admin %>
+
+      </div>
+    <% end %>
+
+    <div class="column">
+      <%= f.submit 'Save', class: 'button' %>
+      <input type="button" value="Cancel" class='button'
+        onclick="history.back()">
+    </div>
+  <% end %>
+
+</article>

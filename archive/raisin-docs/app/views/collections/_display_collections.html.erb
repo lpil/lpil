@@ -1,0 +1,17 @@
+<table class="columns medium-12 small-centered">
+  <tr>
+    <th>Name</th>
+  </tr>
+  <% collections.each do |collection| %>
+    <tr>
+      <td><%= link_to collection.name, collection %></td>
+      <td><%= link_to 'Edit', edit_collection_path(collection) %></td>
+      <% if collection.locked %>
+        <td>
+          <%= link_to 'Restore',
+            "#{collection_path(collection)}/restore", method: :patch %>
+        </td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>

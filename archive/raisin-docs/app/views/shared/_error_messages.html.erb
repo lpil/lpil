@@ -1,0 +1,11 @@
+<aside class="row">
+  <% if object.errors.any? %>
+    <% object.errors.full_messages.each do |error| %>
+      <article class="columns small-centered small-6 alert-box alert"
+        data-alert>
+      <%= error %>
+      <a href="#" class="close">&times;</a>
+    </article>
+    <% end %>
+  <% end %>
+</aside>

@@ -1,0 +1,8 @@
+<% provide :title, 'Users' %>
+<section class="row">
+  <h1>Users</h1>
+
+  <%= link_to 'Create new user', new_user_path, class: 'button right' %>
+
+  <%= render partial: 'user_table', locals: { users: @users } %>
+</section>

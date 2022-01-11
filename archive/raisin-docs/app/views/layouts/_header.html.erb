@@ -1,0 +1,51 @@
+<header class="top-bar" data-topbar>
+  <ul class="title-area">
+    <li class="name">
+      <h1>
+        <% if signed_in? %>
+          <%= link_to current_user.collection.name, '/categories' %>
+        <% else %>
+          <%= link_to 'Raisin Docs', '/signin' %>
+        <% end %>
+      </h1>
+    </li>
+    <%# Menu button for small screens %>
+    <li class="toggle-topbar menu-icon">
+      <a href="#"><span></span></a>
+    </li>
+  </ul>
+
+  <section class="top-bar-section">
+    <%# Right Nav Section %>
+    <ul class="right">
+    <% if signed_in? %>
+      <% if current_user.admin? %>
+        <li class="has-dropdown">
+          <a href="#">Admin</a>
+          <ul class="dropdown">
+            <li>
+              <%= link_to 'Users', users_path %>
+            </li>
+            <li>
+              <%= link_to 'Categories', '/categories/list' %>
+            </li>
+            <li>
+              <%= link_to 'Collections', collections_path %>
+            </li>
+          </ul>
+        </li>
+      <% end %>
+      <li>
+        <%= link_to 'Profile', current_user %>
+      </li>
+      <li>
+        <%= link_to 'Sign out', signout_path, method: :delete %>
+      </li>
+    <% else %>
+      <li>
+        <%= link_to 'Sign in', signin_path %>
+      </li>
+    <% end %>
+    </ul>
+  </section>
+</header>

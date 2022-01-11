@@ -1,0 +1,43 @@
+<% editing ||= false %>
+<article class="row clearfix">
+  <%= form_for @category do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
+
+    <div class="columns medium-6">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+
+    <div class="columns medium-6">
+      <% if editing && @category.root? %>
+        <div class="panel">
+          This is a root category, a parent category cannot be set.
+        </div>
+      <% else %>
+        <%= f.label :parent_id %>
+        <%= f.collection_select :parent_id,
+          current_user.collection.categories.order(:name), :id, :name,
+          selected: @category.parent_id %>
+      <% end %>
+    </div>
+
+    <div class="columns">
+      <%= f.submit 'Save', class: 'button' %>
+      <input type="button" value="Cancel" class='button'
+        onclick="history.back()">
+
+      <% if editing %>
+        <% if @category.locked %>
+          <%= link_to 'Restore category',
+            "#{category_path(@category)}/restore", method: :patch,
+            class: 'right button alert' %>
+        <% else %>
+          <%= link_to 'Archive category', category_path(@category),
+            method: :delete, class: 'right button alert', data: {
+            confirm: 'This will disable this category, and all contained sub-categories and documents. Do you wish to continue?'
+          } %>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+</article>
