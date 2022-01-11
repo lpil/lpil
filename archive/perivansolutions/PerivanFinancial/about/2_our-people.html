@@ -1,0 +1,34 @@
+---
+layout: page
+nav-section: About
+title: Our People
+permalink: about/our-people.html
+---
+<img src="{{ site.static }}/pf-people.png" alt="People" />
+<p>
+  Our core team is without question the most well established and experienced
+  in the marketplace.
+</p>
+<p>
+  We have specialists in all areas of a project life cycle ensuring they are
+  handled efficiently and economically with care, attention to detail and
+  dedication. No request is too much.
+</p>
+<p>
+  All our staff are fully trained in all aspects of the products we provide and
+  can help in an innovative consultancy capacity with any project, including
+  advice on e-comms, complex mailings and alternative methods of communication.
+  Of course you will expect us to treat any information with sensitivity. Our
+  staff are fully aware of their responsibilities in this respect and we are
+  happy to sign NDA's prior to the commencement of any project.
+</p>
+<article style="clear: both" class="our-people">
+  {% for department in site.data.our-people %}
+  <section>
+    <h3>{{ department[0] }}</h3>
+      {% for person in department[1] %}
+      <p>{{ person }}</p>
+      {% endfor %}
+  </section>
+  {% endfor %}
+</article>

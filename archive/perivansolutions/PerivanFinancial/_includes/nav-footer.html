@@ -1,0 +1,27 @@
+<nav class="footer__nav">
+{% assign nav-sections = site.nav-sections | sort:"name" %}
+{% for section in nav-sections %}
+<aside>
+  <ul>
+    <li><h3>{{ section }}</h3></li>{% for page in site.pages %}{% if page.nav-section == section %}
+    <li>
+    <a href="{{ page.url }}">
+      {{ page.title }}
+    </a>
+    </li>{% endif %}{% endfor %}
+  </ul>
+</aside>
+{% endfor %}
+<aside>
+  <ul>
+    <li>
+      <h3>Perivan</h3>
+    </li>{% for link in site.data.group-sites %}
+    <li>
+      <a href="{{ link[1] }}">
+        {{ link[0] | replace:'-',' ' }}
+      </a>
+    </li>{% endfor %}
+  </ul>
+</aside>
+</nav>
