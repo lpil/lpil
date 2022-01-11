@@ -1,0 +1,38 @@
+# Site settings
+title: Virtual Boardroom
+url: http://www.virtualboardroom.co.uk
+
+static: http://www.perivan.co.uk/static
+
+# Contact
+email: info@virtualboardroom.co.uk
+telephone: +44 (0)20 7562 2247
+fax: +44 (0)20 7562 2203
+address1: 21 Worship Street
+address2: London
+address3: EC2A 2DW
+
+# Navigation sections
+nav-sections:
+  - Who we are
+  - What we do
+  - How we do it
+  - Why VBR?
+
+# Build settings
+markdown: kramdown
+permalink: /news/:title
+
+exclude:
+  - dev_serve.sh
+  - Guardfile
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+
+sass:
+  style: :compressed
+  sass_dir: _scss
+
+gems:
+  - jekyll-sitemap

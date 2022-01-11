@@ -1,0 +1,53 @@
+$buying-bg-col: lighten($col-brand-grey-lt, 5);
+$buying-fg-col: lighten($col-brand-blue-lt, 15);
+
+.buying__container {
+  @include outer-container;
+  margin: 1em 0;
+  padding-bottom: 80px;
+  position: relative;
+  z-index: 1;
+}
+
+.buying__bubble {
+  @include span-columns(3);
+  background: $buying-fg-col;
+  border-radius: 1em;
+  line-height: 1.5em;
+  margin-top: 20px;
+  padding: 1em;
+  z-index: 2;
+
+  @include media($break-mid) {
+    @include span-columns(6);
+    @include omega(3);
+  }
+
+  @include media($break-small) {
+    @include span-columns(6);
+  }
+}
+
+.buying__bg {
+  background: $buying-bg-col;
+  border-radius: 1em;
+  height: calc(100% - 55px);
+  left: 5%;
+  position: absolute;
+  width: 90%;
+  z-index: -10;
+}
+
+// Arrow
+.buying__bg:after {
+  -webkit-transform: rotate(360deg); // better webkit aliasing
+  border-color: $buying-bg-col transparent transparent;
+  border-style: solid;
+  border-width: 50px 80px 0 0px;
+  content: '';
+  height: 0;
+  position: absolute;
+  right: calc(50% - 40px);
+  top: 100%;
+  width: 0;
+}

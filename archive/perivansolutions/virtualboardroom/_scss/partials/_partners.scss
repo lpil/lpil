@@ -1,0 +1,45 @@
+.partners {
+  section {
+    @include clearfix();
+
+    padding-bottom: 1.5em;
+
+    > * {
+      @include omega(2);
+    }
+  }
+
+  img {
+    @include span-columns(3);
+
+    @include media($break-mid) {
+      @include span-columns(4);
+    }
+
+    @include media($break-small) {
+      @include span-columns(4);
+      @include shift(1);
+
+      padding: 1em 0;
+    }
+  }
+
+  aside {
+    @include span-columns(9);
+    padding-top: 2em;
+
+    @include media($break-mid) {
+      @include span-columns(8);
+    }
+
+    @include media($break-small) {
+      @include span-columns(6);
+
+      padding-top: 0;
+    }
+
+    h3 {
+      margin-top: 0;
+    }
+  }
+}

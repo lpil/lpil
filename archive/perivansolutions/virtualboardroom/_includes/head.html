@@ -1,0 +1,11 @@
+<head>
+  {% if site.development %}<script src="http://localhost:35729/livereload.js?snipver=1"></script>{% endif %}<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>{{ site.title }}{% if page.title %} | {{ page.title }}{% endif %}{% if site.data.keywords %} | {% for keyword in site.data.keywords %}{{ keyword | escape }}{% unless forloop.last %}, {% endunless %}{% endfor %}{% endif %}</title>
+  <meta name="viewport" content="width=device-width">
+{% if page.description %}  <meta name="description" content="{{ page.description | escape_html | strip_newlines }}">
+{% endif %}{% if site.data.keywords %}  {% include keywords.html %}{% endif %}
+  <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.url }}">
+  <link async rel="stylesheet" href="{{ "/main.css" | prepend: site.url }}">
+  {% include tracking.html %}
+</head>

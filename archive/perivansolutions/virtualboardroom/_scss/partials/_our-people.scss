@@ -1,0 +1,48 @@
+.our-people {
+  @include clearfix;
+
+  p {
+    margin: .1em;
+  }
+
+  section {
+    padding-bottom: 1.1em;
+    @include span-columns(4);
+    @include omega(3n);
+
+    img {
+      width: 100%;
+    }
+
+    @include media($break-mid) {
+      @include span-columns(12);
+      text-align: center;
+
+      img {
+        max-width: 400px;
+      }
+
+      p {
+        display: inline-block;
+        margin: 0;
+        white-space: nowrap;
+      }
+
+      p:after {
+        content: ',';
+      }
+
+      p:last-child:after {
+        content: '';
+      }
+
+      p:last-child:before {
+        content: 'and ';
+      }
+
+      p:first-of-type:before {
+        content: '';
+      }
+    }
+  }
+}

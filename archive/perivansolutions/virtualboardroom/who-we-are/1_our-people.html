@@ -1,0 +1,19 @@
+---
+layout: page
+nav-section: Who we are
+title: Our people
+permalink: who-we-are/our-people.html
+---
+<article class="our-people">
+  {% for department in site.data.our-people %}
+  <section>
+    <h3>{{ department[0] }}</h3>
+      {% for person in department[1] %}
+      <p>{{ person }}</p>
+      {% endfor %}
+  </section>
+  {% endfor %}
+  <section>
+    <img src="{{ site.static }}/vbr-people.png" alt="Our people" />
+  </section>
+</article>

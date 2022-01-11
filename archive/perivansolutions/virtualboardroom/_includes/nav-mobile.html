@@ -1,0 +1,19 @@
+<nav class="nav--mobile">
+  <select onchange="if (this.value) window.location.href=this.value">
+    <option value="">Navigate the site…</option>
+    <optgroup label="{{ site.title }}">
+      <option value="{{ site.url }}">Home</option>
+      <option value="{{ site.url }}/contact-us.html">Contact us</option>
+      <option value="{{ site.url }}/partners.html">Partners</option>
+{% for section in nav-sections %}
+    <optgroup label="{{ section }}">{% for page in site.pages %}{% if page.nav-section == section %}
+      <option value="{{ site.url }}{{ page.url }}">{{ page.title }}</option>{% endif %}{% endfor %}
+    </optgroup>
+{% endfor %}
+    <optgroup label="Perivan">
+{% for link in site.data.group-sites %}
+      <option value="{{ link[1] }}">{{ link[0] | replace:'-',' ' }}</option>
+{% endfor %}
+    </optgroup>
+  </select>
+</nav>
