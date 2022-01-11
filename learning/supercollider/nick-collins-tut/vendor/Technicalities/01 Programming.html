@@ -1,0 +1,544 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1038.36">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Geneva; color: #00c63d}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Geneva; color: #00c63d; min-height: 25.0px}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Geneva; min-height: 25.0px}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Geneva}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 23.0px Geneva}
+    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Geneva; color: #cd1713; min-height: 25.0px}
+    p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Geneva; color: #cd1713}
+    p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 10.0px Geneva}
+    p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Geneva; color: #737373}
+    p.p10 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Geneva; color: #102ac2}
+    p.p11 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Geneva; color: #102ac2; min-height: 25.0px}
+    span.s1 {color: #000000}
+    span.s2 {color: #102ac2}
+    span.s3 {color: #737373}
+    span.s4 {font: 12.0px Helvetica}
+    span.s5 {color: #1738f5}
+    span.Apple-tab-span {white-space:pre}
+  </style>
+</head>
+<body>
+<p class="p1">SC Programming Hints</p>
+<p class="p2"><br></p>
+<p class="p3"><br></p>
+<p class="p4">SuperCollider is a full programming language, and its helpful to see how to code some standard programming operations</p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p5">Syntax for SuperCollider as a Programming Language</p>
+<p class="p6"><br></p>
+<p class="p4">SuperCollider is an object-oriented language based on Smalltalk. It has standard facilities of computer languages which I will outline for you here.<span class="Apple-converted-space"> </span></p>
+<p class="p3"><br></p>
+<p class="p4">Comments</p>
+<p class="p3"><br></p>
+<p class="p7">//this is a comment</p>
+<p class="p3"><br></p>
+<p class="p7">/* this is also a comment */</p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p4">Brackets</p>
+<p class="p3"><br></p>
+<p class="p4">We usually group related bits of code together, and try to keep things neat and tidy. Your whole patch of code will typically be put within curly brackets</p>
+<p class="p3"><br></p>
+<p class="p4">(</p>
+<p class="p7">//my patch goes in here</p>
+<p class="p4">)</p>
+<p class="p3"><br></p>
+<p class="p4">but we also use brackets for other reasons-</p>
+<p class="p3"><br></p>
+<p class="p7"><span class="s1">(<span class="Apple-converted-space">  </span>)<span class="Apple-converted-space">  </span></span>//for grouping expressions together or passing arguments to methods, ie SinOsc.ar(440)</p>
+<p class="p3"><br></p>
+<p class="p7"><span class="s1">{<span class="Apple-converted-space">  </span>}<span class="Apple-converted-space">  </span></span>//function<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>ie <span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>{arg a; a*a}</p>
+<p class="p3"><br></p>
+<p class="p7"><span class="s1">[<span class="Apple-converted-space">  </span>]<span class="Apple-converted-space">  </span></span>//array (list of data)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>ie <span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>[1,2,3,4]</p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p4">SuperCollider code gets full of nested expressions- you look at the selections within brackets to check on the scope (level of nesting) of code fragments.</p>
+<p class="p3"><br></p>
+<p class="p4">If you don't keep an eye on the tidiness of your code you'll get quickly confused about what goes with what.<span class="Apple-converted-space"> </span></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p4">Try double clicking around any of the brackets in the following code:</p>
+<p class="p3"><br></p>
+<p class="p4">(</p>
+<p class="p7">//first block of code</p>
+<p class="p3"><br></p>
+<p class="p4"><span class="Apple-tab-span">	</span>(</p>
+<p class="p7"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//first nested block starts<span class="Apple-converted-space"> </span></p>
+<p class="p3"><br></p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>(</p>
+<p class="p7"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//second nested block</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>)</p>
+<p class="p3"><br></p>
+<p class="p4"><span class="Apple-tab-span">	</span>)</p>
+<p class="p3"><br></p>
+<p class="p4">)</p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p4">Variables and Assignment</p>
+<p class="p3"><br></p>
+<p class="p4">In programming, we need to store our data somewhere, even if it's just data telling us the initial conditions for our calculations. For making music, because our programs run over time, we need to store information to keep track of the current state of affairs.<span class="Apple-converted-space"> </span></p>
+<p class="p3"><br></p>
+<p class="p4">(</p>
+<p class="p7"><span class="s2">var</span><span class="s1"> a,b,c;<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//variables always get defined first in a block of code</p>
+<p class="p3"><br></p>
+<p class="p7"><span class="s1">a=1;<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//assign some values to our variables</p>
+<p class="p4">b=a;</p>
+<p class="p4">c= b*5;</p>
+<p class="p3"><br></p>
+<p class="p4">[a,b,c].postln;</p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p7"><span class="s1">a=4;<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//assign some new values to our variables</p>
+<p class="p4">b=a+9;</p>
+<p class="p7"><span class="s1">c= c*5;<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//this is OK because c has a value already by now</p>
+<p class="p3"><br></p>
+<p class="p4">[a,b,c].postln;</p>
+<p class="p4">)</p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p4">This is fine:</p>
+<p class="p3"><br></p>
+<p class="p4">(</p>
+<p class="p4"><span class="s2">var</span> dave;</p>
+<p class="p3"><br></p>
+<p class="p4">dave= 5;</p>
+<p class="p3"><br></p>
+<p class="p4">dave.postln;</p>
+<p class="p4">)</p>
+<p class="p3"><br></p>
+<p class="p4">This is wrong and SuperCollider will complain:</p>
+<p class="p3"><br></p>
+<p class="p4">(</p>
+<p class="p4">dave=5;</p>
+<p class="p4">dave.postln;</p>
+<p class="p4">)</p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p4">Encapsulation</p>
+<p class="p3"><br></p>
+<p class="p4">Another standard facility of programming languages is the ability to define your own functions, a<span class="Apple-converted-space"> </span></p>
+<p class="p4">process called encapsulation.<span class="Apple-converted-space"> </span></p>
+<p class="p3"><br></p>
+<p class="p4">Witness:</p>
+<p class="p3"><br></p>
+<p class="p4">(</p>
+<p class="p4"><span class="s2">var</span> myfunction;</p>
+<p class="p3"><br></p>
+<p class="p7"><span class="s1">myfunction= {</span><span class="s2">arg</span><span class="s1"> a; a*a};<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//define my own squaring function</p>
+<p class="p3"><br></p>
+<p class="p7"><span class="s1">myfunction.value(8).postln; <span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//run my function with an input of 8 and post the result</p>
+<p class="p4">)</p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p4">This is useful because it stops us repeating similar code all over the place!<span class="Apple-converted-space"> </span></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p4">Spot the difference in tidiness of code (don't worry about the fine detail of Array construction for now)</p>
+<p class="p3"><br></p>
+<p class="p4">(</p>
+<p class="p7"><span class="s2">var</span><span class="s1"> scale, current; <span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//code for making a random scale</p>
+<p class="p3"><br></p>
+<p class="p4">current=60;<span class="Apple-converted-space"> </span></p>
+<p class="p7"><span class="s1">scale= </span><span class="s2">Array</span><span class="s1">.fill(8, {</span><span class="s2">var</span><span class="s1"> old; old=current; current=current+rrand(1,3);<span class="Apple-converted-space">  </span>old}); </span>//construct for making an Array to a recipe- explained more in the next part</p>
+<p class="p4">scale.postln;</p>
+<p class="p3"><br></p>
+<p class="p4">current=60;<span class="Apple-converted-space"> </span></p>
+<p class="p4">scale= <span class="s2">Array</span>.fill(8, {<span class="s2">var</span> old; old=current; current=current+rrand(1,3);<span class="Apple-converted-space">  </span>old});</p>
+<p class="p4">scale.postln;</p>
+<p class="p3"><br></p>
+<p class="p4">current=60;<span class="Apple-converted-space"> </span></p>
+<p class="p4">scale= <span class="s2">Array</span>.fill(8, {<span class="s2">var</span> old; old=current; current=current+rrand(1,3);<span class="Apple-converted-space">  </span>old});</p>
+<p class="p4">scale.postln;</p>
+<p class="p4">)</p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p4">(</p>
+<p class="p4">var makescale;</p>
+<p class="p3"><br></p>
+<p class="p4">makescale= {var current;<span class="Apple-converted-space"> </span></p>
+<p class="p4">current=60;<span class="Apple-converted-space"> </span></p>
+<p class="p4"><span class="s2">Array</span>.fill(8, {var old; old=current; current=current+rrand(1,3);<span class="Apple-converted-space">  </span>old;});</p>
+<p class="p4">};</p>
+<p class="p3"><br></p>
+<p class="p4">3.do({makescale.value.postln;});</p>
+<p class="p4">)</p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p8">[Functions]<span class="Apple-tab-span">	</span>//select the text within brackets then press cmd+H to explore some more about control flow</p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p4">Looping</p>
+<p class="p3"><br></p>
+<p class="p4">The good thing about computers is that they follow instructions in a way that would be very monotonous for a human! They can do tasks very rapidly over and over because they are capable of looping.<span class="Apple-converted-space"> </span></p>
+<p class="p3"><br></p>
+<p class="p4">(</p>
+<p class="p7"><span class="s1">20.do({</span><span class="s3">"over and over"</span><span class="s1">.postln;})<span class="Apple-converted-space">  </span></span>//the function here is the thing to call each time round the loop</p>
+<p class="p4">)</p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p4">(</p>
+<p class="p4"><span class="s2">var</span> n;</p>
+<p class="p3"><br></p>
+<p class="p4">n=0;</p>
+<p class="p3"><br></p>
+<p class="p4">while({n&lt;5}, {n=n+1; <span class="s3">"keep going"</span>.postln;})</p>
+<p class="p4">)</p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p4">(</p>
+<p class="p7"><span class="s1">for(1, 5, {</span><span class="s2">arg</span><span class="s1"> i;<span class="Apple-converted-space">  </span>i.postln; });<span class="Apple-tab-span">	</span></span>//start at 1, step by 1 each time until you reach 5</p>
+<p class="p4">)</p>
+<p class="p3"><br></p>
+<p class="p4">(</p>
+<p class="p7"><span class="s1">forBy(1, 5, 2, {</span><span class="s2">arg</span><span class="s1"> i;<span class="Apple-converted-space">  </span>i.postln; });<span class="Apple-tab-span">	</span></span>//start at 1, step by 2 each time until you reach 5</p>
+<p class="p4">)</p>
+<p class="p3"><br></p>
+<p class="p4">You have to be careful that you don't set the computer to looping forever, which will crash your computer.<span class="Apple-converted-space"> </span></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p4">Conditional Execution</p>
+<p class="p3"><br></p>
+<p class="p4">the control flow in SuperCollider is straight down the page:</p>
+<p class="p3"><br></p>
+<p class="p4">(</p>
+<p class="p9">"me first!"<span class="s1">.postln;</span></p>
+<p class="p9">"now me!"<span class="s1">.postln;</span></p>
+<p class="p9">"don't forget me!"<span class="s1">.postln;</span></p>
+<p class="p4">)</p>
+<p class="p3"><br></p>
+<p class="p4">Sometimes we want things to happen based upon whether something else has occured. To allow this,</p>
+<p class="p4">programming languages have conditional execution- if some logical condition is met,do something.<span class="Apple-converted-space"> </span></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p4">(</p>
+<p class="p9">"me first!"<span class="s1">.postln;</span></p>
+<p class="p9">"now me!"<span class="s1">.postln;</span></p>
+<p class="p4">if(0.5.coin, {<span class="s3">"don't forget me!"</span>.postln;},{<span class="s3">"you forgot me!"</span>.postln});</p>
+<p class="p7">//roll a dice- heads we do one thing, tails the second<span class="Apple-converted-space"> </span></p>
+<p class="p4">)</p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p4">an if statement is used like this-</p>
+<p class="p3"><br></p>
+<p class="p4">if (logical test which returns true or false,<span class="Apple-converted-space">  </span>do this if true,<span class="Apple-converted-space">  </span>do this if false)<span class="Apple-converted-space"> </span></p>
+<p class="p3"><br></p>
+<p class="p4">Run these lines one at a time:</p>
+<p class="p3"><br></p>
+<p class="p4">if(<span class="s2">true</span>, <span class="s3">"true!"</span>, <span class="s3">"false!"</span>).postln;</p>
+<p class="p3"><br></p>
+<p class="p4">if(<span class="s2">false</span>, <span class="s3">"true!"</span>, <span class="s3">"false!"</span>).postln;</p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p4">(</p>
+<p class="p4"><span class="s2">var</span> a,b;</p>
+<p class="p3"><br></p>
+<p class="p4">a=5;</p>
+<p class="p3"><br></p>
+<p class="p4">b= if(a==6, 11, 7);</p>
+<p class="p3"><br></p>
+<p class="p4">b.postln;</p>
+<p class="p4">)</p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p8"><span class="s4">[<a href="SC://Control-Structures"><span class="s5">Control-Structures</span></a>]</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>//select the text within brackets then press cmd+d to explore some more about control flow</p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p4">Classes</p>
+<p class="p3"><br></p>
+<p class="p4">Finally, in SuperCollider you have the possibility of writing your own functions as classes within the language- this means they are always available to you in your code. Such writing of classes is really helpful once you get to the stage of otherwise having very big long confusing files. You can break up your code over many files using classes.<span class="Apple-converted-space"> </span></p>
+<p class="p3"><br></p>
+<p class="p4">Classes are also a good conceptual tool for encapsulating functions and the data that function works with. This is part of good object oriented programming.</p>
+<p class="p3"><br></p>
+<p class="p4">We'll return to this later in the course, but I'll point out that you've seen and used many classes already:</p>
+<p class="p3"><br></p>
+<p class="p10">SinOsc</p>
+<p class="p10">SCWindow</p>
+<p class="p10">MouseX</p>
+<p class="p11"><br></p>
+<p class="p11"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p4">A note on object oriented programming in SuperCollider (you may want to come back to this later)</p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p4">Text beginning with a capital letter is a class name</p>
+<p class="p3"><br></p>
+<p class="p4">a dot then a function is a method of the object</p>
+<p class="p3"><br></p>
+<p class="p7"><span class="s2">LFSaw</span><span class="s1">.ar<span class="Apple-tab-span">	</span></span>//ar is the method</p>
+<p class="p3"><br></p>
+<p class="p4">select the method and hit Cmd+Y to see any classes which respond to that method</p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p4">You can see derived classes of a superclass by using the .dumpClassSubtree method</p>
+<p class="p3"><br></p>
+<p class="p4"><span class="s2">UGen</span>.dumpClassSubtree</p>
+<p class="p3"><br></p>
+<p class="p4">Everything derives from the Object class, so do Object.dumpClassSubtree to see the whole hierachy</p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p4">You can add your own extensions to SuperCollider by writing your own classes.</p>
+<p class="p3"><br></p>
+<p class="p4">When you want to add new classes, you add them as code in .sc files to the SCClassLibrary folder (we'll do this much later in the course)</p>
+<p class="p3"><br></p>
+<p class="p4">Then you recompile the class library using Cmd+K :<span class="Apple-converted-space">  </span>if there are syntax errors in your code, the library won't compile, but hopefully you'll see error messages that will help you identify the problem.<span class="Apple-converted-space"> </span></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+</body>
+</html>

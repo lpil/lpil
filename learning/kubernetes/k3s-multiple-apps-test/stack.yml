@@ -1,0 +1,86 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: name-virtual-host-ingress
+spec:
+  rules:
+  - host: k3s-1.lpil.uk
+    http:
+      paths:
+      - backend:
+          serviceName: service-1
+          servicePort: 80
+  - host: k3s-2.lpil.uk
+    http:
+      paths:
+      - backend:
+          serviceName: service-2
+          servicePort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-1
+spec:
+  selector:
+    app: app-1
+  type: NodePort
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: app-1
+  labels:
+    app: app-1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: app-1
+    spec:
+      containers:
+        - name: app-1
+          image: nginx
+          ports:
+            - containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-2
+spec:
+  selector:
+    app: app-2
+  type: NodePort
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: app-2
+  labels:
+    app: app-2
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: app-2
+    spec:
+      containers:
+        - name: app-2
+          image: httpd
+          ports:
+            - containerPort: 80

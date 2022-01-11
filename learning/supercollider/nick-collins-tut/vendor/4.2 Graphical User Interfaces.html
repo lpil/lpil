@@ -1,0 +1,661 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1038.36">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #008325}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; min-height: 25.0px}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Geneva}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #cd1713}
+    p.p6 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -57.0px; font: 18.0px Monaco}
+    p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #737373}
+    p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #102ac2}
+    p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #cd1713; min-height: 25.0px}
+    p.p10 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+    p.p11 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #cd1713}
+    p.p12 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+    p.p13 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+    p.p14 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #102ac2; min-height: 25.0px}
+    p.p15 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #737373}
+    span.s1 {color: #102ac2}
+    span.s2 {color: #000000}
+    span.s3 {color: #737373}
+    span.s4 {color: #008325}
+    span.s5 {color: #cd1713}
+    span.s6 {text-decoration: underline}
+    span.s7 {text-decoration: underline ; color: #102ac2}
+    span.Apple-tab-span {white-space:pre}
+  </style>
+</head>
+<body>
+<p class="p1">Graphical User Interface Classes for SuperCollider</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s1">Server</span>.default=s=<span class="s1">Server</span>.local;</p>
+<p class="p2"><br></p>
+<p class="p4">Graphical user interface capabilities in SC let us build frontends for our computer music projects. They are a convenient way to create custom virtual synths, and package up novel programs for ourselves and other users. <span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">GUI classes include various forms of slider, buttons, dials, drop down lists, drag and drop facilities and many more custom views.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">This file will use code which should work on all platforms without any worry about the underlying implementation (SC 3.3.1 on). There may be slight differences between versions of SuperCollider on the available GUI capabilities.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">[side note: On the Mac, for SC3.5 and earlier, you can press shift+cmd+N immediately to see a selection of the available GUI widgets.]</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">Just in case you want to know more about the implementation:</p>
+<p class="p2"><br></p>
+<p class="p4">Because GUIs tend to be quite operating system specific, under the surface, there are different main GUI implementations available.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">From SC 3.6, the standard GUI library is qt.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">Historically, there are also OS X ('cocoa') specific classes (usually with prefix SC before the class names used here) and SwingOSC ('swing') Java cross platform classes (usually with prefix JSC).<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">You can call the standard cross-platform GUI class names, like Slider, Window, View, without worrying about which of qt, Cocoa or SwingOSC is operative.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">Both qt and SwingOSC act like servers, sending and receiving messages from the language app. On OS X, a native Cocoa implementation is built into the standard language environment for SC3.5 and earlier.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">Test which GUI library you are using by default:<span class="Apple-converted-space"> </span></p>
+<p class="p4"><span class="s1">GUI</span>.current</p>
+<p class="p2"><br></p>
+<p class="p4">For more on this, see:</p>
+<p class="p5"><span class="s2">[</span><span class="s1">GUI</span><span class="s2">] </span>//main GUI help file</p>
+<p class="p5"><span class="s2">[</span><span class="s1">GUI</span><span class="s2">-</span><span class="s1">Classes</span><span class="s2">] </span>//list of all GUI classes, with cross- <span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">Quick swap of implementation:</p>
+<p class="p5"><span class="s1">GUI</span><span class="s2">.cocoa<span class="Apple-tab-span">	</span></span>//SC 3.5 and earlier on a Mac</p>
+<p class="p5"><span class="s1">GUI</span><span class="s2">.swing<span class="Apple-tab-span">	</span></span>//will only work if SwingOSC is installed, see instructions with SwingOSC</p>
+<p class="p2"><br></p>
+<p class="p5">//make sure SwingOSC server is running if you are using that, before you run any GUI code:<span class="Apple-converted-space"> </span></p>
+<p class="p4"><span class="s1">SwingOSC</span>.default.boot</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">To make a window</p>
+<p class="p2"><br></p>
+<p class="p5">//The Rect(angle) takes the initial screen position and the window size</p>
+<p class="p5">//as screenx, screeny, windowwidth, windowheight, where screeny is 0 at the bottom</p>
+<p class="p4">(</p>
+<p class="p4"><span class="s1">var</span> w;</p>
+<p class="p2"><br></p>
+<p class="p4">w=<span class="s1">Window</span>(<span class="s3">"My Window"</span>, <span class="s1">Rect</span>(100,500,200,200));<span class="Apple-converted-space"> </span></p>
+<p class="p5">//A 200 by 200 window appears at screen co-ordinates (100, 500)</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s2">w.front; </span>//this line is needed to make the window actually appear</p>
+<p class="p4">)</p>
+<p class="p2"><br></p>
+<p class="p4">Note that we count on the y axis from screen origin at bottom left, to the bottom left corner of the window.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">We add controls to our window, defining any parameters of their use. We pass in the window we wish the control to appear in and use a Rect again to specify where in the window the control will appear and how large it is. However, this time the co-ordinates are no longer relative to the screen, but relative to the top left corner of the window, and x and y positions indicate distance from left and from top respectively.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">(</p>
+<p class="p4"><span class="s1">var</span> w, slid;</p>
+<p class="p2"><br></p>
+<p class="p4">w=<span class="s1">Window</span>(<span class="s3">"My Window"</span>, <span class="s1">Rect</span>(100,500,200,100));<span class="Apple-converted-space"> </span></p>
+<p class="p5">//A 200 by 100 window appears at screen co-ordinates (100, 500)</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s2">slid=</span><span class="s1">Slider</span><span class="s2">(w,</span><span class="s1">Rect</span><span class="s2">(10,10,180,40)); </span>//a basic slider object of size 180 by 40 appears 10 pixels in from the left, and 10 pixels down from the top</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s2">slid.action_({slid.value.postln;}); </span>//this is the callback: the function is called whenever you move the slider. action_ means to set up the slider object to use the function passed in as its argument.</p>
+<p class="p2"><br></p>
+<p class="p4">w.front;</p>
+<p class="p4">)</p>
+<p class="p2"><br></p>
+<p class="p4">Note how the default slider range is from 0.0 to 1.0</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">We might not want to create numbers from 0.0 to 1.0, but remap the value to other ranges. 0.0 to 1.0 is a very useful starting point, though. Try:</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s2">1.0.rand<span class="Apple-tab-span">	</span></span>//create a random number from 0.0 to 1.0</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s2">1.0.rand*50<span class="Apple-tab-span">	</span></span>//create a random number from 0.0 to 1.0, and multiply it by 50 to get a new range from 0.0 to 50.0</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s2">1.0.rand*50+14.7<span class="Apple-tab-span">	</span></span>//create a random number from 0.0 to 1.0, multiply it by 50, then add 14.7, to get a new range from 14.7 to 64.7</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s2">1.0.rand.linlin(0.0,1.0,14.7,64.71)<span class="Apple-tab-span">	</span></span>//create a random number from 0.0 to 1.0, and use a built in function to remap it to the output range 14.7 to 64.71</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s2">1.0.rand.linexp(0.0,1.0,14.7,64.71) </span>//create a random number from 0.0 to 1.0, and use a built in function to remap it to the output range 14.7 to 64.71 with an exponential function, which tends to spend longer over lower values</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><span class="Apple-converted-space"> </span></p>
+<p class="p4">Rather than doing these remappings yourself, an alternative is to take advantage of a ControlSpec, a helpful class which can be used to turn input into any desired range through various available precanned mappings</p>
+<p class="p2"><br></p>
+<p class="p4">(</p>
+<p class="p4"><span class="s1">var</span> w, slid, cs;</p>
+<p class="p2"><br></p>
+<p class="p4">w=<span class="s1">Window</span>(<span class="s3">"My Window"</span>, <span class="s1">Rect</span>(100,500,200,100));<span class="Apple-converted-space"> </span></p>
+<p class="p5">//A 200 by 200 window appears at screen co-ordinates (100, 500)</p>
+<p class="p2"><br></p>
+<p class="p4">slid=<span class="s1">Slider</span>(w,<span class="s1">Rect</span>(10,10,180,40));</p>
+<p class="p2"><br></p>
+<p class="p5">//arguments minimum value, maximum value, warp (mapping function), stepsize, starting value<span class="Apple-converted-space"> </span></p>
+<p class="p4">cs= <span class="s1">ControlSpec</span>(20, 20000, <span class="s4">\exponential</span>, 10, 1000);<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">slid.action_({cs.map(slid.value).postln;}); <span class="s5">//map to the desired range</span></p>
+<p class="p2"><br></p>
+<p class="p4">w.front;</p>
+<p class="p4">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">Given the action function for a GUI component, we can plug through to sound synthesis. Here we use the set command to modulate the control arguments of a running synth. <span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p5">//Demo of using 2D-Slider for synthesis</p>
+<p class="p2"><br></p>
+<p class="p4">(</p>
+<p class="p5"><span class="s1">SynthDef</span><span class="s2">(</span><span class="s4">\filterme</span><span class="s2">,{</span><span class="s1">arg</span><span class="s2"> freq=1000, rq=0.5;<span class="Apple-converted-space">    </span></span>//make sure there are control arguments to affect!</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="s1">Out</span>.ar(0,<span class="s1">Pan2</span>.ar(</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">BPF</span>.ar(<span class="s1">Impulse</span>.ar(<span class="s1">LFNoise0</span>.kr(15,500,1000),0.1, <span class="s1">WhiteNoise</span>.ar(2)),freq,rq)</p>
+<p class="p4"><span class="Apple-tab-span">	</span>))</p>
+<p class="p4">}).add;</p>
+<p class="p4">)</p>
+<p class="p2"><br></p>
+<p class="p4">(</p>
+<p class="p4"><span class="s1">var</span> w, slid2d, syn;</p>
+<p class="p2"><br></p>
+<p class="p4">w=<span class="s1">Window</span>(<span class="s3">"My Window"</span>, <span class="s1">Rect</span>(100,300,200,200));<span class="Apple-converted-space"> </span></p>
+<p class="p4">slid2d= <span class="s1">Slider2D</span>(w,<span class="s1">Rect</span>(5,5,175,175));</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s2">syn=</span><span class="s1">Synth</span><span class="s2">(</span><span class="s4">\filterme</span><span class="s2">);<span class="Apple-tab-span">	</span></span>//create synth</p>
+<p class="p2"><br></p>
+<p class="p4">slid2d.action_({<span class="Apple-tab-span">	</span></p>
+<p class="p4"><span class="Apple-tab-span">	</span>[slid2d.x, slid2d.y].postln;</p>
+<p class="p5"><span class="s2"><span class="Apple-tab-span">	</span>syn.set(</span><span class="s4">\freq</span><span class="s2">,100+(10000*slid2d.y),</span><span class="s4">\rq</span><span class="s2">,0.01+(0.09*slid2d.x));<span class="Apple-converted-space">  </span></span>//I'm doing my own linear mapping here rather than use a ControlSpec</p>
+<p class="p4">});</p>
+<p class="p2"><br></p>
+<p class="p4">w.front;</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s2">w.onClose={syn.free;};<span class="Apple-tab-span">	</span></span>//action which stops running synth when the window close button is pressed<span class="Apple-converted-space"> </span></p>
+<p class="p4">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">If you want to arrange a bank of dials, for instance, you might use a helper class (a 'decorator') for arranging views on screen:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">Note:<span class="Apple-converted-space"> </span></p>
+<p class="p5"><span class="s2">10@10<span class="Apple-converted-space">  </span></span>//is the Point (10,10), an (x,y) co-ordinate position</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">(</p>
+<p class="p4">w= <span class="s1">Window</span>(<span class="s3">"decoration"</span>,<span class="s1">Rect</span>(200,200,400,500));</p>
+<p class="p5">//set up decorator. FlowLayout needs to know the size of the parent window, the outer borders (10 pixels in on horizontal and vertical here) and the standard gap to space GUI views (20 in x, 20 in y) <span class="Apple-converted-space"> </span></p>
+<p class="p6">w.view.decorator= <span class="s1">FlowLayout</span>(w.view.bounds, 10@10, 20@20);<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p5">//now, when GUI views are added to the main view, they are automatically arranged, and you only need to say how big each view is</p>
+<p class="p4">k= Array.fill(10,{<span class="s1">Knob</span>(w.view,100@100).background_(<span class="s1">Color</span>.rand)});</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s2">w.front; </span>//make GUI appear</p>
+<p class="p4">)</p>
+<p class="p2"><br></p>
+<p class="p5">//they were stored in an array, held in global variable k, so we can access them all easily via one variable</p>
+<p class="p4">k[3].background_(<span class="s1">Color</span>.rand)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">However, maximum precision will come from specifying positions yourself. Make use of SuperCollider as a programming language to do this:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">(</p>
+<p class="p7"><span class="s2">w= </span><span class="s1">Window</span><span class="s2">(</span>"programming it directly ourselves"<span class="s2">,</span><span class="s1">Rect</span><span class="s2">(200,200,400,400));</span></p>
+<p class="p2"><br></p>
+<p class="p5">//now, when GUI views are added to the main view, they are automatically arranged, and you only need to say how big each view is</p>
+<p class="p4">k= <span class="s1">Array</span>.fill(16,{<span class="s1">|i|</span> <span class="s1">Knob</span>(w,<span class="s1">Rect</span>((i%4)*100+10,i.div(4)*100+10,80,80)).background_(<span class="s1">Color</span>.rand)});</p>
+<p class="p2"><br></p>
+<p class="p5">//if worried by the use of % for modulo and .div for integer division, try the code in isolation:<span class="Apple-converted-space"> </span></p>
+<p class="p5">//i.e., try out 5%4, and 5.div(4) as opposed to 5/4. How does this give the different grid positions as</p>
+<p class="p5">//argument i goes from 0 to 15?<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s2">w.front; </span>//make GUI appear</p>
+<p class="p4">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">You can dynamically add and remove views from a window.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">Run these one at a time:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p8"><span class="s2">w=</span>Window<span class="s2">();</span></p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s2">w.front;<span class="Apple-tab-span">	</span></span>//window appears</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s1">Slider</span><span class="s2">(w,</span><span class="s1">Rect</span><span class="s2">(10,10,100,100));<span class="Apple-tab-span">	</span></span>//slider appears straight away</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s2">w.view.children </span>//slider should be in the list, even though we didn't store any reference to the slider object in a global variable (like w) ourselves</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s2">w.view.children[0].remove </span>//nothing happens visually immediately</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s2">w.refresh; </span>//refresh updates the appearance of the window and the slider disappears</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s6">For further explorations:</span></p>
+<p class="p2"><br></p>
+<p class="p4">For demos of Drag and Drop and other UI facilities see the examples/GUI examples folder<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">e.g.,<span class="Apple-converted-space"> </span></p>
+<p class="p5"><span class="s1">Document</span><span class="s2">.open(</span><span class="s3">"examples/GUI examples/GUI_examples1.scd"</span><span class="s2">); </span>//on a Mac with SC3.5 or earlier this should open it straight away</p>
+<p class="p7"><span class="s1">Document</span><span class="s2">.open(</span>"examples/GUI examples/GUI_examples2.scd"<span class="s2">);<span class="Apple-converted-space"> </span></span></p>
+<p class="p9"><br></p>
+<p class="p4">Else for the ScIDE (3.6):</p>
+<p class="p7"><span class="s1">ScIDE</span><span class="s2">.open(</span>"examples/GUI examples/GUI_examples1.scd"<span class="s2">);</span></p>
+<p class="p7"><span class="s1">ScIDE</span><span class="s2">.open(</span>"examples/GUI examples/GUI_examples2.scd"<span class="s2">);</span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">Warning: some examples may not use the more recent implementation free formulation, and involve different calls. <span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">Drag and Drop demo:</p>
+<p class="p10">(</p>
+<p class="p11">// create a GUI window with some NumberBoxes.</p>
+<p class="p11">// You can command click on a control to drag its value to another control for cocoa, or control click for swing</p>
+<p class="p10"><span class="s1">var</span> w, n, f, s;</p>
+<p class="p10">w = <span class="s1">Window</span>(<span class="s3">"number box test"</span>, <span class="s1">Rect</span>(128, 64, 260, 80));</p>
+<p class="p10">w.view.decorator = f = <span class="s1">FlowLayout</span>(w.view.bounds);</p>
+<p class="p12"><br></p>
+<p class="p10">n = <span class="s1">NumberBox</span>(w, <span class="s1">Rect</span>(0,0,80,24));</p>
+<p class="p10">n.value = 123;</p>
+<p class="p12"><br></p>
+<p class="p10">n = <span class="s1">NumberBox</span>(w, <span class="s1">Rect</span>(0,0,80,24));</p>
+<p class="p10">n.value = 456;</p>
+<p class="p12"><br></p>
+<p class="p10">n = <span class="s1">DragBoth</span>(w, <span class="s1">Rect</span>(0,0,80,24));</p>
+<p class="p10">n.object = 789;</p>
+<p class="p12"><br></p>
+<p class="p10">f.nextLine;</p>
+<p class="p12"><br></p>
+<p class="p10">s = <span class="s1">Slider</span>(w, <span class="s1">Rect</span>(0,0,240,24));</p>
+<p class="p12"><br></p>
+<p class="p10">w.front;</p>
+<p class="p10">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">There are also interesting help files for many other GUI objects. Note that there may be differences between 3.5 and 3.6 in what is available.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">(credit: many of the GUI objects were introduced into SuperCollider by Jan Trutzschler. for OS X originally)</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s2">[</span><span class="s7">MultiSliderView</span><span class="s2">] </span>//call the Help file</p>
+<p class="p13"><br></p>
+<p class="p8"><span class="s2">[</span><span class="s6">EnvelopeView</span><span class="s2">]</span></p>
+<p class="p2"><br></p>
+<p class="p4">and some media viewing objects</p>
+<p class="p2"><br></p>
+<p class="p8">[<span class="s6">SoundFileView</span>]</p>
+<p class="p14"><br></p>
+<p class="p10">(</p>
+<p class="p10">w = <span class="s1">Window</span>.new(<span class="s3">"soundfile test"</span>, <span class="s1">Rect</span>(200, 200, 800, 400));</p>
+<p class="p10">a = <span class="s1">SoundFileView</span>(w, <span class="s1">Rect</span>(20,20, 700, 60));</p>
+<p class="p12"><br></p>
+<p class="p10">f = <span class="s1">SoundFile</span>.new;</p>
+<p class="p12"><br></p>
+<p class="p10">if(Main.versionAtLeast(3,5),{</p>
+<p class="p15"><span class="s2">f.openRead(</span>Platform.resourceDir +/+ "sounds/a11wlk01.wav"<span class="s2">);</span></p>
+<p class="p10">},{</p>
+<p class="p15"><span class="s2">f.openRead(</span>"sounds/a11wlk01.wav"<span class="s2">);<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span></p>
+<p class="p10">});<span class="Apple-converted-space"> </span></p>
+<p class="p12"><br></p>
+<p class="p10">a.soundfile_(f);</p>
+<p class="p10">a.read(0, f.numFrames);</p>
+<p class="p12"><br></p>
+<p class="p10">a.gridOn_(<span class="s1">false</span>);</p>
+<p class="p12"><br></p>
+<p class="p10">w.front;</p>
+<p class="p10">)</p>
+<p class="p14"><br></p>
+<p class="p14"><br></p>
+<p class="p4">There is a MovieView too, but it doesn't work particularly well.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">There are screen drawing facilities using the Pen class</p>
+<p class="p12"><br></p>
+<p class="p10">(</p>
+<p class="p10"><span class="s1">var</span> w, h = 400, v = 400, seed = <span class="s1">Date</span>.seed, run = <span class="s1">true</span>;</p>
+<p class="p10">w = <span class="s1">Window</span>(<span class="s3">"subdiv"</span>, <span class="s1">Rect</span>(40, 40, h, v));</p>
+<p class="p10">w.view.background = <span class="s1">Color</span>.rand;</p>
+<p class="p10">w.onClose = { run = <span class="s1">false</span> };</p>
+<p class="p10">w.front;</p>
+<p class="p11">//for SC3.4 or earlier, use drawHook</p>
+<p class="p10">w.drawFunc = { <span class="s1">var</span> done, nextx, nexty, yellowness, penwidth;</p>
+<p class="p12"><br></p>
+<p class="p10">nextx=0;</p>
+<p class="p10">nexty=0;</p>
+<p class="p10">yellowness=rrand(0.0,1.0);</p>
+<p class="p12"><br></p>
+<p class="p10">penwidth=rrand(0.5,1.5);</p>
+<p class="p12"><br></p>
+<p class="p11">//done=0;</p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="s1">Pen</span>.use {</p>
+<p class="p12"><br></p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>200.do({<span class="s1">arg</span> i;<span class="Apple-converted-space"> </span></p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">var</span> lastx,lasty;</p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>lastx=nextx;</p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>lasty=nexty;</p>
+<p class="p12"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>nextx=nextx+rrand(1,20);</p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>nexty=nexty+rrand(1,40);</p>
+<p class="p12"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>if(nextx&gt;=h, {nextx=nextx%h});</p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>if(nexty&gt;=v, {nexty=nexty%v});</p>
+<p class="p12"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>penwidth=(penwidth+(0.2.rand2))%8.0;</p>
+<p class="p12"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Pen</span>.width= penwidth;</p>
+<p class="p12"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>yellowness= (yellowness+(0.1.rand2))%2.0;</p>
+<p class="p12"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Color</span>.yellow(yellowness).set;</p>
+<p class="p12"><span class="Apple-tab-span">	</span></p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Pen</span>.beginPath;</p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Pen</span>.line(<span class="s1">Point</span>(lastx,lasty),<span class="s1">Point</span>(nextx,nexty));</p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Pen</span>.rotate(rand(i%40));</p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Pen</span>.line(<span class="s1">Point</span>(lastx,lasty),<span class="s1">Point</span>(nextx,nexty));</p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Pen</span>.rotate(rand(i%40));</p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Pen</span>.line(<span class="s1">Point</span>(lastx,lasty),<span class="s1">Point</span>(nextx,nexty));</p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Pen</span>.rotate(rand(i%40));</p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Pen</span>.line(<span class="s1">Point</span>(lastx,lasty),<span class="s1">Point</span>(nextx,nexty));</p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Pen</span>.stroke;</p>
+<p class="p12"><span class="Apple-tab-span">	</span></p>
+<p class="p11"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//Pen.fillRect(Rect(h.rand,v.rand,rrand(1,50),rrand(1,50)))</p>
+<p class="p12"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>});</p>
+<p class="p10"><span class="Apple-tab-span">	</span>};</p>
+<p class="p12"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p10">};</p>
+<p class="p12"><br></p>
+<p class="p11">//{ while { run } { w.refresh; 3.wait; } }.fork(AppClock)</p>
+<p class="p12"><br></p>
+<p class="p10">)</p>
+<p class="p2"><br></p>
+<p class="p4">Which you could use for text manipulation as well...</p>
+<p class="p2"><br></p>
+<p class="p12"><br></p>
+<p class="p10">(</p>
+<p class="p10"><span class="s1">var</span> linetext, drawletter;</p>
+<p class="p10"><span class="s1">var</span> w, h = 800, v = 60, seed = <span class="s1">Date</span>.seed, run = <span class="s1">true</span>;</p>
+<p class="p10"><span class="s1">var</span> time, name, sourcestring;</p>
+<p class="p10"><span class="s1">var</span> yellowness, penwidth;</p>
+<p class="p12"><br></p>
+<p class="p11">//name=[\s,\u,\p,\e,\r,\c,\o,\l,\l,\i,\d,\e,\r];</p>
+<p class="p12"><br></p>
+<p class="p11">//sourcestring= "any lower case text";</p>
+<p class="p12"><br></p>
+<p class="p15"><span class="s2">sourcestring= </span>"welcome to supercollider"<span class="s2">;</span></p>
+<p class="p12"><br></p>
+<p class="p10">name=<span class="s1">Array</span>.fill(sourcestring.size,{<span class="s1">arg</span> i; sourcestring[i].asSymbol});</p>
+<p class="p12"><br></p>
+<p class="p12"><br></p>
+<p class="p10">time=0;</p>
+<p class="p12"><br></p>
+<p class="p10">linetext= (</p>
+<p class="p10"><span class="s4">'a'</span>:[[[0,1],[0.5,0]],[[0.5,0],[1,1]],[[0.25,0.5],[0.75,0.5]]],</p>
+<p class="p10"><span class="s4">'b'</span>:[[[0,1],[0,0]],[[0,1],[1,1]],[[0,0],[1,0]],[[0,0.5],[0.75,0.5]],[[0.75,0.5],[1,0.75]],[[0.75,0.5],[1,0.25]],[[1,0.75],[1,1]],[[1,0.25],[1,0]]],</p>
+<p class="p10"><span class="s4">'c'</span>:[[[0,1],[0,0]],[[0,0],[1,0]],[[0,1],[1,1]]],</p>
+<p class="p10"><span class="s4">'d'</span>:[[[0,1],[0,0]],[[0,0],[0.75,0]],[[0,1],[0.75,1]],[[0.75,1],[1,0.75]],[[0.75,0],[1,0.25]],[[1,0.25],[1,0.75]]],</p>
+<p class="p10"><span class="s4">'e'</span>:[[[0,0],[0,1]],[[0,0],[1,0]],[[0,1],[1,1]],[[0,0.5],[1,0.5]]],</p>
+<p class="p10"><span class="s4">'f'</span>:[[[0,0],[0,1]],[[0,0],[1,0]],[[0,0.5],[1,0.5]]],</p>
+<p class="p10"><span class="s4">'g'</span>:[[[0,1],[0,0]],[[0,0],[1,0]],[[0,1],[1,1]],[[1,1],[1,0.5]],[[0.5,0.5],[1,0.5]]],</p>
+<p class="p10"><span class="s4">'h'</span>:[[[0,1],[0,0]],[[0,0.5],[1,0.5]],[[1,1],[1,0]]],</p>
+<p class="p10"><span class="s4">'i'</span>:[[[0,0],[1,0]],[[0.5,0],[0.5,1]],[[0,1],[1,1]]],</p>
+<p class="p10"><span class="s4">'j'</span>:[[[0,0],[1,0]],[[0.5,0],[0.5,1]],[[0,1],[0.5,1]]],</p>
+<p class="p10"><span class="s4">'k'</span>:[[[0,1],[0,0]],[[0,0.5],[1,1]],[[0,0.5],[1,0]]],</p>
+<p class="p10"><span class="s4">'l'</span>:[[[0,1],[0,0]],[[0,1],[1,1]]],</p>
+<p class="p10"><span class="s4">'m'</span>:[[[0,1],[0,0]],[[0,0],[0.5,0.5]],[[0.5,0.5],[1,0]],[[1,0],[1,1]]],</p>
+<p class="p10"><span class="s4">'n'</span>:[[[0,1],[0,0]],[[0,0],[1,1]],[[1,1],[1,0]]],</p>
+<p class="p10"><span class="s4">'o'</span>:[[[0,1],[0,0]],[[0,0],[1,0]],[[0,1],[1,1]],[[1,0],[1,1]]],</p>
+<p class="p10"><span class="s4">'p'</span>:[[[0,0],[0,1]],[[0,0],[1,0]],[[0,0.5],[1,0.5]],[[1,0],[1,0.5]]],</p>
+<p class="p10"><span class="s4">'q'</span>:[[[0,0],[0,0.75]],[[0,0],[0.75,0]],[[0,0.75],[0.75,0.75]],[[0.75,0],[0.75,0.75]],[[0.5,0.5],[1,1]]],</p>
+<p class="p10"><span class="s4">'r'</span>:[[[0,0],[0,1]],[[0,0],[1,0]],[[0,0.5],[1,0.5]],[[1,0],[1,0.5]],[[0,0.5],[1,1]]],</p>
+<p class="p10"><span class="s4">'s'</span>:[[[0,0],[0,0.5]],[[0,0],[1,0]],[[0,1],[1,1]],[[0,0.5],[1,0.5]],[[1,0.5],[1,1]]],</p>
+<p class="p10"><span class="s4">'t'</span>:[[[0,0],[1,0]],[[0.5,0],[0.5,1]]],</p>
+<p class="p10"><span class="s4">'u'</span>:[[[0,1],[0,0]],[[0,1],[1,1]],[[1,0],[1,1]]],</p>
+<p class="p10"><span class="s4">'v'</span>:[[[0,0],[0.5,1]],[[0.5,1],[1,0]]],</p>
+<p class="p10"><span class="s4">'w'</span>:[[[0,0],[0.25,1]],[[0.25,1],[0.5,0.5]],[[0.5,0.5],[0.75,1]],[[0.75,1],[1,0]]],</p>
+<p class="p10"><span class="s4">'x'</span>:[[[0,0],[1,1]],[[0,1],[1,0]]],</p>
+<p class="p10"><span class="s4">'y'</span>:[[[0,0],[0.5,0.5]],[[0.5,0.5],[1,0]],[[0.5,0.5],[0.5,1]]],</p>
+<p class="p10"><span class="s4">'z'</span>:[[[0,1],[1,0]],[[0,0],[1,0]],[[0,1],[1,1]]],</p>
+<p class="p10">(<span class="s3">" "</span>.asSymbol):[[[0,1],[1,1]],[[0,0.8],[0,1]],[[1,0.8],[1,1]]]</p>
+<p class="p10">);</p>
+<p class="p12"><br></p>
+<p class="p10">w = <span class="s1">Window</span>(<span class="s3">"welcome"</span>, <span class="s1">Rect</span>(40, 500, h, v));</p>
+<p class="p10">w.view.background = <span class="s1">Color</span>.blue(0.5);</p>
+<p class="p10">w.onClose = { run = <span class="s1">false</span> };</p>
+<p class="p10">w.front;</p>
+<p class="p12"><br></p>
+<p class="p10">drawletter={<span class="s1">arg</span> which, startx, starty, xscale=100, yscale,prop=1.0;</p>
+<p class="p10"><span class="s1">var</span> data;</p>
+<p class="p12"><br></p>
+<p class="p10">yscale= yscale ? xscale;</p>
+<p class="p12"><br></p>
+<p class="p10">data= linetext[which];</p>
+<p class="p12"><br></p>
+<p class="p10">prop=(round((data.size)*prop).asInteger).max(1);</p>
+<p class="p12"><br></p>
+<p class="p10">prop.do({<span class="s1">arg</span> i;</p>
+<p class="p10"><span class="s1">var</span> val=data[i];</p>
+<p class="p12"><br></p>
+<p class="p10"><span class="s1">Pen</span>.beginPath;</p>
+<p class="p10"><span class="s1">Pen</span>.line(<span class="s1">Point</span>(startx+(xscale*val[0][0]),starty+(yscale*val[0][1])),<span class="s1">Point</span>(startx+(xscale*val[1][0]),starty+(yscale*val[1][1])));</p>
+<p class="p10"><span class="s1">Pen</span>.stroke;</p>
+<p class="p12"><br></p>
+<p class="p10">});</p>
+<p class="p12"><br></p>
+<p class="p10">};</p>
+<p class="p12"><br></p>
+<p class="p12"><br></p>
+<p class="p10">yellowness=rrand(0.7,0.9);</p>
+<p class="p12"><br></p>
+<p class="p10">penwidth=rrand(2,3);</p>
+<p class="p12"><br></p>
+<p class="p10">w.drawFunc = {</p>
+<p class="p12"><br></p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="s1">Pen</span>.use {<span class="s1">var</span> xoscil, xsizoscil,yoscil, todraw, usedtime;</p>
+<p class="p12"><br></p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Pen</span>.width= penwidth;</p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Color</span>.yellow(yellowness).set;</p>
+<p class="p12"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>usedtime=time.min(1.0);</p>
+<p class="p12"><span class="Apple-tab-span">	</span></p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>todraw=(round((name.size)*usedtime).asInteger).max(1);</p>
+<p class="p12"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>todraw.do({<span class="s1">arg</span> j;</p>
+<p class="p12"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>xoscil= sin(2*pi*time+(j*pi*0.13))*140/(1+(10*time));</p>
+<p class="p12"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>yoscil= sin(2*pi*time+(j*pi*0.03))*200/(1+(200*time));</p>
+<p class="p12"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>xsizoscil= time*5+5;</p>
+<p class="p12"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>drawletter.value(name[j],50+(25*j)+(xoscil),10+yoscil,xsizoscil,xsizoscil,usedtime);</p>
+<p class="p12"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>});</p>
+<p class="p12"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p10"><span class="Apple-tab-span">	</span>};</p>
+<p class="p12"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p12"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p10">};</p>
+<p class="p12"><br></p>
+<p class="p10">{ while { time&lt;2.0 } {<span class="Apple-converted-space"> </span></p>
+<p class="p12"><br></p>
+<p class="p10">w.refresh;<span class="Apple-converted-space"> <span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span></p>
+<p class="p10">time=(time+0.025); <span class="s5">//%2.0;</span></p>
+<p class="p10">0.05.wait; } }.fork(<span class="s1">AppClock</span>)</p>
+<p class="p12"><br></p>
+<p class="p12"><br></p>
+<p class="p12"><br></p>
+<p class="p10">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">If you're on OS X before SC3.6, also see SCImage for many image processing capabilities, such as placing an image into the background of your GUI window, or adding a logo.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+</body>
+</html>

@@ -1,0 +1,15 @@
+# A ConfigMap object that holds some configuration values we can inject into
+# pods so that they can be configured for different environments.
+#
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-config
+data:
+  another-param: another-value
+  extra-param: extra-value
+  my-config.txt: |
+    # Hey look this is a multi-line value!
+    # How exciting.
+    parameter1 = value1
+    parameter2 = value2

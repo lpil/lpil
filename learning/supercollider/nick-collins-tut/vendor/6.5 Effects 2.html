@@ -1,0 +1,352 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1038.36">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #cd1713}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; min-height: 25.0px}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #102ac2}
+    span.s1 {color: #102ac2}
+    span.s2 {color: #000000}
+    span.s3 {color: #cd1713}
+    span.s4 {color: #737373}
+    span.s5 {color: #008325}
+    span.Apple-tab-span {white-space:pre}
+  </style>
+</head>
+<body>
+<p class="p1">//Further effects examples: spatialization and other processing<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">//use the internal server with the scope</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3"><span class="s1">Server</span>.default= s=<span class="s1">Server</span>.internal;<span class="Apple-converted-space"> </span></p>
+<p class="p3">s.waitForBoot({</p>
+<p class="p3">s.scope;</p>
+<p class="p4">FreqScope<span class="s2">();</span></p>
+<p class="p3">});</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Spatialization<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">We'll pan some PinkNoise (which has some energy across the spectrum, without being the full equal power harshness of WhiteNoise), rather than a much harder to localise sine tone</p>
+<p class="p2"><br></p>
+<p class="p1">//stereo panners:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">//equal power</p>
+<p class="p3">{<span class="s1">Pan2</span>.ar(<span class="s1">PinkNoise</span>.ar(0.2),<span class="s1">MouseX</span>.kr(-1,1))}.scope</p>
+<p class="p2"><br></p>
+<p class="p1">//compare linear crossfade, equal amplitude</p>
+<p class="p1">//drops in power in the middle</p>
+<p class="p3">{<span class="s1">LinPan2</span>.ar(<span class="s1">PinkNoise</span>.ar(0.2),<span class="s1">MouseX</span>.kr(-1,1))}.scope</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">//multichannel:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">//sending to any loudspeaker</p>
+<p class="p2"><br></p>
+<p class="p1">//direct to speaker</p>
+<p class="p1"><span class="s2">{</span><span class="s1">Out</span><span class="s2">.ar(1,</span><span class="s1">PinkNoise</span><span class="s2">.ar(0.1))}.scope </span>//straight to right/second speaker</p>
+<p class="p2"><br></p>
+<p class="p1">//between speakers:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">//PanAz main arguments: numchannels, signal to pan, pan position from 0 to 2 around the ring of speakers</p>
+<p class="p3">{<span class="s1">PanAz</span>.ar(8,<span class="s1">PinkNoise</span>.ar(0.2),<span class="s1">MouseX</span>.kr(0,2))}.scope;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">See Also:</p>
+<p class="p3">Pan4<span class="Apple-converted-space">  </span>quad panning</p>
+<p class="p3">Balance2 adjust stereo mix to bias towards left or right speaker</p>
+<p class="p3">Rotate2 rotate stereo mix circularly around two speakers</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Ambisonics UGens</p>
+<p class="p2"><br></p>
+<p class="p3">Ambisonics is a special format for representing spatial sound, modeling a sound and its strength on three dimensional axes (more generally, in higher order spherical co-ordinate systems).<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">We go:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">sound -&gt; encode Ambisonics format signal -&gt; decode Ambisonics signal to a given speaker set-up.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">The Ambisonics format is speaker set-up independent, so you can design a piece in terms of intended spatial positioning, and (in theory) smoothly cope with different concert playback conditions.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">Basic in-built SuperCollider support for 'B-format' Ambisonics:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">//demo in stereo, but could work with many more speakers</p>
+<p class="p3">(</p>
+<p class="p3">{</p>
+<p class="p1"><span class="s2"><span class="Apple-tab-span">	</span></span><span class="s1">var</span><span class="s2"> w, x, y; </span>//a, b, c, d;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="s2"><span class="Apple-tab-span">	</span></span>// B-format encode for 2 dimensional sound; PanB would work in three dimensions</p>
+<p class="p3"><span class="Apple-tab-span">	</span>#w, x, y = <span class="s1">PanB2</span>.ar(<span class="s1">PinkNoise</span>.ar(0.2), <span class="s1">MouseX</span>.kr(-1,1));<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><span class="s2"><span class="Apple-tab-span">	</span></span>//stereo decode</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s1">DecodeB2</span>.ar(2,w,x,y);<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><span class="s2"><span class="Apple-tab-span">	</span></span>// JMC example: B-format decode to quad</p>
+<p class="p1"><span class="s2"><span class="Apple-tab-span">	</span></span>//#a, b, c, d = DecodeB2.ar(4, w, x, y);</p>
+<p class="p1"><span class="s2"><span class="Apple-tab-span">	</span></span>//[a, b, d, c] // reorder to my speaker arrangement: Lf Rf Lr Rr</p>
+<p class="p3">}.play;</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">See also<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">The Ambisonics extension libraries of Josh Parmenter</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="s1">VBAP</span><span class="s2"> </span>//in BEAST UGens, vector based amplitude panning, used for positioning sounds in an arbitrary 3D speaker configuration: works by considering triangles of speakers (like triangularization in computer graphics)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Simulation of space</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Modeling air absorption: high frequencies drop off more quickly in air. Filter the high frequencies more with distance, e.g. low pass filter where decrease cutoff frequency with distance.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">Also amplitude inversely proportional to distance (because intensity inversely proportional to distance squared)<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">//exaggerated a bit from reality, no doubt</p>
+<p class="p3">(</p>
+<p class="p3">{</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s1">var</span> distance = <span class="s1">MouseX</span>.kr(1,100); <span class="s3">//1 to 100 metres</span></p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s1">LPF</span>.ar(<span class="s1">WhiteNoise</span>.ar(0.5),10000-(distance*80))/distance;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">}.scope</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Doppler effect: pitch shift due to change of radial distance of object from observer</p>
+<p class="p2"><br></p>
+<p class="p1">//reference sound</p>
+<p class="p3">{<span class="s1">Saw</span>.ar(440,0.2)}.play</p>
+<p class="p2"><br></p>
+<p class="p1">//starts above pitch, ends below pitch, due to cycle starts being closer together when approaching (reducing delay), and further apart when retreating (increasing delay)</p>
+<p class="p3">(</p>
+<p class="p3">{</p>
+<p class="p3"><span class="s1">var</span> radialdistance = <span class="s1">Line</span>.kr(10,-10,5,doneAction:2);</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s1">DelayC</span>.ar(<span class="s1">Saw</span>.ar(440,0.2),1.0, radialdistance.abs/340.0);</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">}.scope</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Doppler effect: pitch shift proportional to radial distance:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">//path straight towards, through and away; get clear discontinuity</p>
+<p class="p1">//approximate speed of sound as 340 m/s</p>
+<p class="p1">//no frequency dependent filtering effects</p>
+<p class="p3">(</p>
+<p class="p3">{</p>
+<p class="p3"><span class="s1">var</span> source, radialdistance, absoluterd, dopplershift, amplitude;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">source= <span class="s1">Saw</span>.ar(<span class="s1">Demand</span>.kr(<span class="s1">Impulse</span>.kr(<span class="s1">LFNoise0</span>.kr(0.5,0.1,2)),0,<span class="s1">Dseq</span>([63,60].midicps,<span class="s1">inf</span>)));<span class="Apple-tab-span">	</span><span class="s3">//nee-naw emergency vehicle simulation</span></p>
+<p class="p2"><span class="Apple-converted-space"> </span></p>
+<p class="p1">//in metres, moving at 6.8 metres per second</p>
+<p class="p3">radialdistance= <span class="s1">EnvGen</span>.ar(<span class="s1">Env</span>([34,-34],[10]),doneAction:2);</p>
+<p class="p2"><br></p>
+<p class="p3">absoluterd= radialdistance.abs;</p>
+<p class="p2"><br></p>
+<p class="p1">//if something is 340 metres away, takes 1 second to get there; so make delay depend on distance away in metres</p>
+<p class="p3">dopplershift= <span class="s1">DelayC</span>.ar(source, 1.0, absoluterd/340.0);</p>
+<p class="p2"><br></p>
+<p class="p1">//inversely proportional</p>
+<p class="p3">amplitude= (absoluterd.max(1.0)).reciprocal;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s1">Pan2</span>.ar(amplitude*dopplershift,0.0)</p>
+<p class="p3">}.play</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">//More complicated: object will move past 5 metres to your right, on a line vertically down the page (as per ICM figure)</p>
+<p class="p1">//could add position dependent filtering for head shadow and separate delay to two ears...</p>
+<p class="p3">(</p>
+<p class="p3">{</p>
+<p class="p3"><span class="s1">var</span> source, distance, radialdistance, absoluterd, dopplershift, amplitude;<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="s1">var</span> side, angle;</p>
+<p class="p2"><br></p>
+<p class="p3">source= <span class="s1">Saw</span>.ar(<span class="s1">Demand</span>.kr(<span class="s1">Impulse</span>.kr(<span class="s1">LFNoise0</span>.kr(0.5,0.1,2)),0,<span class="s1">Dseq</span>([63,60].midicps,<span class="s1">inf</span>))); <span class="s3">//nee-naw emergency vehicle simulation</span></p>
+<p class="p2"><span class="Apple-converted-space"> </span></p>
+<p class="p3">side=5;</p>
+<p class="p1">//central side marker, placed 5 metres directly right of observer, observer facing ahead<span class="Apple-converted-space"> </span></p>
+<p class="p1">//in metres, moving at 6.8 metres per second</p>
+<p class="p3">distance=<span class="Apple-converted-space">  </span><span class="s1">EnvGen</span>.ar(<span class="s1">Env</span>([34,-34],[10]), doneAction:2);<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">angle= atan(distance/side);</p>
+<p class="p2"><br></p>
+<p class="p1">//radial distance by<span class="Apple-converted-space"> </span></p>
+<p class="p3">absoluterd= (distance.squared+ side.squared).sqrt;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">dopplershift= <span class="s1">DelayC</span>.ar(source, 1.0, absoluterd/340.0);</p>
+<p class="p2"><br></p>
+<p class="p1">//inversely proportional</p>
+<p class="p3">amplitude= (absoluterd.max(1.0)).reciprocal;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s1">Pan2</span>.ar(amplitude*dopplershift,1.0)</p>
+<p class="p3">}.play</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Further sound transformation facilities</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Frequency shifting moves all frequency components of a sound, distorts harmonic relationships to inharmonic</p>
+<p class="p2"><br></p>
+<p class="p3">e.g. 100,200,300,400,500,600 Hz components, all moved by 70 Hz gives<span class="Apple-converted-space"> </span></p>
+<p class="p3">170,270,370,470,570,670 which are no longer in any simple harmonic relationship</p>
+<p class="p2"><br></p>
+<p class="p3">We know that we can get frequency shifting by using ring modulation, though there are two sidebands. As well as low pass filtering out the lower band in ring modulation, there is aso a technique called 'single side band modulation' via a technical device called the Hilbert transform. There are UGens for this:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">FreqShift.ar(input, amount of shift in Hz, phase shift)</p>
+<p class="p2"><br></p>
+<p class="p1">//shift the harmonic set detailed above. No audible effect of phase shifts on sines</p>
+<p class="p3">{<span class="s1">FreqShift</span>.ar(<span class="s1">Mix</span>(<span class="s1">SinOsc</span>.ar(100*(1..6)))*0.1,<span class="s1">MouseX</span>.kr(0,1000),<span class="s1">MouseY</span>.kr(0,2pi))}.scope;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">//unless you wibble phase quickly enough</p>
+<p class="p3">{<span class="s1">FreqShift</span>.ar(<span class="s1">Mix</span>(<span class="s1">SinOsc</span>.ar(100*(1..6)))*0.1,<span class="s1">MouseX</span>.kr(0,1000),<span class="s1">SinOsc</span>.ar(<span class="s1">MouseY</span>.kr(0,100)))}.scope;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">//fun effects on audio input</p>
+<p class="p3">{<span class="s1">FreqShift</span>.ar(<span class="s1">SoundIn</span>.ar(0,0.1),<span class="s1">MouseX</span>.kr(0,3000),<span class="s1">SinOsc</span>.ar(<span class="s1">MouseY</span>.kr(0,100)))}.scope;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">We mentioned the granular pitch shifter UGens PitchShift and Warp1 in passing back in the granular synthesis materials.</p>
+<p class="p2"><br></p>
+<p class="p3">Let's take a closer look at Warp1, which accomplishes granular time stretching and pitch shifting of the grains.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">b = <span class="s1">Buffer</span>.read(s,<span class="s1">Platform</span>.resourceDir +/+<span class="s4">"sounds/a11wlk01.wav"</span>);<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">//overlaps eight windows of 0.1 seconds, so one window every 0.1/8 = 0.0125 seconds<span class="Apple-converted-space"> </span></p>
+<p class="p3">{<span class="s1">Warp1</span>.ar(1,b,pointer:<span class="s1">MouseX</span>.kr,freqScale:(2**(<span class="s1">MouseY</span>.kr(-2,2))),windowSize:0.1)}.scope</p>
+<p class="p2"><br></p>
+<p class="p1">//increasingly randomise window shape to avoid rough repetition sounds</p>
+<p class="p3">{<span class="s1">Warp1</span>.ar(1,b,pointer:<span class="s1">MouseX</span>.kr,freqScale:1.0,windowSize:0.1, windowRandRatio:<span class="s1">MouseY</span>.kr(0.0,0.9))}.scope</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Building your own basic Overlap Add stretcher (requires Buffer b from above):</p>
+<p class="p2"><br></p>
+<p class="p1">//define the windowed grains</p>
+<p class="p3">(</p>
+<p class="p4">SynthDef<span class="s2">(</span><span class="s5">\windowofsound</span><span class="s2">,{</span>|out=0 dur=0.0 bufnum=0 amp=0.1 rate=1.0 pos=0.0 pan=0.0|</p>
+<p class="p3"><span class="s1">var</span> env, source;<span class="Apple-tab-span">	</span></p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">env= <span class="s1">EnvGen</span>.ar(<span class="s1">Env</span>([0,1,0],[0.5,0.5]*dur,<span class="s5">'sine'</span>),doneAction:2);<span class="Apple-converted-space"> </span></p>
+<p class="p1">//Env([0,1,0],[0.1,0.1],'sine').plot</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">source = <span class="s1">PlayBuf</span>.ar(1,bufnum,<span class="s1">BufRateScale</span>.kr(bufnum)*rate,1.0,pos*<span class="s1">BufFrames</span>.ir(bufnum),loop:0); //don't allow loop<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p1">//OffsetOut for sample accurate starts of grains</p>
+<p class="p3"><span class="s1">OffsetOut</span>.ar(out,<span class="s1">Pan2</span>.ar(source*env,pan));<span class="Apple-converted-space"> </span></p>
+<p class="p3">}).add;<span class="Apple-converted-space"> </span></p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">//language side grain scheduling: accurate timing via s.bind</p>
+<p class="p1">//will move through the source file in the time given</p>
+<p class="p1">//small randomisations to grain size, amplitude and spacing used to avoid too much modulation noise from really strict window overlaps</p>
+<p class="p3">(</p>
+<p class="p3"><span class="s1">var</span> playbacktime = 10.0;<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="s1">var</span> grainsize= 0.1;<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="s1">var</span> grainspersecond = 100; <span class="s3">//overlap factor of 10</span></p>
+<p class="p3"><span class="s1">var</span> grainspacing = grainspersecond.reciprocal;</p>
+<p class="p3"><span class="s1">var</span> timedone;<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="s1">var</span> proportion;<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="s1">var</span> startrate=1.75;<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="s1">var</span> endrate=0.25;<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="s1">var</span> ratenow;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">{</p>
+<p class="p3"><span class="Apple-tab-span">	</span>timedone = 0.0;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>while({timedone&lt;playbacktime},{</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><span class="s2"><span class="Apple-tab-span">	</span>proportion = timedone/playbacktime; </span>//how far through the playback as a number from 0 to 1</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><span class="s2"><span class="Apple-tab-span">	</span></span>//proportion.postln;</p>
+<p class="p1"><span class="s2"><span class="Apple-tab-span">	</span></span>//linear interpolation (can make exponential etc)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>ratenow = ((1.0-proportion)*startrate)<span class="Apple-converted-space">  </span>+<span class="Apple-converted-space">  </span>(proportion*endrate);<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="s2"><span class="Apple-tab-span">	</span></span>//ratenow.postln;</p>
+<p class="p3"><span class="Apple-tab-span">	</span>s.bind({<span class="Apple-tab-span">	</span><span class="s1">Synth</span>(<span class="s5">\windowofsound</span>,[<span class="s5">\dur</span>,grainsize*rrand(1.0,1.1),<span class="s5">\bufnum</span>,b,<span class="s5">\amp</span>,rrand(0.09,0.11),<span class="s5">\rate</span>,ratenow,<span class="s5">\pos</span>,proportion]); });<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>timedone = timedone + grainspacing + rrand(0.0,0.01);<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>grainspacing.wait;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>});<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">}.fork;</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">The PitchShift and Warp1 UGens just do this more efficiently under the hood.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">More complicated effects arise from particular sound analysis models.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+</body>
+</html>

@@ -1,0 +1,9 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: app-ingress
+  namespace: ${NAMESPACE}
+spec:
+  backend:
+    serviceName: ${SERVICE_NAME}
+    servicePort: ${SERVICE_PORT}

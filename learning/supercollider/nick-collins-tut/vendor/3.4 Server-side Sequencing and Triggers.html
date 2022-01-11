@@ -1,0 +1,454 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1038.36">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 24.0px Monaco}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; min-height: 25.0px}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #cd1713}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #008325}
+    span.s1 {color: #102ac2}
+    span.s2 {color: #cd1713}
+    span.s3 {color: #000000}
+    span.s4 {color: #008325}
+    span.Apple-tab-span {white-space:pre}
+  </style>
+</head>
+<body>
+<p class="p1">Server-side Sequencing and Triggers</p>
+<p class="p2"><br></p>
+<p class="p3">Exploring some UGens that let you sequence on the server, without any language intervention; timing patterns all within a Synth. Like analogue sequencing modules...</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Clocking UGens:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Impulse</p>
+<p class="p2"><br></p>
+<p class="p3">A sequence of isochronous clicks, can make a good clock signal:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">//from rhythmic to audio rate</p>
+<p class="p3">{<span class="s1">Impulse</span>.ar(<span class="s1">MouseX</span>.kr(1,100))}.play</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Dust</p>
+<p class="p2"><br></p>
+<p class="p3">Rather than evenly spaced clicks, the opposite is randomly occurring (stochastic) clicks.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">//from rhythmic to audio rate; the Mouse is controlling the average number of clicks per second, they are not evenly spaced!<span class="Apple-converted-space"> </span></p>
+<p class="p3">{<span class="s1">Dust</span>.ar(<span class="s1">MouseX</span>.kr(1,100))}.play</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Types of LFNoise for linear random noise between -1 and 1 at a certain rate</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3">{</p>
+<p class="p3"><span class="Apple-tab-span">	</span>[</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s1">LFNoise0</span>.ar(100),<span class="Apple-tab-span">	</span><span class="s2">//step</span></p>
+<p class="p4"><span class="s3"><span class="Apple-tab-span">	</span></span><span class="s1">LFNoise1</span><span class="s3">.ar(100),<span class="Apple-tab-span">	</span></span>//linear interpolation</p>
+<p class="p4"><span class="s3"><span class="Apple-tab-span">	</span></span><span class="s1">LFNoise2</span><span class="s3">.ar(100)<span class="Apple-tab-span">	</span></span>//quadratic interpolation</p>
+<p class="p3"><span class="Apple-tab-span">	</span>]</p>
+<p class="p3">}.plot(0.1)</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Triggers</p>
+<p class="p2"><br></p>
+<p class="p3">When a signal crosses from a nonpositive value to a positive value, the transition can act as a trigger in the input of some UGens. <span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">There are rounding errors to watch out for, and you need to avoid positive zero; usually safer to force a transition from -0.01 to 1, for example, rather than 0 to 1<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">The clock signals often make good trigger sources, for instance, Impulse.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Stepper responds to triggers to go through a sequence:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">Stepper.ar(trig,reset,min,max,step,resetval)</p>
+<p class="p2"><br></p>
+<p class="p3">We'll trigger it with an Impulse and make it go between 1 and 10 in steps of 1 (values must be integers).</p>
+<p class="p2"><br></p>
+<p class="p4">//plot it out<span class="Apple-converted-space"> </span></p>
+<p class="p3">{ <span class="s1">Stepper</span>.ar(<span class="s1">Impulse</span>.ar(100), 0,1,10,1) }.plot(0.3,minval:0,maxval:10);<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">Slowed down and used to control a SinOsc frequency</p>
+<p class="p2"><br></p>
+<p class="p3">{ <span class="s1">SinOsc</span>.ar(<span class="s1">Stepper</span>.ar(<span class="s1">Impulse</span>.ar(10), 0,1,10,1)*100,0,0.1) }.play</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">To get arbitrary pitches (rather than just a monotonic sequence), Stepper can be combined with Select:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">//impulse frequency of 4 is 4 events per second</p>
+<p class="p4">//kr used since slow rates and Select works with array data second input if kr but not ar</p>
+<p class="p3">{ <span class="s1">Saw</span>.ar(<span class="s1">Select</span>.kr(<span class="s1">Stepper</span>.kr(<span class="s1">Impulse</span>.kr(4,0.1),0,0,7,1),[72,63,67,72,55,62,63,60].midicps),0.1) }.play</p>
+<p class="p2"><br></p>
+<p class="p4">//speed control</p>
+<p class="p3">{ <span class="s1">Saw</span>.ar(<span class="s1">Select</span>.kr(<span class="s1">Stepper</span>.kr(<span class="s1">Impulse</span>.kr(<span class="s1">MouseX</span>.kr(1,40),0.1),0,0,7,1),[75,63,67,72,55,62,63,60].midicps),0.1) }.play</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">(As well as this sort of sequencing, Select can also be used to dynamically choose between UGens in a single running Synth)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Any signal can be turned into triggers. The Trig and Trig1 UGens give 'spiky' signals as output (they hold for a user-specified duration when triggered; Trig1 always outputs a 1, Trig follows the stimulus value). <span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">//trigger at start of every sinusoidal cycle (where sine goes from negative to positive)</p>
+<p class="p3">(</p>
+<p class="p3">{</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s1">var</span> source = <span class="s1">SinOsc</span>.ar(100);<span class="Apple-converted-space"> <span class="Apple-tab-span">	</span></span></p>
+<p class="p4"><span class="s3"><span class="Apple-tab-span">	</span></span>//plot both original signal, and the trigger pattern</p>
+<p class="p3"><span class="Apple-tab-span">	</span>[source, <span class="s1">Trig1</span>.ar(source,0.001)]</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>}.plot(0.1)</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">In the following examples we'll show going from LFNoise UGens to the trigger points.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">//trigger whenever crossing from negative to positive</p>
+<p class="p3">(</p>
+<p class="p3">{<span class="s1">var</span> source, trigger;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">source= <span class="s1">LFNoise0</span>.ar(100);<span class="Apple-converted-space"> </span></p>
+<p class="p4"><span class="s3">trigger= </span><span class="s1">Trig1</span><span class="s3">.ar(source, 0.001); </span>//0.001 is duration of trigger signal output</p>
+<p class="p2"><br></p>
+<p class="p3">[source, trigger]</p>
+<p class="p3">}.plot(0.2)</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p4">//trigger on all ups</p>
+<p class="p3">(</p>
+<p class="p3">{<span class="s1">var</span> source, trigger;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">source= <span class="s1">LFNoise0</span>.ar(100);<span class="Apple-converted-space"> </span></p>
+<p class="p4"><span class="s3">trigger= </span><span class="s1">Trig1</span><span class="s3">.ar(source- </span><span class="s1">Delay1</span><span class="s3">.ar(source), 0.001); </span>//0.001 is duration of trigger signal output</p>
+<p class="p2"><br></p>
+<p class="p3">[source, trigger]</p>
+<p class="p3">}.plot(0.2)</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">//trigger on any change</p>
+<p class="p3">(</p>
+<p class="p3">{<span class="s1">var</span> source, trigger;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">source= <span class="s1">LFNoise0</span>.ar(100);<span class="Apple-converted-space"> </span></p>
+<p class="p3">trigger= <span class="s1">Trig1</span>.ar(abs(source- <span class="s1">Delay1</span>.ar(source)), 0.001); <span class="s2">//0.001 is duration of trigger signal output</span></p>
+<p class="p2"><br></p>
+<p class="p3">[source, trigger]</p>
+<p class="p3">}.plot(0.2)</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Latch: on a trigger, hold an input value</p>
+<p class="p3">Latch.ar(in, trig)</p>
+<p class="p2"><br></p>
+<p class="p3">Allows resampling and triggered rendering</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">//grab the sine's current value 100 times a second</p>
+<p class="p3">{<span class="s1">Latch</span>.ar(<span class="s1">SinOsc</span>.ar(133), <span class="s1">Impulse</span>.ar(100))}.plot(0.5)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">{<span class="s1">Latch</span>.ar(<span class="s1">LFNoise2</span>.ar(100), <span class="s1">Impulse</span>.ar(100))}.plot(0.1) <span class="s2">//removes smoothing!</span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">//could be used to create sequencing patterns!<span class="Apple-converted-space"> </span></p>
+<p class="p3">{<span class="s1">SinOsc</span>.ar(300+(200*<span class="s1">Latch</span>.ar(<span class="s1">SinOsc</span>.ar(13.3), <span class="s1">Impulse</span>.ar(10))))*0.2}.play</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Non-sustaining envelopes can be retriggered via the gate input to an EnvGen</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">{<span class="s1">EnvGen</span>.ar(<span class="s1">Env</span>([0,1,0],[0.01,0.01]),<span class="s1">Impulse</span>.kr(50))}.plot(0.1)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">//If you set the envelope up carefully, this could be used like a more flexible Stepper</p>
+<p class="p3">{<span class="s1">EnvGen</span>.ar(<span class="s1">Env</span>([0,1,0,0.5,-0.4],0.01!4),<span class="s1">Impulse</span>.kr(25))}.plot(0.1)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">//slowed down by factor of 10 to be heard as held pitches</p>
+<p class="p3">{<span class="s1">SinOsc</span>.ar(400*(1+<span class="s1">EnvGen</span>.ar(<span class="s1">Env</span>([0,1,0,0.5,-0.4],0.1!4,curve:<span class="s4">\step</span>),<span class="s1">Impulse</span>.kr(2.5))))}.play</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">//use midicps on output to get scales</p>
+<p class="p3">{<span class="s1">SinOsc</span>.ar(<span class="s1">EnvGen</span>.ar(<span class="s1">Env</span>([63,63,60,55,60],0.125!4,curve:<span class="s4">\step</span>),<span class="s1">Impulse</span>.kr(2)).midicps)}.play</p>
+<p class="p4">//the Impulse's rate acts like a beats per second here, and the envelope timings are in beats (0.125 per transition)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">//percussive sound retriggered 3 times a second</p>
+<p class="p3">(</p>
+<p class="p3">{</p>
+<p class="p3"><span class="s1">var</span> sound,env, trig;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s3">trig= </span><span class="s1">Impulse</span><span class="s3">.ar(3); </span>//trigger source<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">sound= <span class="s1">Mix</span>(<span class="s1">LFPulse</span>.ar(110*[1,5/2],0.0,0.5,0.2));</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s3">env= </span><span class="s1">EnvGen</span><span class="s3">.ar(</span><span class="s1">Env</span><span class="s3">.perc(0.02,0.2),trig); </span>//with retriggering controlled by impulse</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s1">Pan2</span>.ar(sound*env,0.0)</p>
+<p class="p3">}.play</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">(Note that if the envelope has a release node, the gate input to an EnvGen is used instead as a control which keeps the envelope held open (gate=1) until released (gate=0); see the EnvGen and Env help files)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Triggers can be set up in SynthDefs with a shortcut; they appear in SynthDefs as t_xxxx arguments or as specified as an explicit \tr in SynthDef rates argument. This is useful when you want to manually force a trigger via a .set message to a Synth<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p5"><span class="s1">SynthDef</span><span class="s3">(</span>\mytriggersynth<span class="s3">,{</span><span class="s1">arg</span><span class="s3"> trig=0;</span></p>
+<p class="p3"><span class="s1">var</span> env;</p>
+<p class="p2"><br></p>
+<p class="p4">//must have additional starting level in envelope, else no nodes to go back to</p>
+<p class="p3">env= <span class="s1">EnvGen</span>.ar(<span class="s1">Env</span>([2,2,1],[0.0,0.5],<span class="s4">'exponential'</span>),trig);</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s1">Out</span>.ar(0,<span class="s1">Pan2</span>.ar(<span class="s1">Resonz</span>.ar(<span class="s1">Saw</span>.ar(env*440),1000,0.1),0.0))</p>
+<p class="p3">},[<span class="s4">\tr</span>]).add</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s3">a= Synth(</span>\mytriggersynth<span class="s3">);</span></p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s3">a.set(</span><span class="s4">\trig</span><span class="s3">, 1)<span class="Apple-tab-span">	</span></span>//if this wasn't an explicit trigger input, this wouldn't reset the envelope</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Another triggering example: you could collect triggers from one signal and use them to spawn changes in another part of the UGen graph</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">//value of third frequency component is a new random number with each trigger</p>
+<p class="p3">(</p>
+<p class="p3">{</p>
+<p class="p3"><span class="s1">var</span> sound,env, trig;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">//&gt; is itself a UGen when used in this context; it is outputting the result of comparing the LFNoise0 with the value 0 every sample!<span class="Apple-converted-space"> </span></p>
+<p class="p4"><span class="s3">trig= </span><span class="s1">LFNoise0</span><span class="s3">.ar(13)&gt;0; </span>//trigger source (might also use Dust, for example)</p>
+<p class="p2"><br></p>
+<p class="p4">//TRand chooses a random number in its range when triggered</p>
+<p class="p3">sound= <span class="s1">Mix</span>(<span class="s1">LFPulse</span>.ar(110*[1,5/2,<span class="s1">TRand</span>.ar(3.9,4.1,trig)],0.0,0.5,0.2));</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s3">env= </span><span class="s1">EnvGen</span><span class="s3">.ar(</span><span class="s1">Env</span><span class="s3">.perc(0.02,0.1),trig); </span>//with retriggering controlled by impulse</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s1">Pan2</span>.ar(sound*env,0.0)</p>
+<p class="p3">}.play</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Some oscillators can be retriggered, for example SyncSaw</p>
+<p class="p2"><br></p>
+<p class="p3">For sync oscillators:<span class="Apple-converted-space"> </span></p>
+<p class="p3">hard sync = immediate reset of slave oscillator</p>
+<p class="p3">soft sync = wait till start of next period for a reset of state</p>
+<p class="p2"><br></p>
+<p class="p3">The final frequency and timbre is an interaction of the frequency of the slave oscillator and the syncing (resetting) signal</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">//SyncSaw is hard sync</p>
+<p class="p3">{ <span class="s1">SyncSaw</span>.ar(<span class="s1">MouseX</span>.kr(1,400), <span class="s1">MouseY</span>.kr(400,800), 0.1) }.play;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Making a custom hard sync oscillator using an EnvGen and a trigger source</p>
+<p class="p2"><br></p>
+<p class="p3">{<span class="s1">EnvGen</span>.ar(<span class="s1">Env</span>([0,0,1,-1,0],<span class="s1">MouseY</span>.kr(0,1)*[0,128,256,128]/<span class="s1">SampleRate</span>.ir),<span class="s1">Impulse</span>.ar(<span class="s1">MouseX</span>.kr(10,300,'exponential')))}.play</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">To add smoothing and portamento to hard-edged signals, the Lag filter is useful</p>
+<p class="p2"><br></p>
+<p class="p3">Lag UGen; shortcut is .lag</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3">{</p>
+<p class="p3"><span class="s1">var</span> source;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">source= <span class="s1">LFNoise0</span>.ar(10);</p>
+<p class="p2"><br></p>
+<p class="p3">[</p>
+<p class="p3"><span class="Apple-tab-span">	</span>source,<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s2">//step</span></p>
+<p class="p4"><span class="s3"><span class="Apple-tab-span">	</span>source.lag(0.1)<span class="Apple-tab-span">	</span></span>//step with lag of period; so only gets to target value at end of step</p>
+<p class="p3">]</p>
+<p class="p3">}.plot(1.0)</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">//portamento/glide</p>
+<p class="p3">{<span class="s1">Saw</span>.ar((<span class="s1">Stepper</span>.ar(<span class="s1">Impulse</span>.ar(10),0,1,10,1)*200).lag(<span class="s1">MouseX</span>.kr(0.0,0.2)))}.play</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">//another example: Ringz is a resonant filter, exprange puts values from -1 to 1 to the desired range (100 to 2000) with an exponential mapping more fitting to human perception of frequency values</p>
+<p class="p3">{<span class="s1">Ringz</span>.ar(<span class="s1">Saw</span>.ar(<span class="s1">LFNoise0</span>.kr(5).lag(0.1).exprange(100,2000),0.2), 1000, 0.01)}.play</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">//.round used to make frequency values round off to nearest 20 Hz (re-quantising the signal)</p>
+<p class="p4">//perceived speed-ups due to interaction of slower lag and rounding of frequency</p>
+<p class="p3">{<span class="s1">Ringz</span>.ar(<span class="s1">Saw</span>.ar(<span class="s1">LFNoise0</span>.kr(5).lag(<span class="s1">MouseX</span>.kr(0.01,0.3)).exprange(100,2000).round(20),0.2), 1000, 0.01)}.play</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">The Decay UGen can also be used to put a smoothed tail on an impulse (or any signal)</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3">{</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s1">Decay</span>.ar(<span class="s1">Impulse</span>.ar(100),0.01)<span class="Apple-tab-span">	</span></p>
+<p class="p3">}.plot(0.1)</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p3">See also Decay2 for smoothing at attack and release.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3">{</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s1">Decay2</span>.ar(<span class="s1">Impulse</span>.ar(100),0.005,0.01)<span class="Apple-tab-span">	</span></p>
+<p class="p3">}.plot(0.1)</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Other mechanisms (later):</p>
+<p class="p3">Demand rate UGens</p>
+<p class="p2"><br></p>
+<p class="p3">Sequencing and event reactive functionality can be constructed with other UGens like Index, IEnvGen, PulseCount, PulseDivider, ToggleFF, SetResetFF, Timer, Schmidt and more</p>
+<p class="p2"><br></p>
+</body>
+</html>

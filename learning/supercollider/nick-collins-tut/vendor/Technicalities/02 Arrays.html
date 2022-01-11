@@ -1,0 +1,339 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1038.36">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Geneva; color: #00c63d}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Geneva; min-height: 25.0px}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Geneva}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Geneva; color: #cd1713}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Geneva; color: #00f94f}
+    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #cd1713}
+    p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco}
+    p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; min-height: 25.0px}
+    span.s1 {color: #102ac2}
+    span.s2 {color: #000000}
+    span.s3 {text-decoration: underline}
+    span.s4 {font: 18.0px Geneva}
+    span.Apple-tab-span {white-space:pre}
+  </style>
+</head>
+<body>
+<p class="p1">Arrays</p>
+<p class="p2"><br></p>
+<p class="p3">SuperCollider has lots of collection classes, but for simple tasks you can often just define arrays of data within square brackets:</p>
+<p class="p2"><br></p>
+<p class="p3">a= [5,6,7,8,9,10]; <span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">Sometimes we need to be more explicit about how to build the list of data, and we can write our own functions to generate data:</p>
+<p class="p2"><br></p>
+<p class="p3">a= <span class="s1">Array</span>.fill(6, {<span class="s1">arg</span> i;<span class="Apple-converted-space">  </span>i+5}); <span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">You'll gradually pick up the use of the Collection classes like Array, but I'll show you a few more tricks right now as a taster.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Some different ways of making Arrays (try each in turn):</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">Array</span><span class="s2">.series(10,1,1) </span>//arguments to series are number of elements, start element, and add</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">(1..10) </span>//this is a shortcut for the same thing</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s1">Array</span>.series(10,1,2)<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">(1,3..20) </span>//again a shortcut</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">Array</span><span class="s2">.geom(10, 1, 1.1); </span>//geometric rather than arithmetic series: arguments number of elements, start element, grow ratio</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">Array</span><span class="s2">.geom(10, 1, 10); </span>//be careful, the law of compound interest can make these numbers expand very fast!<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">Array</span><span class="s2">.rand(10, 0.7,2.4); </span>//make 10 random numbers drawn from a linear distribution between 0.7 and 2.4</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Some different ways of manipulating arrays: just try each line out in turn and see what gets posted to the post window!</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">a = [1,3,5,6];</p>
+<p class="p2"><br></p>
+<p class="p3">a+5</p>
+<p class="p2"><br></p>
+<p class="p3">a*8</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">a**2 </span>//take to power of 2</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">a.squared </span>//same thing</p>
+<p class="p2"><br></p>
+<p class="p3">a.sqrt</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">a.scramble </span>//run me multiple times!</p>
+<p class="p2"><br></p>
+<p class="p3">a.rotate(1)</p>
+<p class="p2"><br></p>
+<p class="p3">a.rotate(-1)</p>
+<p class="p2"><br></p>
+<p class="p3">a-10</p>
+<p class="p2"><br></p>
+<p class="p3">(a-10).abs</p>
+<p class="p2"><br></p>
+<p class="p3">a&gt;4</p>
+<p class="p2"><br></p>
+<p class="p3">a.reverse</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Indexing elements in arrays</p>
+<p class="p2"><br></p>
+<p class="p3">b=[2,3,4,7]</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">b.at(3) </span>//get the element at index 3 (meaning the fourth element)</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">b.at(4) </span>//won't return anything because the array isn't big enough! nil is a placeholder for 'no response possible' and will lead to trouble when it crops up</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">b.put(2,50) </span>//put 50 into the slot at index 2 (replace third element)</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">b </span>//note that b itself has been changed</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">b.put(14,90) </span>//crash- won't work, no space to put the 90 in, array only has four element slots</p>
+<p class="p2"><br></p>
+<p class="p3">You can also use Java array notation</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">b[0] </span>//get first element</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">b[0]= 74 </span>//set first element</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">b </span>//was changed</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">There are further types of Collection class we may deal with later.<span class="Apple-converted-space"> </span></p>
+<p class="p3">you may wish to explore the various class help files: be warned that there is a class hierarchy in operation here so a method won't necessarily be in the Array class itself</p>
+<p class="p2"><br></p>
+<p class="p3">[<span class="s3">Collections</span>]</p>
+<p class="p3">[<span class="s3">SequenceableCollection</span>]</p>
+<p class="p3">[<span class="s3">ArrayedCollection</span>]</p>
+<p class="p3">[<span class="s3">Array</span>]</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p5">A note about efficiency</p>
+<p class="p2"><br></p>
+<p class="p3">You will occasionally see<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p6"><span class="s2">#[1,2,3] </span>//makes a totally fixed (non-dynamic) Array and is slightly cheaper, especially where you're not going to change the Array once you make it</p>
+<p class="p2"><br></p>
+<p class="p3">rather than<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">[1,2,3] <span class="Apple-tab-span">	</span></span>//a dynamic array<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">To show the difference</p>
+<p class="p2"><br></p>
+<p class="p7"><span class="s4">a= </span>#[1,2,3];</p>
+<p class="p8"><br></p>
+<p class="p6"><span class="s2">a[0] </span>//works</p>
+<p class="p8"><br></p>
+<p class="p6"><span class="s2">a[0] = 8 </span>//fails, because it can't be changed</p>
+<p class="p8"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p5">More about Mix and Arrays</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Let's now look at using an Array with fill to help prepare a UGen network- for this case it's easy to use the automatic channel expansion method we saw already, but you'll find this alternative helpful in more complex cases, say where you're mixing a hundred varied voices at once! <span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">(<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//you'll only hear the first two of four frequencies if you have just a stereo output</p>
+<p class="p3">{</p>
+<p class="p3"><span class="s1">var</span> freqs,array;</p>
+<p class="p2"><br></p>
+<p class="p3">freqs= [440,443,447,455.7];</p>
+<p class="p2"><span class="Apple-converted-space"> <span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span></p>
+<p class="p4"><span class="s2">array=</span><span class="s1">Array</span><span class="s2">.fill(4,<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//4 elements will go into this array</p>
+<p class="p4"><span class="s2">{</span><span class="s1">arg</span><span class="s2"> i;<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//this function is the recipe to make each element<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="s1">SinOsc</span>.ar(freqs.at(i), 0, 0.1)</p>
+<p class="p3">});</p>
+<p class="p2"><br></p>
+<p class="p3">array</p>
+<p class="p3">}.scope</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">//We can use Mix to make this one channel</p>
+<p class="p2"><br></p>
+<p class="p3">(<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p3">{</p>
+<p class="p3"><span class="s1">var</span> freqs,array;</p>
+<p class="p2"><br></p>
+<p class="p3">freqs= [440,443,447,455.7];</p>
+<p class="p2"><span class="Apple-converted-space"> <span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span></p>
+<p class="p4"><span class="s2">array=</span><span class="s1">Array</span><span class="s2">.fill(4,<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//4 elements will go into this array</p>
+<p class="p4"><span class="s2">{</span><span class="s1">arg</span><span class="s2"> i;<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//this function is the recipe to make each element<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="s1">SinOsc</span>.ar(freqs.at(i), 0, 0.1)</p>
+<p class="p3">});</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s1">Mix</span>(array)</p>
+<p class="p3">}.scope</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">//There is a shortcut using Mix.fill</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">(<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//you'll hear the first two of four frequencies if you only have a stereo output</p>
+<p class="p3">{</p>
+<p class="p3"><span class="s1">var</span> freqs,array;</p>
+<p class="p2"><br></p>
+<p class="p3">freqs= [440,443,447,455.7];</p>
+<p class="p2"><span class="Apple-converted-space"> <span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span></p>
+<p class="p4"><span class="s1">Mix</span><span class="s2">.fill(4,<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//4 elements will go into this array</p>
+<p class="p4"><span class="s2">{</span><span class="s1">arg</span><span class="s2"> i;<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//this function is the recipe to make each element<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="s1">SinOsc</span>.ar(freqs.at(i), 0, 0.1)</p>
+<p class="p3">});</p>
+<p class="p2"><br></p>
+<p class="p3">}.scope</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+</body>
+</html>

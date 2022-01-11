@@ -1,0 +1,242 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1038.36">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Helvetica; min-height: 22.0px}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Helvetica; color: #cd1713}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Helvetica; color: #cd1713; min-height: 22.0px}
+    span.s1 {color: #000000}
+    span.s2 {color: #102ac2}
+    span.s3 {color: #cd1713}
+    span.s4 {color: #008325}
+    span.Apple-tab-span {white-space:pre}
+  </style>
+</head>
+<body>
+<p class="p1"><b>Probability distributions</b></p>
+<p class="p2"><br></p>
+<p class="p1">A probability distribution gives a relative weight to each available option in the space of possible outcomes; this is the <b>probability density function (pdf)</b>. For a discrete set of possible outcomes, there is an explicit probability mass for each; for a continuous set (e.g., any number from the range 0.0 to 1.0) a mass can be associated with any <i>interval</i>. The sum of the probability density is normalized to 1.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">From a probability density function we can create a <b>cumulative distribution function (cdf)</b> which allows us to<span class="Apple-converted-space">  </span>calculate which output we get on a particular occasion (particular roll of the dice).<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">//Helper functions for investigating pdfs and cdfs</p>
+<p class="p1">(</p>
+<p class="p3">//normalize total sum of an array to 1.0</p>
+<p class="p3"><span class="s1">~normalize = {</span><span class="s2">|array|</span><span class="s1"> <span class="Apple-converted-space">  </span>array/(array.sum)}; </span>//note, not safe if array is empty or otherwise sums to zero</p>
+<p class="p3">//(could also use normalizeSum, just showing this explicitly)</p>
+<p class="p2"><br></p>
+<p class="p3">//create array of cumulative values, assuming input is normalized (sums to 1.0)</p>
+<p class="p1">~cumulative = {<span class="s2">|array|</span><span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="s2">var</span> num = array.size;<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="s2">var</span> accumulate = 0.0;<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="s2">var</span> cumul;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">cumul = array.collect{<span class="s2">|val, i|</span><span class="Apple-converted-space">  </span>var old= accumulate; accumulate = accumulate+val; old};</p>
+<p class="p2"><br></p>
+<p class="p1">cumul</p>
+<p class="p1">};<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">//use cumulative distribution to find an output value for an input</p>
+<p class="p3">//assumes array is a cumulative distribution function, and array size is at least 1</p>
+<p class="p1">~draw= {|input, array|</p>
+<p class="p1"><span class="s2">var</span> nextindex;</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s1">nextindex= array.indexOfGreaterThan(input); </span>//also see indexInBetween if want linearly interpolated index</p>
+<p class="p2"><br></p>
+<p class="p3">//get nil if input greater than anything in array</p>
+<p class="p1">if (nextindex.isNil,{nextindex= array.size;});</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s1">nextindex= nextindex-1; </span>//get index before; we 'went past' and have to go one back to find the slot our input falls in</p>
+<p class="p4"><br></p>
+<p class="p3">//nextindex should never be less than 0</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s1">nextindex/(array.size); </span>//get position proportional within array length</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">Plotting approximations to different probability distributions:</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">//1. Uniform distribution, equal chance for any equal subsection of the range:</p>
+<p class="p2"><br></p>
+<p class="p1">p= ~normalize.value(<span class="s2">Array</span>.fill(1000,1.0));</p>
+<p class="p2"><br></p>
+<p class="p1">p.plot2(minval:0.0, maxval:2.0/1000)<span class="Apple-converted-space">  </span><span class="s3">//pdf</span></p>
+<p class="p2"><br></p>
+<p class="p1">c= ~cumulative.value(p);<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">c.plot2<span class="Apple-tab-span">	</span><span class="s3">//cdf</span></p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s2">Array</span><span class="s1">.fill(1000,{ ~draw.value(1.0.rand, c)}).sort.plot2 </span>//choose values; driven by uniform random number, could also just provide increasing uniform numbers from 0.0 to 1.0 (and then wouldn't need the sort)<span class="Apple-converted-space"> </span></p>
+<p class="p3">//we do this a thousand times to simulate 'rolling the dice' many times; the distribution only really shows itself over many trials (and can do it more times for better approximations)</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="s2">Array</span>.fill(1000,{ 1.0.rand }).sort.plot2 <span class="s3">//create values directly<span class="Apple-tab-span">	</span></span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">//2. Linear distribution, probability density drops linearly, so more likely to get lower values:</p>
+<p class="p2"><br></p>
+<p class="p1">p= ~normalize.value(<span class="s2">Array</span>.fill(1000,{|i| 1000-i}));</p>
+<p class="p2"><br></p>
+<p class="p1">p.plot2<span class="Apple-converted-space">  </span><span class="s3">//pdf</span></p>
+<p class="p2"><br></p>
+<p class="p1">c= ~cumulative.value(p);<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">c.plot2<span class="Apple-tab-span">	</span><span class="s3">//cdf</span></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="s2">Array</span>.fill(1000,{ ~draw.value(1.0.rand, c)}).sort.plot2 <span class="s3">//choose values<span class="Apple-converted-space"> </span></span></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="s2">Array</span>.fill(1000,{ 1.0.linrand }).sort.plot2 <span class="s3">//create values directly<span class="Apple-tab-span">	</span></span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">//3. Negative exponential distribution, probability density drops exponentially, so much more likely to get lower values:</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">//there is a parameter here for the rate of fall off of the distribution<span class="Apple-converted-space"> </span></p>
+<p class="p1">~alpha= 10.0;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">p= ~normalize.value(<span class="s2">Array</span>.fill(1000,{<span class="s2">|i|</span> exp((i.neg/1000)*~alpha) }));<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">p.plot2<span class="Apple-converted-space">  </span><span class="s3">//pdf</span></p>
+<p class="p2"><br></p>
+<p class="p1">c= ~cumulative.value(p);<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">c.plot2<span class="Apple-tab-span">	</span><span class="s3">//cdf</span></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="s2">Array</span>.fill(1000,{ ~draw.value(1.0.rand, c)}).sort.plot2 <span class="s3">//choose values<span class="Apple-converted-space"> </span></span></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p3">//go back and try ~alpha= 100.0; note the quantisation caused by only working with arrays of limited size as we create a discrete approximation to the ideal continuous distribution</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">//4. Normal distribution (Gaussian)</p>
+<p class="p2"><br></p>
+<p class="p3">//two parameters, mean ('centre') and standard deviation ('spread'); here we take sensible values to plot the distribution easily</p>
+<p class="p2"><br></p>
+<p class="p1">~mu= 0.5; <span class="s3">//mean</span></p>
+<p class="p3"><span class="s1">~sigma=<span class="Apple-converted-space">  </span>0.17; </span>//standard deviation; most of probability mass within 3 standard deviations, so this makes the Gaussian fit the 0.0 to 1.0 range easily for our plotting; try changing these parameters later to see the effect.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">//normalization constant calculated automatically, though there is a mathematical expression for it</p>
+<p class="p1">p= ~normalize.value(<span class="s2">Array</span>.fill(1000,{<span class="s2">|i|</span><span class="Apple-converted-space">  </span>exp((((i/1000)-~mu)/~sigma).squared.neg)}));<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">p.plot2<span class="Apple-converted-space">  </span><span class="s3">//pdf</span></p>
+<p class="p2"><br></p>
+<p class="p1">c= ~cumulative.value(p);<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">c.plot2<span class="Apple-tab-span">	</span><span class="s3">//cdf</span></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="s2">Array</span>.fill(1000,{ ~draw.value(1.0.rand, c)}).sort.plot2 <span class="s3">//choose values<span class="Apple-converted-space"> </span></span></p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s2">Array</span><span class="s1">.fill(1000,{<span class="Apple-converted-space">  </span>0.5.gauss(0.17).max(0.0).min(1.0)<span class="Apple-converted-space">  </span>}).sort.plot2 </span>//create values directly, clamping within +-3 standard deviations<span class="Apple-tab-span">	</span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">//5. Arbitrary distribution</p>
+<p class="p2"><br></p>
+<p class="p3">//let's make up our own function</p>
+<p class="p2"><br></p>
+<p class="p1">p= ~normalize.value(<span class="s2">Array</span>.fill(1000,{<span class="s2">|i|</span><span class="Apple-converted-space">  </span>var prop= (i/1000.0); if(prop&lt;0.2,{(0.2-prop)**(0.3)},{(prop-0.2)**2}) }));<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">p.plot2<span class="Apple-converted-space">  </span><span class="s3">//pdf</span></p>
+<p class="p2"><br></p>
+<p class="p1">c= ~cumulative.value(p);<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">c.plot2<span class="Apple-tab-span">	</span><span class="s3">//cdf</span></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="s2">Array</span>.fill(1000,{ ~draw.value(1.0.rand, c)}).sort.plot2 <span class="s3">//choose values<span class="Apple-converted-space"> </span></span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">//example in use; 20 notes drawn using the custom distribution (0.0 to 1.0 range output rescaled to MIDI notes 48 to 72)</p>
+<p class="p1">(</p>
+<p class="p1"><span class="Apple-tab-span">	</span>{</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>20.do{</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s2"><span class="Apple-tab-span">	</span>Synth</span>(<span class="s4">\acsound</span>,[<span class="s4">\freq</span>, 48+(24*~draw.value(1.0.rand, c))]);<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//could quantise the notes to discrete pitches, e.g., with .round(1.0)</p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0.25.wait;</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>}</p>
+<p class="p1"><span class="Apple-tab-span">	</span>}.fork;</p>
+<p class="p1">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">There are many other interesting distributions you might investigate, see for example:<span class="Apple-converted-space"> </span></p>
+<p class="p1">Charles Ames. A catalog of statistical distributions: Techniques for transforming random, determinate and chaotic sequences. Leonardo Music Journal, 1(1):55–70, 1991.<span class="Apple-converted-space"> </span></p>
+<p class="p1">Denis Lorrain. A panoply of stochastic 'cannons'. Computer Music Journal, 41(1):53–81, 1980.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">In practice, we often work with a relatively small discrete set of options. It is easy to create a custom probability distribution over a set:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">[0,1,2,3,4,5].wchoose([0.2,0.3,0.1,0.1,0.05,0.25]) <span class="s3">//make sure weights add to 1.0, or use normalizeSum</span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">//examination using our machinery for pdf, cdf, and draws:</p>
+<p class="p1">p= ~normalize.value([0.2,0.3,0.1,0.1,0.05,0.25]);<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">p.plot2<span class="Apple-converted-space">  </span><span class="s3">//pdf</span></p>
+<p class="p2"><br></p>
+<p class="p1">c= ~cumulative.value(p);<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">c.plot2<span class="Apple-tab-span">	</span><span class="s3">//cdf</span></p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s2">Array</span><span class="s1">.fill(1000,{ ~draw.value(1.0.rand, c)*6}).sort.plot2 </span>//choose values; multiply by 6 to get back integer indices<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+</body>
+</html>

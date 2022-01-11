@@ -1,0 +1,243 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1038.36">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #cd1713}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; min-height: 25.0px}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #cd1713; min-height: 25.0px}
+    span.s1 {color: #102ac2}
+    span.s2 {color: #008325}
+    span.s3 {color: #000000}
+    span.s4 {color: #cd1713}
+    span.s5 {color: #737373}
+    span.Apple-tab-span {white-space:pre}
+  </style>
+</head>
+<body>
+<p class="p1">//Demoes on the perception of rhythm</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">//s.bind and OffsetOut will be used in these demoes to get accurate timing of events; see the 'Precise Timing in SC' tutorial</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s1">SynthDef</span>(<span class="s2">\beep</span>,{<span class="s1">arg</span> freq=440,amp=0.1, pan=0.0, dur=0.1; <span class="s1">OffsetOut</span>.ar(0,<span class="s1">Pan2</span>.ar(<span class="s1">SinOsc</span>.ar(freq,0,amp)*<span class="s1">Line</span>.kr(1,0,dur, doneAction:2),pan))}).add</p>
+<p class="p2"><br></p>
+<p class="p1">//test<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="s1">Synth</span>(<span class="s2">\beep</span>,[<span class="s2">\freq</span>, 440, <span class="s2">\amp</span>,1])</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Example of timing sensitivity in spatialization</p>
+<p class="p4"><br></p>
+<p class="p1">//An event is sent at equal volume to both ears but arrives at the right ear 1 millisecond ahead of the left. You will hear it coming from the right</p>
+<p class="p1">//(demo works best over headphones)</p>
+<p class="p3">(</p>
+<p class="p3">{</p>
+<p class="p2"><br></p>
+<p class="p3">s.bind{<span class="s1">Synth</span>(<span class="s2">\beep</span>,[<span class="s2">\freq</span>, 440,<span class="s2">\amp</span>,0.1,<span class="s2">\pan</span>,1])};</p>
+<p class="p2"><br></p>
+<p class="p3">0.001.wait;</p>
+<p class="p2"><br></p>
+<p class="p3">s.bind{<span class="s1">Synth</span>(<span class="s2">\beep</span>,[<span class="s2">\freq</span>, 440,<span class="s2">\amp</span>,0.1,<span class="s2">\pan</span>,-1])};</p>
+<p class="p2"><br></p>
+<p class="p3">}.fork</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">//which came first? 30 msec difference between two tones (try different values)</p>
+<p class="p3">(</p>
+<p class="p3">{</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">s.bind{<span class="s1">Synth</span>(<span class="s2">\beep</span>,[<span class="s2">\freq</span>,440,<span class="s2">\amp</span>,0.1,<span class="s2">\pan</span>,0,\dur,0.1+0.03])};</p>
+<p class="p2"><br></p>
+<p class="p3">0.03.wait;</p>
+<p class="p2"><br></p>
+<p class="p3">s.bind{<span class="s1">Synth</span>(<span class="s2">\beep</span>,[<span class="s2">\freq</span>,560,<span class="s2">\amp</span>,0.1,<span class="s2">\pan</span>,0,\dur,0.1])};</p>
+<p class="p2"><br></p>
+<p class="p3">}.fork</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">//how many events in these tuplets? (you may need to get someone else to test you, or add a randomising function like rrand(3,9) )<span class="Apple-converted-space"> </span></p>
+<p class="p3">(</p>
+<p class="p3"><span class="s1">var</span> n, delay;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="s3">n=4; </span>//start increasing by 1</p>
+<p class="p2"><br></p>
+<p class="p3">delay=0.4/n;</p>
+<p class="p2"><br></p>
+<p class="p3">{</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span>n.do {</p>
+<p class="p3"><span class="Apple-tab-span">	</span>s.bind{<span class="s1">Synth</span>(<span class="s2">\beep</span>,[<span class="s2">\freq</span>, 440,<span class="s2">\amp</span>,0.1,<span class="s2">\pan</span>,0])};</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span>delay.wait;</p>
+<p class="p3"><span class="Apple-tab-span">	</span>}</p>
+<p class="p2"><br></p>
+<p class="p3">}.fork</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">//how many duration categories?</p>
+<p class="p3">(</p>
+<p class="p3"><span class="s1">var</span> categories, n;</p>
+<p class="p2"><br></p>
+<p class="p3">n=7;</p>
+<p class="p2"><br></p>
+<p class="p3">categories=[0.25,0.33,0.4,0.5,0.6,0.67,0.75,0.8,1,1.25,1.5,1.75];</p>
+<p class="p2"><br></p>
+<p class="p3">n = min(n,categories.size);</p>
+<p class="p2"><br></p>
+<p class="p3">{</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s1">inf</span>.do {</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>s.bind{<span class="s1">Synth</span>(<span class="s2">\beep</span>,[<span class="s2">\freq</span>, 440,<span class="s2">\amp</span>,0.1,<span class="s2">\pan</span>,0])};</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span>(categories.wrapAt(n.rand)).wait;</p>
+<p class="p3"><span class="Apple-tab-span">	</span>}</p>
+<p class="p2"><br></p>
+<p class="p3">}.fork</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">//limits of tempo</p>
+<p class="p3">(</p>
+<p class="p3"><span class="s1">var</span> tempo;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="s3">tempo=0.5; </span>//bps 0.5 (2 second period), 4 (0.25 second period)</p>
+<p class="p2"><br></p>
+<p class="p3">{</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s1">inf</span>.do {<span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>s.bind{<span class="s1">Synth</span>(<span class="s2">\beep</span>,[<span class="s2">\freq</span>, 440,<span class="s2">\amp</span>,0.1,<span class="s2">\pan</span>,0])};</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>1.wait;</p>
+<p class="p3"><span class="Apple-tab-span">	</span>}</p>
+<p class="p3">}.fork(<span class="s1">TempoClock</span>(tempo))</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">//tempo discrimination test</p>
+<p class="p2"><br></p>
+<p class="p3">t = TempoClock(2);<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3">{</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s1">inf</span>.do {</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>s.bind{<span class="s1">Synth</span>(<span class="s2">\beep</span>,[<span class="s2">\freq</span>, 440,<span class="s2">\amp</span>,0.1,<span class="s2">\pan</span>,0])};</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>1.wait;</p>
+<p class="p3"><span class="Apple-tab-span">	</span>}</p>
+<p class="p3">}.fork(t)</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="s3">t.tempo= 2*(1.01);</span> //try different values like 1.01, 1.04, 1.1 for the multiplier in brackets</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">//swing</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="s3">w = 0.1; </span>//variable to hold amount of swing in seconds</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3">{</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s1">inf</span>.do {<span class="s1">|i|</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>s.bind{<span class="s1">Synth</span>(<span class="s2">\beep</span>,[<span class="s2">\freq</span>, 440,<span class="s2">\amp</span>,0.1,<span class="s2">\pan</span>,0])};</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>([1,-1]@@(i)*w + 0.25).wait; <span class="s4">//@@ is wrapAt</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>}</p>
+<p class="p3">}.fork(<span class="s1">TempoClock</span>(2))</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="s3">w = 0.08; </span>//try 0.0, 0.2</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">//metric modulation<span class="Apple-converted-space"> </span></p>
+<p class="p1">//quintuplets become new pulsation level as tempo increases by 5/4</p>
+<p class="p3">(<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="s1">var</span> clock = <span class="s1">TempoClock</span>(1); <span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-converted-space"> </span></p>
+<p class="p3">{<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>5.do{<span class="s1">|i|</span><span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>(<span class="s5">"iteration"</span>+i).postln;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>{<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//pulse beats<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>8.do{<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Synth</span>(<span class="s2">\beep</span>,[<span class="s2">\freq</span>, 100, <span class="s2">\amp</span>,0.5]);<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>1.0.wait;</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>};<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>}.fork(clock); <span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>{<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>(4*6).do{<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Synth</span>(<span class="s2">\beep</span>,[<span class="s2">\freq</span>, 100, <span class="s2">\amp</span>,0.5]);<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0.25.wait;<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>};<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>(5*2).do{<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Synth</span>(<span class="s2">\beep</span>,[<span class="s2">\freq</span>, 100, <span class="s2">\amp</span>,0.5]);<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0.2.wait;<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>};<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>}.fork(clock); <span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>8.wait; <span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>clock.tempo = clock.tempo*(5/4); <span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>};<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p3">}.fork(clock); <span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-converted-space"> </span></p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+</body>
+</html>

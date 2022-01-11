@@ -1,0 +1,22 @@
+[package]
+name = "happylabs-api"
+version = "0.1.0"
+authors = ["Louis Pilfold <louis@lpil.uk>"]
+edition = "2018"
+
+[dependencies]
+# Web server
+gotham = "0.4"
+gotham_derive = "0.4"
+hyper = "0.12"
+
+# (de)serialization magic
+serde = "1"
+serde_derive = "1"
+
+# mime types
+mime = "0.3"
+
+# Tracing, metrics and logging library
+tracing = "0.1"
+tracing-subscriber = "0.1"

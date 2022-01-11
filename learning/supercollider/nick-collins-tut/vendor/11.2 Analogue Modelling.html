@@ -1,0 +1,400 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1038.36">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 24.0px Monaco; min-height: 32.0px}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 39.0px Monaco}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 24.0px Monaco}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 24.0px Monaco; color: #cd1713}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 24.0px Monaco; color: #102ac2}
+    span.s1 {color: #102ac2}
+    span.s2 {color: #cd1713}
+    span.s3 {color: #000000}
+    span.s4 {color: #008325}
+    span.Apple-tab-span {white-space:pre}
+  </style>
+</head>
+<body>
+<p class="p1"><br></p>
+<p class="p2">Analogue Modelling Tips and Tricks</p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p3">Contents:</p>
+<p class="p1"><br></p>
+<p class="p3">Analogue Warmth: avoiding aliasing, chorusing<span class="Apple-converted-space"> </span></p>
+<p class="p3">Filter Comparison: standard filters, BEQ Suite, MoogFF</p>
+<p class="p3">More Server Side Sequencing: Demand rate UGens</p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p3">Simulating Analogue Warmth</p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p3">Digital systems have the drawback of setting hard contraints on representable frequencies and amplitude levels<span class="Apple-converted-space"> </span></p>
+<p class="p1"><br></p>
+<p class="p3">Avoiding aliasing; use band limited waveforms (i.e. Saw not LFSaw for higher frequencies)</p>
+<p class="p1"><br></p>
+<p class="p3">(</p>
+<p class="p3">{</p>
+<p class="p3">[<span class="s1">LFSaw</span>.ar(1000),<span class="s1">Saw</span>.ar(1000)]</p>
+<p class="p3">}.plot(0.01)</p>
+<p class="p3">)</p>
+<p class="p1"><br></p>
+<p class="p3">But then, both are perfectly serviceable for low frequencies and the rougher edge to LFSaw can be useful.</p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p3">Sidenote on aliasing:<span class="Apple-converted-space"> </span></p>
+<p class="p3">Fundamental frequencies at divisors of the sampling rate have harmonics which only alias at harmonic locations!<span class="Apple-converted-space"> </span></p>
+<p class="p1"><br></p>
+<p class="p4">//These assume 44100Hz output sampling rate</p>
+<p class="p3">s.sampleRate</p>
+<p class="p1"><br></p>
+<p class="p4">//warning; LOUD, awkward on ear</p>
+<p class="p3">{<span class="s1">LFSaw</span>.ar(4410+(<span class="s1">MouseX</span>.kr(0,10).round(1)),0,0.5)}.scope</p>
+<p class="p1"><br></p>
+<p class="p4">//aliasing if mouse moved left</p>
+<p class="p3">{<span class="s1">LFSaw</span>.ar(1102.5+(<span class="s1">MouseX</span>.kr(0,10).round(1)),0,0.5)}.scope</p>
+<p class="p1"><br></p>
+<p class="p4">//no aliasing</p>
+<p class="p3">{<span class="s1">Saw</span>.ar(1102.5+(<span class="s1">MouseX</span>.kr(0,10).round(1)),0.5)}.scope</p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p3">Chorusing (detuned oscillators)</p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p3">{<span class="s1">Saw</span>.ar(440,0.2)}.play <span class="s2">//plain</span></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p3">Though it increases sensory dissonance (beats and roughness between partials), a thicker sound is possible by mixing multiple copies of a waveform generator with subtle differences</p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p3">{<span class="s1">Mix</span>(<span class="s1">Saw</span>.ar(440*[0.99,1.01],0.2))}.play <span class="s2">//plain</span></p>
+<p class="p4">//if want perceptual (log freq) same difference each side need 0.99 and 0.99.reciprocal, but we'll overlook that for now</p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p4">//Because the oscillators are deterministic, there is a potential problem of highly rigid beating patterns</p>
+<p class="p3">(</p>
+<p class="p3"><span class="s1">var</span> numdetune=4;</p>
+<p class="p3">{<span class="s1">Mix</span>(<span class="s1">Saw</span>.ar(<span class="s1">Array</span>.rand(numdetune,1,1.01)*440,0.2))}.play</p>
+<p class="p3">)</p>
+<p class="p1"><br></p>
+<p class="p4">//to alter phases need LFSaw; but could also just add some subtle frequency modulation</p>
+<p class="p3">(</p>
+<p class="p3">{</p>
+<p class="p3"><span class="s1">Mix</span>.fill(4,{</p>
+<p class="p3"><span class="s1">var</span> freqmult;<span class="Apple-converted-space"> </span></p>
+<p class="p1"><br></p>
+<p class="p4">//between 1 +- 0.01</p>
+<p class="p3">freqmult= 1+<span class="s1">SinOsc</span>.ar(<span class="s1">LFNoise1</span>.kr(rrand(0.25,0.5),4,5),pi.rand,0.01);</p>
+<p class="p1"><br></p>
+<p class="p3"><span class="s1">LFSaw</span>.ar(440*(freqmult),pi.rand,0.2)</p>
+<p class="p1"><br></p>
+<p class="p3">})<span class="Apple-converted-space"> </span></p>
+<p class="p3">}.play</p>
+<p class="p3">)</p>
+<p class="p4">//question for you; why don't I need to use Rand rather than rrand in this case?<span class="Apple-converted-space"> </span></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p3">(</p>
+<p class="p3">{<span class="s1">Mix</span>.fill(4,{<span class="s1">Saw</span>.ar(440*(1+<span class="s1">SinOsc</span>.ar(<span class="s1">LFNoise1</span>.kr(rrand(0.25,0.5),4,5),pi.rand,0.02)),0.2)}) }.play</p>
+<p class="p3">)</p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p4">//more like an analogue synth though to combine different waveforms in proportion and more overt detunings (ie octaves, octave+fifth)</p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p4">//make a random mix</p>
+<p class="p3">{<span class="s1">Mix</span>.fill(3,{<span class="s1">|i|</span> [<span class="s1">LFTri</span>, <span class="s1">LFCub</span>, <span class="s1">LFPar</span>].choose.ar(110*(2**i),pi.rand,10.rand.neg.dbamp)})}.play</p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p3">Now to work on the source+filter model for subtractive synthesis<span class="Apple-converted-space"> </span></p>
+<p class="p1"><br></p>
+<p class="p3">Comparing Filters</p>
+<p class="p1"><br></p>
+<p class="p4">//standard filter</p>
+<p class="p3">(</p>
+<p class="p3">z = {</p>
+<p class="p5"><span class="s3"><span class="Apple-tab-span">	</span></span>Resonz<span class="s3">.ar(</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Mix</span>(<span class="s1">Saw</span>.ar([0.99,1,1.01]*440,0.3)),</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">MouseX</span>.kr(100,20000,<span class="s4">\exponential</span>), <span class="s2">// cutoff freq.</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">MouseY</span>.kr(0.1, 1.0, <span class="s4">\linear</span>), <span class="s2">// rq</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0.5); <span class="s2">// mul</span></p>
+<p class="p3">}.play</p>
+<p class="p3">)</p>
+<p class="p3">z.free;</p>
+<p class="p1"><br></p>
+<p class="p4">//The BEQSuite (sc3-plugins pack) has some nice filters, which take less energy away:</p>
+<p class="p3">(</p>
+<p class="p3">z = {</p>
+<p class="p5"><span class="s3"><span class="Apple-tab-span">	</span></span>BLowPass4<span class="s3">.ar(</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Mix</span>(<span class="s1">Saw</span>.ar([0.99,1,1.01]*440,0.3)),</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">MouseX</span>.kr(100,20000,<span class="s4">\exponential</span>), <span class="s2">// cutoff freq.</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">MouseY</span>.kr(0.1, 1.0, <span class="s4">\linear</span>), <span class="s2">// rq<span class="Apple-converted-space"> </span></span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0.5); <span class="s2">// mul</span></p>
+<p class="p3">}.play</p>
+<p class="p3">)</p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p3">z.free;</p>
+<p class="p1"><br></p>
+<p class="p4">//can distort at high gain</p>
+<p class="p3">(</p>
+<p class="p3">z = {</p>
+<p class="p5"><span class="s3"><span class="Apple-tab-span">	</span></span>MoogFF<span class="s3">.ar(</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Mix</span>(<span class="s1">Saw</span>.ar([0.99,1,1.01]*440,0.3)),<span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">MouseX</span>.kr(100,20000,<span class="s4">\exponential</span>), <span class="s2">// cutoff freq.</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">MouseY</span>.kr(0.1, 4.0, <span class="s4">\linear</span>) <span class="s2">//gain</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>); <span class="Apple-converted-space"> </span></p>
+<p class="p3">}.play</p>
+<p class="p3">)</p>
+<p class="p1"><br></p>
+<p class="p3">z.free;</p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p3">Demand Rate UGens</p>
+<p class="p1"><br></p>
+<p class="p3">A bit like the Patterns library, server side!<span class="Apple-converted-space"> </span></p>
+<p class="p1"><br></p>
+<p class="p3">Triggers are used in the Demand UGen to cue a 'demand' for a new value from the attached specialist demand rate UGens (which all begin with D and have names analogous to patterns)</p>
+<p class="p1"><br></p>
+<p class="p3">(</p>
+<p class="p3">{<span class="s1">var</span> sequence = <span class="s1">Dseq</span>([-0.3,0.5,0.0,0.4],<span class="s1">inf</span>); <span class="s2">//Dseq is demand rate</span></p>
+<p class="p1"><br></p>
+<p class="p3"><span class="s1">Demand</span>.ar(<span class="s1">Impulse</span>.ar(10),0, sequence);</p>
+<p class="p3">}.plot(1.0)</p>
+<p class="p3">)</p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p3">So far, similar functionality might be constructed with Select, Index, EnvGen, IEnvGen et al</p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p3">But akin to patterns, nesting is possible:<span class="Apple-converted-space"> </span></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p3">(</p>
+<p class="p3">{<span class="s1">var</span> sequence = <span class="s1">Dseq</span>([-0.3,<span class="s1">Drand</span>([-1,1],1),0.0,0.4],<span class="s1">inf</span>); <span class="s2">//Dseq is demand rate</span></p>
+<p class="p1"><br></p>
+<p class="p3"><span class="s1">Demand</span>.ar(<span class="s1">Impulse</span>.ar(100),0, sequence);</p>
+<p class="p3">}.plot(1.0)</p>
+<p class="p3">)</p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p3">Musical use:<span class="Apple-converted-space"> </span></p>
+<p class="p1"><br></p>
+<p class="p3">(</p>
+<p class="p3">{<span class="s1">var</span> freq, sequence = <span class="s1">Dseq</span>([60,<span class="s1">Drand</span>([48,72],1),63,62.8],<span class="s1">inf</span>); <span class="s2">//Dseq is demand rate</span></p>
+<p class="p1"><br></p>
+<p class="p4"><span class="s3">freq= </span><span class="s1">Demand</span><span class="s3">.kr(</span><span class="s1">Impulse</span><span class="s3">.kr(</span><span class="s1">MouseX</span><span class="s3">.kr(1,100)),0, sequence).midicps; </span>//only need k-rate; used a-rate in last examples because final output in UGen graph needs to be audio rate</p>
+<p class="p1"><br></p>
+<p class="p3"><span class="s1">Saw</span>.ar(freq, 0.1)</p>
+<p class="p3">}.play</p>
+<p class="p3">)</p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p4">//multichannel use 1 (multichannel expansion gives independent sequences)</p>
+<p class="p3">(</p>
+<p class="p3">{<span class="s1">var</span> freq, sequence = <span class="s1">Dseq</span>([60,<span class="s1">Drand</span>([47,73],1),63,61.5],<span class="s1">inf</span>); <span class="s2">//Dseq is demand rate</span></p>
+<p class="p1"><br></p>
+<p class="p4"><span class="s3">freq= </span><span class="s1">Demand</span><span class="s3">.kr(</span><span class="s1">Impulse</span><span class="s3">.kr([5,5.1]),0, sequence).midicps; </span>//output is two channels, since Dseq has two output values</p>
+<p class="p1"><br></p>
+<p class="p3"><span class="s1">SyncSaw</span>.ar(freq, <span class="s1">300</span>,0.1);</p>
+<p class="p3">}.play</p>
+<p class="p3">)</p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p4">//multichannel use 2 (multichannel sequence itself)</p>
+<p class="p3">(</p>
+<p class="p3">{<span class="s1">var</span> freq, sequence = <span class="s1">Dseq</span>([[60,48],<span class="s1">Drand</span>([48,72],1),63,[61,62.8],[55,62.5],[63,62.1]],<span class="s1">inf</span>); <span class="s2">//Dseq is demand rate</span></p>
+<p class="p1"><br></p>
+<p class="p4"><span class="s3">freq= </span><span class="s1">Demand</span><span class="s3">.kr(</span><span class="s1">Impulse</span><span class="s3">.kr(5),0, sequence).midicps; </span>//output is two channels, since Dseq has two output values</p>
+<p class="p1"><br></p>
+<p class="p3">[</p>
+<p class="p3"><span class="s1">SyncSaw</span>.ar(freq[0], <span class="s1">LFNoise0</span>.kr(7,100,230),0.1),</p>
+<p class="p3"><span class="s1">SyncSaw</span>.ar(freq[1], <span class="s1">LFNoise2</span>.kr(17,400,630),0.1)</p>
+<p class="p3">]</p>
+<p class="p3">}.play</p>
+<p class="p3">)</p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p3">More demanding: Duty allows you to specify a duration sequence for controlling when the next value is demanded</p>
+<p class="p1"><br></p>
+<p class="p4">//interaction of durations for holding current value and output value sequence</p>
+<p class="p3">{<span class="s1">Duty</span>.ar(<span class="s1">Dseq</span>([0.025,0.05],<span class="s1">inf</span>),0,<span class="s1">Dseq</span>([-0.5,0.5,0,-1,1],<span class="s1">inf</span>))}.plot(0.6)</p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p3">The next three examples are provided as more involved patches; you might want to try to work out what is going on!<span class="Apple-converted-space"> </span></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p4">//putting various things together: rhythmic synthesis</p>
+<p class="p3">(</p>
+<p class="p3">{<span class="s1">var</span> freq, filterfreq, source, filtered;</p>
+<p class="p3"><span class="s1">var</span> tempo;</p>
+<p class="p1"><br></p>
+<p class="p4"><span class="s3">tempo= 0.5; </span>//seconds per beat</p>
+<p class="p1"><br></p>
+<p class="p3">freq= <span class="s1">Duty</span>.kr(<span class="s1">Dseq</span>([0.25,0.25,0.5,0.75,0.75,0.75,0.25,0.25,0.25]*tempo,<span class="s1">inf</span>),0,<span class="s1">Dseq</span>([60,62,63,65,67,55,53,<span class="s1">Drand</span>([51,49,58,70],1),70,<span class="s1">Drand</span>([70, 48,72,36],1)],<span class="s1">inf</span>)).midicps;</p>
+<p class="p1"><br></p>
+<p class="p3">filterfreq= <span class="s1">Duty</span>.kr(<span class="s1">Dseq</span>([0.25,0.25,0.25,0.25,1.0]*tempo,<span class="s1">inf</span>),0,<span class="s1">Dseq</span>(<span class="s1">Array</span>.fill(16,{exprand(300,5000)}),<span class="s1">inf</span>));</p>
+<p class="p1"><br></p>
+<p class="p3">source= <span class="s1">Mix</span>(<span class="s1">SyncSaw</span>.ar([1,0.5,0.25,1.01, 1.25]*(freq.lag(0.05)),<span class="s1">LFNoise2</span>.kr([0.25,0.5,1,2,4]*(tempo*2),200,300), 0.1));</p>
+<p class="p1"><br></p>
+<p class="p3">filtered= <span class="s1">BLowPass4</span>.ar(source,filterfreq.lag(0.0625),0.5);</p>
+<p class="p1"><br></p>
+<p class="p3"><span class="s1">Pan2</span>.ar(filtered, <span class="s1">LFNoise1</span>.kr(tempo,0.25))</p>
+<p class="p3">}.play</p>
+<p class="p3">)</p>
+<p class="p4">//note that if you make the Duty's .ar you'll see a substantial increase in CPU usage!</p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p3">(</p>
+<p class="p3">{</p>
+<p class="p3"><span class="s1">var</span> source, filter, env;<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="s1">var</span> trig, freq, freq2;<span class="Apple-converted-space"> </span></p>
+<p class="p1"><br></p>
+<p class="p4"><span class="s3">trig= </span><span class="s1">Impulse</span><span class="s3">.kr(8,[0,0.1]); </span>//stereo here forces stereo throughout the graph, including generating different notes</p>
+<p class="p4">//trig= Impulse.kr(8);</p>
+<p class="p1"><br></p>
+<p class="p4">//sequencer via Demand UGens</p>
+<p class="p3">freq= <span class="s1">Demand</span>.kr(trig,0,<span class="s1">Drand</span>([60,63,60,63,65,63,70,67, 60,62,60,63,65,63,70,67, 67,72,75,72,67,70,63,55],<span class="s1">inf</span>)).midicps;</p>
+<p class="p1"><br></p>
+<p class="p4">//portamento via lag</p>
+<p class="p3">source= <span class="s1">Mix</span>.fill(4,{<span class="s1">|i|</span> <span class="s1">LFSaw</span>.ar((freq*[0.25*1.5,0.125]).lag(<span class="s1">MouseY</span>.kr(0.0,0.15))*((2**(i))+<span class="s1">SinOsc</span>.ar(<span class="s1">LFNoise1</span>.kr(rrand(0.25,0.5),4,5),pi.rand,0.01)),pi.rand,0.2)});</p>
+<p class="p1"><br></p>
+<p class="p4">//if using Saw instead</p>
+<p class="p4">//source= Mix.fill(4,{|i| Saw.ar((freq*[0.25*1.5,0.125]).lag(MouseY.kr(0.0,0.15))*((2**(i))+SinOsc.ar(LFNoise1.kr(rrand(0.25,0.5),4,5),pi.rand,0.01)),0.2)});</p>
+<p class="p1"><br></p>
+<p class="p4">//envelope is restarted by trigger MouseX.kr(0.25,0.125)</p>
+<p class="p3">env= <span class="s1">EnvGen</span>.ar(<span class="s1">Env</span>([0,1,0],[0.01,0.25]),trig);</p>
+<p class="p1"><br></p>
+<p class="p3">filter= <span class="s1">BLowPass</span>.ar(0.5*source,300+(<span class="s1">MouseX</span>.kr(100,20000,<span class="s4">'exponential'</span>)*env),0.2, env);</p>
+<p class="p1"><br></p>
+<p class="p4">//Pan2.ar(filter,0.0);</p>
+<p class="p3"><span class="Apple-converted-space"> </span>}.play</p>
+<p class="p3">)</p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p4">//using InterplEnv</p>
+<p class="p3">(</p>
+<p class="p3">{</p>
+<p class="p3"><span class="s1">var</span> source, filter;<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="s1">var</span> freq;<span class="Apple-converted-space"> </span></p>
+<p class="p1"><br></p>
+<p class="p3">freq= <span class="s1">IEnvGen</span>.kr(<span class="s1">InterplEnv</span>([60,62,63,67,70,67,70,72,48].scramble,0.125.dup(8)),<span class="s1">Phasor</span>.ar(<span class="s1">LFNoise0</span>.kr(1)&gt;0,0.5*(1.0/<span class="s1">SampleRate</span>.ir),0.0,1.0).round(1/8)).midicps;</p>
+<p class="p1"><br></p>
+<p class="p3">source= <span class="s1">Mix</span>.fill(5,{<span class="s1">|i|</span> <span class="s1">Saw</span>.ar(freq*(0.25*(2**(i))+<span class="s1">SinOsc</span>.ar(<span class="s1">LFNoise1</span>.kr([0.125,0.25,0.5].choose,7,8),pi.rand,0.01)),0.2)});</p>
+<p class="p1"><br></p>
+<p class="p3">filter= <span class="s1">BLowPass</span>.ar(0.5*source,1000+(2000*<span class="s1">EnvGen</span>.ar(<span class="s1">Env</span>([0,1,0],[0.01,0.25]),<span class="s1">Impulse</span>.kr(2))),0.2);</p>
+<p class="p1"><br></p>
+<p class="p3"><span class="s1">Limiter</span>.ar(<span class="s1">GVerb</span>.ar(filter*0.25) + <span class="s1">Pan2</span>.ar(filter))</p>
+<p class="p3"><span class="Apple-converted-space"> </span>}.play</p>
+<p class="p3">)</p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+</body>
+</html>

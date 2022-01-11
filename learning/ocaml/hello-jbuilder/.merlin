@@ -1,0 +1,17 @@
+B /home/louispilfold/.asdf/installs/ocaml/4.07.0/4.07.0/lib/alcotest
+B /home/louispilfold/.asdf/installs/ocaml/4.07.0/4.07.0/lib/astring
+B /home/louispilfold/.asdf/installs/ocaml/4.07.0/4.07.0/lib/bytes
+B /home/louispilfold/.asdf/installs/ocaml/4.07.0/4.07.0/lib/cmdliner
+B /home/louispilfold/.asdf/installs/ocaml/4.07.0/4.07.0/lib/fmt
+B /home/louispilfold/.asdf/installs/ocaml/4.07.0/4.07.0/lib/ocaml
+B /home/louispilfold/.asdf/installs/ocaml/4.07.0/4.07.0/lib/result
+B _build/default/.hello_world.eobjs
+S /home/louispilfold/.asdf/installs/ocaml/4.07.0/4.07.0/lib/alcotest
+S /home/louispilfold/.asdf/installs/ocaml/4.07.0/4.07.0/lib/astring
+S /home/louispilfold/.asdf/installs/ocaml/4.07.0/4.07.0/lib/bytes
+S /home/louispilfold/.asdf/installs/ocaml/4.07.0/4.07.0/lib/cmdliner
+S /home/louispilfold/.asdf/installs/ocaml/4.07.0/4.07.0/lib/fmt
+S /home/louispilfold/.asdf/installs/ocaml/4.07.0/4.07.0/lib/ocaml
+S /home/louispilfold/.asdf/installs/ocaml/4.07.0/4.07.0/lib/result
+S .
+FLG -w @a-4-29-40-41-42-44-45-48-58-59-60-40 -strict-sequence -strict-formats -short-paths -keep-locs

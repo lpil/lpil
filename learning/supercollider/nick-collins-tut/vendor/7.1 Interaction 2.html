@@ -1,0 +1,495 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1038.36">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; min-height: 25.0px}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #cd1713; min-height: 25.0px}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #cd1713}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #102ac2}
+    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #1738f5}
+    p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #737373}
+    span.s1 {color: #102ac2}
+    span.s2 {color: #000000}
+    span.s3 {color: #cd1713}
+    span.s4 {color: #008325}
+    span.s5 {color: #008024}
+    span.s6 {color: #737373}
+    span.s7 {text-decoration: underline}
+    span.Apple-tab-span {white-space:pre}
+  </style>
+</head>
+<body>
+<p class="p1">Interaction via MIDI, SoundIn, external controllers</p>
+<p class="p2"><br></p>
+<p class="p1">(</p>
+<p class="p1"><span class="s1">Server</span>.default=s=<span class="s1">Server</span>.local;</p>
+<p class="p1">s.boot;</p>
+<p class="p1">)</p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p1">MIDI</p>
+<p class="p3"><br></p>
+<p class="p1">To access your MIDI devices you first initialise:</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">MIDIClient</span><span class="s2">.init<span class="Apple-tab-span">	</span></span>//should post a list of available devices</p>
+<p class="p2"><br></p>
+<p class="p1">There may be more than one source and destination device, each containing different input and output ports. <span class="Apple-converted-space"> </span></p>
+<p class="p3"><br></p>
+<p class="p1">To react to incoming MIDI messages, the user sets up callback functions.</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">MIDIIn</span><span class="s2">.connect(0,</span><span class="s1">MIDIClient</span><span class="s2">.sources[0])<span class="Apple-converted-space">  </span></span>//first number is port number, second is device from sources list</p>
+<p class="p4">//MIDIIn.connect //would work on its own but defaults to first port of first device</p>
+<p class="p4">//MIDIIn.connectAll //connect to all attached input sources</p>
+<p class="p2"><br></p>
+<p class="p1">Incoming MIDI messages can be easily handled through some callback functions in MIDIIn. However, from SuperCollider 3.5, the use of MIDIFunc is much preferred.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">First, the old way:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="s1">MIDIIn</span>.noteOn= { <span class="s1">arg</span> src, chan, num, vel; <span class="Apple-converted-space">  </span>[chan,num,vel / 127].postln; }; <span class="Apple-converted-space">  </span><span class="s3">//set up callback for MIDI Note On message</span></p>
+<p class="p2"><br></p>
+<p class="p1">MIDI messages typically have a 7-bit (2**7) value range, so take on integers from 0 to 127. The vel/127 above converts from this range to a 0.0 to 1.0 range befitting an amplitude control.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="s1">MIDIIn</span>.control = { <span class="s1">arg</span> src, chan, num, val; <span class="Apple-converted-space">  </span>[chan,num,val/127].postln; }; <span class="s3">//control change messages have a 7 bit value</span></p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">MIDIIn</span><span class="s2">.bend = { </span><span class="s1">arg</span><span class="s2"> src, chan, bend;<span class="Apple-converted-space">    </span>[chan,bend/8192].postln; }; </span>//pitch bend has a 14 bit range and is a bipolar signal (so bend/8192 will remap the range to -1.0 to 1.0)</p>
+<p class="p2"><br></p>
+<p class="p1">See the MIDIIn help file for further message types.<span class="Apple-converted-space"> </span></p>
+<p class="p5"><span class="s2">[</span>MIDIIn<span class="s2">]</span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">Examples:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">//creating Synths with each new note on</p>
+<p class="p1">(</p>
+<p class="p1"><span class="s1">SynthDef</span>(<span class="s4">\sound</span>,{<span class="s1">arg</span> freq=440, amp=0.1;</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="s1">var</span> saw, filter, env;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><span class="Apple-tab-span">	</span>saw= <span class="s1">Saw</span>.ar(freq);</p>
+<p class="p1"><span class="Apple-tab-span">	</span>filter= <span class="s1">Resonz</span>.ar(saw,1000,0.1)*amp;</p>
+<p class="p1"><span class="Apple-tab-span">	</span>env= <span class="s1">EnvGen</span>.ar(<span class="s1">Env</span>([0,1,0],[0.01,0.1]),doneAction:2);</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p4"><span class="s2"><span class="Apple-tab-span">	</span></span>//dup(2) duplicates the mono signal onto two channels, giving instant stereo middle panned output</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="s1">Out</span>.ar(0,(filter*env).dup(2))</p>
+<p class="p1">}).add</p>
+<p class="p1">)</p>
+<p class="p2"><br></p>
+<p class="p4">//create one Synth for every new note, Synths will be of finite duration because of the envelope<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="s1">MIDIIn</span>.noteOn = { <span class="s1">arg</span> src,chan, midinote, velocity; <span class="Apple-converted-space">  </span><span class="s1">Synth</span>(<span class="s4">\sound</span>,[<span class="s4">\freq</span>,midinote.midicps,<span class="s4">\amp</span>,velocity/127.0]) };</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p4">//turn off again<span class="Apple-tab-span">	</span></p>
+<p class="p1"><span class="s1">MIDIIn</span>.noteOn = <span class="s1">nil</span>;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">Keeping track of active (held-down, sustained) notes can be a chore in MIDI. Here is an example of doing this using an array with 128 slots, one for each possible MIDI note.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">//note the use of a gate; this will sustain until released</p>
+<p class="p1">(</p>
+<p class="p1"><span class="s1">SynthDef</span>(<span class="s4">\sound</span>,{<span class="s1">arg</span> freq=440, amp=0.1, gate=1;</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="s1">var</span> saw, filter, env;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><span class="Apple-tab-span">	</span>saw= <span class="s1">Saw</span>.ar(freq);</p>
+<p class="p1"><span class="Apple-tab-span">	</span>filter= <span class="s1">Resonz</span>.ar(saw,1000,0.1)*amp;</p>
+<p class="p1"><span class="Apple-tab-span">	</span>env= <span class="s1">EnvGen</span>.ar(<span class="s1">Env</span>.asr(0.005,1.0,0.1),gate,doneAction:2);</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="s1">Out</span>.ar(0,(filter*env).dup(2))</p>
+<p class="p1">}).add</p>
+<p class="p1">)</p>
+<p class="p2"><br></p>
+<p class="p1">(</p>
+<p class="p4"><span class="s1">var</span><span class="s2"> activenotes = </span><span class="s1">nil</span><span class="s2">!128; </span>//make Array of 128 slots, initially with nil objects in to represent nothing</p>
+<p class="p1"><span class="s1">var</span> releasefunction = {<span class="s1">|index|</span><span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p4"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//release existing note if present already</p>
+<p class="p1"><span class="Apple-tab-span">	</span>if(activenotes[index].notNil) {</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>activenotes[index].release; <span class="s3">//will send gate=0</span></p>
+<p class="p4"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>activenotes[index] = </span><span class="s1">nil</span><span class="s2">; </span>//make sure now empty slot ready</p>
+<p class="p1"><span class="Apple-tab-span">	</span>}</p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p1"><span class="Apple-tab-span">	</span>};<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">//create one Synth for every new note, with logic to check existing notes (though not MIDI channel sensitive)</p>
+<p class="p1"><span class="s1">MIDIIn</span>.noteOn = { <span class="s1">arg</span> src,chan, midinote, velocity;<span class="Apple-converted-space">   </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><span class="Apple-tab-span">	</span>"received".postln;</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><span class="Apple-tab-span">	</span>releasefunction.value(midinote);</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p4"><span class="s2"><span class="Apple-tab-span">	</span></span>//put active note in array; function above tidied any existing note on this key</p>
+<p class="p1"><span class="Apple-tab-span">	</span>activenotes[midinote] = <span class="s1">Synth</span>(<span class="s4">\sound</span>,[<span class="s4">\freq</span>,midinote.midicps,<span class="s4">\amp</span>,velocity/127.0]);</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><span class="Apple-tab-span">	</span>};</p>
+<p class="p2"><br></p>
+<p class="p4">//must also look for note offs as indicated end of held note</p>
+<p class="p1"><span class="s1">MIDIIn</span>.noteOff = { <span class="s1">arg</span> src,chan, midinote, velocity;<span class="Apple-converted-space">   </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><span class="Apple-tab-span">	</span>releasefunction.value(midinote);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-tab-span">	</span>};</p>
+<p class="p2"><br></p>
+<p class="p1">)<span class="Apple-tab-span">	</span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">//using control change for continuous variation; run one block/line at a time here</p>
+<p class="p4">//no envelope this time, permanent sound</p>
+<p class="p1">(</p>
+<p class="p1"><span class="s1">SynthDef</span>(<span class="s4">\sound</span>,{<span class="s1">arg</span> freq=440, amp=0.1;</p>
+<p class="p1"><span class="s1">var</span> saw, filter, env;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">saw= <span class="s1">Saw</span>.ar(freq);</p>
+<p class="p2"><br></p>
+<p class="p1">filter= <span class="s1">Resonz</span>.ar(saw,1000,0.1)*amp;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="s1">Out</span>.ar(0,filter.dup(2))</p>
+<p class="p1">}).add</p>
+<p class="p1">)</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">a= </span><span class="s1">Synth</span><span class="s2">(</span><span class="s4">\sound</span><span class="s2">,[</span><span class="s4">\freq</span><span class="s2">,77,</span><span class="s4">\amp</span><span class="s2">,0.9]); </span>//create running synth</p>
+<p class="p2"><br></p>
+<p class="p4">//use the set message to update the control inputs of the running synth</p>
+<p class="p1"><span class="s1">MIDIIn</span>.control = { <span class="s1">arg</span> src, chan, num, val; <span class="Apple-converted-space">  </span>a.set(<span class="s4">\amp</span>, val/127) };</p>
+<p class="p2"><br></p>
+<p class="p4">//when you're finished twiddling MIDI controllers</p>
+<p class="p1">a.free;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">For sending MIDI messages out see the MIDIOut help file</p>
+<p class="p5"><span class="s2">[</span>MIDIOut<span class="s2">]</span></p>
+<p class="p2"><br></p>
+<p class="p1">WARNING: by default there is a long latency to messages sent out, to allow it to match with other default latencies in the system.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">m= </span><span class="s1">MIDIOut</span><span class="s2">(0); </span>//quick way to access device 0, port 0</p>
+<p class="p4"><span class="s2">m.latency= 0.0;<span class="Apple-converted-space">  </span></span>//use this to remove all latency and send messages immediately</p>
+<p class="p4"><span class="s2">m.noteOn(1,60,127); <span class="Apple-converted-space">    </span></span>//arguments: channel, note, velocity</p>
+<p class="p1">m.noteOff(1,60,0);</p>
+<p class="p2"><br></p>
+<p class="p1">There are also some helper classes to allow you to more easily set up multiple independent callbacks for the same type of message:</p>
+<p class="p2"><br></p>
+<p class="p1">[MIDIFunc]</p>
+<p class="p1">[MIDIdef]</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">To make a callback for when receiving note on messages:</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="s1">MIDIIn</span>.connect(0,<span class="s1">MIDIClient</span>.sources[1])<span class="Apple-converted-space">  </span><span class="s3">//second source device<span class="Apple-converted-space"> </span></span></p>
+<p class="p2"><br></p>
+<p class="p1">(</p>
+<p class="p6"><span class="s2">b = </span><span class="s1">MIDIFunc</span><span class="s2">.noteOn({ </span>|velocity, midipitch, channel|</p>
+<p class="p1">   <span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-tab-span">	</span>[<span class="s4">\velocity</span>,velocity, <span class="s4">\midinote</span>,midipitch, <span class="s4">\channel</span>, channel].postln;</p>
+<p class="p2"><br></p>
+<p class="p1">});</p>
+<p class="p1">)</p>
+<p class="p2"><br></p>
+<p class="p4">//make a separate callback, also for MIDI note on triggers</p>
+<p class="p2"><br></p>
+<p class="p1">(</p>
+<p class="p6"><span class="s2">c = </span><span class="s1">MIDIFunc</span><span class="s2">.noteOn({ </span>|velocity, midipitch, channel|</p>
+<p class="p1">   <span class="Apple-converted-space"> </span></p>
+<p class="p7"><span class="s2"><span class="Apple-tab-span">	</span></span>"note on!"<span class="s2">.postln;</span></p>
+<p class="p2"><br></p>
+<p class="p1">});</p>
+<p class="p1">)</p>
+<p class="p2"><br></p>
+<p class="p4">//remove first callback and keep second<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">b.free;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">//see the [Using MIDI] helpfile for more information</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">c.free; </span>//remove second</p>
+<p class="p2"><br></p>
+<p class="p4">//note that by default, cmd+period will remove any MIDIFuncs that haven't been made permanent</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">SoundIn</p>
+<p class="p3"><br></p>
+<p class="p1">To obtain an audio input stream, use the simple SoundIn UGen</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">{ </span><span class="s1">SoundIn</span><span class="s2">.ar([0,1],0.1) }.play;<span class="Apple-tab-span">	</span><span class="Apple-converted-space">      </span></span>// stereo through patching from 2 inputs to output</p>
+<p class="p3"><br></p>
+<p class="p4"><span class="s2">{ </span><span class="s1">SoundIn</span><span class="s2">.ar(1,0.1) }.play;<span class="Apple-tab-span">	</span><span class="Apple-converted-space">      </span></span>// mono on input channel 1; won't work if you don't have at least 2 inputs!</p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p1">So it's easy to build effects processors for live audio:</p>
+<p class="p3"><br></p>
+<p class="p1">(</p>
+<p class="p4"><span class="s2">{ </span>//ring modulator</p>
+<p class="p1"><span class="s1">SinOsc</span>.ar(<span class="s1">MouseX</span>.kr(0.001,110,<span class="s5">'exponential'</span> ))*<span class="s1">SoundIn</span>.ar(0,0.5)<span class="Apple-converted-space"> </span></p>
+<p class="p4"><span class="s2">}.play;<span class="Apple-tab-span">	</span><span class="Apple-converted-space">      </span></span>// stereo through patching from input to output</p>
+<p class="p1">)</p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p1">SuperCollider comes with an amplitude tracker and pitch tracker for realtime audio<span class="Apple-converted-space"> </span></p>
+<p class="p3"><br></p>
+<p class="p1">(</p>
+<p class="p4">// use input amplitude to control Pulse amplitude - use headphones to prevent feedback.</p>
+<p class="p1">{</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="s1">Pulse</span>.ar(90, 0.3, <span class="s1">Amplitude</span>.kr(<span class="s1">SoundIn</span>.ar(0)))</p>
+<p class="p1">}.play</p>
+<p class="p1">)</p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p1">You can threshold the input to avoid picking up background noise</p>
+<p class="p3"><br></p>
+<p class="p1">(</p>
+<p class="p1">{</p>
+<p class="p1"><span class="s1">var</span> input,inputAmp,threshhold,gate;</p>
+<p class="p1"><span class="s1">var</span> basefreq;</p>
+<p class="p2"><br></p>
+<p class="p1">input = <span class="s1">SoundIn</span>.ar(0,0.1);<span class="Apple-converted-space"> </span></p>
+<p class="p1">inputAmp = <span class="s1">Amplitude</span>.kr(input);</p>
+<p class="p4"><span class="s2">threshhold = 0.02;<span class="Apple-tab-span">	</span></span>// noise gating threshold</p>
+<p class="p1">gate = <span class="s1">Lag</span>.kr(inputAmp &gt; threshhold, 0.01);</p>
+<p class="p1">(input * gate)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p1">}.play;</p>
+<p class="p1">)</p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p1">The Pitch follower has many input arguments, though you usually take the defaults</p>
+<p class="p1">without worrying. It returns two outputs- the tracked frequency and a signal indicating</p>
+<p class="p1">whether it has locked onto any periodicity or not</p>
+<p class="p3"><br></p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">Server</span><span class="s2">.internal.boot; </span>//if on a Mac you'll need to swap back to internal server for using .scope- you can have both the internal and localhost server on at once, but you might need to press the -&gt; default button</p>
+<p class="p3"><br></p>
+<p class="p4">//showing the outputs - K2A makes sure control rate signals are converted to audio rate, because the final output of a Synth has to be audio rate</p>
+<p class="p1">(</p>
+<p class="p1">{</p>
+<p class="p1"><span class="s1">var</span> freq, hasFreq;</p>
+<p class="p1"># freq, hasFreq = <span class="s1">Pitch</span>.kr(<span class="s1">SoundIn</span>.ar(1,0.1));</p>
+<p class="p1">[<span class="s1">K2A</span>.ar(freq*0.001), <span class="s1">K2A</span>.ar(hasFreq)]</p>
+<p class="p1">}.scope</p>
+<p class="p1">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">//detected fundamental frequency used to control some oscillators with allpass reverberation</p>
+<p class="p4">//Amplitude detector also used to make the control track the input more effectively</p>
+<p class="p1">(</p>
+<p class="p1">{</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="s1">var</span> in, amp, freq, hasFreq, out;</p>
+<p class="p1"><span class="Apple-tab-span">	</span>in = <span class="s1">Mix</span>.ar(<span class="s1">SoundIn</span>.ar([0,1]));</p>
+<p class="p1"><span class="Apple-tab-span">	</span>amp = <span class="s1">Amplitude</span>.kr(in, mul: 0.4);</p>
+<p class="p1"><span class="Apple-tab-span">	</span># freq, hasFreq = <span class="s1">Pitch</span>.kr(in);</p>
+<p class="p1"><span class="Apple-tab-span">	</span>out = <span class="s1">Mix</span>.ar( <span class="s1">LFTri</span>.ar(freq * [0.5, 1, 2]) ) * amp;</p>
+<p class="p1"><span class="Apple-tab-span">	</span>6.do({<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>out = <span class="s1">AllpassN</span>.ar(out, 0.040, [0.040.rand,0.040.rand], 2)<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-tab-span">	</span>});</p>
+<p class="p1"><span class="Apple-tab-span">	</span>out</p>
+<p class="p1">}.play</p>
+<p class="p1">)</p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p4">//Also switch waveform based on hasFreq output</p>
+<p class="p1">(</p>
+<p class="p1">{</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="s1">var</span> in, amp, freq, hasFreq, out;</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><span class="Apple-tab-span">	</span>in = <span class="s1">SoundIn</span>.ar(1);</p>
+<p class="p1"><span class="Apple-tab-span">	</span>amp = <span class="s1">Amplitude</span>.kr(in, mul: 0.4);</p>
+<p class="p1"><span class="Apple-tab-span">	</span># freq, hasFreq = <span class="s1">Pitch</span>.kr(in);</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><span class="Apple-tab-span">	</span>out=if(hasFreq,<span class="s1">Pulse</span>.ar(freq,0.5,0.1),<span class="s1">SinOsc</span>.ar(freq,0,0.1));</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><span class="Apple-tab-span">	</span>6.do({<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>out = <span class="s1">AllpassN</span>.ar(out, 0.040, [0.040.rand,0.040.rand], 2)<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-tab-span">	</span>});</p>
+<p class="p1"><span class="Apple-tab-span">	</span>out<span class="Apple-tab-span">	</span></p>
+<p class="p1">}.play</p>
+<p class="p1">)</p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p1">There are various other machine listening capabilities in SuperCollider.<span class="Apple-converted-space">  </span>Machine listening is getting the computer to extract perceptually and musically meaingful attributes by analyzing an input sound.</p>
+<p class="p3"><br></p>
+<p class="p1">Here are some onset detectors which might be helpful:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s2">[</span>Onsets<span class="s2">]</span></p>
+<p class="p5"><span class="s2">[</span>PV_HainsworthFoote<span class="s2">]</span></p>
+<p class="p5"><span class="s2">[</span>PV_JensenAndersen<span class="s2">]</span></p>
+<p class="p2"><br></p>
+<p class="p1">They rely on using the FFT UGen in the front end to go from time domain to frequency domain. You can trust the code examples for now and we'll investigate FFT properly later on (or explore the help file yourself). <span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">Example triggering TGrains UGen:</p>
+<p class="p3"><br></p>
+<p class="p2"><br></p>
+<p class="p4">//run this first</p>
+<p class="p1">b = <span class="s1">Buffer</span>.read(s,<span class="s1">Platform</span>.resourceDir +/+<span class="s6">"sounds/a11wlk01.wav"</span>);</p>
+<p class="p2"><br></p>
+<p class="p4">//now this</p>
+<p class="p1">(</p>
+<p class="p1">{</p>
+<p class="p1"><span class="s1">var</span> source, detect;</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><span class="Apple-tab-span">	</span>source= <span class="s1">SoundIn</span>.ar(0);<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p4"><span class="s2"><span class="Apple-tab-span">	</span>detect= </span><span class="s1">Onsets</span><span class="s2">.kr(</span><span class="s1">FFT</span><span class="s2">(</span><span class="s1">LocalBuf</span><span class="s2">(2048),source),0.1); </span>//second argument is detection threshold</p>
+<p class="p4"><span class="s2"><span class="Apple-tab-span">	</span></span>//detect= PV_HainsworthFoote.ar(FFT(LocalBuf(2048),source), 1.0, 0.0, 0.7, 0.01);</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="s1">TGrains</span>.ar(2, detect, b, <span class="s1">LFNoise0</span>.kr(10,0.2,1.0), <span class="s1">MouseX</span>.kr(0,<span class="s1">BufDur</span>.kr(b)), <span class="s1">MouseY</span>.kr(0.1,0.5), <span class="s1">LFNoise0</span>.kr(10,1.0), 0.5, 2);</p>
+<p class="p1">}.play</p>
+<p class="p1">)</p>
+<p class="p2"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p2"><br></p>
+<p class="p1">RecordBuf</p>
+<p class="p2"><br></p>
+<p class="p1">If you'd like to capture live sound, the RecordBuf UGen is your friend.</p>
+<p class="p1">You need to set up a buffer to store the recorded sample data.</p>
+<p class="p3"><br></p>
+<p class="p1">(</p>
+<p class="p1"><span class="s1">var</span> b;</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">b=</span><span class="s1">Buffer</span><span class="s2">.alloc(s,44100,1);<span class="Apple-tab-span">	</span></span>//1 second mono buffer allocated on local server</p>
+<p class="p2"><br></p>
+<p class="p1">{</p>
+<p class="p4">//continuously record in a loop, recording to the buffer we just declared</p>
+<p class="p4">//each record cycle multiplies the old data<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="s1">RecordBuf</span>.ar(<span class="s1">SoundIn</span>.ar(0), b, 0, 1.0, <span class="s1">MouseX</span>.kr(0.0,1.0), 1, 1, 1);</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p4">//playback the captured buffer in a loop, backwards</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="s1">PlayBuf</span>.ar(1,b,<span class="s1">MouseY</span>.kr(0.0,-1.0), 1,0,1);</p>
+<p class="p1">}.play;</p>
+<p class="p1">)</p>
+<p class="p2"><br></p>
+<p class="p1">You might sync captured buffers to tempo for dance music, and add refinements like a user interface to choose when to rerecord the buffer...</p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p1">There are also facilities for control from graphics tablets and joysticks:</p>
+<p class="p3"><br></p>
+<p class="p5"><span class="s2">[</span><span class="s7">SC2DTabletSlider</span><span class="s2">]</span></p>
+<p class="p5"><span class="s2">[</span><span class="s7">HIDDeviceService</span><span class="s2">]</span></p>
+<p class="p5"><span class="s2">[<a href="SC://GeneralHID">GeneralHID</a>]</span></p>
+<p class="p3"><br></p>
+<p class="p1">You might also like to try</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">[<a href="SC://SerialPort"><span class="s1">SerialPort</span></a>]<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//serial port (via USB usually these days) for talking to certain external devices</p>
+<p class="p2"><br></p>
+<p class="p1">Another standard way is to communicate with other applications using Open Sound Control, a network music protocol; we'll cover this in a later week in this course.<span class="Apple-converted-space"> </span></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+</body>
+</html>

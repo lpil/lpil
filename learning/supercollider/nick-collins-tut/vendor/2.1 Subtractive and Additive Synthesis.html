@@ -1,0 +1,620 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1038.36">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 24.0px Monaco}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; min-height: 25.0px}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #cd1713}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #102ac2}
+    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #102ac2; min-height: 25.0px}
+    p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #00f94f}
+    p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #cd1713; min-height: 25.0px}
+    span.s1 {color: #102ac2}
+    span.s2 {color: #000000}
+    span.s3 {text-decoration: underline}
+    span.s4 {color: #cd1713}
+    span.Apple-tab-span {white-space:pre}
+  </style>
+</head>
+<body>
+<p class="p1">Sound Synthesis in SuperCollider: Subtractive and Additive Synthesis</p>
+<p class="p2"><br></p>
+<p class="p3">Note that sounds will at first be in mono, in the left ear. Later on we will sort out stereo position.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">We are going to use the scope with many of these tutorials, to see the sound waveform. We'll get oscilloscope views of the sounds we synthesise, which assists with explaining some concepts.</p>
+<p class="p2"><br></p>
+<p class="p3">On SC3.6, use of the scope requires no special treatment. But for SC3.5 or earlier, you need the internal Server for this tutorial:</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">Server</span><span class="s2">.default=s=</span><span class="s1">Server</span><span class="s2">.internal; <span class="Apple-converted-space">  </span></span>//run this line first, SC3.5</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">s.boot; </span>//or you may turn on the internal server via the graphical window; make sure the default button is pressed and highlighted; this tells the system which synthesizer to send instructions to</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">For our convenience we will be using a certain shortcut construction for practising sound synthesis. Later we will see another way of doing this that is a more recommended method, but we shall begin with the notation below because it avoids some issues for the moment, and allows us to get going straight away.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">The construct looks like the following, but don't try and run this code:</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3">{</p>
+<p class="p4">//some synthesis code</p>
+<p class="p3">}.scope</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p4">//Run the following line though: this will create a frequency analysizer which we will continue to run in the background for spectral plotting of the sounds we explore.<span class="Apple-converted-space"> </span></p>
+<p class="p5">FreqScope<span class="s2">.new</span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Unit Generators</p>
+<p class="p2"><br></p>
+<p class="p3">SuperCollider follows the Unit Generator paradigm also used in other synthesis languages like Csound, Max/MSP, Pd, Reaktor and others.</p>
+<p class="p2"><br></p>
+<p class="p3">There are many primitive building blocks, like types of tone generator, filter or spatialiser, that are the unit generators. These are connected together in a processing graph to make more complicated synthesisers and sound processors. These primitives are referred to as UGens. <span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Each UGen has some set of inputs and outputs. Most UGens have just one output, an audio stream or some sort of control signal. The inputs vary a lot depending on the function of the UGen.</p>
+<p class="p2"><br></p>
+<p class="p3">You will get used to the typical parameter values expected as inputs or outputs as you learn about the different UGens. <span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">There are certain ways to program connections which are part of the syntax of the SuperCollider language, and particular names for units that you will encounter as you learn this system. <span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">Subtractive Synthesis</p>
+<p class="p2"><br></p>
+<p class="p3">This is a good way to start learning SuperCollider.</p>
+<p class="p2"><br></p>
+<p class="p3">In subtractive synthesis, we start with a complex source, and we subtract parts from this raw sound to make a more sculpted sound. This is also termed a source+filter model.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">{</span><span class="s1">WhiteNoise</span><span class="s2">.ar(0.1)}.scope </span>//this line will make a pure white noise source, equal energy at all spectral frequencies; it can be unpleasant to listen to- the 0.1 makes sure its not too loud, but be careful playing this</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">That was just the source alone. Now I have to filter it to make a less raw sound.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">{<span class="s1">LPF</span>.ar(<span class="s1">WhiteNoise</span>.ar(0.1),1000)}.scope<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">The LPF is a Low Pass Filter which tails off energy above its cutoff frequency, which is 1000Hz in this example</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">In SuperCollider, to plug the white noise generator WhiteNoise into the filter LPF I nest one within the other. You can think of a UGen's inputs being the list of slots within the parentheses</p>
+<p class="p6"><br></p>
+<p class="p3"><span class="s1">LPF</span>.ar(input signal, cutoff frequency, ... )</p>
+<p class="p2"><br></p>
+<p class="p3">and in the example above, the thing to plug into the input signal slot is a white noise source, so that's where the WhiteNoise generator goes. The cutoff frequency is a fixed number, 1000, the second argument.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">Say that we now want a varying filter cutoff over time. One UGen we could use here is the line generator, Line:</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">Line</span><span class="s2">.kr(10000,1000,10) </span>// take ten seconds to go from 10000 to 1000: inputs to Line are start, end, duration</p>
+<p class="p2"><br></p>
+<p class="p3">So instead of the fixed value 1000, the Line UGen goes in that second slot</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">{</span><span class="s1">LPF</span><span class="s2">.ar(</span><span class="s1">WhiteNoise</span><span class="s2">.ar(0.1),</span><span class="s1">Line</span><span class="s2">.kr(10000,1000,10))}.scope </span>//listen for ten seconds at least to hear the full effect</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">There are lots of possible sources and lots of possible filters (try these help files)</p>
+<p class="p2"><br></p>
+<p class="p3">some example sources:</p>
+<p class="p2"><br></p>
+<p class="p3">Oscillators</p>
+<p class="p5"><span class="s2">[</span><span class="s3">Saw</span><span class="s2">]</span></p>
+<p class="p5"><span class="s2">[</span><span class="s3">Blip</span><span class="s2">]</span></p>
+<p class="p2"><br></p>
+<p class="p3">Noise Sources</p>
+<p class="p5"><span class="s2">[</span><span class="s3">PinkNoise</span><span class="s2">]</span></p>
+<p class="p5"><span class="s2">[</span><span class="s3">LFNoise0</span><span class="s2">]</span></p>
+<p class="p2"><br></p>
+<p class="p3">some example filters:</p>
+<p class="p5"><span class="s2">[</span><span class="s3">HPF</span><span class="s2">]</span></p>
+<p class="p5"><span class="s2">[</span><span class="s3">BPF</span><span class="s2">]</span></p>
+<p class="p5"><span class="s2">[</span><span class="s3">Resonz</span><span class="s2">]</span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Example of plugging one source into a filter:</p>
+<p class="p2"><br></p>
+<p class="p3">{<span class="s1">Resonz</span>.ar(<span class="s1">LFNoise0</span>.ar(400),1000,0.1)}.scope</p>
+<p class="p2"><br></p>
+<p class="p3">Again using the Line generator to change the filter centre frequency over time</p>
+<p class="p2"><br></p>
+<p class="p3">{<span class="s1">Resonz</span>.ar(<span class="s1">LFNoise0</span>.ar(400),<span class="s1">Line</span>.kr(10000,1000,10),0.1)}.scope</p>
+<p class="p2"><br></p>
+<p class="p3">An explicit and neater way to write this (we'll come back to this formulation)</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3">{</p>
+<p class="p4"><span class="s1">var</span><span class="s2"> source, line, filter; <span class="Apple-tab-span">	</span></span>//local variables to hold objects as we build the patch up</p>
+<p class="p2"><br></p>
+<p class="p3">source=<span class="s1">LFNoise0</span>.ar(400);</p>
+<p class="p3">line=<span class="s1">Line</span>.kr(10000,1000,10);</p>
+<p class="p4"><span class="s2">filter=</span><span class="s1">Resonz</span><span class="s2">.ar(source,line,0.1); </span>//the filtered output is the input source filtered by Resonz with a line control for the resonant frequency</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">filter </span>// last thing is returned from function in curly brackets, i.e. this is the final sound we hear<span class="Apple-converted-space"> </span></p>
+<p class="p3">}.scope;</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p7">Additive Synthesis</p>
+<p class="p2"><br></p>
+<p class="p3">Rather than starting with something complex and taking energy away to sculpt a sound, we can start with simple building blocks and add many of them together to create more involved sounds</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">The classic building block in computer music is the sine tone</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">{</span><span class="s1">SinOsc</span><span class="s2">.ar}.scope </span>//defaults to a concert A (440Hz)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Here is one way to get two sine tones at once:</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">{<span class="s1">SinOsc</span>.ar(400,0,0.1) + <span class="s1">SinOsc</span>.ar(660,0,0.1)}.scope</p>
+<p class="p2"><br></p>
+<p class="p3">And here is a much easier way</p>
+<p class="p2"><br></p>
+<p class="p3">{<span class="s1">SinOsc</span>.ar([400,660],0,0.1)}.scope</p>
+<p class="p2"><br></p>
+<p class="p3">Something special just happened to the stereo field, and I'll explain this in a moment.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Let me first introduce a panning UGen</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Pan2.ar(input signal, pan position)</p>
+<p class="p2"><br></p>
+<p class="p3">pan position goes from -1 (hard left) to 1 (hard right)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">{<span class="s1">Pan2</span>.ar(<span class="s1">WhiteNoise</span>.ar(0.1), <span class="s1">MouseX</span>.kr(-1,1))}.scope</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">So the panner takes a mono signal, and places it in the stereo field.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Now, multichannel sound is really straight forward to create in SuperCollider, just by using an array</p>
+<p class="p2"><br></p>
+<p class="p3">We'll look at arrays more closely in a later week, but for now just think of them as lists of data</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">[100,200,300,400,500] <span class="s4">//5 numbers in a list</span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Each successive element in the list will be placed on one channel:</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">{</span><span class="s1">SinOsc</span><span class="s2">.ar([400],0,0.1)}.scope </span>//one channel sound (see the scope)</p>
+<p class="p8"><br></p>
+<p class="p4"><span class="s2">{</span><span class="s1">SinOsc</span><span class="s2">.ar(400,0,0.1)}.scope </span>//also one channel sound- no array brackets are needed for a single number</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">{</span><span class="s1">SinOsc</span><span class="s2">.ar([400,660],0,0.1)}.scope </span>//two channel sound (see the scope)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">{</span><span class="s1">SinOsc</span><span class="s2">.ar([400,660,870],0,0.1)}.scope </span>//three channel sound - you may only hear two, because you probably have a stereo output on your computer, not a three channel out</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">We need a way to take multiple channels of sound and turn them into a mono or stereo signal</p>
+<p class="p2"><br></p>
+<p class="p3">One method is to wrap the multichannel sound with a Mix UGen:</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">{</span><span class="s1">Mix</span><span class="s2">(</span><span class="s1">SinOsc</span><span class="s2">.ar([400,660],0,0.1))}.scope </span>//a two channel signal put through Mix turns into mono</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">And then, of course, Pan2 allows me to place this in the stereo field:</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">{</span><span class="s1">Pan2</span><span class="s2">.ar(</span><span class="s1">Mix</span><span class="s2">(</span><span class="s1">SinOsc</span><span class="s2">.ar([400,660],0,0.1)),</span><span class="s1">MouseX</span><span class="s2">.kr(-1,1))}.scope </span>//a two channel signal put through Mix turns into mono</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">You are now equipped to explore additive synthesis via sine tones.</p>
+<p class="p2"><br></p>
+<p class="p3">In additive synthesis, if we know a recipe for the spectrum (frequency content) of a sound, we can synthesise it by adding up sine tones for each component frequency.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Recipes for common waveforms are known from the Fourier theory of sound (sinusoids at which frequencies and amplitudes to add up to create certain waveform shapes).<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Sawtooth wave: Add up n harmonics with amplitude falling off as 1/harmonicnumber, sign alternates between +1 and -1</p>
+<p class="p3">(</p>
+<p class="p3">{</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s1">var</span> n = 10;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s1">var</span> wave = <span class="s1">Mix</span>.fill(10,{<span class="s1">|i|</span><span class="Apple-converted-space">     </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-converted-space">    <span class="Apple-tab-span">	</span></span><span class="s1">var</span> mult= ((-1)**i)*(0.5/((i+1)));</p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p3"><span class="Apple-converted-space">    <span class="Apple-tab-span">	</span></span><span class="s1">SinOsc</span>.ar(440*(i+1))*mult<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p3"><span class="Apple-converted-space">    </span>});<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2"><span class="Apple-tab-span">	</span></span><span class="s1">Pan2</span><span class="s2">.ar(wave/n,0.0); </span>//stereo, panned centre</p>
+<p class="p2"><br></p>
+<p class="p3">}.scope;<span class="Apple-converted-space"> </span></p>
+<p class="p3">)</p>
+<p class="p2"><span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Square wave: Sum of odd harmonics, no even, amplitude falls as off 1/harmonicnumber; closest 'real' waveform is a clarinet tone</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3">{</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s1">var</span> n = 10;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s1">var</span> wave = <span class="s1">Mix</span>.fill(10,{<span class="s1">|i|</span><span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">var</span> harmonicnumber = 2*i+1; <span class="s4">//odd harmonics only</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">SinOsc</span>.ar(440*harmonicnumber)/harmonicnumber<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>})*0.25;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2"><span class="Apple-tab-span">	</span></span><span class="s1">Pan2</span><span class="s2">.ar(wave,0.0); </span>//stereo, panned centre</p>
+<p class="p2"><br></p>
+<p class="p3">}.scope;<span class="Apple-converted-space"> </span></p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p3">Triangle wave: also odd harmonics only, falls off as 1 over harmonicnumber squared with alternating sign</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3">{</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s1">var</span> n = 10;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s1">var</span> wave = <span class="s1">Mix</span>.fill(10,{<span class="s1">|i|</span><span class="Apple-converted-space">     </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">var</span> harmonicnumber= 2*i+1; <span class="s4">//odd harmonics only</span></p>
+<p class="p3"><span class="Apple-converted-space">    <span class="Apple-tab-span">	</span></span><span class="s1">var</span> mult= ((-1)**((harmonicnumber-1)/2))*(1.0/(harmonicnumber*harmonicnumber));</p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p3"><span class="Apple-converted-space">    </span><span class="s1">SinOsc</span>.ar(440*index)*mult })/n;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2"><span class="Apple-tab-span">	</span></span><span class="s1">Pan2</span><span class="s2">.ar(wave,0.0); </span>//stereo, panned centre</p>
+<p class="p2"><br></p>
+<p class="p3">}.scope;<span class="Apple-converted-space"> </span></p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Bell sound example:</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">500*[0.5,1,1.19,1.56,2,2.51,2.66,3.01,4.1] </span>//This is a spectral recipe for a minor third bell, at a base frequency of 500- run this line of code to see how the frequencies are calculated from the multipliers</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">{<span class="s1">Mix</span>(<span class="s1">SinOsc</span>.ar(500*[0.5,1,1.19,1.56,2,2.51,2.66,3.01,4.1],0,0.1))}.scope <span class="s4">//bell spectra, all partials the same volume</span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">I can also give each partial its own amplitude in the mix, rather than defaulting them all to 0.1</p>
+<p class="p2"><br></p>
+<p class="p3">{<span class="s1">Mix</span>(<span class="s1">SinOsc</span>.ar(500*[0.5,1,1.19,1.56,2,2.51,2.66,3.01,4.1],0,0.1*[0.25,1,0.8,0.5,0.9,0.4,0.3,0.6,0.1]))}.scope <span class="s4">//bell spectra, different volumes for partials</span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Here is a generalisable patch that uses the variable n to hold the number of sine tones desired for each run of the code:</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3"><span class="s1">var</span> n = 10;</p>
+<p class="p2"><br></p>
+<p class="p3">{<span class="s1">Mix</span>(<span class="s1">SinOsc</span>.ar(250*(1..n),0,1/n))}.scope;</p>
+<p class="p2"><br></p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p3">If you're unsure what something is in code, investigate it in isolation:</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">(1..10) </span>//run this line and see what comes up in the post window</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">There are lots of ways of dealing with arrays of data in SuperCollider, that we'll investigate as we go.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+</body>
+</html>

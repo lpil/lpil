@@ -1,0 +1,412 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1038.36">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #008325}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; min-height: 25.0px}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #102ac2}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #cd1713}
+    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #cd1713; min-height: 25.0px}
+    p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #737373}
+    span.s1 {color: #000000}
+    span.s2 {text-decoration: underline}
+    span.s3 {color: #102ac2}
+    span.s4 {color: #008325}
+    span.s5 {color: #cd1713}
+    span.s6 {color: #737373}
+    span.Apple-tab-span {white-space:pre}
+  </style>
+</head>
+<body>
+<p class="p1">Scheduling with Routines and Tasks</p>
+<p class="p2"><br></p>
+<p class="p3">some relevant help files:</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">[</span><span class="s2">Routine</span><span class="s1">]</span></p>
+<p class="p4"><span class="s1">[</span><span class="s2">Task</span><span class="s1">]</span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">s = <span class="s3">Server</span>.local;<span class="Apple-converted-space"> </span></p>
+<p class="p3">s.boot;</p>
+<p class="p2"><br></p>
+<p class="p5">//add me first - this sound is going to be used for the scheduling demoes</p>
+<p class="p5">//It's important we use SynthDef and Synth here: notice the doneAction!</p>
+<p class="p3">(</p>
+<p class="p3"><span class="s3">SynthDef</span>(<span class="s4">\bleep</span>,{ <span class="s3">arg</span> out=0, note=60, amp=0.5, pan=0.0;</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s3">var</span> freq, env;<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>freq = note.midicps;</p>
+<p class="p3"><span class="Apple-tab-span">	</span>env = <span class="s3">EnvGen</span>.ar(</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s3">Env</span>([0,1,1,0],[0.01, 0.1, 0.2]),</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>levelScale:amp,<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>doneAction:2</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>);</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s3">Out</span>.ar(out,</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s3">Pan2</span>.ar(<span class="s3">Blip</span>.ar(freq) * env, pan)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>)</p>
+<p class="p3">}).add;</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p2"><br></p>
+<p class="p3">In 'Clocks and Scheduling' scheduling was always achieved by scheduling a function for a specific time. In order to be able to step through different stages of a program, it is helpful to have a special type of function that can have a number of execution stages. It is not evaluated all at once with .value, but can "yield" its current value at each of multiple stages.</p>
+<p class="p2"><br></p>
+<p class="p3">This is a Routine:</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3">r=Routine({</p>
+<p class="p2"><br></p>
+<p class="p3">1.yield;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">2.yield;</p>
+<p class="p2"><br></p>
+<p class="p3">3.yield;</p>
+<p class="p2"><br></p>
+<p class="p3">})</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s1">r.value; </span>//run this line four times</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p5">//another example with more going on</p>
+<p class="p3">(</p>
+<p class="p3"><span class="s3">var</span> r;</p>
+<p class="p4"><span class="s1">r = </span>Routine<span class="s1">({</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s3">var</span> x;</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x = 1.0.rand;</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>2.yield;</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x.yield;</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>1000.yield;</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x.yield;</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x = 1.0.rand;</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x.yield;</p>
+<p class="p3"><span class="Apple-tab-span">	</span>});</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">10.do({ r.value.postln });</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p5">// a routine can also have side effects</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p4"><span class="s1">r = </span>Routine<span class="s1">({</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>1.yield;</p>
+<p class="p1"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span><span class="s3">Synth</span><span class="s1">(</span>\bleep<span class="s1">);</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>2.yield;</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>1.yield;</p>
+<p class="p1"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span><span class="s3">Synth</span><span class="s1">(</span>\bleep<span class="s1">);</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>1.yield;</p>
+<p class="p3"><span class="Apple-tab-span">	</span>});</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s1">r.next; </span>// btw. r.next is a synonym. r.value or r.next both return the "yield value".</p>
+<p class="p3">r.next;</p>
+<p class="p3">r.next;</p>
+<p class="p3">r.next;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p5">// we can now simply use the routine by playing it on a certain Clock</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p4"><span class="s1">r = </span>Routine<span class="s1">({</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0.5.yield;</p>
+<p class="p1"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span><span class="s3">Synth</span><span class="s1">(</span>\bleep<span class="s1">);</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>1.yield;</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0.5.yield;</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s3">Synth</span>(<span class="s4">\bleep</span>, [<span class="s4">\note</span>, 43]);</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0.5.yield;</p>
+<p class="p3"><span class="Apple-tab-span">	</span>});</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="s3">SystemClock</span>.sched(0, r);<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">However, best practice is usually just to "play" the Routine, passing in the Clock</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s1">r.reset;<span class="Apple-tab-span">	</span></span>// reset transforms the routine back into its original state</p>
+<p class="p4"><span class="s1">r.play(</span>SystemClock<span class="s1">);<span class="Apple-converted-space"> </span></span></p>
+<p class="p2"><br></p>
+<p class="p3">r.reset;</p>
+<p class="p3">r.play(<span class="s3">TempoClock</span>(3));</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Yield can return any kind of object.<span class="Apple-converted-space"> </span></p>
+<p class="p3">Nevertheless, a meaningful time period value needs to be a float or an integer.<span class="Apple-converted-space"> </span></p>
+<p class="p3">To make clear that we mean a relative time, wait is used instead of yield (.wait just means the same as .yield);</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s3">TempoClock</span><span class="s1">.default.tempo_(1); </span>//just making sure default is sensible. In actual fact, for a tempoclock going at 1 bps, time in beats is the same as time in seconds<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3"><span class="s3">var</span> r;</p>
+<p class="p3">r = <span class="s3">Routine</span>.new({</p>
+<p class="p7"><span class="s1"><span class="Apple-tab-span">	</span></span>"I just began!"<span class="s1">.postln;</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>1.0.wait;</p>
+<p class="p7"><span class="s1"><span class="Apple-tab-span">	</span></span>"1 second later"<span class="s1">.postln;</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>2.0.wait;</p>
+<p class="p7"><span class="s1"><span class="Apple-tab-span">	</span></span>"finished"<span class="s1">.postln;</span></p>
+<p class="p3">});</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s1">r.play; </span>//defaults to TempoClock.default;</p>
+<p class="p3">)</p>
+<p class="p2"><span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3"><span class="s3">var</span> r;</p>
+<p class="p3">r = <span class="s3">Routine</span>.new({</p>
+<p class="p3"><span class="Apple-tab-span">	</span>16.do({ <span class="s3">arg</span> i;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s3">Synth</span>(<span class="s4">\bleep</span>, [ <span class="s4">\note</span>, 36+(3*i) ]);</p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0.25.yield;<span class="Apple-converted-space">  </span></span>//<span class="Apple-converted-space">  </span>yield and wait mean the same thing<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>});</p>
+<p class="p3">});</p>
+<p class="p2"><br></p>
+<p class="p3">r.play;</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">inf.do can be used to keep going forever; but you must be very careful never to miss out some positive time .wait command. Because otherwise, the loop will go infinitely fast and SuperCollider (and possibly also your computer) will crash.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3"><span class="s3">var</span> r;</p>
+<p class="p3">r = <span class="s3">Routine</span>.new({</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s3">inf</span>.do({ <span class="s3">arg</span> i;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span><span class="s3">Synth</span><span class="s1">(</span><span class="s4">\bleep</span><span class="s1">, [ </span><span class="s4">\note</span><span class="s1">, 36+(3*(i%10)) ]); </span>//added %10 to stop it going up forever</p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0.25.wait; <span class="Apple-converted-space">  </span></span>//do not miss me out!</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>});</p>
+<p class="p3">});</p>
+<p class="p2"><br></p>
+<p class="p3">r.play;</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p5">// a Task is a Routine that can be paused and resumed:</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3">t = <span class="s3">Task</span>.new({</p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span><span class="s3">inf</span><span class="s1">.do({ </span><span class="s3">arg</span><span class="s1"> i; </span>// keep going forever (until stopped externally)</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s3">Synth</span>(<span class="s4">\bleep</span>, [<span class="s4">\note</span>, 36+(2.3*(i%17))]);</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0.25.wait;<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>});</p>
+<p class="p3">}); <span class="Apple-converted-space">   </span></p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s1">t.play(</span><span class="s3">TempoClock</span><span class="s1">(1.4)); </span>//start the Task going</p>
+<p class="p2"><br></p>
+<p class="p3">t.pause;<span class="Apple-converted-space">  </span><span class="s5">//pause</span></p>
+<p class="p2"><br></p>
+<p class="p3">t.resume;<span class="Apple-converted-space">  </span><span class="s5">//unpause</span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">There is a special shortcut for a Routine that can be useful:</p>
+<p class="p2"><br></p>
+<p class="p3">{}.fork</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">This will automatically wrap your function in a routine and play it; you pass in the clock as an argument to fork:</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">{5.do{<span class="s6">"hello"</span>.postln; 1.0.wait} }.fork(<span class="s3">TempoClock</span>(1))</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3">{16.do{<span class="s3">arg</span> i; <span class="s3">Synth</span>(<span class="s4">\bleep</span>, [<span class="s4">\note</span>,rrand(48,84) ,<span class="s4">\amp</span>, rrand(0.0,0.125)]); 0.125.wait} }.fork(<span class="s3">TempoClock</span>(2))</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+</body>
+</html>

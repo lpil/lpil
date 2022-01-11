@@ -1,0 +1,76 @@
+# This file describes a pod (smallest deployable unit, made of 1 or more
+# containers) that runs a demo application.
+#
+# Apply this to the cluster with
+#
+#   kubectl apply -f kuard-pod.yml
+#
+# Check status with
+#
+#   kubectl get pods
+#
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kuard
+spec:
+  # Disc based storage
+  volumes:
+    - name: "kuard-data"
+      # This volume is kept on the host node.
+      # Alternatives include an enthereal emptyDir cache, NFS, or a cloud
+      # vendor based alternative (AWS EFS, GCP Persistent Disk)
+      hostPath:
+        path: "/var/lib/kuard"
+
+
+  # Docker containers
+  containers:
+    - image: gcr.io/kuar-demo/kuard-amd64:1
+      name: kuard
+
+      # Mount the above volume on the container
+      volumeMounts:
+        - mountPath: "/data"
+          name: "kuard-data"
+
+      # Configure resource allowances
+      resources:
+        # Requests specify the amount of free resource required
+        # to schedule this pod on a node.
+        # It does not limit the amount the pod can use.
+        requests:
+          cpu: "500m" # half a CPU
+          memory: "128Mi"
+
+        # Limits specify the max that a pod can use.
+        limits:
+          cpu: "1000m"
+          memory: "256Mi"
+
+      # Configure health check
+      # Liveness is whether or not the application is running.
+      # It may not yet be ready to accept requests, this is handled by
+      # Service level readiness checks.
+      livenessProbe:
+        # Check that an endpoint returns 200-399
+        httpGet:
+          path: /healthy
+          port: 8080
+
+        # Wait 5 seconds before starting check
+        initialDelaySeconds: 5
+
+        # Endpoint has 1 second to reply
+        timeoutSeconds: 1
+
+        # Check ever 10 seconds
+        periodSeconds: 10
+
+        # Consider pod dead if it fails 3. K8s will restart it.
+        failureThreshold: 3
+
+      ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP

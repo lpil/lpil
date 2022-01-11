@@ -1,0 +1,11 @@
+(jbuild_version 1)
+
+;; This declare the hello_world executable implemented by hello_world.ml
+(executables
+  ((names (hello_world test_mod))
+   (libraries (alcotest))))
+
+(alias
+  ((name    runtest)
+   (deps    (test_mod.exe))
+   (action  (run ${<}))))

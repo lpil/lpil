@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h1>
+  Hello!
+</h1>
+<p>
+  The time is {{ time|safe }}
+</p>
+
+<form action="/session" method="post" accept-charset="utf-8">
+  <div>
+    <label>
+      Email
+      <input type="email" name="email">
+    </label>
+  </div>
+
+  <div>
+    <label>
+      Password
+      <input type="password" name="password">
+    </label>
+  </div>
+
+  <input type="submit">
+</form>
+{% endblock %}

@@ -1,0 +1,9 @@
+[package]
+name = "quickchecker"
+version = "0.1.0"
+authors = ["Louis Pilfold <louis@lpil.uk>"]
+edition = "2018"
+
+[dependencies]
+quickcheck = "0.8"
+quickcheck_macros = "0.8"

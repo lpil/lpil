@@ -1,0 +1,444 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1038.36">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 23.0px Geneva}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Geneva; min-height: 25.0px}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Geneva}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Geneva; color: #cd1713}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #102ac2}
+    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco}
+    p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Geneva; color: #00f94f}
+    p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Geneva; color: #737373}
+    span.s1 {color: #102ac2}
+    span.s2 {color: #000000}
+    span.s3 {color: #008325}
+    span.s4 {color: #cd1713}
+    span.s5 {color: #737373}
+    span.s6 {text-decoration: underline ; color: #102ac2}
+    span.Apple-tab-span {white-space:pre}
+  </style>
+</head>
+<body>
+<p class="p1">Sound Synthesis in SuperCollider: Modulation Synthesis</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">If needed on SC 3.5 and earlier:</p>
+<p class="p4">//use internal server with frequency analyzer again</p>
+<p class="p3">(</p>
+<p class="p3"><span class="s1">Server</span>.default=s=<span class="s1">Server</span>.internal;</p>
+<p class="p3">s.boot;</p>
+<p class="p5">FreqScope<span class="s2">.new;</span></p>
+<p class="p6">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">In modulation synthesis one wave, the carrier, is influenced (modulated) by a second, the modulator.</p>
+<p class="p2"><br></p>
+<p class="p3">Depending on how the carrier and modulator are plugged together there are a variety of methods in common use.</p>
+<p class="p2"><br></p>
+<p class="p3">Modulation synthesis is easy to implement, providing computationally efficient shortcuts to complex dynamic spectra. The methods have their own unique sounds too, which can be musically useful.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">In this tutorial I will use some small GUIs to give controls for the parameters of the synthesis; this is because we may have more than 2 controls, and MouseX and MouseY only give us two dimensions. We shall learn more about building GUIs in due course.<span class="Apple-converted-space">   </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p7">Ring Modulation</p>
+<p class="p2"><br></p>
+<p class="p3">A straight multiplication of two signals.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">carrier * modulator</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3">{</p>
+<p class="p3"><span class="s1">var</span> carrier, modulator, carrfreq, modfreq;</p>
+<p class="p2"><br></p>
+<p class="p3">carrfreq= <span class="s1">MouseX</span>.kr(440,5000,<span class="s3">'exponential'</span>);</p>
+<p class="p3">modfreq= <span class="s1">MouseY</span>.kr(1,5000,<span class="s3">'exponential'</span>);</p>
+<p class="p2"><br></p>
+<p class="p3">carrier= <span class="s1">SinOsc</span>.ar(carrfreq,0,0.5);</p>
+<p class="p3">modulator= <span class="s1">SinOsc</span>.ar(modfreq,0,0.5);</p>
+<p class="p2"><br></p>
+<p class="p3">carrier*modulator;</p>
+<p class="p3">}.scope</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">For simple sine waves, the spectrum ends up with two frequencies (two sidebands), at C+M and C-M, where C is the carrier frequency and M is the modulator frequency.</p>
+<p class="p2"><br></p>
+<p class="p3">For more complex waves than sines, we get many more components to the spectrum of the multiplied signals.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">But if C and M are harmonic, the sidebands are also harmonic.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">For those who want to see some proof, it all follows from the mathematical relation</p>
+<p class="p2"><br></p>
+<p class="p3">cos(C)*cos(M) = 0.5*(cos(C-M) + cos(C+M))</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p7">Amplitude Modulation (AM)</p>
+<p class="p2"><br></p>
+<p class="p3">AM is like ring modulation but with a subtle difference: the modulator is unipolar, that is, always positive. Think of tremolo, where the amplitude goes up and down (but is never negative!). <span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">{<span class="s1">SinOsc</span>.ar(440,0,0.5)}.scope <span class="s4">//bipolar, -0.5 to 0.5</span></p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">{</span><span class="s1">SinOsc</span><span class="s2">.ar(440,0,0.5,0.5)}.scope </span>//unipolar, 0 to 1 (0.5 plus or minus 0.5)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3">{</p>
+<p class="p3"><span class="s1">var</span> carrier, modulator, carrfreq, modfreq;</p>
+<p class="p2"><br></p>
+<p class="p3">carrfreq= <span class="s1">MouseX</span>.kr(440,5000,<span class="s3">'exponential'</span>);</p>
+<p class="p3">modfreq= <span class="s1">MouseY</span>.kr(1,5000,<span class="s3">'exponential'</span>);</p>
+<p class="p2"><br></p>
+<p class="p3">carrier= <span class="s1">SinOsc</span>.ar(carrfreq,0,0.5);</p>
+<p class="p3">modulator= <span class="s1">SinOsc</span>.ar(modfreq,0,0.25, 0.25);</p>
+<p class="p2"><br></p>
+<p class="p3">carrier*modulator;</p>
+<p class="p3">}.scope</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">The spectrum ends up with the sum and difference frequencies we saw in ring modulation, at C+M and C-M, as well as the original carrier frequency C. <span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">The maths is now:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">cos(C)*(1+cos(M)) = cos(C)+ 0.5*(cos(C-M) + cos(C+M))</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p7">Frequency Modulation (FM)</p>
+<p class="p2"><br></p>
+<p class="p3">FM was applied to sound synthesis by John Chowning in 1967, though he published his results in 1973. Yamaha licensed the patents and in 1983 released the Yamaha DX7 synthesiser, which went on to sell 300,000 units, the most commercially successful synthesiser of all time.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">You might know the 'slow version' of FM already: a vibrato.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">Rather than plugging the modulator into the amplitude of the carrier, we're going to plug the modulator into the carrier frequency. There will be three parameters, the carrier frequency C, the modulation frequency M, and the modulation depth or frequency deviation D. <span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Because there are three variables I'm going to use a GUI rather than the 2-dimensional mouse. I'll explain GUIs properly at a later stage of this course.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3"><span class="s1">var</span> w, carrfreqslider, modfreqslider, moddepthslider, synth;</p>
+<p class="p2"><br></p>
+<p class="p3">w=<span class="s1">Window</span>(<span class="s5">"frequency modulation"</span>, <span class="s1">Rect</span>(100, 400, 400, 300));</p>
+<p class="p3">w.view.decorator = <span class="s1">FlowLayout</span>(w.view.bounds);</p>
+<p class="p2"><br></p>
+<p class="p3">synth= {<span class="s1">arg</span> carrfreq=440, modfreq=1, moddepth=0.01;<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="s1">SinOsc</span>.ar(carrfreq + (moddepth*<span class="s1">SinOsc</span>.ar(modfreq)),0,0.25)</p>
+<p class="p3">}.scope;</p>
+<p class="p2"><br></p>
+<p class="p3">carrfreqslider= <span class="s1">EZSlider</span>(w, 300@50, <span class="s5">"carrfreq"</span>, <span class="s1">ControlSpec</span>(20, 5000, <span class="s3">'exponential'</span>, 10, 440), {<span class="s1">|ez|</span><span class="Apple-converted-space">  </span>synth.set(<span class="s3">\carrfreq</span>, ez.value)});</p>
+<p class="p3">w.view.decorator.nextLine;</p>
+<p class="p2"><br></p>
+<p class="p3">modfreqslider= <span class="s1">EZSlider</span>(w, 300@50, <span class="s5">"modfreq"</span>, <span class="s1">ControlSpec</span>(1, 5000, <span class="s3">'exponential'</span>, 1, 1), {<span class="s1">|ez|</span><span class="Apple-converted-space">  </span>synth.set(<span class="s3">\modfreq</span>, ez.value)});</p>
+<p class="p3">w.view.decorator.nextLine;</p>
+<p class="p3">moddepthslider= <span class="s1">EZSlider</span>(w, 300@50, <span class="s5">"moddepth"</span>, <span class="s1">ControlSpec</span>(0.01, 5000, <span class="s3">'exponential'</span>, 0.01, 0.01), {<span class="s1">|ez|</span><span class="Apple-converted-space">  </span>synth.set(<span class="s3">\moddepth</span>, ez.value)});</p>
+<p class="p2"><br></p>
+<p class="p3">w.front;</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">In the spectrum now, there are an infinite number of sidebands, but of varying strength. Based on the values we choose for the parameters C, M and D we can make very thick spectrums, or only a light modulation effect. The sidebands turn up at<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">C + kM where k is any integer, ie. C. C+M, C-M, C+2M, C-2M, ...</p>
+<p class="p2"><br></p>
+<p class="p3">By changing the modulation frequency and depth, you can see how the energy in the sidebands is redistributed; the actual formulas for this use Bessel functions and are outside the scope of this lecture: but see the Roads Computer Music Tutorial if you're curious.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">There is a much more musically effective way to control FM, through the modulation index I, defined as:</p>
+<p class="p2"><br></p>
+<p class="p3">I= D/M</p>
+<p class="p2"><br></p>
+<p class="p3">The ratio of frequency deviation to modulation frequency. If I is small there is little audible FM effect. The higher I is, the stronger the energy in the sidebands.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3"><span class="s1">var</span> w, carrfreqslider, modfreqslider, modindexslider, synth;</p>
+<p class="p2"><br></p>
+<p class="p8"><span class="s2">w=</span><span class="s1">Window</span><span class="s2">(</span>"frequency modulation via modulation index"<span class="s2">, </span><span class="s1">Rect</span><span class="s2">(100, 400, 400, 300));</span></p>
+<p class="p3">w.view.decorator = <span class="s1">FlowLayout</span>(w.view.bounds);</p>
+<p class="p2"><br></p>
+<p class="p3">synth= {<span class="s1">arg</span> carrfreq=440, modfreq=1, modindex=0;<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="s1">SinOsc</span>.ar(carrfreq + (modindex*modfreq*<span class="s1">SinOsc</span>.ar(modfreq)),0,0.25)</p>
+<p class="p3">}.scope;</p>
+<p class="p2"><br></p>
+<p class="p3">carrfreqslider= <span class="s1">EZSlider</span>(w, 300@50, <span class="s5">"carrfreq"</span>, <span class="s1">ControlSpec</span>(20, 5000, <span class="s3">'exponential'</span>, 10, 440), {<span class="s1">|ez|</span><span class="Apple-converted-space">  </span>synth.set(<span class="s3">\carrfreq</span>, ez.value)});</p>
+<p class="p3">w.view.decorator.nextLine;</p>
+<p class="p2"><br></p>
+<p class="p3">modfreqslider= <span class="s1">EZSlider</span>(w, 300@50, <span class="s5">"modfreq"</span>, <span class="s1">ControlSpec</span>(1, 5000, <span class="s3">'exponential'</span>, 1, 1), {<span class="s1">|ez|</span><span class="Apple-converted-space">  </span>synth.set(<span class="s3">\modfreq</span>, ez.value)});</p>
+<p class="p3">w.view.decorator.nextLine;</p>
+<p class="p3">modindexslider= <span class="s1">EZSlider</span>(w, 300@50, <span class="s5">"modindex"</span>, <span class="s1">ControlSpec</span>(0.0, 10, <span class="s3">'linear'</span>, 0.01, 0.0), {<span class="s1">|ez|</span><span class="Apple-converted-space">  </span>synth.set(<span class="s3">\modindex</span>, ez.value)});</p>
+<p class="p2"><br></p>
+<p class="p3">w.front;</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">//or via mouse control</p>
+<p class="p3">(</p>
+<p class="p3">{</p>
+<p class="p3"><span class="s1">var</span> modfreq, modindex;</p>
+<p class="p2"><br></p>
+<p class="p3">modfreq= <span class="s1">MouseX</span>.kr(1,440, <span class="s3">'exponential'</span>);</p>
+<p class="p3">modindex=<span class="s1">MouseY</span>.kr(0.0,10.0);</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s1">SinOsc</span>.ar(<span class="s1">SinOsc</span>.ar(modfreq,0,modfreq*modindex, 440),0,0.25)</p>
+<p class="p3">}.scope</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">//harmonicity ratio, following Moore Elements of Computer Music, also see the Max/MSP help file MSP Tutorial 11; Frequency Modulation<span class="Apple-converted-space"> </span></p>
+<p class="p4">//since sideband energy is distributed to C+(k*M) for integer k, if M = h*C, everything is related by an integer to C (negative integers bounce back around, giving harmonic tones)</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3">{</p>
+<p class="p3"><span class="s1">var</span> carrfreq, modfreq, harmonicity, modindex;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">//fc is frequency of carrier</p>
+<p class="p4">//fm is frequency of modulator</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">carrfreq= 440; </span>//MouseY.kr(330,550);<span class="Apple-converted-space"> </span></p>
+<p class="p3">harmonicity= <span class="s1">MouseX</span>.kr(0,10).round(1);<span class="Apple-converted-space"> </span></p>
+<p class="p4"><span class="s2">modindex= </span><span class="s1">MouseY</span><span class="s2">.kr(0.0,10.0); </span>//which is really modulation amplitude/modulation frequency, acts as brightness control as energy distribution changed over components</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">modfreq= carrfreq*harmonicity; </span>//since harmonicity is an integer,<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s1">SinOsc</span>.ar(carrfreq+(<span class="s1">SinOsc</span>.ar(modfreq)*modfreq*modindex), 0.0,0.1);<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">}.play</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p7">Phase Modulation</p>
+<p class="p2"><br></p>
+<p class="p3">Recall the arguments for a sine, SinOsc.ar(freq, phase, mul, add).<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">If you have a input for a phase control you could modulate phase too.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3"><span class="s1">var</span> w, carrfreqslider, modfreqslider, modindexslider, synth;</p>
+<p class="p4"><span class="s1">var</span><span class="s2"> conversion= 2pi/(s.sampleRate); </span>//needed to avoid phase being adjusted too wildly</p>
+<p class="p2"><br></p>
+<p class="p8"><span class="s2">w=</span><span class="s1">Window</span><span class="s2">(</span>"phase modulation via modulation index"<span class="s2">, </span><span class="s1">Rect</span><span class="s2">(100, 400, 400, 300));</span></p>
+<p class="p3">w.view.decorator = <span class="s1">FlowLayout</span>(w.view.bounds);</p>
+<p class="p2"><br></p>
+<p class="p3">synth= {<span class="s1">arg</span> carrfreq=440, modfreq=1, modindex=0;<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="s1">SinOsc</span>.ar(carrfreq, ( (modfreq*modindex)*conversion*<span class="s1">SinOsc</span>.ar(modfreq)),0.25)</p>
+<p class="p3">}.scope;</p>
+<p class="p2"><br></p>
+<p class="p3">carrfreqslider= <span class="s1">EZSlider</span>(w, 300@50, <span class="s5">"carrfreq"</span>, <span class="s1">ControlSpec</span>(20, 5000, <span class="s3">'exponential'</span>, 10, 440), {<span class="s1">|ez|</span><span class="Apple-converted-space">  </span>synth.set(<span class="s3">\carrfreq</span>, ez.value)});</p>
+<p class="p3">w.view.decorator.nextLine;</p>
+<p class="p2"><br></p>
+<p class="p3">modfreqslider= <span class="s1">EZSlider</span>(w, 300@50, <span class="s5">"modfreq"</span>, <span class="s1">ControlSpec</span>(1, 5000, <span class="s3">'exponential'</span>, 1, 1), {<span class="s1">|ez|</span><span class="Apple-converted-space">  </span>synth.set(<span class="s3">\modfreq</span>, ez.value)});</p>
+<p class="p3">w.view.decorator.nextLine;</p>
+<p class="p2"><br></p>
+<p class="p4">//bigger range since adjusting phase directly and not frequency</p>
+<p class="p3">modindexslider= <span class="s1">EZSlider</span>(w, 300@50, <span class="s5">"modindex"</span>, <span class="s1">ControlSpec</span>(0.0, 100, <span class="s3">'linear'</span>, 0.01, 0.0), {<span class="s1">|ez|</span><span class="Apple-converted-space">  </span>synth.set(<span class="s3">\modindex</span>, ez.value)});</p>
+<p class="p2"><br></p>
+<p class="p3">w.front;</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">//or via mouse control</p>
+<p class="p3">(</p>
+<p class="p3">{</p>
+<p class="p3"><span class="s1">var</span> modfreq, modindex, conversion;</p>
+<p class="p2"><br></p>
+<p class="p3">modfreq= <span class="s1">MouseX</span>.kr(1,1000, <span class="s3">'exponential'</span>);</p>
+<p class="p3">modindex=<span class="s1">MouseY</span>.kr(0.0,100.0);</p>
+<p class="p3">conversion= 2pi/(s.sampleRate);<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">//Phasor is a UGen which will loop around a given interval, in this case 0 to 2pi, taking us around the waveform of the sinusoid; note that all the action is in the phase input</p>
+<p class="p3"><span class="s1">SinOsc</span>.ar(0, <span class="s1">Phasor</span>.ar(0,440*conversion,0,2pi)+( (modfreq*modindex)*conversion*<span class="s1">SinOsc</span>.ar(modfreq)), 0.25)</p>
+<p class="p2"><br></p>
+<p class="p4">//simpler alternative</p>
+<p class="p4">//SinOsc.ar(440, ( (modf*ind)*conversion*SinOsc.ar(modf)), 0.25)</p>
+<p class="p3">}.scope</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">The rate of change of phase is frequency. So phase modulation is related to frequency modulation. <span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">[</span><span class="s6">PMOsc</span><span class="s2">]<span class="Apple-tab-span">	</span></span>//A dedicated phase modulation oscillator</p>
+<p class="p2"><br></p>
+<p class="p3">In fact, anything you could control can be modulated, that is, changed over time by some oscillator or other signal.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">See also:<span class="Apple-converted-space"> </span></p>
+<p class="p4"><span class="s2">[</span><span class="s1">SinOscFB</span><span class="s2">] </span>//feedback FM; a bit of the output is leaked back into the frequency input</p>
+<p class="p4"><span class="s2">[</span><span class="s1">Vibrato</span><span class="s2">] <span class="Apple-converted-space">  </span></span>//add vibrato (slow frequency modulation) potentially at some delay after onset</p>
+</body>
+</html>

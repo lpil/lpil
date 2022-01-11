@@ -1,0 +1,597 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1038.36">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #008325}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; min-height: 25.0px}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #102ac2}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #cd1713}
+    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #00f94f}
+    span.s1 {color: #000000}
+    span.s2 {text-decoration: underline}
+    span.s3 {color: #102ac2}
+    span.s4 {color: #008325}
+    span.s5 {color: #cd1713}
+    span.s6 {color: #737373}
+    span.Apple-tab-span {white-space:pre}
+  </style>
+</head>
+<body>
+<p class="p1">More on Clocks and Scheduling in SuperCollider</p>
+<p class="p2"><br></p>
+<p class="p3">some relevant help files:</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">[</span><span class="s2">SystemClock</span><span class="s1">]</span></p>
+<p class="p4"><span class="s1">[</span><span class="s2">TempoClock</span><span class="s1">]</span></p>
+<p class="p4"><span class="s1">[</span><span class="s2">AppClock</span><span class="s1">]</span></p>
+<p class="p2"><br></p>
+<p class="p3">s = <span class="s3">Server</span>.local;<span class="Apple-converted-space"> </span></p>
+<p class="p3">s.boot;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p5">//add me first - this sound is going to be used for the scheduling demoes</p>
+<p class="p5">//It's important we use SynthDef and Synth here: notice the doneAction!</p>
+<p class="p3">(</p>
+<p class="p3"><span class="s3">SynthDef</span>(<span class="s4">\bleep</span>,{ <span class="s3">arg</span> out=0, note=60, amp=0.5, pan=0.0;</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s3">var</span> freq, env;<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>freq = note.midicps;</p>
+<p class="p3"><span class="Apple-tab-span">	</span>env = <span class="s3">EnvGen</span>.ar(</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s3">Env</span>([0,1,1,0],[0.01, 0.1, 0.2]),</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>levelScale:amp,<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>doneAction:2</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>);</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s3">Out</span>.ar(out,</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s3">Pan2</span>.ar(<span class="s3">Blip</span>.ar(freq) * env, pan)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>)</p>
+<p class="p3">}).add;</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p5">// This SynthDef uses an envelope with a doneAction of 2 to force a synth made</p>
+<p class="p5">// from the definition to deallocate (free) itself when the envelope finishes.<span class="Apple-converted-space"> </span></p>
+<p class="p5">// This is vital, for else when we spawn events they'd hang around forever!</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">You can set up a repeating function over time very easily</p>
+<p class="p3">There is one global SystemClock which schedules in seconds</p>
+<p class="p3">The SystemClock is the most reliable clock</p>
+<p class="p2"><br></p>
+<p class="p5">// start a process 0 seconds from now then repeat once per second</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p5"><span class="s3">SystemClock</span><span class="s1">.sched(0.0,</span>//start at 0.0 sec from now, i.e. immediately</p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>{</span>//a function which states what you wish to schedule</p>
+<p class="p1"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span><span class="s3">Synth</span><span class="s1">(</span>\bleep<span class="s1">);</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>1<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//repeat every second</p>
+<p class="p3"><span class="Apple-tab-span">	</span>}</p>
+<p class="p3">)</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p3">(the last thing returned from the function is the time until that function is called again; you should either return a number, or nil; nil will stop the scheduling)</p>
+<p class="p2"><br></p>
+<p class="p3">Any scheduling will also stop when pressing CMD + period</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">The same with more jerky attack times and passing arguments to each new Synth:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p5"><span class="s3">SystemClock</span><span class="s1">.sched(1.0,</span>//start in 1.0 sec</p>
+<p class="p3"><span class="Apple-tab-span">	</span>{</p>
+<p class="p1"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span><span class="s3">Synth</span><span class="s1">(</span>\bleep<span class="s1">,<span class="Apple-converted-space"> </span></span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>[ </span>//passing in arguments to the Synth</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">\note</span>, (#[0,2,4,5,7,9] + 48).choose,<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">\pan</span>, 1.0.rand2</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>]</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>);</p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span></span>// random choice of repeat time:</p>
+<p class="p3"><span class="Apple-tab-span">	</span>[0.25,0.3,0.7,0.1].choose<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">})</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p3">#[0,2,4,5,7,9] makes a fixed (non-dynamic) Array and is therefore slightly cheaper</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">If you're happy to schedule everything in seconds, and work any rhythmic representations out for yourself, you're set to go.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">To get the current SystemClock time you can use this code:</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s3">Main</span><span class="s1">.elapsedTime; </span>//gives a time since the application started</p>
+<p class="p2"><br></p>
+<p class="p3">And in scheduling schedAbs schedules with respect to an absolute time</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p5"><span class="s3">SystemClock</span><span class="s1">.schedAbs(</span><span class="s3">Main</span><span class="s1">.elapsedTime+1.0,</span>//start at absolute system clock time now + 1 second</p>
+<p class="p3"><span class="Apple-tab-span">	</span>{</p>
+<p class="p1"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span><span class="s3">Synth</span><span class="s1">(</span>\bleep<span class="s1">,<span class="Apple-converted-space"> </span></span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>[ </span>//passing in arguments to the Synth</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">\note</span>, (#[0,2,4,5,7,9] + 48).choose,<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">\pan</span>, 1.0.rand2</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>]</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>);</p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span></span>// random choice of repeat time:</p>
+<p class="p3"><span class="Apple-tab-span">	</span>[0.25,0.3,0.7,0.1].choose<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">})</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">In many cases you'd prefer to work relative to some tempo, (for instance, if you want to schedule events in terms of beats and measures)</p>
+<p class="p2"><br></p>
+<p class="p3">SuperCollider measures tempi in beats per second (bps) rather than beats per minute, i.e</p>
+<p class="p2"><br></p>
+<p class="p3">1 bps = 60 bpm</p>
+<p class="p2"><br></p>
+<p class="p3">1.6666667 bps = 100 bpm</p>
+<p class="p2"><br></p>
+<p class="p3">2 bps = 120 bpm</p>
+<p class="p2"><br></p>
+<p class="p3">2.4 bps = 144 bpm</p>
+<p class="p2"><br></p>
+<p class="p3">3 bps = 180 bpm</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">(multiply by 60 to go from bps to bpm, divide by 60 in the other direction)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">For beat-based scheduling we use TempoClock:</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3"><span class="s3">var</span> t;</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s1">t = </span><span class="s3">TempoClock</span><span class="s1">(2); </span>// make a new tempoclock at tempo 120 bpm = 2 beats per second</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s1">t.schedAbs(0, { </span><span class="s3">arg</span><span class="s1"> ... args;<span class="Apple-tab-span">	</span></span>// start at absolute beat 0 immediately</p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>args.postln;<span class="Apple-tab-span">	</span></span>//<span class="Apple-converted-space">  </span>post the input arguments to our event function<span class="Apple-converted-space"> </span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//<span class="Apple-converted-space">  </span>(will post logical time in beats, elapsed time<span class="Apple-converted-space"> </span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//<span class="Apple-converted-space">  </span>in seconds of enclosing thread and this clock)</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span><span class="s3">Synth</span><span class="s1">(</span><span class="s4">\bleep</span><span class="s1">);</span>// make a bleep</p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>1.0<span class="Apple-tab-span">	</span></span>// reschedules every beat</p>
+<p class="p3">})</p>
+<p class="p2"><br></p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p3">TempoClock is set up to react appropriately to changes of tempo and timesig.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">There is an automatically available TempoClock</p>
+<p class="p2"><br></p>
+<p class="p3">t= <span class="s3">TempoClock</span>.default;<span class="Apple-tab-span">	</span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">You can ask a tempoclock where it is; this default clock might have been running for a long time already</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s1">t.elapsedBeats; <span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//what exact logical beat time are we at</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s1">t.bar;<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//which bar are we in (default assumption is 4/4)</p>
+<p class="p2"><br></p>
+<p class="p3">t.elapsedBeats.ceil; <span class="s5">//find next beat</span></p>
+<p class="p2"><br></p>
+<p class="p3">t.elapsedBeats.floor; <span class="s5">//find last beat</span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3"><span class="s3">var</span> t;</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s1">t = </span><span class="s3">TempoClock</span><span class="s1">.default;<span class="Apple-tab-span">	</span></span>// the default TempoClock might have been running<span class="Apple-converted-space"> </span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// for a very long time already, so you should start at the next beat.</p>
+<p class="p2"><br></p>
+<p class="p3">t.schedAbs(t.elapsedBeats.ceil, <span class="s5">// start at next whole beat</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>{</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s3">Synth</span>(<span class="s4">\bleep</span>, [<span class="s4">\note</span>, [36,40,43].choose, <span class="s4">\pan</span>, 1.0.rand2]);</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>[0.25,0.5,1.0, <span class="s3">nil</span>].wchoose([0.5,0.4,0.05,0.05]); //weighted choice<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s5">// repeat at some number of beats from the array- nil means stop</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>})</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s1">[1,2,3,4].wchoose([0.8,0.1,0.07,0.03]); </span>//wchoose allows a weighted choice of values in one array with respect to the weights in a second array (which must add up to 1 and there must be as many weights as items to pick from)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">If you ask for a beat that has already occured, the scheduler will try to catch up with the queue of events as quickly as possible:</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3"><span class="s3">var</span> u;</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s1">u = </span><span class="s3">TempoClock</span><span class="s1">(1.2);<span class="Apple-tab-span">	</span></span>// make our own Tempoclock at a tempo of 1.2 bps</p>
+<p class="p2"><br></p>
+<p class="p5">// should have started 5 beats ago!</p>
+<p class="p3">u.schedAbs(-5.0, { <span class="s3">Synth</span>(<span class="s4">\bleep</span>);<span class="Apple-converted-space">  </span>0.5 });</p>
+<p class="p5">// you'll get a loud burst of events as it catches up</p>
+<p class="p5"><span class="s3">SystemClock</span><span class="s1">.sched(5.0, {u.clear}); </span>// schedule a stop for 5 seconds from now.</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p5">// If you change tempo at some point, the transition is fine:</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3"><span class="s3">var</span> u;</p>
+<p class="p2"><br></p>
+<p class="p3">u = <span class="s3">TempoClock</span>(3.5);</p>
+<p class="p2"><br></p>
+<p class="p3">u.schedAbs(0.0, { <span class="s3">arg</span> beat, sec;<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>[beat,sec].postln;<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s3">Synth</span>(<span class="s4">\bleep</span>, [<span class="s4">\note</span>, rrand(60.0,67.0)]);<span class="Apple-converted-space">   </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0.5</p>
+<p class="p3">});</p>
+<p class="p2"><br></p>
+<p class="p3">u.schedAbs(8.0, { u.tempo_(2); <span class="s3">nil</span> }); <span class="s5">// just schedule tempo change</span></p>
+<p class="p2"><br></p>
+<p class="p3">u.schedAbs(12.0, { u.tempo_(7); <span class="s3">nil</span> }); <span class="s5">// just schedule tempo change</span></p>
+<p class="p2"><br></p>
+<p class="p3">u.schedAbs(17.2, { u.tempo_(1); <span class="s3">nil</span> }); <span class="s5">// just schedule tempo change</span></p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s3">SystemClock</span><span class="s1">.sched(7.0, { u.clear; }); </span>// schedule a stop for 7 seconds from now.</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Run these lines one at a time:</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">t=</span>TempoClock<span class="s1">(2);</span></p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s1">t.tempo; </span>//gets current tempo</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s1">t.tempo_(4); </span>//sets current tempo (only the underscore character is different)</p>
+<p class="p2"><br></p>
+<p class="p3">t.tempo;</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s1">t.tempo= 2.3; </span>//also assigns new tempo, same as last line</p>
+<p class="p2"><br></p>
+<p class="p3">t.tempo;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p5">// Changing Tempo via a UI control:</p>
+<p class="p2"><br></p>
+<p class="p5">// slider range is always 0.0-1.0, so mapped in the code</p>
+<p class="p3">(</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s3">var</span> w,u,slid, button;</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span>w = <span class="s3">Window</span>(<span class="s6">"tempo control test"</span>, <span class="s3">Rect</span>(100,100,200,40));</p>
+<p class="p3"><span class="Apple-tab-span">	</span>slid = <span class="s3">Slider</span>(w, <span class="s3">Rect</span>(0,0,200,20));</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span>button = <span class="s3">Button</span>(w, <span class="s3">Rect</span>(60,20,40,20));<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>button.states_([[<span class="s6">"kill"</span>]]);</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span>w.front;</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span>slid.action_({u.tempo_(2*(slid.value)+1)});</p>
+<p class="p3"><span class="Apple-tab-span">	</span>button.action_({u.clear; w.close;});</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1"><span class="Apple-tab-span">	</span>u = </span>TempoClock<span class="s1">(1);</span></p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>u.schedAbs(0.0, { <span class="s3">arg</span> beat,sec;<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>[beat,sec].postln;<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s3">Synth</span>(<span class="s4">\bleep</span>, [<span class="s4">\note</span>, rrand(60, 100)]);<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>1.0</p>
+<p class="p3"><span class="Apple-tab-span">	</span>});</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p5">// You can do multiple Tempi by creating two clocks at once</p>
+<p class="p5">// Here's a tempo ratio of 12:13 <span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3"><span class="s3">var</span> u,v;</p>
+<p class="p2"><br></p>
+<p class="p3">u = <span class="s3">TempoClock</span>(1.2);</p>
+<p class="p3">v = <span class="s3">TempoClock</span>(1.3);</p>
+<p class="p2"><br></p>
+<p class="p3">u.schedAbs(0, { <span class="s3">Synth</span>(<span class="s4">\bleep</span>, [<span class="s4">\note</span>, rrand(41.8,47.5), <span class="s4">\pan</span>, -0.5]);<span class="Apple-converted-space">  </span>1.0 });</p>
+<p class="p3">v.schedAbs(0, { <span class="s3">Synth</span>(<span class="s4">\bleep</span>,[<span class="s4">\pan</span>, 0.5]);<span class="Apple-converted-space">  </span>1.0 });</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s3">SystemClock</span><span class="s1">.sched(10.9, { u.clear; v.clear; }); </span>// schedule a stop for 10.9 seconds from now.</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p6">A note about GUIs and Clocks</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">UIs can't be updated by direct call from the SystemClock - the operating system's AppClock must be used. Here is a quick programmatic demonstration of moving a window around:</p>
+<p class="p2"><br></p>
+<p class="p5">// When running it always press cmd + period before attempting to close the window</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3"><span class="s3">var</span> w, i;</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span>i = 0;</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span>w = <span class="s3">Window</span>(<span class="s6">"My Window"</span>, <span class="s3">Rect</span>(100, 0, 200, 50));<span class="Apple-converted-space"> </span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span></span>// A 200 by 200 window appears at screen co-ordinates (100, 0)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>w.front;</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span></span>//schedule moves and resizes for the window</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s3">AppClock</span>.sched(0.0, {<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>w.bounds_(<span class="s3">Rect</span>(100, (10 * i) % 500, rrand(200,400), 50));<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>i=i+1;<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0.125</p>
+<p class="p3"><span class="Apple-tab-span">	</span>});</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p5">// this would have failed:</p>
+<p class="p5">// SystemClock.sched(0.0,{w.bounds_(Rect(100, (10*i)%500, 200,200)); i=i+1; 0.125});</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">There is one helpful shortcut trick; if you are within a SystemClock, you can wrap any GUI calls in function brackets like so:</p>
+<p class="p2"><br></p>
+<p class="p3">{</p>
+<p class="p5">//GUI code</p>
+<p class="p3">}.defer<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">In the background, this reassigns the command to the AppClock.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p5">// this will be OK, by using defer to pass the command to an AppClock:</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3"><span class="s3">var</span> w, i;</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span>i = 0;</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span>w = <span class="s3">Window</span>(<span class="s6">"My Window"</span>, <span class="s3">Rect</span>(100, 0, 200, 200));<span class="Apple-converted-space"> </span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span></span>// A 200 by 200 window appears at screen co-ordinates (100, 500)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>w.front;</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s3">SystemClock</span>.sched(0.0, {</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>{ w.bounds_(</span><span class="s3">Rect</span><span class="s1">(100, (10*i)%500, 200, 200)) }.defer; </span>// defer acts as a bridge between SystemClock and AppClock</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>i=i+1;<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0.125</p>
+<p class="p3"><span class="Apple-tab-span">	</span>});</p>
+<p class="p2"><br></p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+</body>
+</html>

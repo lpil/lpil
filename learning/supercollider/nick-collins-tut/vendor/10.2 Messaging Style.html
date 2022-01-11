@@ -1,0 +1,230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1038.36">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #008325}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; min-height: 25.0px}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Geneva}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Geneva; color: #00f94f}
+    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #cd1713}
+    p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #737373}
+    p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Helvetica}
+    p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #102ac2; min-height: 25.0px}
+    span.s1 {color: #102ac2}
+    span.s2 {text-decoration: underline}
+    span.s3 {color: #737373}
+    span.s4 {color: #cd1713}
+    span.s5 {color: #000000}
+    span.s6 {font: 18.0px Helvetica; color: #000000}
+    span.s7 {color: #008325}
+    span.s8 {font: 18.0px Monaco}
+    span.s9 {font: 18.0px Helvetica; text-decoration: underline}
+    span.Apple-tab-span {white-space:pre}
+  </style>
+</head>
+<body>
+<p class="p1">Messaging Style and Abstractions</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s1">Server</span>.default=s=<span class="s1">Server</span>.internal;</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">SC3 philosophy</span></p>
+<p class="p2"><br></p>
+<p class="p4">With SuperCollider 3, the SuperCollider language which specifies when and which sound events occur is separated from the thing that does the synthesising of sound, the Server. Under the hood, there is a constant stream of messages from the language (SCLang appplication) to the Server (scsynth application).</p>
+<p class="p2"><br></p>
+<p class="p4">There can in fact be lots of these Servers, scattered anywhere on a computer network. You communicate with them using the network audio protocol OSC (Open Sound Control).<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">There is some slight latency in communication between the Language application and the 'localhost' or remote Server, but if one crashes, the other is free to continue.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">There is an internal Server embedded in the SCLang, with immediate message passing, but this would not support network music, and the 'localhost' or local Server is the usual choice.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p5">Running SC3 by passing commands to the Server- Messaging Style</p>
+<p class="p2"><br></p>
+<p class="p4">This is not the easiest way to make a sound in SC3, but you should see it at least once to understand what is going on below the surface. I'm going to pass some messages from the language application to the Server in a pretty explicit manner.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">s=<span class="s1">Server</span>.local; if(not(s.serverRunning), {s.boot});</p>
+<p class="p6">//interpreter variable s is always being set to the localhost Server for convenience</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">In order to synthesise, we have to pass SynthDefs (Synth Definitions) to the Server. These are instructions for building UGen Graphs. SCLang will run the code below but then compile it into a form that the Server understands.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">SynthDef</span>(<span class="s3">"sine"</span>, {<span class="s1">arg</span> freq=440;</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="s1">var</span> osc;</p>
+<p class="p4"><span class="Apple-tab-span">	</span>osc = <span class="s1">SinOsc</span>.ar(freq, 0, 0.1); <span class="s4">//sine oscillator</span></p>
+<p class="p6"><span class="s5"><span class="Apple-tab-span">	</span></span><span class="s1">Out</span><span class="s5">.ar(0, osc); </span>// send output to audio bus zero.</p>
+<p class="p6"><span class="s5">}).writeDefFile; <span class="Apple-converted-space">  </span></span>//place this SynthDef on disk in compiled form in the <span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>'synthdefs' folder<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">Don't imagine that you can leave in expressions in a SynthDef that will run later on, you are making a fixed combination of UGens. The only way you will communicate with instances of your SynthDef later is if there are arguments, which act like input connections to your module.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">Now we send some messages to the Server to get things going: (these code constructs are commands to send single OSC messages, see 10.1)<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p7"><span class="s5">s.sendMsg(</span>"/d_load"<span class="s5">,</span>"synthdefs/sine.scsyndef"<span class="s5">); <span class="Apple-converted-space">  </span></span><span class="s4">//server loads the SynthDef</span></p>
+<p class="p2"><br></p>
+<p class="p6"><span class="s5">s.sendMsg(</span><span class="s3">"/s_new"</span><span class="s5">, </span><span class="s3">"sine"</span><span class="s5">, 1000, 1, 0); </span>//start a Synth instance using the SynthDef-<span class="s6"> </span>it is created as a Synth Node at the tail of the RootNode Group</p>
+<p class="p2"><br></p>
+<p class="p4">s.sendMsg(<span class="s3">"/s_new"</span>, <span class="s3">"sine"</span>, 1001, 3, 1000, <span class="s7">\freq</span>, 450);<span class="Apple-converted-space"> </span></p>
+<p class="p6">//start a separate Synth instance using the same SynthDef, passing in an initial argument- it is created just after the Node 1000</p>
+<p class="p2"><br></p>
+<p class="p6">//we can only access the inputs of the SynthDef, so I can change the frequency of the sound:</p>
+<p class="p4">s.sendMsg(<span class="s3">"/n_set"</span>, 1001, "freq", 900);</p>
+<p class="p2"><br></p>
+<p class="p4">s.sendMsg(<span class="s3">"/n_free"</span>, 1000);<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span> <span class="Apple-converted-space">  </span><span class="s4">//stop Node 1000</span></p>
+<p class="p2"><br></p>
+<p class="p4">s.sendMsg(<span class="s3">"/n_free"</span>, 1001);<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span> <span class="Apple-converted-space">  </span><span class="s4">//stop Node 1001</span></p>
+<p class="p2"><br></p>
+<p class="p4">This should give you an idea of the spirit of the thing, but don't worry too much about the specific details of the messages!<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">You can find out about the OSC messages the Server responds to in the help file:</p>
+<p class="p2"><br></p>
+<p class="p8"><span class="s8">[</span><span class="s2"><b>Server-Command-Reference</b></span><span class="s8">]</span></p>
+<p class="p2"><br></p>
+<p class="p4">There are messages for controlling buffers, nodes, buses...<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">This tutorial works at this level of message passing- [<span class="s9"><b>Tutorial</b></span>]</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p5">Using Classes that encapsulate those commands</p>
+<p class="p2"><br></p>
+<p class="p4">There are various ways to hide the complexities of message passing from view. We'll aim to progressively avoid any explicit OSC messaging. But under the surface, the message passing is going on; we're just using useful helper classes to conceal the fine detail.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">s=<span class="s1">Server</span>.local; if(not(s.serverRunning), {s.boot});</p>
+<p class="p6">//interpreter variable s is always being set to the localhost Server for convenience</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">Let's make another SynthDef, but use the SynthDef class to load it straight to the Server</p>
+<p class="p9"><br></p>
+<p class="p4"><span class="s1">SynthDef</span>(<span class="s3">"LFPar"</span>, {<span class="s1">arg</span> freq=440, pan=0.0;</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="s1">var</span> osc;</p>
+<p class="p4"><span class="Apple-tab-span">	</span>osc = <span class="s1">LFPar</span>.ar(<span class="s1">LFPar</span>.kr(<span class="s1">ExpRand</span>.new(1,80),0,freq*0.02,freq), 0, 0.1);<span class="Apple-converted-space"> </span></p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="s1">Out</span>.ar(0, <span class="s1">Pan2</span>.ar(osc,pan));</p>
+<p class="p4">}).load(s);</p>
+<p class="p2"><br></p>
+<p class="p4">Look at the SynthDef count on the localhost Server to see how its gone up by one</p>
+<p class="p2"><br></p>
+<p class="p4">a= <span class="s1">Synth</span>(<span class="s3">"LFPar"</span>);<span class="Apple-converted-space"> </span></p>
+<p class="p6">//make a Synth, let some hidden code worry about Node numbers...</p>
+<p class="p2"><br></p>
+<p class="p4">b=<span class="s1">Synth</span>(<span class="s3">"LFPar"</span>, [<span class="s7">\freq</span>, rrand(200,700), <span class="s7">\pan</span>, 1.0.rand2]);<span class="Apple-converted-space"> </span></p>
+<p class="p6">//make another Synth, pass some values to the arguments</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">RootNode</span>.freeAll;<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p6">//stop all Synths from the top level Group, or press cmd+period</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p5">{}.play</p>
+<p class="p2"><br></p>
+<p class="p4">There is a code construction we've seen that hides explicit messages and also SynthDefs from you: so it seems like everything is happening in the language application (it is also provided for backwards compatability with SC2).<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p6">//the way this works is to use code that makes a SynthDef wrapper for the function,<span class="s5"> </span>sends it to the Server to play as soon as possible</p>
+<p class="p4">{<span class="s1">SinOsc</span>.ar([<span class="s1">MouseX</span>.kr(440,880), <span class="s1">MouseY</span>.kr(330,660)],0,0.1)}.play</p>
+<p class="p2"><br></p>
+<p class="p6">//now start this one too!<span class="Apple-converted-space"> </span></p>
+<p class="p4">{<span class="s1">SinOsc</span>.ar([<span class="s1">MouseX</span>.kr(220,770), <span class="s1">MouseY</span>.kr(110,550)],0,0.1)}.play</p>
+<p class="p2"><br></p>
+<p class="p6">//the code above actually returns the synth instance if you need to do things<span class="Apple-converted-space"> </span></p>
+<p class="p6">//with it,<span class="s5"> </span>and you can choose where the new Synth appears in the Server's Node graph<span class="Apple-converted-space"> </span></p>
+<p class="p4">(</p>
+<p class="p4"><span class="s1">var</span> synth;</p>
+<p class="p2"><br></p>
+<p class="p4">synth= {<span class="s1">LPF</span>.ar(<span class="s1">Pan2</span>.ar(<span class="s1">CombN</span>.ar(<span class="s1">Impulse</span>.ar(9, 0.5, 0.1),0.2,0.2, 30), <span class="s1">MouseX</span>.kr(-1.0,1.0)), <span class="s1">MouseY</span>.kr(500,10000))}.play(<span class="s1">RootNode</span>.new);</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">SystemClock</span>.sched(5,{synth.free; <span class="s1">nil</span>});</p>
+<p class="p4">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">What is dangerous about {}.play is that it generates a new SynthDef every time you use it. Never use it within a Routine: your Server's SynthDef count may spiral out of control! Even if you avoid the explicit messaging style, the Synth() construct is recommended so that SynthDefs are properly controlled.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+</body>
+</html>

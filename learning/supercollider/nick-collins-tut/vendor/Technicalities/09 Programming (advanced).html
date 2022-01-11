@@ -1,0 +1,324 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1038.36">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 23.0px Geneva}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Geneva; min-height: 25.0px}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Geneva}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Geneva; color: #cd1713}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Geneva; color: #737373}
+    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Geneva; color: #008024}
+    p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 22.0px Geneva}
+    p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Geneva; color: #102ac2}
+    p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 27.0px Geneva; min-height: 36.0px}
+    p.p10 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco}
+    span.s1 {color: #000000}
+    span.s2 {color: #102ac2}
+    span.s3 {color: #737373}
+    span.s4 {color: #008024}
+    span.Apple-tab-span {white-space:pre}
+  </style>
+</head>
+<body>
+<p class="p1">SuperCollider the Programming Language (advanced)</p>
+<p class="p2"><br></p>
+<p class="p3">SuperCollider is an object oriented interpreted language based upon the classic object oriented language Smalltalk, though also including C/Java syntax and further influences. <span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">There is an accompanying tutorial about classes in SuperCollider and what object oriented programming is.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">A good discussion of technical details for SC is found in:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">James McCartney, Rethinking the Computer Music Language: SuperCollider<span class="Apple-converted-space"> </span></p>
+<p class="p3">Computer Music Journal, 26:4, pp. 61-68, Winter 2002.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">And some topics are covered under the 'Language' section of the Main helpfile page.</p>
+<p class="p2"><br></p>
+<p class="p3">I'll cover a few special features of the language below:</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">The goal in SuperCollider is usually to construct a sound instrument as a network of unit generators. To create the signal processing chain, the user writes a function. This means that, unlike in graphical unit generator languages like Reaktor or MAX/MSP, the full facility of an algorithmic programming language is available:</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p4"><span class="s1">{<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//here is the UGen network creating function</p>
+<p class="p3"><span class="s2">var</span> n, z;</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">n= 50; <span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//but you can change this to whatever number you want!<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">z= 1;</p>
+<p class="p2"><br></p>
+<p class="p3">n.do({<span class="s2">arg</span> i; <span class="Apple-converted-space">  </span>z= <span class="s2">LFNoise0</span>.ar(z*(i+1), rrand(0.1,2.5), 2.5); });</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s2">SinOsc</span>.ar(30+(100*z),0, 0.1)<span class="Apple-converted-space"> </span></p>
+<p class="p3">}.play;</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Of course we can construct user interfaces algorithmically too and do plenty more that is pretty awkward or impossible in more graphical selection based programs.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">Dynamic typing</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3"><span class="s2">var</span> a;</p>
+<p class="p2"><br></p>
+<p class="p3">a= 5;</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s1">a= </span>"string"<span class="s1">;<span class="Apple-converted-space"> </span></span></p>
+<p class="p2"><br></p>
+<p class="p6"><span class="s1">a= </span>\symbol<span class="s1">;</span></p>
+<p class="p2"><br></p>
+<p class="p3">a=<span class="s2">MouseX</span>.new;</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p4">//So we don't have to set types in variable declarations as in C:</p>
+<p class="p2"><br></p>
+<p class="p3">double a;</p>
+<p class="p3">float ** f;<span class="Apple-converted-space"> </span></p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Memory management is automated, with a realtime garbage collector; there aren't any pointers to worry about. <span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">We can make References using the class Ref:</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s2">Ref</span>.new([3,4,5]);</p>
+<p class="p2"><br></p>
+<p class="p3">or shortcut:</p>
+<p class="p2"><br></p>
+<p class="p3">`[3,4,5];</p>
+<p class="p2"><br></p>
+<p class="p3">Which are sometimes useful for passing by reference in functions and to avoid MultiChannel expansion in UGens (see the Klank UGen)<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">When using a function, the default is 'pass by value'</p>
+<p class="p2"><br></p>
+<p class="p4">//passing by value</p>
+<p class="p3">f= {|a,b| a=a+5; a+b};</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3">c=8;</p>
+<p class="p2"><br></p>
+<p class="p3">f.value(c,9).postln;</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">c </span>//c has not been changed by function f - its value was copied into the argument to the function</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">//passing by reference (the argument to a function will be a reference to the original, not a copy)</p>
+<p class="p3">f= {|a,b| a.value_(a.value+5); a.value+b};</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3">c=<span class="s2">Ref</span>(8);</p>
+<p class="p2"><br></p>
+<p class="p3">f.value(c,9).postln;</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">c </span>//c has been changed within the function</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Here are some special facilities of the Function class you may see in action:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">Variable length argument lists</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3">f= {<span class="s2">arg</span> ...args;<span class="Apple-converted-space">  </span>args.postln;<span class="Apple-converted-space">  </span>};</p>
+<p class="p2"><br></p>
+<p class="p3">f.value(9,10,<span class="s3">"dave"</span>);<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">f.value([9,2,3,<span class="s4">\dave</span>],7, 789,34, 456, 678);</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Dynamic binding of arguments</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3">f= {<span class="s2">arg</span> freq, penguin;<span class="Apple-converted-space">  </span>[freq, penguin].postln; };</p>
+<p class="p2"><br></p>
+<p class="p3">currentEnvironment.use(</p>
+<p class="p3">{</p>
+<p class="p3">~freq= 678;</p>
+<p class="p3">~penguin=<span class="s4">\chocolate</span>;</p>
+<p class="p2"><span class="Apple-converted-space"> </span></p>
+<p class="p3">f.valueEnvir;</p>
+<p class="p3">});</p>
+<p class="p2"><br></p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Calling methods of a class by name</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3">a=<span class="s2">Array</span>.perform(<span class="s4">\fill</span>, 9, {<span class="s2">arg</span> i; i*i});</p>
+<p class="p3">a.postln;</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p7">A Note About Inheritance</p>
+<p class="p2"><br></p>
+<p class="p3">For methods (functions defined in class files) single message dispatch is used. SC only allows single inheritance.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">Function overriding is used in derived classes but function overloading is never possible</p>
+<p class="p2"><br></p>
+<p class="p8">MyClass</p>
+<p class="p3">{</p>
+<p class="p2"><br></p>
+<p class="p3">*one{<span class="s2">arg</span> x; }</p>
+<p class="p2"><br></p>
+<p class="p3">*one{<span class="s2">arg</span> x, y; }</p>
+<p class="p2"><br></p>
+<p class="p3">}</p>
+<p class="p9"><br></p>
+<p class="p10">• ERROR: Method Meta_MyClass::one already defined.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><span class="Apple-converted-space"> </span></p>
+</body>
+</html>

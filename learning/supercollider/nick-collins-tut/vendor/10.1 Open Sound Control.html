@@ -1,0 +1,314 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1038.36">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 22.0px Geneva}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Geneva; min-height: 25.0px}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Geneva}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Geneva; color: #102ac2}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Geneva; color: #cd1713}
+    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Geneva; color: #737373}
+    p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Geneva; color: #cd1713; min-height: 25.0px}
+    p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Geneva; color: #008325}
+    span.s1 {color: #102ac2}
+    span.s2 {color: #000000}
+    span.s3 {text-decoration: underline}
+    span.s4 {color: #737373}
+    span.s5 {color: #008325}
+    span.s6 {color: #1738f5}
+    span.s7 {color: #454ec3}
+    span.Apple-tab-span {white-space:pre}
+  </style>
+</head>
+<body>
+<p class="p1">Open Sound Control (OSC)</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s1">Server</span>.default=s=<span class="s1">Server</span>.internal;</p>
+<p class="p2"><br></p>
+<p class="p3">OSC is a communication protocol used for sending information across a computer network. It is promoted as the successor to MIDI (with greatly increased bandwidth and user-customisable representations), and is supported by most modern music software.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">It is the lifeblood of SuperCollider since all communication from the language application to the localhost server uses OSC! You may also send messages to any other SuperCollider Servers for which you have an IP location. So SuperCollider is immediately equiped for network music. <span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">You can also use it to communicate with other applications like Max/MSP or Pd.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">For OSC, you create your own OSC Address Space, a tree of methods that get called when their corresponding string is invoked. In practice, this means you can choose how to tag the messages you pass.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-converted-space"> </span></p>
+<p class="p3">(see http://www.cnmat.berkeley.edu/OpenSoundControl/OSC-spec.html for more)</p>
+<p class="p2"><span class="Apple-converted-space"> </span></p>
+<p class="p3">You might use<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">"/myparameters/object3/frequency"<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-converted-space"> </span>Or any other string, where the forward slashes / split up the tree to be traversed.</p>
+<p class="p2"><span class="Apple-converted-space"> </span></p>
+<p class="p3">OSC messages themselves are denoted by an address string, a typetag string that says whether the information passed is a float, two integers etc and actual values for each type in the type string:</p>
+<p class="p2"><br></p>
+<p class="p3">address, typetags, values<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">The message is passed to the appropriate method as soon as it arrives.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">A 'bundle' can also be sent, which is a set of OSC commands that are to be called simultaneously- an absolute time tag is also enclosed, to control exactly when the commands are carried out.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">To send general OSC to a known IP use the<span class="s1"> NetAddr</span> class:</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">[</span><span class="s3">NetAddr</span><span class="s2">]</span></p>
+<p class="p2"><br></p>
+<p class="p5">//demo to send to the localhost Server</p>
+<p class="p3">(</p>
+<p class="p3"><span class="s1">var</span> n, id;</p>
+<p class="p2"><br></p>
+<p class="p5">//loopback address is 127.0.0.1- try substituting the IP address of another user's machine</p>
+<p class="p5"><span class="s2">n=</span><span class="s1">NetAddr</span><span class="s2">(</span><span class="s4">"127.0.0.1"</span><span class="s2">, 57110); </span>//57110 is the port number; this is the standard number used by the Server</p>
+<p class="p2"><br></p>
+<p class="p3">id=s.nextNodeID;</p>
+<p class="p5"><span class="s2">n.sendMsg(</span><span class="s4">"s_new"</span><span class="s2">,</span><span class="s5">\default</span><span class="s2">,id,0,0); <span class="Apple-converted-space">  </span></span>//sendMsg works out the correct OSC message for you</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s1">SystemClock</span>.sched(1.0,{n.sendMsg(<span class="s4">"n_free"</span>,id); });</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">To send standard messages to control a SuperCollider server, the Server class is a better interface. Underneath, it uses NetAddr as above. <span class="Apple-converted-space"> </span></p>
+<p class="p4"><span class="s2">[</span><span class="s3">Server</span><span class="s2">]</span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">To receive and react to OSC messages in SCLang you will use the OSCFunc or OSCdef classes (used since SC 3.5. For SC3.4 or earlier see OSCresponder and OSCresponderNode, tutorial reproduced lower down this file)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p5">// register to receive a trigger message</p>
+<p class="p3"><span class="s1">o = OSCFunc</span>({ <span class="s6">arg</span> msg,time,address,receivedPort;</p>
+<p class="p2"><br></p>
+<p class="p6">"received trigger!"<span class="s2">.postln;</span></p>
+<p class="p3"><span class="s1">Post</span> &lt;&lt; msg &lt;&lt;nl;</p>
+<p class="p5"><span class="s2">}, </span>//Function</p>
+<p class="p5"><span class="s5">'/tr',</span><span class="s2"><span class="Apple-tab-span">	</span></span>//OSC message address name,</p>
+<p class="p5"><span class="s2">s.addr </span>//NetAddr (where the message will arrive from). Leave this nil if you want to allow it to come from anywhere (for example, if another application is sending from a variable or unknown port)</p>
+<p class="p3">);<span class="Apple-tab-span">	</span></p>
+<p class="p2"><br></p>
+<p class="p5">//send a trigger message whenever the impulse fires (once every 2 seconds)</p>
+<p class="p3">{<span class="s1">SendTrig</span>.ar(<span class="s1">Impulse</span>.ar(0.5))}.play;</p>
+<p class="p3">)<span class="Apple-tab-span">	</span></p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p2"><br></p>
+<p class="p5">//keep it running and now run these lines:</p>
+<p class="p3">(</p>
+<p class="p3"><span class="s1">p= OSCFunc</span>({ <span class="s1">arg</span> time,responder,msg;</p>
+<p class="p2"><br></p>
+<p class="p6">"new reaction!"<span class="s2">.postln;</span></p>
+<p class="p3"><span class="s1">Post</span> &lt;&lt; time &lt;&lt;nl;</p>
+<p class="p2"><br></p>
+<p class="p3">},<span class="s5">'/tr',</span>s.addr);<span class="Apple-tab-span">	</span></p>
+<p class="p3">)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p5">//remove the OSCFunc instances</p>
+<p class="p3">o.free;<span class="Apple-converted-space"> </span></p>
+<p class="p3">p.free;</p>
+<p class="p7"><br></p>
+<p class="p3">OSCFunc instances are freed if you press cmd+period<span class="Apple-converted-space"> </span></p>
+<p class="p3">(SC 3.4: note that this is different to the old behaviour with OSCresponder for SC 3.4 and earlier.)<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">They can be re-enabled:</p>
+<p class="p3">p.enable</p>
+<p class="p2"><br></p>
+<p class="p3">And they can be made permanent to avoid them being affected by cmd+period:<span class="Apple-converted-space"> </span></p>
+<p class="p5"><span class="s2">p.permanent_(</span><span class="s7">true</span><span class="s2">) </span>//you can also do this when first creating one</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">You can add as many different functions to one OSCFunc instance as you like (internally it holds a 'FunctionList').<span class="Apple-converted-space"> </span></p>
+<p class="p3">f = {<span class="s4">"whatever"</span>.postln;};<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">p.add(f);<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">p.remove(f)</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s2">p.add({</span><span class="s4">"whatever"</span><span class="s2">.postln;}) </span>//add some function, don't keep any reference to it</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s2">p.clear; </span>//remove all functions from the OSCFunc's list</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">OSCdefs are used in a similar way to OSCFunc, but you can 'name' the specific instance, e.g.<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="s1">OSCdef</span>(<span class="s5">\namedOSCdef</span>,{<span class="s4">"new reaction!"</span>.postln;},<span class="s5">'/tr'</span>,s.addr);<span class="Apple-tab-span">	</span></p>
+<p class="p8"><span class="s1">OSCdef</span><span class="s2">(</span>\namedOSCdef<span class="s2">).disable;</span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">It's helpful sometimes to be able to see all incoming OSC traffic:<span class="Apple-converted-space"> </span></p>
+<p class="p5"><span class="s1">OSCFunc</span><span class="s2">.trace(</span><span class="s7">true</span><span class="s2">); </span>// Turn posting on</p>
+<p class="p5"><span class="s1">OSCFunc</span><span class="s2">.trace(</span><span class="s7">false</span><span class="s2">); </span>// Turn posting off</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">You might also like to read the [OSC Communication] help file to accompany this explanation.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">-----------------------------------------------------------------------------------------------------------------------------------------------</p>
+<p class="p3">For SC3.4 and earlier, old style use of OSCresponder (also supported in 3.5 or later for backwards compatibility)</p>
+<p class="p2"><br></p>
+<p class="p3">To receive and react to OSC messages in SCLang you will use the OSCresponder class<span class="Apple-converted-space"> </span></p>
+<p class="p4"><span class="s2">[</span><span class="s3">OSCresponder</span><span class="s2">]</span></p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p5">// register to receive a trigger message</p>
+<p class="p3"><span class="s1">OSCresponder</span>(s.addr,<span class="s5">'/tr'</span>,{ <span class="s1">arg</span> time,responder,msg;</p>
+<p class="p2"><br></p>
+<p class="p6">"received trigger!"<span class="s2">.postln;</span></p>
+<p class="p3"><span class="s1">Post</span> &lt;&lt; msg &lt;&lt;nl;</p>
+<p class="p2"><br></p>
+<p class="p3">}).add;<span class="Apple-tab-span">	</span></p>
+<p class="p2"><br></p>
+<p class="p5">//send a trigger message whenever the impulse fires (once every 2 seconds)</p>
+<p class="p3">{<span class="s1">SendTrig</span>.ar(<span class="s1">Impulse</span>.ar(0.5))}.play;</p>
+<p class="p3">)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p5">//keep it running and now run these lines:</p>
+<p class="p3">(</p>
+<p class="p3"><span class="s1">OSCresponder</span>(s.addr,<span class="s5">'/tr'</span>,{ <span class="s1">arg</span> time,responder,msg;</p>
+<p class="p2"><br></p>
+<p class="p6">"new reaction!"<span class="s2">.postln;</span></p>
+<p class="p3"><span class="s1">Post</span> &lt;&lt; time &lt;&lt;nl;</p>
+<p class="p2"><br></p>
+<p class="p3">}).add;<span class="Apple-tab-span">	</span></p>
+<p class="p3">)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p5">//remove the responder</p>
+<p class="p3"><span class="s1">OSCresponder</span>.all.do({<span class="s1">arg</span> val; if(val.cmdName==<span class="s5">'/tr'</span>,{<span class="s1">OSCresponder</span>.remove(val)}); })</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">OSCresponderNode can be used if you need more than one responder for a particular message.<span class="Apple-converted-space"> </span></p>
+<p class="p4"><span class="s2">[</span><span class="s3">OSCresponderNode</span><span class="s2">]</span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p5">// register to receive a trigger message</p>
+<p class="p3"><span class="s1">OSCresponderNode</span>(s.addr,<span class="s5">'/tr'</span>,{ <span class="s1">arg</span> time,responder,msg;</p>
+<p class="p2"><br></p>
+<p class="p6">"received trigger!"<span class="s2">.postln;</span></p>
+<p class="p3"><span class="s1">Post</span> &lt;&lt; msg &lt;&lt;nl;</p>
+<p class="p2"><br></p>
+<p class="p3">}).add;<span class="Apple-tab-span">	</span></p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s1">OSCresponderNode</span>(s.addr,<span class="s5">'/tr'</span>,{ <span class="s1">arg</span> time,responder,msg;</p>
+<p class="p2"><br></p>
+<p class="p6">"different reaction!"<span class="s2">.postln;</span></p>
+<p class="p3"><span class="s1">Post</span> &lt;&lt; time &lt;&lt;nl;</p>
+<p class="p2"><br></p>
+<p class="p3">}).add;<span class="Apple-tab-span">	</span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p5">//send a trigger message whenever the impulse fires (once every 2 seconds)</p>
+<p class="p3">{<span class="s1">SendTrig</span>.ar(<span class="s1">Impulse</span>.ar(0.5))}.play;</p>
+<p class="p3">)<span class="Apple-tab-span">	</span></p>
+<p class="p2"><br></p>
+<p class="p5">//clear all OSCresponderNodes for the trigger message</p>
+<p class="p3"><span class="s1">OSCresponder</span>.all.do({<span class="s1">arg</span> val; if(val.cmdName==<span class="s5">'/tr'</span>,{<span class="s1">OSCresponder</span>.remove(val)}); })</p>
+<p class="p2"><br></p>
+<p class="p3">This would have been easier if we'd set each created OSCresponderNode into a variable x say, then we could go:</p>
+<p class="p7"><br></p>
+<p class="p3">x=<span class="s1">OSCresponderNode</span>(s.addr,<span class="s5">'/tr'</span>,{ <span class="s1">arg</span> time,responder,msg;<span class="Apple-converted-space">  </span><span class="s4">"bang!"</span>.postln;}).add</p>
+<p class="p7"><br></p>
+<p class="p3">then</p>
+<p class="p7"><br></p>
+<p class="p3">x.remove;<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+</body>
+</html>
