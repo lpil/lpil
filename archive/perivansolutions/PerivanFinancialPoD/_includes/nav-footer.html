@@ -1,0 +1,59 @@
+<nav class="footer__nav">
+{% assign nav-sections = site.nav-sections | sort:"name" %}
+{% for section in nav-sections %}
+<aside>
+  <ul>
+    <li><h3>{{ section }}</h3></li>{% for page in site.pages %}{% if page.nav-section == section %}
+    <li>
+    <a href="{{ site.url }}{{ page.url }}">{{ page.title }}</a>
+    </li>{% endif %}{% endfor %}
+  </ul>
+</aside>
+{% endfor %}
+<aside>
+  <ul>
+    <li><h3>Print On Demand</h3></li>
+    <li><a href="{{ site.url }}/enquire-and-order.html" target="_blank">
+      Enquire and Order</a></li>
+  </ul>
+</aside>
+<aside>
+  <ul>
+    <li>
+      <a href="http://wwww.perivan.co.uk/" target="_blank">
+        <h3>Perivan</h3>
+      </a>
+    </li>
+    <li>
+      <a href="http://wwww.perivanfinancial.co.uk/" target="_blank">
+        Perivan Financial
+      </a>
+    </li>
+    <li>
+      <a href="http://wwww.perivandesign.co.uk/" target="_blank">
+        Perivan Design
+      </a>
+    </li>
+    <li>
+      <a href="http://wwww.perivansolutions.co.uk/" target="_blank">
+        Perivan Solutions
+      </a>
+    </li>
+    <li>
+      <a href="http://wwww.electrum.co.uk/" target="_blank">
+        Electrum Multimedia
+      </a>
+    </li>
+    <li>
+      <a href="http://wwww.virtualboardroom.co.uk/" target="_blank">
+        Virtualboardroom
+      </a>
+    </li>
+    <li>
+      <a href="http://wwww.dotapprove.co.uk/" target="_blank">
+        DotApprove
+      </a>
+    </li>
+  </ul>
+</aside>
+</nav>

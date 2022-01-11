@@ -1,0 +1,12 @@
+.contact__map,
+.contact__details {
+  @include span-columns(6);
+  margin-bottom: 1em;
+  @include media($break-mid) {
+    @include span-columns(12);
+  }
+}
+
+.contact__map {
+  border-radius: $corner-radius;
+}
