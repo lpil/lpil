@@ -1,6 +1,7 @@
 # Hi, I'm Louis
 
 - [archive](./archive): Old unfinished projects.
+- [cv](./cv): My curriculum vitae.
 - [data](./data): Misc bits of data from my life. e.g. books read.
 - [docs](./docs): My website <https://lpil.uk>.
 - [learning](./learning): Old experiments.
