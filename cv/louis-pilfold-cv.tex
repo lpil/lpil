@@ -1,0 +1,351 @@
+% Original author:
+% Alessandro Plasmati
+%
+% Modified by:
+% Louis Pilfold
+%
+% License:
+% CC BY-NC-SA 3.0
+% http://creativecommons.org/licenses/by-nc-sa/3.0/
+
+%--------------------------------------------%
+% Packages and other document configurations %
+%--------------------------------------------%
+
+\documentclass[a4paper 11pt]{scrartcl}
+
+% Move the margin to the left of the page
+\reversemarginpar
+
+% New command defining the margin text style
+\newcommand{\MarginText}[1]{\marginpar{\raggedleft\itshape\small#1}}
+
+% Use the classicthesis style for the style of the document
+\usepackage[nochapters]{classicthesis}
+% Use the currvita style for the layout of the document
+\usepackage[LabelsAligned]{currvita}
+
+\renewcommand{\cvheadingfont}{\color{Maroon}}
+
+% Required for adding links and customizing them
+\usepackage{hyperref}
+% Set link colors
+\hypersetup{colorlinks, breaklinks, urlcolor=Maroon, linkcolor=Maroon}
+
+% Set the width of the date box in each block
+\newlength{\datebox}\settowidth{\datebox}{2014 01 onwards}
+
+\newcommand{\NewEntry}[3]{\noindent\hangindent=2em\hangafter=0
+  \parbox{\datebox}{\small \textit{#1}}\hspace{0.3em} #2 #3
+% Define a command for each new block - change spacing and font sizes here:
+%   #1 is the left margin
+%   #2 is the italic date field and
+%   #3 is the position/employer/location field
+
+% Add some white space after each new entry
+\vspace{1.0em}}
+
+% Define a command for descriptions of each entry
+% - change spacing and font sizes here
+\newcommand{\Description}[1]{\hangindent=2em\hangafter=0\noindent\raggedright
+  \footnotesize{#1}\par\normalsize\vspace{1em}}
+
+\usepackage[utf8]{inputenc}
+%------------------------------------------------------------------------------
+
+% Remove date from end of document
+\date{}
+
+\begin{document}
+
+% Remove page numbering
+\pagenumbering{gobble}
+
+%----------------------------%
+% Name & contact information %
+%----------------------------%
+
+\begin{cv}{\spacedallcaps{Louis Adam Pilfold}}\vspace{1.5em}
+
+\noindent\spacedlowsmallcaps{Personal Information}\vspace{1.0em}
+
+\NewEntry{phone}{+44 (0)7378 350 639}
+
+\NewEntry{email}{\href{mailto:louis@lpil.uk}{louis@lpil.uk}}
+
+\NewEntry{website}{\href{https://lpil.uk}{lpil.uk}}
+
+\NewEntry{projects}{\href{https://github.com/lpil}{github.com/lpil}}
+
+\vspace{0.8em}
+
+% \noindent\spacedlowsmallcaps{Summary}\vspace{0.8em}
+%
+% \Description{An enthusiastic developer looking to help a team build
+%   efficient and maintainable systems that bring real business value.}
+% \vspace{0.5em}
+
+\Description{\MarginText{Core Technologies}Gleam, Rust, Elixir, Erlang, Go,
+  JavaScript, Haskell, Elm, PostgreSQL, AWS, Linux, CI/CD, containers,
+  infrastructure as code, compilers, type systems.}
+
+\Description{\MarginText{Core Skills}Development, communication, documentation,
+  system design, software architecture, empathy, testing, technical leadership,
+  coaching, bad dancing.}
+
+%------------------------------------------------
+
+\vspace{0.8em} % Extra space between major sections
+
+%-----------------%
+% Work experience %
+%-----------------%
+
+\noindent\spacedlowsmallcaps{Work Experience}\vspace{0.8em}
+
+\NewEntry{2018.01 - present}{Creator, Lead Developer}
+
+\Description{\MarginText{Gleam}Gleam is a high scalable, statically typed,
+  functional programming language for the Erlang VM, for which I am the
+  creator and community leader. Gleam is open source, used in production, and
+  financed by sponsorship via GitHub.
+}
+
+\vspace{0.5em}
+
+\NewEntry{2021.05 - present}{Software Engineering Consultant}
+
+\Description{\MarginText{Kalda}Kalda is a LGBTQIA+ wellness community and
+early stage start-up. I guided Kalda through the design, development, and
+delivery of their web platform and mobile applications so that they can secure
+further investment.
+}
+
+\vspace{0.5em}
+
+\NewEntry{2020.10 - 2021.05}{Contract Open Source Engineer}
+
+\Description{\MarginText{Embark Studios}Embark is a pioneering video game studio
+investing heavily into ML and Rust. I worked on their new Rust game engine, Rust
+web services, developer tooling, and Kubernetes deployments.
+}
+
+
+\vspace{0.5em}
+
+\NewEntry{2020.03 - 2020.05}{Contract Software Engineer}
+
+\Description{\MarginText{FetLife}FetLife are a high traffic social network.
+  I implemented their new video player and text editor using statically typed
+  Ruby and TypeScript, using extensive A/B testing to iterate on designs in
+  order to provide the most engaging user experience.
+}
+
+\vspace{0.5em}
+
+\NewEntry{2019.05 - 2020.03}{Contract Platform Engineer}
+
+\Description{\MarginText{Nationwide Building Society}Nationwide is a mutual
+  financial institution and the largest building society in the world. I worked
+  on fully automated provisioning of secure and compliant environments using
+  Golang, Kubernetes, and AWS. I designed and lead the implementation of the
+  production readiness analyser for these environments.
+}
+
+\vspace{0.5em}
+
+\NewEntry{2018.08 - 2020.10}{Founder, CTO}
+
+\Description{\MarginText{Waive Hello}Waive is a rights management tool for the
+  advertising industry. As technical founder I was responsible for all product
+  design and delivery. The product was built using Elixir, Erlang, Elm, PostgreSQL,
+  and GCP.
+}
+\vspace{0.5em}
+
+\NewEntry{2016.12 - 2018.08}{Tech Lead}
+
+\Description{\MarginText{Honeycomb TV}Honeycomb was a leading broadcast
+  ad delivery platform, built using Rails and Elixir. I led the team building
+  Sky UK's new video delivery pipeline, handled client interaction, and
+  managing the hiring process. For 3 months I served as Head of Architecture
+  while my colleague recovered from surgery.
+}
+
+\vspace{0.5em}
+
+\NewEntry{2016.04 - 2016.11}{Software Engineer}
+
+\Description{\MarginText{Red Badger}Red Badger is a leading digital
+  consultancy. I was a full stack engineer working primarily with JavaScript
+  and AWS for clients including Tesco and Santander.
+}
+
+% \vspace{0.5em}
+\vspace{0.5em} % push onto next page
+
+\NewEntry{2015.08 - 2016.04}{Web Developer}
+
+\Description{\MarginText{ROLI}ROLI is a start-up making ground breaking new
+  musical instruments. I worked as a backend and DevOps engineer, maintaining
+  ROLI's web applications, and leading the migration to AWS.
+}
+
+\vspace{0.5em}
+
+\NewEntry{2015.01 - 2015.08}{Ruby Developer}
+
+\Description{\MarginText{Reevoo}Reevoo is an high traffic ratings and reviews
+provider. I was a backend engineer working with Ruby web applications, deployed
+to AWS EC2.
+}
+
+\vspace{0.5em}
+
+\NewEntry{2013.04 - 2014.12}{Software Product Developer}
+
+\Description{\MarginText{Perivan Solutions}Perivan Solutions is a FinTech
+  software-as-a-service company providing document management solutions.
+  I worked as a full stack engineer working on Ruby APIs and sysadmin working
+  with Linux on Digital Ocean.
+}
+
+%------------------------------------------------
+
+% \vspace{1.0em} % Extra space between major sections
+
+%----------%
+% Projects %
+%----------%
+
+% \vspace{0.8em} % Extra space between major sections
+
+% \spacedlowsmallcaps{Notable Open Source Projects}\vspace{0.8em}
+
+% \Description{\MarginText{Gleam}A statically typed functional programming
+% language for building concurrent systems that scale.
+%   \newline
+%   \href{https://github.com/lpil/gleam}{https://github.com/gleam-lang/gleam}
+% }
+
+% \Description{\MarginText{exfmt}The original code formatter for the Elixir language.
+%   \newline
+%   \href{https://github.com/lpil/exfmt}{https://github.com/lpil/exfmt}
+% }
+
+% \Description{\MarginText{Dogma}A code style linter for the Elixir language.
+%   \newline
+%   \href{https://github.com/lpil/dogma}{https://github.com/lpil/dogma}
+% }
+
+%---------%
+% Courses %
+%---------%
+
+% \vspace{1.0em} % Extra space between major sections
+
+% \spacedlowsmallcaps{Courses}\vspace{1em}
+
+%------------------------------------------------
+
+
+% \Description{\MarginText{University of Illinois}Cloud Computing Concepts 1
+%   \newline
+%   Q4 2016 - Distributed Systems
+% }
+
+% \Description{\MarginText{Kent Uni}Functional Programming with Erlang MOOC
+%   \newline
+%   Q2 2015 - Erlang
+% }
+
+% \Description{\MarginText{EFPL}Principles of Reactive Programming
+%   \newline
+%   Q1 2015 - Scala
+% }
+
+% \Description{\MarginText{DelftX}Introduction to Functional Programming
+%   \newline
+%   Q4 2014 - Haskell
+% }
+
+% \Description{\MarginText{EPFL}Functional Programming Principles in Scala
+%   \newline
+%   Q3 2014 - Scala
+% }
+
+% \Description{\MarginText{BerkeleyX}Engineering Software as a Service Part 2
+%   \newline
+%   Q2 2014 - Ruby, Rails, Coffeescript
+% }
+
+% \Description{\MarginText{BerkeleyX}Engineering Software as a Service Part 1
+%   \newline
+%   Q1 2014 - Ruby, Rails
+% }
+
+% \Description{\MarginText{MITx}Introduction to Computer Science and Programming
+%   Using Python
+%   \newline
+%   Q1 2013 - Python
+% }
+
+%------------------------------------------------
+
+%-----------%
+% Education %
+%-----------%
+
+\vspace{0.8em} % Extra space between major sections
+
+\spacedlowsmallcaps{Educational Qualifications}\vspace{0.8em}
+
+\Description{\MarginText{MOOC Platforms}2013-2016
+  \newline
+  8 computer science courses from universities such as MIT, EPFL, Berkley and
+  the University of Kent. Full list available upon request.}
+
+\Description{\MarginText{The University of Brighton}2010-2013
+  \newline
+  Certificate of Higher Education $\cdotp$\ Biological Sciences}
+
+\Description{\MarginText{The Henley College}2008-10
+  \newline
+  3 A Levels}
+
+\Description{\MarginText{Herschel Grammar School}2002-2007
+  \newline
+  11 GCSEs}
+
+%------------------------------------------------
+
+%-------------------%
+% Other information %
+%-------------------%
+
+\vspace{0.8em} % Extra space between major sections
+
+\spacedlowsmallcaps{Other Information}\vspace{0.8em}
+
+\Description{\MarginText{Public Speaking}I frequently speak at conferences and
+technology events such as Code Mesh, Code BEAM, and Elixir LDN. A
+full list of my talks can be found on my website.
+}
+
+\Description{\MarginText{Volunteering}I coach programming at Railsgirls,
+  Codebar, Trans*code and other events aimed at helping underrepresented groups
+  in technology.
+}
+
+\Description{\MarginText{Other details}Dual Irish and British citizenship
+  \ $\cdotp$\ \ Full UK driving licence holder
+}
+
+\Description{\MarginText{Interests}Collecting music
+  \ $\cdotp$\ \ Social ethics \& equality
+  \ $\cdotp$\ \ Shoes with toes
+}
+
+\end{cv}
+
+\end{document}
