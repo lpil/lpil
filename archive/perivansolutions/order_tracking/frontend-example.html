@@ -1,0 +1,16 @@
+<!-- Example front end -->
+<div id="track_order_div">
+  <h2>
+    Track Your Order
+  </h2>
+  <input type="text" value="" name="order_ref" id="js-track_order_input"
+  placeholder="Order Ref"
+  onKeydown="javascript:if (event.which == 13) {
+  return getMailInfo( document.getElementById('track_order_input').value);}">
+
+  <a onclick="javascript:getMailInfo(
+    document.getElementById('js-track_order_input').value)"
+    href="javascript:void(0)" class="siteButton">Go</a>
+  <div id="js-mail_result">
+  </div>
+</div>
