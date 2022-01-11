@@ -1,0 +1,12 @@
+a {
+  color: $black;
+  text-decoration: none;
+}
+
+p a {
+  border-bottom: 2px solid $black;
+}
+
+a:hover {
+  border: none;
+}

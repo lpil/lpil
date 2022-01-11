@@ -1,0 +1,17 @@
+{
+  "scripts": {
+    "build": "./node_modules/webpack/bin/webpack.js --progress --color",
+    "start": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js"
+  },
+  "dependencies": {
+    "css-loader": "^0.23.1",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "html-webpack-plugin": "^2.22.0",
+    "json-loader": "^0.5.4",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.13.1"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "^1.14.1"
+  }
+}

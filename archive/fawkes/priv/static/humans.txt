@@ -1,0 +1,14 @@
+/* TEAM */
+
+Code Monkey: Louis Pilfold
+Site: http://lpil.uk/
+GitHub: https://github.com/lpil
+Location: London, UK
+
+
+/* SITE */
+
+Components:
+  - Elixir
+  - Phoenix Framework
+  - Javascript

@@ -1,0 +1,15 @@
+[package]
+name = "trombone"
+version = "0.1.0"
+authors = ["Louis Pilfold <louis@lpil.uk>"]
+
+[lib]
+name = "lib"
+path = "src/lib.rs"
+
+[[bin]]
+name = "trombone"
+path = "src/bin.rs"
+
+
+[dependencies]

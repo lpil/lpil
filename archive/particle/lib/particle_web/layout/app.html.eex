@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+  <%= render "head.html", assigns %>
+  <body>
+    <div class="app-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+      <%= render "header.html", assigns %>
+      <%= render "drawer.html", assigns %>
+
+      <main class="mdl-layout__content mdl-color--grey-100">
+        <div class="mdl-grid">
+          <%= render "flash.html", conn: @conn, type: :info %>
+          <%= render "flash.html", conn: @conn, type: :error %>
+          <%= render @view_module, @view_template, assigns %>
+        </div>
+      </main>
+    </div>
+
+    <script src="<%= static_path(@conn, "/main.js") %>"></script>
+  </body>
+</html>

@@ -1,0 +1,24 @@
+[package]
+name = "happylabs"
+version = "0.1.0"
+authors = ["Louis Pilfold <louis@lpil.uk>"]
+edition = "2018"
+
+[dependencies]
+# HTTP client
+reqwest = "0.9"
+
+# Terminal UI
+tui = "0.6"
+termion = "1.5"
+
+# Magic type safe (de)serialization
+serde = "1.0"
+serde_json = "1.0"
+
+# Time data structures
+chrono = { version = "0.4", features = ["serde"] }
+
+# TODO: remove
+rand = "0.6"
+failure = "0.1"
