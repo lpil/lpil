@@ -182,7 +182,7 @@
     - fiction
     - murder-mystery
     - ireland
-    
+
 - year: 2022
   books:
   - title: "A New Ireland: How Europe's Most Conservative Country Became Its Most Liberal"
@@ -192,6 +192,16 @@
     - Roger Clark
     tags:
     - ireland
+    - history
+    - rights
+    - politics
+  - title: "Freedom Is a Constant Struggle: Ferguson, Palestine, and the Foundations of a Movement"
+    authors:
+    - "Angela Y. Davis"
+    readers:
+    - "Angela Y. Davis"
+    tags:
+    - activism
     - history
     - rights
     - politics
