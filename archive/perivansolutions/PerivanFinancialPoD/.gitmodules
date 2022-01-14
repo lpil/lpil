@@ -1,6 +1,6 @@
-#[submodule "_scss/theme"]
-#	path = _scss/theme
-#	url = https://github.com/PerivanSolutions/brackish_scss.git
-#[submodule "_includes/js"]
-#	path = _includes/js
-#	url = https://github.com/PerivanSolutions/brackish-js.git
+[submodule "_scss/theme"]
+	path = _scss/theme
+	url = https://github.com/PerivanSolutions/brackish_scss.git
+[submodule "_includes/js"]
+	path = _includes/js
+	url = https://github.com/PerivanSolutions/brackish-js.git
