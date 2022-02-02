@@ -207,17 +207,29 @@
     - politics
   - title: "Facism: A Very Short Introduction"
     authors:
-    - Kevin Passmore
+    - "Kevin Passmore"
     readers:
-    - Pam Ward
+    - "Pam Ward"
     tags:
     - history
     - politics
   - title: "Requiem for the American Dream: The Principles of Concentrated Wealth and Power"
     authors:
-    - Noam Chomsky
+    - "Noam Chomsky"
     readers:
-    - Donald Corren
+    - "Donald Corren"
     tags:
     - history
     - politics
+    - finance
+  - title: "Are Prisons Obsolete?"
+    authors:
+    - "Angela Y. Davis"
+    readers:
+    - "Micah S. Cottingham"
+    tags:
+    - history
+    - politics
+    - activism
+    - prison
+    - racism
