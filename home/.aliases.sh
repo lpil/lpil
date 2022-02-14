@@ -4,6 +4,8 @@ alias up='time ping 8.8.8.8'
 
 alias x='startx'
 
+alias w='watchexec'
+
 alias v='vim'
 alias n='nvim'
 

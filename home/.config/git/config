@@ -39,3 +39,5 @@
   autostash = true
 [help]
 	autocorrect = 20
+[diff]
+	noprefix = true

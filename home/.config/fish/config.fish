@@ -24,17 +24,8 @@ set --export KERL_INSTALL_HTMLDOCS true
 set --export GOPATH $HOME/.local/go
 set --export GOBIN $HOME/.local/bin
 
-# Path
-set fish_user_paths \
-    "$GOBIN" \
-    "$HOME/.asdf/shims" \
-    "$HOME/.cache/rebar3/bin" \
-    "$HOME/.cargo/bin" \
-    "$HOME/.homesick/repos/homeshick/bin" \
-    "$HOME/.local/bin" \
-    "$HOME/bin"
-# Aliases
-source "$HOME/.aliases.sh"
+# Python
+set --export PYTHONPATH "/usr/bin/env python"
 
 # Autojump
 if test -e /usr/local/share/autojump/autojump.fish
@@ -62,6 +53,18 @@ if test -e /opt/homebrew
     set -q INFOPATH; or set INFOPATH ''
     set -gx INFOPATH /opt/homebrew/share/info $INFOPATH
 end
+
+# Path
+set fish_user_paths \
+    "$GOBIN" \
+    "$HOME/.asdf/shims" \
+    "$HOME/.cache/rebar3/bin" \
+    "$HOME/.cargo/bin" \
+    "$HOME/.homesick/repos/homeshick/bin" \
+    "$HOME/.local/bin" \
+    "$HOME/bin"
+# Aliases
+source "$HOME/.aliases.sh"
 
 # zoxide
 if type -q zoxide
@@ -115,9 +118,6 @@ set --export LD_LIBRARY_PATH $LD_LIBRARY_PATH:$VIPSHOME/lib
 # FZF
 # Use fd to list files for fzf as it respects gitignore
 set --export FZF_DEFAULT_COMMAND fd
-
-fish_add_path /opt/homebrew/opt/ruby/bin
-fish_add_path /opt/homebrew/lib/ruby/gems/3.0.0/bin/
 
 function dotenv --description 'Load environment variables from .env file'
     set -l envfile ".env"
