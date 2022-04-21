@@ -1,0 +1,5 @@
+#!/bin/sh
+
+set -eu
+
+ffmpeg -i "$1" -c:v libx264 -preset slow -crf 18 -c:a copy -pix_fmt yuv420p compressed-$(date +"%y%m%d-%H%M%S").mp4
