@@ -5,4 +5,6 @@ set -eu
 FRAMERATE=30
 # FRAMERATE=10
 
-ffmpeg -i "$1" -filter:v fps=$FRAMERATE -c vp9 -b:v 0 -crf 41 compressed-$(date +"%y%m%d-%H%M%S").webm
+ffmpeg -i "$1" -filter:v "fps=$FRAMERATE" -c vp9 -b:v 0 -crf 41 compressed-$(date +"%y%m%d-%H%M%S").webm
+
+# ffmpeg -i "$1" -vf "fps=$FRAMERATE, scale=730:426" -c vp9 -b:v 0 -crf 41 compressed-$(date +"%y%m%d-%H%M%S").webm
