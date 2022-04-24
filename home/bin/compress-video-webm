@@ -1,0 +1,5 @@
+#!/bin/sh
+
+set -eu
+
+ffmpeg -i "$1" -c vp9 -b:v 0 -crf 41 compressed-$(date +"%y%m%d-%H%M%S").webm
