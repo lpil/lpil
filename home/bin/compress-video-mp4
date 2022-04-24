@@ -2,4 +2,7 @@
 
 set -eu
 
-ffmpeg -i "$1" -c:v libx264 -preset slow -crf 18 -c:a copy -pix_fmt yuv420p compressed-$(date +"%y%m%d-%H%M%S").mp4
+FRAMERATE=30
+# FRAMERATE=10
+
+ffmpeg -i "$1" -filter:v fps=$FRAMERATE -c:v libx264 -preset slow -crf 18 -c:a copy -pix_fmt yuv420p compressed-$(date +"%y%m%d-%H%M%S").mp4
