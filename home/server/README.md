@@ -10,3 +10,4 @@
    to the systemd journal.
 5. Copy the config from `/etc/rancher/k3s/k3s.yaml` to your local machine, replacing
    usernames and addresses as appropriate.
+6. Edit fstab to make storage auto-mount.
