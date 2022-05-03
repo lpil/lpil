@@ -30,3 +30,9 @@
    5. Set a GUI password.
    6. Set the default folder path to `/mnt/usb0/syncthing`.
    7. Connect to the other devices. Set folders to sync.
+8. Install podman.
+   Note this requires the external storage to use a filesystem that support
+   symlinks.
+   1. `sudo apt install podman`.
+   2. Copy `/etc/containers/storage.conf` into place.
+
