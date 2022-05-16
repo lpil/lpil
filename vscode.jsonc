@@ -30,7 +30,6 @@
   "terminal.integrated.fontSize": 13,
   "terminal.integrated.scrollback": 10000,
   "search.mode": "reuseEditor",
-  "workbench.activityBar.visible": false,
   "workbench.colorTheme": "One Dark Pro",
   "workbench.editor.showIcons": false,
   "workbench.editor.showTabs": true,
@@ -52,27 +51,6 @@
     { "before": ["<c-l>"], "after": ["<c-w>", "l"] }
   ],
 
-  "cSpell.enableFiletypes": ["markdown"],
-  "cSpell.showStatus": false,
-  "cSpell.diagnosticLevel": "Hint",
-  "cSpell.userWords": [
-    "arity",
-    "bools",
-    "clippy",
-    "codegen",
-    "deps",
-    "enqueues",
-    "gzipped",
-    "interactable",
-    "kubernetes",
-    "Nomio",
-    "normalise",
-    "Pilfold",
-    "stdlib",
-    "toposort",
-    "wasm"
-  ],
-
   "[json]": {
     "editor.formatOnSave": false,
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -89,6 +67,8 @@
 
   "rust-analyzer.cargo.allFeatures": true,
   "rust-analyzer.inlayHints.typeHints": false,
+  "rust-analyzer.inlayHints.chainingHints": false,
+  "rust-analyzer.inlayHints.parameterHints": false,
   "rust-analyzer.inlayHints.enable": false,
   "[rust]": {
     "editor.tabSize": 4,
@@ -167,4 +147,13 @@
   "gitlens.statusBar.enabled": false,
   "gitlens.hovers.enabled": false,
   "terminal.integrated.defaultProfile.osx": "fish",
+  "workbench.activityBar.visible": false,
+
+  "cSpell.diagnosticLevel": "Hint",
+  "cSpell.enabledLanguageIds": [
+    "latex",
+    "markdown",
+    "plaintext",
+    "restructuredtext",
+  ],
 }
