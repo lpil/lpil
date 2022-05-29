@@ -65,16 +65,16 @@
     "editor.formatOnSave": true
   },
 
-  "rust-analyzer.cargo.allFeatures": true,
-  "rust-analyzer.inlayHints.typeHints": false,
-  "rust-analyzer.inlayHints.chainingHints": false,
-  "rust-analyzer.inlayHints.parameterHints": false,
-  "rust-analyzer.inlayHints.enable": false,
   "[rust]": {
     "editor.tabSize": 4,
     "editor.formatOnSave": true,
-    "editor.defaultFormatter": "matklad.rust-analyzer"
+    "editor.defaultFormatter": "rust-lang.rust-analyzer"
   },
+  "rust-analyzer.inlayHints.bindingModeHints.enable": false,
+  "rust-analyzer.inlayHints.chainingHints.enable": false,
+  "rust-analyzer.inlayHints.parameterHints.enable": false,
+  "rust-analyzer.inlayHints.typeHints.enable": false,
+  "rust-analyzer.inlayHints.closingBraceHints.enable": false,
 
   "[svelte]": {
     "editor.formatOnSave": true
