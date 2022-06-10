@@ -7,6 +7,8 @@ import gleam/dynamic
 import gleam/hackney
 import gleam/http
 import gleam/http/request
+import gleam/io
+import gleam/int
 
 pub fn get_estimated_monthly_income_in_cents(
   config: Config,
@@ -18,6 +20,19 @@ pub fn get_estimated_monthly_income_in_cents(
         j.string("query { viewer { monthlyEstimatedSponsorsIncomeInCents } }"),
       ),
     ]))
+
+  io.println(int.to_string(string.length(string.append(
+    "bearer ",
+    config.github_token,
+  ))))
+  io.println(int.to_string(string.length(string.append(
+    "bearer ",
+    config.github_token,
+  ))))
+  io.println(int.to_string(string.length(string.append(
+    "bearer ",
+    config.github_token,
+  ))))
 
   let request =
     request.new()
