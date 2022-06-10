@@ -85,7 +85,7 @@ fn append_row(
       "/v4/spreadsheets/",
       sheet_id,
       "/values/",
-      sheet_name,
+      sheet,
       "!A:A:append?valueInputOption=USER_ENTERED&access_token=",
       access_token,
     ])
@@ -109,13 +109,12 @@ fn append_row(
 pub fn append_current_income(cents: Int, config: Config) -> Result(Nil, Error) {
   let money =
     string.concat([
-      "$",
       int.to_string(cents / 100),
       ".",
       string.pad_left(int.to_string(cents % 100), to: 2, with: "0"),
     ])
   let row = [j.string(timestamp()), j.string(money)]
-  append_row("attendees", row, config)
+  append_row(sheet_name, row, config)
 }
 
 external fn timestamp() -> String =
