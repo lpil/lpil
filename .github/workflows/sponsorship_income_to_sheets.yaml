@@ -1,0 +1,23 @@
+name: Sponsorship income to sheets
+
+on:
+ schedule:
+  # At 03:00 on Saturday.
+  - cron: "0 3 * * 6"
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.0.0
+      - uses: erlef/setup-beam@v1.9.0
+        with:
+          otp-version: "23.2"
+          gleam-version: "0.21.0"
+      - run: gleam format --check src test
+      - run: gleam run
+        env:
+          GCP_CLIENT_ID: ${{ env.GCP_CLIENT_ID }}
+          GCP_CLIENT_SECRET: ${{ env.GCP_CLIENT_SECRET }}
+          GCP_REFRESH_TOKEN: ${{ env.GCP_REFRESH_TOKEN }}
+          GITHUB_TOKEN: ${{ env.MY_GITHUB_TOKEN }}
