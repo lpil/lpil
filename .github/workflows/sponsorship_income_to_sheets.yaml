@@ -15,8 +15,8 @@ jobs:
         with:
           otp-version: "23.2"
           gleam-version: "0.21.0"
-      - run: gleam format --check src test
       - run: gleam run
+        working-directory: scripts/sponsorship_income_to_sheets
         env:
           GCP_CLIENT_ID: ${{ env.GCP_CLIENT_ID }}
           GCP_CLIENT_SECRET: ${{ env.GCP_CLIENT_SECRET }}
