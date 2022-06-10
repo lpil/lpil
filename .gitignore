@@ -3,4 +3,4 @@
 /.cache
 /.sass-cache
 docs/_site
-
+secrets.env
