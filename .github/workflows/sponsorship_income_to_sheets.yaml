@@ -20,7 +20,7 @@ jobs:
       - run: gleam run
         working-directory: scripts/sponsorship_income_to_sheets
         env:
-          GCP_CLIENT_ID: "${{ env.GCP_CLIENT_ID }}"
-          GCP_CLIENT_SECRET: "${{ env.GCP_CLIENT_SECRET }}"
-          GCP_REFRESH_TOKEN: "${{ env.GCP_REFRESH_TOKEN }}"
-          GITHUB_TOKEN: "${{ env.MY_GITHUB_TOKEN }}"
+          GCP_CLIENT_ID: "${{ secrets.GCP_CLIENT_ID }}"
+          GCP_CLIENT_SECRET: "${{ secrets.GCP_CLIENT_SECRET }}"
+          GCP_REFRESH_TOKEN: "${{ secrets.GCP_REFRESH_TOKEN }}"
+          GITHUB_TOKEN: "${{ secrets.MY_GITHUB_TOKEN }}"
