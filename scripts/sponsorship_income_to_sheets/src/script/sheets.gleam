@@ -2,23 +2,17 @@ import gleam/dynamic
 import gleam/hackney
 import gleam/http
 import gleam/http/request
-import gleam/http/response.{Response}
 import gleam/int
 import gleam/json.{Json} as j
 import gleam/result
 import gleam/string
 import script/config.{Config}
+import script/error.{Error}
 
 // https://docs.google.com/spreadsheets/d/1OLaTgpN9MXTVNZ--6s6AjE5aCjfpm2lAuy6FUmPuGRI/edit#gid=0
 const sheet_id = "1OLaTgpN9MXTVNZ--6s6AjE5aCjfpm2lAuy6FUmPuGRI"
 
 const sheet_name = "monthly-sponsorship"
-
-pub type Error {
-  HttpError(hackney.Error)
-  UnexpectedJson(j.DecodeError)
-  UnexpectedHttpStatus(expected: Int, response: Response(String))
-}
 
 pub fn get_access_token(config: Config) -> Result(String, Error) {
   let formdata =
@@ -45,25 +39,15 @@ pub fn get_access_token(config: Config) -> Result(String, Error) {
 
   try response =
     hackney.send(request)
-    |> result.map_error(HttpError)
-    |> result.then(ensure_status(_, is: 200))
+    |> result.map_error(error.HttpError)
+    |> result.then(error.ensure_status(_, is: 200))
 
   try json =
     response.body
     |> j.decode(using: dynamic.field("access_token", of: dynamic.string))
-    |> result.map_error(UnexpectedJson)
+    |> result.map_error(error.UnexpectedJson)
 
   Ok(json)
-}
-
-fn ensure_status(
-  response: Response(String),
-  is code: Int,
-) -> Result(Response(String), Error) {
-  case response.status == code {
-    True -> Ok(response)
-    False -> Error(UnexpectedHttpStatus(expected: code, response: response))
-  }
 }
 
 fn append_row(
@@ -100,8 +84,8 @@ fn append_row(
 
   try _ =
     hackney.send(request)
-    |> result.map_error(HttpError)
-    |> result.then(ensure_status(_, is: 200))
+    |> result.map_error(error.HttpError)
+    |> result.then(error.ensure_status(_, is: 200))
 
   Ok(Nil)
 }
