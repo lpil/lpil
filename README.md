@@ -6,4 +6,5 @@
 - [docs](./docs): My website <https://lpil.uk>.
 - [home](./home): Tech for use in the home.
 - [learning](./learning): Old experiments.
+- [scripts](./scripts): Wee programs that do useful things for me.
 - [sql](./sql): Useful SQL snippets I would otherwise forget.
