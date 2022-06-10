@@ -1,10 +1,12 @@
 name: Sponsorship income to sheets
 
 on:
- schedule:
+  schedule:
   # At 03:00 on Saturday.
-  # - cron: "0 3 * * 6"
-  - cron: "*/10 * * * *"
+  - cron: "0 3 * * 6"
+  push:
+    branches:
+      - main
 
 jobs:
   run:
