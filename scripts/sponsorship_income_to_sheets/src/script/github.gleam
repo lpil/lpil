@@ -21,19 +21,6 @@ pub fn get_estimated_monthly_income_in_cents(
       ),
     ]))
 
-  io.println(int.to_string(string.length(string.append(
-    "bearer ",
-    config.github_token,
-  ))))
-  io.println(int.to_string(string.length(string.append(
-    "bearer ",
-    config.github_token,
-  ))))
-  io.println(int.to_string(string.length(string.append(
-    "bearer ",
-    config.github_token,
-  ))))
-
   let request =
     request.new()
     |> request.set_method(http.Post)
