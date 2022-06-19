@@ -345,6 +345,12 @@ $space: 14px;
   }
 }
 
+.language-dockerfile {
+  .s {
+    color: unset;
+  }
+}
+
 iframe {
   display: block;
   margin: 2rem auto;
