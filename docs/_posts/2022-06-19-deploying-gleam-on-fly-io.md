@@ -136,4 +136,3 @@ I'll be using them to host all my Gleam web applications going forward. Give
 them a try, I think you'll like their platform.
 
 Happy hacking!
-Louis
