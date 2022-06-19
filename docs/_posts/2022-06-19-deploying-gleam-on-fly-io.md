@@ -12,8 +12,8 @@ to show how deploy Gleam into production with my new favourite platform,
 
 Full disclosure, Fly.io are [sponsoring my work on Gleam](https://github.com/sponsors/lpil).
 I hadn't used their platform prior to their sponsoring, but now that I have I
-believe they the user experience of any deployment platform today, beating even
-my old favourite of Heroku.
+believe that they have the best user experience of any deployment platform
+today, beating even my old favourite of Heroku.
 
 I've already got Gleam, Erlang, and the Fly.io command line installed, logged in
 to Fly.io, and added a payment card to my Fly.io organisation. If you're
