@@ -70,7 +70,7 @@ Neat :)
 
 ## Preparing to deploy
 
-Fly.io has built in support for some languages, but Gleam isn't one of them, so
+Fly.io has built in support for some languages but Gleam isn't one of them, so
 I'll have to use their docker support instead.
 
 Within the Gleam project I create a file named `Dockerfile` with these contents.
