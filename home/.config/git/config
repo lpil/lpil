@@ -11,6 +11,7 @@
 
 [push]
   default = simple
+  autoSetupRemote = true
 
 [credential]
   helper = cache
@@ -18,7 +19,7 @@
 [alias]
   br = branch
   ci = commit
-  co = checkout
+  co = "!echo Use git switch and git restore"
   dh = diff HEAD --word-diff=color
   amend = commit --amend
   lol = log --pretty=oneline --abbrev-commit --graph --decorate
@@ -38,6 +39,6 @@
 [rebase]
   autostash = true
 [help]
-	autocorrect = 20
+  autocorrect = 20
 [diff]
-	noprefix = true
+  noprefix = true

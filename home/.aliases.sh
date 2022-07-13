@@ -33,6 +33,8 @@ alias tree='tree -C'
 
 alias less='less -R'
 
+alias watch='watch -c'
+
 # Case insensitive locate
 alias locate='locate -i'
 
