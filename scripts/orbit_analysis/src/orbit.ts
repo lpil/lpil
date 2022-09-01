@@ -1,20 +1,22 @@
+const membersCacheFile = "tmp/members-cache.json";
+
 // Get all members from the Orbit API
 export async function getMembers(token: string): Promise<Member[]> {
   const yesterday = Date.now() - 1000 * 60 * 60 * 24;
   try {
-    const fileinfo = await Deno.stat("members.json");
+    const fileinfo = await Deno.stat(membersCacheFile);
     if (fileinfo.mtime && fileinfo.mtime.getTime() > yesterday) {
-      return JSON.parse(await Deno.readTextFile("members.json"));
+      return JSON.parse(await Deno.readTextFile(membersCacheFile));
     }
-    console.log("members.json outdated, fetching from API");
+    console.log("members cache outdated, fetching from API");
   } catch (_error) {
-    console.log("members.json not found, fetching from API");
+    console.log("members cache not found, fetching from API");
   }
 
   const members = await getMembersFromApi(token);
 
-  console.log("Writing members.json");
-  await Deno.writeTextFile("members.json", JSON.stringify(members));
+  console.log("Writing members cache");
+  await Deno.writeTextFile(membersCacheFile, JSON.stringify(members));
 
   return members;
 }
@@ -95,7 +97,7 @@ export interface Member {
     github_followers?: number;
     twitter_followers?: number;
     topics: string[];
-    languages: string[];
+    languages: string[] | null;
   };
   relationships: {
     identities: {

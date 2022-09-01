@@ -1,9 +1,17 @@
 #!/usr/bin/env deno run --allow-read=./ --allow-write=./ --allow-net=app.orbit.love
 
 import { getMembers } from "../src/orbit.ts";
+import { countEntries } from "../src/array.ts";
 
 const token = await Deno.readTextFile("orbit_api_key.txt");
 const members = await getMembers(token.trim());
 
-console.log(members.length);
-console.log(members[0]);
+const languages = countEntries(
+  members.map((member) => member.attributes.languages || []).flat()
+);
+const languagesTable = [...languages.entries()]
+  .sort((a, b) => b[1] - a[1])
+  .slice(0, 25);
+
+console.log("Most used languages by Gleam community members");
+console.table(languagesTable);
