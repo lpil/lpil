@@ -1,0 +1,9 @@
+#!/usr/bin/env deno run --allow-read=./ --allow-write=./ --allow-net=app.orbit.love
+
+import { getMembers } from "../src/orbit.ts";
+
+const token = await Deno.readTextFile("orbit_api_key.txt");
+const members = await getMembers(token.trim());
+
+console.log(members.length);
+console.log(members[0]);
