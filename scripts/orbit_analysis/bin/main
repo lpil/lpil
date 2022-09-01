@@ -6,7 +6,9 @@ import { countEntries } from "../src/array.ts";
 const token = await Deno.readTextFile("orbit_api_key.txt");
 const members = await getMembers(token.trim());
 
-const languages = countEntries(
+console.log(members[0]);
+
+cons languages = countEntries(
   members.map((member) => member.attributes.languages || []).flat()
 );
 const languagesTable = [...languages.entries()]
