@@ -8,3 +8,9 @@ git subtree add \
   $REPO2 \
   $REPO2_COMMIT_REF
 ```
+
+## Delete tag from remote
+
+```shell
+git push --delete origin $TAG_NAME
+```
