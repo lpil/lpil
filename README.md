@@ -10,4 +10,5 @@ This is my repo of odds and ends, such as:
 - [home](./home): Tech for use in the home.
 - [learning](./learning): Old experiments.
 - [scripts](./scripts): Wee programs that do useful things for me.
+- [ssh](./ssh.md): I always forget how to do port forwarding.
 - [sql](./sql): Possibly useful SQL snippets I would otherwise forget.
