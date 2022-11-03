@@ -98,6 +98,6 @@ then
 cat << EOF
 
 Plex installed, configure it via the web interface.
-      cubone:32400/web
+      $(hostname):32400/web
 EOF
 fi
