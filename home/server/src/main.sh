@@ -8,6 +8,7 @@ set -eu
 PROJECT="$HOME/install"
 TAILSCALE_INSTALLED=0
 SYNCTHING_INSTALLED=0
+PLEX_INSTALLED=0
 
 # Install cron jobs
 echo "Installing cron jobs"
@@ -19,6 +20,18 @@ then
   echo "Disabling ssh password login"
   echo "PasswordAuthentication no" | sudo tee -a /etc/ssh/sshd_config > /dev/null
   sudo service ssh restart
+fi
+
+# Use the unattended-upgrades package to automatically install security updates
+# and other important updates.
+if ! dpkg -s unattended-upgrades > /dev/null
+then
+  sudo apt-get update
+  sudo apt-get install --yes unattended-upgrades
+  cat << EOF | sudo tee /etc/apt/apt.conf.d/20auto-upgrades > /dev/null
+APT::Periodic::Update-Package-Lists "1";
+APT::Periodic::Unattended-Upgrade "1";
+EOF
 fi
 
 # Install tailscale
@@ -47,16 +60,14 @@ then
   sudo systemctl start syncthing@louis.service
 fi
 
-# Use the unattended-upgrades package to automatically install security updates
-# and other important updates.
-if ! dpkg -s unattended-upgrades > /dev/null
+# Install plex server
+if ! command -v plexmediaserver > /dev/null
 then
+  echo deb https://downloads.plex.tv/repo/deb public main | sudo tee /etc/apt/sources.list.d/plexmediaserver.list > /dev/null
+  curl https://downloads.plex.tv/plex-keys/PlexSign.key | sudo apt-key add -
   sudo apt-get update
-  sudo apt-get install --yes unattended-upgrades
-  cat << EOF | sudo tee /etc/apt/apt.conf.d/20auto-upgrades > /dev/null
-APT::Periodic::Update-Package-Lists "1";
-APT::Periodic::Unattended-Upgrade "1";
-EOF
+  sudo apt-get install plexmediaserver --yes
+  PLEX_INSTALLED=1
 fi
 
 echo "Installation complete ✨"
@@ -78,5 +89,15 @@ cat << EOF
 
 Tailscale installed, configure its key not to expire
 https://login.tailscale.com/admin/machines
+EOF
+fi
+
+
+if [ "$PLEX_INSTALLED" = 1 ]
+then
+cat << EOF
+
+Plex installed, configure it via the web interface.
+      cubone:32400/web
 EOF
 fi
