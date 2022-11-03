@@ -2,8 +2,6 @@
 
 ## Setup
 
-3. [Install tailscale](https://tailscale.com/kb/1031/install-linux/). Set up as exit node.
-4. Edit fstab to make storage auto-mount to `/mnt/usb0`.
 5. Install syncthing.
    1. Install via the [official apt repo](https://apt.syncthing.net/).
    2. Edit the systemd service to remove the `-no-browser` option.

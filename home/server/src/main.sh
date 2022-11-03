@@ -6,6 +6,7 @@
 set -eu
 
 PROJECT="$HOME/install"
+TAILSCALE_INSTALLED=0
 
 # Install cron jobs
 echo "Installing cron jobs"
@@ -19,3 +20,20 @@ then
   echo "PasswordAuthentication no" | sudo tee -a /etc/ssh/sshd_config > /dev/null
   sudo service ssh restart
 fi
+
+# Install tailscale
+if ! command -v tailscale > /dev/null
+then
+  curl -fsSL https://tailscale.com/install.sh | sh
+  sudo tailscale up
+  TAILSCALE_INSTALLED=1
+fi
+
+echo "Installation complete ✨"
+
+# Print final messages
+[ "$TAILSCALE_INSTALLED" = 1 ] && cat << EOF
+
+Tailscale installed, configure its key not to expire
+https://login.tailscale.com/admin/machines
+EOF
