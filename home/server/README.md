@@ -2,8 +2,6 @@
 
 ## Setup
 
-1. Add ssh public key to `~/.ssh/authorized_keys` on the server.
-2. Disable ssh password login.
 3. [Install tailscale](https://tailscale.com/kb/1031/install-linux/). Set up as exit node.
 4. Edit fstab to make storage auto-mount to `/mnt/usb0`.
 5. Install syncthing.
