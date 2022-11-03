@@ -14,6 +14,9 @@ PLEX_INSTALLED=0
 echo "Installing cron jobs"
 sudo cp "$PROJECT"/cron/* /etc/cron.d/
 
+# Configuring default applications
+sudo update-alternatives --install /usr/bin/editor editor /usr/bin/vi 100
+
 # Disable ssh password login
 if ! grep -q "PasswordAuthentication no" /etc/ssh/sshd_config
 then
