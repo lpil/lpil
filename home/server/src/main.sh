@@ -11,7 +11,6 @@ SYNCTHING_INSTALLED=0
 PLEX_INSTALLED=0
 
 # Install cron jobs
-echo "Installing cron jobs"
 sudo cp "$PROJECT"/cron/* /etc/cron.d/
 
 # Configuring default applications
