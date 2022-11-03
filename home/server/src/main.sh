@@ -13,7 +13,6 @@ SYNCTHING_INSTALLED=0
 echo "Installing cron jobs"
 sudo cp "$PROJECT"/cron/* /etc/cron.d/
 
-
 # Disable ssh password login
 if ! grep -q "PasswordAuthentication no" /etc/ssh/sshd_config
 then
@@ -46,6 +45,18 @@ if ! systemctl is-active --quiet syncthing@louis.service
 then
   echo "Starting syncthing"
   sudo systemctl start syncthing@louis.service
+fi
+
+# Use the unattended-upgrades package to automatically install security updates
+# and other important updates.
+if ! dpkg -s unattended-upgrades > /dev/null
+then
+  sudo apt-get update
+  sudo apt-get install --yes unattended-upgrades
+  cat << EOF | sudo tee /etc/apt/apt.conf.d/20auto-upgrades > /dev/null
+APT::Periodic::Update-Package-Lists "1";
+APT::Periodic::Unattended-Upgrade "1";
+EOF
 fi
 
 echo "Installation complete ✨"
