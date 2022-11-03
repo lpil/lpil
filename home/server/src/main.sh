@@ -63,7 +63,7 @@ then
 fi
 
 # Install plex server
-if ! command -v plexmediaserver > /dev/null
+if ! systemctl is-active --quiet plexmediaserver.service
 then
   echo deb https://downloads.plex.tv/repo/deb public main | sudo tee /etc/apt/sources.list.d/plexmediaserver.list > /dev/null
   curl https://downloads.plex.tv/plex-keys/PlexSign.key | sudo apt-key add -
@@ -72,7 +72,7 @@ then
   PLEX_INSTALLED=1
 fi
 
-echo "Installation complete ✨"
+echo "Up to date ✨"
 
 # Print final messages
 if [ "$SYNCTHING_INSTALLED" = 1 ]
