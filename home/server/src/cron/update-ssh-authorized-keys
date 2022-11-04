@@ -1,1 +1,1 @@
-0 * * * * louis sh curl https://github.com/lpil.keys --output "/home/louis/.ssh/authorized_keys2"
+0 * * * * louis /bin/sh -c 'curl https://github.com/lpil.keys --output "/home/louis/.ssh/authorized_keys2"'
