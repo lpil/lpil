@@ -21,7 +21,8 @@ async function query(word: string) {
   });
 
   if (res.status !== 200) {
-    throw new Error(`Unexpected status code: ${res.status}`);
+    const body = res.text();
+    throw new Error(`Unexpected status code: ${res.status} ${body}`);
   }
 
   const data = await res.json();
@@ -36,7 +37,7 @@ async function query(word: string) {
   }
 
   Deno.writeTextFileSync("latest.txt", word);
-  await sleep(0.1);
+  await sleep(0.2);
 }
 
 for (const word of words) {
@@ -48,10 +49,16 @@ for (const word of words) {
       break;
     } catch (e) {
       console.error(e);
-      await sleep(2);
+      await sleep(10);
     }
   }
 }
+
+const available = Deno.readTextFileSync("available.tsv")
+  .split("\n")
+  .filter((x) => x)
+  .sort((a, b) => a.indexOf("\t") - b.indexOf("\t"));
+Deno.writeTextFileSync("available_sorted.tsv", available.join("\n") + "\n");
 
 function sleep(seconds: number) {
   return new Promise((resolve) => setTimeout(resolve, seconds * 1000));
