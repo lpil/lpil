@@ -21,8 +21,7 @@ async function query(word: string) {
   });
 
   if (res.status !== 200) {
-    console.warn(`Unexpected status code: ${res.status}`);
-    await sleep(2);
+    throw new Error(`Unexpected status code: ${res.status}`);
   }
 
   const data = await res.json();
