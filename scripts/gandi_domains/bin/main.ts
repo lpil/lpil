@@ -6,17 +6,12 @@ const words = Deno.readTextFileSync("common_words.txt").split("\n");
 
 let latest = "";
 try {
-  const lines = Deno.readTextFileSync("available.tsv").split("\n");
-  latest = lines[lines.length - 2].split("\t")[0];
+  latest = Deno.readTextFileSync("latest.txt").trim();
 } catch (_) {
   // ignore
 }
 
-for (const word of words) {
-  if (word < latest) continue;
-  if (word.toLowerCase() !== word) continue;
-  if (word.length < 3 || word.length > 8) continue;
-
+async function query(word: string) {
   const domain = `${word}.pink`;
   const url = `https://api.gandi.net/v5/domain/check?name=${domain}&extension=.pink`;
   const res = await fetch(url, {
@@ -41,7 +36,22 @@ for (const word of words) {
     });
   }
 
-  await sleep(0.2);
+  Deno.writeTextFileSync("latest.txt", word);
+  await sleep(0.1);
+}
+
+for (const word of words) {
+  if (word <= latest) continue;
+
+  while (true) {
+    try {
+      await query(word);
+      break;
+    } catch (e) {
+      console.error(e);
+      await sleep(2);
+    }
+  }
 }
 
 function sleep(seconds: number) {
