@@ -136,8 +136,6 @@
     - Friedrich Engels
     - Karl Marx
     tags:
-    - 
-    
     - politics
     - economics
     - history
@@ -162,7 +160,8 @@
     - politics
     - economics
     - history
-  - title: "How to Drink: A Classical Guide to the Art of Imbibing"
+  - title: "How to Drink"
+    subtitle: "A Classical Guide to the Art of Imbibing"
     authors:
     - Vincent Obsopoeus
     readers:
@@ -174,7 +173,8 @@
     - alcohol
     - lifestyle
     notes: "Originally published in 1536"
-  - title: "A Deadly Dividend: A gripping murder mystery set in Dublin"
+  - title: "A Deadly Dividend"
+    subtitle: "A gripping murder mystery set in Dublin"
     authors:
     - David Pearson
     readers:
@@ -186,7 +186,8 @@
 
 - year: 2022
   books:
-  - title: "A New Ireland: How Europe's Most Conservative Country Became Its Most Liberal"
+  - title: "A New Ireland"
+    subtitle: "How Europe's Most Conservative Country Became Its Most Liberal"
     authors:
     - "Niall O'Dowd"
     readers:
@@ -196,7 +197,8 @@
     - history
     - rights
     - politics
-  - title: "Freedom Is a Constant Struggle: Ferguson, Palestine, and the Foundations of a Movement"
+  - title: "Freedom Is a Constant Struggle"
+    subtitle: "Ferguson, Palestine, and the Foundations of a Movement"
     authors:
     - "Angela Y. Davis"
     readers:
@@ -214,7 +216,8 @@
     tags:
     - history
     - politics
-  - title: "Requiem for the American Dream: The Principles of Concentrated Wealth and Power"
+  - title: "Requiem for the American Dream"
+    subtitle: "The Principles of Concentrated Wealth and Power"
     authors:
     - "Noam Chomsky"
     readers:
@@ -241,7 +244,8 @@
     - tech
     - sql
     - programming
-  - title: "How We Get Free: Black Feminism and the Combahee River Collective"
+  - title: "How We Get Free"
+    subtitle: Black Feminism and the Combahee River Collective
     authors:
     - "Keeanga-Yamahtta Taylor"
     tags:
@@ -257,7 +261,8 @@
     - feminism
     - race
     - politics
-  - title: "This Will Be My Undoing: Living at the Intersection of Black, Female, and Feminist in (White) America"
+  - title: "This Will Be My Undoing"
+    subtitle: "Living at the Intersection of Black, Female, and Feminist in (White) America"
     authors:
     - "Morgan Jerkins"
     tags:
@@ -271,7 +276,8 @@
     - history
     - liberation
     - race
-  - title: "Gender Trouble: Feminism and the Subversion of Identity"
+  - title: "Gender Trouble"
+    subtitle: "Feminism and the Subversion of Identity"
     authors:
     - "Judith Butler"
     tags:
@@ -285,7 +291,8 @@
     - liberation
     - race
     - activism
-  - title: "If They Come in the Morning: Voices of Resistance"
+  - title: "If They Come in the Morning"
+    subtitle: "Voices of Resistance"
     authors:
     - "Angela Davis"
     tags:
@@ -293,7 +300,8 @@
     - race
     - activism
     - politics
-  - title: "The Will to Change: Men, Masculinity, and Love"
+  - title: "The Will to Change"
+    subtitle: "Men, Masculinity, and Love"
     authors:
     - "bell hooks"
     tags:
@@ -312,14 +320,16 @@
     - "Chimamanda Ngozi Adichie"
     tags:
     - feminism
-  - title: "Unauthorized Bread: A Radicalized Novella"
+  - title: "Unauthorized Bread"
+    subtitle: "A Radicalized Novella"
     authors:
     - "Cory Doctorow"
     tags:
     - fiction
     - dystopian
     - copyright
-  - title: "You're Cute When You're Mad: Simple Steps for Confronting Sexism"
+  - title: "You're Cute When You're Mad"
+    subtitle: "Simple Steps for Confronting Sexism"
     authors:
     - "Celeste Headlee"
     tags:

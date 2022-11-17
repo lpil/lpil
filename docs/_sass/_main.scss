@@ -211,19 +211,34 @@ p code {
   margin: 1.5rem 0;
 }
 
+.books-read,
+.books-read-years,
 .posts {
   margin-bottom: 2em;
   padding: 0;
+
+  h5 {
+    margin: 4px 0;
+  }
 
   li {
     margin-bottom: 1rem;
   }
 }
 
+.books-read-year {
+  margin-bottom: 1em;
+}
+
+.books-read-subtitle,
+.books-read-author,
 .posts__date {
-  margin-top: 4px;
-  opacity: 0.65;
   font-size: 0.9rem;
+}
+
+.books-read-author,
+.posts__date {
+  opacity: 0.75;
 }
 
 .posts__feed {
@@ -231,6 +246,10 @@ p code {
   float: right;
   font-size: 0.9em;
   padding: 0 0.4em;
+}
+
+.books-read li {
+  list-style: none;
 }
 
 .site-header {

@@ -34,7 +34,6 @@ redirect_from:
       <li>
         <a class="post__link" href="{{ post.url }}"><h5>{{ post.title }}</h5></a>
         <span class="posts__date">{{ post.date | date: "%d %b, %Y" }}</span>
-      </li>
       {% endunless %}
       {% endfor %}
     </ul>
@@ -52,10 +51,30 @@ redirect_from:
         <li class="art">
           <h5>{{ talk.title }}</h5>
           <div class="posts__date">{{ talk.date | date: "%d %b, %Y" }} - {{ talk.event }}{% if talk.venue %} - {{ talk.venue }}{% endif %}</div>
-          <!-- {{ talk.notes | markdownify }} -->
-        </li>
       {% endfor %}
     </ul>
+
+    <h3 class="home-section-title" id="reading">
+      Reading
+    </h3>
+
+    <ol class="books-read">
+      {% for year in site.data.books reversed %}
+      <li>
+        <h4 class="books-read-year">{{ year.year }}</h4>
+        <ol class="books-read-years">
+          {% for book in year.books reversed %}
+          <li>
+            <h5>{{ book.title }}</h5>
+            {% if book.subtitle %}
+            <div class="books-read-subtitle">{{ book.subtitle }}</div>
+            {% endif %}
+            <div class="books-read-author">By {{ book.authors | join: ", " }}</div>
+          {% endfor %}
+        </ol>
+      {% endfor %}
+    </ol>
+
 
   <p>
     Oh, and follow Louis on <a rel="me" href="https://lor.sh/@lpil">the fediverse</a>.
