@@ -1,7 +1,7 @@
 help: ## Prints help for targets with comments
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-start: ## Run the development server
+serve: ## Run the development server
 	jekyll server --watch --safe --port 3000 --host 0.0.0.0 --drafts
 
 build: clean ## Compile the site
@@ -21,4 +21,4 @@ quack:
 	clean \
 	debug \
 	help  \
-	start
+	serve

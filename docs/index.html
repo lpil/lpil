@@ -13,7 +13,7 @@ redirect_from:
   <nav class="home-nav">
     <a href="#blog">Blog</a>
     <a href="#speaking">Speaking</a>
-    <a href="#art">Art</a>
+    <a href="#reading">Reading</a>
   </nav>
 </header>
 
@@ -44,8 +44,7 @@ redirect_from:
     </h3>
 
     <p class="home-section-blurb">
-      Otter Nonsense's Louis is no stranger to performing in front of a crowd,
-      though these days it's less Shakespeare and more programing conference.
+      It's less Shakespeare and more programing conference these days.
     </p>
 
     <ul class="talks">
@@ -57,28 +56,6 @@ redirect_from:
         </li>
       {% endfor %}
     </ul>
-
-    <h3 class="home-section-title" id="art">
-      Art
-    </h3>
-
-    <ul class="arts">
-      {% for art in site.data.arts %}{% if art.displayed %}
-        <li class="art">
-          <a target="_blank" href="{{ art.url }}">
-            {% if art.thumbnail %}
-              <img class="art-thumbnail" alt="{{ art.title }}" src="{{ art.thumbnail }}"/>
-            {% else %}
-              <img class="art-thumbnail" alt="{{ art.title }}" src="/img/grey-pixel.gif"/>
-            {% endif %}
-            <h5>{{ art.title }}</h5>
-          </a>
-          {{ art.notes | markdownify }}
-        </li>
-      {% endif %}{% endfor %}
-    </ul>
-
-  </div>
 
   <p>
     Oh, and follow Louis on <a rel="me" href="https://lor.sh/@lpil">the fediverse</a>.
