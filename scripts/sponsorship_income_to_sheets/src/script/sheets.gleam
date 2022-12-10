@@ -59,7 +59,7 @@ fn append_row(
 
   let json =
     j.to_string(j.object([
-      #("range", j.string(string.append(sheet, "!A:A"))),
+      #("range", j.string(sheet <> "!A:A")),
       #("majorDimension", j.string("ROWS")),
       #("values", j.preprocessed_array([j.preprocessed_array(row)])),
     ]))

@@ -1,14 +1,11 @@
 import script/error.{Error}
 import script/config.{Config}
 import gleam/json as j
-import gleam/string
 import gleam/result
 import gleam/dynamic
 import gleam/hackney
 import gleam/http
 import gleam/http/request
-import gleam/io
-import gleam/int
 
 pub fn get_estimated_monthly_income_in_cents(
   config: Config,
@@ -27,10 +24,7 @@ pub fn get_estimated_monthly_income_in_cents(
     |> request.set_host("api.github.com")
     |> request.set_path("/graphql")
     |> request.prepend_header("content-type", "application/json")
-    |> request.prepend_header(
-      "authorization",
-      string.append("bearer ", config.github_token),
-    )
+    |> request.prepend_header("authorization", "bearer " <> config.github_token)
     |> request.set_body(query)
 
   try response =
