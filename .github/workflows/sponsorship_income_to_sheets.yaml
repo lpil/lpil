@@ -3,6 +3,7 @@ name: Sponsorship income to sheets
 on:
   schedule:
   - cron: "0 4 * * 3,6"
+  workflow_dispatch:
   # push:
   #   branches:
   #     - main
