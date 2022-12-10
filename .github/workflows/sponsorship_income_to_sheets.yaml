@@ -18,6 +18,9 @@ jobs:
           otp-version: "25.1"
           rebar3-version: "3"
           gleam-version: "0.25.0"
+          # This shouldn't be needed 
+          # https://github.com/gleam-lang/gleam/issues/1888
+          elixir-version: "1.14.1" 
       - run: gleam run
         working-directory: scripts/sponsorship_income_to_sheets
         env:
