@@ -1,0 +1,12 @@
+**/target/*
+**/elm-stuff/*
+**/elm/**/build.js
+**/.stack-work
+*.beam
+**/_build/*
+**/rebar3.crashdump
+**/node_modules/**
+**/*.native
+**/.merlin
+**/output
+**/bower_components
