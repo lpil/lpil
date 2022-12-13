@@ -1,6 +1,4 @@
 (module
-  (import "console" "log_i32_u" (func $log_i32_u (param i32)))
-
   (func (export "steps") (param $number i32) (result i32)
 
     (local $steps i32)
