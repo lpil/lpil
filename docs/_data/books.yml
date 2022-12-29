@@ -348,3 +348,10 @@
     tags:
     - philosophy
     - politics
+  - title: "The Art of WebAssembly"
+    authors:
+    - "Rick Battagline"
+    tags:
+    - tech
+    - programming
+    - wasm
