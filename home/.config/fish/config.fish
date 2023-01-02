@@ -54,6 +54,11 @@ if test -e /opt/homebrew
     set -gx INFOPATH /opt/homebrew/share/info $INFOPATH
 end
 
+if test -e /Applications/Tailscale.app/Contents/MacOS/Tailscale
+    alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
+end
+
+
 # Path
 set fish_user_paths \
     "$GOBIN" \
