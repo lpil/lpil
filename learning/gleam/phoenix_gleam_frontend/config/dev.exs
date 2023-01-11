@@ -1,24 +1,32 @@
 import Config
 
+# Configure your database
+config :birdy, Birdy.Repo,
+  username: "postgres",
+  password: "postgres",
+  hostname: "localhost",
+  database: "birdy_dev",
+  stacktrace: true,
+  show_sensitive_data_on_connection_error: true,
+  pool_size: 10
+
 # For development, we disable any cache and enable
 # debugging and code reloading.
 #
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we use it
 # with esbuild to bundle .js and .css sources.
-config :my_app, MyAppWeb.Endpoint,
+config :birdy, BirdyWeb.Endpoint,
   # Binding to loopback ipv4 address prevents access from other machines.
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
   http: [ip: {127, 0, 0, 1}, port: 4000],
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
-  secret_key_base: "h39UygiaoPxove6crWrCWmr3eZoMt9qZe8vXDqvBqU4gWhqyX4sa8UHWrJMYBeqH",
+  secret_key_base: "npnhYhtnHJXp+ad78fku+0lkICObw9x9/oyI5j/FEEK077j9+v0g51TSWcg/6eGq",
   watchers: [
     # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
-    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
-    # Compile Gleam files on change
-    gleam: {MyApp.GleamWatcher, :start_link, []}
+    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
   ]
 
 # ## SSL Support
@@ -46,13 +54,13 @@ config :my_app, MyAppWeb.Endpoint,
 # different ports.
 
 # Watch static and templates for browser reloading.
-config :my_app, MyAppWeb.Endpoint,
+config :birdy, BirdyWeb.Endpoint,
   live_reload: [
     patterns: [
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
-      ~r"lib/my_app_web/(live|views)/.*(ex)$",
-      ~r"lib/my_app_web/templates/.*(eex)$"
+      ~r"lib/birdy_web/(live|views)/.*(ex)$",
+      ~r"lib/birdy_web/templates/.*(eex)$"
     ]
   ]
 

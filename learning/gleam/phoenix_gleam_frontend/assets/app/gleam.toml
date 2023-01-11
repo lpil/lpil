@@ -1,9 +1,0 @@
-name = "app"
-version = "0.1.0"
-target = "javascript"
-
-[dependencies]
-gleam_stdlib = "~> 0.23"
-
-[dev-dependencies]
-gleeunit = "~> 0.6"
