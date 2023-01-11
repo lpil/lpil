@@ -1,4 +1,4 @@
-defmodule Birdy.Application do
+defmodule MyApp.Application do
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
   @moduledoc false
@@ -9,20 +9,20 @@ defmodule Birdy.Application do
   def start(_type, _args) do
     children = [
       # Start the Ecto repository
-      Birdy.Repo,
+      MyApp.Repo,
       # Start the Telemetry supervisor
-      BirdyWeb.Telemetry,
+      MyAppWeb.Telemetry,
       # Start the PubSub system
-      {Phoenix.PubSub, name: Birdy.PubSub},
+      {Phoenix.PubSub, name: MyApp.PubSub},
       # Start the Endpoint (http/https)
-      BirdyWeb.Endpoint
-      # Start a worker by calling: Birdy.Worker.start_link(arg)
-      # {Birdy.Worker, arg}
+      MyAppWeb.Endpoint
+      # Start a worker by calling: MyApp.Worker.start_link(arg)
+      # {MyApp.Worker, arg}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: Birdy.Supervisor]
+    opts = [strategy: :one_for_one, name: MyApp.Supervisor]
     Supervisor.start_link(children, opts)
   end
 
@@ -30,7 +30,7 @@ defmodule Birdy.Application do
   # whenever the application is updated.
   @impl true
   def config_change(changed, _new, removed) do
-    BirdyWeb.Endpoint.config_change(changed, removed)
+    MyAppWeb.Endpoint.config_change(changed, removed)
     :ok
   end
 end

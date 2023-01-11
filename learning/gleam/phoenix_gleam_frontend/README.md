@@ -1,4 +1,4 @@
-# Birdy
+# MyApp
 
 To start your Phoenix server:
 

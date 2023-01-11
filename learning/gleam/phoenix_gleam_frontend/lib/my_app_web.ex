@@ -1,12 +1,12 @@
-defmodule BirdyWeb do
+defmodule MyAppWeb do
   @moduledoc """
   The entrypoint for defining your web interface, such
   as controllers, views, channels and so on.
 
   This can be used in your application as:
 
-      use BirdyWeb, :controller
-      use BirdyWeb, :view
+      use MyAppWeb, :controller
+      use MyAppWeb, :view
 
   The definitions below will be executed for every view,
   controller, etc, so keep them short and clean, focused
@@ -19,19 +19,19 @@ defmodule BirdyWeb do
 
   def controller do
     quote do
-      use Phoenix.Controller, namespace: BirdyWeb
+      use Phoenix.Controller, namespace: MyAppWeb
 
       import Plug.Conn
-      import BirdyWeb.Gettext
-      alias BirdyWeb.Router.Helpers, as: Routes
+      import MyAppWeb.Gettext
+      alias MyAppWeb.Router.Helpers, as: Routes
     end
   end
 
   def view do
     quote do
       use Phoenix.View,
-        root: "lib/birdy_web/templates",
-        namespace: BirdyWeb
+        root: "lib/my_app_web/templates",
+        namespace: MyAppWeb
 
       # Import convenience functions from controllers
       import Phoenix.Controller,
@@ -45,7 +45,7 @@ defmodule BirdyWeb do
   def live_view do
     quote do
       use Phoenix.LiveView,
-        layout: {BirdyWeb.LayoutView, "live.html"}
+        layout: {MyAppWeb.LayoutView, "live.html"}
 
       unquote(view_helpers())
     end
@@ -80,7 +80,7 @@ defmodule BirdyWeb do
   def channel do
     quote do
       use Phoenix.Channel
-      import BirdyWeb.Gettext
+      import MyAppWeb.Gettext
     end
   end
 
@@ -95,9 +95,9 @@ defmodule BirdyWeb do
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
 
-      import BirdyWeb.ErrorHelpers
-      import BirdyWeb.Gettext
-      alias BirdyWeb.Router.Helpers, as: Routes
+      import MyAppWeb.ErrorHelpers
+      import MyAppWeb.Gettext
+      alias MyAppWeb.Router.Helpers, as: Routes
     end
   end
 

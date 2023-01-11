@@ -7,14 +7,14 @@
 # General application configuration
 import Config
 
-config :birdy,
-  ecto_repos: [Birdy.Repo]
+config :my_app,
+  ecto_repos: [MyApp.Repo]
 
 # Configures the endpoint
-config :birdy, BirdyWeb.Endpoint,
+config :my_app, MyAppWeb.Endpoint,
   url: [host: "localhost"],
-  render_errors: [view: BirdyWeb.ErrorView, accepts: ~w(html json), layout: false],
-  pubsub_server: Birdy.PubSub,
+  render_errors: [view: MyAppWeb.ErrorView, accepts: ~w(html json), layout: false],
+  pubsub_server: MyApp.PubSub,
   live_view: [signing_salt: "cVYgU3qj"]
 
 # Configures the mailer
@@ -24,7 +24,7 @@ config :birdy, BirdyWeb.Endpoint,
 #
 # For production it's recommended to configure a different adapter
 # at the `config/runtime.exs`.
-config :birdy, Birdy.Mailer, adapter: Swoosh.Adapters.Local
+config :my_app, MyApp.Mailer, adapter: Swoosh.Adapters.Local
 
 # Swoosh API client is needed for adapters other than SMTP.
 config :swoosh, :api_client, false
