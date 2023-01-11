@@ -1,5 +1,5 @@
-defmodule Birdy.Repo do
+defmodule MyApp.Repo do
   use Ecto.Repo,
-    otp_app: :birdy,
+    otp_app: :my_app,
     adapter: Ecto.Adapters.Postgres
 end

@@ -1,12 +1,12 @@
-defmodule BirdyWeb.Endpoint do
-  use Phoenix.Endpoint, otp_app: :birdy
+defmodule MyAppWeb.Endpoint do
+  use Phoenix.Endpoint, otp_app: :my_app
 
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
   # Set :encryption_salt if you would also like to encrypt it.
   @session_options [
     store: :cookie,
-    key: "_birdy_key",
+    key: "_my_app_key",
     signing_salt: "8aojr5bc"
   ]
 
@@ -18,7 +18,7 @@ defmodule BirdyWeb.Endpoint do
   # when deploying your static files in production.
   plug Plug.Static,
     at: "/",
-    from: :birdy,
+    from: :my_app,
     gzip: false,
     only: ~w(assets fonts images favicon.ico robots.txt)
 
@@ -28,7 +28,7 @@ defmodule BirdyWeb.Endpoint do
     socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket
     plug Phoenix.LiveReloader
     plug Phoenix.CodeReloader
-    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :birdy
+    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :my_app
   end
 
   plug Phoenix.LiveDashboard.RequestLogger,
@@ -46,5 +46,5 @@ defmodule BirdyWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
-  plug BirdyWeb.Router
+  plug MyAppWeb.Router
 end

@@ -1,11 +1,11 @@
-defmodule BirdyWeb.Router do
-  use BirdyWeb, :router
+defmodule MyAppWeb.Router do
+  use MyAppWeb, :router
 
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_live_flash
-    plug :put_root_layout, {BirdyWeb.LayoutView, :root}
+    plug :put_root_layout, {MyAppWeb.LayoutView, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
   end
@@ -14,14 +14,14 @@ defmodule BirdyWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", BirdyWeb do
+  scope "/", MyAppWeb do
     pipe_through :browser
 
     get "/", PageController, :index
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", BirdyWeb do
+  # scope "/api", MyAppWeb do
   #   pipe_through :api
   # end
 
@@ -38,7 +38,7 @@ defmodule BirdyWeb.Router do
     scope "/" do
       pipe_through :browser
 
-      live_dashboard "/dashboard", metrics: BirdyWeb.Telemetry
+      live_dashboard "/dashboard", metrics: MyAppWeb.Telemetry
     end
   end
 
