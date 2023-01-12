@@ -26,7 +26,9 @@ config :my_app, MyAppWeb.Endpoint,
   secret_key_base: "npnhYhtnHJXp+ad78fku+0lkICObw9x9/oyI5j/FEEK077j9+v0g51TSWcg/6eGq",
   watchers: [
     # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
-    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
+    esbuild:
+      {Esbuild, :install_and_run,
+       [:default, ~w(--sourcemap=inline --watch wibble wobble woo yeah here we go)]},
     # Compile Gleam files on change
     gleam: {GleamBuilder, :start_link, []}
   ]

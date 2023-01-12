@@ -8,8 +8,8 @@ tags:
 
 I was talking to [Josh](https://github.com/joshprice) over at
 [Alembic](https://alembic.com.au/) and he mentioned that he was interested in
-taking advantage of Gleam's compile-to-JavaScript capability and using it as the
-front end for an Elixir Phoenix app. What a great idea!
+taking advantage of Gleam's compile-to-JavaScript capability and using it to
+make a front end for an Elixir Phoenix app. What a great idea!
 
 I'm going to show you how to set these two up together, so you can try it too. :)
 
@@ -22,7 +22,7 @@ later versions let me know and I'll update this post.
 ## Hello, Joe!
 
 First off we're going to need a Phoenix application. You can use an existing one
-if you have one, but I don't, so I'm going to create a new one.
+if you have one, but I'm going to create a new one.
 
 ```sh
 # Create a new Phoenix app named `my_app`
@@ -83,7 +83,7 @@ cd ../..
 ```
 
 The Gleam code has been compiled to JavaScript, but unless it is included into
-the JavaScript bundle it won't do anything.
+the JavaScript bundle it won't get run.
 
 Open up the JavaScript file `assets/js/app.js` and at the bottom of the file
 import the compiled Gleam `app` module, calling its `main` function.
@@ -94,27 +94,50 @@ main();
 ```
 
 Now run the Phoenix server with `mix phx.server` and open up
-`http://localhost:4000` in the browser. Open up the developer console and you
-should see the message "Hello from the Gleam frontend!". Success! 💃
+`http://localhost:4000` in the browser. In the developer console there is the
+message "Hello from the Gleam frontend!". Success! 💃
 
 ## Automatic recompilation
 
-Check the console, it prints "Hello from app!"
+We've got Gleam code now running in the browser, but having to manually run the
+compiler is annoying. What we really want is for the code to automatically be
+recompiled when edits are saved. To do this we're going to take advantage of
+Phoenix's development watchers feature.
 
-Add file system watcher dep
+By default Phoenix comes with one watcher that runs esbuild, a tool that bundles
+front end assets together for use in the browser. We're going to add a second
+one that runs the Gleam compiler.
+
+We're going to need a way to detect when a Gleam file has changed, so add the
+`file_system` package to your `mix.exs` file.
 
 ```elixir
-{:file_system, "~> 0.2", only: :dev}
+  defp deps do
+    [
+      # ...other deps here...
+      {:file_system, "~> 0.2", only: :dev}
+    ]
+  end
 ```
 
-Add a new watcher for Gleam to `config/dev.exs`
+Add a new watcher for Gleam to `config/dev.exs`.
 
 ```elixir
-    # Compile Gleam files on change
-    gleam: {GleamBuilder, :start_link, []}
+config :my_app, MyAppWeb.Endpoint,
+  # ...other config here...
+  watchers: [
+    # ...other watchers here...
+    gleam: {GleamBuilder, :start_link, []} # <- Add this entry
+  ]
 ```
 
-Create define the watcher
+With this configuration when the application starts in dev mode Phoenix will
+call the `start_link` function on the `GleamBuilder` module, and that function
+will be responsible for building the Gleam code while the application is
+running.
+
+Open up the `lib/gleam_builder.ex` file and enter the code below to define the
+new watcher.
 
 ```elixir
 # This watcher uses dev deps so let's only define it in dev to
@@ -153,5 +176,44 @@ if Mix.env() == :dev do
     end
   end
 end
-
 ```
+
+Wow there's a lot going on here!
+
+The watcher is only used in `:dev` mode and uses development dependencies, so it
+would emit warnings if it were compiled in `:prod` mode. To avoid this we wrap
+the whole module definition in an `if` statement that checks the environment at
+compile time.
+
+The watcher is an Elixir `GenServer` which is started by the `start_link` function.
+
+In the `init` function it starts a `FileSystem` process for the Gleam code
+directories and then calls the `FileSystem.subscribe/1` function in order to get
+notified with a message any time there are changes. It also runs the Gleam
+compiler once in `init` to build the code initially.
+
+The `handle_info` function is called for each message from the `FileSystem`
+process. It runs the Gleam compiler again to rebuild the code with the
+just-saved changes.
+
+And that's it! If you start the Phoenix server again you'll see the latest
+greeting get printed to the browser developer console each time you edit and
+save the `assets/app/src/app.gleam` file. Or any other Gleam file for that
+matter.
+
+## What's next?
+
+Now that the project is set up you probably want to start writing some Gleam
+code!
+
+You could import and use some JavaScript DOM functions using Gleam's
+[external function feature](https://gleam.run/book/tour/external-functions.html),
+or you could build a more sophisticated React based front end using
+[react-gleam](https://github.com/brettkolodny/react-gleam) or
+[Lustre](https://github.com/hayleigh-dot-dev/gleam-lustre/).
+
+Whatever you do, have fun! Be sure to share anything cool that you make on the
+[Gleam Discord server](https://discord.gg/Fm8Pwmy).
+
+P.S. If you want to see all the changes I made to the Phoenix app check out
+[this git commit](https://github.com/lpil/lpil/pull/30/commits/e1db86af9d7701cd6f02ff038f4c9daeb480261a).
