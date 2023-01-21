@@ -12,15 +12,12 @@ jobs:
   run:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3.0.0
-      - uses: erlef/setup-beam@v1.15.0
+      - uses: actions/checkout@v3.3.0
+      - uses: erlef/setup-beam@v1.15.2
         with:
-          otp-version: "25.1"
+          otp-version: "25.2"
           rebar3-version: "3"
-          gleam-version: "0.25.0"
-          # This shouldn't be needed 
-          # https://github.com/gleam-lang/gleam/issues/1888
-          elixir-version: "1.14.1" 
+          gleam-version: "0.26.0"
       - run: gleam run
         working-directory: scripts/sponsorship_income_to_sheets
         env:
