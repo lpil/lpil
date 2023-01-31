@@ -355,3 +355,17 @@
     - tech
     - programming
     - wasm
+
+
+- year: 2023
+  books:
+  - title: "The Feckin' Book of Irish History"
+    subtitle: "for anyone who hasn't been paying attention for the last 30,000 years"
+    authors:
+    - "Donal O'Dea"
+    - "Colin Murphy"
+    tags:
+    - ireland
+    - history
+    - politics
+    - humourous
