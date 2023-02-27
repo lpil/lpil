@@ -90,15 +90,22 @@ fn append_row(
   Ok(Nil)
 }
 
-pub fn append_current_income(cents: Int, config: Config) -> Result(Nil, Error) {
-  let money =
-    string.concat([
-      int.to_string(cents / 100),
-      ".",
-      string.pad_left(int.to_string(cents % 100), to: 2, with: "0"),
-    ])
+pub type Row {
+  Row(monthly_sponsorship_cents: Int)
+}
+
+pub fn append_current_income(row: Row, config: Config) -> Result(Nil, Error) {
+  let money = cents_to_dollars(row.monthly_sponsorship_cents)
   let row = [j.string(timestamp()), j.string(money)]
   append_row(sheet_name, row, config)
+}
+
+fn cents_to_dollars(cents: Int) -> String {
+  int.to_string(cents / 100) <> "." <> string.pad_left(
+    int.to_string(cents % 100),
+    to: 2,
+    with: "0",
+  )
 }
 
 external fn timestamp() -> String =

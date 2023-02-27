@@ -5,5 +5,6 @@ google sheets.
 
 The things:
 - The current estimated sponsorship monthly income 
+- The number of Discord members
 
 This is run on GitHub actions periodically.

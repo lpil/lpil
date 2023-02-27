@@ -1,4 +1,4 @@
-name: Gleam periodic stats
+name: Record Gleam stats
 
 on:
   schedule:
