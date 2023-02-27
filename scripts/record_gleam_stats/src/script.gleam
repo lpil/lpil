@@ -2,6 +2,7 @@ import script/config
 import script/sheets
 import script/github
 import script/discord
+import script/exercism
 import script/hex
 import gleam/io
 
@@ -18,6 +19,9 @@ pub fn main() {
   io.println("Querying Hex")
   let assert Ok(#(stdlib_all, stdlib_recent)) = hex.get_stdlib_counts()
 
+  io.println("Querying Exercism")
+  let assert Ok(exercism) = exercism.get_track_information()
+
   let row =
     sheets.Row(
       monthly_sponsorship_cents: github.estimated_monthly_sponsorship,
@@ -26,6 +30,9 @@ pub fn main() {
       approximate_discord_member_count: members,
       stdlib_all_downloads: stdlib_all,
       stdlib_recent_downloads: stdlib_recent,
+      exercism_students_count: exercism.students_count,
+      exercism_submissions_count: exercism.submissions_count,
+      exercism_mentoring_discussions_count: exercism.mentoring_discussions_count,
     )
 
   io.println("Writing to Google Sheets")

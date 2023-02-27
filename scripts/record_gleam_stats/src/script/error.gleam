@@ -5,6 +5,7 @@ import gleam/json
 pub type Error {
   HttpError(hackney.Error)
   UnexpectedJson(json.DecodeError)
+  UnexpectedHtml
   UnexpectedHttpStatus(expected: Int, response: Response(String))
   MissingEnvironmentVariable(name: String)
 }
