@@ -2,8 +2,8 @@ name: Record Gleam stats
 
 on:
   schedule:
-  # Run every other day at 4am
-  - cron: "0 4 */2 * *"
+  # Run every day at 4am
+  - cron: "0 4 * * *"
   workflow_dispatch:
   # push:
   #   branches:
