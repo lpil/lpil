@@ -1,0 +1,12 @@
+name = "script"
+version = "1.0.0"
+
+[dependencies]
+gleam_stdlib = "~> 0.21"
+gleam_hackney = "~> 0.2"
+gleam_http = "~> 3.0"
+gleam_json = "~> 0.4"
+gleam_erlang = "~> 0.9"
+
+[dev-dependencies]
+gleeunit = "~> 0.6"

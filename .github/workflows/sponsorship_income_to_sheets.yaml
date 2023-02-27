@@ -1,8 +1,9 @@
-name: Sponsorship income to sheets
+name: Gleam periodic stats
 
 on:
   schedule:
-  - cron: "0 4 * * 3,6"
+  # Run every other day at 4am
+  - cron: "0 4 */2 * *"
   workflow_dispatch:
   # push:
   #   branches:
@@ -19,7 +20,7 @@ jobs:
           rebar3-version: "3"
           gleam-version: "0.26.0"
       - run: gleam run
-        working-directory: scripts/sponsorship_income_to_sheets
+        working-directory: scripts/record_gleam_stats
         env:
           GCP_CLIENT_ID: "${{ secrets.GCP_CLIENT_ID }}"
           GCP_CLIENT_SECRET: "${{ secrets.GCP_CLIENT_SECRET }}"
