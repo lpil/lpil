@@ -7,9 +7,15 @@ import gleam/hackney
 import gleam/http
 import gleam/http/request
 
-pub fn get_estimated_monthly_income_in_cents(
-  config: Config,
-) -> Result(#(Int, Int), Error) {
+pub type Information {
+  Information(
+    estimated_monthly_sponsorship: Int,
+    sponsor_count: Int,
+    stars: Int,
+  )
+}
+
+pub fn get_information(config: Config) -> Result(Information, Error) {
   let query =
     "query {
   viewer {
@@ -17,6 +23,9 @@ pub fn get_estimated_monthly_income_in_cents(
     sponsors {
       totalCount
     }
+  }
+  repositoryOwner(login: \"gleam-lang\") {
+    repository(name: \"gleam\") { stargazerCount }
   }
 }"
 
@@ -37,21 +46,24 @@ pub fn get_estimated_monthly_income_in_cents(
     |> result.then(error.ensure_status(_, is: 200)),
   )
 
-  use amounts <- result.then(
-    response.body
-    |> j.decode(using: dy.field(
-      "data",
-      of: dy.field(
+  let decoder =
+    dy.decode3(
+      Information,
+      dy.field(
         "viewer",
-        of: dy.decode2(
-          fn(a, b) { #(a, b) },
-          dy.field("monthlyEstimatedSponsorsIncomeInCents", of: dy.int),
-          dy.field("sponsors", of: dy.field("totalCount", of: dy.int)),
-        ),
+        dy.field("monthlyEstimatedSponsorsIncomeInCents", of: dy.int),
       ),
-    ))
-    |> result.map_error(error.UnexpectedJson),
-  )
+      dy.field(
+        "viewer",
+        dy.field("sponsors", of: dy.field("totalCount", of: dy.int)),
+      ),
+      dy.field(
+        "repositoryOwner",
+        dy.field("repository", of: dy.field("stargazerCount", of: dy.int)),
+      ),
+    )
 
-  Ok(amounts)
+  response.body
+  |> j.decode(using: dy.field("data", decoder))
+  |> result.map_error(error.UnexpectedJson)
 }

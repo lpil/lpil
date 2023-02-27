@@ -97,6 +97,7 @@ pub type Row {
   Row(
     monthly_sponsorship_cents: Int,
     sponsor_count: Int,
+    compiler_github_stars: Int,
     approximate_discord_member_count: Int,
     stdlib_all_downloads: Int,
     stdlib_recent_downloads: Int,
@@ -108,6 +109,7 @@ pub fn append_current_income(row: Row, config: Config) -> Result(Nil, Error) {
     j.string(timestamp()),
     j.string(cents_to_dollars(row.monthly_sponsorship_cents)),
     j.int(row.sponsor_count),
+    j.int(row.compiler_github_stars),
     j.int(row.approximate_discord_member_count),
     j.int(row.stdlib_all_downloads),
     j.int(row.stdlib_recent_downloads),
