@@ -2,21 +2,25 @@ import script/error.{Error}
 import script/config.{Config}
 import gleam/json as j
 import gleam/result
-import gleam/dynamic
+import gleam/dynamic as dy
 import gleam/hackney
 import gleam/http
 import gleam/http/request
 
 pub fn get_estimated_monthly_income_in_cents(
   config: Config,
-) -> Result(Int, Error) {
+) -> Result(#(Int, Int), Error) {
   let query =
-    j.to_string(j.object([
-      #(
-        "query",
-        j.string("query { viewer { monthlyEstimatedSponsorsIncomeInCents } }"),
-      ),
-    ]))
+    "query {
+  viewer {
+    monthlyEstimatedSponsorsIncomeInCents
+    sponsors {
+      totalCount
+    }
+  }
+}"
+
+  let query = j.to_string(j.object([#("query", j.string(query))]))
 
   let request =
     request.new()
@@ -33,20 +37,21 @@ pub fn get_estimated_monthly_income_in_cents(
     |> result.then(error.ensure_status(_, is: 200)),
   )
 
-  use cents <- result.then(
+  use amounts <- result.then(
     response.body
-    |> j.decode(using: dynamic.field(
+    |> j.decode(using: dy.field(
       "data",
-      of: dynamic.field(
+      of: dy.field(
         "viewer",
-        of: dynamic.field(
-          "monthlyEstimatedSponsorsIncomeInCents",
-          of: dynamic.int,
+        of: dy.decode2(
+          fn(a, b) { #(a, b) },
+          dy.field("monthlyEstimatedSponsorsIncomeInCents", of: dy.int),
+          dy.field("sponsors", of: dy.field("totalCount", of: dy.int)),
         ),
       ),
     ))
     |> result.map_error(error.UnexpectedJson),
   )
 
-  Ok(cents)
+  Ok(amounts)
 }

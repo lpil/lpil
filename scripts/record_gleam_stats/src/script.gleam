@@ -10,7 +10,8 @@ pub fn main() {
   let assert Ok(config) = config.load_from_environment()
 
   io.println("Querying GitHub")
-  let assert Ok(cents) = github.get_estimated_monthly_income_in_cents(config)
+  let assert Ok(#(sponsorship, sponsor_count)) =
+    github.get_estimated_monthly_income_in_cents(config)
 
   io.println("Querying Discord")
   let assert Ok(members) = discord.get_approximate_discord_member_count()
@@ -20,7 +21,8 @@ pub fn main() {
 
   let row =
     sheets.Row(
-      monthly_sponsorship_cents: cents,
+      monthly_sponsorship_cents: sponsorship,
+      sponsor_count: sponsor_count,
       approximate_discord_member_count: members,
       stdlib_all_downloads: stdlib_all,
       stdlib_recent_downloads: stdlib_recent,
