@@ -27,12 +27,13 @@ pub fn get_estimated_monthly_income_in_cents(
     |> request.prepend_header("authorization", "bearer " <> config.github_token)
     |> request.set_body(query)
 
-  try response =
+  use response <- result.then(
     hackney.send(request)
     |> result.map_error(error.HttpError)
-    |> result.then(error.ensure_status(_, is: 200))
+    |> result.then(error.ensure_status(_, is: 200)),
+  )
 
-  try cents =
+  use cents <- result.then(
     response.body
     |> j.decode(using: dynamic.field(
       "data",
@@ -44,7 +45,8 @@ pub fn get_estimated_monthly_income_in_cents(
         ),
       ),
     ))
-    |> result.map_error(error.UnexpectedJson)
+    |> result.map_error(error.UnexpectedJson),
+  )
 
   Ok(cents)
 }

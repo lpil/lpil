@@ -14,10 +14,10 @@ pub type Config {
 }
 
 pub fn load_from_environment() -> Result(Config, Error) {
-  try client_id = env("GCP_CLIENT_ID")
-  try client_secret = env("GCP_CLIENT_SECRET")
-  try refresh_token = env("GCP_REFRESH_TOKEN")
-  try github_token = env("GITHUB_TOKEN")
+  use client_id <- result.then(env("GCP_CLIENT_ID"))
+  use client_secret <- result.then(env("GCP_CLIENT_SECRET"))
+  use refresh_token <- result.then(env("GCP_REFRESH_TOKEN"))
+  use github_token <- result.then(env("GITHUB_TOKEN"))
 
   Ok(Config(
     client_id: client_id,

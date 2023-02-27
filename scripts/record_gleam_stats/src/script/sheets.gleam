@@ -37,15 +37,17 @@ pub fn get_access_token(config: Config) -> Result(String, Error) {
     )
     |> request.set_body(formdata)
 
-  try response =
+  use response <- result.then(
     hackney.send(request)
     |> result.map_error(error.HttpError)
-    |> result.then(error.ensure_status(_, is: 200))
+    |> result.then(error.ensure_status(_, is: 200)),
+  )
 
-  try json =
+  use json <- result.then(
     response.body
     |> j.decode(using: dynamic.field("access_token", of: dynamic.string))
-    |> result.map_error(error.UnexpectedJson)
+    |> result.map_error(error.UnexpectedJson),
+  )
 
   Ok(json)
 }
@@ -55,7 +57,7 @@ fn append_row(
   row: List(Json),
   config: Config,
 ) -> Result(Nil, Error) {
-  try access_token = get_access_token(config)
+  use access_token <- result.then(get_access_token(config))
 
   let json =
     j.to_string(j.object([
@@ -82,10 +84,11 @@ fn append_row(
     |> request.set_path(path)
     |> request.prepend_header("content-type", "application/json")
 
-  try _ =
+  use _ <- result.then(
     hackney.send(request)
     |> result.map_error(error.HttpError)
-    |> result.then(error.ensure_status(_, is: 200))
+    |> result.then(error.ensure_status(_, is: 200)),
+  )
 
   Ok(Nil)
 }
