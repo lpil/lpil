@@ -94,12 +94,15 @@ fn append_row(
 }
 
 pub type Row {
-  Row(monthly_sponsorship_cents: Int)
+  Row(monthly_sponsorship_cents: Int, approximate_discord_member_count: Int)
 }
 
 pub fn append_current_income(row: Row, config: Config) -> Result(Nil, Error) {
-  let money = cents_to_dollars(row.monthly_sponsorship_cents)
-  let row = [j.string(timestamp()), j.string(money)]
+  let row = [
+    j.string(timestamp()),
+    j.string(cents_to_dollars(row.monthly_sponsorship_cents)),
+    j.int(row.approximate_discord_member_count),
+  ]
   append_row(sheet_name, row, config)
 }
 
