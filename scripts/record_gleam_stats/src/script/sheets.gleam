@@ -104,6 +104,8 @@ pub type Row {
     exercism_students_count: Int,
     exercism_submissions_count: Int,
     exercism_mentoring_discussions_count: Int,
+    site_thirty_day_visitors: Int,
+    site_thirty_day_pageviews: Int,
   )
 }
 
@@ -116,6 +118,8 @@ pub fn append_current_income(row: Row, config: Config) -> Result(Nil, Error) {
     j.int(row.approximate_discord_member_count),
     j.int(row.stdlib_all_downloads),
     j.int(row.stdlib_recent_downloads),
+    j.int(row.site_thirty_day_visitors),
+    j.int(row.site_thirty_day_pageviews),
     j.int(row.exercism_students_count),
     j.int(row.exercism_submissions_count),
     j.int(row.exercism_mentoring_discussions_count),

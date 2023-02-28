@@ -3,6 +3,7 @@ import script/sheets
 import script/github
 import script/discord
 import script/exercism
+import script/plausible
 import script/hex
 import gleam/io
 
@@ -22,6 +23,9 @@ pub fn main() {
   io.println("Querying Exercism")
   let assert Ok(exercism) = exercism.get_track_information()
 
+  io.println("Querying Plausible")
+  let assert Ok(plausible) = plausible.get_stats(config)
+
   let row =
     sheets.Row(
       monthly_sponsorship_cents: github.estimated_monthly_sponsorship,
@@ -33,6 +37,8 @@ pub fn main() {
       exercism_students_count: exercism.students_count,
       exercism_submissions_count: exercism.submissions_count,
       exercism_mentoring_discussions_count: exercism.mentoring_discussions_count,
+      site_thirty_day_pageviews: plausible.thirty_day_pageviews,
+      site_thirty_day_visitors: plausible.thirty_day_visitors,
     )
 
   io.println("Writing to Google Sheets")
