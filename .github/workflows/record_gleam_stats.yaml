@@ -26,3 +26,4 @@ jobs:
           GCP_CLIENT_SECRET: "${{ secrets.GCP_CLIENT_SECRET }}"
           GCP_REFRESH_TOKEN: "${{ secrets.GCP_REFRESH_TOKEN }}"
           GITHUB_TOKEN: "${{ secrets.MY_GITHUB_TOKEN }}"
+          PLAUSIBLE_TOKEN: "${{ secrets.PLAUSIBLE_TOKEN }}"
