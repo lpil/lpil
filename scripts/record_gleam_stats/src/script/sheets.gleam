@@ -12,7 +12,7 @@ import script/error.{Error}
 // https://docs.google.com/spreadsheets/d/1OLaTgpN9MXTVNZ--6s6AjE5aCjfpm2lAuy6FUmPuGRI/edit#gid=0
 const sheet_id = "1OLaTgpN9MXTVNZ--6s6AjE5aCjfpm2lAuy6FUmPuGRI"
 
-const sheet_name = "monthly-sponsorship"
+const sheet_name = "data"
 
 pub fn get_access_token(config: Config) -> Result(String, Error) {
   let formdata =
