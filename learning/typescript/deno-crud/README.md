@@ -71,4 +71,9 @@ TODO
 
 ### Environment variables
 
-TODO
+The application is configured using environment variables, and in development
+these will be loaded from `./secrets.jsonc`. The `./secrets-example.jsonc` can
+be used as a base when creating this file.
+
+- `APPLICTION_KEY`: A secret used to sign sessions.
+
