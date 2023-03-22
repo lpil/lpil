@@ -1,4 +1,5 @@
 import { parse as parseJsonc } from "std/jsonc/mod.ts";
+import { catching } from "/src/library/result.ts";
 
 // Load development secrets from `./secrets.jsonc` into the application
 // environment.
@@ -9,22 +10,13 @@ import { parse as parseJsonc } from "std/jsonc/mod.ts";
 // Return an error if could not succeed for any reason.
 //
 export function loadDevelopmentConfiguration(): void | Error {
-  let json = "";
-
-  try {
-    json = Deno.readTextFileSync("./secrets.jsonc");
-  } catch (_error) {
+  const json = catching(() => Deno.readTextFileSync("./secrets.jsonc"));
+  if (json instanceof Error)
     return new Error("./secrets.jsonc could not be read.");
-  }
 
-  let input;
-  try {
-    input = parseJsonc(json);
-  } catch (error) {
-    return new Error(
-      `Error: ./secrets.jsonc could not be parsed.\n${error.message}`
-    );
-  }
+  const input = parseJsonc(json);
+  if (input instanceof Error)
+    return new Error(`secrets.jsonc could not be parsed.\n${input.message}`);
 
   if (typeof input !== "object" || input === null)
     return new Error("secrets.jsonc must be an object");

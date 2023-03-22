@@ -12,8 +12,12 @@
     "https://deno.land/std@0.180.0/async/pool.ts": "fd082bd4aaf26445909889435a5c74334c017847842ec035739b4ae637ae8260",
     "https://deno.land/std@0.180.0/async/retry.ts": "5efa3ba450ac0c07a40a82e2df296287b5013755d232049efd7ea2244f15b20f",
     "https://deno.land/std@0.180.0/async/tee.ts": "47e42d35f622650b02234d43803d0383a89eb4387e1b83b5a40106d18ae36757",
+    "https://deno.land/std@0.180.0/fmt/colors.ts": "938c5d44d889fb82eff6c358bea8baa7e85950a16c9f6dae3ec3a7a729164471",
     "https://deno.land/std@0.180.0/http/server.ts": "cbb17b594651215ba95c01a395700684e569c165a567e4e04bba327f41197433",
     "https://deno.land/std@0.180.0/jsonc/mod.ts": "b545ae643c49ec3eb7ea64c3eb4e8594b9ac55cd32edeef7459efe3343353420",
-    "https://deno.land/std@0.180.0/jsonc/parse.ts": "06567e9739aecc19eca62a48f58ce29c0f7958044b5fcccf772aca262e33b564"
+    "https://deno.land/std@0.180.0/jsonc/parse.ts": "06567e9739aecc19eca62a48f58ce29c0f7958044b5fcccf772aca262e33b564",
+    "https://deno.land/std@0.180.0/testing/_diff.ts": "1a3c044aedf77647d6cac86b798c6417603361b66b54c53331b312caeb447aea",
+    "https://deno.land/std@0.180.0/testing/_format.ts": "a69126e8a469009adf4cf2a50af889aca364c349797e63174884a52ff75cf4c7",
+    "https://deno.land/std@0.180.0/testing/asserts.ts": "984ab0bfb3faeed92ffaa3a6b06536c66811185328c5dd146257c702c41b01ab"
   }
 }

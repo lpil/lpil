@@ -23,7 +23,7 @@ export async function handleRequest(request: Request): Promise<Response> {
     }
   }
 
-  return not_found(context);
+  return notFound(context);
 }
 
 function home(_context: Context): Response {
@@ -33,6 +33,6 @@ function greet(context: Context): Response {
   return new Response(`Hello, ${context.params.name}!`, { status: 404 });
 }
 
-export function not_found(_context: Context): Response {
+export function notFound(_context: Context): Response {
   return new Response("There's nothing here...", { status: 404 });
 }
