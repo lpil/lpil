@@ -1,13 +1,14 @@
-/// <reference no-default-lib="true" />
-/// <reference lib="dom" />
-/// <reference lib="dom.iterable" />
-/// <reference lib="dom.asynciterable" />
-/// <reference lib="deno.ns" />
+import { serve } from "std/http/server.ts";
 
-import { start } from "$fresh/server.ts";
-import manifest from "./fresh.gen.ts";
+const port = 8000;
 
-import twindPlugin from "$fresh/plugins/twind.ts";
-import twindConfig from "./twind.config.ts";
+const handler = (request: Request): Response => {
+  const body = `Your user-agent is:\n\n${
+    request.headers.get("user-agent") ?? "Unknown"
+  }`;
 
-await start(manifest, { plugins: [twindPlugin(twindConfig)] });
+  return new Response(body, { status: 200 });
+};
+
+console.log(`HTTP webserver running. Access it at: http://localhost:8080/`);
+await serve(handler, { port });

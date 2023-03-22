@@ -8,7 +8,7 @@
 
 ### Quick reference
 
-```
+```sh
 deno task start
 ```
 
@@ -61,7 +61,9 @@ The best dependency is no dependency. Consider inlining code instead.
 
 ### Development setup
 
-TODO
+You will need the following installed:
+
+- [Deno](https://deno.land/)
 
 
 ### Deployment
