@@ -6,14 +6,21 @@ const routes: Array<[URLPattern, Handler]> = Object.entries({
 export type Context = {
   request: Request;
   params: Params;
+  effects: Effects;
 };
 
 export type Params = { [key: string]: string };
 
+// export type Capabilities = {};
+export type Effects = Record<string, never>;
+
 export type Handler = (context: Context) => Promise<Response> | Response;
 
-export async function handleRequest(request: Request): Promise<Response> {
-  const context = { request, params: {} };
+export async function handleRequest(
+  request: Request,
+  effects: Effects
+): Promise<Response> {
+  const context: Context = { request, effects, params: {} };
 
   for (const [urlPattern, handler] of routes) {
     const params = urlPattern.exec(request.url)?.pathname.groups;

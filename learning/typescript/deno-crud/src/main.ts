@@ -1,5 +1,5 @@
 import { serve } from "std/http/server.ts";
-import { handleRequest } from "/src/web.ts";
+import { handleRequest } from "src/web.ts";
 
 export async function main() {
   console.log(`HTTP webserver running on http://localhost:${port}/`);

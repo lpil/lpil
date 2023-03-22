@@ -1,7 +1,7 @@
 # Deno CRUD
 
 - [Quick reference](#quick-reference)
-- [Code conventions](#code-conventions)
+- [Code principles](#code-principles)
 - [Development setup](#development-setup)
 - [Deployment](#deployment)
 - [Environment variables](#environment-variables)
@@ -13,7 +13,7 @@ deno task start
 ```
 
 
-### Code conventions
+### Code principles
 
 #### Use types and tests to verify correctness.
 

@@ -1,5 +1,5 @@
 import { parse as parseJsonc } from "std/jsonc/mod.ts";
-import { catching } from "/src/library/result.ts";
+import { catching } from "lib/result.ts";
 
 // Load development secrets from `./secrets.jsonc` into the application
 // environment.
