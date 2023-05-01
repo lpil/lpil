@@ -6,7 +6,7 @@ import gleam/list
 import gleam/http
 import gleam/http/request
 import gleam/int
-import html_parser.{Characters, EndElement, StartElement}
+import htmgrrrl.{Characters, EndElement, StartElement}
 
 pub type Information {
   Information(
@@ -41,7 +41,7 @@ type ParseState {
 
 pub fn parse_track_page(html: String) -> Result(Information, Error) {
   use state <- result.then(
-    html_parser.sax(html, Outside([]), handle_event)
+    htmgrrrl.sax(html, Outside([]), handle_event)
     |> result.replace_error(error.UnexpectedHtml),
   )
 
@@ -65,7 +65,7 @@ pub fn parse_track_page(html: String) -> Result(Information, Error) {
 fn handle_event(
   state: ParseState,
   _line: Int,
-  event: html_parser.SaxEvent,
+  event: htmgrrrl.SaxEvent,
 ) -> ParseState {
   case state, event {
     Outside(previous), StartElement(attributes: attributes, ..) ->
@@ -90,9 +90,9 @@ fn handle_event(
   }
 }
 
-fn has_class(attributes: List(html_parser.Attribute), class: String) -> Bool {
+fn has_class(attributes: List(htmgrrrl.Attribute), class: String) -> Bool {
   case attributes {
-    [html_parser.Attribute(name: "class", value: value, ..), ..] if value == class ->
+    [htmgrrrl.Attribute(name: "class", value: value, ..), ..] if value == class ->
       True
     [_, ..rest] -> has_class(rest, class)
     [] -> False
