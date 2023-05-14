@@ -22,6 +22,13 @@ pub type Direction {
   Out
 }
 
+pub fn direction_to_string(direction: Direction) -> String {
+  case direction {
+    In -> "IN"
+    Out -> "OUT"
+  }
+}
+
 pub type CurrencyAndAmount {
   CurrencyAndAmount(
     /// The currency of the amount. e.g. GBP.

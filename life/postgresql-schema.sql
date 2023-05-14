@@ -5,6 +5,7 @@ begin
 end 
 $$ language plpgsql;
 
+
 do $$ begin
 if not type_exists('starling_transaction_direction')
 then
@@ -28,9 +29,14 @@ then
 end if;
 end $$;
 
+create or replace function timestampz_from_iso8601(input text)
+returns timestamp with time zone as $$
+begin
+  return to_timestamp(input,'YYYY-MM-DDThh24:mi:ss.ms')::timestamp without time zone at time zone 'Etc/UTC';
+end $$ language plpgsql;
+
 create table if not exists starling_transactions (
   uid text primary key,
-  amount_currency text not null,
   amount_minor_units integer not null,
   source_amount_currency text not null,
   source_amount_minor_units integer not null,
@@ -42,11 +48,28 @@ create table if not exists starling_transactions (
   counter_party_type text,
   counter_party_uid text,
   counter_party_name text not null,
-  total_fees integer,
-  total_fee_amount_currency text,
-  total_fee_amount_minor_units integer,
   reference text,
   country text not null,
   spending_category text not null,
   user_note text
 );
+
+drop view if exists simple_starling_transactions;
+create view simple_starling_transactions as
+select
+  uid
+, case
+    when direction = 'IN' then amount_minor_units
+    else -amount_minor_units
+  end as amount
+, transaction_time as time
+, source
+, counter_party_name as counter_party
+, reference
+, spending_category
+, user_note
+from
+  starling_transactions
+where
+  status = 'SETTLED'
+

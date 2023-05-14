@@ -1,14 +1,27 @@
 import life/config
+import life/generated/sql
 import sturnidae
 import gleam/io
 import gleam/int
 import gleam/list
-import gleam/option
 import gleam/string
 import gleam/hackney
+import gleam/option.{Some}
+import gleam/pgo
 
 pub fn main() {
   let config = config.load_from_environment()
+  let db =
+    pgo.connect(
+      pgo.Config(
+        ..pgo.default_config(),
+        host: "localhost",
+        database: "lpil_life",
+        user: "postgres",
+        password: Some("postgres"),
+        pool_size: 2,
+      ),
+    )
 
   let assert Ok(response) =
     sturnidae.get_feed_items_request(
@@ -20,8 +33,33 @@ pub fn main() {
     |> hackney.send
   let assert Ok(items) = sturnidae.get_feed_items_response(response)
 
-  list.each(items, print_item)
+  // list.each(items, print_item)
+  list.each(items, insert_item(_, db))
   io.println("\n" <> int.to_string(list.length(items)) <> " items")
+}
+
+fn insert_item(item: sturnidae.FeedItem, db: pgo.Connection) {
+  let arguments = [
+    pgo.text(item.feed_item_uid),
+    pgo.int(item.amount.minor_units),
+    pgo.text(item.source_amount.currency),
+    pgo.int(item.source_amount.minor_units),
+    pgo.text(item.updated_at),
+    pgo.text(sturnidae.direction_to_string(item.direction)),
+    pgo.text(item.transaction_time),
+    pgo.text(item.source),
+    pgo.text(sturnidae.transaction_status_to_string(item.status)),
+    pgo.nullable(pgo.text, item.counter_party_type),
+    pgo.nullable(pgo.text, item.counter_party_uid),
+    pgo.text(item.counter_party_name),
+    pgo.nullable(pgo.text, item.reference),
+    pgo.text(item.country),
+    pgo.text(item.spending_category),
+    pgo.nullable(pgo.text, item.user_note),
+  ]
+
+  let assert Ok(_) = sql.upsert_starling_transaction(db, arguments, Ok)
+  Nil
 }
 
 fn print_item(item: sturnidae.FeedItem) {

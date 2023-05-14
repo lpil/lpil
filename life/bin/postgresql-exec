@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# This script runs a given SQL file against the `lpil-life` database.
+# This script runs a given SQL file against the `lpil_life` database.
 #
 #     bin/postresql-exec path/to/file.sql
 #
@@ -12,7 +12,7 @@
 set -eu
 
 file="$1"
-export PGDATABASE=lpil-life
+export PGDATABASE=lpil_life
 
 # The default psql config and any user-specified config is not ideal for running
 # SQL files, so we specify suitable settings here.
