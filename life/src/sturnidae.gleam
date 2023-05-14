@@ -1,6 +1,10 @@
 import gleam/http/request.{Request}
 import gleam/http/response.{Response}
 import gleam/option.{Option}
+import gleam/result.{try}
+import gleam/json
+import gleam/dynamic.{Dynamic} as dyn
+import gleam/io
 
 pub const v2 = "https://api.starlingbank.com/api/v2"
 
@@ -8,7 +12,7 @@ pub type StarlingApiResult(t) =
   Result(t, StarlingApiError)
 
 pub type StarlingApiError {
-  StarlingClientError(status_code: Int, errors: List(String))
+  StarlingClientError(status_code: Int, messages: List(String))
   StarlingServerError(status_code: Int, message: String)
 }
 
@@ -88,15 +92,15 @@ pub type FeedItem {
     /// The status of a transaction.
     status: TransactionStatus,
     /// The type of counter party for a transaction. e.g. MERCHANT
-    counter_party_type: String,
+    counter_party_type: Option(String),
     /// The unique identifier for the counter party. e.g. for MERCHANT this will
     /// be the merchant uid, for PAYEE this will be the payee uid.
-    counter_party_uid: String,
+    counter_party_uid: Option(String),
     /// The name of the counter party
     counter_party_name: String,
     total_fees: Option(Int),
     total_fee_amount: Option(CurrencyAndAmount),
-    reference: String,
+    reference: Option(String),
     /// The country in which the transaction took place. ISO 3166-1 alpha-2
     /// country code.
     country: String,
@@ -105,6 +109,101 @@ pub type FeedItem {
     /// The user-provided transaction note
     user_note: Option(String),
   )
+}
+
+fn decode_currency_and_amount(
+  d: dyn.Dynamic,
+) -> Result(CurrencyAndAmount, dyn.DecodeErrors) {
+  use currency <- try(dyn.field("currency", dyn.string)(d))
+  use minor_units <- try(dyn.field("minorUnits", dyn.int)(d))
+  Ok(CurrencyAndAmount(currency, minor_units))
+}
+
+fn decode_direction(d: dyn.Dynamic) -> Result(Direction, dyn.DecodeErrors) {
+  use direction <- try(dyn.string(d))
+  case direction {
+    "IN" -> Ok(In)
+    "OUT" -> Ok(Out)
+    _ ->
+      Error([dyn.DecodeError(expected: "Direction", found: "String", path: [])])
+  }
+}
+
+fn decode_transaction_status(
+  d: dyn.Dynamic,
+) -> Result(TransactionStatus, dyn.DecodeErrors) {
+  use status <- try(dyn.string(d))
+  case status {
+    "UPCOMING" -> Ok(Upcoming)
+    "PENDING" -> Ok(Pending)
+    "REVERSED" -> Ok(Reversed)
+    "SETTLED" -> Ok(Settled)
+    "DECLINED" -> Ok(Declined)
+    "REFUNDED" -> Ok(Refunded)
+    "RETRYING" -> Ok(Retrying)
+    "ACCOUNT_CHECK" -> Ok(AccountCheck)
+    _ ->
+      Error([
+        dyn.DecodeError(
+          expected: "TransactionStatus",
+          found: "String",
+          path: [],
+        ),
+      ])
+  }
+}
+
+pub fn decode_feed_item(d: dyn.Dynamic) -> Result(FeedItem, dyn.DecodeErrors) {
+  let string_field = fn(field) { dyn.field(field, dyn.string)(d) }
+
+  use feed_item_uid <- try(string_field("feedItemUid"))
+  use category_uid <- try(string_field("categoryUid"))
+  use amount <- try(dyn.field("amount", decode_currency_and_amount)(d))
+  use source_amount <- try(dyn.field("sourceAmount", decode_currency_and_amount)(
+    d,
+  ))
+  use updated_at <- try(string_field("updatedAt"))
+  use direction <- try(dyn.field("direction", decode_direction)(d))
+  use transaction_time <- try(string_field("transactionTime"))
+  use source <- try(string_field("source"))
+  use status <- try(dyn.field("status", decode_transaction_status)(d))
+  use counter_party_type <- try(dyn.optional_field(
+    "counterPartyType",
+    dyn.string,
+  )(d))
+  use counter_party_uid <- try(dyn.optional_field("counterPartyUid", dyn.string)(
+    d,
+  ))
+  use counter_party_name <- try(string_field("counterPartyName"))
+  use total_fees <- try(dyn.optional_field("totalFees", dyn.int)(d))
+  use total_fee_amount <- try(dyn.optional_field(
+    "totalFeeAmount",
+    decode_currency_and_amount,
+  )(d))
+  use reference <- try(dyn.optional_field("reference", dyn.string)(d))
+  use country <- try(string_field("country"))
+  use spending_category <- try(string_field("spendingCategory"))
+  use user_note <- try(dyn.optional_field("userNote", dyn.string)(d))
+  Ok(FeedItem(
+    feed_item_uid,
+    category_uid,
+    amount,
+    source_amount,
+    updated_at,
+    direction,
+    transaction_time,
+    source,
+    status,
+    counter_party_type,
+    counter_party_uid,
+    counter_party_name,
+    total_fees,
+    total_fee_amount,
+    reference,
+    country,
+    spending_category,
+    user_note,
+  ))
 }
 
 /// Create a request for the
@@ -139,5 +238,43 @@ pub fn get_feed_items_request(
 pub fn get_feed_items_response(
   response: Response(String),
 ) -> StarlingApiResult(List(FeedItem)) {
-  todo
+  use _ <- try(check_status(response))
+  let decoder = dyn.field("feedItems", dyn.list(decode_feed_item))
+  decode_json_body(response, decoder)
+}
+
+fn check_status(response: Response(String)) -> StarlingApiResult(Nil) {
+  let status = response.status
+  case Nil {
+    _ if status >= 200 && status < 300 -> {
+      Ok(Nil)
+    }
+
+    _ if status >= 400 && status < 500 -> {
+      // Client Error
+      // TODO: decode error messages
+      let messages = []
+      Error(StarlingClientError(status_code: status, messages: messages))
+    }
+
+    _ -> {
+      // Server error
+      Error(StarlingServerError(status_code: status, message: response.body))
+    }
+  }
+}
+
+fn decode_json_body(
+  response: Response(String),
+  decoder: dyn.Decoder(t),
+) -> StarlingApiResult(t) {
+  case json.decode(response.body, decoder) {
+    Ok(json) -> Ok(json)
+    Error(_) -> {
+      Error(StarlingServerError(
+        status_code: response.status,
+        message: "Invalid JSON returned by server",
+      ))
+    }
+  }
 }
