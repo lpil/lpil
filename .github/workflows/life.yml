@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - '.github/workflows/life.yml'
-      - 'life/**'
+      - 'life/**/*'
     branches:
       - master
       - main
