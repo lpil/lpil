@@ -3,8 +3,7 @@ import gleam/http/response.{Response}
 import gleam/option.{Option}
 import gleam/result.{try}
 import gleam/json
-import gleam/dynamic.{Dynamic} as dyn
-import gleam/io
+import gleam/dynamic as dyn
 
 pub const v2 = "https://api.starlingbank.com/api/v2"
 

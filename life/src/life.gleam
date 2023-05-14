@@ -15,14 +15,17 @@ pub fn main() {
       config.starling_pat,
       config.starling_account_uid,
       config.starling_category_uid,
-      "2023-04-01T12:34:56.000Z",
+      "2015-01-01T01:01:00.000Z",
     )
     |> hackney.send
   let assert Ok(items) = sturnidae.get_feed_items_response(response)
 
-  use item <- list.each(items)
-  let money = format_money(item.amount.minor_units)
+  list.each(items, print_item)
+  io.println("\n" <> int.to_string(list.length(items)) <> " items")
+}
 
+fn print_item(item: sturnidae.FeedItem) {
+  let money = format_money(item.amount.minor_units)
   let line = string.slice(item.transaction_time, 0, 19) <> " "
   let line = line <> string.pad_left(money, 10, " ")
   let line =
