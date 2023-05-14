@@ -1,9 +1,10 @@
-name: test
+name: life-test
 
 on:
   push:
     paths:
-      - 'life'
+      - '.github/workflows/life.yml'
+      - 'life/**'
     branches:
       - master
       - main
