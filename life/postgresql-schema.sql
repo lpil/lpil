@@ -83,17 +83,17 @@ create table if not exists starling_transactions (
 drop view if exists simple_starling_transactions;
 create view simple_starling_transactions as
 select
-  uid
-, case
+  uid,
+  case
     when direction = 'IN' then amount_minor_units
     else -amount_minor_units
-  end as amount
-, transaction_time as time
-, source
-, counter_party_name as counter_party
-, reference
-, spending_category
-, user_note
+  end as amount,
+  transaction_time as time,
+  source,
+  counter_party_name as counter_party,
+  reference,
+  spending_category,
+  user_note
 from
   starling_transactions
 where
