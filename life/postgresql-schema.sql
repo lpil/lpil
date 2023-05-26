@@ -6,7 +6,7 @@ end
 $$ language plpgsql;
 
 do $$ begin
-if not type_exists('gleam_stat_type')
+if not type_exists('gleam_sample_kind')
 then
   create type gleam_sample_kind as enum (
     'sponsorship_per_month',
