@@ -5,6 +5,32 @@ begin
 end 
 $$ language plpgsql;
 
+do $$ begin
+if not type_exists('gleam_stat_type')
+then
+  create type gleam_sample_kind as enum (
+    'sponsorship_per_month',
+    'sponsor_count',
+    'compiler_github_stars',
+    'discord_size',
+    'stdlib_downloads_all',
+    'stdlib_downloads_recent',
+    'website_visitors_30d',
+    'website_views_30d',
+    'exercism_students',
+    'exercism_runs',
+    'exercism_descussions'
+  );
+end if;
+end $$;
+
+-- Time series data relating to Gleam
+create table if not exists gleam_samples (
+  kind gleam_sample_kind not null,
+  value double precision not null,
+  time timestamp with time zone not null,
+  primary key (time, kind)
+);
 
 do $$ begin
 if not type_exists('starling_transaction_direction')
@@ -72,4 +98,3 @@ from
   starling_transactions
 where
   status = 'SETTLED'
-
