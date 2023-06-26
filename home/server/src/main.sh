@@ -10,10 +10,18 @@ TAILSCALE_INSTALLED=0
 SYNCTHING_INSTALLED=0
 
 # Install cron jobs
+# TODO: convert to systemd timers
 sudo cp "$PROJECT"/cron/* /etc/cron.d/
 
 # Configuring default applications
 sudo update-alternatives --install /usr/bin/editor editor /usr/bin/vi 100
+
+# Update apt cache if it's older than 1 day
+if [ "$(find /var/lib/apt/periodic/update-stamp -mtime +1)" ]
+then
+  echo "Updating apt cache"
+  sudo apt-get update
+fi
 
 # Disable ssh password login
 if ! grep -q "PasswordAuthentication no" /etc/ssh/sshd_config
@@ -34,6 +42,22 @@ APT::Periodic::Update-Package-Lists "1";
 APT::Periodic::Unattended-Upgrade "1";
 EOF
 fi
+
+# Install nfs server
+if ! dpkg -s nfs-kernel-server > /dev/null
+then
+  echo "Installing nfs server"
+  sudo apt-get install --yes nfs-kernel-server
+  sudo systemctl start nfs-kernel-server.service
+  echo "Rebooting server to enable nfs server"
+  echo "Run this script again after rebooting"
+  sudo reboot
+fi
+# Write the exports file
+echo "/home/louis/media *(ro,all_squash,subtree_check,insecure)" | sudo tee /etc/exports > /dev/null
+sudo chmod 644 /etc/exports
+sudo exportfs -a
+sudo systemctl reload nfs-kernel-server.service
 
 # Install tailscale
 if ! command -v tailscale > /dev/null
