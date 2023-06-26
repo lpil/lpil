@@ -8,7 +8,6 @@ set -eu
 PROJECT="$HOME/install"
 TAILSCALE_INSTALLED=0
 SYNCTHING_INSTALLED=0
-PLEX_INSTALLED=0
 
 # Install cron jobs
 sudo cp "$PROJECT"/cron/* /etc/cron.d/
@@ -62,16 +61,6 @@ then
   sudo systemctl start syncthing@louis.service
 fi
 
-# Install plex server
-if ! systemctl is-active --quiet plexmediaserver.service
-then
-  echo deb https://downloads.plex.tv/repo/deb public main | sudo tee /etc/apt/sources.list.d/plexmediaserver.list > /dev/null
-  curl https://downloads.plex.tv/plex-keys/PlexSign.key | sudo apt-key add -
-  sudo apt-get update
-  sudo apt-get install plexmediaserver --yes
-  PLEX_INSTALLED=1
-fi
-
 echo "Up to date ✨"
 
 # Print final messages
@@ -91,15 +80,5 @@ cat << EOF
 
 Tailscale installed, configure its key not to expire
 https://login.tailscale.com/admin/machines
-EOF
-fi
-
-
-if [ "$PLEX_INSTALLED" = 1 ]
-then
-cat << EOF
-
-Plex installed, configure it via the web interface.
-      $(hostname):32400/web
 EOF
 fi
