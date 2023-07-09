@@ -404,3 +404,9 @@
     tags:
     - climate-crisis
     - energy
+  - title: "Ansible for DevOps"
+    subtitle: "Server and configuration management for humans"
+    authors:
+    - "Jeff Geerling"
+    tags:
+    - programming
