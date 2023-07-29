@@ -14,11 +14,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3.3.0
-      - uses: erlef/setup-beam@v1.15.2
+      - uses: erlef/setup-beam@v1.16.0
         with:
           otp-version: "25.2"
           rebar3-version: "3"
-          gleam-version: "0.27.0-rc1"
+          gleam-version: "0.27.0"
       - run: gleam run
         working-directory: scripts/record_gleam_stats
         env:
