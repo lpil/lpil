@@ -25,11 +25,7 @@ set --export GOBIN $HOME/.local/bin
 set --export PYTHONPATH "/usr/bin/env python"
 
 # asdf version manager
-if test -e $HOME/.asdf/asdf.fish
-    source $HOME/.asdf/asdf.fish
-else
-    echo $HOME/.asdf/asdf.fish not present
-end
+source $HOME/.asdf/asdf.fish
 
 # Brew, rubbish package manager
 if test -e /opt/homebrew
