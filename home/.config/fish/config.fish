@@ -10,9 +10,6 @@ set --export PGHOST localhost
 set --export PGUSER postgres
 set --export PGPASSWORD postgres
 
-# MySQL config
-set --export MYSQL_HOST 127.0.0.1
-
 # Erlang config
 set --export ERL_AFLAGS "-kernel shell_history enabled"
 
@@ -26,13 +23,6 @@ set --export GOBIN $HOME/.local/bin
 
 # Python
 set --export PYTHONPATH "/usr/bin/env python"
-
-# Autojump
-if test -e /usr/local/share/autojump/autojump.fish
-    source /usr/local/share/autojump/autojump.fish
-else if test -e /usr/share/autojump/autojump.fish
-    source /usr/share/autojump/autojump.fish
-end
 
 # asdf version manager
 if test -e $HOME/.asdf/asdf.fish
@@ -105,24 +95,10 @@ function fish_prompt -d "Write out the prompt"
     end
 end
 
-# The next line updates PATH for the Google Cloud SDK.
-set GOOGLE_SDK_PATH /home/louis/bin/google-cloud-sdk
-if [ -f "$GOOGLE_SDK_PATH/path.fish.inc" ]
-    source "$GOOGLE_SDK_PATH/path.fish.inc"
-end
-
 # https://github.com/rust-lang-nursery/rustfmt/issues/1687
 if type -q rustc
     set --export LD_LIBRARY_PATH $LD_LIBRARY_PATH:(rustc --print sysroot)/lib
 end
-
-# libvips
-set --export VIPSHOME /usr/local
-set --export LD_LIBRARY_PATH $LD_LIBRARY_PATH:$VIPSHOME/lib
-
-# FZF
-# Use fd to list files for fzf as it respects gitignore
-set --export FZF_DEFAULT_COMMAND fd
 
 function dotenv --description 'Load environment variables from .env file'
     set -l envfile ".env"
