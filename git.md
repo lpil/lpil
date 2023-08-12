@@ -14,3 +14,11 @@ git subtree add \
 ```shell
 git push --delete origin $TAG_NAME
 ```
+
+## Extract directory from repo keeping history
+
+This delete all the other directories, so do it in a fresh copy of the repo.
+
+```shell
+git filter-branch --prune-empty --subdirectory-filter $FOLDER_NAME $BRANCH_NAME
+```
