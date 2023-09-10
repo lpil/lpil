@@ -108,3 +108,6 @@ function dotenv --description 'Load environment variables from .env file'
         end
     end
 end
+
+# mpd
+set --export MPD_HOST "$HOME/.mpd/socket"
