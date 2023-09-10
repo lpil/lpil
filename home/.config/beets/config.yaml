@@ -1,6 +1,6 @@
 directory: ~/Desktop/beets-music/
 
-plugins: mbsync fish fuzzy play fetchart
+plugins: mbsync fish fuzzy play fetchart embedart
 
 import:
   timid: true
@@ -14,3 +14,6 @@ paths:
   comp: Compilations/$album%aunique{}/$track $artist - $title
 
 sort_item: albumartist+ album+ disc+ track+
+
+play:
+  command: vlc
