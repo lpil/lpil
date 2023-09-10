@@ -1,6 +1,6 @@
 directory: ~/Desktop/beets-music/
 
-plugins: mbsync fish fuzzy play
+plugins: mbsync fish fuzzy play fetchart
 
 import:
   timid: true
