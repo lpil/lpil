@@ -7,6 +7,8 @@ import:
   copy: true
   bell: true
   genres: true
+  incremental: true
+  incremental_skip_later: true
 
 paths:
   default: $albumartist/$album%aunique{}/$track $artist - $title
