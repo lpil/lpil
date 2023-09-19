@@ -3,7 +3,6 @@ import gleam/string
 import gleam/result
 import gleam/hackney
 import gleam/list
-import gleam/http
 import gleam/http/request
 import gleam/int
 import htmgrrrl.{Characters, EndElement, StartElement}
@@ -17,11 +16,7 @@ pub type Information {
 }
 
 pub fn get_track_information() -> Result(Information, Error) {
-  let request =
-    request.new()
-    |> request.set_method(http.Get)
-    |> request.set_host("exercism.org")
-    |> request.set_path("/tracks/gleam/build")
+  let assert Ok(request) = request.to("https://exercism.org/tracks/gleam/build")
 
   use response <- result.then(
     hackney.send(request)

@@ -4,7 +4,6 @@ import gleam/json as j
 import gleam/result
 import gleam/dynamic as dy
 import gleam/hackney
-import gleam/http
 import gleam/http/request
 
 pub type Information {
@@ -12,13 +11,13 @@ pub type Information {
 }
 
 pub fn get_stats(config: Config) -> Result(Information, Error) {
-  let request =
-    request.new()
-    |> request.set_method(http.Get)
-    |> request.set_host("plausible.io")
-    |> request.set_path(
-      "/api/v1/stats/aggregate?site_id=gleam.run&period=30d&metrics=visitors,pageviews",
+  let assert Ok(request) =
+    request.to(
+      "https://plausible.io/api/v1/stats/aggregate?site_id=gleam.run&period=30d&metrics=visitors,pageviews",
     )
+
+  let request =
+    request
     |> request.prepend_header(
       "authorization",
       "Bearer " <> config.plausible_token,

@@ -3,15 +3,11 @@ import gleam/json as j
 import gleam/result
 import gleam/dynamic as dy
 import gleam/hackney
-import gleam/http
 import gleam/http/request
 
 pub fn get_stdlib_counts() -> Result(#(Int, Int), Error) {
-  let request =
-    request.new()
-    |> request.set_method(http.Get)
-    |> request.set_host("hex.pm")
-    |> request.set_path("/api/packages/gleam_stdlib")
+  let assert Ok(request) =
+    request.to("https://hex.pm/api/packages/gleam_stdlib")
 
   let decoder =
     dy.field(

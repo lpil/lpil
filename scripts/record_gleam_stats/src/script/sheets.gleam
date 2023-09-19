@@ -135,5 +135,5 @@ fn cents_to_dollars(cents: Int) -> String {
   )
 }
 
-external fn timestamp() -> String =
-  "script_ffi" "timestamp"
+@external(erlang, "script_ffi", "timestamp")
+fn timestamp() -> String

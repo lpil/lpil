@@ -3,15 +3,11 @@ import gleam/json as j
 import gleam/result
 import gleam/dynamic
 import gleam/hackney
-import gleam/http
 import gleam/http/request
 
 pub fn get_approximate_discord_member_count() -> Result(Int, Error) {
-  let request =
-    request.new()
-    |> request.set_method(http.Get)
-    |> request.set_host("discord.com")
-    |> request.set_path("/api/v9/invites/Fm8Pwmy?with_counts=true")
+  let assert Ok(request) =
+    request.to("https://discord.com/api/v9/invites/Fm8Pwmy?with_counts=true")
 
   let decoder = dynamic.field("approximate_member_count", of: dynamic.int)
 
