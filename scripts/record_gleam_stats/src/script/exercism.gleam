@@ -17,6 +17,10 @@ pub type Information {
 
 pub fn get_track_information() -> Result(Information, Error) {
   let assert Ok(request) = request.to("https://exercism.org/tracks/gleam/build")
+  let request =
+    request
+    |> request.set_header("accept", "text/html")
+    |> request.set_header("user-agent", "curl/7.85.0")
 
   use response <- result.then(
     hackney.send(request)
