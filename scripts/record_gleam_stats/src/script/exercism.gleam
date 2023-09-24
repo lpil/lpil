@@ -1,11 +1,13 @@
-import script/error.{Error}
-import gleam/string
-import gleam/result
 import gleam/hackney
-import gleam/list
 import gleam/http/request
 import gleam/int
+import gleam/io
+import gleam/list
+import gleam/result
+import gleam/string
 import htmgrrrl.{Characters, EndElement, StartElement}
+import retry
+import script/error.{Error}
 
 pub type Information {
   Information(
@@ -22,11 +24,17 @@ pub fn get_track_information() -> Result(Information, Error) {
     |> request.set_header("accept", "text/html")
     |> request.set_header("user-agent", "curl/7.85.0")
 
-  use response <- result.then(
+  use response <- result.then({
+    use attempt <- retry.with_retries(backoff: 1000, attempts: 3)
+    case attempt {
+      0 -> Nil
+      _ -> io.println("  Retrying...")
+    }
+
     hackney.send(request)
     |> result.map_error(error.HttpError)
-    |> result.then(error.ensure_status(_, is: 200)),
-  )
+    |> result.then(error.ensure_status(_, is: 200))
+  })
 
   use info <- result.then(parse_track_page(response.body))
 
