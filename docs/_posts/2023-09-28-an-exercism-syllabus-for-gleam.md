@@ -89,6 +89,8 @@ And here are some comments from students on their mentoring sessions:
 
 > He pointed out where I could improve the solution with built-in functions that expressed the code's intent perfectly. This is helping me learn Gleam's toolkit.
 
+All the feedback has been very positive, and I'm very happy to see so many folks learning and joining the BEAM community.
+
 ## Thanks!
 
 I would like to thank the Erlang Ecosystem Foundation for supporting me in this work, the Exercism team for their guidance and help, and all [the contributors][contributors] who helped build the Gleam track. And extra special thank you goes to [Jeremie Gillet][jiegillet], [Erik Schierboom][ErikSchierboom], and [Giacomo Cavalieri][giacomocavalieri] for their outstanding contributions.
