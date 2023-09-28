@@ -73,6 +73,10 @@ As well as quantitative data I have asked students for feedback on the track, he
 
 > I'm working through [the syllabus] at the moment and I've personally found them incredibly helpful for helping me focus on solidifying my understanding of specific concepts. The use of multiple examples for each concept helps round out my understanding of how things work a lot better than just reading docs, and having guided exercises that are focused purely on learning a concept at a time helps me gain traction a lot better than coding blindly
 
+> Exercism's Gleam track helps make the language concepts stick, and therefore complements the official documentation really well. I love the fact that I can practice at my own pace and make a bit of progress every day. Even though I've barely scratched the surface of Gleam and the BEAM in general, I love where this is heading.
+
+> I've solved all of the concept exercises, and they were very enjoyable. I like that they're not too challenging, so I didn't get stuck on tiny details, but solving them still required me to know specific aspects of the language. I think the Gleam Exercism track will be crucial in the adoption of the language, and will bring more people with different programming backgrounds to the BEAM ecosystem
+
 And here are some comments from students on their mentoring sessions:
 
 > Thanks for being really friendly and helpful, and taking the time to write out some really great explanation.
