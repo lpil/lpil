@@ -187,6 +187,7 @@ p code {
     margin: 2rem auto;
     display: block;
     box-shadow: $shadow;
+    max-width: calc(100% - 14px);
   }
 
   p {
@@ -378,4 +379,26 @@ iframe {
   display: block;
   margin: 2rem auto;
   max-width: 95%;
+}
+
+blockquote {
+  border-left: 2px solid $pink;
+  padding: 0.01rem 1rem;
+  font-style: italic;
+}
+
+blockquote p {
+  margin: 0.5rem 0;
+}
+
+blockquote cite {
+  text-align: right;
+  font-style: normal;
+  opacity: 0.8;
+}
+
+blockquote cite:before {
+  content: "—";
+  margin-right: 0.2rem;
+  margin-left: 1rem;
 }
