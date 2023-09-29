@@ -6,29 +6,29 @@ tags:
   - Exercism
 ---
 
-For the last few months I've been working with the Erlang Ecosystem Foundation and the Exercism team to create a Gleam syllabus for the Exercism platform, and as of this morning the final lesson has been merged!
+For the last few months I've been working with the Erlang Ecosystem Foundation and the Exercism team to create a Gleam syllabus for the Exercism platform, and as of this morning the final lesson has gone live!
 
 ## What does that mean?
 
-Just to make sure we'll all on the same page: [Gleam][gleam] is a type safe functional programming language that runs on the Erlang virtual machine alongside languages like Erlang, Elixir, and LFE. It was created by me, Louis Pilfold, and is now maintained by the Gleam core team.
+Just to make sure we'll all on the same page: [Gleam][gleam] is a type safe functional programming language that runs on the Erlang virtual machine alongside languages like Erlang, Elixir, and LFE. It was created by me, Louis Pilfold, and is also maintained by the Gleam core team.
 
 [The Erlang Ecosystem Foundation][eef] is a non-profit organisation that supports the BEAM ecosystem, including all languages and techonologies built upon the BEAM.
 
-[Exercism][exercism] is a delighful platform for learning and practicing programming languages, incorporating lessons, automated challenges, and the option of feedback from mentors who know the language well. It has tracks for 67 languages, including 4 BEAM languages: Erlang, Elixir, LFE, and Gleam. Notably Exercism is entirely free to use!
+[Exercism][exercism] is a delighful platform for learning and practicing programming languages, incorporating lessons, automated challenges, and the option of feedback from mentors who know the language well. It has tracks for 67 languages, including 4 BEAM languages: Erlang, Elixir, LFE, and Gleam. Exercism is also entirely free to use!
 
-Tracks on Exercism comprise a series of Exercises students can use to practice a language, however some tracks also have a syllabus of lessons teach the language. Each language concept is carefully introduced and explained in an order that builds upon previous lessons, and each lesson has a set of exercises to practice the concept, taking the student from beginner to proficient and ready to solve real world problems.
+Tracks on Exercism comprise a series of exercises students can use to practice a language, however some tracks also have a syllabus of lessons teach the language. Each language concept is carefully introduced and explained in an order that builds upon previous lessons, and each lesson has a set of exercises to practice the concept, taking the student from beginner to proficient and ready to solve real world problems.
 
 [eef]: https://erlef.org/
 [exercism]: https://exercism.org/
 [gleam]: https://gleam.run/
 
-<img src="/img/blog/gleam-exercism-syllabus/tree.png" alt="TODO!!!">
+<img src="/img/blog/gleam-exercism-syllabus/tree.png" alt="The Gleam concepts page on the Exercism website. The title reads 'Your journey through Gleam', and below it has language concepts such as 'basics', 'bools', 'ints', 'modules', and 'anonymous functions' arranged into a tree, similar to a skill tree in a video game.">
 
 ## What did we build?
 
 Elixir's syllabus is largely regarded as the gold standard for Exercism tracks, and it is the yard-stick we used when building the Gleam syllabus. The goal was to create a syllabus that would be as good as Elixir's, and I think we've done it.
 
-Before we could start working on the educational content we had to create a [custom Gleam test runner][test-runner] which implemented version 2 of the Exercism test runner interface. The creation of this runner also produced a set of libraries or significant improvements to existing Gleam libraries, including:
+Before we could start working on the educational content we had to create a [custom Gleam test runner][test-runner] which implements version 2 of the Exercism test runner interface. The creation of this runner also produced a set of libraries and significant improvements to existing Gleam libraries, including:
 
 - [Glexer, a Gleam tokenizer](https://github.com/DanielleMaywood/glexer/)
 - [Glance, a Gleam parser](https://github.com/lpil/glance/)
@@ -36,7 +36,7 @@ Before we could start working on the educational content we had to create a [cus
 - [Simplifile, a file system library](https://github.com/bcpeinhardt/simplifile)
 - [gleam_erlang, bindings to standard Erlang APIs](https://github.com/gleam-lang/erlang)
 
-Work has also begun two other static anaylsis tools for Gleam, which will be later incorporated into Exercism to provide futher automated feedback. They would also make a strong foundation for a generic Gleam linter that can be used by software development teams using Gleam.
+Work has also begun two other static analysis tools for Gleam, which will be later incorporated into Exercism to provide further automated feedback. They would also make a strong foundation for a generic Gleam linter that can be used by software development teams using Gleam.
 
 [test-runner]: https://github.com/exercism/gleam-test-runner
 
@@ -57,13 +57,13 @@ I am rather fond of keeping some stats, so I wrote a small Gleam script that scr
 
 ### Number of students
 
-<img src="/img/blog/gleam-exercism-syllabus/students.svg" alt="TODO!!!">
+<img src="/img/blog/gleam-exercism-syllabus/students.svg" alt="A line chart. It rises steadily, the rate of change increasing when the first concepts were launched.">
 
 When the first concepts were launched the track had 474 students, and today there are 627 students. The rate at which students joined the course increased after the first concepts were launched in late July.
 
 ### Number of exercise submissions
 
-<img src="/img/blog/gleam-exercism-syllabus/submissions.svg" alt="TODO!!!">
+<img src="/img/blog/gleam-exercism-syllabus/submissions.svg" alt="A line chart. It rises steadily, the rate of change greatly increasing when the first concepts were launched.">
 
 The impact of the concepts exercise is much more striking when looking at the number of exercise submissions by Gleam students, the rate greatly increasing after the first concepts were launched. Students are much more engaged with the material than before, spending more time with the track. Since the first concepts were launched there have been 6,936 exercise submissions.
 
