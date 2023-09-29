@@ -81,9 +81,9 @@ And here are some comments from students on their mentoring sessions:
 
 > Thanks for being really friendly and helpful, and taking the time to write out some really great explanation.
 
-> Thanks gain Louis, Gleam has excellent documentation, an excellent exercism course and... a special mentor!
+> Thanks gain Louis, Gleam has excellent documentation, an excellent Exercism course and... a special mentor!
 
-> Thank you for taking time too help out. It was really helpfull and a good explenation as to why a particular opperator worked as it did.
+> Thank you for taking time too help out. It was really helpful and a good explanation as to why a particular operator worked as it did.
 
 > This was my first mentoring session on Exercism. It will have a special place in my heart having had the creator stopping by and leave a nice word! Thanks 💜
 
