@@ -1,4 +1,15 @@
-http://localhost:4400 {
-	respond "Hello, Joe!!!"
+{
+	order cgi before respond
 }
 
+# Accessible from anywhere
+http://*/hello/* {
+	cgi * /usr/lib/cgi-bin/hello {
+		script_name /hello
+	}
+}
+
+# Accessible from localhost only
+http://localhost {
+	respond "Hello, Joe!\n"
+}

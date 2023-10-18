@@ -14,6 +14,15 @@ SYNCTHING_INSTALLED=0
 # Install cron jobs
 # TODO: convert to systemd timers
 sudo cp "$PROJECT"/cron/* /etc/cron.d/
+sudo chown -R root:root /etc/cron.d
+sudo chmod -R 644 /etc/cron.d
+
+# Install cgi-bin scripts for use by Caddy
+sudo mkdir -p /usr/lib/cgi-bin
+sudo rm -r /usr/lib/cgi-bin/*
+sudo cp -r "$PROJECT"/cgi-bin/* /usr/lib/cgi-bin/
+sudo chown -R root:root /usr/lib/cgi-bin
+sudo chmod -R 755 /usr/lib/cgi-bin
 
 # Configuring default applications
 sudo update-alternatives --install /usr/bin/editor editor /usr/bin/vi 100

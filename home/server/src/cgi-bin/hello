@@ -1,0 +1,7 @@
+#!/bin/sh
+
+printf "Content-type: text/plain\n\n"
+
+env
+
+exit 0
