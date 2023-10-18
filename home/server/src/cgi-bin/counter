@@ -2,7 +2,7 @@
 #
 # This endpoint increments a counter for a given name.
 #
-# curl -X POST 'https://cubone.little-grue.ts.net/counter/name-of-event'
+# curl -X POST $DOMAIN/counter/$EVENT_NAME
 #
 
 set -eu
