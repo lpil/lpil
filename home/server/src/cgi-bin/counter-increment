@@ -21,7 +21,9 @@ urldecode() {
 if [ "$REQUEST_METHOD" != "POST" ]
 then
   printf "Status: 405 Method Not Allowed\n"
-  printf "Allow: POST\n\n"
+  printf "Allow: POST\n"
+  printf "Access-Control-Allow-Origin: *\n"
+  printf "\n"
   printf "Only POST requests are allowed\n"
   exit 0
 fi
@@ -31,7 +33,9 @@ NAME=$(echo "$PATH_INFO" | urldecode | sqlsanitise)
 # If name is not set then return 400
 if [ -z "$NAME" ]
 then
-  printf "Status: 400 Bad Request\n\n"
+  printf "Status: 400 Bad Request\n"
+  printf "Access-Control-Allow-Origin: *\n"
+  printf "\n"
   printf "Name missing. /counter/name-of-event\n"
   exit 0
 fi
@@ -62,5 +66,7 @@ do update set count = count + 1;
 SQL
 
 printf "Status: 200 Ok\n\n"
+printf "Access-Control-Allow-Origin: *\n"
+printf "\n"
 printf "Thanks 💖\n"
 exit 0
