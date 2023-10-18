@@ -1,0 +1,33 @@
+#!/bin/sh
+#
+# This endpoint shows all the counters.
+#
+
+set -eu
+datadir=/var/lib/lpil
+database="$datadir/counters.sqlite"
+
+printf "status: 200 Ok\n"
+printf "content-type: application/json\n"
+printf "\n"
+
+sqlite3 "$database" <<SQL
+.mode list
+
+select
+  json_group_object(name, json(counters)) as ''
+from (
+  select
+    name as name,
+    json_group_array(json_object('date', date, 'count', count)) as counters
+  from
+    counters
+  group by
+    name
+  order by
+    name asc,
+    date desc
+)
+SQL
+
+exit 0

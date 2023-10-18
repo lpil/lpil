@@ -39,17 +39,17 @@ fi
 # Create the SQLite3 database if it does not exist
 if [ ! -f "$database" ]
 then
-  mkdir -p "$datadir"
-  sqlite3 "$database" <<SQL
+  mkdir -p "$datadir" > /dev/null
+  sqlite3 "$database" <<SQL > /dev/null 
 pragma foreign_keys = on;
 pragma journal_mode = wal;
 
 create table counters (
-  name text primary key check (name <> ''),
+  name text check (name <> ''),
   date text not null check (date(date) is not null),
   count integer not null default 0 check (count >= 0),
-  unique (name, date)
-);"
+  primary key (name, date)
+);
 SQL
 fi
 

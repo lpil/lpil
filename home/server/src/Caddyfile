@@ -14,8 +14,15 @@ http://cubone, http://localhost, http://cubone.little-grue.ts.net {
 
 	# A hit counter!
 	handle /counter/* {
-		cgi * /usr/lib/cgi-bin/counter {
+		cgi * /usr/lib/cgi-bin/counter-increment {
 			script_name /counter/
+		}
+	}
+
+	# Read the counters
+	handle /counters {
+		cgi * /usr/lib/cgi-bin/counter-read {
+			script_name /counters
 		}
 	}
 
