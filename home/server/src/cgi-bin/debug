@@ -2,6 +2,11 @@
 
 printf "Content-type: text/plain\n\n"
 
+echo "Environment:"
 env
+
+echo
+echo "Body:"
+cat
 
 exit 0

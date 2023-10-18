@@ -1,0 +1,66 @@
+#!/bin/sh
+#
+# This endpoint increments a counter for a given name.
+#
+# curl -X POST 'https://cubone.little-grue.ts.net/counter?name-of-event'
+#
+
+set -eu
+datadir=/var/lib/lpil
+database="$datadir/counters.sqlite"
+
+sqlsanitise() {
+  sed -e 's/\\/\\\\/g' -e "s/'/''/g"
+}
+
+urldecode() {
+  sed "s@+@ @g;s@%@\\\\x@g" | xargs -0 printf "%b"
+}
+
+# If the method is not POST then return 405
+if [ "$REQUEST_METHOD" != "POST" ]
+then
+  printf "Status: 405 Method Not Allowed\n"
+  printf "Allow: POST\n\n"
+  printf "Only POST requests are allowed\n"
+  exit 0
+fi
+
+NAME=$(echo "$QUERY_STRING" | urldecode | sqlsanitise)
+
+# If name is not set then return 400
+if [ -z "$NAME" ]
+then
+  printf "Status: 400 Bad Request\n\n"
+  printf "Query string missing. It should be the name of the event to record\n"
+  exit 0
+fi
+
+# Create the SQLite3 database if it does not exist
+if [ ! -f "$database" ]
+then
+  mkdir -p "$datadir"
+  sqlite3 "$database" <<SQL
+pragma foreign_keys = on;
+pragma journal_mode = wal;
+
+create table counters (
+  name text primary key check (name <> ''),
+  date text not null check (date(date) is not null),
+  count integer not null default 0 check (count >= 0),
+  unique (name, date)
+);"
+SQL
+fi
+
+# Increment the counter in the database, or insert if it doesn't exist
+sqlite3 "$database" <<SQL
+insert into counters (name, date, count)
+values ('$NAME', date('now'), 1)
+on conflict (name, date)
+do update set count = count + 1;
+SQL
+
+printf "Status: 200 Ok\n\n"
+printf "Thanks 💖\n"
+exit 0

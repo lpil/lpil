@@ -78,6 +78,12 @@ then
   TAILSCALE_INSTALLED=1
 fi
 
+# Install sqlite3
+if ! command -v sqlite3 > /dev/null
+then
+  sudo apt-get install --yes sqlite3
+fi
+
 # Install Go, so that we can build Caddy with the third party CGI module
 #
 # NOTE: If you change the Go version:
@@ -128,6 +134,11 @@ then
   sudo groupadd --system caddy
 fi
 
+# Ensure web variable data directory exists
+sudo mkdir -p /var/lib/lpil
+sudo chown -R root:caddy /var/lib/lpil
+sudo chmod -R 775 /var/lib/lpil
+
 # Ensure Caddy user exists
 if ! getent passwd caddy > /dev/null
 then
@@ -161,6 +172,10 @@ then
   sudo chmod 644 /etc/caddy/Caddyfile
   sudo systemctl reload caddy.service
 fi
+
+# Expose Caddy web server to the internet using tailscale
+sudo tailscale serve https / http://localhost:80
+sudo tailscale funnel 443 on
 
 # Install syncthing
 if ! command -v syncthing > /dev/null
