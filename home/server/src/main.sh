@@ -3,6 +3,8 @@
 # You probably don't want to run this directly, instead use
 # `bin/remotely-update.sh`
 
+. "$HOME"/.profile
+
 set -eu
 
 PROJECT="$HOME/install"
@@ -65,6 +67,90 @@ then
   curl -fsSL https://tailscale.com/install.sh | sh
   sudo tailscale up
   TAILSCALE_INSTALLED=1
+fi
+
+# Install Go, so that we can build Caddy with the third party CGI module
+#
+# NOTE: If you change the Go version:
+# - Update the checksum (from https://go.dev/dl/)
+if ! command -v go > /dev/null
+then
+  version="1.21.3"
+  checksum="fc90fa48ae97ba6368eecb914343590bbb61b388089510d0c56c2dde52987ef3"
+  tarball="go$version.linux-arm64.tar.gz"
+  echo "Installing Go"
+  cd /tmp
+  rm -rf "$tarball"
+  wget --no-verbose "https://go.dev/dl/$tarball"
+  # Verify checksum
+  echo "$checksum $tarball" | sha256sum -c -
+  sudo rm -rf /usr/local/go
+  sudo tar -C /usr/local -xzf "$tarball"
+  rm -v "$tarball"
+  cd -
+fi
+
+# Add Go bin to path if it is not there
+if ! echo "$PATH" | grep -q "/usr/local/go/bin"
+then
+  echo "Adding Go bin to path"
+  echo "export PATH=$PATH:/usr/local/go/bin" >> ~/.profile
+  export PATH="$PATH:/usr/local/go/bin"
+fi
+
+# Install xcaddy, the tool for building Caddy with third party modules
+if ! command -v xcaddy > /dev/null
+then
+  echo "Installing xcaddy"
+  go install github.com/caddyserver/xcaddy/cmd/xcaddy@latest
+  sudo mv ~/go/bin/xcaddy /usr/local/bin
+fi
+
+# Install Caddy
+if ! command -v caddy > /dev/null
+then
+  xcaddy build --with github.com/aksdb/caddy-cgi/v2
+  sudo mv caddy /usr/local/bin/caddy
+fi
+
+# Ensure Caddy group exists
+if ! getent group caddy > /dev/null
+then
+  sudo groupadd --system caddy
+fi
+
+# Ensure Caddy user exists
+if ! getent passwd caddy > /dev/null
+then
+  sudo useradd --system \
+    --gid caddy \
+    --create-home \
+    --home-dir /var/lib/caddy \
+    --shell /usr/sbin/nologin \
+    --comment "Caddy web server" \
+    caddy
+fi
+
+# Ensure Caddy systemd service is up to date
+if ! cmp --silent "$PROJECT"/caddy.service /etc/systemd/system/caddy.service
+then
+  echo Updating Caddy systemd service
+  sudo mkdir -p /etc/caddy
+  sudo cp "$PROJECT"/caddy.service /etc/systemd/system/caddy.service
+  sudo systemctl daemon-reload
+  sudo systemctl enable caddy.service
+  sudo systemctl start caddy.service
+fi
+
+# Ensure Caddy configuration is up to date
+if ! cmp --silent "$PROJECT"/Caddyfile /etc/caddy/Caddyfile
+then
+  echo Updating Caddyfile
+  sudo mkdir -p /etc/caddy
+  sudo cp "$PROJECT"/Caddyfile /etc/caddy/Caddyfile
+  sudo chown root:caddy /etc/caddy/Caddyfile
+  sudo chmod 644 /etc/caddy/Caddyfile
+  sudo systemctl reload caddy.service
 fi
 
 # Install syncthing
