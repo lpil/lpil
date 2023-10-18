@@ -8,14 +8,14 @@ http://cubone, http://localhost, http://cubone.little-grue.ts.net {
 	# Print all information about the request
 	handle /debug/* {
 		cgi * /usr/lib/cgi-bin/debug {
-			script_name /debug
+			script_name /debug/
 		}
 	}
 
 	# A hit counter!
-	handle /counter {
+	handle /counter/* {
 		cgi * /usr/lib/cgi-bin/counter {
-			script_name /counter
+			script_name /counter/
 		}
 	}
 

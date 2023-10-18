@@ -2,7 +2,7 @@
 #
 # This endpoint increments a counter for a given name.
 #
-# curl -X POST 'https://cubone.little-grue.ts.net/counter?name-of-event'
+# curl -X POST 'https://cubone.little-grue.ts.net/counter/name-of-event'
 #
 
 set -eu
@@ -26,13 +26,13 @@ then
   exit 0
 fi
 
-NAME=$(echo "$QUERY_STRING" | urldecode | sqlsanitise)
+NAME=$(echo "$PATH_INFO" | urldecode | sqlsanitise)
 
 # If name is not set then return 400
 if [ -z "$NAME" ]
 then
   printf "Status: 400 Bad Request\n\n"
-  printf "Query string missing. It should be the name of the event to record\n"
+  printf "Name missing. /counter/name-of-event\n"
   exit 0
 fi
 
