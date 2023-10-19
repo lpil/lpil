@@ -20,7 +20,7 @@ while getopts n:a OPT; do
 done
 
 if [ "$append" -eq 0 ]; then
-  mpc clear
+  mpc clear --quiet
 fi
 
 mpc list album | shuf -n "$number" | while read -r album; do
