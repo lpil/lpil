@@ -1,4 +1,4 @@
-directory: ~/Desktop/beets-music/
+directory: ~/Sync/data/music
 
 plugins: mbsync fish fuzzy play fetchart embedart
 
