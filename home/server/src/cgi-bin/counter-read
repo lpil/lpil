@@ -11,6 +11,9 @@ printf "status: 200 Ok\n"
 printf "content-type: application/json\n"
 printf "\n"
 
+# Query the counters and build JSON in the hackiest way possible.
+# I need to figure out a better way to do this. Perhaps jq is the tool to use?
+
 printf "{"
 
 sqlite3 "$database" <<SQL | sed '$s/,$//'
