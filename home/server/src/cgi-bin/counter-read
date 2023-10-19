@@ -11,23 +11,24 @@ printf "status: 200 Ok\n"
 printf "content-type: application/json\n"
 printf "\n"
 
-sqlite3 "$database" <<SQL
+printf "{"
+
+sqlite3 "$database" <<SQL | sed '$s/,$//'
 .mode list
 
 select
-  json_group_object(name, json(counters)) as ''
+  '"' ||  name || '":' ||
+    json_group_array(json_object('date', date, 'count', count))
+  || ','
 from (
-  select
-    name as name,
-    json_group_array(json_object('date', date, 'count', count)) as counters
-  from
-    counters
-  group by
-    name
-  order by
-    name asc,
-    date desc
+  select name, date, count
+  from counters
+  order by name asc, date desc
 )
+group by
+  name
 SQL
+
+printf "}"
 
 exit 0

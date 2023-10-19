@@ -3,6 +3,12 @@
 	https_port 4443 # tailscale provides HTTPS on 443
 }
 
+(cors) {
+	header {
+		access-control-allow-origin {args[0]}
+	}
+}
+
 # Accessible from anywhere
 http://cubone, http://localhost, http://cubone.little-grue.ts.net {
 	# Print all information about the request
@@ -14,6 +20,7 @@ http://cubone, http://localhost, http://cubone.little-grue.ts.net {
 
 	# A hit counter!
 	handle /counter/* {
+		import cors *
 		cgi * /usr/lib/cgi-bin/counter-increment {
 			script_name /counter/
 		}
