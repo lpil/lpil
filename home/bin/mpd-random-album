@@ -1,0 +1,7 @@
+#!/bin/sh
+
+set -eu
+
+album=$(mpc list album | shuf -n 1)
+mpc clear
+mpc find album "$album" | mpc add
