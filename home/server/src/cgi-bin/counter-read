@@ -14,7 +14,7 @@ printf "\n"
 # Query the counters and build JSON in the hackiest way possible.
 # I need to figure out a better way to do this.
 
-printf "{"
+printf "{\n"
 
 sqlite3 "$database" <<SQL | sed '$s/,$//'
 .mode list
