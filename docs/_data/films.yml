@@ -36,3 +36,12 @@
     - Horror
     - Action
     - Comedy
+  - name: Scanners
+    director: David Cronenberg
+    released: 1981
+    language: English
+    country: Canada
+    tags:
+    - Horror
+    - Sci-Fi
+    - Thriller
