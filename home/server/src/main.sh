@@ -11,6 +11,8 @@ PROJECT="$HOME/install"
 TAILSCALE_INSTALLED=0
 SYNCTHING_INSTALLED=0
 
+. "$PROJECT"/secrets.env
+
 # Install cron jobs
 # TODO: convert to systemd timers
 sudo cp "$PROJECT"/cron/* /etc/cron.d/
@@ -176,6 +178,65 @@ fi
 # Expose Caddy web server to the internet using tailscale
 sudo tailscale serve https / http://localhost:80
 sudo tailscale funnel 443 on
+
+# Ensure Gatus group exists
+if ! getent group gatus > /dev/null
+then
+  sudo groupadd --system gatus
+fi
+
+# Ensure Gatus user exists
+if ! getent passwd gatus > /dev/null
+then
+  sudo useradd --system \
+    --gid gatus \
+    --create-home \
+    --home-dir /var/lib/gatus \
+    --shell /usr/sbin/nologin \
+    --comment "Gatus health monitor" \
+    gatus
+fi
+
+# Install gatus, a web service for monitoring other web services
+if ! command -v gatus > /dev/null
+then
+  echo "Installing gatus"
+  dir=$(mktemp -d)
+  cd "$dir"
+  git init
+  git remote add origin https://github.com/TwiN/gatus.git
+  git fetch origin 494a8594cc68ee2a479c8e6572ef8f7d8b79fb6a
+  git reset --hard FETCH_HEAD
+  go mod vendor
+  go build -mod vendor -o gatus .
+  cd -
+  rm -rf "$dir"
+fi
+
+# Ensure Gatus configuration is up to date
+
+export PUSHOVER_GATUS_APPLICATION_TOKEN
+export PUSHOVER_USER_KEY
+envsubst < "$PROJECT"/gatus.yml | sponge "$PROJECT"/gatus.yml
+if ! cmp --silent "$PROJECT"/gatus.yml /etc/gatus/config.yml
+then
+  echo Updating Gatus config
+  sudo mkdir -p /etc/gatus
+  sudo cp "$PROJECT"/gatus.yml /etc/gatus/config.yml
+  sudo chown root:gatus /etc/gatus/config.yml
+  sudo chmod 644 /etc/gatus/config.yml
+fi
+
+# Ensure Gatus systemd service is up to date
+if ! cmp --silent "$PROJECT"/gatus.service /etc/systemd/system/gatus.service
+then
+  echo Updating Gatus systemd service
+  sudo mkdir -p /etc/gatus
+  sudo cp "$PROJECT"/gatus.service /etc/systemd/system/gatus.service
+  sudo systemctl daemon-reload
+  sudo systemctl enable gatus.service
+  sudo systemctl start gatus.service
+fi
 
 # Install syncthing
 if ! command -v syncthing > /dev/null

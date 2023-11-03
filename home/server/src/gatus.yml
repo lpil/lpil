@@ -1,0 +1,59 @@
+storage:
+  type: memory
+
+web:
+  port: 3002
+  address: localhost
+
+ui:
+  header: Louis' status page
+  title: Louis' status page - Gatus
+  description: Hey, so how's stuff going?
+
+alerting:
+  pushover:
+    application-token: "$PUSHOVER_GATUS_APPLICATION_TOKEN"
+    user-key: "$PUSHOVER_USER_KEY"
+
+endpoints:
+  - name: Just Stop Oil website
+    url: "https://juststopoil.org"
+    interval: 60s
+    conditions:
+      - "[STATUS] == 200"
+      - "[RESPONSE_TIME] < 1000"
+    alerts:
+      - type: pushover
+
+  - name: Action Network Forms
+    url: "https://actionnetwork.org/forms/just-stop-oil-volunteer-interest-form-2"
+    interval: 60s
+    conditions:
+      - "[STATUS] == 200"
+      - "[RESPONSE_TIME] < 1000"
+    alerts:
+      - type: pushover
+
+  - name: jso.lpil.uk index page
+    url: "https://jso.lpil.uk/"
+    interval: 60s
+    conditions:
+      - "[STATUS] == 200"
+    alerts:
+      - type: pushover
+
+  - name: Clipboard form
+    url: "https://oilslick.lpil.uk/clipboard"
+    interval: 60s
+    conditions:
+      - "[STATUS] == 200"
+    alerts:
+      - type: pushover
+
+  - name: Open march form
+    url: "https://oilslick.lpil.uk/marchers"
+    interval: 60s
+    conditions:
+      - "[STATUS] == 200"
+    alerts:
+      - type: pushover
