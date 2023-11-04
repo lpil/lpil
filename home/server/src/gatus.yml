@@ -16,7 +16,7 @@ alerting:
     user-key: "$PUSHOVER_USER_KEY"
 
 endpoints:
-  - name: Just Stop Oil website
+  - name: juststopoil.org
     url: "https://juststopoil.org"
     interval: 60s
     conditions:
@@ -36,6 +36,14 @@ endpoints:
 
   - name: jso.lpil.uk index page
     url: "https://jso.lpil.uk/"
+    interval: 60s
+    conditions:
+      - "[STATUS] == 200"
+    alerts:
+      - type: pushover
+
+  - name: demandceasefirenow.org
+    url: "https://demandceasefirenow.org/"
     interval: 60s
     conditions:
       - "[STATUS] == 200"
