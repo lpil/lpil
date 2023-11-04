@@ -201,16 +201,8 @@ fi
 if ! command -v gatus > /dev/null
 then
   echo "Installing gatus"
-  dir=$(mktemp -d)
-  cd "$dir"
-  git init
-  git remote add origin https://github.com/TwiN/gatus.git
-  git fetch origin 494a8594cc68ee2a479c8e6572ef8f7d8b79fb6a
-  git reset --hard FETCH_HEAD
-  go mod vendor
-  go build -mod vendor -o gatus .
-  cd -
-  rm -rf "$dir"
+  go install github.com/TwiN/gatus/v5@latest
+  sudo mv ~/go/bin/gatus /usr/local/bin
 fi
 
 # Ensure Gatus configuration is up to date
