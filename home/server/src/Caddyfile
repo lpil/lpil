@@ -32,6 +32,14 @@
 		}
 	}
 
+	# Serve static files, for sharing with folks
+	handle_path /files/* {
+		root * /srv/web-public
+		file_server {
+			browse
+		}
+	}
+
 	# Gatus status monitor
 	# TODO: mount this at /gatus/ https://github.com/TwiN/gatus/issues/88
 	handle {

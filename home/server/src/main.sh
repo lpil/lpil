@@ -136,10 +136,19 @@ then
   sudo groupadd --system caddy
 fi
 
+# Add louis to the caddy group, so that we can write to the web variable data
+sudo usermod -a -G caddy louis
+
 # Ensure web variable data directory exists
 sudo mkdir -p /var/lib/lpil
 sudo chown -R root:caddy /var/lib/lpil
 sudo chmod -R 775 /var/lib/lpil
+
+# Create public files directory, served by Caddy
+sudo mkdir -p /srv/web-public
+sudo chown -R root:caddy /srv/web-public
+sudo chmod -R 775 /srv/web-public
+echo "Hello, Mike!" | sudo sponge /srv/web-public/hello-joe.txt
 
 # Ensure Caddy user exists
 if ! getent passwd caddy > /dev/null
