@@ -9,8 +9,7 @@
 	}
 }
 
-# Accessible from anywhere
-http://cubone, http://localhost, http://cubone.little-grue.ts.net {
+(public) {
 	# Print all information about the request
 	handle /debug/* {
 		cgi * /usr/lib/cgi-bin/debug {
@@ -34,7 +33,24 @@ http://cubone, http://localhost, http://cubone.little-grue.ts.net {
 	}
 
 	# Gatus status monitor
+	# TODO: mount this at /gatus/ https://github.com/TwiN/gatus/issues/88
 	handle {
 		reverse_proxy localhost:3002
 	}
+}
+
+# Accessible from anywhere
+http://cubone.little-grue.ts.net {
+	import public
+}
+
+# Accessible from tailscale network only
+http://cubone, http://localhost {
+	handle_path /syncthing/ {
+		reverse_proxy http://localhost:8384 {
+			header_up Host {upstream_hostport}
+		}
+	}
+
+	import public
 }
