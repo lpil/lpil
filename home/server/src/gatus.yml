@@ -16,6 +16,33 @@ alerting:
     user-key: "$PUSHOVER_USER_KEY"
 
 endpoints:
+  - name: gleam.run
+    url: "https://gleam.run"
+    interval: 60s
+    conditions:
+      - "[STATUS] == 200"
+      - "[RESPONSE_TIME] < 500"
+    alerts:
+      - type: pushover
+
+  - name: packages.gleam.run
+    url: "https://packages.gleam.run"
+    interval: 60s
+    conditions:
+      - "[STATUS] == 200"
+      - "[RESPONSE_TIME] < 500"
+    alerts:
+      - type: pushover
+
+  - name: lpil.uk
+    url: "https://lpil.uk"
+    interval: 60s
+    conditions:
+      - "[STATUS] == 200"
+      - "[RESPONSE_TIME] < 500"
+    alerts:
+      - type: pushover
+
   - name: juststopoil.org
     url: "https://juststopoil.org"
     interval: 60s
