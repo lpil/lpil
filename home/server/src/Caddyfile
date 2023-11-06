@@ -27,8 +27,18 @@
 
 	# Read the counters
 	handle /counters {
-		cgi * /usr/lib/cgi-bin/counter-read {
-			script_name /counters
+		cgi * /usr/lib/cgi-bin/counter-read
+	}
+
+	# Read the counters
+	handle /file-upload {
+		basicauth {
+			louis $2y$10$Pw049gI7SsUdyxSjvBWrGePeRlRIYoRbG4Bsmnc7TB7bM6Jzb3Fda
+			# Add more here as needed...
+			# htpasswd -nbBC 10 USER PASSWORD	
+		}
+		cgi * /usr/lib/cgi-bin/file-upload {
+			env UPLOAD_DEST_DIR=/srv/web-uploads
 		}
 	}
 

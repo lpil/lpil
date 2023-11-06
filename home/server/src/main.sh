@@ -7,24 +7,34 @@
 
 set -eu
 
+CGI_BIN=/usr/lib/cgi-bin
+VAR_DATA=/var/lib/lpil
+WEB_PUBLIC=/srv/web-public
+WEB_UPLOADS=/srv/web-uploads
+
 PROJECT="$HOME/install"
 TAILSCALE_INSTALLED=0
 SYNCTHING_INSTALLED=0
 
 . "$PROJECT"/secrets.env
 
+# Compile a Go CGI script, if it hasn't already been compiled
+golang_cgi_script() {
+  name="$1"
+  if [ ! -f "$CGI_BIN"/"$name" ]
+  then
+    echo "Compiling $PROJECT/cgi-bin-src/$name"
+    cd "$PROJECT"/cgi-bin-src/"$name"
+    go build
+    sudo mv "$name" "$CGI_BIN"/
+  fi
+}
+
 # Install cron jobs
 # TODO: convert to systemd timers
 sudo cp "$PROJECT"/cron/* /etc/cron.d/
 sudo chown -R root:root /etc/cron.d
 sudo chmod -R 644 /etc/cron.d
-
-# Install cgi-bin scripts for use by Caddy
-sudo mkdir -p /usr/lib/cgi-bin
-sudo rm -r /usr/lib/cgi-bin/*
-sudo cp -r "$PROJECT"/cgi-bin/* /usr/lib/cgi-bin/
-sudo chown -R root:root /usr/lib/cgi-bin
-sudo chmod -R 755 /usr/lib/cgi-bin
 
 # Configuring default applications
 sudo update-alternatives --install /usr/bin/editor editor /usr/bin/vi 100
@@ -115,6 +125,13 @@ then
   export PATH="$PATH:/usr/local/go/bin"
 fi
 
+# Install cgi-bin scripts for use by Caddy
+sudo mkdir -p "$CGI_BIN"
+sudo cp -r "$PROJECT"/cgi-bin/* "$CGI_BIN"/
+sudo chown -R root:root "$CGI_BIN"
+sudo chmod -R 755 "$CGI_BIN"
+golang_cgi_script "file-upload"
+
 # Install xcaddy, the tool for building Caddy with third party modules
 if ! command -v xcaddy > /dev/null
 then
@@ -140,15 +157,20 @@ fi
 sudo usermod -a -G caddy louis
 
 # Ensure web variable data directory exists
-sudo mkdir -p /var/lib/lpil
-sudo chown -R root:caddy /var/lib/lpil
-sudo chmod -R 775 /var/lib/lpil
+sudo mkdir -p "$VAR_DATA"
+sudo chown -R root:caddy "$VAR_DATA"
+sudo chmod -R 775 "$VAR_DATA"
 
 # Create public files directory, served by Caddy
-sudo mkdir -p /srv/web-public
-sudo chown -R root:caddy /srv/web-public
-sudo chmod -R 775 /srv/web-public
-echo "Hello, Mike!" | sudo sponge /srv/web-public/hello-joe.txt
+sudo mkdir -p "$WEB_PUBLIC"
+sudo chown -R root:caddy "$WEB_PUBLIC"
+sudo chmod -R 775 "$WEB_PUBLIC"
+echo "Hello, Mike!" | sudo sponge "$WEB_PUBLIC"/hello-joe.txt
+
+# Create uploads directory, written to by Caddy
+sudo mkdir -p "$WEB_UPLOADS"
+sudo chown -R root:caddy "$WEB_UPLOADS"
+sudo chmod -R 775 "$WEB_UPLOADS"
 
 # Ensure Caddy user exists
 if ! getent passwd caddy > /dev/null
