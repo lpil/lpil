@@ -9,6 +9,16 @@
 	}
 }
 
+(require_password) {
+	basicauth {
+		# Childhood password
+		lpil $2y$10$Pw049gI7SsUdyxSjvBWrGePeRlRIYoRbG4Bsmnc7TB7bM6Jzb3Fda
+
+		# Add more here as needed...
+		# htpasswd -nbBC 10 USER PASSWORD	
+	}
+}
+
 (public) {
 	# Print all information about the request
 	handle /debug/* {
@@ -30,13 +40,8 @@
 		cgi * /usr/lib/cgi-bin/counter-read
 	}
 
-	# Read the counters
 	handle /file-upload {
-		basicauth {
-			louis $2y$10$Pw049gI7SsUdyxSjvBWrGePeRlRIYoRbG4Bsmnc7TB7bM6Jzb3Fda
-			# Add more here as needed...
-			# htpasswd -nbBC 10 USER PASSWORD	
-		}
+		import require_password
 		cgi * /usr/lib/cgi-bin/file-upload {
 			env UPLOAD_DEST_DIR=/srv/web-uploads
 		}
@@ -45,6 +50,15 @@
 	# Serve static files, for sharing with folks
 	handle_path /files/* {
 		root * /srv/web-public
+		file_server {
+			browse
+		}
+	}
+
+	# Serve static files, but with a password
+	handle_path /private-files/* {
+		import require_password
+		root * /srv/web-private
 		file_server {
 			browse
 		}
