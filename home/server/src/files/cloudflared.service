@@ -1,0 +1,15 @@
+[Unit]
+Description=cloudflared
+After=network.target
+
+[Service]
+User=cloudflared
+Group=cloudflared
+Type=notify
+TimeoutStartSec=0
+ExecStart=/usr/bin/cloudflared --no-autoupdate tunnel run --token $CLOUDFLARED_TOKEN
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target

@@ -14,6 +14,7 @@ set -eu
 . ./media.sh
 . ./syncthing.sh
 . ./tailscale.sh
+. ./cloudflare.sh
 
 sudo update-alternatives --install /usr/bin/editor editor /usr/bin/vi 100
 
@@ -29,6 +30,7 @@ setup_nfs
 install_golang
 install_gatus
 install_caddy
+install_cloudflared
 syncthing_installed=$(install_syncthing)
 
 echo "Up to date ✨"
