@@ -66,8 +66,8 @@ endpoints:
     interval: 60s
     conditions:
       - "[STATUS] == 200"
-    alerts:
-      - type: pushover
+    # alerts:
+    #   - type: pushover
 
   - name: demandceasefirenow.org
     url: "https://demandceasefirenow.org/"
