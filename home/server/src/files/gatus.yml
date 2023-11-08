@@ -92,3 +92,15 @@ endpoints:
       - "[STATUS] == 200"
     alerts:
       - type: pushover
+
+  - name: Nanoleaf
+    url: "https://nanoleaf.me/"
+    interval: 60s
+    conditions:
+      - "[STATUS] == 200"
+
+  - name: Meetdown
+    url: https://meetdown.app
+    interval: 60s
+    conditions:
+      - "[STATUS] == 200"
