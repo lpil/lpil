@@ -104,3 +104,9 @@ endpoints:
     interval: 60s
     conditions:
       - "[STATUS] == 200"
+
+  - name: Tinyurl
+    url: https://tinyurl.com/pssmap
+    interval: 60s
+    conditions:
+      - "[STATUS] == 200"
