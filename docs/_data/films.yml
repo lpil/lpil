@@ -1,6 +1,6 @@
 - year: 2023
   films:
-  - name: The Five Devils
+  - name: Les Cinq Diables
     director: Léa Mysius
     released: 2022
     language: French
@@ -45,3 +45,12 @@
     - Horror
     - Sci-Fi
     - Thriller
+  - name: L'innocent
+    director: Louis Garrel
+    released: 2022
+    language: French
+    country: France
+    tags:
+    - Comedy
+    - Thriller
+    - Romance
