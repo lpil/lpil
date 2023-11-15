@@ -19,10 +19,11 @@
 <body>
   {{ content }}
 
-  <script type="text/javascript" charset="utf-8">
-if (window.location.href.match(/^http:\/\/lpil.uk/)) {
-  window.location = window.location.href.replace(/^http/, "https");
-}
+  <script type="module">
+const l = window.location;
+const p = l.host + l.pathname;
+const q = new URLSearchParams({ p });
+fetch(`https://hits.lpil.uk/count?${q.toString()}`);
   </script>
 </body>
 </html>
