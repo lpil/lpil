@@ -110,3 +110,21 @@ endpoints:
     interval: 60s
     conditions:
       - "[STATUS] == 200"
+
+  - name: hits.lpil.uk
+    url: https://hits.lpil.uk/user/new
+    interval: 60s
+    conditions:
+      - "[STATUS] == 200"
+
+  - name: status.lpil.uk
+    url: https://status.lpil.uk
+    interval: 60s
+    conditions:
+      - "[STATUS] == 200"
+
+  - name: public.lpil.uk
+    url: https://public.lpil.uk
+    interval: 60s
+    conditions:
+      - "[STATUS] == 200"
