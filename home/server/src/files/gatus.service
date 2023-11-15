@@ -14,7 +14,6 @@ ExecStart=/usr/local/bin/gatus
 TimeoutStopSec=5s
 PrivateTmp=true
 ProtectSystem=full
-AmbientCapabilities=CAP_NET_ADMIN CAP_NET_BIND_SERVICE
 
 Environment="GATUS_CONFIG_PATH=/etc/gatus/config.yml"
 

@@ -34,23 +34,7 @@ install_caddy() {
     sudo mv caddy /usr/local/bin/caddy
   fi
 
-  # Ensure Caddy group exists
-  if ! getent group caddy > /dev/null
-  then
-    sudo groupadd --system caddy
-  fi
-
-  # Ensure Caddy user exists
-  if ! getent passwd caddy > /dev/null
-  then
-    sudo useradd --system \
-      --gid caddy \
-      --create-home \
-      --home-dir /var/lib/caddy \
-      --shell /usr/sbin/nologin \
-      --comment "Caddy web server" \
-      caddy
-  fi
+  service_user_and_group caddy
 
   # Add louis to the caddy group, so that you can write to the web directories
   sudo usermod -a -G caddy louis
@@ -69,15 +53,7 @@ install_caddy() {
   golang_cgi_script "$cgi_bin" "file-upload"
 
   # Ensure Caddy systemd service is up to date
-  if ! cmp --silent files/caddy.service /etc/systemd/system/caddy.service
-  then
-    echo Updating Caddy systemd service
-    sudo mkdir -p /etc/caddy
-    sudo cp files/caddy.service /etc/systemd/system/caddy.service
-    sudo systemctl daemon-reload
-    sudo systemctl enable caddy.service
-    sudo systemctl start caddy.service
-  fi
+  systemd_service caddy
 
   # Ensure Caddy configuration is up to date
   if ! cmp --silent files/Caddyfile /etc/caddy/Caddyfile

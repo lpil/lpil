@@ -1,0 +1,19 @@
+[Unit]
+Description=goatcounter
+Documentation=https://github.com/arp242/goatcounter
+After=network.target network-online.target
+Requires=network-online.target
+
+[Service]
+Type=simple
+User=goatcounter
+Group=goatcounter
+Restart=on-failure
+ExecStart=/usr/local/bin/goatcounter serve -listen localhost:3003 -tls http -automigrate -db sqlite+/var/lib/goatcounter/goatcounter.sqlite
+
+TimeoutStopSec=5s
+PrivateTmp=true
+ProtectSystem=full
+
+[Install]
+WantedBy=multi-user.target

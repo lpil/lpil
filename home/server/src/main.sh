@@ -10,11 +10,12 @@ set -eu
 . ./base.sh
 . ./caddy.sh
 . ./gatus.sh
-. ./golang.sh
 . ./media.sh
+. ./golang.sh
 . ./syncthing.sh
 . ./tailscale.sh
 . ./cloudflare.sh
+. ./goatcounter.sh
 
 sudo update-alternatives --install /usr/bin/editor editor /usr/bin/vi 100
 
@@ -28,6 +29,7 @@ tailscale_installed=$(install_tailscale)
 
 setup_nfs
 install_golang
+install_goatcounter
 install_gatus
 install_caddy
 install_cloudflared

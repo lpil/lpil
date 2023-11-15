@@ -22,7 +22,12 @@ http://*.lpil.uk {
 
 	@status host status.lpil.uk
 	handle @status {
-		reverse_proxy localhost:3002
+		reverse_proxy localhost:3002 # gatus
+	}
+
+	@hits host hits.lpil.uk
+	handle @hits {
+		reverse_proxy localhost:3003 # goatcounter
 	}
 
 	@public host public.lpil.uk

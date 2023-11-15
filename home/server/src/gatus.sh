@@ -3,23 +3,7 @@
 set -eu
 
 install_gatus() {
-  # Ensure Gatus group exists
-  if ! getent group gatus > /dev/null
-  then
-    sudo groupadd --system gatus
-  fi
-
-  # Ensure Gatus user exists
-  if ! getent passwd gatus > /dev/null
-  then
-    sudo useradd --system \
-      --gid gatus \
-      --create-home \
-      --home-dir /var/lib/gatus \
-      --shell /usr/sbin/nologin \
-      --comment "Gatus health monitor" \
-      gatus
-  fi
+  service_user_and_group gatus
 
   # Install gatus, a web service for monitoring other web services
   if ! command -v gatus > /dev/null
@@ -44,14 +28,6 @@ install_gatus() {
   fi
 
   # Ensure Gatus systemd service is up to date
-  if ! cmp --silent files/gatus.service /etc/systemd/system/gatus.service
-  then
-    echo Updating Gatus systemd service
-    sudo mkdir -p /etc/gatus
-    sudo cp files/gatus.service /etc/systemd/system/gatus.service
-    sudo systemctl daemon-reload
-    sudo systemctl enable gatus.service
-    sudo systemctl start gatus.service
-  fi
+  systemd_service gatus
 }
 

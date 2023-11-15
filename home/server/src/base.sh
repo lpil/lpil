@@ -49,3 +49,58 @@ install_cronjobs() {
   sudo chmod -R 644 /etc/cron.d
 }
 
+# Ensure systemd service is up to date
+systemd_service() {
+  name=$1
+  if ! cmp --silent files/"$name".service /etc/systemd/system/"$name".service
+  then
+    echo Updating "$name" systemd service
+    sudo mkdir -p /etc/"$name"
+    sudo cp files/"$name".service /etc/systemd/system/"$name".service
+    sudo systemctl daemon-reload
+    sudo systemctl enable "$name".service
+    sudo systemctl start "$name".service
+  fi
+}
+
+# Create a user and group for a service
+service_user_and_group() {
+  name=$1
+
+  # Ensure group exists
+  if ! getent group "$name" > /dev/null
+  then
+    sudo groupadd --system "$name"
+  fi
+
+  # Ensure user exists
+  if ! getent passwd "$name" > /dev/null
+  then
+    sudo useradd --system \
+      --gid "$name" \
+      --create-home \
+      --home-dir /var/lib/"$name" \
+      --shell /usr/sbin/nologin \
+      --comment "$name service" \
+      "$name"
+  fi
+
+  # Add you to the group
+  sudo usermod -a -G "$name" louis
+}
+
+# Wait for a file to exist, or time out if it doesn't exist within a timeout
+wait_for_file_to_exist() {
+  file=$1
+  timeout=10
+  while [ ! -f "$file" ]
+  do
+    if [ "$timeout" -eq 0 ]
+    then
+      echo "Timed out waiting for $file to exist"
+      exit 1
+    fi
+    sleep 1
+    timeout=$((timeout-1))
+  done
+}
