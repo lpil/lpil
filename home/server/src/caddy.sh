@@ -47,9 +47,6 @@ install_caddy() {
   echo "Hello, Mike!" | sudo sponge "$web_public"/hello-joe.txt
 
   # Install cgi-bin scripts for use by Caddy
-  sudo cp -r cgi-bin/* "$cgi_bin"/
-  sudo chown -R root:root "$cgi_bin"
-  sudo chmod -R 755 "$cgi_bin"
   golang_cgi_script "$cgi_bin" "file-upload"
 
   # Ensure Caddy systemd service is up to date
