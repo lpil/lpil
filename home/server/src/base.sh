@@ -104,3 +104,9 @@ wait_for_file_to_exist() {
     timeout=$((timeout-1))
   done
 }
+
+install_executable() {
+  src=$1
+  name=$2
+  sudo install -D -m 755 -o root -g root "$src" /usr/local/bin/"$name"
+}

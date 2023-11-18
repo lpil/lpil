@@ -11,7 +11,7 @@ golang_cgi_script() {
     echo "Compiling cgi-bin-src/$name"
     cd /cgi-bin-src/"$name"
     go build
-    sudo mv "$name" "$cgi_bin"/
+    sudo install -D -m 755 -o root -g root "$name" "$cgi_bin"/
   fi
 }
 

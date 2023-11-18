@@ -2,6 +2,7 @@
 
 set -eu
 
+. ./base.sh
 . ./golang.sh
 
 cgi_bin=/usr/lib/cgi-bin
@@ -24,14 +25,14 @@ install_caddy() {
   then
     echo "Installing xcaddy"
     go install github.com/caddyserver/xcaddy/cmd/xcaddy@latest
-    sudo mv ~/go/bin/xcaddy /usr/local/bin
+    install_executable ~/go/bin/xcaddy xcaddy
   fi
 
   # Install Caddy
   if ! command -v caddy > /dev/null
   then
     xcaddy build --with github.com/aksdb/caddy-cgi/v2
-    sudo mv caddy /usr/local/bin/caddy
+    install_executable caddy caddy
   fi
 
   service_user_and_group caddy
@@ -56,10 +57,7 @@ install_caddy() {
   if ! cmp --silent files/Caddyfile /etc/caddy/Caddyfile
   then
     echo Updating Caddyfile
-    sudo mkdir -p /etc/caddy
-    sudo cp files/Caddyfile /etc/caddy/Caddyfile
-    sudo chown root:caddy /etc/caddy/Caddyfile
-    sudo chmod 644 /etc/caddy/Caddyfile
+    sudo install -D -m 644 -o root -g caddy files/Caddyfile /etc/caddy/Caddyfile
     sudo systemctl reload caddy.service
   fi
 }

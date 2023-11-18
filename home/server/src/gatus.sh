@@ -2,6 +2,8 @@
 
 set -eu
 
+. ./base.sh
+
 install_gatus() {
   service_user_and_group gatus
 
@@ -10,7 +12,7 @@ install_gatus() {
   then
     echo "Installing gatus"
     go install github.com/TwiN/gatus/v5@latest
-    sudo mv ~/go/bin/gatus /usr/local/bin
+    install_executable ~/go/bin/gatus gatus
   fi
 
   # Ensure Gatus configuration is up to date
@@ -21,10 +23,7 @@ install_gatus() {
   if ! cmp --silent files/gatus.yml /etc/gatus/config.yml
   then
     echo Updating Gatus config
-    sudo mkdir -p /etc/gatus
-    sudo cp files/gatus.yml /etc/gatus/config.yml
-    sudo chown root:gatus /etc/gatus/config.yml
-    sudo chmod 644 /etc/gatus/config.yml
+    sudo install -D -m 644 -o root -g gatus files/gatus.yml /etc/gatus/config.yml
   fi
 
   # Ensure Gatus systemd service is up to date

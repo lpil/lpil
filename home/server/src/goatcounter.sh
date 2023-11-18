@@ -52,7 +52,6 @@ download_and_install_goatcounter_binary() {
     rm -rf "$file"
 
     # Download
-    rm -rf "$file".gz
     wget --no-verbose https://github.com/arp242/goatcounter/releases/download/v2.4.1/"$file".gz
 
     # Decompress
@@ -62,8 +61,10 @@ download_and_install_goatcounter_binary() {
     echo "$checksum $file" | sha256sum -c -
 
     # Install
-    chmod +x "$file"
-    sudo mv "$file" /usr/local/bin/"$name"
+    install_executable "$file" "$name"
+
+    # Clean up
+    rm -r "$file" "$file".gz
     cd -
   fi
 }
