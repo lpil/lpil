@@ -67,15 +67,27 @@ systemd_service() {
 service_user_and_group() {
   name=$1
 
+  create_group "$name"
+  create_nologin_user "$name"
+
+  # Add you to the group
+  sudo usermod -a -G "$name" louis
+}
+
+create_group() {
   # Ensure group exists
   if ! getent group "$name" > /dev/null
   then
+    echo "Creating $name group"
     sudo groupadd --system "$name"
   fi
+}
 
+create_nologin_user() {
   # Ensure user exists
   if ! getent passwd "$name" > /dev/null
   then
+    echo "Creating $name user"
     sudo useradd --system \
       --gid "$name" \
       --create-home \
@@ -84,9 +96,6 @@ service_user_and_group() {
       --comment "$name service" \
       "$name"
   fi
-
-  # Add you to the group
-  sudo usermod -a -G "$name" louis
 }
 
 # Wait for a file to exist, or time out if it doesn't exist within a timeout

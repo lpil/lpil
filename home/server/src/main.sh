@@ -8,6 +8,7 @@
 set -eu
 
 . ./base.sh
+. ./sftp.sh
 . ./caddy.sh
 . ./gatus.sh
 . ./media.sh
@@ -28,6 +29,7 @@ install_cronjobs
 tailscale_installed=$(install_tailscale)
 
 setup_nfs
+setup_sftp
 install_golang
 install_goatcounter
 install_gatus
