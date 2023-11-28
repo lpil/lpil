@@ -1,0 +1,96 @@
+#EXTM3U
+#
+# Internet radio stations.
+# Find more here:
+# - https://www.radio-browser.info/
+# - https://somafm.com/
+#
+
+#EXTINF:-1,BBC - BBC World Service
+http://a.files.bbci.co.uk/media/live/manifesto/audio/simulcast/hls/nonuk/sbr_low/ak/bbc_world_service.m3u8
+
+#EXTINF:-1,BBC - Radio 1
+http://as-hls-ww-live.akamaized.net/pool_904/live/ww/bbc_radio_one/bbc_radio_one.isml/bbc_radio_one-audio%3d96000.norewind.m3u8
+
+#EXTINF:-1,BBC - Radio 1Xtra
+http://as-hls-ww-live.akamaized.net/pool_904/live/ww/bbc_1xtra/bbc_1xtra.isml/bbc_1xtra-audio%3d96000.norewind.m3u8
+
+#EXTINF:-1,BBC - Radio 1Dance
+http://as-hls-ww-live.akamaized.net/pool_904/live/ww/bbc_radio_one_dance/bbc_radio_one_dance.isml/bbc_radio_one_dance-audio%3d96000.norewind.m3u8
+
+#EXTINF:-1,BBC - Radio 1Relax
+http://as-hls-ww-live.akamaized.net/pool_904/live/ww/bbc_radio_one_relax/bbc_radio_one_relax.isml/bbc_radio_one_relax-audio%3d96000.norewind.m3u8
+
+#EXTINF:-1,BBC - Radio 2
+http://as-hls-ww-live.akamaized.net/pool_904/live/ww/bbc_radio_two/bbc_radio_two.isml/bbc_radio_two-audio%3d96000.norewind.m3u8
+
+#EXTINF:-1,BBC - Radio 3
+http://as-hls-ww-live.akamaized.net/pool_904/live/ww/bbc_radio_three/bbc_radio_three.isml/bbc_radio_three-audio%3d96000.norewind.m3u8
+
+#EXTINF:-1,BBC - Radio 4
+http://as-hls-ww-live.akamaized.net/pool_904/live/ww/bbc_radio_fourfm/bbc_radio_fourfm.isml/bbc_radio_fourfm-audio%3d96000.norewind.m3u8
+
+#EXTINF:-1,BBC - Radio 5 live
+http://as-hls-ww-live.akamaized.net/pool_904/live/ww/bbc_radio_five_live/bbc_radio_five_live.isml/bbc_radio_five_live-audio%3d96000.norewind.m3u8
+
+#EXTINF:-1,BBC - Radio 6 Music
+http://as-hls-ww-live.akamaized.net/pool_904/live/ww/bbc_6music/bbc_6music.isml/bbc_6music-audio%3d96000.norewind.m3u8
+
+#EXTINF:-1,BBC - Radio London
+http://as-hls-ww-live.akamaized.net/pool_904/live/ww/bbc_london/bbc_london.isml/bbc_london-audio%3d96000.norewind.m3u8
+
+#RADIOBROWSERUUID:40e4d577-5bbd-11e9-a622-52543be04c81
+#EXTINF:-1,24-7 Best Of The 80's
+http://www.24-7nicheradio.com:8270/;
+
+#RADIOBROWSERUUID:031921ad-bf76-11e9-8502-52543be04c81
+#EXTINF:-1,24-7 Reggae
+http://24-7nicheradio.com:8200/
+
+#RADIOBROWSERUUID:96200095-0601-11e8-ae97-52543be04c81
+#EXTINF:-1,Capital FM London
+http://media-ice.musicradio.com/CapitalMP3
+
+#RADIOBROWSERUUID:1ee17d63-1702-11e8-ae97-52543be04c81
+#EXTINF:-1,Classic FM UK
+http://media-the.musicradio.com/ClassicFM
+
+#RADIOBROWSERUUID:960f2a8b-0601-11e8-ae97-52543be04c81
+#EXTINF:-1,Celtic Music Radio
+http://stream.celticmusicradio.net:8000/celticmusic.mp3
+
+#RADIOBROWSERUUID:96228b48-0601-11e8-ae97-52543be04c81
+#EXTINF:-1,Joint Radio Reggae
+http://star.jointil.net/proxy/jrn_reggae?mp=/stream
+
+#RADIOBROWSERUUID:1e9d72a2-8075-11e9-aa30-52543be04c81
+#EXTINF:-1,Point Blank FM 320KB
+http://pointblankradio.co.uk:9002/stream
+
+#RADIOBROWSERUUID:960eb3a4-0601-11e8-ae97-52543be04c81
+#EXTINF:-1,SomaFM Dub Step Beyond
+http://ice3.somafm.com/dubstep-256-mp3
+
+#RADIOBROWSERUUID:963cf3ba-0601-11e8-ae97-52543be04c81
+#EXTINF:-1,SomaFM Deep Space One 128k AAC+
+http://ice1.somafm.com/deepspaceone-128-aac
+
+#RADIOBROWSERUUID:37d8ff73-3596-11e8-bb9b-52543be04c81
+#EXTINF:-1,SomaFM Drone Zone 256k MP3
+http://ice1.somafm.com/dronezone-256-mp3
+
+#RADIOBROWSERUUID:960cf833-0601-11e8-ae97-52543be04c81
+#EXTINF:-1,SomaFM Groove Salad
+http://ice3.somafm.com/groovesalad-256-mp3
+
+#EXTINF:-1,SomaFM Underground 80s
+https://ice2.somafm.com/u80s-256-mp3
+
+#EXTINF:-1,SomaFM SF 10-33
+https://ice2.somafm.com/sf1033-128-mp3
+
+#EXTINF:-1,SomaFM ThistleRadio Celtic
+https://ice4.somafm.com/thistle-128-mp3
+
+#EXTINF:-1,SomaFM cliqhop idm
+https://ice6.somafm.com/cliqhop-256-mp3
