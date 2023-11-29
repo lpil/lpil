@@ -7,6 +7,7 @@
 	basicauth {
 		# You know this password, Louis.
 		lpil $2y$10$Pw049gI7SsUdyxSjvBWrGePeRlRIYoRbG4Bsmnc7TB7bM6Jzb3Fda
+		al $2y$10$YqPhiQ2GJYau8g2sMh3k9uAqh1DD6FX.SgLn.Jl3FDHrKoljFl3Gy
 
 		# Add more here as needed...
 		# htpasswd -nbBC 10 USER PASSWORD	
