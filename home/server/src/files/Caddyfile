@@ -39,6 +39,12 @@ http://*.lpil.uk {
 		}
 	}
 
+	@try-gleam host try-gleam.lpil.uk
+	handle @try-gleam {
+		root * /srv/web-public/try-gleam
+		file_server
+	}
+
 	@app host private.lpil.uk
 	handle @app {
 		import require_password
