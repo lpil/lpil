@@ -41,9 +41,9 @@ install_caddy() {
   sudo usermod -a -G caddy louis
 
   make_caddy_directory "$var_data" 775
-  make_caddy_directory "$web_public" 755
-  make_caddy_directory "$web_private" 755
-  make_caddy_directory "$web_uploads" 755
+  make_caddy_directory "$web_public" 775
+  make_caddy_directory "$web_private" 775
+  make_caddy_directory "$web_uploads" 775
   make_caddy_directory "$cgi_bin" 755
   echo "Hello, Mike!" | sudo sponge "$web_public"/hello-joe.txt
 

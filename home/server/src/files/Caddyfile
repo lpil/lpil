@@ -42,7 +42,9 @@ http://*.lpil.uk {
 	@try-gleam host try-gleam.lpil.uk
 	handle @try-gleam {
 		root * /srv/web-public/try-gleam
-		file_server
+		file_server {
+			disable_canonical_uris
+		}
 	}
 
 	@app host private.lpil.uk
