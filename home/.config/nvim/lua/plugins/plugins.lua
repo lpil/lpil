@@ -1,4 +1,8 @@
 return {
+  { import = "lazyvim.plugins.extras.coding.copilot" },
+  { import = "lazyvim.plugins.extras.editor.leap" },
+  { import = "lazyvim.plugins.extras.lang.json" },
+
   {
     "neovim/nvim-lspconfig",
     ---@class PluginLspOpts
@@ -18,11 +22,6 @@ return {
       })
     end,
   },
-
-  { import = "lazyvim.plugins.extras.ui.mini-starter" },
-
-  -- add jsonls and schemastore packages, and setup treesitter for json, json5 and jsonc
-  { import = "lazyvim.plugins.extras.lang.json" },
 
   -- add any tools you want to have installed below
   {
