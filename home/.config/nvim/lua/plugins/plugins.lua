@@ -9,6 +9,7 @@ return {
     opts = {
       servers = {
         gleam = {},
+        rust_analyzer = {},
       },
     },
   },
