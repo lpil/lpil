@@ -1,0 +1,10 @@
+{
+  "extras": [
+    "lazyvim.plugins.extras.coding.copilot",
+    "lazyvim.plugins.extras.editor.leap"
+  ],
+  "news": {
+    "NEWS.md": "2123"
+  },
+  "version": 2
+}

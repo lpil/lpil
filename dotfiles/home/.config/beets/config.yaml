@@ -1,0 +1,21 @@
+directory: ~/Sync/data/music
+
+plugins: mbsync fish fuzzy play fetchart embedart
+
+import:
+  timid: true
+  copy: true
+  bell: true
+  genres: true
+  incremental: true
+  incremental_skip_later: true
+
+paths:
+  default: $albumartist/$album%aunique{}/$track $artist - $title
+  singleton: Non-Album/$artist/$artist - $title
+  comp: Compilations/$album%aunique{}/$track $artist - $title
+
+sort_item: albumartist+ album+ disc+ track+
+
+play:
+  command: vlc

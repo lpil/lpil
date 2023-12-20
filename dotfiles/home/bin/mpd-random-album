@@ -1,0 +1,31 @@
+#!/bin/sh
+#
+# Randomly add albums to the MPD queue
+#
+# Arguments:
+#   -n <number> Number of albums to add
+#   -a          Append to the current queue
+#
+
+set -eu
+number=1
+append=0
+
+while getopts n:a OPT; do
+  case "$OPT" in
+  a) append=1 ;;
+  n) number="$OPTARG" ;;
+  ?) exit 1 ;;
+  esac
+done
+
+if [ "$append" -eq 0 ]; then
+  mpc clear --quiet
+fi
+
+mpc list album | shuf -n "$number" | while read -r album; do
+  mpc find album "$album" | mpc add --quiet
+  mpc --format '%albumartist% - %album%' find album "$album" | head -n 1
+done
+
+mpc --quiet play

@@ -1,0 +1,44 @@
+[user]
+  name = Louis Pilfold
+  email = louis@lpil.uk
+
+[color]
+  ui = true
+
+[core]
+  excludesfile = ~/.config/git/ignore
+  pager = less -S
+
+[push]
+  default = simple
+  autoSetupRemote = true
+
+[credential]
+  helper = cache
+
+[alias]
+  br = branch
+  ci = commit
+  co = "!echo Use git switch and git restore"
+  dh = diff HEAD --word-diff=color
+  amend = commit --amend
+  lol = log --pretty=oneline --abbrev-commit --graph --decorate
+  st = status
+  g = grep --break --heading --line-number
+  gi = grep --break --heading --line-number --ignore-case
+  files-ive-edited = !git log --no-merges --stat --author='Louis Pilfold' --name-only --pretty=format:"" | sort -u | tail -n +2
+  cleanup = "!git branch --merged | grep -v \"\\*\" | grep -v master | grep -v dev | xargs -n 1 git branch -d"
+  fpp = "!git st | fpp"
+  git = "!git"
+[fetch]
+  prune = true
+[init]
+  defaultBranch = main
+[pull]
+  rebase = true
+[rebase]
+  autostash = true
+[help]
+  autocorrect = 20
+[diff]
+  noprefix = true
