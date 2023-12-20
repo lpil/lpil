@@ -1,0 +1,5 @@
+#!/bin/sh
+
+set -eu
+
+stow --verbose=1 --dotfiles --target="$HOME" --dir="$HOME/src/lpil/lpil/dotfiles" home
