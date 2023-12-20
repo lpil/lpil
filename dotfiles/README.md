@@ -1,6 +1,0 @@
-Dotfiles
-========
-
-My dotfiles.
-
-Enjoy!
