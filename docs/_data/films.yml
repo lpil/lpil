@@ -54,3 +54,12 @@
     - Comedy
     - Thriller
     - Romance
+  - name: Assault on Precinct 13
+    director: John Carpenter
+    released: 1976
+    language: English
+    country: United States
+    tags:
+    - Action
+    - Thriller
+    - Crime
