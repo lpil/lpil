@@ -1,7 +1,6 @@
 return {
   { import = "lazyvim.plugins.extras.coding.copilot" },
   { import = "lazyvim.plugins.extras.editor.leap" },
-  { import = "lazyvim.plugins.extras.formatting.prettier" },
   { import = "lazyvim.plugins.extras.lang.json" },
 
   {
@@ -9,7 +8,7 @@ return {
     ---@class PluginLspOpts
     opts = {
       servers = {
-        gleam = {},
+        gleam = { mason = false },
         rust_analyzer = {},
       },
     },
