@@ -5,7 +5,7 @@ return {
   },
 
   {
-    "echasnovski/mini.indentscope/",
+    "echasnovski/mini.indentscope",
     opts = {
       draw = {
         delay = 100,
