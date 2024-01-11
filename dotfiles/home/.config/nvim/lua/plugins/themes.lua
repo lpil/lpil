@@ -3,7 +3,7 @@
 -- Pick the default in lazy.lua
 --
 return {
-  { "catppuccin/nvim" },
+  { "EdenEast/nightfox.nvim" },
   { "folke/tokyonight.nvim" },
   { "navarasu/onedark.nvim" },
   { "sainnhe/sonokai" },
