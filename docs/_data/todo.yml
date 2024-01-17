@@ -1,0 +1,19 @@
+doing:
+  - what: Learn French
+  - what: Apple Fitness
+
+todo:
+  - what: Aerial rope
+
+  - what: Full day's cycle
+
+  - what: Learn basic electronics
+
+  - what: Learn shorthand
+    notes: |
+      sotolf in the Gleam discord recommends the Orthic system:
+      https://orthic.shorthand.fun/
+
+done:
+  - what: Make a battery powered soundsystem
+  - what: Make a programming language
