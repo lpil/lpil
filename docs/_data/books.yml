@@ -1,436 +1,435 @@
 - year: 2019
   books:
-  # Missing a few here... Can't remember
-  - title: The A-Z of Gender and Sexuality
-    authors:
-    - Morgan Lev Edward Holleb
-    tags:
-    - gender
-    - sexuality
-    - lgbtqia
-    - history
-    - politics
-    - rights
-  
+    # Missing a few here... Can't remember
+    - title: The A-Z of Gender and Sexuality
+      authors:
+        - Morgan Lev Edward Holleb
+      tags:
+        - gender
+        - sexuality
+        - lgbtqia
+        - history
+        - politics
+        - rights
+
 - year: 2020
   books:
-  # Missing a few here... Can't remember
-  - title: The Rust Programming Language
-    authors:
-    - Carol Nichols
-    - Steve Klabnik
-    tags:
-    - programming
-    - rust
-  - title: The Art of PostgreSQL
-    authors:
-    - Dimitri Fountaine
-    tags:
-    - programming
-    - databases
-    - sql
-  - title: Learning HTTP/2
-    authors:
-    - Javier Garza
-    - Stephen Ludin
-    tags:
-    - programming
-    - networks
-  - title: Grokking Algorithms
-    authors:
-    - Aditya Bhargava
-    tags:
-    - programming
-    - algorithms
-    - python
-  - title: Compiling to Assembly From Scratch
-    authors:
-    - Vladimir Keleshev
-    tags:
-    - programming
-    - compilers
-    - assembly
-    - typescript
+    # Missing a few here... Can't remember
+    - title: The Rust Programming Language
+      authors:
+        - Carol Nichols
+        - Steve Klabnik
+      tags:
+        - programming
+        - rust
+    - title: The Art of PostgreSQL
+      authors:
+        - Dimitri Fountaine
+      tags:
+        - programming
+        - databases
+        - sql
+    - title: Learning HTTP/2
+      authors:
+        - Javier Garza
+        - Stephen Ludin
+      tags:
+        - programming
+        - networks
+    - title: Grokking Algorithms
+      authors:
+        - Aditya Bhargava
+      tags:
+        - programming
+        - algorithms
+        - python
+    - title: Compiling to Assembly From Scratch
+      authors:
+        - Vladimir Keleshev
+      tags:
+        - programming
+        - compilers
+        - assembly
+        - typescript
 
 - year: 2021
   books:
-  - title: Domain Modeling Made Functional
-    authors:
-    - Scott Wlaschin
-    tags:
-    - programming
-    - types
-    - domain-driven-design
-    - "f#"
-  - title: SQL Antipatterns
-    authors:
-    - Bill Karwin
-    tags:
-    - programming
-    - sql
-    - meh
-  - title: The Speculative Book 2021
-    authors:
-    - Stuart Kenny
-    - Phoebe Demeger
-    - Kevin P Gilday
-    - Rachel Morrell
-    - Joe Timms
-    - Beth Cochrane
-    - Sophie McNaughton
-    - Iona Lee
-    - Nicks Walker
-    - Giovanna MacKenna
-    - Mandy Haggith
-    - Amy B. Moreno
-    - Martin Breul
-    - Catherine Wilson
-    - Emily Oulton
-    - Sofia Ballesteros
-    - Bethan Hamblett
-    - Martha Nye
-    - Rachael Llewellyn
-    - Andrés N Ordorica
-    - Fiamma Curti
-    tags:
-    - poetry
-    - friends
-  - title: Domain Modeling Made Functional
-    authors:
-    - Scott Wlaschin
-    tags:
-    - programming
-    - types
-    - domain-driven-design
-    - f#
-  - title: SQL Antipatterns
-    authors:
-    - Bill Karwin
-    tags:
-    - programming
-    - sql
-    - meh
-  - title: The Man In The High Castle
-    authors:
-    - Philip K. Dick
-    tags:
-    - Fiction
-    - Alternate History
-  - title: "Northern Ireland: A Very Short Introduction"
-    authors:
-    - Marc Mulholland
-    tags:
-    - history
-    - ireland
-  - title: "Neoliberalism: A Very Short Introduction"
-    edition: 2
-    authors:
-    - Manfred B. Steger
-    - Ravi K. Roy 
-    tags:
-    - politics
-    - economics
-    - history
-  - title: "The Communist Manifesto"
-    authors:
-    - Friedrich Engels
-    - Karl Marx
-    tags:
-    - politics
-    - economics
-    - history
-  - title: "Why Marx Was Right"
-    edition: 2
-    authors:
-    - Terry Eagleton
-    readers:
-    - Roger Clark
-    tags:
-    - communism
-    - politics
-    - economics
-    - history
-  - title: "Populism: A Very Short Introduction"
-    authors:
-    - Cas Muddle
-    - Cristóbal Rovira
-    readers:
-    - Leon Nixon
-    tags:
-    - politics
-    - economics
-    - history
-  - title: "How to Drink"
-    subtitle: "A Classical Guide to the Art of Imbibing"
-    authors:
-    - Vincent Obsopoeus
-    readers:
-    - Roger Clark
-    translators:
-    - Michael Fontaine
-    tags:
-    - historical
-    - alcohol
-    - lifestyle
-    notes: "Originally published in 1536"
-  - title: "A Deadly Dividend"
-    subtitle: "A gripping murder mystery set in Dublin"
-    authors:
-    - David Pearson
-    readers:
-    - Roger Clark
-    tags:
-    - fiction
-    - murder-mystery
-    - ireland
+    - title: Domain Modeling Made Functional
+      authors:
+        - Scott Wlaschin
+      tags:
+        - programming
+        - types
+        - domain-driven-design
+        - "f#"
+    - title: SQL Antipatterns
+      authors:
+        - Bill Karwin
+      tags:
+        - programming
+        - sql
+        - meh
+    - title: The Speculative Book 2021
+      authors:
+        - Stuart Kenny
+        - Phoebe Demeger
+        - Kevin P Gilday
+        - Rachel Morrell
+        - Joe Timms
+        - Beth Cochrane
+        - Sophie McNaughton
+        - Iona Lee
+        - Nicks Walker
+        - Giovanna MacKenna
+        - Mandy Haggith
+        - Amy B. Moreno
+        - Martin Breul
+        - Catherine Wilson
+        - Emily Oulton
+        - Sofia Ballesteros
+        - Bethan Hamblett
+        - Martha Nye
+        - Rachael Llewellyn
+        - Andrés N Ordorica
+        - Fiamma Curti
+      tags:
+        - poetry
+        - friends
+    - title: Domain Modeling Made Functional
+      authors:
+        - Scott Wlaschin
+      tags:
+        - programming
+        - types
+        - domain-driven-design
+        - f#
+    - title: SQL Antipatterns
+      authors:
+        - Bill Karwin
+      tags:
+        - programming
+        - sql
+        - meh
+    - title: The Man In The High Castle
+      authors:
+        - Philip K. Dick
+      tags:
+        - Fiction
+        - Alternate History
+    - title: "Northern Ireland: A Very Short Introduction"
+      authors:
+        - Marc Mulholland
+      tags:
+        - history
+        - ireland
+    - title: "Neoliberalism: A Very Short Introduction"
+      edition: 2
+      authors:
+        - Manfred B. Steger
+        - Ravi K. Roy
+      tags:
+        - politics
+        - economics
+        - history
+    - title: "The Communist Manifesto"
+      authors:
+        - Friedrich Engels
+        - Karl Marx
+      tags:
+        - politics
+        - economics
+        - history
+    - title: "Why Marx Was Right"
+      edition: 2
+      authors:
+        - Terry Eagleton
+      readers:
+        - Roger Clark
+      tags:
+        - communism
+        - politics
+        - economics
+        - history
+    - title: "Populism: A Very Short Introduction"
+      authors:
+        - Cas Muddle
+        - Cristóbal Rovira
+      readers:
+        - Leon Nixon
+      tags:
+        - politics
+        - economics
+        - history
+    - title: "How to Drink"
+      subtitle: "A Classical Guide to the Art of Imbibing"
+      authors:
+        - Vincent Obsopoeus
+      readers:
+        - Roger Clark
+      translators:
+        - Michael Fontaine
+      tags:
+        - historical
+        - alcohol
+        - lifestyle
+      notes: "Originally published in 1536"
+    - title: "A Deadly Dividend"
+      subtitle: "A gripping murder mystery set in Dublin"
+      authors:
+        - David Pearson
+      readers:
+        - Roger Clark
+      tags:
+        - fiction
+        - murder-mystery
+        - ireland
 
 - year: 2022
   books:
-  - title: "A New Ireland"
-    subtitle: "How Europe's Most Conservative Country Became Its Most Liberal"
-    authors:
-    - "Niall O'Dowd"
-    readers:
-    - Roger Clark
-    tags:
-    - ireland
-    - history
-    - rights
-    - politics
-  - title: "Freedom Is a Constant Struggle"
-    subtitle: "Ferguson, Palestine, and the Foundations of a Movement"
-    authors:
-    - "Angela Y. Davis"
-    readers:
-    - "Angela Y. Davis"
-    tags:
-    - activism
-    - history
-    - rights
-    - politics
-  - title: "Facism: A Very Short Introduction"
-    authors:
-    - "Kevin Passmore"
-    readers:
-    - "Pam Ward"
-    tags:
-    - history
-    - politics
-  - title: "Requiem for the American Dream"
-    subtitle: "The Principles of Concentrated Wealth and Power"
-    authors:
-    - "Noam Chomsky"
-    readers:
-    - "Donald Corren"
-    tags:
-    - history
-    - politics
-    - finance
-  - title: "Are Prisons Obsolete?"
-    authors:
-    - "Angela Y. Davis"
-    readers:
-    - "Micah S. Cottingham"
-    tags:
-    - history
-    - politics
-    - activism
-    - prison
-    - racism
-  - title: "SQL Performance Explained"
-    authors:
-    - "Markus Winand"
-    tags:
-    - tech
-    - sql
-    - programming
-  - title: "How We Get Free"
-    subtitle: Black Feminism and the Combahee River Collective
-    authors:
-    - "Keeanga-Yamahtta Taylor"
-    tags:
-    - feminism
-    - activism
-    - history
-    - race
-    - politics
-  - title: "We Should All Be Feminists"
-    authors:
-    - "Chimamanda Ngozi Adichie"
-    tags:
-    - feminism
-    - race
-    - politics
-  - title: "This Will Be My Undoing"
-    subtitle: "Living at the Intersection of Black, Female, and Feminist in (White) America"
-    authors:
-    - "Morgan Jerkins"
-    tags:
-    - feminism
-    - race
-    - blackness
-  - title: "Abolitionism: A Very Short Introduction"
-    authors:
-    - "Richard S. Newman"
-    tags:
-    - history
-    - liberation
-    - race
-  - title: "Gender Trouble"
-    subtitle: "Feminism and the Subversion of Identity"
-    authors:
-    - "Judith Butler"
-    tags:
-    - gender
-    - philosophy
-    - feminism
-  - title: "From #BlackLivesMatter to Black Liberation"
-    authors:
-    - "Keeanga-Yamahtta Taylor"
-    tags:
-    - liberation
-    - race
-    - activism
-  - title: "If They Come in the Morning"
-    subtitle: "Voices of Resistance"
-    authors:
-    - "Angela Davis"
-    tags:
-    - liberation
-    - race
-    - activism
-    - politics
-  - title: "The Will to Change"
-    subtitle: "Men, Masculinity, and Love"
-    authors:
-    - "bell hooks"
-    tags:
-    - patriarchy
-    - gender
-    - society
-  - title: "The End of Policing"
-    authors:
-    - "Alex S. Vitale"
-    tags:
-    - police
-    - politics
-    - justice
-  - title: "Dear Ijeawele, Or A Feminist Manifesto In Fifteen Suggestions"
-    authors:
-    - "Chimamanda Ngozi Adichie"
-    tags:
-    - feminism
-  - title: "Unauthorized Bread"
-    subtitle: "A Radicalized Novella"
-    authors:
-    - "Cory Doctorow"
-    tags:
-    - fiction
-    - dystopian
-    - copyright
-  - title: "You're Cute When You're Mad"
-    subtitle: "Simple Steps for Confronting Sexism"
-    authors:
-    - "Celeste Headlee"
-    tags:
-    - sexism
-    - psychology
-  - title: "Poverty: A Very Short Introduction"
-    authors:
-    - "Philip N. Jefferson"
-    tags:
-    - economics
-    - politics
-  - title: "Capitalism Realism"
-    subtitle: "Is there no alternative?"
-    authors:
-    - "Mark Fisher"
-    tags:
-    - philosophy
-    - politics
-  - title: "The Art of WebAssembly"
-    authors:
-    - "Rick Battagline"
-    tags:
-    - tech
-    - programming
-    - wasm
-
+    - title: "A New Ireland"
+      subtitle: "How Europe's Most Conservative Country Became Its Most Liberal"
+      authors:
+        - "Niall O'Dowd"
+      readers:
+        - Roger Clark
+      tags:
+        - ireland
+        - history
+        - rights
+        - politics
+    - title: "Freedom Is a Constant Struggle"
+      subtitle: "Ferguson, Palestine, and the Foundations of a Movement"
+      authors:
+        - "Angela Y. Davis"
+      readers:
+        - "Angela Y. Davis"
+      tags:
+        - activism
+        - history
+        - rights
+        - politics
+    - title: "Facism: A Very Short Introduction"
+      authors:
+        - "Kevin Passmore"
+      readers:
+        - "Pam Ward"
+      tags:
+        - history
+        - politics
+    - title: "Requiem for the American Dream"
+      subtitle: "The Principles of Concentrated Wealth and Power"
+      authors:
+        - "Noam Chomsky"
+      readers:
+        - "Donald Corren"
+      tags:
+        - history
+        - politics
+        - finance
+    - title: "Are Prisons Obsolete?"
+      authors:
+        - "Angela Y. Davis"
+      readers:
+        - "Micah S. Cottingham"
+      tags:
+        - history
+        - politics
+        - activism
+        - prison
+        - racism
+    - title: "SQL Performance Explained"
+      authors:
+        - "Markus Winand"
+      tags:
+        - tech
+        - sql
+        - programming
+    - title: "How We Get Free"
+      subtitle: Black Feminism and the Combahee River Collective
+      authors:
+        - "Keeanga-Yamahtta Taylor"
+      tags:
+        - feminism
+        - activism
+        - history
+        - race
+        - politics
+    - title: "We Should All Be Feminists"
+      authors:
+        - "Chimamanda Ngozi Adichie"
+      tags:
+        - feminism
+        - race
+        - politics
+    - title: "This Will Be My Undoing"
+      subtitle: "Living at the Intersection of Black, Female, and Feminist in (White) America"
+      authors:
+        - "Morgan Jerkins"
+      tags:
+        - feminism
+        - race
+        - blackness
+    - title: "Abolitionism: A Very Short Introduction"
+      authors:
+        - "Richard S. Newman"
+      tags:
+        - history
+        - liberation
+        - race
+    - title: "Gender Trouble"
+      subtitle: "Feminism and the Subversion of Identity"
+      authors:
+        - "Judith Butler"
+      tags:
+        - gender
+        - philosophy
+        - feminism
+    - title: "From #BlackLivesMatter to Black Liberation"
+      authors:
+        - "Keeanga-Yamahtta Taylor"
+      tags:
+        - liberation
+        - race
+        - activism
+    - title: "If They Come in the Morning"
+      subtitle: "Voices of Resistance"
+      authors:
+        - "Angela Davis"
+      tags:
+        - liberation
+        - race
+        - activism
+        - politics
+    - title: "The Will to Change"
+      subtitle: "Men, Masculinity, and Love"
+      authors:
+        - "bell hooks"
+      tags:
+        - patriarchy
+        - gender
+        - society
+    - title: "The End of Policing"
+      authors:
+        - "Alex S. Vitale"
+      tags:
+        - police
+        - politics
+        - justice
+    - title: "Dear Ijeawele, Or A Feminist Manifesto In Fifteen Suggestions"
+      authors:
+        - "Chimamanda Ngozi Adichie"
+      tags:
+        - feminism
+    - title: "Unauthorized Bread"
+      subtitle: "A Radicalized Novella"
+      authors:
+        - "Cory Doctorow"
+      tags:
+        - fiction
+        - dystopian
+        - copyright
+    - title: "You're Cute When You're Mad"
+      subtitle: "Simple Steps for Confronting Sexism"
+      authors:
+        - "Celeste Headlee"
+      tags:
+        - sexism
+        - psychology
+    - title: "Poverty: A Very Short Introduction"
+      authors:
+        - "Philip N. Jefferson"
+      tags:
+        - economics
+        - politics
+    - title: "Capitalism Realism"
+      subtitle: "Is there no alternative?"
+      authors:
+        - "Mark Fisher"
+      tags:
+        - philosophy
+        - politics
+    - title: "The Art of WebAssembly"
+      authors:
+        - "Rick Battagline"
+      tags:
+        - tech
+        - programming
+        - wasm
 
 - year: 2023
   books:
-  - title: "The Feckin' Book of Irish History"
-    subtitle: "for anyone who hasn't been paying attention for the last 30,000 years"
-    authors:
-    - "Donal O'Dea"
-    - "Colin Murphy"
-    tags:
-    - ireland
-    - history
-    - politics
-    - humourous
-  - title: "Ain't I a Woman"
-    subtitle: "Black Women and Feminism"
-    authors:
-    - "bell hooks"
-    tags:
-    - politics
-    - racism
-  - title: "A Lot of People Are Saying"
-    subtitle: "The New Conspiracism and the Assault on Democracy"
-    authors:
-    - "Nancy L. Rosenblum"
-    - "Russell Muirhead"
-    tags:
-    - politics
-  - title: "The Irish Assassins"
-    subtitle: "Conspiracy, Revenge, and the Phoenix Park Murders That Stunned Victorian England"
-    authors:
-    - "Julie Kavanagh"
-    tags:
-    - history
-    - ireland
-  - title: "The Picts"
-    subtitle: "The History of the People Who Inhabited Scotland in Antiquity and the Middle Ages"
-    authors:
-    - "Charles River Editors"
-    tags:
-    - history
-    - britain
-  - title: "Renewable Energy"
-    subtitle: "A Very Short Introduction"
-    authors:
-    - "Nick Jelley"
-    tags:
-    - climate-crisis
-    - energy
-  - title: "Ansible for DevOps"
-    subtitle: "Server and configuration management for humans"
-    authors:
-    - "Jeff Geerling"
-    tags:
-    - programming
-  - title: "What Remains?"
-    subtitle: "Life, Death, and the Human Art of Undertaking"
-    authors:
-    - "Rupert Callender"
-    tags:
-    - death
-    - rave
-    - biography
-  - title: "Butts"
-    subtitle: "A Backstory"
-    authors:
-    - "Heather Radke"
-    tags:
-    - history
-    - race
-    - feminism
-  - title: "Feminism Is for Everybody"
-    subtitle: "Passionate Politics"
-    authors:
-    - "bell hooks"
-    tags:
-    - feminism
-    - politics
-    - race
+    - title: "The Feckin' Book of Irish History"
+      subtitle: "for anyone who hasn't been paying attention for the last 30,000 years"
+      authors:
+        - "Donal O'Dea"
+        - "Colin Murphy"
+      tags:
+        - ireland
+        - history
+        - politics
+        - humourous
+    - title: "Ain't I a Woman"
+      subtitle: "Black Women and Feminism"
+      authors:
+        - "bell hooks"
+      tags:
+        - politics
+        - racism
+    - title: "A Lot of People Are Saying"
+      subtitle: "The New Conspiracism and the Assault on Democracy"
+      authors:
+        - "Nancy L. Rosenblum"
+        - "Russell Muirhead"
+      tags:
+        - politics
+    - title: "The Irish Assassins"
+      subtitle: "Conspiracy, Revenge, and the Phoenix Park Murders That Stunned Victorian England"
+      authors:
+        - "Julie Kavanagh"
+      tags:
+        - history
+        - ireland
+    - title: "The Picts"
+      subtitle: "The History of the People Who Inhabited Scotland in Antiquity and the Middle Ages"
+      authors:
+        - "Charles River Editors"
+      tags:
+        - history
+        - britain
+    - title: "Renewable Energy"
+      subtitle: "A Very Short Introduction"
+      authors:
+        - "Nick Jelley"
+      tags:
+        - climate-crisis
+        - energy
+    - title: "Ansible for DevOps"
+      subtitle: "Server and configuration management for humans"
+      authors:
+        - "Jeff Geerling"
+      tags:
+        - programming
+    - title: "What Remains?"
+      subtitle: "Life, Death, and the Human Art of Undertaking"
+      authors:
+        - "Rupert Callender"
+      tags:
+        - death
+        - rave
+        - biography
+    - title: "Butts"
+      subtitle: "A Backstory"
+      authors:
+        - "Heather Radke"
+      tags:
+        - history
+        - race
+        - feminism
+    - title: "Feminism Is for Everybody"
+      subtitle: "Passionate Politics"
+      authors:
+        - "bell hooks"
+      tags:
+        - feminism
+        - politics
+        - race
