@@ -30,7 +30,7 @@ endpoints:
     interval: 60s
     conditions:
       - "[STATUS] == 200"
-      - "[RESPONSE_TIME] < 500"
+      - "[RESPONSE_TIME] < 1000"
     alerts:
       - type: pushover
 
