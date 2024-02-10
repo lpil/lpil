@@ -1,3 +1,11 @@
+- title: "Gleam: Past, Present, Future!"
+  date: 2024-02-03
+  event: FOSDEM 2024
+  venue: Université libre de Bruxelles, Belgium
+  links:
+    - text: Recording
+      url: https://www.youtube.com/watch?v=clsTrQUt-4M
+
 - title: "Building a Type Safe OTP"
   date: 2022-09-09
   event: CodeBEAM Brazil
