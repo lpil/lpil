@@ -5,6 +5,10 @@
   links:
     - text: Recording
       url: https://www.youtube.com/watch?v=clsTrQUt-4M
+    - text: Slides
+      url: https://fosdem.org/2024/events/attachments/fosdem-2024-2039-gleam-past-present-future-/slides/22095/gleam_past_present_future_slides_rPz3g1U.pdf
+    - text: Schedule
+      url: https://fosdem.org/2024/schedule/event/fosdem-2024-2039-gleam-past-present-future-/
 
 - title: "Building a Type Safe OTP"
   date: 2022-09-09
@@ -40,6 +44,11 @@
   date: 2017-08-17
   event: Elixir LDN Conference 2017
   venue: 155 Bishopsgate, EC2
+  links:
+    - text: Recording
+      url: https://www.youtube.com/watch?v=g4HXeP_CZbc
+    - text: Elixir LDN Conference
+      url: http://www.elixir.london/
 
 - title: Exploring Interpretation
   date: 2017-03-29

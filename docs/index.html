@@ -56,7 +56,16 @@ redirect_from:
       {% for talk in site.data.talks_given %}
         <li class="art">
           <h5>{{ talk.title }}</h5>
-          <div class="posts__date">{{ talk.date | date: "%d %b, %Y" }} - {{ talk.event }}{% if talk.venue %} - {{ talk.venue }}{% endif %}</div>
+          <div class="posts__date">
+            {{ talk.date | date: "%d %b, %Y" }} - {{ talk.event }}{% if talk.venue %} - {{ talk.venue }}{% endif %}
+            {% if talk.links %}
+            <nav>
+              {% for link in talk.links %}
+              <a href="{{ link.url }}">{{ link.text }}</a>
+              {% endfor %}
+            </nav>
+            {% endif %}
+        </div>
       {% endfor %}
     </ul>
 
