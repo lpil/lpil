@@ -56,3 +56,5 @@ alias sorbet-ignored="rg typed:\ ignore | fpp"
 alias get-podman-mariadb="podman run -t -d -p 3306:3306 --name mariadb -e MYSQL_ALLOW_EMPTY_PASSWORD=1 mariadb --bind-address=0.0.0.0"
 alias get-podman-postgres="podman run -t -d -p 5432:5432 -e POSTGRES_PASSWORD=postgres --name postgres postgres"
 alias get-podman-redis="podman run -t -d -p 6379:6379 --name redis redis --bind 0.0.0.0"
+
+alias linguist="podman run -t --rm -v "./:/repo" crazymax/linguist:latest"
