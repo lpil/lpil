@@ -39,9 +39,9 @@ http://*.lpil.uk {
 		}
 	}
 
-	@try-gleam host try-gleam.lpil.uk
-	handle @try-gleam {
-		root * /srv/web-public/try-gleam
+	@gleam-run-preview host gleam-run-preview.lpil.uk
+	handle @gleam-run-preview {
+		root * /srv/web-public/gleam-run-preview
 		file_server {
 			disable_canonical_uris
 		}
