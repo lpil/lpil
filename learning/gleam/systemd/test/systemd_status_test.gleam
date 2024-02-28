@@ -1,6 +1,9 @@
 import gleeunit
 import gleeunit/should
-import systemd_status.{OneshotService, Service, SimpleService}
+import gleam/option.{None, Some}
+import systemd_status.{
+  Active, Inactive, Loaded, OneshotService, Service, SimpleService,
+}
 
 pub fn main() {
   gleeunit.main()
@@ -569,9 +572,16 @@ pub fn decode_service_oneshot_test() {
   |> should.equal(Service(
     id: "wibble-action-network-donations-sync.service",
     type_: OneshotService,
-    active_state: "inactive",
+    load_state: Loaded,
+    active_state: Inactive,
     sub_state: "dead",
     result: "success",
+    description: Some("wibble action-network-donations-sync"),
+    state_change_timestamp: Some("Wed 2024-02-28 12:00:42 UTC"),
+    active_enter_timestamp: None,
+    active_exit_timestamp: None,
+    inactive_enter_timestamp: Some("Wed 2024-02-28 12:00:42 UTC"),
+    inactive_exit_timestamp: Some("Wed 2024-02-28 12:00:42 UTC"),
   ))
 }
 
@@ -582,8 +592,15 @@ pub fn decode_service_simple_test() {
   |> should.equal(Service(
     id: "wibble-webapp.service",
     type_: SimpleService,
-    active_state: "active",
+    load_state: Loaded,
+    active_state: Active,
     sub_state: "running",
     result: "success",
+    description: Some("wibble webapp"),
+    state_change_timestamp: Some("Tue 2024-02-27 22:50:37 UTC"),
+    active_enter_timestamp: Some("Tue 2024-02-27 22:50:37 UTC"),
+    active_exit_timestamp: Some("Tue 2024-02-27 22:50:37 UTC"),
+    inactive_enter_timestamp: Some("Tue 2024-02-27 22:50:37 UTC"),
+    inactive_exit_timestamp: Some("Tue 2024-02-27 22:50:37 UTC"),
   ))
 }
