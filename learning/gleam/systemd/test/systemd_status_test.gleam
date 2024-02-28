@@ -1,5 +1,6 @@
 import gleeunit
 import gleeunit/should
+import gleam/string
 import gleam/option.{None, Some}
 import systemd_status.{
   Active, Inactive, Loaded, OneshotService, Service, SimpleService,
@@ -564,6 +565,26 @@ SuccessAction=none
 InvocationID=77746b9df2b84a84bc87b059ea0e28e3
 CollectMode=inactive
 "
+
+pub fn decode_double_input_test() {
+  { string.trim(input_service_oneshot) <> "\n\n" <> input_service_simple }
+  |> systemd_status.parse_service
+  |> should.be_ok
+  |> should.equal(Service(
+    id: "wibble-action-network-donations-sync.service",
+    type_: OneshotService,
+    load_state: Loaded,
+    active_state: Inactive,
+    sub_state: "dead",
+    result: "success",
+    description: Some("wibble action-network-donations-sync"),
+    state_change_timestamp: Some("Wed 2024-02-28 12:00:42 UTC"),
+    active_enter_timestamp: None,
+    active_exit_timestamp: None,
+    inactive_enter_timestamp: Some("Wed 2024-02-28 12:00:42 UTC"),
+    inactive_exit_timestamp: Some("Wed 2024-02-28 12:00:42 UTC"),
+  ))
+}
 
 pub fn decode_service_oneshot_test() {
   input_service_oneshot

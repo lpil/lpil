@@ -4,28 +4,32 @@ import gleam/result
 import gleam/dict.{type Dict}
 import gleam/list
 
-// systemctl show *  --no-pager -p Id
+/// A command you can run to get the information needed by this library about a
+/// unit to be able to parse it using `parse_service`.
+///
+/// Wildcards can be used in the unit name to get information about multiple
+/// units. In this case the properties for each unit will be separated by two
+/// newlines (`"\n\n"`).
+///
+/// # Security
+///
+/// This command runs `systemctl`. On a machine with systemd installed this is
+/// safe, however if the executable `systemctl` has not been provided by systemd
+/// then this unknown executable will be run with the provided arguments, which
+/// could be harmful. Do not run commands unless you are confident it is safe to
+/// do so.
+///
+pub fn unit_property_list_command(unit: String) -> #(String, List(String)) {
+  #("systemctl", [
+    "show",
+    unit,
+    "--no-pager",
+    "-p",
+    "Id,Type,LoadState,ActiveState,SubState,Result,Description,StateChangeTimestamp,ActiveEnterTimestamp,ActiveExitTimestamp,InactiveEnterTimestamp,InactiveExitTimestamp",
+  ])
+}
 
-// - [ ] Service Units
-//   - [x] Simple
-//   - [ ] Forking
-//   - [x] Oneshot
-//   - [ ] DBus
-//   - [ ] Notify
-//   - [ ] Idle
-//   - [ ] Exec
-//   - [ ] RemainAfterExit
-// - [ ] Socket Units
-// - [ ] Device Units
-// - [ ] Mount Units
-// - [ ] Automount Units
-// - [ ] Target Units
-// - [ ] Snapshot Units
-// - [ ] Timer Units
-// - [ ] Path Units
-// - [ ] Slice Units
-
-// TODO: document
+/// A service type unit.
 pub type Service {
   Service(
     id: String,
@@ -43,7 +47,6 @@ pub type Service {
   )
 }
 
-// TODO: document
 pub type ActiveState {
   Active
   Reloading
@@ -53,7 +56,6 @@ pub type ActiveState {
   Deactivating
 }
 
-// TODO: document
 pub type LoadState {
   Loaded
   NotFound
@@ -62,15 +64,30 @@ pub type LoadState {
   Masked
 }
 
-// TODO: document
 pub type ServiceType {
   SimpleService
   OneshotService
   OtherServiceType(name: String)
 }
 
-// TODO: document
+/// Parse a property list for a service unit into a `Service`.
+///
+/// The property list can be fetched by running the command returned by the
+/// `unit_property_list_command` function.
+///
+/// If the property list is not for a service unit then it will fail to parse.
+///
+/// If the property list is for multiple units (that is, if it contains a
+/// double newline) only the first unit will be parsed.
+///
 pub fn parse_service(input: String) -> Result(Service, String) {
+  // We only parse the first unit if there are multiple
+  let input = case string.split_once(input, "\n\n") {
+    Ok(#(first, _)) -> first
+    _ -> input
+  }
+
+  // Build a dictionary of the properties
   let props =
     input
     |> string.split("\n")
