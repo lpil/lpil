@@ -1,8 +1,9 @@
-import gleam/string
+import gleam/dict.{type Dict}
+import gleam/int
+import gleam/list
 import gleam/option.{type Option, None, Some}
 import gleam/result
-import gleam/dict.{type Dict}
-import gleam/list
+import gleam/string
 
 /// A command you can run to get the information needed by this library about a
 /// unit to be able to parse it using `parse_service`.
@@ -39,6 +40,7 @@ pub type Service {
     sub_state: String,
     result: String,
     description: Option(String),
+    main_pid: Option(Int),
     state_change_timestamp: Option(String),
     active_enter_timestamp: Option(String),
     active_exit_timestamp: Option(String),
@@ -109,6 +111,10 @@ pub fn parse_service(input: String) -> Result(Service, String) {
     active_state: active_state,
     sub_state: sub_state,
     result: result,
+    main_pid: case dict.get(props, "MainPID") {
+      Ok("0") | Error(_) -> None
+      Ok(pid) -> option.from_result(int.parse(pid))
+    },
     description: option.from_result(dict.get(props, "Description")),
     state_change_timestamp: optional_time(props, "StateChangeTimestamp"),
     active_enter_timestamp: optional_time(props, "ActiveEnterTimestamp"),
