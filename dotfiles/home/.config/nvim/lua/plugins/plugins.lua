@@ -10,7 +10,8 @@ return {
     opts = {
       servers = {
         gleam = { mason = false },
-        rust_analyzer = {},
+        rust_analyzer = { mason = false },
+        denols = { mason = false },
       },
     },
   },
