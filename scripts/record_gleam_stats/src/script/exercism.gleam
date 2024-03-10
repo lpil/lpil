@@ -7,7 +7,7 @@ import gleam/result
 import gleam/string
 import htmgrrrl.{Characters, EndElement, StartElement}
 import retry
-import script/error.{Error}
+import script/error.{type Error}
 
 pub type Information {
   Information(

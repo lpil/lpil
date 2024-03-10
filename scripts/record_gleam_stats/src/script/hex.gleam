@@ -1,9 +1,9 @@
-import script/error.{Error}
-import gleam/json as j
-import gleam/result
 import gleam/dynamic as dy
 import gleam/hackney
 import gleam/http/request
+import gleam/json as j
+import gleam/result
+import script/error.{type Error}
 
 pub fn get_stdlib_counts() -> Result(#(Int, Int), Error) {
   let assert Ok(request) =

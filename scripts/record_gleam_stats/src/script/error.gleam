@@ -1,5 +1,5 @@
-import gleam/http/response.{Response}
 import gleam/hackney
+import gleam/http/response.{type Response}
 import gleam/json
 
 pub type Error {

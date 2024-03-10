@@ -1,6 +1,6 @@
 import gleam/erlang/os
 import gleam/result
-import script/error.{Error}
+import script/error.{type Error}
 
 pub type Config {
   Config(

@@ -3,11 +3,11 @@ import gleam/hackney
 import gleam/http
 import gleam/http/request
 import gleam/int
-import gleam/json.{Json} as j
+import gleam/json.{type Json} as j
 import gleam/result
 import gleam/string
-import script/config.{Config}
-import script/error.{Error}
+import script/config.{type Config, Config}
+import script/error.{type Error}
 
 // https://docs.google.com/spreadsheets/d/1OLaTgpN9MXTVNZ--6s6AjE5aCjfpm2lAuy6FUmPuGRI/edit#gid=0
 const sheet_id = "1OLaTgpN9MXTVNZ--6s6AjE5aCjfpm2lAuy6FUmPuGRI"
@@ -60,11 +60,13 @@ fn append_row(
   use access_token <- result.then(get_access_token(config))
 
   let json =
-    j.to_string(j.object([
-      #("range", j.string(sheet <> "!A:A")),
-      #("majorDimension", j.string("ROWS")),
-      #("values", j.preprocessed_array([j.preprocessed_array(row)])),
-    ]))
+    j.to_string(
+      j.object([
+        #("range", j.string(sheet <> "!A:A")),
+        #("majorDimension", j.string("ROWS")),
+        #("values", j.preprocessed_array([j.preprocessed_array(row)])),
+      ]),
+    )
 
   let path =
     string.concat([
@@ -128,11 +130,9 @@ pub fn append_current_income(row: Row, config: Config) -> Result(Nil, Error) {
 }
 
 fn cents_to_dollars(cents: Int) -> String {
-  int.to_string(cents / 100) <> "." <> string.pad_left(
-    int.to_string(cents % 100),
-    to: 2,
-    with: "0",
-  )
+  int.to_string(cents / 100)
+  <> "."
+  <> string.pad_left(int.to_string(cents % 100), to: 2, with: "0")
 }
 
 @external(erlang, "script_ffi", "timestamp")

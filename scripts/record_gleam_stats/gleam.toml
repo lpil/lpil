@@ -11,4 +11,4 @@ htmerl = "~> 0.1"
 htmgrrrl = "~> 0.1"
 
 [dev-dependencies]
-gleeunit = "~> 0.6"
+gleeunit = "~> 1.0"

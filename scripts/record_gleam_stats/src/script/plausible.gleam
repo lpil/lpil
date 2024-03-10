@@ -1,10 +1,10 @@
-import script/error.{Error}
-import script/config.{Config}
-import gleam/json as j
-import gleam/result
 import gleam/dynamic as dy
 import gleam/hackney
 import gleam/http/request
+import gleam/json as j
+import gleam/result
+import script/config.{type Config}
+import script/error.{type Error}
 
 pub type Information {
   Information(thirty_day_visitors: Int, thirty_day_pageviews: Int)
