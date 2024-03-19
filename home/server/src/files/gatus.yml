@@ -77,6 +77,22 @@ endpoints:
     alerts:
       - type: pushover
 
+  - name: youth-demand.org
+    url: "https://youth-demand.org/"
+    interval: 60s
+    conditions:
+      - "[STATUS] == 200"
+    alerts:
+      - type: pushover
+
+  - name: umbrella-org.com
+    url: "https://umbrella-org.com/"
+    interval: 60s
+    conditions:
+      - "[STATUS] == 200"
+    alerts:
+      - type: pushover
+
   - name: Clipboard form
     url: "https://oilslick.lpil.uk/clipboard"
     interval: 60s
@@ -93,20 +109,8 @@ endpoints:
     alerts:
       - type: pushover
 
-  - name: Nanoleaf
-    url: "https://nanoleaf.me/"
-    interval: 60s
-    conditions:
-      - "[STATUS] == 200"
-
   - name: Meetdown
     url: https://meetdown.app
-    interval: 60s
-    conditions:
-      - "[STATUS] == 200"
-
-  - name: Tinyurl
-    url: https://tinyurl.com/pssmap
     interval: 60s
     conditions:
       - "[STATUS] == 200"
