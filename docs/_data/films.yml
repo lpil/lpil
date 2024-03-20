@@ -74,3 +74,13 @@
     tags:
       - Action
       - Sci-Fi
+  - name: Jojo Rabbit
+    director: Taika Waititi
+    released: 2019
+    language: English
+    # TODO: split country into array
+    country: United States, New Zealand
+    tags:
+      - Comedy
+      - War
+      - Drama
