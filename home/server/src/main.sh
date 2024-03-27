@@ -12,6 +12,7 @@ set -eu
 . ./caddy.sh
 . ./gatus.sh
 . ./media.sh
+. ./devenv.sh
 . ./golang.sh
 . ./syncthing.sh
 . ./tailscale.sh
@@ -31,6 +32,7 @@ tailscale_installed=$(install_tailscale)
 
 setup_nfs
 setup_sftp
+install_devenv
 install_golang
 install_goatcounter
 install_gatus
