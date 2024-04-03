@@ -20,6 +20,7 @@ This is not finished yet!
   - [ ] Form helpers
   - [ ] Show errors in forms
   - [ ] Oh yes, tests too!
+  - [ ] Make the default error pages look pretty
 - [ ] PostgreSQL database
   - [ ] Migrations
 - [ ] Authentication
@@ -30,6 +31,7 @@ This is not finished yet!
   - [ ] Gosh we really need a lot of tests for this
 - [ ] Email sending
   - [ ] Emails go _somewhere_ viewable in development
+- [ ] Reading config from environment
 
 ### Stretch goals
 

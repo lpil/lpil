@@ -1,5 +1,5 @@
 return {
-  { import = "lazyvim.plugins.extras.coding.copilot" },
+  -- { import = "lazyvim.plugins.extras.coding.copilot" },
   { import = "lazyvim.plugins.extras.editor.leap" },
   { import = "lazyvim.plugins.extras.lang.json" },
   { "fffnite/gleam-theme-nvim" },
@@ -22,6 +22,7 @@ return {
       vim.list_extend(opts.ensure_installed, {
         "gleam",
         "typescript",
+        "elixir",
       })
     end,
   },

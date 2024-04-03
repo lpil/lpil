@@ -1,6 +1,6 @@
 import gleam/list
 import lustre/attribute.{attribute}
-import lustre/element.{type Element, text}
+import lustre/element.{type Element}
 import lustre/element/html
 import wisp.{type Response}
 
