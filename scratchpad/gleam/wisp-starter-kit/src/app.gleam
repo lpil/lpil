@@ -2,11 +2,14 @@ import app/router
 import app/web.{Context}
 import filepath
 import gleam/erlang/process
+import gleam/pgo
 import mist
 import wisp
 
 pub fn main() {
   wisp.configure_logger()
+
+  // Load static values that are shared between all requests
 
   // TODO: load from env
   let secret_key_base = wisp.random_string(64)
@@ -16,6 +19,7 @@ pub fn main() {
 
   let ctx =
     Context(
+      db: start_database_pool(),
       static: filepath.join(static, "/static"),
       lustre_ui_static: filepath.join(lustre_ui_static, "/static"),
     )
@@ -27,4 +31,15 @@ pub fn main() {
     |> mist.start_http
 
   process.sleep_forever()
+}
+
+fn start_database_pool() -> pgo.Connection {
+  let config =
+    pgo.Config(
+      ..pgo.default_config(),
+      host: "localhost",
+      database: "wisp_starter_kit",
+      pool_size: 15,
+    )
+  pgo.connect(config)
 }

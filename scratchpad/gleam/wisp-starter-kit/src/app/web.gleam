@@ -1,4 +1,5 @@
 import gleam/list
+import gleam/pgo
 import lustre/attribute.{attribute}
 import lustre/element.{type Element}
 import lustre/element/html
@@ -6,6 +7,8 @@ import wisp.{type Response}
 
 pub type Context {
   Context(
+    /// The PostgreSQL database connection pool.
+    db: pgo.Connection,
     /// The directory where our applications's static assets for Lustre UI can
     /// be found, to be served to the client.
     static: String,

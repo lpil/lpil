@@ -4,6 +4,9 @@ import gleam/bool
 import lustre/element
 import wisp.{type Request, type Response}
 
+/// The web router, dispatching requests to different handler functions
+/// depending on their path.
+///
 pub fn handle_request(req: Request, ctx: Context) -> Response {
   use req <- middleware(req, ctx)
 
@@ -13,6 +16,9 @@ pub fn handle_request(req: Request, ctx: Context) -> Response {
   }
 }
 
+/// The middleware stack that is applied to all requests before they are
+/// routed to a suitable handler.
+///
 pub fn middleware(
   req: wisp.Request,
   ctx: Context,

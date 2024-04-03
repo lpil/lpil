@@ -22,7 +22,7 @@ This is not finished yet!
   - [ ] Oh yes, tests too!
   - [ ] Make the default error pages look pretty
 - [ ] PostgreSQL database
-  - [ ] Migrations
+  - [ ] Migrations (https://github.com/amacneil/dbmate)
 - [ ] Authentication
   - [ ] Register
   - [ ] Verify email
@@ -41,23 +41,15 @@ This is not finished yet!
   - [ ] Delete database records
   - [ ] Update database records
 
-```sh
-gleam add app
-```
-```gleam
-import app
 
-pub fn main() {
-  // TODO: An example of the project in use
-}
-```
+## Getting started
 
-Further documentation can be found at <https://hexdocs.pm/app>.
-
-## Development
+You will need PostgreSQL installed and running on `localhost`. You can set the
+standard `PGPASSWORD` and `PGUSER` environment variables if your user requires
+credentials.
 
 ```sh
-gleam run   # Run the project
-gleam test  # Run the tests
-gleam shell # Run an Erlang shell
+# Create the databases
+createdb wisp_starter_kit
+createdb wisp_starter_kit_test
 ```
