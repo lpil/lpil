@@ -32,6 +32,7 @@ This is not finished yet!
 - [ ] Email sending
   - [ ] Emails go _somewhere_ viewable in development
 - [x] Reading config from environment
+  - [ ] Document .env.example members
 
 ### Stretch goals
 

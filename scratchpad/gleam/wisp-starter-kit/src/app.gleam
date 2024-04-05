@@ -14,9 +14,7 @@ pub fn main() {
 
   // Load static values that are shared between all requests
 
-  // TODO: load from env
-  let secret_key_base = wisp.random_string(64)
-
+  let assert Ok(secret_key_base) = envoy.get("SECRET_KEY_BASE")
   let assert Ok(static) = wisp.priv_directory("app")
   let assert Ok(lustre_ui_static) = wisp.priv_directory("lustre_ui")
 
