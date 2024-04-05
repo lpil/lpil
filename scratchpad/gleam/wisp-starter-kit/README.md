@@ -45,16 +45,16 @@ This is not finished yet!
 
 ## Getting started
 
-You will need PostgreSQL installed and running on `localhost`. You can set the
-standard `PGPASSWORD` and `PGUSER` environment variables if your user requires
-credentials.
+You will need to have these installed on your machine:
+- [PostgreSQL](https://www.postgresql.org) database.
+- [dbmate](https://github.com/amacneil/dbmate) database migration tool.
 
 ```sh
 # Create a .env file with your configuration
 cp .env.example .env
 vim .env
 
-# Create the databases
-createdb wisp_starter_kit
-createdb wisp_starter_kit_test
+# Create and migrate the databases
+dbmate up
+dbmate -e TEST_DATABASE_URL up
 ```
