@@ -31,7 +31,7 @@ This is not finished yet!
   - [ ] Gosh we really need a lot of tests for this
 - [ ] Email sending
   - [ ] Emails go _somewhere_ viewable in development
-- [ ] Reading config from environment
+- [x] Reading config from environment
 
 ### Stretch goals
 
@@ -49,6 +49,10 @@ standard `PGPASSWORD` and `PGUSER` environment variables if your user requires
 credentials.
 
 ```sh
+# Create a .env file with your configuration
+cp .env.example .env
+vim .env
+
 # Create the databases
 createdb wisp_starter_kit
 createdb wisp_starter_kit_test
