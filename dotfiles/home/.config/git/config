@@ -30,6 +30,7 @@
   cleanup = "!git branch --merged | grep -v \"\\*\" | grep -v master | grep -v dev | xargs -n 1 git branch -d"
   fpp = "!git st | fpp"
   git = "!git"
+  both = !git status | grep 'both modified' | cut -d ' ' -f5 | xargs nvim
 [fetch]
   prune = true
 [init]
