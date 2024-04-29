@@ -13,14 +13,14 @@ pub fn parse_null_string_test() {
   <<"$-1\r\n":utf8>>
   |> resp.parse
   |> should.be_ok
-  |> should.equal(Parsed(data: resp.Null, remaining_input: <<>>))
+  |> should.equal(Parsed(data: resp.NullString, remaining_input: <<>>))
 }
 
 pub fn parse_null_array_test() {
   <<"*-1\r\n":utf8>>
   |> resp.parse
   |> should.be_ok
-  |> should.equal(Parsed(data: resp.Null, remaining_input: <<>>))
+  |> should.equal(Parsed(data: resp.NullArray, remaining_input: <<>>))
 }
 
 pub fn parse_simple_string_pong_test() {
@@ -134,6 +134,34 @@ pub fn parse_array_gleam_is_really_cool_test() {
   )
 }
 
+pub fn parse_int_0_test() {
+  <<":0\r\n":utf8>>
+  |> resp.parse
+  |> should.be_ok
+  |> should.equal(Parsed(resp.Int(0), <<>>))
+}
+
+pub fn parse_int_1000_test() {
+  <<":1000\r\n":utf8>>
+  |> resp.parse
+  |> should.be_ok
+  |> should.equal(Parsed(resp.Int(1000), <<>>))
+}
+
+pub fn parse_int_positive_1000_test() {
+  <<":+1000\r\n":utf8>>
+  |> resp.parse
+  |> should.be_ok
+  |> should.equal(Parsed(resp.Int(1000), <<>>))
+}
+
+pub fn parse_int_negative_1000_test() {
+  <<":-1000\r\n":utf8>>
+  |> resp.parse
+  |> should.be_ok
+  |> should.equal(Parsed(resp.Int(-1000), <<>>))
+}
+
 pub fn roundtrip_string_test() {
   let input = resp.String("Gleam")
   input
@@ -176,6 +204,42 @@ pub fn roundtrip_array_nested_test() {
 
 pub fn roundtrip_null_test() {
   let input = resp.Null
+  input
+  |> resp.encode
+  |> resp.parse
+  |> should.be_ok
+  |> should.equal(Parsed(input, <<>>))
+}
+
+pub fn roundtrip_int_negative_test() {
+  let input = resp.Int(-123)
+  input
+  |> resp.encode
+  |> resp.parse
+  |> should.be_ok
+  |> should.equal(Parsed(input, <<>>))
+}
+
+pub fn roundtrip_int_positive_test() {
+  let input = resp.Int(123)
+  input
+  |> resp.encode
+  |> resp.parse
+  |> should.be_ok
+  |> should.equal(Parsed(input, <<>>))
+}
+
+pub fn roundtrip_nullstring_test() {
+  let input = resp.NullString
+  input
+  |> resp.encode
+  |> resp.parse
+  |> should.be_ok
+  |> should.equal(Parsed(input, <<>>))
+}
+
+pub fn roundtrip_nullarray_test() {
+  let input = resp.NullArray
   input
   |> resp.encode
   |> resp.parse

@@ -23,7 +23,10 @@ import gleam/string
 pub type RespData {
   String(content: String)
   Array(elements: List(RespData))
+  Int(value: Int)
   Null
+  NullArray
+  NullString
 }
 
 pub type Parsed {
@@ -54,7 +57,14 @@ fn en(buf: BitArray, data: RespData) -> BitArray {
       list.fold(elements, buf, en)
     }
 
+    Int(i) -> {
+      let i = int.to_string(i)
+      <<buf:bits, ":":utf8, i:utf8, "\r\n":utf8>>
+    }
+
     Null -> <<buf:bits, "_\r\n":utf8>>
+    NullArray -> <<buf:bits, "*-1\r\n":utf8>>
+    NullString -> <<buf:bits, "$-1\r\n":utf8>>
   }
 }
 
@@ -63,12 +73,13 @@ pub fn parse(input: BitArray) -> Result(Parsed, ParseError) {
   case input {
     // The three ways of representing null
     <<"_\r\n":utf8, rest:bits>> -> Ok(Parsed(Null, rest))
-    <<"$-1\r\n":utf8, rest:bits>> -> Ok(Parsed(Null, rest))
-    <<"*-1\r\n":utf8, rest:bits>> -> Ok(Parsed(Null, rest))
+    <<"$-1\r\n":utf8, rest:bits>> -> Ok(Parsed(NullString, rest))
+    <<"*-1\r\n":utf8, rest:bits>> -> Ok(Parsed(NullArray, rest))
 
     <<"+":utf8, rest:bits>> -> parse_simple_string(rest, <<>>)
     <<"$":utf8, rest:bits>> -> parse_bulk_string(rest)
     <<"*":utf8, rest:bits>> -> parse_array(rest)
+    <<":":utf8, rest:bits>> -> parse_int(rest)
     input -> Error(UnexpectedInput(input))
   }
 }
@@ -272,6 +283,42 @@ fn parse_array(input: BitArray) -> Result(Parsed, ParseError) {
         Ok(#(elements, input)) -> Ok(Parsed(Array(elements), input))
       }
   }
+}
+
+/// Integers
+/// 
+/// This type is a CRLF-terminated string that represents a signed, base-10, 64-bit integer.
+/// 
+/// RESP encodes integers in the following way:
+/// 
+/// ```
+/// :[<+|->]<value>\r\n
+/// ```
+/// 
+/// The colon (:) as the first byte.
+/// An optional plus (+) or minus (-) as the sign.
+/// One or more decimal digits (0..9) as the integer's unsigned, base-10 value.
+/// The CRLF terminator.
+/// For example, :0\r\n and :1000\r\n are integer replies (of zero and one thousand, respectively).
+/// 
+/// Many Redis commands return RESP integers, including INCR, LLEN, and LASTSAVE.
+/// An integer, by itself, has no special meaning other than in the context of the
+/// command that returned it. For example, it is an incremental number for INCR, a
+/// UNIX timestamp for LASTSAVE, and so forth. However, the returned integer is
+/// guaranteed to be in the range of a signed 64-bit integer.
+/// 
+/// In some cases, integers can represent true and false Boolean values. For
+/// instance, SISMEMBER returns 1 for true and 0 for false.
+/// 
+/// Other commands, including SADD, SREM, and SETNX, return 1 when the data changes
+/// and 0 otherwise.
+fn parse_int(input: BitArray) -> Result(Parsed, ParseError) {
+  let #(multiplier, input) = case input {
+    <<"-":utf8, input:bits>> -> #(-1, input)
+    <<"+":utf8, input:bits>> | input -> #(1, input)
+  }
+  use #(value, input) <- result.map(parse_raw_int(input, 0))
+  Parsed(Int(value * multiplier), input)
 }
 
 fn parse_elements(
