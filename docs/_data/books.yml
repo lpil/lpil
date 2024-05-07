@@ -460,3 +460,13 @@
         - fiction
         - novel
         - science-fiction
+    - title: "Angela Y. David"
+      subtitle: "An Autobiography"
+      authors:
+        - "Angela Y. Davis"
+      tags:
+        - autobiography
+        - activism
+        - usa
+        - racism
+        - history
