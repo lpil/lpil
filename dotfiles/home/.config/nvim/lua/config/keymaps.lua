@@ -48,3 +48,7 @@ end)
 vim.keymap.set("n", "H", function()
   next_non_open_buffer("bprevious")
 end)
+
+vim.keymap.set("n", "<leader>ci", function()
+  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }))
+end, { desc = "Toggle inlay hints" })
