@@ -2,7 +2,7 @@ alias bell='echo -e \\a'
 
 alias up='time ping 8.8.8.8'
 
-alias w='watchexec'
+alias w='watchexec --wrap-process=session'
 
 alias v='vim'
 alias n='nvim'
