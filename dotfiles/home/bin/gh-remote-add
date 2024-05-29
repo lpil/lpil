@@ -1,0 +1,20 @@
+#!/bin/sh
+
+#
+# Add a remote for a GitHub based fork
+#
+# USAGE:
+#   cd some/repo
+#   gh-remote-add theusername
+#
+
+set -eu
+
+username=$1
+if [ -z "${2-}" ]; then
+	repo=$(git remote -v | head -1 | sed -n 's#.*/\([^ \.]*\).*#\1#p')
+else
+	repo=$2
+fi
+
+git remote add -f "$username" "git@github.com:$username/$repo.git"
