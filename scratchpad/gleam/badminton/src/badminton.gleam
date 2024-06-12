@@ -1,8 +1,22 @@
+// TODO: non-int primary key
+// TODO: primary key column not called "id"
+// TODO: UI shows records for table
+// TODO: pagination
+// TODO: can edit records
+// TODO: can create records
+// TODO: datetime type
+// TODO: bool type
+// TODO: basic UI
+// TODO: nice UI
+// TODO: configure some fields to only show on single record page
+
+import gleam/dynamic.{type Dynamic}
 import gleam/http.{Get}
 import gleam/http/request
 import gleam/int
 import gleam/list
 import gleam/pgo.{type Connection}
+import gleam/result
 import gleam/string
 import gleam/string_builder.{type StringBuilder}
 import justin
@@ -207,6 +221,15 @@ pub opaque type Field {
 pub type FieldValue {
   Int(value: Int)
   Text(value: String)
+}
+
+pub fn decode_field_value(
+  dynamic: Dynamic,
+) -> Result(FieldValue, dynamic.DecodeErrors) {
+  dynamic.any([
+    fn(x) { dynamic.int(x) |> result.map(Int) },
+    fn(x) { dynamic.string(x) |> result.map(Text) },
+  ])(dynamic)
 }
 
 fn reverse(in: List(Resource), out: List(Resource)) -> List(Resource) {

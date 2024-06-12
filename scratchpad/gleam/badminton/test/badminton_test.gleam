@@ -1,13 +1,22 @@
+import argv
 import badminton.{
   admin_console, display, editable, email, field, int, references, resource,
   text,
 }
 import gleam/erlang/process
 import gleam/pgo.{type Connection}
+import gleeunit
 import mist
 import wisp.{type Request, type Response}
 
 pub fn main() {
+  case argv.load().arguments {
+    ["server"] -> run_server()
+    _ -> gleeunit.main()
+  }
+}
+
+fn run_server() {
   wisp.configure_logger()
   let secret_key_base = wisp.random_string(64)
 
