@@ -9,6 +9,9 @@
 // TODO: basic UI
 // TODO: nice UI
 // TODO: configure some fields to only show on single record page
+//
+// https://docs.djangoproject.com/en/5.0/ref/contrib/admin/
+// https://github.com/naymspace/backpex
 
 import gleam/dynamic.{type Dynamic}
 import gleam/http.{Get}
