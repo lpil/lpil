@@ -126,8 +126,9 @@ pub fn admin_console(
 
   case request.path_segments(request) {
     [p, ..] if p != prefix -> next()
-    [_] -> handle_index(request, context)
-    [_, name] -> handle_resource(request, name, context)
+    [_] -> home(request, context)
+    [_, name] -> resource_list(request, name, context)
+    [_, name, id] -> resource_show(request, name, id, context)
     _ -> next()
   }
 }
@@ -136,7 +137,33 @@ type Context {
   Context(prefix: String, db: Connection, resources: List(Resource))
 }
 
-fn handle_resource(request: Request, name: String, context: Context) -> Response {
+fn resource_show(
+  request: Request,
+  name: String,
+  id: String,
+  context: Context,
+) -> Response {
+  use <- wisp.require_method(request, Get)
+  use resource <- require_resource(name, context.resources)
+  let id = int.parse(id) |> result.unwrap(0)
+
+  case load_row(resource, id, context) {
+    Ok(row) -> resource_page(resource, id, row)
+    Error(_) -> wisp.not_found()
+  }
+}
+
+fn resource_page(resource: Resource, id: Int, row: List(FieldValue)) -> Response {
+  [
+    html.h1([], [
+      element.text(resource.display_name <> ": " <> int.to_string(id)),
+    ]),
+  ]
+  |> page_html
+  |> wisp.html_response(200)
+}
+
+fn resource_list(request: Request, name: String, context: Context) -> Response {
   use <- wisp.require_method(request, Get)
   use resource <- require_resource(name, context.resources)
   let database_rows = load_rows(resource, context)
@@ -172,22 +199,44 @@ fn handle_resource(request: Request, name: String, context: Context) -> Response
   |> wisp.html_response(200)
 }
 
+fn field_storage_names(resource: Resource) -> List(String) {
+  list.map(resource.items, fn(item) { resource_item_field(item).storage_name })
+}
+
 fn load_rows(resource: Resource, context: Context) -> List(List(FieldValue)) {
   let sql =
-    internal.sql_select_query(
+    internal.sql_select_many_query(
       resource.storage_name,
-      list.map(resource.items, fn(item) {
-        resource_item_field(item).storage_name
-      }),
+      field_storage_names(resource),
     )
 
-  let decoder = fn(data) {
-    let data = dynamic_tuple_to_list(data)
-    dynamic.list(decode_field_value)(data)
-  }
   let arguments = [pgo.int(0)]
-  let assert Ok(returned) = pgo.execute(sql, context.db, arguments, decoder)
+  let assert Ok(returned) = pgo.execute(sql, context.db, arguments, decode_row)
   returned.rows
+}
+
+fn load_row(
+  resource: Resource,
+  id: Int,
+  context: Context,
+) -> Result(List(FieldValue), Nil) {
+  let sql =
+    internal.sql_select_one_query(
+      resource.storage_name,
+      field_storage_names(resource),
+    )
+
+  let arguments = [pgo.int(id)]
+  let assert Ok(returned) = pgo.execute(sql, context.db, arguments, decode_row)
+  case returned.rows {
+    [] -> Error(Nil)
+    [row, ..] -> Ok(row)
+  }
+}
+
+fn decode_row(data: Dynamic) -> Result(List(FieldValue), dynamic.DecodeErrors) {
+  let data = dynamic_tuple_to_list(data)
+  dynamic.list(decode_field_value)(data)
 }
 
 @external(erlang, "badminton_ffi", "coerce_tuple_to_list")
@@ -206,7 +255,7 @@ fn require_resource(
   }
 }
 
-fn handle_index(request: Request, context: Context) -> Response {
+fn home(request: Request, context: Context) -> Response {
   use <- wisp.require_method(request, Get)
 
   [
