@@ -13,6 +13,7 @@
 // https://docs.djangoproject.com/en/5.0/ref/contrib/admin/
 // https://github.com/naymspace/backpex
 
+import badminton/internal
 import gleam/dynamic.{type Dynamic}
 import gleam/http.{Get}
 import gleam/http/request
@@ -138,21 +139,59 @@ type Context {
 fn handle_resource(request: Request, name: String, context: Context) -> Response {
   use <- wisp.require_method(request, Get)
   use resource <- require_resource(name, context.resources)
+  let database_rows = load_rows(resource, context)
+
+  let table_rows =
+    list.map(database_rows, fn(row) {
+      let row = list.zip(resource.items, row)
+      html.tr(
+        [],
+        list.map(row, fn(row) {
+          let #(definition, data) = row
+          let definition = resource_item_field(definition)
+          html.td([], [element.text(definition.print(data))])
+        }),
+      )
+    })
 
   [
     html.h1([], [element.text(resource.display_name)]),
     html.table([], [
-      html.thead(
-        [],
-        list.map(resource.items, fn(i) {
-          html.td([], [element.text(item_display_name(i))])
-        }),
-      ),
+      html.thead([], [
+        html.tr(
+          [],
+          list.map(resource.items, fn(i) {
+            html.td([], [element.text(item_display_name(i))])
+          }),
+        ),
+      ]),
+      html.tbody([], table_rows),
     ]),
   ]
   |> page_html
   |> wisp.html_response(200)
 }
+
+fn load_rows(resource: Resource, context: Context) -> List(List(FieldValue)) {
+  let sql =
+    internal.sql_select_query(
+      resource.storage_name,
+      list.map(resource.items, fn(item) {
+        resource_item_field(item).storage_name
+      }),
+    )
+
+  let decoder = fn(data) {
+    let data = dynamic_tuple_to_list(data)
+    dynamic.list(decode_field_value)(data)
+  }
+  let arguments = [pgo.int(0)]
+  let assert Ok(returned) = pgo.execute(sql, context.db, arguments, decoder)
+  returned.rows
+}
+
+@external(erlang, "badminton_ffi", "coerce_tuple_to_list")
+fn dynamic_tuple_to_list(in: Dynamic) -> Dynamic
 
 fn require_resource(
   name: String,
@@ -211,6 +250,13 @@ type ResourceItem {
   )
 }
 
+fn resource_item_field(item: ResourceItem) -> Field {
+  case item {
+    ResourceField(f) -> f
+    Reference(field: f, ..) -> f
+  }
+}
+
 pub opaque type Field {
   Field(
     storage_name: String,
@@ -229,10 +275,12 @@ pub type FieldValue {
 pub fn decode_field_value(
   dynamic: Dynamic,
 ) -> Result(FieldValue, dynamic.DecodeErrors) {
-  dynamic.any([
-    fn(x) { dynamic.int(x) |> result.map(Int) },
-    fn(x) { dynamic.string(x) |> result.map(Text) },
-  ])(dynamic)
+  let decoder =
+    dynamic.any([
+      fn(x) { dynamic.int(x) |> result.map(Int) },
+      fn(x) { dynamic.string(x) |> result.map(Text) },
+    ])
+  decoder(dynamic)
 }
 
 fn reverse(in: List(Resource), out: List(Resource)) -> List(Resource) {
