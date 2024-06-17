@@ -76,3 +76,10 @@ pub fn sql_update_query(
 
   string.join(parts, " ")
 }
+
+/// Build an SQL query for deleting a resource with a given id.
+///
+pub fn sql_delete_query(table table: String) -> String {
+  let parts = ["delete from", sql_escape_name(table), "where id = $1"]
+  string.join(parts, " ")
+}

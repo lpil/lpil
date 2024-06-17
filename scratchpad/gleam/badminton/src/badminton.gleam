@@ -13,6 +13,7 @@
 // TODO: tests for resource list rows
 // TODO: tests for resource show one
 // TODO: tests for resource update one
+// TODO: tests for resource delete one
 //
 // https://docs.djangoproject.com/en/5.0/ref/contrib/admin/
 // https://github.com/naymspace/backpex
@@ -34,7 +35,12 @@ import lustre/element/html
 import wisp.{type Request, type Response}
 
 pub fn resource(storage_name: String, display_name: String) -> Resource {
-  Resource(storage_name: storage_name, display_name: display_name, items: [])
+  Resource(
+    storage_name: storage_name,
+    display_name: display_name,
+    items: [],
+    deletable: False,
+  )
 }
 
 pub fn field(resource: Resource, field: Field) -> Resource {
@@ -49,6 +55,10 @@ pub fn text(name: String) -> Field {
     print: print_text,
     parse: parse_text,
   )
+}
+
+pub fn deletable(resource: Resource, is_deletable: Bool) -> Resource {
+  Resource(..resource, deletable: is_deletable)
 }
 
 fn parse_text(input: String) -> Result(FieldValue, String) {
@@ -153,8 +163,15 @@ fn resource_single(
   case request.method {
     http.Get -> resource_show(resource, id, context)
     http.Post -> resource_update(request, resource, id, context)
+    http.Delete -> resource_delete(resource, id, context)
     _ -> wisp.method_not_allowed([http.Get, http.Post])
   }
+}
+
+fn resource_delete(resource: Resource, id: Int, context: Context) -> Response {
+  let sql = internal.sql_delete_query(resource.storage_name)
+  let assert Ok(_) = pgo.execute(sql, context.db, [pgo.int(id)], Ok)
+  wisp.redirect(".")
 }
 
 fn resource_update(
@@ -242,6 +259,9 @@ fn resource_page(resource: Resource, id: Int, row: List(FieldValue)) -> Response
     html.form([attribute.method("POST")], [
       element.fragment(fields),
       html.input([attribute.type_("submit"), attribute.value("Save")]),
+    ]),
+    html.form([attribute.method("POST"), attribute.action("?_method=DELETE")], [
+      html.input([attribute.type_("submit"), attribute.value("Delete")]),
     ]),
   ]
   |> page_html
@@ -349,7 +369,10 @@ fn home(request: Request, context: Context) -> Response {
       [],
       list.map(context.resources, fn(resource) {
         let href =
-          context.prefix <> "/" <> justin.kebab_case(resource.storage_name)
+          "/"
+          <> context.prefix
+          <> "/"
+          <> justin.kebab_case(resource.storage_name)
         html.li([], [
           html.a([attribute.href(href)], [element.text(resource.display_name)]),
         ])
@@ -371,6 +394,7 @@ pub opaque type Resource {
     storage_name: String,
     display_name: String,
     items: List(ResourceItem),
+    deletable: Bool,
   )
 }
 

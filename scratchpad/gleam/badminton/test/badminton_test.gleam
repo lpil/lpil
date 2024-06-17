@@ -35,6 +35,8 @@ fn run_server() {
 }
 
 pub fn handle_request(request: Request, db: Connection) -> Response {
+  let request = wisp.method_override(request)
+
   let users =
     resource("users", "Users")
     |> field(text("name") |> editable(True))

@@ -49,3 +49,8 @@ pub fn sql_update_query_1_test() {
     "update \"users\" set \"name\" = $2, \"email\" = $3, \"number\" = $4 where id = $1",
   )
 }
+
+pub fn sql_delete_query_1_test() {
+  internal.sql_delete_query(table: "users")
+  |> should.equal("delete from \"users\" where id = $1")
+}
