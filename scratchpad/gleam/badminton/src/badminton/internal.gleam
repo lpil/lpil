@@ -1,3 +1,4 @@
+import gleam/int
 import gleam/list
 import gleam/string
 
@@ -49,6 +50,28 @@ pub fn sql_select_one_query(
     sql_escape_name(table),
     "where id = $1",
     "limit 1",
+  ]
+
+  string.join(parts, " ")
+}
+
+/// Build an SQL query for updating a resource.
+///
+pub fn sql_update_query(
+  table table: String,
+  columns columns: List(String),
+) -> String {
+  let updates =
+    list.index_map(columns, fn(column, i) {
+      sql_escape_name(column) <> " = $" <> int.to_string(i + 2)
+    })
+
+  let parts = [
+    "update",
+    sql_escape_name(table),
+    "set",
+    updates |> string.join(", "),
+    "where id = $1",
   ]
 
   string.join(parts, " ")

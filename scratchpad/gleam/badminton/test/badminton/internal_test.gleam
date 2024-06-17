@@ -35,10 +35,17 @@ pub fn sql_select_many_query_0_test() {
 }
 
 pub fn sql_select_one_query_0_test() {
-  internal.sql_select_many_query(table: "users", columns: [
+  internal.sql_select_one_query(table: "users", columns: [
     "name", "email", "number",
   ])
   |> should.equal(
     "select \"name\", \"email\", \"number\" from \"users\" where id = $1 limit 1",
+  )
+}
+
+pub fn sql_update_query_1_test() {
+  internal.sql_update_query(table: "users", columns: ["name", "email", "number"])
+  |> should.equal(
+    "update \"users\" set \"name\" = $2, \"email\" = $3, \"number\" = $4 where id = $1",
   )
 }

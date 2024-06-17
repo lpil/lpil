@@ -9,6 +9,10 @@
 // TODO: basic UI
 // TODO: nice UI
 // TODO: configure some fields to only show on single record page
+// TODO: tests for home
+// TODO: tests for resource list rows
+// TODO: tests for resource show one
+// TODO: tests for resource update one
 //
 // https://docs.djangoproject.com/en/5.0/ref/contrib/admin/
 // https://github.com/naymspace/backpex
@@ -128,7 +132,7 @@ pub fn admin_console(
     [p, ..] if p != prefix -> next()
     [_] -> home(request, context)
     [_, name] -> resource_list(request, name, context)
-    [_, name, id] -> resource_show(request, name, id, context)
+    [_, name, id] -> resource_single(request, name, id, context)
     _ -> next()
   }
 }
@@ -137,26 +141,107 @@ type Context {
   Context(prefix: String, db: Connection, resources: List(Resource))
 }
 
-fn resource_show(
+fn resource_single(
   request: Request,
   name: String,
   id: String,
   context: Context,
 ) -> Response {
-  use <- wisp.require_method(request, Get)
   use resource <- require_resource(name, context.resources)
   let id = int.parse(id) |> result.unwrap(0)
 
+  case request.method {
+    http.Get -> resource_show(resource, id, context)
+    http.Post -> resource_update(request, resource, id, context)
+    _ -> wisp.method_not_allowed([http.Get, http.Post])
+  }
+}
+
+fn resource_update(
+  request: Request,
+  resource: Resource,
+  id: Int,
+  context: Context,
+) -> Response {
+  use form <- wisp.require_form(request)
+
+  // TODO: handle the case where parsing fails due to bad input
+  let assert Ok(data) = parse_form_values(form, resource)
+
+  let #(fields, values) = list.unzip(data)
+  let sql = internal.sql_update_query(resource.storage_name, fields)
+  let arguments = [pgo.int(id), ..list.map(values, field_value_to_pgo_value)]
+  let assert Ok(_) = pgo.execute(sql, context.db, arguments, Ok)
+
+  wisp.redirect(int.to_string(id))
+}
+
+fn field_value_to_pgo_value(value: FieldValue) -> pgo.Value {
+  case value {
+    Text(t) -> pgo.text(t)
+    Int(i) -> pgo.int(i)
+  }
+}
+
+fn parse_form_values(
+  form: wisp.FormData,
+  resource: Resource,
+) -> Result(List(#(String, FieldValue)), String) {
+  let fields = editable_fields(resource)
+  list.try_map(fields, fn(field) {
+    let value =
+      form.values |> list.key_find(field.storage_name) |> result.unwrap("")
+    case field.parse(value) {
+      Ok(value) -> Ok(#(field.storage_name, value))
+      Error(e) -> Error(e)
+    }
+  })
+}
+
+fn editable_fields(resource: Resource) -> List(Field) {
+  resource.items
+  |> list.map(resource_item_field)
+  |> list.filter(fn(f) { f.editable })
+}
+
+fn resource_show(resource: Resource, id: Int, context: Context) -> Response {
   case load_row(resource, id, context) {
     Ok(row) -> resource_page(resource, id, row)
     Error(_) -> wisp.not_found()
   }
 }
 
+fn field_input(field: Field, value: FieldValue) -> element.Element(a) {
+  html.input([
+    attribute.name(field.storage_name),
+    attribute.value(field.print(value)),
+    attribute.readonly(!field.editable),
+  ])
+}
+
 fn resource_page(resource: Resource, id: Int, row: List(FieldValue)) -> Response {
+  let row = list.zip(resource.items, row)
+  let fields =
+    list.map(row, fn(row) {
+      let #(definition, value) = row
+      let field = resource_item_field(definition)
+
+      html.label(
+        [attribute.style([#("display", "block"), #("padding-bottom", "10px")])],
+        [
+          html.div([], [element.text(field.display_name)]),
+          field_input(field, value),
+        ],
+      )
+    })
+
   [
     html.h1([], [
       element.text(resource.display_name <> ": " <> int.to_string(id)),
+    ]),
+    html.form([attribute.method("POST")], [
+      element.fragment(fields),
+      html.input([attribute.type_("submit"), attribute.value("Save")]),
     ]),
   ]
   |> page_html
