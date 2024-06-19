@@ -1,7 +1,6 @@
 // TODO: non-int primary key
 // TODO: primary key column not called "id"
 // TODO: UI shows records for table
-// TODO: pagination
 // TODO: can edit records
 // TODO: can create records
 // TODO: datetime type
@@ -14,6 +13,8 @@
 // TODO: tests for resource show one
 // TODO: tests for resource update one
 // TODO: tests for resource delete one
+// TODO: test pagination
+// TODO: test pagination (invalid page number, 0 or negative)
 //
 // https://docs.djangoproject.com/en/5.0/ref/contrib/admin/
 // https://github.com/naymspace/backpex
@@ -271,7 +272,18 @@ fn resource_page(resource: Resource, id: Int, row: List(FieldValue)) -> Response
 fn resource_list(request: Request, name: String, context: Context) -> Response {
   use <- wisp.require_method(request, Get)
   use resource <- require_resource(name, context.resources)
-  let database_rows = load_rows(resource, context)
+
+  // Pagination parameters
+  let page =
+    wisp.get_query(request)
+    |> list.key_find("after")
+    |> result.try(int.parse)
+    |> result.unwrap(1)
+    |> int.max(1)
+  let database_rows = load_rows(resource, context, page: page)
+
+  let next_url = name <> "?after=" <> int.to_string(page + 1)
+  let prev_url = name <> "?after=" <> int.to_string(page - 1)
 
   let table_rows =
     list.map(database_rows, fn(row) {
@@ -299,23 +311,44 @@ fn resource_list(request: Request, name: String, context: Context) -> Response {
       ]),
       html.tbody([], table_rows),
     ]),
+    html_when(
+      page > 1,
+      html.a([attribute.href(prev_url)], [element.text("Previous")]),
+    ),
+    html_when(
+      table_rows != [],
+      html.a([attribute.href(next_url)], [element.text("Next")]),
+    ),
   ]
   |> page_html
   |> wisp.html_response(200)
+}
+
+fn html_when(condition: Bool, element: element.Element(a)) -> element.Element(a) {
+  case condition {
+    True -> element
+    False -> element.none()
+  }
 }
 
 fn field_storage_names(resource: Resource) -> List(String) {
   list.map(resource.items, fn(item) { resource_item_field(item).storage_name })
 }
 
-fn load_rows(resource: Resource, context: Context) -> List(List(FieldValue)) {
+fn load_rows(
+  resource: Resource,
+  context: Context,
+  page page: Int,
+) -> List(List(FieldValue)) {
+  let page_size = 50
+  let offset = { page - 1 } * page_size
   let sql =
     internal.sql_select_many_query(
       resource.storage_name,
       field_storage_names(resource),
     )
 
-  let arguments = [pgo.int(0)]
+  let arguments = [pgo.int(page_size), pgo.int(offset)]
   let assert Ok(returned) = pgo.execute(sql, context.db, arguments, decode_row)
   returned.rows
 }
@@ -352,8 +385,7 @@ fn require_resource(
   resources: List(Resource),
   next: fn(Resource) -> Response,
 ) -> Response {
-  let found =
-    list.find(resources, fn(r) { justin.kebab_case(r.storage_name) == name })
+  let found = list.find(resources, fn(r) { r.storage_name == name })
   case found {
     Ok(resource) -> next(resource)
     _ -> wisp.not_found()
@@ -368,11 +400,7 @@ fn home(request: Request, context: Context) -> Response {
     html.ul(
       [],
       list.map(context.resources, fn(resource) {
-        let href =
-          "/"
-          <> context.prefix
-          <> "/"
-          <> justin.kebab_case(resource.storage_name)
+        let href = "/" <> context.prefix <> "/" <> resource.storage_name
         html.li([], [
           html.a([attribute.href(href)], [element.text(resource.display_name)]),
         ])

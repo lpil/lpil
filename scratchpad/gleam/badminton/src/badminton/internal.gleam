@@ -13,8 +13,8 @@ pub fn sql_escape_name(name: String) -> String {
 ///
 /// ## SQL parameters
 ///
-/// 1. The id of the previous record, for pagination. If you are on the first
-///    page set it to 0.
+/// 1. The page size.
+/// 2. The page offset. If you are on the first page set it to 0.
 ///
 pub fn sql_select_many_query(
   table table: String,
@@ -25,9 +25,9 @@ pub fn sql_select_many_query(
     columns |> list.map(sql_escape_name) |> string.join(", "),
     "from",
     sql_escape_name(table),
-    "where id > $1",
     "order by id",
-    "limit 50",
+    "limit $1",
+    "offset $2",
   ]
 
   string.join(parts, " ")
