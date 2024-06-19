@@ -13,22 +13,33 @@ pub fn sql_escape_name(name: String) -> String {
 ///
 /// ## SQL parameters
 ///
-/// 1. The page size.
-/// 2. The page offset. If you are on the first page set it to 0.
+/// 1. The search term.
+/// 2. The page size.
+/// 3. The page offset. If you are on the first page set it to 1.
+///
 ///
 pub fn sql_select_many_query(
   table table: String,
+  search_columns search_columns: List(String),
   columns columns: List(String),
 ) -> String {
+  let search = case search_columns {
+    [] -> "true"
+    s ->
+      string.join(list.map(s, sql_escape_name), "||") <> " ilike '%'||$1||'%'"
+  }
+
   let parts = [
     "select",
     "id,",
     columns |> list.map(sql_escape_name) |> string.join(", "),
     "from",
     sql_escape_name(table),
+    "where",
+    "($1 = '' or " <> search <> ")",
     "order by id",
-    "limit $1",
-    "offset $2",
+    "limit $2",
+    "offset $3",
   ]
 
   string.join(parts, " ")

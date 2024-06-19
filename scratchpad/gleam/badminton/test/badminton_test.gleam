@@ -1,7 +1,7 @@
 import argv
 import badminton.{
   admin_console, display, editable, email, field, int, references, resource,
-  text,
+  searchable, text,
 }
 import gleam/erlang/process
 import gleam/pgo.{type Connection}
@@ -39,10 +39,10 @@ pub fn handle_request(request: Request, db: Connection) -> Response {
 
   let users =
     resource("users", "Users")
-    |> field(text("name") |> editable(True))
+    |> field(text("name") |> editable(True) |> searchable(True))
     |> field(int("age") |> display("Age (years)") |> editable(True))
-    |> field(email("email") |> editable(True))
-    |> field(text("payment_reference"))
+    |> field(email("email") |> editable(True) |> searchable(True))
+    |> field(text("payment_reference") |> searchable(True))
 
   let payments =
     resource("payments", "Payments")

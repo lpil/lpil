@@ -9,6 +9,8 @@
 // TODO: do not use relative URLs
 // TODO: tests for home
 // TODO: tests for resource list rows
+// TODO: tests for resource list rows with no searchable
+// TODO: tests for resource list rows with search
 // TODO: tests for resource show one
 // TODO: tests for resource update one
 // TODO: tests for resource delete one
@@ -28,6 +30,7 @@ import gleam/pgo.{type Connection}
 import gleam/result
 import gleam/string
 import gleam/string_builder.{type StringBuilder}
+import gleam/uri
 import justin
 import lustre/attribute
 import lustre/element.{type Element as HtmlElement}
@@ -52,9 +55,9 @@ pub fn text(name: String) -> Field {
     storage_name: name,
     display_name: justin.sentence_case(name),
     editable: False,
+    searchable: False,
     print: print_text,
     parse: parse_text,
-    // TODO: do not use relative URLs
   )
 }
 
@@ -127,6 +130,10 @@ pub fn display(field: Field, name: String) -> Field {
 
 pub fn editable(field: Field, is_editable: Bool) -> Field {
   Field(..field, editable: is_editable)
+}
+
+pub fn searchable(field: Field, is_searchable: Bool) -> Field {
+  Field(..field, searchable: is_searchable)
 }
 
 pub fn admin_console(
@@ -278,21 +285,54 @@ fn resource_page(
   |> wisp.html_response(200)
 }
 
+fn searchable_fields(resource: Resource) -> List(String) {
+  list.filter_map(resource.items, fn(item) {
+    case resource_item_field(item) {
+      Field(searchable: True, storage_name: name, ..) -> Ok(name)
+      _ -> Error(Nil)
+    }
+  })
+}
+
 fn resource_list(request: Request, name: String, context: Context) -> Response {
   use <- wisp.require_method(request, Get)
   use resource <- require_resource(name, context.resources)
-
-  // Pagination parameters
+  let query = wisp.get_query(request)
   let page =
-    wisp.get_query(request)
+    query
     |> list.key_find("after")
     |> result.try(int.parse)
     |> result.unwrap(1)
     |> int.max(1)
-  let database_rows = load_rows(resource, context, page: page)
+  let search = query |> list.key_find("search") |> result.unwrap("")
 
-  let next_url = name <> "?after=" <> int.to_string(page + 1)
-  let prev_url = name <> "?after=" <> int.to_string(page - 1)
+  let searchable = searchable_fields(resource)
+
+  let search_section = case searchable {
+    [] -> element.none()
+    _ ->
+      html.search([], [
+        html.form([], [
+          html.input([
+            attribute.type_("search"),
+            attribute.name("search"),
+            attribute.value(search),
+          ]),
+          html.input([attribute.type_("submit"), attribute.value("Search")]),
+        ]),
+      ])
+  }
+
+  let database_rows = load_rows(resource, context, search: search, page: page)
+  let params = []
+  let params = case search {
+    "" -> params
+    _ -> [#("search", search), ..params]
+  }
+  let prev_params = [#("after", int.to_string(page - 1)), ..params]
+  let next_params = [#("after", int.to_string(page + 1)), ..params]
+  let prev_url = name <> "?" <> uri.query_to_string(prev_params)
+  let next_url = name <> "?" <> uri.query_to_string(next_params)
 
   let table_rows =
     list.map(database_rows, fn(row) {
@@ -305,13 +345,14 @@ fn resource_list(request: Request, name: String, context: Context) -> Response {
           html.td([], [element.text(definition.print(data))])
         })
       html.tr([], [
+        element.fragment(values),
         html.td([], [html.a([attribute.href(url)], [element.text("View")])]),
-        ..values
       ])
     })
 
   [
     html.h1([], [element.text(resource.display_name)]),
+    search_section,
     html.table([], [
       html.thead([], [
         html.tr(
@@ -350,16 +391,22 @@ fn field_storage_names(resource: Resource) -> List(String) {
   list.map(resource.items, fn(item) { resource_item_field(item).storage_name })
 }
 
-fn load_rows(resource: Resource, context: Context, page page: Int) -> List(Row) {
+fn load_rows(
+  resource: Resource,
+  context: Context,
+  search search: String,
+  page page: Int,
+) -> List(Row) {
   let page_size = 50
   let offset = { page - 1 } * page_size
   let sql =
     internal.sql_select_many_query(
       resource.storage_name,
+      searchable_fields(resource),
       field_storage_names(resource),
     )
 
-  let arguments = [pgo.int(page_size), pgo.int(offset)]
+  let arguments = [pgo.text(search), pgo.int(page_size), pgo.int(offset)]
   let assert Ok(returned) = pgo.execute(sql, context.db, arguments, decode_row)
   returned.rows
 }
@@ -464,6 +511,7 @@ pub opaque type Field {
     storage_name: String,
     display_name: String,
     editable: Bool,
+    searchable: Bool,
     print: fn(FieldValue) -> String,
     parse: fn(String) -> Result(FieldValue, String),
   )

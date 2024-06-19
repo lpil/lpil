@@ -25,21 +25,12 @@ pub fn sql_escape_name_3_test() {
   |> should.equal("\"\"\"drop table users;\"\"\"")
 }
 
-pub fn sql_select_many_query_0_test() {
-  internal.sql_select_many_query(table: "users", columns: [
-    "name", "email", "number",
-  ])
-  |> should.equal(
-    "select \"name\", \"email\", \"number\" from \"users\" where id > $1 order by id limit 50",
-  )
-}
-
 pub fn sql_select_one_query_0_test() {
   internal.sql_select_one_query(table: "users", columns: [
     "name", "email", "number",
   ])
   |> should.equal(
-    "select \"name\", \"email\", \"number\" from \"users\" where id = $1 limit 1",
+    "select id, \"name\", \"email\", \"number\" from \"users\" where id = $1 limit 1",
   )
 }
 
@@ -53,4 +44,24 @@ pub fn sql_update_query_1_test() {
 pub fn sql_delete_query_1_test() {
   internal.sql_delete_query(table: "users")
   |> should.equal("delete from \"users\" where id = $1")
+}
+
+pub fn sql_select_many_query_test() {
+  internal.sql_select_many_query(
+    table: "users",
+    search_columns: ["name", "email"],
+    columns: ["name", "email", "number"],
+  )
+  |> should.equal(
+    "select id, \"name\", \"email\", \"number\" from \"users\" where ($1 = '' or \"name\"||\"email\" ilike '%'||$1||'%') order by id limit $2 offset $3",
+  )
+}
+
+pub fn sql_select_many_query_no_search_columns_test() {
+  internal.sql_select_many_query(table: "users", search_columns: [], columns: [
+    "name", "email", "number",
+  ])
+  |> should.equal(
+    "select id, \"name\", \"email\", \"number\" from \"users\" where ($1 = '' or true) order by id limit $2 offset $3",
+  )
 }
