@@ -22,6 +22,7 @@ pub fn sql_select_many_query(
 ) -> String {
   let parts = [
     "select",
+    "id,",
     columns |> list.map(sql_escape_name) |> string.join(", "),
     "from",
     sql_escape_name(table),
@@ -45,6 +46,7 @@ pub fn sql_select_one_query(
 ) -> String {
   let parts = [
     "select",
+    "id,",
     columns |> list.map(sql_escape_name) |> string.join(", "),
     "from",
     sql_escape_name(table),

@@ -1,13 +1,12 @@
 // TODO: non-int primary key
 // TODO: primary key column not called "id"
-// TODO: UI shows records for table
-// TODO: can edit records
 // TODO: can create records
 // TODO: datetime type
 // TODO: bool type
 // TODO: basic UI
 // TODO: nice UI
 // TODO: configure some fields to only show on single record page
+// TODO: do not use relative URLs
 // TODO: tests for home
 // TODO: tests for resource list rows
 // TODO: tests for resource show one
@@ -55,6 +54,7 @@ pub fn text(name: String) -> Field {
     editable: False,
     print: print_text,
     parse: parse_text,
+    // TODO: do not use relative URLs
   )
 }
 
@@ -224,7 +224,7 @@ fn editable_fields(resource: Resource) -> List(Field) {
 
 fn resource_show(resource: Resource, id: Int, context: Context) -> Response {
   case load_row(resource, id, context) {
-    Ok(row) -> resource_page(resource, id, row)
+    Ok(row) -> resource_page(resource, id, row, context)
     Error(_) -> wisp.not_found()
   }
 }
@@ -237,8 +237,13 @@ fn field_input(field: Field, value: FieldValue) -> element.Element(a) {
   ])
 }
 
-fn resource_page(resource: Resource, id: Int, row: List(FieldValue)) -> Response {
-  let row = list.zip(resource.items, row)
+fn resource_page(
+  resource: Resource,
+  id: Int,
+  row: Row,
+  context: Context,
+) -> Response {
+  let row = list.zip(resource.items, row.values)
   let fields =
     list.map(row, fn(row) {
       let #(definition, value) = row
@@ -264,6 +269,10 @@ fn resource_page(resource: Resource, id: Int, row: List(FieldValue)) -> Response
     html.form([attribute.method("POST"), attribute.action("?_method=DELETE")], [
       html.input([attribute.type_("submit"), attribute.value("Delete")]),
     ]),
+    html.a(
+      [attribute.href("/" <> context.prefix <> "/" <> resource.storage_name)],
+      [element.text("Back")],
+    ),
   ]
   |> page_html
   |> wisp.html_response(200)
@@ -287,15 +296,18 @@ fn resource_list(request: Request, name: String, context: Context) -> Response {
 
   let table_rows =
     list.map(database_rows, fn(row) {
-      let row = list.zip(resource.items, row)
-      html.tr(
-        [],
+      let url = name <> "/" <> int.to_string(row.id)
+      let row = list.zip(resource.items, row.values)
+      let values =
         list.map(row, fn(row) {
           let #(definition, data) = row
           let definition = resource_item_field(definition)
           html.td([], [element.text(definition.print(data))])
-        }),
-      )
+        })
+      html.tr([], [
+        html.td([], [html.a([attribute.href(url)], [element.text("View")])]),
+        ..values
+      ])
     })
 
   [
@@ -311,14 +323,17 @@ fn resource_list(request: Request, name: String, context: Context) -> Response {
       ]),
       html.tbody([], table_rows),
     ]),
-    html_when(
-      page > 1,
-      html.a([attribute.href(prev_url)], [element.text("Previous")]),
-    ),
-    html_when(
-      table_rows != [],
-      html.a([attribute.href(next_url)], [element.text("Next")]),
-    ),
+    html.nav([], [
+      html_when(
+        page > 1,
+        html.a([attribute.href(prev_url)], [element.text("Previous")]),
+      ),
+      html_when(
+        table_rows != [],
+        html.a([attribute.href(next_url)], [element.text("Next")]),
+      ),
+    ]),
+    html.a([attribute.href("/" <> context.prefix)], [element.text("Back")]),
   ]
   |> page_html
   |> wisp.html_response(200)
@@ -335,11 +350,7 @@ fn field_storage_names(resource: Resource) -> List(String) {
   list.map(resource.items, fn(item) { resource_item_field(item).storage_name })
 }
 
-fn load_rows(
-  resource: Resource,
-  context: Context,
-  page page: Int,
-) -> List(List(FieldValue)) {
+fn load_rows(resource: Resource, context: Context, page page: Int) -> List(Row) {
   let page_size = 50
   let offset = { page - 1 } * page_size
   let sql =
@@ -353,11 +364,7 @@ fn load_rows(
   returned.rows
 }
 
-fn load_row(
-  resource: Resource,
-  id: Int,
-  context: Context,
-) -> Result(List(FieldValue), Nil) {
+fn load_row(resource: Resource, id: Int, context: Context) -> Result(Row, Nil) {
   let sql =
     internal.sql_select_one_query(
       resource.storage_name,
@@ -372,9 +379,14 @@ fn load_row(
   }
 }
 
-fn decode_row(data: Dynamic) -> Result(List(FieldValue), dynamic.DecodeErrors) {
-  let data = dynamic_tuple_to_list(data)
-  dynamic.list(decode_field_value)(data)
+fn decode_row(data: Dynamic) -> Result(Row, dynamic.DecodeErrors) {
+  let decoder =
+    dynamic.decode2(Row, dynamic.element(0, dynamic.int), fn(data) {
+      let data = dynamic_tuple_to_list(data)
+      dynamic.list(decode_field_value)(data)
+      |> result.map(list.drop(_, 1))
+    })
+  decoder(data)
 }
 
 @external(erlang, "badminton_ffi", "coerce_tuple_to_list")
@@ -434,6 +446,10 @@ type ResourceItem {
     display_field: String,
     field: Field,
   )
+}
+
+type Row {
+  Row(id: Int, values: List(FieldValue))
 }
 
 fn resource_item_field(item: ResourceItem) -> Field {
