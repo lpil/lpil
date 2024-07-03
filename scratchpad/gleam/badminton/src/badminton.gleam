@@ -41,13 +41,21 @@ pub fn resource(storage_name: String, display_name: String) -> Resource {
   Resource(
     storage_name: storage_name,
     display_name: display_name,
-    items: [],
+    id_field: Field(
+      storage_name: "id",
+      display_name: "id",
+      editable: False,
+      searchable: False,
+      print: print_int,
+      parse: parse_int,
+    ),
+    fields: [],
     deletable: False,
   )
 }
 
 pub fn field(resource: Resource, field: Field) -> Resource {
-  Resource(..resource, items: [ResourceField(field), ..resource.items])
+  Resource(..resource, fields: [ResourceField(field), ..resource.fields])
 }
 
 pub fn text(name: String) -> Field {
@@ -110,7 +118,7 @@ pub fn references(
       display_field: display_field,
       field: field,
     )
-  Resource(..resource, items: [reference, ..resource.items])
+  Resource(..resource, fields: [reference, ..resource.fields])
 }
 
 pub fn email(name: String) -> Field {
@@ -177,7 +185,11 @@ fn resource_single(
 }
 
 fn resource_delete(resource: Resource, id: Int, context: Context) -> Response {
-  let sql = internal.sql_delete_query(resource.storage_name)
+  let sql =
+    internal.sql_delete_query(
+      resource.storage_name,
+      resource.id_field.storage_name,
+    )
   let assert Ok(_) = pgo.execute(sql, context.db, [pgo.int(id)], Ok)
   wisp.redirect(".")
 }
@@ -194,7 +206,12 @@ fn resource_update(
   let assert Ok(data) = parse_form_values(form, resource)
 
   let #(fields, values) = list.unzip(data)
-  let sql = internal.sql_update_query(resource.storage_name, fields)
+  let sql =
+    internal.sql_update_query(
+      resource.storage_name,
+      resource.id_field.storage_name,
+      fields,
+    )
   let arguments = [pgo.int(id), ..list.map(values, field_value_to_pgo_value)]
   let assert Ok(_) = pgo.execute(sql, context.db, arguments, Ok)
 
@@ -224,7 +241,7 @@ fn parse_form_values(
 }
 
 fn editable_fields(resource: Resource) -> List(Field) {
-  resource.items
+  resource.fields
   |> list.map(resource_item_field)
   |> list.filter(fn(f) { f.editable })
 }
@@ -250,7 +267,7 @@ fn resource_page(
   row: Row,
   context: Context,
 ) -> Response {
-  let row = list.zip(resource.items, row.values)
+  let row = list.zip(resource.fields, row.values)
   let fields =
     list.map(row, fn(row) {
       let #(definition, value) = row
@@ -286,7 +303,7 @@ fn resource_page(
 }
 
 fn searchable_fields(resource: Resource) -> List(String) {
-  list.filter_map(resource.items, fn(item) {
+  list.filter_map(resource.fields, fn(item) {
     case resource_item_field(item) {
       Field(searchable: True, storage_name: name, ..) -> Ok(name)
       _ -> Error(Nil)
@@ -337,7 +354,7 @@ fn resource_list(request: Request, name: String, context: Context) -> Response {
   let table_rows =
     list.map(database_rows, fn(row) {
       let url = name <> "/" <> int.to_string(row.id)
-      let row = list.zip(resource.items, row.values)
+      let row = list.zip(resource.fields, row.values)
       let values =
         list.map(row, fn(row) {
           let #(definition, data) = row
@@ -357,7 +374,7 @@ fn resource_list(request: Request, name: String, context: Context) -> Response {
       html.thead([], [
         html.tr(
           [],
-          list.map(resource.items, fn(i) {
+          list.map(resource.fields, fn(i) {
             html.td([], [element.text(item_display_name(i))])
           }),
         ),
@@ -388,7 +405,7 @@ fn html_when(condition: Bool, element: element.Element(a)) -> element.Element(a)
 }
 
 fn field_storage_names(resource: Resource) -> List(String) {
-  list.map(resource.items, fn(item) { resource_item_field(item).storage_name })
+  list.map(resource.fields, fn(item) { resource_item_field(item).storage_name })
 }
 
 fn load_rows(
@@ -402,6 +419,7 @@ fn load_rows(
   let sql =
     internal.sql_select_many_query(
       resource.storage_name,
+      resource.id_field.storage_name,
       searchable_fields(resource),
       field_storage_names(resource),
     )
@@ -415,6 +433,7 @@ fn load_row(resource: Resource, id: Int, context: Context) -> Result(Row, Nil) {
   let sql =
     internal.sql_select_one_query(
       resource.storage_name,
+      resource.id_field.storage_name,
       field_storage_names(resource),
     )
 
@@ -480,7 +499,8 @@ pub opaque type Resource {
   Resource(
     storage_name: String,
     display_name: String,
-    items: List(ResourceItem),
+    id_field: Field,
+    fields: List(ResourceItem),
     deletable: Bool,
   )
 }
@@ -537,7 +557,7 @@ fn reverse(in: List(Resource), out: List(Resource)) -> List(Resource) {
   case in {
     [] -> out
     [first, ..in] ->
-      reverse(in, [Resource(..first, items: list.reverse(first.items)), ..out])
+      reverse(in, [Resource(..first, fields: list.reverse(first.fields)), ..out])
   }
 }
 

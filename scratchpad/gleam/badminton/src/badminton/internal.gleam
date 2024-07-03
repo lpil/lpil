@@ -20,6 +20,7 @@ pub fn sql_escape_name(name: String) -> String {
 ///
 pub fn sql_select_many_query(
   table table: String,
+  id_column id_column: String,
   search_columns search_columns: List(String),
   columns columns: List(String),
 ) -> String {
@@ -31,13 +32,13 @@ pub fn sql_select_many_query(
 
   let parts = [
     "select",
-    "id,",
+    sql_escape_name(id_column) <> ",",
     columns |> list.map(sql_escape_name) |> string.join(", "),
     "from",
     sql_escape_name(table),
     "where",
     "($1 = '' or " <> search <> ")",
-    "order by id",
+    "order by " <> sql_escape_name(id_column),
     "limit $2",
     "offset $3",
   ]
@@ -53,15 +54,16 @@ pub fn sql_select_many_query(
 ///
 pub fn sql_select_one_query(
   table table: String,
+  id_column id_column: String,
   columns columns: List(String),
 ) -> String {
   let parts = [
     "select",
-    "id,",
+    sql_escape_name(id_column) <> ",",
     columns |> list.map(sql_escape_name) |> string.join(", "),
     "from",
     sql_escape_name(table),
-    "where id = $1",
+    "where " <> sql_escape_name(id_column) <> " = $1",
     "limit 1",
   ]
 
@@ -72,6 +74,7 @@ pub fn sql_select_one_query(
 ///
 pub fn sql_update_query(
   table table: String,
+  id_column id_column: String,
   columns columns: List(String),
 ) -> String {
   let updates =
@@ -80,11 +83,9 @@ pub fn sql_update_query(
     })
 
   let parts = [
-    "update",
-    sql_escape_name(table),
-    "set",
+    "update " <> sql_escape_name(table) <> " set",
     updates |> string.join(", "),
-    "where id = $1",
+    "where " <> sql_escape_name(id_column) <> " = $1",
   ]
 
   string.join(parts, " ")
@@ -92,7 +93,13 @@ pub fn sql_update_query(
 
 /// Build an SQL query for deleting a resource with a given id.
 ///
-pub fn sql_delete_query(table table: String) -> String {
-  let parts = ["delete from", sql_escape_name(table), "where id = $1"]
+pub fn sql_delete_query(
+  table table: String,
+  id_column id_column: String,
+) -> String {
+  let parts = [
+    "delete from " <> sql_escape_name(table),
+    "where " <> sql_escape_name(id_column) <> " = $1",
+  ]
   string.join(parts, " ")
 }
