@@ -11,6 +11,8 @@ pub type Query {
     offset: Int,
     where: List(Condition),
   )
+  Update(table: String, set: List(#(String, Value)), where: List(Condition))
+  Delete(from: String, where: List(Condition))
 }
 
 pub type Value {
@@ -19,7 +21,13 @@ pub type Value {
 }
 
 pub type Condition {
-  Equal(Value, Value)
+  Equal(left: Value, right: Value)
+  StringContains(string: Value, substring: Value, sensitivity: CaseSensitivity)
+}
+
+pub type CaseSensitivity {
+  CaseSensitive
+  CaseInsensitive
 }
 
 pub type Direction {
@@ -33,6 +41,17 @@ pub fn to_sql(
   escaped_double_quote quote: String,
 ) -> String {
   case query {
+    Delete(from: table, where: conditions) -> {
+      let query = "delete from " <> escape_name(table, quote)
+      conditions_to_sql(query, conditions, True, param, quote)
+    }
+
+    Update(table: table, set: updates, where: conditions) -> {
+      let query = "update " <> escape_name(table, quote)
+      let query = updates_to_sql(query, updates, True, param, quote)
+      conditions_to_sql(query, conditions, True, param, quote)
+    }
+
     Select(
       from: table,
       columns: columns,
@@ -54,6 +73,27 @@ pub fn to_sql(
         0 -> query
         _ -> query <> " offset " <> int.to_string(offset)
       }
+    }
+  }
+}
+
+fn updates_to_sql(
+  query: String,
+  updates: List(#(String, Value)),
+  first: Bool,
+  param: String,
+  quote: String,
+) -> String {
+  case updates {
+    [] -> query
+    [#(name, value), ..updates] -> {
+      let query = case first {
+        True -> query <> " set "
+        False -> query <> ", "
+      }
+      let query = query <> escape_name(name, quote) <> " = "
+      let query = value_to_sql(query, value, param, quote)
+      updates_to_sql(query, updates, False, param, quote)
     }
   }
 }
@@ -88,6 +128,15 @@ fn condition_to_sql(
     Equal(left, right) -> {
       let query = value_to_sql(query, left, param, quote) <> " = "
       value_to_sql(query, right, param, quote)
+    }
+
+    StringContains(left, right, sensitivity) -> {
+      let query = value_to_sql(query, left, param, quote)
+      let query = case sensitivity {
+        CaseSensitive -> query <> " like '%'||"
+        CaseInsensitive -> query <> " ilike '%'||"
+      }
+      value_to_sql(query, right, param, quote) <> "||'%'"
     }
   }
 }
