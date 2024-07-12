@@ -69,14 +69,6 @@ endpoints:
     alerts: []
     #   - type: pushover
 
-  - name: demandceasefirenow.org
-    url: "https://demandceasefirenow.org/"
-    interval: 60s
-    conditions:
-      - "[STATUS] == 200"
-    alerts:
-      - type: pushover
-
   - name: youth-demand.org
     url: "https://youth-demand.org/"
     interval: 60s
@@ -108,12 +100,6 @@ endpoints:
       - "[STATUS] == 200"
     alerts:
       - type: pushover
-
-  - name: Meetdown
-    url: https://meetdown.app
-    interval: 60s
-    conditions:
-      - "[STATUS] == 200"
 
   - name: hits.lpil.uk
     url: https://hits.lpil.uk/user/new
