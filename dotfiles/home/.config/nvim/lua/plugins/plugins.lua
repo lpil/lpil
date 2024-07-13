@@ -8,6 +8,7 @@ return {
     "neovim/nvim-lspconfig",
     ---@class PluginLspOpts
     opts = {
+      inlay_hints = { enabled = false },
       servers = {
         gleam = { mason = false },
         rust_analyzer = { mason = false },
