@@ -22,6 +22,7 @@
 
 import badminton/internal
 import gleam/dynamic.{type Dynamic}
+import gleam/erlang
 import gleam/http.{Get}
 import gleam/http/request
 import gleam/int
@@ -156,6 +157,7 @@ pub fn admin_console(
 
   case request.path_segments(request) {
     [p, ..] if p != prefix -> next()
+    [_, "styles.css"] -> stylesheet()
     [_] -> home(request, context)
     [_, name] -> resource_list(request, name, context)
     [_, name, id] -> resource_single(request, name, id, context)
@@ -165,6 +167,14 @@ pub fn admin_console(
 
 type Context {
   Context(prefix: String, db: Connection, resources: List(Resource))
+}
+
+fn stylesheet() -> Response {
+  let assert Ok(dir) = erlang.priv_directory("badminton")
+  wisp.ok()
+  |> wisp.set_body(wisp.File(dir <> "/static/pico.min.css"))
+  |> wisp.set_header("content-type", "text/css; charset=utf-8")
+  // TODO: add cache headers
 }
 
 fn resource_single(
@@ -283,9 +293,6 @@ fn resource_page(
     })
 
   [
-    html.h1([], [
-      element.text(resource.display_name <> ": " <> int.to_string(id)),
-    ]),
     html.form([attribute.method("POST")], [
       element.fragment(fields),
       html.input([attribute.type_("submit"), attribute.value("Save")]),
@@ -298,7 +305,10 @@ fn resource_page(
       [element.text("Back")],
     ),
   ]
-  |> page_html
+  |> page_html(
+    context: context,
+    title: resource.display_name <> ": " <> int.to_string(id),
+  )
   |> wisp.html_response(200)
 }
 
@@ -330,12 +340,14 @@ fn resource_list(request: Request, name: String, context: Context) -> Response {
     _ ->
       html.search([], [
         html.form([], [
-          html.input([
-            attribute.type_("search"),
-            attribute.name("search"),
-            attribute.value(search),
+          html.fieldset([attribute.role("group")], [
+            html.input([
+              attribute.type_("search"),
+              attribute.name("search"),
+              attribute.value(search),
+            ]),
+            html.input([attribute.type_("submit"), attribute.value("Search")]),
           ]),
-          html.input([attribute.type_("submit"), attribute.value("Search")]),
         ]),
       ])
   }
@@ -368,9 +380,8 @@ fn resource_list(request: Request, name: String, context: Context) -> Response {
     })
 
   [
-    html.h1([], [element.text(resource.display_name)]),
     search_section,
-    html.table([], [
+    html.table([attribute.class("overflow-auto")], [
       html.thead([], [
         html.tr(
           [],
@@ -393,7 +404,7 @@ fn resource_list(request: Request, name: String, context: Context) -> Response {
     ]),
     html.a([attribute.href("/" <> context.prefix)], [element.text("Back")]),
   ]
-  |> page_html
+  |> page_html(context: context, title: resource.display_name)
   |> wisp.html_response(200)
 }
 
@@ -474,7 +485,6 @@ fn home(request: Request, context: Context) -> Response {
   use <- wisp.require_method(request, Get)
 
   [
-    html.h1([], [element.text("Resources")]),
     html.ul(
       [],
       list.map(context.resources, fn(resource) {
@@ -485,12 +495,50 @@ fn home(request: Request, context: Context) -> Response {
       }),
     ),
   ]
-  |> page_html
+  |> page_html(context: context, title: "Resources")
   |> wisp.html_response(200)
 }
 
-fn page_html(elements: List(HtmlElement(_))) -> StringBuilder {
-  html.html([], [html.head([], []), html.body([], elements)])
+fn page_html(
+  html elements: List(HtmlElement(_)),
+  title title: String,
+  context context: Context,
+) -> StringBuilder {
+  let nav =
+    html.nav([], [
+      html.ul([], [html.li([], [html.strong([], [element.text("Admin")])])]),
+      html.ul([attribute.attribute("dir", "rtl")], [
+        html.li([], [
+          html.details([attribute.class("dropdown")], [
+            html.summary([], [element.text(title)]),
+            html.ul(
+              [],
+              list.map(context.resources, fn(resource) {
+                let href = "/" <> context.prefix <> "/" <> resource.storage_name
+                html.li([], [
+                  html.a([attribute.href(href)], [
+                    element.text(resource.display_name),
+                  ]),
+                ])
+              }),
+            ),
+          ]),
+        ]),
+      ]),
+    ])
+
+  html.html([], [
+    html.head([], [
+      html.link([
+        attribute.rel("stylesheet"),
+        attribute.href("/" <> context.prefix <> "/styles.css"),
+      ]),
+    ]),
+    html.body([attribute.class("container-fluid")], [
+      html.header([], [nav]),
+      ..elements
+    ]),
+  ])
   |> element.to_string
   |> string_builder.from_string
 }
