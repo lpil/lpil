@@ -3,7 +3,6 @@
 // TODO: can create records
 // TODO: datetime type
 // TODO: bool type
-// TODO: basic UI
 // TODO: nice UI
 // TODO: configure some fields to only show on single record page
 // TODO: do not use relative URLs
@@ -27,6 +26,7 @@ import gleam/http.{Get}
 import gleam/http/request
 import gleam/int
 import gleam/list
+import gleam/option.{type Option}
 import gleam/pgo.{type Connection}
 import gleam/result
 import gleam/string
@@ -36,6 +36,8 @@ import justin
 import lustre/attribute
 import lustre/element.{type Element as HtmlElement}
 import lustre/element/html
+import sql
+import sql_pgo
 import wisp.{type Request, type Response}
 
 pub fn resource(storage_name: String, display_name: String) -> Resource {
@@ -195,13 +197,12 @@ fn resource_single(
 }
 
 fn resource_delete(resource: Resource, id: Int, context: Context) -> Response {
-  let sql =
-    internal.sql_delete_query(
-      resource.storage_name,
-      resource.id_field.storage_name,
-    )
-  let assert Ok(_) = pgo.execute(sql, context.db, [pgo.int(id)], Ok)
-  wisp.redirect(".")
+  let query =
+    sql.Delete(from: resource.storage_name, where: [
+      sql.Equal(sql.RelationValue(option.None, "id"), sql.Parameter(1)),
+    ])
+  let assert Ok(_) = execute_query(query, context.db, [sql.IntValue(id)])
+  wisp.redirect("/" <> context.prefix <> "/" <> resource.storage_name)
 }
 
 fn resource_update(
@@ -222,16 +223,28 @@ fn resource_update(
       resource.id_field.storage_name,
       fields,
     )
-  let arguments = [pgo.int(id), ..list.map(values, field_value_to_pgo_value)]
-  let assert Ok(_) = pgo.execute(sql, context.db, arguments, Ok)
 
+  let query =
+    sql.Update(
+      table: resource.storage_name,
+      set: list.index_map(fields, fn(field, i) {
+        #(field, sql.Parameter(i + 2))
+      }),
+      where: [sql.Equal(sql.RelationValue(option.None, "id"), sql.Parameter(1))],
+    )
+
+  let assert Ok(_) =
+    execute_query(query, context.db, [
+      sql.IntValue(id),
+      ..list.map(values, field_value_to_sql_value)
+    ])
   wisp.redirect(int.to_string(id))
 }
 
-fn field_value_to_pgo_value(value: FieldValue) -> pgo.Value {
+fn field_value_to_sql_value(value: FieldValue) -> sql.Value {
   case value {
-    Text(t) -> pgo.text(t)
-    Int(i) -> pgo.int(i)
+    Text(t) -> sql.TextValue(t)
+    Int(i) -> sql.IntValue(i)
   }
 }
 
@@ -435,39 +448,61 @@ fn load_rows(
       field_storage_names(resource),
     )
 
-  let arguments = [pgo.text(search), pgo.int(page_size), pgo.int(offset)]
-  let assert Ok(returned) = pgo.execute(sql, context.db, arguments, decode_row)
-  returned.rows
+  let #(where, parameters) = case search {
+    "" -> #([], [])
+    _ -> {
+      let conditions =
+        list.map(searchable_fields(resource), fn(field_name) {
+          sql.StringContains(
+            string: sql.RelationValue(option.None, field_name),
+            substring: sql.Parameter(1),
+            sensitivity: sql.CaseInsensitive,
+          )
+        })
+      #([sql.Or(conditions)], [sql.TextValue(search)])
+    }
+  }
+
+  let query =
+    sql.Select(
+      from: resource.storage_name,
+      columns: select_columns(resource),
+      order_by: #("id", sql.Descending),
+      limit: page_size,
+      offset: offset,
+      where: where,
+    )
+
+  let assert Ok(rows) = execute_query(query, context.db, parameters)
+  rows
+}
+
+fn select_columns(resource: Resource) -> List(#(Option(String), String)) {
+  [
+    #(option.None, "id"),
+    ..list.map(resource.fields, fn(field) {
+      #(option.None, resource_item_field(field).storage_name)
+    })
+  ]
 }
 
 fn load_row(resource: Resource, id: Int, context: Context) -> Result(Row, Nil) {
-  let sql =
-    internal.sql_select_one_query(
-      resource.storage_name,
-      resource.id_field.storage_name,
-      field_storage_names(resource),
+  let query =
+    sql.Select(
+      from: resource.storage_name,
+      columns: select_columns(resource),
+      order_by: #("id", sql.Descending),
+      limit: 1,
+      offset: 0,
+      where: [sql.Equal(sql.RelationValue(option.None, "id"), sql.Parameter(1))],
     )
 
-  let arguments = [pgo.int(id)]
-  let assert Ok(returned) = pgo.execute(sql, context.db, arguments, decode_row)
-  case returned.rows {
+  let assert Ok(rows) = execute_query(query, context.db, [sql.IntValue(id)])
+  case rows {
     [] -> Error(Nil)
     [row, ..] -> Ok(row)
   }
 }
-
-fn decode_row(data: Dynamic) -> Result(Row, dynamic.DecodeErrors) {
-  let decoder =
-    dynamic.decode2(Row, dynamic.element(0, dynamic.int), fn(data) {
-      let data = dynamic_tuple_to_list(data)
-      dynamic.list(decode_field_value)(data)
-      |> result.map(list.drop(_, 1))
-    })
-  decoder(data)
-}
-
-@external(erlang, "badminton_ffi", "coerce_tuple_to_list")
-fn dynamic_tuple_to_list(in: Dynamic) -> Dynamic
 
 fn require_resource(
   name: String,
@@ -612,5 +647,29 @@ fn reverse(in: List(Resource), out: List(Resource)) -> List(Resource) {
 fn item_display_name(item: ResourceItem) -> String {
   case item {
     ResourceField(field) | Reference(field: field, ..) -> field.display_name
+  }
+}
+
+fn execute_query(
+  query: sql.Query,
+  connection: Connection,
+  parameters: List(sql.Value),
+) -> Result(List(Row), sql.QueryError) {
+  use rows <- result.map(sql_pgo.execute(query, connection, parameters))
+  use row <- list.map(rows)
+  case row {
+    [] -> panic as "row was empty, no id"
+    [sql.IntValue(id), ..row] ->
+      Row(id: id, values: list.map(row, sql_value_to_field_value))
+    [_, ..] -> panic as "unexpected id type, not an int"
+  }
+}
+
+fn sql_value_to_field_value(value: sql.Value) -> FieldValue {
+  case value {
+    sql.IntValue(i) -> Int(i)
+    sql.TextValue(i) -> Text(i)
+    sql.FloatValue(_) -> panic as "float values not yet supported"
+    sql.NullValue -> panic as "null values not yet supported"
   }
 }

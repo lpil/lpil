@@ -1,6 +1,12 @@
 import gleam/int
+import gleam/list
 import gleam/option.{type Option, None, Some}
 import gleam/string
+
+pub type QueryError {
+  ConstraintViolation(name: String, detail: String)
+  DatabaseError(detail: String)
+}
 
 pub type Query {
   Select(
@@ -11,18 +17,34 @@ pub type Query {
     offset: Int,
     where: List(Condition),
   )
-  Update(table: String, set: List(#(String, Value)), where: List(Condition))
+  Update(
+    table: String,
+    set: List(#(String, QueryValue)),
+    where: List(Condition),
+  )
   Delete(from: String, where: List(Condition))
 }
 
 pub type Value {
+  TextValue(String)
+  IntValue(Int)
+  FloatValue(Float)
+  NullValue
+}
+
+pub type QueryValue {
   RelationValue(table: Option(String), column: String)
   Parameter(number: Int)
 }
 
 pub type Condition {
-  Equal(left: Value, right: Value)
-  StringContains(string: Value, substring: Value, sensitivity: CaseSensitivity)
+  Equal(left: QueryValue, right: QueryValue)
+  StringContains(
+    string: QueryValue,
+    substring: QueryValue,
+    sensitivity: CaseSensitivity,
+  )
+  Or(List(Condition))
 }
 
 pub type CaseSensitivity {
@@ -66,7 +88,7 @@ pub fn to_sql(
       let query = query <> " order by " <> escape_name(order_by_column, quote)
       let query = case direction {
         Ascending -> query <> " asc"
-        Descending -> query <> " dsc"
+        Descending -> query <> " desc"
       }
       let query = query <> " limit " <> int.to_string(limit)
       case offset {
@@ -79,7 +101,7 @@ pub fn to_sql(
 
 fn updates_to_sql(
   query: String,
-  updates: List(#(String, Value)),
+  updates: List(#(String, QueryValue)),
   first: Bool,
   param: String,
   quote: String,
@@ -125,6 +147,16 @@ fn condition_to_sql(
   escaped_double_quote quote: String,
 ) -> String {
   case condition {
+    Or(conditions) -> {
+      list.index_fold(conditions, query, fn(query, condition, i) {
+        let query = case i {
+          0 -> query
+          _ -> query <> " or "
+        }
+        condition_to_sql(query <> "(", condition, param, quote) <> ")"
+      })
+    }
+
     Equal(left, right) -> {
       let query = value_to_sql(query, left, param, quote) <> " = "
       value_to_sql(query, right, param, quote)
@@ -143,7 +175,7 @@ fn condition_to_sql(
 
 fn value_to_sql(
   query: String,
-  value: Value,
+  value: QueryValue,
   param: String,
   quote: String,
 ) -> String {
