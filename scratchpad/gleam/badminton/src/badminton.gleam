@@ -27,7 +27,6 @@ import gleam/http/request
 import gleam/int
 import gleam/list
 import gleam/option.{type Option}
-import gleam/pgo.{type Connection}
 import gleam/result
 import gleam/string
 import gleam/string_builder.{type StringBuilder}
@@ -37,7 +36,6 @@ import lustre/attribute
 import lustre/element.{type Element as HtmlElement}
 import lustre/element/html
 import sql
-import sql_pgo
 import wisp.{type Request, type Response}
 
 pub fn resource(storage_name: String, display_name: String) -> Resource {
@@ -149,13 +147,19 @@ pub fn searchable(field: Field, is_searchable: Bool) -> Field {
 
 pub fn admin_console(
   request request: Request,
-  db db: Connection,
+  execute_query execute_query: fn(sql.Query, List(sql.Value)) ->
+    Result(List(List(sql.Value)), sql.QueryError),
   under prefix: String,
   for resources: List(Resource),
   next next: fn() -> Response,
 ) -> Response {
   let resources = reverse(resources, [])
-  let context = Context(prefix: prefix, db: db, resources: resources)
+  let context =
+    Context(
+      prefix: prefix,
+      execute_query: convert_query_executor(execute_query),
+      resources: resources,
+    )
 
   case request.path_segments(request) {
     [p, ..] if p != prefix -> next()
@@ -168,7 +172,12 @@ pub fn admin_console(
 }
 
 type Context {
-  Context(prefix: String, db: Connection, resources: List(Resource))
+  Context(
+    prefix: String,
+    execute_query: fn(sql.Query, List(sql.Value)) ->
+      Result(List(Row), sql.QueryError),
+    resources: List(Resource),
+  )
 }
 
 fn stylesheet() -> Response {
@@ -201,7 +210,7 @@ fn resource_delete(resource: Resource, id: Int, context: Context) -> Response {
     sql.Delete(from: resource.storage_name, where: [
       sql.Equal(sql.RelationValue(option.None, "id"), sql.Parameter(1)),
     ])
-  let assert Ok(_) = execute_query(query, context.db, [sql.IntValue(id)])
+  let assert Ok(_) = context.execute_query(query, [sql.IntValue(id)])
   wisp.redirect("/" <> context.prefix <> "/" <> resource.storage_name)
 }
 
@@ -234,7 +243,7 @@ fn resource_update(
     )
 
   let assert Ok(_) =
-    execute_query(query, context.db, [
+    context.execute_query(query, [
       sql.IntValue(id),
       ..list.map(values, field_value_to_sql_value)
     ])
@@ -473,7 +482,7 @@ fn load_rows(
       where: where,
     )
 
-  let assert Ok(rows) = execute_query(query, context.db, parameters)
+  let assert Ok(rows) = context.execute_query(query, parameters)
   rows
 }
 
@@ -497,7 +506,7 @@ fn load_row(resource: Resource, id: Int, context: Context) -> Result(Row, Nil) {
       where: [sql.Equal(sql.RelationValue(option.None, "id"), sql.Parameter(1))],
     )
 
-  let assert Ok(rows) = execute_query(query, context.db, [sql.IntValue(id)])
+  let assert Ok(rows) = context.execute_query(query, [sql.IntValue(id)])
   case rows {
     [] -> Error(Nil)
     [row, ..] -> Ok(row)
@@ -650,18 +659,19 @@ fn item_display_name(item: ResourceItem) -> String {
   }
 }
 
-fn execute_query(
-  query: sql.Query,
-  connection: Connection,
-  parameters: List(sql.Value),
-) -> Result(List(Row), sql.QueryError) {
-  use rows <- result.map(sql_pgo.execute(query, connection, parameters))
-  use row <- list.map(rows)
-  case row {
-    [] -> panic as "row was empty, no id"
-    [sql.IntValue(id), ..row] ->
-      Row(id: id, values: list.map(row, sql_value_to_field_value))
-    [_, ..] -> panic as "unexpected id type, not an int"
+fn convert_query_executor(
+  executor: fn(sql.Query, List(sql.Value)) ->
+    Result(List(List(sql.Value)), sql.QueryError),
+) -> fn(sql.Query, List(sql.Value)) -> Result(List(Row), sql.QueryError) {
+  fn(query, parameters) {
+    use rows <- result.map(executor(query, parameters))
+    use row <- list.map(rows)
+    case row {
+      [] -> panic as "row was empty, no id"
+      [sql.IntValue(id), ..row] ->
+        Row(id: id, values: list.map(row, sql_value_to_field_value))
+      [_, ..] -> panic as "unexpected id type, not an int"
+    }
   }
 }
 

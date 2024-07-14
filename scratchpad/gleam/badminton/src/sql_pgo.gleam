@@ -8,6 +8,13 @@ import gleam/result
 import gleam/string
 import sql.{type Query, type QueryError, type Value}
 
+pub fn make_executor(
+  connection: Connection,
+) -> fn(sql.Query, List(sql.Value)) ->
+  Result(List(List(sql.Value)), sql.QueryError) {
+  fn(query, parameters) { execute(query, connection, parameters) }
+}
+
 pub fn execute(
   query: Query,
   connection: Connection,

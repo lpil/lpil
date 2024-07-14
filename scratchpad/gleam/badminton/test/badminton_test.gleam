@@ -7,6 +7,7 @@ import gleam/erlang/process
 import gleam/pgo.{type Connection}
 import gleeunit
 import mist
+import sql_pgo
 import wisp.{type Request, type Response}
 
 pub fn main() {
@@ -50,7 +51,12 @@ pub fn handle_request(request: Request, db: Connection) -> Response {
     |> field(int("amount"))
     |> references("users", "payment_reference", "name", text("reference"))
 
-  use <- admin_console(request, db, under: "__admin__", for: [users, payments])
+  use <- admin_console(
+    request,
+    execute_query: sql_pgo.make_executor(db),
+    under: "__admin__",
+    for: [users, payments],
+  )
 
   wisp.not_found()
 }
