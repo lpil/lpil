@@ -23,6 +23,7 @@ sudo update-alternatives --install /usr/bin/editor editor /usr/bin/vi 100
 
 ensure_apt_cache_fresh
 install_apt_package sqlite3
+install_apt_package nodejs
 install_apt_package mosh
 
 disable_ssh_password_login

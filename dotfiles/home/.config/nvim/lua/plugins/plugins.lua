@@ -12,7 +12,8 @@ return {
       servers = {
         gleam = { mason = false },
         rust_analyzer = { mason = false },
-        denols = { mason = false },
+        -- denols = { mason = false },
+        tsserver = { mason = true },
       },
     },
   },
