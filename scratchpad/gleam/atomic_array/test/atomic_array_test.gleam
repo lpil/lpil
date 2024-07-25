@@ -238,3 +238,16 @@ pub fn compare_exchange_oob_test() {
   let assert Error(atomic_array.ComparisonOutOfBounds) =
     atomic_array.compare_exchange(array, 2, 1, 1)
 }
+
+pub fn to_list_test() {
+  let array = atomic_array.new_signed(7)
+  let assert Ok(_) = atomic_array.set(array, 0, 10)
+  let assert Ok(_) = atomic_array.set(array, 1, 9)
+  let assert Ok(_) = atomic_array.set(array, 2, 8)
+  let assert Ok(_) = atomic_array.set(array, 3, 7)
+  let assert Ok(_) = atomic_array.set(array, 4, 6)
+  let assert Ok(_) = atomic_array.set(array, 5, 5)
+  let assert Ok(_) = atomic_array.set(array, 6, 4)
+  atomic_array.to_list(array)
+  |> should.equal([10, 9, 8, 7, 6, 5, 4])
+}
