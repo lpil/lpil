@@ -1,0 +1,16 @@
+name = "erlang_supervisor"
+version = "1.0.0"
+
+description = "Gleam bindings to the Erlang supervisor module"
+licences = ["Apache-2.0"]
+repository = { type = "github", user = "lpil", repo = "erlang-supervisor" }
+links = [
+  { title = "Sponsor", href = "https://github.com/sponsors/lpil" },
+]
+
+[dependencies]
+gleam_stdlib = ">= 0.34.0 and < 2.0.0"
+gleam_erlang = ">= 0.25.0 and < 1.0.0"
+
+[dev-dependencies]
+gleeunit = ">= 1.0.0 and < 2.0.0"
