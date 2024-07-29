@@ -3,6 +3,7 @@ import gleam/dynamic.{type Dynamic}
 import gleam/erlang/atom.{type Atom}
 import gleam/erlang/process.{type Pid}
 import gleam/list
+import gleam/result
 
 pub type Strategy {
   /// If one child process terminates and is to be restarted, only that child
@@ -49,7 +50,7 @@ pub opaque type Builder {
     intensity: Int,
     period: Int,
     auto_shutdown: AutoShutdown,
-    children: List(ChildSpecification(Dynamic)),
+    children: List(ChildBuilder),
   )
 }
 
@@ -114,8 +115,8 @@ pub type ChildType {
   Supervisor
 }
 
-pub type ChildSpecification(error) {
-  ChildSpecification(
+pub opaque type ChildBuilder {
+  ChildBuilder(
     /// id is used to identify the child specification internally by the
     /// supervisor.
     ///
@@ -125,7 +126,7 @@ pub type ChildSpecification(error) {
     /// example in error messages.
     id: String,
     /// A function to call to start the child process.
-    start: fn() -> Result(Pid, error),
+    starter: fn() -> Result(Pid, Dynamic),
     /// When the child is to be restarted. See the `Restart` documentation for
     /// more.
     ///
@@ -144,32 +145,6 @@ pub type ChildSpecification(error) {
   )
 }
 
-// sup_flags() = #{strategy => strategy(),           % optional
-//                 intensity => non_neg_integer(),   % optional
-//                 period => pos_integer(),          % optional
-//                 auto_shutdown => auto_shutdown()} % optional
-// init([]) ->
-//     % Define the supervision strategy
-//     RestartStrategy = rest_for_one,
-//     MaxRestarts = 3,
-//     MaxTime = 5,
-//     SupFlags = {RestartStrategy, MaxRestarts, MaxTime},
-//
-//     % Define child specifications using maps
-//     DbConnSpec = #{
-//         id => db_connection,
-//         start => {db_connection, start_link, []},
-//         restart => permanent,
-//         shutdown => 5000,
-//         type => worker,
-//         modules => [db_connection]
-//     },
-//
-//     % List of child specifications
-//     Children = [DbConnSpec],
-//
-//     {ok, {SupFlags, Children}}.
-
 pub fn start_link(builder: Builder) -> Result(Pid, Dynamic) {
   let flags =
     dict.new()
@@ -184,11 +159,82 @@ pub fn start_link(builder: Builder) -> Result(Pid, Dynamic) {
   |> erlang_start_link(#(flags, children))
 }
 
-fn convert_child(child: ChildSpecification(anything)) -> Dict(Atom, Dynamic) {
+/// Add a child to the supervisor.
+pub fn add(builder: Builder, child: ChildBuilder) -> Builder {
+  Builder(..builder, children: [child, ..builder.children])
+}
+
+/// A regular child that is not also a supervisor.
+///
+/// id is used to identify the child specification internally by the
+/// supervisor.
+/// Notice that this identifier on occations has been called "name". As far
+/// as possible, the terms "identifier" or "id" are now used but to keep
+/// backward compatibility, some occurences of "name" can still be found, for
+/// example in error messages.
+///
+pub fn worker_child(
+  id id: String,
+  run starter: fn() -> Result(Pid, whatever),
+) -> ChildBuilder {
+  ChildBuilder(
+    id:,
+    starter: fn() { starter() |> result.map_error(dynamic.from) },
+    restart: Permanent,
+    significant: False,
+    child_type: Worker(5000),
+  )
+}
+
+/// A special child that is a supervisor itself.
+///
+/// id is used to identify the child specification internally by the
+/// supervisor.
+/// Notice that this identifier on occations has been called "name". As far
+/// as possible, the terms "identifier" or "id" are now used but to keep
+/// backward compatibility, some occurences of "name" can still be found, for
+/// example in error messages.
+///
+pub fn supervisor_child(
+  id id: String,
+  run starter: fn() -> Result(Pid, whatever),
+) -> ChildBuilder {
+  ChildBuilder(
+    id:,
+    starter: fn() { starter() |> result.map_error(dynamic.from) },
+    restart: Permanent,
+    significant: False,
+    child_type: Supervisor,
+    significant,
+  )
+}
+
+/// This defines if a child is considered significant for automatic
+/// self-shutdown of the supervisor.
+///
+/// You most likely do not want to consider any children significant.
+///
+/// This will be ignored if the supervisor auto shutdown is set to `Never`,
+/// which is the default.
+///
+/// The default value for significance is `False`.
+pub fn significant(child: ChildBuilder, significant: Bool) -> ChildBuilder {
+  ChildBuilder(..child, significant:)
+}
+
+/// When the child is to be restarted. See the `Restart` documentation for
+/// more.
+///
+/// The default value for significance is `Permenent`.
+pub fn restart(child: ChildBuilder, restart: Restart) -> ChildBuilder {
+  ChildBuilder(..child, restart:)
+}
+
+fn convert_child(child: ChildBuilder) -> Dict(Atom, Dynamic) {
   let mfa = #(
     atom.create_from_string("erlang"),
     atom.create_from_string("apply"),
-    [child.start],
+    [dynamic.from(child.starter), dynamic.from([])],
   )
 
   let #(type_, shutdown) = case child.child_type {
