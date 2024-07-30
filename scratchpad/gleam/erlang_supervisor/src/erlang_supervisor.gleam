@@ -205,7 +205,6 @@ pub fn supervisor_child(
     restart: Permanent,
     significant: False,
     child_type: Supervisor,
-    significant,
   )
 }
 
@@ -220,6 +219,20 @@ pub fn supervisor_child(
 /// The default value for significance is `False`.
 pub fn significant(child: ChildBuilder, significant: Bool) -> ChildBuilder {
   ChildBuilder(..child, significant:)
+}
+
+/// This defines the amount of milliseconds a child has to shut down before
+/// being brutal killed by the supervisor.
+///
+/// If not set the default for a child is 5000ms.
+///
+/// This will be ignored if the child is a supervisor itself.
+///
+pub fn timeout(child: ChildBuilder, ms ms: Int) -> ChildBuilder {
+  case child.child_type {
+    Worker(_) -> ChildBuilder(..child, child_type: Worker(ms))
+    _ -> child
+  }
 }
 
 /// When the child is to be restarted. See the `Restart` documentation for
