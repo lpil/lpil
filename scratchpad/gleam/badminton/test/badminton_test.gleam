@@ -1,7 +1,6 @@
 import argv
 import badminton.{
-  admin_console, display, editable, email, field, int, references, resource,
-  searchable, text,
+  display, editable, email, field, int, references, resource, searchable, text,
 }
 import gleam/erlang/process
 import gleam/http/request
@@ -54,7 +53,7 @@ pub fn handle_request(request: Request, db: Connection) -> Response {
 
   case request.path_segments(request) {
     ["__admin__", ..path] ->
-      admin_console(
+      badminton.handle_request(
         request,
         path:,
         execute_query: sql_pgo.make_executor(db),

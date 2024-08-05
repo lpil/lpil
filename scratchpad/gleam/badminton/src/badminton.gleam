@@ -142,7 +142,7 @@ pub fn searchable(field: Field, is_searchable: Bool) -> Field {
   Field(..field, searchable: is_searchable)
 }
 
-pub fn admin_console(
+pub fn handle_request(
   request request: Request,
   path path: List(String),
   execute_query execute_query: fn(sql.Query, List(sql.Value)) ->
@@ -161,8 +161,9 @@ pub fn admin_console(
 
   case path {
     [] -> home(request, context)
-    ["styles.css"] -> stylesheet("styles.css")
-    ["pico.min.css"] -> stylesheet("pico.min.css")
+    ["script.js"] -> asset("script.js")
+    ["styles.css"] -> asset("styles.css")
+    ["pico.min.css"] -> asset("pico.min.css")
     [name] -> resource_list(request, name, context)
     [name, id] -> resource_single(request, name, id, context)
     _ -> wisp.not_found()
@@ -185,7 +186,7 @@ type Context {
   )
 }
 
-fn stylesheet(file: String) -> Response {
+fn asset(file: String) -> Response {
   let assert Ok(dir) = erlang.priv_directory("badminton")
   wisp.ok()
   |> wisp.set_body(wisp.File(dir <> "/static/" <> file))
@@ -420,18 +421,20 @@ fn resource_list(request: Request, name: String, context: Context) -> Response {
 
   [
     search_section,
-    html.table([attribute.class("overflow-auto")], [
-      html.thead([], [
-        html.tr([], [
-          element.fragment(
-            list.map(resource.fields, fn(i) {
-              html.td([], [element.text(item_display_name(i))])
-            }),
-          ),
-          html.td([], []),
+    html.div([attribute.class("overflow-auto")], [
+      html.table([attribute.class("overflow-auto")], [
+        html.thead([], [
+          html.tr([], [
+            element.fragment(
+              list.map(resource.fields, fn(i) {
+                html.td([], [element.text(item_display_name(i))])
+              }),
+            ),
+            html.td([], []),
+          ]),
         ]),
+        html.tbody([], table_rows),
       ]),
-      html.tbody([], table_rows),
     ]),
     html.nav([attribute.class("pagination")], [
       case page > 1 {
@@ -588,8 +591,11 @@ fn breadcrumbs(location: Location) -> element.Element(a) {
     ]
   }
 
-  html.nav([attribute.attribute("aria-label", "breadcrumb")], [
-    html.ul([], crumbs),
+  html.div([], [
+    html.a([attribute.attribute("data-hamburger", "")], [html.text("🍔")]),
+    html.nav([attribute.attribute("aria-label", "breadcrumb")], [
+      html.ul([], crumbs),
+    ]),
   ])
 }
 
@@ -614,7 +620,11 @@ fn page_html(
 
   html.html([], [
     html.head([], [
-      // TODO: dynamic
+      html.meta([attribute.attribute("charset", "UTF-8")]),
+      html.meta([
+        attribute.name("viewport"),
+        attribute.attribute("content", "width=device-width, initial-scale=1"),
+      ]),
       html.base([attribute.href(base_path(context.request, location))]),
       html.link([attribute.rel("stylesheet"), attribute.href("pico.min.css")]),
       html.link([attribute.rel("stylesheet"), attribute.href("styles.css")]),
@@ -626,6 +636,7 @@ fn page_html(
         ..elements
       ]),
     ]),
+    html.script([attribute.src("script.js")], ""),
   ])
   |> element.to_string
   |> string.append("<!doctype html>", _)

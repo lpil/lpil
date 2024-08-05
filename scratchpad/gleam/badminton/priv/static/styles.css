@@ -4,14 +4,8 @@
 
 body {
   display: flex;
-}
-
-.sidebar {
-  width: 400px;
-  height: 100vh;
-  overflow-y: auto;
-  flex-direction: column;
-  border-right: var(--pico-border-width) solid var(--pico-table-border-color);
+  align-items: stretch;
+  max-width: 100vw;
 }
 
 .sidebar h1 {
@@ -34,4 +28,40 @@ nav[aria-label="breadcrumb"] li {
 .pagination {
   justify-content: center;
   gap: var(--pico-spacing);
+}
+
+[data-hamburger] {
+  cursor: pointer;
+  margin-right: var(--pico-spacing);
+  float: left;
+  font-size: 150%;
+  position: relative;
+  bottom: 6px;
+}
+
+.sidebar {
+  display: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+  width: 300px;
+  border-right: var(--pico-border-width) solid var(--pico-table-border-color);
+  background: var(--pico-background-color);
+  overflow-y: auto;
+}
+
+@media (min-width: 1024px) {
+  .sidebar {
+    position: unset;
+    display: block;
+  }
+
+  [data-hamburger] {
+    display: none;
+  }
+}
+
+[data-sidebar-open] .sidebar {
+  display: block;
 }
