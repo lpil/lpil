@@ -56,7 +56,7 @@ pub fn handle_request(request: Request, db: Connection) -> Response {
       badminton.handle_request(
         request,
         path:,
-        execute_query: sql_pgo.make_executor(db),
+        query: sql_pgo.make_executor(db),
         for: [users, payments],
       )
     _ -> wisp.not_found()

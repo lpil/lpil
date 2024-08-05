@@ -145,7 +145,7 @@ pub fn searchable(field: Field, is_searchable: Bool) -> Field {
 pub fn handle_request(
   request request: Request,
   path path: List(String),
-  execute_query execute_query: fn(sql.Query, List(sql.Value)) ->
+  query executor: fn(sql.Query, List(sql.Value)) ->
     Result(List(List(sql.Value)), sql.QueryError),
   for resources: List(Resource),
 ) -> Response {
@@ -155,7 +155,7 @@ pub fn handle_request(
   let context =
     Context(
       request: request,
-      execute_query: convert_query_executor(execute_query),
+      execute_query: convert_query_executor(executor),
       resources: resources,
     )
 
