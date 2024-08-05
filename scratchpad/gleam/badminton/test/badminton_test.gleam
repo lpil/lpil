@@ -4,6 +4,7 @@ import badminton.{
   searchable, text,
 }
 import gleam/erlang/process
+import gleam/http/request
 import gleam/pgo.{type Connection}
 import gleeunit
 import mist
@@ -51,12 +52,14 @@ pub fn handle_request(request: Request, db: Connection) -> Response {
     |> field(int("amount"))
     |> references("users", "payment_reference", "name", text("reference"))
 
-  use <- admin_console(
-    request,
-    execute_query: sql_pgo.make_executor(db),
-    under: "__admin__",
-    for: [users, payments],
-  )
-
-  wisp.not_found()
+  case request.path_segments(request) {
+    ["__admin__", ..path] ->
+      admin_console(
+        request,
+        path:,
+        execute_query: sql_pgo.make_executor(db),
+        for: [users, payments],
+      )
+    _ -> wisp.not_found()
+  }
 }

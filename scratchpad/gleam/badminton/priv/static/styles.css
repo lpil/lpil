@@ -1,0 +1,37 @@
+:root {
+  --pico-font-size: 15px;
+}
+
+body {
+  display: flex;
+}
+
+.sidebar {
+  width: 400px;
+  height: 100vh;
+  overflow-y: auto;
+  flex-direction: column;
+  border-right: var(--pico-border-width) solid var(--pico-table-border-color);
+}
+
+.sidebar h1 {
+  margin-bottom: 0;
+}
+
+.sidebar ul {
+  display: block;
+}
+
+.sidebar li {
+  display: block;
+  padding-bottom: 0;
+}
+
+nav[aria-label="breadcrumb"] li {
+  padding-top: 0;
+}
+
+.pagination {
+  justify-content: center;
+  gap: var(--pico-spacing);
+}

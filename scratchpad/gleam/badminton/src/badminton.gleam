@@ -3,9 +3,7 @@
 // TODO: can create records
 // TODO: datetime type
 // TODO: bool type
-// TODO: nice UI
 // TODO: configure some fields to only show on single record page
-// TODO: do not use relative URLs
 // TODO: tests for home
 // TODO: tests for resource list rows
 // TODO: tests for resource list rows with no searchable
@@ -15,9 +13,6 @@
 // TODO: tests for resource delete one
 // TODO: test pagination
 // TODO: test pagination (invalid page number, 0 or negative)
-//
-// https://docs.djangoproject.com/en/5.0/ref/contrib/admin/
-// https://github.com/naymspace/backpex
 
 import badminton/internal
 import gleam/dynamic.{type Dynamic}
@@ -37,6 +32,8 @@ import lustre/element.{type Element as HtmlElement}
 import lustre/element/html
 import sql
 import wisp.{type Request, type Response}
+
+const page_size = 50
 
 pub fn resource(storage_name: String, display_name: String) -> Resource {
   Resource(
@@ -147,43 +144,51 @@ pub fn searchable(field: Field, is_searchable: Bool) -> Field {
 
 pub fn admin_console(
   request request: Request,
+  path path: List(String),
   execute_query execute_query: fn(sql.Query, List(sql.Value)) ->
     Result(List(List(sql.Value)), sql.QueryError),
-  under prefix: String,
   for resources: List(Resource),
-  next next: fn() -> Response,
 ) -> Response {
+  use <- remove_trailing_slash(request)
+
   let resources = reverse(resources, [])
   let context =
     Context(
-      prefix: prefix,
+      request: request,
       execute_query: convert_query_executor(execute_query),
       resources: resources,
     )
 
-  case request.path_segments(request) {
-    [p, ..] if p != prefix -> next()
-    [_, "styles.css"] -> stylesheet()
-    [_] -> home(request, context)
-    [_, name] -> resource_list(request, name, context)
-    [_, name, id] -> resource_single(request, name, id, context)
-    _ -> next()
+  case path {
+    [] -> home(request, context)
+    ["styles.css"] -> stylesheet("styles.css")
+    ["pico.min.css"] -> stylesheet("pico.min.css")
+    [name] -> resource_list(request, name, context)
+    [name, id] -> resource_single(request, name, id, context)
+    _ -> wisp.not_found()
+  }
+}
+
+fn remove_trailing_slash(request: Request, next: fn() -> Response) -> Response {
+  case string.ends_with(request.path, "/") {
+    True -> wisp.redirect(to: string.drop_right(request.path, 1))
+    False -> next()
   }
 }
 
 type Context {
   Context(
-    prefix: String,
+    request: Request,
     execute_query: fn(sql.Query, List(sql.Value)) ->
       Result(List(Row), sql.QueryError),
     resources: List(Resource),
   )
 }
 
-fn stylesheet() -> Response {
+fn stylesheet(file: String) -> Response {
   let assert Ok(dir) = erlang.priv_directory("badminton")
   wisp.ok()
-  |> wisp.set_body(wisp.File(dir <> "/static/pico.min.css"))
+  |> wisp.set_body(wisp.File(dir <> "/static/" <> file))
   |> wisp.set_header("content-type", "text/css; charset=utf-8")
   // TODO: add cache headers
 }
@@ -211,7 +216,7 @@ fn resource_delete(resource: Resource, id: Int, context: Context) -> Response {
       sql.Equal(sql.RelationValue(option.None, "id"), sql.Parameter(1)),
     ])
   let assert Ok(_) = context.execute_query(query, [sql.IntValue(id)])
-  wisp.redirect("/" <> context.prefix <> "/" <> resource.storage_name)
+  wisp.redirect("../" <> resource.storage_name)
 }
 
 fn resource_update(
@@ -314,23 +319,35 @@ fn resource_page(
       )
     })
 
+  let location =
+    ResourceShow(
+      resource_name: resource.display_name,
+      resource_slug: resource.storage_name,
+      instance_name: int.to_string(id),
+    )
+
   [
     html.form([attribute.method("POST")], [
       element.fragment(fields),
       html.input([attribute.type_("submit"), attribute.value("Save")]),
     ]),
-    html.form([attribute.method("POST"), attribute.action("?_method=DELETE")], [
-      html.input([attribute.type_("submit"), attribute.value("Delete")]),
-    ]),
-    html.a(
-      [attribute.href("/" <> context.prefix <> "/" <> resource.storage_name)],
-      [element.text("Back")],
+    html.form(
+      [
+        attribute.method("POST"),
+        attribute.action(
+          resource.storage_name <> "/" <> int.to_string(id) <> "?_method=DELETE",
+        ),
+      ],
+      [
+        html.input([
+          attribute.class("secondary"),
+          attribute.type_("submit"),
+          attribute.value("Delete"),
+        ]),
+      ],
     ),
   ]
-  |> page_html(
-    context: context,
-    title: resource.display_name <> ": " <> int.to_string(id),
-  )
+  |> page_html(context: context, location: location)
   |> wisp.html_response(200)
 }
 
@@ -397,7 +414,7 @@ fn resource_list(request: Request, name: String, context: Context) -> Response {
         })
       html.tr([], [
         element.fragment(values),
-        html.td([], [html.a([attribute.href(url)], [element.text("View")])]),
+        html.td([], [html.a([attribute.href(url)], [element.text("Edit")])]),
       ])
     })
 
@@ -405,36 +422,36 @@ fn resource_list(request: Request, name: String, context: Context) -> Response {
     search_section,
     html.table([attribute.class("overflow-auto")], [
       html.thead([], [
-        html.tr(
-          [],
-          list.map(resource.fields, fn(i) {
-            html.td([], [element.text(item_display_name(i))])
-          }),
-        ),
+        html.tr([], [
+          element.fragment(
+            list.map(resource.fields, fn(i) {
+              html.td([], [element.text(item_display_name(i))])
+            }),
+          ),
+          html.td([], []),
+        ]),
       ]),
       html.tbody([], table_rows),
     ]),
-    html.nav([], [
-      html_when(
-        page > 1,
-        html.a([attribute.href(prev_url)], [element.text("Previous")]),
-      ),
-      html_when(
-        table_rows != [],
-        html.a([attribute.href(next_url)], [element.text("Next")]),
-      ),
+    html.nav([attribute.class("pagination")], [
+      case page > 1 {
+        True -> html.a([attribute.href(prev_url)], [element.text("Previous")])
+        False -> html.span([], [element.text("Previous")])
+      },
+      case list.length(table_rows) == page_size {
+        True -> html.a([attribute.href(next_url)], [element.text("Next")])
+        False -> html.span([], [element.text("Next")])
+      },
     ]),
-    html.a([attribute.href("/" <> context.prefix)], [element.text("Back")]),
   ]
-  |> page_html(context: context, title: resource.display_name)
+  |> page_html(
+    context: context,
+    location: ResourceList(
+      resource_name: resource.display_name,
+      resource_slug: resource.storage_name,
+    ),
+  )
   |> wisp.html_response(200)
-}
-
-fn html_when(condition: Bool, element: element.Element(a)) -> element.Element(a) {
-  case condition {
-    True -> element
-    False -> element.none()
-  }
 }
 
 fn field_storage_names(resource: Resource) -> List(String) {
@@ -447,7 +464,6 @@ fn load_rows(
   search search: String,
   page page: Int,
 ) -> List(Row) {
-  let page_size = 50
   let offset = { page - 1 } * page_size
   let sql =
     internal.sql_select_many_query(
@@ -532,59 +548,105 @@ fn home(request: Request, context: Context) -> Response {
     html.ul(
       [],
       list.map(context.resources, fn(resource) {
-        let href = "/" <> context.prefix <> "/" <> resource.storage_name
         html.li([], [
-          html.a([attribute.href(href)], [element.text(resource.display_name)]),
+          html.a([attribute.href(resource.storage_name)], [
+            element.text(resource.display_name),
+          ]),
         ])
       }),
     ),
   ]
-  |> page_html(context: context, title: "Resources")
+  |> page_html(context: context, location: Home)
   |> wisp.html_response(200)
+}
+
+pub type Location {
+  Home
+  ResourceList(resource_name: String, resource_slug: String)
+  ResourceShow(
+    resource_name: String,
+    resource_slug: String,
+    instance_name: String,
+  )
+}
+
+fn breadcrumbs(location: Location) -> element.Element(a) {
+  let crumbs = case location {
+    Home -> [html.li([], [html.text("Home")])]
+
+    ResourceList(resource_name:, ..) -> [
+      html.li([], [html.a([attribute.href(".")], [html.text("Home")])]),
+      html.li([], [html.text(resource_name)]),
+    ]
+
+    ResourceShow(resource_name:, resource_slug:, instance_name:) -> [
+      html.li([], [html.a([attribute.href(".")], [html.text("Home")])]),
+      html.li([], [
+        html.a([attribute.href(resource_slug)], [html.text(resource_name)]),
+      ]),
+      html.li([], [html.text(instance_name)]),
+    ]
+  }
+
+  html.nav([attribute.attribute("aria-label", "breadcrumb")], [
+    html.ul([], crumbs),
+  ])
 }
 
 fn page_html(
   html elements: List(HtmlElement(_)),
-  title title: String,
+  location location: Location,
   context context: Context,
 ) -> StringBuilder {
   let nav =
-    html.nav([], [
-      html.ul([], [html.li([], [html.strong([], [element.text("Admin")])])]),
-      html.ul([attribute.attribute("dir", "rtl")], [
-        html.li([], [
-          html.details([attribute.class("dropdown")], [
-            html.summary([], [element.text(title)]),
-            html.ul(
-              [],
-              list.map(context.resources, fn(resource) {
-                let href = "/" <> context.prefix <> "/" <> resource.storage_name
-                html.li([], [
-                  html.a([attribute.href(href)], [
-                    element.text(resource.display_name),
-                  ]),
-                ])
-              }),
-            ),
-          ]),
-        ]),
+    html.nav([attribute.class("sidebar"), attribute.class("container-fluid")], [
+      html.ul([], [
+        html.li([], [html.h1([], [element.text("Admin")])]),
+        ..list.map(context.resources, fn(resource) {
+          html.li([], [
+            html.a([attribute.href(resource.storage_name)], [
+              element.text(resource.display_name),
+            ]),
+          ])
+        })
       ]),
     ])
 
   html.html([], [
     html.head([], [
-      html.link([
-        attribute.rel("stylesheet"),
-        attribute.href("/" <> context.prefix <> "/styles.css"),
-      ]),
+      // TODO: dynamic
+      html.base([attribute.href(base_path(context.request, location))]),
+      html.link([attribute.rel("stylesheet"), attribute.href("pico.min.css")]),
+      html.link([attribute.rel("stylesheet"), attribute.href("styles.css")]),
     ]),
-    html.body([attribute.class("container-fluid")], [
-      html.header([], [nav]),
-      ..elements
+    html.body([], [
+      nav,
+      html.main([attribute.class("container-fluid")], [
+        breadcrumbs(location),
+        ..elements
+      ]),
     ]),
   ])
   |> element.to_string
+  |> string.append("<!doctype html>", _)
   |> string_builder.from_string
+}
+
+fn base_path(request: Request, location: Location) -> String {
+  let get = fn(amount) {
+    request.path_segments(request)
+    |> list.reverse
+    |> list.drop(amount)
+    |> list.reverse
+    |> string.join("/")
+    |> string.append("/")
+    |> string.append("/", _)
+  }
+  case location {
+    Home -> request.path <> "/"
+    ResourceList(..) -> get(1)
+    ResourceShow(..) -> get(2)
+  }
 }
 
 pub opaque type Resource {
