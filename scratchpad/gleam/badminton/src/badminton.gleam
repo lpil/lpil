@@ -15,6 +15,7 @@
 // TODO: test pagination (invalid page number, 0 or negative)
 
 import badminton/internal
+import badminton/internal/view
 import gleam/dynamic.{type Dynamic}
 import gleam/erlang
 import gleam/http.{Get}
@@ -163,7 +164,6 @@ pub fn handle_request(
     [] -> home(request, context)
     ["script.js"] -> asset("script.js")
     ["styles.css"] -> asset("styles.css")
-    ["pico.min.css"] -> asset("pico.min.css")
     [name] -> resource_list(request, name, context)
     [name, id] -> resource_single(request, name, id, context)
     _ -> wisp.not_found()
@@ -604,19 +604,35 @@ fn page_html(
   location location: Location,
   context context: Context,
 ) -> StringBuilder {
+  let nav_pages =
+    list.map(context.resources, fn(resource) {
+      #(resource.display_name, resource.storage_name)
+    })
+
   let nav =
     html.nav([attribute.class("sidebar"), attribute.class("container-fluid")], [
       html.ul([], [
         html.li([], [html.h1([], [element.text("Admin")])]),
-        ..list.map(context.resources, fn(resource) {
+        ..list.map(nav_pages, fn(resource) {
           html.li([], [
-            html.a([attribute.href(resource.storage_name)], [
-              element.text(resource.display_name),
-            ]),
+            html.a([attribute.href(resource.1)], [element.text(resource.0)]),
           ])
         })
       ]),
     ])
+
+  let nav_pages = [
+    view.NavItem(name: "VM metrics", path: "vm-metrics", selected: True),
+    view.NavItem(name: "Exceptions", path: "exceptions", selected: False),
+    view.NavItem(name: "Traffic", path: "traffic", selected: False),
+    view.NavItem(name: "Log stream", path: "log-stream", selected: False),
+  ]
+
+  let nav_resources = [
+    view.NavItem(name: "Users", path: "data/users", selected: False),
+    view.NavItem(name: "Payments", path: "data/payments", selected: False),
+    view.NavItem(name: "Products", path: "data/products", selected: False),
+  ]
 
   html.html([], [
     html.head([], [
@@ -626,10 +642,10 @@ fn page_html(
         attribute.attribute("content", "width=device-width, initial-scale=1"),
       ]),
       html.base([attribute.href(base_path(context.request, location))]),
-      html.link([attribute.rel("stylesheet"), attribute.href("pico.min.css")]),
       html.link([attribute.rel("stylesheet"), attribute.href("styles.css")]),
     ]),
     html.body([], [
+      view.desktop_sidenav(pages: nav_pages, resources: nav_resources),
       nav,
       html.main([attribute.class("container-fluid")], [
         breadcrumbs(location),

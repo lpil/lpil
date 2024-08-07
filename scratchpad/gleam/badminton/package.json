@@ -1,0 +1,10 @@
+{
+  "name": "wisp_console",
+  "scripts": {
+    "tailwind": "npx tailwindcss -i ./src/styles.css -o ./priv/static/styles.css --watch"
+  },
+  "devDependencies": {
+    "@tailwindcss/forms": "^0.5.7",
+    "tailwindcss": "^3.4.7"
+  }
+}
