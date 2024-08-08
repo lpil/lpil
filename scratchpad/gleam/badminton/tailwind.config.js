@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./src/**/*.gleam"],
+  content: ["./src/**/*.gleam", "priv/static/**/*.js"],
   theme: {
     extend: {},
   },

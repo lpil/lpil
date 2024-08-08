@@ -573,54 +573,11 @@ pub type Location {
   )
 }
 
-fn breadcrumbs(location: Location) -> element.Element(a) {
-  let crumbs = case location {
-    Home -> [html.li([], [html.text("Home")])]
-
-    ResourceList(resource_name:, ..) -> [
-      html.li([], [html.a([attribute.href(".")], [html.text("Home")])]),
-      html.li([], [html.text(resource_name)]),
-    ]
-
-    ResourceShow(resource_name:, resource_slug:, instance_name:) -> [
-      html.li([], [html.a([attribute.href(".")], [html.text("Home")])]),
-      html.li([], [
-        html.a([attribute.href(resource_slug)], [html.text(resource_name)]),
-      ]),
-      html.li([], [html.text(instance_name)]),
-    ]
-  }
-
-  html.div([], [
-    html.a([attribute.attribute("data-hamburger", "")], [html.text("🍔")]),
-    html.nav([attribute.attribute("aria-label", "breadcrumb")], [
-      html.ul([], crumbs),
-    ]),
-  ])
-}
-
 fn page_html(
   html elements: List(HtmlElement(_)),
   location location: Location,
   context context: Context,
 ) -> StringBuilder {
-  let nav_pages =
-    list.map(context.resources, fn(resource) {
-      #(resource.display_name, resource.storage_name)
-    })
-
-  let nav =
-    html.nav([attribute.class("sidebar"), attribute.class("container-fluid")], [
-      html.ul([], [
-        html.li([], [html.h1([], [element.text("Admin")])]),
-        ..list.map(nav_pages, fn(resource) {
-          html.li([], [
-            html.a([attribute.href(resource.1)], [element.text(resource.0)]),
-          ])
-        })
-      ]),
-    ])
-
   let nav_pages = [
     view.NavItem(name: "VM metrics", path: "vm-metrics", selected: True),
     view.NavItem(name: "Exceptions", path: "exceptions", selected: False),
@@ -634,7 +591,7 @@ fn page_html(
     view.NavItem(name: "Products", path: "data/products", selected: False),
   ]
 
-  html.html([], [
+  html.html([attribute.class("h-full")], [
     html.head([], [
       html.meta([attribute.attribute("charset", "UTF-8")]),
       html.meta([
@@ -644,18 +601,14 @@ fn page_html(
       html.base([attribute.href(base_path(context.request, location))]),
       html.link([attribute.rel("stylesheet"), attribute.href("styles.css")]),
     ]),
-    html.body([], [
+    html.body([attribute.class("h-full")], [
+      view.mobile_sidenav(pages: nav_pages, resources: nav_resources),
       view.desktop_sidenav(pages: nav_pages, resources: nav_resources),
-      nav,
-      html.main([attribute.class("container-fluid")], [
-        breadcrumbs(location),
-        ..elements
-      ]),
+      html.main([], elements),
     ]),
     html.script([attribute.src("script.js")], ""),
   ])
-  |> element.to_string
-  |> string.append("<!doctype html>", _)
+  |> element.to_document_string
   |> string_builder.from_string
 }
 
