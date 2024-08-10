@@ -35,8 +35,8 @@ if (!accessToken) {
   accessToken = accessJson.token;
 }
 
-const start = Date.parse("01-Aug-2024 00:00:00") / 1000;
-const end = Date.parse("02-Aug-2024 00:00:00") / 1000;
+const start = Date.parse("08-Aug-2024 00:00:00") / 1000;
+const end = Date.parse("08-Aug-2025 00:20:00") / 1000;
 
 fetch(
   `https://vrmapi.victronenergy.com/v2/installations/${siteId}/gps-download?start=${start}&end=${end}`,
@@ -48,6 +48,9 @@ fetch(
     },
   },
 )
-  .then((res) => res.text())
+  .then((res) => {
+    console.log(res.headers);
+    return res.text();
+  })
   .then((json) => console.log(json))
   .catch((err) => console.error("error:" + err));

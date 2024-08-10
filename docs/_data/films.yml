@@ -84,3 +84,19 @@
       - Comedy
       - War
       - Drama
+  - name: "Glass Onion: A Knives Out Mystery"
+    director: Rian Johnson
+    released: 2022
+    language: English
+    country: United States
+    tags:
+      - Detective
+      - Comedy
+  - name: Knives Out
+    director: Rian Johnson
+    released: 2019
+    language: English
+    country: United States
+    tags:
+      - Detective
+      - Comedy
