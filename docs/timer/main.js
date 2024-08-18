@@ -58,9 +58,14 @@ function stopTimer() {
 }
 
 function requestWakelock() {
-  navigator.wakeLock.request("screen").catch((error) => {
-    debug.textContent = "wakelock failed: " + error.toString();
-  });
+  navigator.wakeLock
+    .request("screen")
+    .then(() => {
+      debug.textContent = "Wakelocked";
+    })
+    .catch((error) => {
+      debug.textContent = "wakelock failed: " + error.toString();
+    });
 }
 
 document.addEventListener("visibilitychange", () => {
