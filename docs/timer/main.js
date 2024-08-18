@@ -1,4 +1,5 @@
 const display = document.querySelector("time");
+const debug = document.querySelector("[data-debug]");
 
 let time = 0;
 
@@ -47,7 +48,7 @@ function tick() {
 function ensureTimerRunning() {
   if (tickInterval === null) {
     tickInterval = setInterval(tick, 1000);
-    navigator.wakeLock.request("screen");
+    requestWakelock();
   }
 }
 
@@ -56,10 +57,14 @@ function stopTimer() {
   tickInterval = null;
 }
 
+function requestWakelock() {
+  navigator.wakeLock.request("screen").catch((error) => {
+    debug.textContent = "wakelock failed: " + error.toString();
+  });
+}
+
 document.addEventListener("visibilitychange", () => {
   if (tickInterval && document.visibilityState === "visible") {
-    navigator.wakeLock.request("screen");
+    requestWakelock();
   }
 });
-
-requestWakeLock();
