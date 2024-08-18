@@ -47,6 +47,7 @@ function tick() {
 function ensureTimerRunning() {
   if (tickInterval === null) {
     tickInterval = setInterval(tick, 1000);
+    navigator.wakeLock.request("screen");
   }
 }
 
@@ -55,14 +56,10 @@ function stopTimer() {
   tickInterval = null;
 }
 
-async function requestWakeLock() {
-  await navigator.wakeLock.request("screen");
-
-  document.addEventListener("visibilitychange", async () => {
-    if (document.visibilityState === "visible") {
-      await navigator.wakeLock.request("screen");
-    }
-  });
-}
+document.addEventListener("visibilitychange", () => {
+  if (tickInterval && document.visibilityState === "visible") {
+    navigator.wakeLock.request("screen");
+  }
+});
 
 requestWakeLock();
