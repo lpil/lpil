@@ -60,11 +60,14 @@ function stopTimer() {
 function requestWakelock() {
   navigator.wakeLock
     .request("screen")
-    .then(() => {
-      debug.textContent = "Wakelocked";
+    .then((wakelock) => {
+      debug.textContent = `WakeLock: ${!wakelock.released}`;
+      wakelock.addEventListener("release", () => {
+        debug.textContent = `WakeLock: ${!wakelock.released}`;
+      });
     })
     .catch((error) => {
-      debug.textContent = "wakelock failed: " + error.toString();
+      debug.textContent = "Wakelock failed: " + error.message;
     });
 }
 
