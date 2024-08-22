@@ -1,0 +1,81 @@
+#!/bin/sh
+
+print_usage() {
+  echo "usage: compress_video <input_file>"
+  echo "supported formats: mp4, webm, mkv, mov, avi, flv"
+}
+
+get_extension() {
+  f="${1##*/}"
+  case "$f" in
+  .*) get_extension "${f#.}" && return 0 ;;
+  esac
+  case "$f" in
+  .*.*) echo "${f#.}" ;;
+  *.*) echo "${f#*.}" ;;
+  *) return 0 ;;
+  esac
+}
+
+get_filepath_without_extension() {
+  ext=$(get_extension "$1")
+  echo "${1%."$ext"}"
+}
+
+if [ $# -ne 1 ]; then
+  echo "ERROR: input file is required"
+  print_usage
+  exit 1
+fi
+
+input_file="$1"
+if [ ! -f "$input_file" ]; then
+  echo "ERROR: input file '$input_file' does not exist"
+  exit 1
+fi
+
+input_file_ext="$(get_extension "$input_file")"
+output_file="$(get_filepath_without_extension "$input_file")_compressed.$input_file_ext"
+
+# Default to libx264 and aac for unknown formats
+vcodec="libx264"
+acodec="aac"
+format_opt=""
+
+case $input_file_ext in
+mp4)
+  vcodec="libx264"
+  acodec="aac"
+  ;;
+mov)
+  vcodec="libx264"
+  acodec="aac"
+  format_opt="-f mov"
+  ;;
+webm)
+  vcodec="libvpx-vp9"
+  acodec="libopus"
+  ;;
+mkv)
+  vcodec="libx265"
+  acodec="libopus"
+  ;;
+avi | flv)
+  vcodec="libx264"
+  acodec="aac"
+  format_opt="-f mp4"
+  output_file="$(get_filepath_without_extension "$input_file")_compressed.mp4"
+  ;;
+*)
+  echo "WARNING: unsupported video format - trying with default codecs"
+  ;;
+esac
+
+echo "compressing video. this could take a while..."
+if ffmpeg -i "$input_file" -c:v $vcodec -crf 23 -preset medium -c:a $acodec $format_opt "$output_file"; then
+  echo "compression completed successfully"
+  echo "output file: $output_file"
+else
+  echo "ERROR: compression failed"
+  exit 1
+fi
