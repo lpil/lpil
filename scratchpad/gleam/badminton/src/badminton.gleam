@@ -14,6 +14,8 @@
 // TODO: test pagination
 // TODO: test pagination (invalid page number, 0 or negative)
 
+// https://demo.unfoldadmin.com/admin/login/?next=/admin/formula/circuit/
+
 import badminton/internal
 import badminton/internal/view
 import gleam/dynamic.{type Dynamic}
