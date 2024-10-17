@@ -72,7 +72,7 @@ avi | flv)
 esac
 
 echo "compressing video. this could take a while..."
-if ffmpeg -i "$input_file" -c:v $vcodec -crf 23 -preset medium -c:a $acodec $format_opt "$output_file"; then
+if ffmpeg -i "$input_file" -map_metadata 0 -c:v $vcodec -crf 23 -preset medium -c:a $acodec $format_opt "$output_file"; then
   echo "compression completed successfully"
   echo "output file: $output_file"
 else
