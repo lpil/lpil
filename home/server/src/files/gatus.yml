@@ -90,16 +90,16 @@ endpoints:
     interval: 60s
     conditions:
       - "[STATUS] == 200"
-    alerts:
-      - type: pushover
+    alerts: []
+      # - type: pushover
 
   - name: Open march form
     url: "https://oilslick.lpil.uk/marchers"
     interval: 60s
     conditions:
       - "[STATUS] == 200"
-    alerts:
-      - type: pushover
+    alerts: []
+      # - type: pushover
 
   - name: hits.lpil.uk
     url: https://hits.lpil.uk/user/new
