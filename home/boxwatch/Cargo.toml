@@ -1,0 +1,12 @@
+[package]
+name = "boxwatch"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+chrono = { version = "0.4.38", features = ["serde"] }
+gumdrop = "0.8.1"
+gumdrop_derive = "0.8.1"
+serde = { version = "1.0.213", features = ["derive"] }
+serde_json = "1.0.132"
+sysinfo = "0.32.0"
