@@ -1,8 +1,13 @@
-// TODO: alerting via pushover
+// TODO: check high CPU load
+// TODO: check >90% disc usage
+
+mod alert;
+mod check_memory_usage;
+mod check_swap_usage;
+mod system;
 
 use gumdrop::Options as _;
 use std::{path::PathBuf, time::Duration};
-mod system;
 
 fn main() {
     let options = ApplicationOptions::load();
@@ -16,7 +21,7 @@ fn main() {
 
 #[derive(Debug, gumdrop::Options)]
 struct ApplicationOptions {
-    #[options(help = "print help message")]
+    #[options(help = "Print help message")]
     help: bool,
 
     #[options(help = "Number of seconds between samples taken", required)]
@@ -24,6 +29,12 @@ struct ApplicationOptions {
 
     #[options(help = "The JSONC file to append sample data to", required)]
     outfile: PathBuf,
+
+    #[options(help = "The Pushover user to send alerts to", required)]
+    pushover_user: String,
+
+    #[options(help = "The Pushover token to send alerts with", required)]
+    pushover_token: String,
 }
 
 impl ApplicationOptions {

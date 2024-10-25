@@ -1,3 +1,5 @@
+use crate::alert::PushoverClient;
+use crate::check_memory_usage::{CheckMemoryUsage, WhichMemory};
 use crate::ApplicationOptions;
 use chrono::SubsecRound;
 use std::io::Write;
@@ -5,16 +7,23 @@ use std::path::PathBuf;
 use std::u64;
 
 pub struct System {
-    hostname: String,
     iteration: u64,
     system: sysinfo::System,
     discs: sysinfo::Disks,
     outfile: PathBuf,
+    check_memory: CheckMemoryUsage,
+    check_swap: CheckMemoryUsage,
 }
 
 impl System {
     pub fn new(options: &ApplicationOptions) -> Self {
-        let hostname = sysinfo::System::host_name().expect("Unable to determine hostname");
+        let pushover = PushoverClient::new(
+            options.pushover_user.clone(),
+            options.pushover_token.clone(),
+        );
+        let check_memory = CheckMemoryUsage::new(&pushover, WhichMemory::Ram);
+        let check_swap = CheckMemoryUsage::new(&pushover, WhichMemory::Swap);
+
         let mut system = sysinfo::System::new();
         let discs = sysinfo::Disks::new_with_refreshed_list();
 
@@ -25,18 +34,21 @@ impl System {
         }
 
         Self {
-            hostname,
             system,
             discs,
             iteration: 0,
             outfile: options.outfile.clone(),
+            check_swap,
+            check_memory,
         }
     }
 
     pub fn tick(&mut self) {
         println!("Sample {}", self.iteration);
         let sample = self.capture();
-        self.append_sample_to_disc_log(sample);
+        self.append_sample_to_disc_log(&sample);
+        self.check_memory.check(&sample);
+        self.check_swap.check(&sample);
         self.iteration += 1;
     }
 
@@ -49,7 +61,7 @@ impl System {
         Sample::capture(now, &self.system, &load_avg, &self.discs)
     }
 
-    fn append_sample_to_disc_log(&self, sample: Sample) {
+    fn append_sample_to_disc_log(&self, sample: &Sample) {
         let mut file = std::fs::OpenOptions::new()
             .write(true)
             .append(true)
@@ -66,18 +78,18 @@ impl System {
 #[derive(Debug, serde::Serialize)]
 #[serde(rename_all = "kebab-case")]
 pub struct Sample {
-    time: chrono::DateTime<chrono::Utc>,
-    cpu_load_one: f64,
-    cpu_load_five: f64,
-    cpu_load_fifteen: f64,
-    cpu_usage_global: f32,
-    cpu_usage: Vec<f32>,
-    memory_total: u64,
-    memory_available: u64,
-    memory_used: u64,
-    swap_total: u64,
-    swap_used: u64,
-    discs: Vec<DiscSample>,
+    pub time: chrono::DateTime<chrono::Utc>,
+    pub cpu_load_one: f64,
+    pub cpu_load_five: f64,
+    pub cpu_load_fifteen: f64,
+    pub cpu_usage_global: f32,
+    pub cpu_usage: Vec<f32>,
+    pub memory_total: u64,
+    pub memory_available: u64,
+    pub memory_used: u64,
+    pub swap_total: u64,
+    pub swap_used: u64,
+    pub discs: Vec<DiscSample>,
 }
 
 impl Sample {
@@ -112,9 +124,9 @@ impl Sample {
 #[derive(Debug, serde::Serialize)]
 #[serde(rename_all = "kebab-case")]
 pub struct DiscSample {
-    mount_point: PathBuf,
-    total_space_bytes: u64,
-    available_space_bytes: u64,
+    pub mount_point: PathBuf,
+    pub total_space_bytes: u64,
+    pub available_space_bytes: u64,
 }
 
 impl DiscSample {
