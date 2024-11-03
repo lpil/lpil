@@ -4,8 +4,9 @@ After=local-fs.target
 
 [Container]
 Image=ghcr.io/gleam-lang/developer-survey:1.3.0
-PublishPort=8000:8000
 Volume=/mnt/data/gleam-developer-survey:/app/data:rw,z
+PublishPort=8000:8000
+Network=caddy.network
 
 [Install]
 WantedBy=multi-user.target default.target

@@ -1,0 +1,13 @@
+[Unit]
+Description=Caddy reverse proxy
+After=local-fs.target
+
+[Container]
+Image=docker.io/caddy:2.8.4
+PublishPort=80:80
+PublishPort=443:443
+PublishPort=443:443/udp
+Network=caddy.network
+
+[Install]
+WantedBy=multi-user.target default.target

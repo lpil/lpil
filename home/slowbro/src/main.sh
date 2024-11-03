@@ -7,8 +7,10 @@
 
 set -eu
 
-. ./gleam_developer_survey.sh
+. ./base.sh
 
-setup_gleam_developer_survey
+podman_quadlet_network caddy
+podman_quadlet_container caddy
+podman_quadlet_container gleam-developer-survey
 
-echo "Up to date ✨"
+echo Up to date ✨
