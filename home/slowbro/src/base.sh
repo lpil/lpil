@@ -20,6 +20,10 @@ podman_quadlet() {
 
   echo === systemd unit $service_name ===
 
+  # Interpolate any variables used by this source file
+  cat "$source" | envsubst >"$source.tmp"
+  mv "$source.tmp" "$source"
+
   if ! cmp --silent "$source" "$destination"; then
     echo Updating $destination
     diff --color=always "$destination" "$source" || true

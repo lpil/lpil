@@ -1,0 +1,11 @@
+[Unit]
+Description=Cloudflare tunnel
+After=local-fs.target
+
+[Container]
+Image=docker.io/cloudflare/cloudflared:2024.10.1
+Network=caddy.network
+Exec=tunnel --no-autoupdate run --token $CLOUDFLARED_TOKEN slowbro
+
+[Install]
+WantedBy=multi-user.target default.target
