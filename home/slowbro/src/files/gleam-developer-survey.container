@@ -3,7 +3,7 @@ Description=Gleam Developer Survey container
 After=local-fs.target
 
 [Container]
-Image=ghcr.io/gleam-lang/developer-survey:1.8.0
+Image=ghcr.io/gleam-lang/developer-survey:1.9.0
 
 PublishPort=8000:8000
 Network=caddy.network
