@@ -1,0 +1,19 @@
+(common) {
+	log
+
+	# Redirect all HTTP to HTTPS (using the tunnel's header).
+	# Cloudflare handles TLS via its tunnel so Caddy doesn't need to, but we
+	# still want to redirect HTTP to HTTPS here.
+	@insecure header x-forwarded-proto http
+	redir @insecure https://{host}{uri}
+}
+
+http://developer-survey.gleam.run {
+	import common
+	reverse_proxy systemd-gleam-developer-survey:8000
+}
+
+http://caddy.lpil.uk {
+	import common
+	respond "Hello, Joe!"
+}

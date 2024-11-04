@@ -9,5 +9,9 @@ PublishPort=443:443
 PublishPort=443:443/udp
 Network=caddy.network
 
+Volume=/mnt/data/caddy/Caddyfile:/etc/caddy/Caddyfile:ro,z
+Volume=/mnt/data/caddy/data:/data:rw,z
+Volume=/mnt/data/caddy/config:/config:rw,z
+
 [Install]
 WantedBy=multi-user.target default.target

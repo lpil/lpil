@@ -12,11 +12,13 @@ set -a
 . ./secrets.env
 set +a
 
-. ./base.sh
+. ./helpers.sh
+. ./caddy.sh
+. ./cloudflare_tunnel.sh
+. ./gleam_developer_survey.sh
 
-podman_quadlet_network caddy
-podman_quadlet_container caddy
-podman_quadlet_container cloudflare-tunnel
-podman_quadlet_container gleam-developer-survey
+install_caddy
+install_cloudflare_tunnel
+install_gleam_developer_survey
 
 echo Up to date ✨
