@@ -15,5 +15,6 @@ http://developer-survey.gleam.run {
 
 http://caddy.lpil.uk {
 	import common
-	respond "Hello, Joe!"
+	templates
+	respond "{{ .Req }}"
 }
