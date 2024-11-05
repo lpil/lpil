@@ -1,3 +1,13 @@
+- title: "Keynote: Gleam's Journey on the BEAM"
+  date: 2024-10-06
+  event: CodeBEAM Europe 2024
+  venue: Estrel, Berlin
+  links:
+    - text: Recording
+      url: https://www.youtube.com/watch?v=6I0IbJtUC3U
+    - text: Schedule
+      url: https://codebeameurope.com/
+
 - title: "Gleam: Past, Present, Future!"
   date: 2024-02-03
   event: FOSDEM 2024
@@ -28,12 +38,12 @@
 - title: "Gleam: Lean BEAM typing machine"
   date: 2019-11-07
   event: Code Mesh 2019
-  venue: ILEC Conference Centre, SW6
+  venue: ILEC Conference Centre, London
 
 - title: "Gleam: Lean BEAM typing machine"
   date: 2019-10-11
   event: Code BEAM Lite Berlin 2019
-  venue: BETAHAUS, Berlin Neukölln
+  venue: BETAHAUS, Berlin
 
 - title: "Gleam: Extreme BEAM typing machine"
   date: 2019-08-25
