@@ -1,0 +1,18 @@
+[Unit]
+Description=Syncthing
+After=local-fs.target
+Documentation=https://docs.linuxserver.io/images/docker-syncthing/
+
+[Container]
+Image=ghcr.io/linuxserver/syncthing:1.28.0
+
+HostName=slowbro
+Network=host
+
+Environment=TZ=Europe/London
+
+Volume=/mnt/data/syncthing:/config:rw,z
+Volume=/mnt/data/sync-data:/data:rw,z
+
+[Install]
+WantedBy=multi-user.target default.target

@@ -16,9 +16,11 @@ set +a
 . ./caddy.sh
 . ./cloudflare_tunnel.sh
 . ./gleam_developer_survey.sh
+. ./syncthing.sh
 
 install_caddy
 install_cloudflare_tunnel
 install_gleam_developer_survey
+install_syncthing
 
 echo Up to date ✨
