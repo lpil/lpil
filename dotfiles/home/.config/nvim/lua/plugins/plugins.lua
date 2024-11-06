@@ -3,6 +3,7 @@ return {
   { import = "lazyvim.plugins.extras.editor.leap" },
   { import = "lazyvim.plugins.extras.lang.json" },
   { "fffnite/gleam-theme-nvim" },
+  { "isobit/vim-caddyfile" },
 
   {
     "neovim/nvim-lspconfig",
