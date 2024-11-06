@@ -57,9 +57,12 @@ set fish_user_paths \
 # Aliases
 source "$HOME/.aliases.sh"
 
-# zoxide
 if type -q zoxide
     zoxide init fish | source
+end
+
+if type -q zoxide
+    direnv hook fish | source
 end
 
 # Prompt
