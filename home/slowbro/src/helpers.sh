@@ -55,6 +55,7 @@ copy_file() {
     rm "$tmp"
     return 1
   fi
+
 }
 
 show_diff() {

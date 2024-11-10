@@ -1,0 +1,21 @@
+[Unit]
+Description=Immich
+After=local-fs.target
+
+[Container]
+Image=ghcr.io/imagegenius/immich:1.120.1
+Network=immich.network
+PublishPort=8001:8080
+
+Volume=/mnt/data/immich/config:/config:rw,z
+Volume=/mnt/data/immich/photos:/photos:rw,z
+
+Environment=TZ=Europe/London
+Environment=DB_HOSTNAME=systemd-immich-postgresql
+Environment=DB_USERNAME=postgres
+Environment=DB_PASSWORD=postgres
+Environment=DB_DATABASE_NAME=immich
+Environment=REDIS_HOSTNAME=systemd-immich-redis
+
+[Install]
+WantedBy=multi-user.target default.target

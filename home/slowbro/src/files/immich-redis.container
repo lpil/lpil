@@ -1,0 +1,10 @@
+[Unit]
+Description=Redis (for Immich)
+After=local-fs.target
+
+[Container]
+Image=docker.io/redis:7.4.1-alpine
+Network=immich.network
+
+[Install]
+WantedBy=multi-user.target default.target

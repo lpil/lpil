@@ -1,0 +1,16 @@
+[Unit]
+Description=PostgreSQL (for Immich)
+After=local-fs.target
+
+[Container]
+Image=docker.io/tensorchord/pgvecto-rs:pg15-v0.3.0
+Network=immich.network
+
+Volume=/mnt/data/immich/postgresql:/var/lib/postgresql/data:rw,z
+
+Environment=POSTGRES_USER=postgres
+Environment=POSTGRES_PASSWORD=postgres
+Environment=POSTGRES_DB=immich
+
+[Install]
+WantedBy=multi-user.target default.target
