@@ -11,6 +11,11 @@ install_immich() {
   sudo mkdir -p /mnt/data/immich/config
   sudo mkdir -p /mnt/data/immich/photos
 
+  # Syncthing backed up directories
+  sudo mkdir -p /mnt/data/sync-data/immich/library
+  sudo mkdir -p /mnt/data/sync-data/immich/upload
+  sudo mkdir -p /mnt/data/sync-data/immich/profile
+
   podman_quadlet_network immich || true
 
   if

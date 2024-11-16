@@ -10,6 +10,10 @@ PublishPort=8001:8080
 Volume=/mnt/data/immich/config:/config:rw,z
 Volume=/mnt/data/immich/photos:/photos:rw,z
 
+Volume=/mnt/data/sync-data/immich/library:/photos/library:rw,z
+Volume=/mnt/data/sync-data/immich/profile:/photos/profile:rw,z
+Volume=/mnt/data/sync-data/immich/upload:/photos/upload:rw,z
+
 Environment=TZ=Europe/London
 Environment=DB_HOSTNAME=systemd-immich-postgresql
 Environment=DB_USERNAME=postgres
