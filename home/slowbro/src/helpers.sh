@@ -9,15 +9,23 @@ podman_quadlet_container() {
 }
 
 podman_quadlet_network() {
-  local name=$1
-  podman_quadlet "$name.network"
-  return $?
+  local name="$1"
+  if
+    podman_quadlet "$name.network"
+  then
+    sudo systemctl start "$name-network"
+    return 0
+  else
+    return 1
+  fi
 }
 
 podman_quadlet() {
   local name=$1
 
-  if copy_file "$name" "/etc/containers/systemd/$name"; then
+  if
+    copy_file "$name" "/etc/containers/systemd/$name"
+  then
     systemd_reload
     return 0
   else

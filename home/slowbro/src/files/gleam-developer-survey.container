@@ -6,7 +6,7 @@ After=local-fs.target
 Image=ghcr.io/gleam-lang/developer-survey:1.13.0
 
 PublishPort=8000:8000
-Network=caddy.network
+Network=gleam-developer-survey.network
 
 Volume=/mnt/data/gleam-developer-survey:/app/data:rw,z
 
