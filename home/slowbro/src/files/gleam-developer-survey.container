@@ -1,6 +1,7 @@
 [Unit]
 Description=Gleam Developer Survey container
 After=local-fs.target
+Wants=gleam-developer-survey-connect-caddy-network.service
 
 [Container]
 Image=ghcr.io/gleam-lang/developer-survey:1.13.0

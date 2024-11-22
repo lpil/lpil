@@ -33,6 +33,19 @@ podman_quadlet() {
   fi
 }
 
+systemd_service() {
+  local name=$1
+
+  if
+    copy_file "$name" "/etc/systemd/system/$name"
+  then
+    systemd_reload
+    return 0
+  else
+    return 1
+  fi
+}
+
 systemd_reload() {
   echo Reloading systemd daemon
   sudo systemctl daemon-reload

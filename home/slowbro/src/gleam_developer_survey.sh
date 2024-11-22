@@ -9,9 +9,7 @@ install_gleam_developer_survey() {
 
   sudo mkdir -p /mnt/data/gleam-developer-survey
   podman_quadlet_network gleam-developer-survey || true
-
-  # TODO: only attempt to connect if not already connected
-  sudo podman network connect systemd-gleam-developer-survey systemd-caddy || true
+  systemd_service /gleam-developer-survey-connect-caddy-network.service
 
   if
     podman_quadlet_container gleam-developer-survey
