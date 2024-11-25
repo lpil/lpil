@@ -1,12 +1,12 @@
-import gleeunit
-import gleeunit/should
+import verse
+import verse/directory
 
 pub fn main() {
-  gleeunit.main()
-}
-
-// gleeunit test functions end in `_test`
-pub fn hello_world_test() {
-  1
-  |> should.equal(1)
+  verse.run({
+    use <- verse.start("My thing")
+    use _ <- verse.include(directory.at("tmp/a") |> directory.add)
+    use _ <- verse.include(directory.at("tmp/b") |> directory.add)
+    use _ <- verse.include(directory.at("tmp/c") |> directory.add)
+    verse.finish(Nil)
+  })
 }
