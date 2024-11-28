@@ -1,8 +1,0 @@
-[Unit]
-Description=Gleam Developer Survey's network
-After=local-fs.target
-
-[Network]
-
-[Install]
-WantedBy=multi-user.target default.target

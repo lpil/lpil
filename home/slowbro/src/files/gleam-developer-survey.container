@@ -7,7 +7,7 @@ Wants=gleam-developer-survey-connect-caddy-network.service
 Image=ghcr.io/gleam-lang/developer-survey:1.13.0
 
 PublishPort=8000:8000
-Network=gleam-developer-survey.network
+Network=caddy.network
 
 Volume=/mnt/data/gleam-developer-survey:/app/data:rw,z
 
