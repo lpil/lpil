@@ -89,7 +89,16 @@ pub fn include_if_changed(
   conditionally_include(outcome.changed, verse, rest)
 }
 
-pub fn changed(rest: fn() -> Verse(t1)) -> Verse(t1) {
+pub fn conditionally_mark_as_changed(
+  changed: Bool,
+  rest: fn() -> Verse(t1),
+) -> Verse(t1) {
+  use state <- Verse
+  let state = State(..state, changed: state.changed || changed)
+  rest().run(state)
+}
+
+pub fn mark_as_changed(rest: fn() -> Verse(t1)) -> Verse(t1) {
   use state <- Verse
   let state = State(..state, changed: True)
   rest().run(state)
