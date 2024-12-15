@@ -1,8 +1,8 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
-require("options").setup()
-require("keymaps").setup()
+require("config/options").setup()
+require("config/keymaps").setup()
 require("bootstrap/minideps").setup()
 require("bootstrap/mason").setup()
 
