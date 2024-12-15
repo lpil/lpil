@@ -6,16 +6,12 @@ require("config/keymaps").setup()
 require("bootstrap/minideps").setup()
 require("bootstrap/mason").setup()
 
--- Conventional modules are modules which may export certain functions
--- `add`: Value to call `MiniDeps.add` with
--- `now`: Value to call `MiniDeps.now` with
--- `later`: Value to call `MiniDeps.later` with
--- `ensure_installed`: Value to use with `mason-tool-installer.ensure_installed`
 local conventional_modules = {
 	"feature/theme",
 	"feature/git-signs",
 	"feature/autoformat",
 	"feature/file-tree",
+	"feature/highlight-todo-comments",
 	"feature/keybind-hints", -- Ideally last
 }
 
