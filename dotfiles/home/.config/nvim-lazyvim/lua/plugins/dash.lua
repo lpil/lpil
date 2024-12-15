@@ -1,4 +1,4 @@
-return {
+local _ = {
   {
     "nvimdev/dashboard-nvim",
     opts = function(_, opts)
@@ -27,3 +27,5 @@ return {
     end,
   },
 }
+
+return {}

@@ -58,3 +58,5 @@ alias get-podman-postgres="podman run -t -d -p 5432:5432 -e POSTGRES_PASSWORD=po
 alias get-podman-redis="podman run -t -d -p 6379:6379 --name redis redis --bind 0.0.0.0"
 
 alias linguist="podman run -t --rm -v "./:/repo" crazymax/linguist:latest"
+
+alias lazyvim="NVIM_APPNAME=nvim-lazyvim nvim"
