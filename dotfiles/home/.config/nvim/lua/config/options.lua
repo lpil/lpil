@@ -7,8 +7,6 @@ return {
 		vim.opt.shiftwidth = 2
 		vim.opt.tabstop = 2
 
-		vim.opt.showmode = true
-
 		--  Schedule the setting after `UiEnter` because it can increase startup-time.
 		vim.schedule(function()
 			vim.opt.clipboard = "unnamedplus"

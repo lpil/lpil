@@ -23,7 +23,6 @@ end
 
 return {
 	now = function()
-		require("mini.icons").setup()
 		require("mini.tabline").setup()
 	end,
 	later = function()

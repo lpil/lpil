@@ -8,11 +8,13 @@ require("bootstrap/mason").setup()
 
 local conventional_modules = {
 	"feature/theme",
+	"feature/icons",
+	"feature/statusline",
+	"feature/buffer-management",
 	"feature/git-signs",
 	"feature/autoformat",
 	"feature/file-tree",
 	"feature/highlight-todo-comments",
-	"feature/tab-bar",
 	"feature/keybind-hints", -- Ideally last
 }
 
