@@ -12,6 +12,7 @@ require("bootstrap/mason").setup()
 -- `later`: Value to call `MiniDeps.later` with
 -- `ensure_installed`: Value to use with `mason-tool-installer.ensure_installed`
 local conventional_modules = {
+	"plugin/theme",
 	"plugin/gitsigns",
 	"plugin/conform",
 	"plugin/mini-files",
