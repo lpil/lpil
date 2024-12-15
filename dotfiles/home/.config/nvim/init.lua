@@ -15,6 +15,7 @@ local conventional_modules = {
 	"feature/autoformat",
 	"feature/file-tree",
 	"feature/highlight-todo-comments",
+	"feature/sessions",
 	"feature/keybind-hints", -- Ideally last
 }
 
