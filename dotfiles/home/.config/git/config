@@ -7,7 +7,7 @@
 
 [core]
   excludesfile = ~/.config/git/ignore
-  pager = less -S
+	pager = less -S --tabs 4
 
 [push]
   default = simple
