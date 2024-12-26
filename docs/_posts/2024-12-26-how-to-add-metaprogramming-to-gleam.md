@@ -5,7 +5,7 @@ tags:
 ---
 
 It's common for people to ask "will Gleam get metaprogramming?". It's a good
-question! A question that has a relatively complex answer, one that takes times
+question! A question that has a relatively complex answer, one that takes time
 to give. This post is an attempt to condense this conversation I've had many
 times into one document so that folks can get their answer more easily.
 
@@ -58,7 +58,7 @@ change to the language should not work against these goals.
 Features are solutions to problems, and we cannot judge whether a solution is
 good if we don't know what the problem being solved is.
 
-Idenity real problems and deficiencies with reading and writing Gleam today.
+Identity real problems and deficiencies with reading and writing Gleam today.
 Not _predicted_ problems or _suspected_ problems. Actual concrete pains that are
 present in real-world Gleam today. Persistent problems that cannot be
 reasonably solved with any of the options we have today in Gleam.
