@@ -85,7 +85,7 @@ attractive and desirable it might be.
 For example, if the feature is Lisp-style macros then the compiler is going to
 need a way to evaluate Gleam code at compiler time. Currently the compiler
 can't do this, so how would that be added? There's a great deal of complexity
-there, especially since we want it compilation to be fast!
+there, especially since we want compilation to be fast!
 
 ## Make a proposal
 
