@@ -13,6 +13,7 @@ local setup_lsp_rename_autocmd = function()
 	vim.api.nvim_create_autocmd("User", {
 		pattern = "MiniFilesActionRename",
 		callback = function(event)
+			-- TODO:: LSP rename event
 			require("lazyvim.util").lsp.on_rename(event.data.from, event.data.to)
 		end,
 	})

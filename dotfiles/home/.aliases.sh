@@ -60,3 +60,4 @@ alias get-podman-redis="podman run -t -d -p 6379:6379 --name redis redis --bind 
 alias linguist="podman run -t --rm -v "./:/repo" crazymax/linguist:latest"
 
 alias lazyvim="NVIM_APPNAME=nvim-lazyvim nvim"
+alias kickstart="NVIM_APPNAME=nvim-kickstart nvim"
