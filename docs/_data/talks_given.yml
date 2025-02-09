@@ -1,3 +1,11 @@
+- title: "Keynote: Gleam's First Year"
+  date: 2025-01-31
+  event: CodeBEAM London 2025
+  venue: CodeNode, London
+  links:
+    - text: Schedule
+      url: https://codebeamlondon.com/
+
 - title: "Keynote: Gleam's Journey on the BEAM"
   date: 2024-10-06
   event: CodeBEAM Europe 2024
