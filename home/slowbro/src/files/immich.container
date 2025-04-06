@@ -3,7 +3,7 @@ Description=Immich
 After=local-fs.target
 
 [Container]
-Image=ghcr.io/imagegenius/immich:1.120.1
+Image=ghcr.io/imagegenius/immich:1.131.3
 Network=immich.network
 PublishPort=8001:8080
 
