@@ -661,15 +661,18 @@ require("lazy").setup({
       local languages = {
         "bash",
         "diff",
+        "gleam",
         "html",
+        "javascript",
         "lua",
         "luadoc",
         "markdown",
         "markdown_inline",
         "query",
+        "typescript",
         "vim",
         "vimdoc",
-        "gleam",
+        "rust",
       }
 
       ts.install(languages)
