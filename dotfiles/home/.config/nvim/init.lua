@@ -72,19 +72,31 @@ local function next_non_open_buffer(direction)
     end
   end
 end
-vim.keymap.set("n", "L", function()
-  next_non_open_buffer("bnext")
-end, { desc = "Next buffer" })
-
-vim.keymap.set("n", "H", function()
-  next_non_open_buffer("bprevious")
-end, { desc = "Previous buffer" })
+vim.keymap.set("n", "L", function() next_non_open_buffer("bnext") end, { desc = "Next buffer" })
+vim.keymap.set("n", "H", function() next_non_open_buffer("bprevious") end, { desc = "Previous buffer" })
 
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
-vim.keymap.set("n", "<leader>w", ":w<cr>")
-vim.keymap.set("n", "<leader>bd", ":bd<cr>")
-vim.keymap.set("n", "<leader>qq", ":wqa<cr>")
+local function close_buffer()
+  local window_count = #vim.api.nvim_tabpage_list_wins(0)
+
+  -- Avoid closing the split when closing the buffer
+  if window_count > 1 then
+    vim.cmd('bnext')
+    vim.cmd('bdelete #')
+  else
+    vim.cmd('bdelete')
+  end
+end
+
+local function write_and_quit()
+  vim.cmd('wa')
+  vim.cmd('qa')
+end
+
+vim.keymap.set("n", "<leader>w", ":w<cr>", { desc = "Write buffer" })
+vim.keymap.set('n', '<leader>bd', close_buffer, { desc = 'Close buffer' })
+vim.keymap.set("n", "<leader>qq", write_and_quit, { desc = "Write all and quit" })
 
 
 -- Better indenting
@@ -204,25 +216,17 @@ require("lazy").setup({
 
       -- See `:help telescope.builtin`
       local builtin = require("telescope.builtin")
-      vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
-      vim.keymap.set("n", "<leader>sk", builtin.keymaps, { desc = "[S]earch [K]eymaps" })
-      vim.keymap.set("n", "<leader>sf", builtin.find_files, { desc = "[S]earch [F]iles" })
-      vim.keymap.set("n", "<leader>ss", builtin.builtin, { desc = "[S]earch [S]elect Telescope" })
-      vim.keymap.set("n", "<leader>sw", builtin.grep_string, { desc = "[S]earch current [W]ord" })
-      vim.keymap.set("n", "<leader>sg", builtin.live_grep, { desc = "[S]earch by [G]rep" })
-      vim.keymap.set("n", "<leader>sd", builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
-      vim.keymap.set("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
-      vim.keymap.set("n", "<leader>s.", builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
-      vim.keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
-
-      -- Slightly advanced example of overriding default behavior and theme
-      vim.keymap.set("n", "<leader>/", function()
-        -- You can pass additional configuration to Telescope to change the theme, layout, etc.
-        builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
-          winblend = 10,
-          previewer = false,
-        }))
-      end, { desc = "[/] Fuzzily search in current buffer" })
+      vim.keymap.set("n", "<leader><leader>", builtin.find_files, { desc = "Files" })
+      vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "Help" })
+      vim.keymap.set("n", "<leader>sk", builtin.keymaps, { desc = "Keymaps" })
+      vim.keymap.set("n", "<leader>ss", builtin.builtin, { desc = "Telescopes" })
+      vim.keymap.set("n", "<leader>sw", builtin.grep_string, { desc = "Grep current word" })
+      vim.keymap.set("n", "<leader>sg", builtin.live_grep, { desc = "Grep" })
+      vim.keymap.set("n", "<leader>sd", builtin.diagnostics, { desc = "Diagnostics" })
+      vim.keymap.set("n", "<leader>sc", builtin.resume, { desc = "Continue previous search" })
+      vim.keymap.set("n", "<leader>sr", builtin.oldfiles, { desc = 'Recent files' })
+      vim.keymap.set("n", "<leader>sb", builtin.buffers, { desc = "Buffers" })
+      vim.keymap.set("n", "<leader>/", builtin.current_buffer_fuzzy_find, { desc = "Search current buffer" })
 
       -- It's also possible to pass additional configuration options.
       --  See `:help telescope.builtin.live_grep()` for information about particular keys
@@ -231,12 +235,11 @@ require("lazy").setup({
           grep_open_files = true,
           prompt_title = "Live Grep in Open Files",
         })
-      end, { desc = "[S]earch [/] in Open Files" })
+      end, { desc = "Search in open files" })
 
-      -- Shortcut for searching your Neovim configuration files
       vim.keymap.set("n", "<leader>sn", function()
         builtin.find_files({ cwd = vim.fn.stdpath("config") })
-      end, { desc = "[S]earch [N]eovim files" })
+      end, { desc = "Search neovim config" })
     end,
   },
 
@@ -265,31 +268,6 @@ require("lazy").setup({
       "saghen/blink.cmp",
     },
     config = function()
-      -- Brief aside: **What is LSP?**
-      --
-      -- LSP is an initialism you've probably heard, but might not understand what it is.
-      --
-      -- LSP stands for Language Server Protocol. It's a protocol that helps editors
-      -- and language tooling communicate in a standardized fashion.
-      --
-      -- In general, you have a "server" which is some tool built to understand a particular
-      -- language (such as `gopls`, `lua_ls`, `rust_analyzer`, etc.). These Language Servers
-      -- (sometimes called LSP servers, but that's kind of like ATM Machine) are standalone
-      -- processes that communicate with some "client" - in this case, Neovim!
-      --
-      -- LSP provides Neovim with features like:
-      --  - Go to definition
-      --  - Find references
-      --  - Autocompletion
-      --  - Symbol Search
-      --  - and more!
-      --
-      -- Thus, Language Servers are external tools that must be installed separately from
-      -- Neovim. This is where `mason` and related plugins come into play.
-      --
-      -- If you're wondering about lsp vs treesitter, you can check out the wonderfully
-      -- and elegantly composed help section, `:help lsp-vs-treesitter`
-
       --  This function gets run when an LSP attaches to a particular buffer.
       --    That is to say, every time a new file is opened that is associated with
       --    an lsp (for example, opening `main.rs` is associated with `rust_analyzer`) this
@@ -297,9 +275,6 @@ require("lazy").setup({
       vim.api.nvim_create_autocmd("LspAttach", {
         group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
         callback = function(event)
-          -- NOTE: Remember that Lua is a real programming language, and as such it is possible
-          -- to define small helper and utility functions so you don't have to repeat yourself.
-          --
           -- In this case, we create a function that lets us more easily define mappings specific
           -- for LSP related items. It sets the mode, buffer and description for us each time.
           local map = function(keys, func, desc, mode)
@@ -327,8 +302,8 @@ require("lazy").setup({
           --  To jump back, press <C-t>.
           map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
 
-          -- WARN: This is not Goto Definition, this is Goto Declaration.
-          --  For example, in C this would take you to the header.
+          -- This is not Goto Definition, this is Goto Declaration.
+          -- For example, in C this would take you to the header.
           map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 
           -- Fuzzy find all the symbols in your current document.
@@ -343,7 +318,6 @@ require("lazy").setup({
           --  Useful when you're not sure what type a variable is and you want to see
           --  the definition of its *type*, not where it was *defined*.
           map("grt", require("telescope.builtin").lsp_type_definitions, "[G]oto [T]ype Definition")
-
 
           -- The following two autocommands are used to highlight references of the
           -- word under your cursor when your cursor rests there for a little while.
