@@ -690,7 +690,7 @@ require("lazy").setup({
         "vimdoc",
       }
 
-      ts.install(languages)
+      ts.install(languages, { summary = false })
 
       vim.api.nvim_create_autocmd("FileType", {
         pattern = languages,
