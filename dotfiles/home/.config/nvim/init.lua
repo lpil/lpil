@@ -676,6 +676,7 @@ require("lazy").setup({
         "bash",
         "diff",
         "djot",
+        "elixir",
         "gleam",
         "html",
         "javascript",
