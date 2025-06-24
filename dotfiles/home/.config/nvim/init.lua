@@ -677,6 +677,7 @@ require("lazy").setup({
         "diff",
         "djot",
         "elixir",
+        "erlang",
         "gleam",
         "html",
         "javascript",
