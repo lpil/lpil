@@ -1,7 +1,9 @@
 {
   "LuaSnip": { "branch": "master", "commit": "458560534a73f7f8d7a11a146c801db00b081df0" },
   "blink.cmp": { "branch": "main", "commit": "022521a8910a5543b0251b21c9e1a1e989745796" },
+  "codecompanion.nvim": { "branch": "main", "commit": "ff939d18d8d64b0bef985aeb9be26f57e4ee8837" },
   "conform.nvim": { "branch": "master", "commit": "6feb2f28f9a9385e401857b21eeac3c1b66dd628" },
+  "copilot.lua": { "branch": "master", "commit": "46f4b7d026cba9497159dcd3e6aa61a185cb1c48" },
   "fidget.nvim": { "branch": "main", "commit": "d9ba6b7bfe29b3119a610892af67602641da778e" },
   "gitsigns.nvim": { "branch": "main", "commit": "8bdaccdb897945a3c99c1ad8df94db0ddf5c8790" },
   "guess-indent.nvim": { "branch": "main", "commit": "84a4987ff36798c2fc1169cbaff67960aed9776f" },

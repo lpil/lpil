@@ -690,6 +690,7 @@ require("lazy").setup({
         "typescript",
         "vim",
         "vimdoc",
+        "yaml",
       }
 
       ts.install(languages, { summary = false })
@@ -707,4 +708,33 @@ require("lazy").setup({
       })
     end,
   },
+
+  -- LLM help
+  {
+    "olimorris/codecompanion.nvim",
+    opts = {},
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    config = function()
+      local diff = require("mini.diff")
+      diff.setup({
+        -- Disabled by default
+        source = diff.gen_source.none(),
+      })
+    end,
+  },
+  {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    build = ":Copilot auth",
+    config = function()
+      require("copilot").setup({
+        suggestion = { enabled = false },
+        panel = { enabled = false },
+        -- filetypes = { ["*"] = false },
+      })
+    end,
+  }
 })
