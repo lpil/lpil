@@ -47,6 +47,22 @@ vim.o.confirm = true
 
 vim.o.showtabline = 2
 
+-- Enable backups
+vim.o.backup = true
+vim.o.writebackup = true
+vim.o.swapfile = true
+vim.o.undofile = true
+local data_dir = vim.fn.stdpath('data')
+local backup_dir = data_dir .. '/backup//'
+local swap_dir = data_dir .. '/swap//'
+local undo_dir = data_dir .. '/undo//'
+vim.o.backupdir = backup_dir
+vim.o.directory = swap_dir
+vim.o.undodir = undo_dir
+vim.fn.mkdir(backup_dir, 'p')
+vim.fn.mkdir(swap_dir, 'p')
+vim.fn.mkdir(undo_dir, 'p')
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
