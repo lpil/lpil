@@ -483,13 +483,13 @@ require("lazy").setup({
         end
       end,
       formatters_by_ft = {
+        gleam = { lsp_format = "fallback" },
+        javascript = { "prettier" },
         lua = { "stylua" },
-        -- Conform can also run multiple formatters sequentially
-        -- python = { "isort", "black" },
-        --
-        -- You can use 'stop_after_first' to run the first available formatter from the list
-        javascript = { "prettierd", "prettier", stop_after_first = true },
-        ["_"] = { "trim_whitespace" },
+
+        djot = { "trim_whitespace" },
+        markdown = { "trim_whitespace" },
+        html = { "trim_whitespace" },
       },
     },
   },
