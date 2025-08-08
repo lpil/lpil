@@ -24,9 +24,6 @@ set --export GOBIN $HOME/.local/bin
 # Python
 set --export PYTHONPATH "/usr/bin/env python"
 
-# asdf version manager
-source $HOME/.asdf/asdf.fish
-
 # Brew, rubbish package manager
 if test -e /opt/homebrew
     set -gx HOMEBREW_PREFIX /opt/homebrew
@@ -51,7 +48,6 @@ set fish_user_paths \
     "$HOME/.asdf/shims" \
     "$HOME/.cache/rebar3/bin" \
     "$HOME/.cargo/bin" \
-    "$HOME/.homesick/repos/homeshick/bin" \
     "$HOME/.local/bin" \
     "$HOME/bin"
 # Aliases
