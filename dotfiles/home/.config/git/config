@@ -43,3 +43,6 @@
   autocorrect = 20
 [diff]
   noprefix = true
+[rerere]
+  enabled = true
+  autoupdate = true
