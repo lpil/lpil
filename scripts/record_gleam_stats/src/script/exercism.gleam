@@ -53,8 +53,11 @@ pub fn parse_track_page(html: String) -> Result(Information, Error) {
   )
 
   use #(discussions, submissions, students) <- result.then(case state {
-    Outside([["Mentoring Discussions", a], ["Submissions", b], ["Students", c]]) ->
-      Ok(#(a, b, c))
+    Outside([
+      ["Mentoring Discussions" <> _, a],
+      ["Submissions" <> _, b],
+      ["Students" <> _, c],
+    ]) -> Ok(#(a, b, c))
     _ -> Error(error.UnexpectedHtml)
   })
 
