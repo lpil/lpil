@@ -5,8 +5,8 @@ import gleam/json
 import gleam/list
 import gleam/option.{type Option}
 import gleam/order
-import gleam/pair
 import gleam/result
+import gleam/string
 import gleam/time/duration.{type Duration}
 import gleam/time/timestamp.{type Timestamp}
 import log/error.{type Error}
@@ -97,15 +97,18 @@ pub fn list_sessions(log: ExerciseLog) -> Result(List(Timestamp), Error) {
 ///
 pub fn write_session(log: ExerciseLog, session: Session) -> Result(Nil, Error) {
   log.sessions
-  |> storail.key(int.to_string(session_id(session)))
+  |> storail.key(session_id(session))
   |> storage.write(session)
 }
 
 /// Read a session from the log.
 ///
-pub fn read_session(log: ExerciseLog, session_id: Int) -> Result(Session, Error) {
+pub fn read_session(
+  log: ExerciseLog,
+  session_id: String,
+) -> Result(Session, Error) {
   log.sessions
-  |> storail.key(int.to_string(session_id))
+  |> storail.key(session_id)
   |> storage.read
 }
 
@@ -143,15 +146,13 @@ pub fn fold_sessions(
   reduce: fn(t, Session) -> list.ContinueOrStop(t),
 ) -> Result(t, Error) {
   use keys <- result.try(storage.list(log.sessions, []))
-  // Keys must always be int timestamps
-  let assert Ok(keys) = list.try_map(keys, int.parse)
   // Most recent to least recent
-  let keys = list.sort(keys, order.reverse(int.compare))
+  let keys = list.sort(keys, order.reverse(string.compare))
   fold_sessions_loop(keys, log, acc, reduce)
 }
 
 fn fold_sessions_loop(
-  keys: List(Int),
+  keys: List(String),
   log: ExerciseLog,
   acc: t,
   reduce: fn(t, Session) -> list.ContinueOrStop(t),
@@ -174,16 +175,19 @@ pub fn most_recent_sessions(
   log: ExerciseLog,
   count: Int,
 ) -> Result(List(Session), Error) {
-  log
-  |> fold_sessions(#(count, []), fn(acc, session) {
-    let #(count, sessions) = acc
-    case count {
-      0 -> list.Stop(#(0, list.reverse(sessions)))
-      1 -> list.Stop(#(0, list.reverse([session, ..sessions])))
-      _ -> list.Continue(#(count - 1, [session, ..sessions]))
-    }
-  })
-  |> result.map(pair.second)
+  let sessions =
+    fold_sessions(log, #(count, []), fn(acc, session) {
+      let #(count, sessions) = acc
+      case count {
+        0 -> list.Stop(#(0, sessions))
+        1 -> list.Stop(#(0, [session, ..sessions]))
+        _ -> list.Continue(#(count - 1, [session, ..sessions]))
+      }
+    })
+  case sessions {
+    Ok(#(_, sessions)) -> Ok(list.reverse(sessions))
+    Error(error) -> Error(error)
+  }
 }
 
 //
@@ -227,10 +231,11 @@ fn set_decoder() -> decode.Decoder(Set) {
   decode.one_of(isometric, [isotonic])
 }
 
-fn session_id(session: Session) -> Int {
+pub fn session_id(session: Session) -> String {
   session.start
   |> timestamp.to_unix_seconds
   |> float.round
+  |> int.to_string
 }
 
 fn session_to_json(session: Session) -> json.Json {
@@ -239,9 +244,9 @@ fn session_to_json(session: Session) -> json.Json {
   []
   |> json_property("start", start, timestamp_to_json)
   |> json_property("location", location, json.string)
-  |> json_optional_property("coach", detail, json.string)
+  |> json_optional_property("coach", coach, json.string)
   |> json_optional_property("duration", duration, duration_to_json)
-  |> json_optional_property("detail", coach, json.string)
+  |> json_optional_property("detail", detail, json.string)
   |> json_property("activities", activities, json.array(_, activity_to_json))
   |> list.reverse
   |> json.object
