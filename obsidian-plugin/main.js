@@ -21,7 +21,7 @@ class LpilPlugin extends Plugin {
     let start;
     let location;
 
-    // Set default frontmatter
+    // Set defaults frontmatter
     await this.app.fileManager.processFrontMatter(file, (frontmatter) => {
       frontmatter.start ||= localTimestamp(new Date());
       start = new Date(frontmatter.start);
@@ -38,19 +38,20 @@ class LpilPlugin extends Plugin {
   }
 
   async onCircuitChanged(file) {
-    let start;
+    let time;
     let exercise;
 
-    // Set default frontmatter
+    // Set defaults frontmatter
     await this.app.fileManager.processFrontMatter(file, (frontmatter) => {
-      frontmatter.start ||= localTimestamp(new Date());
-      start = new Date(frontmatter.start);
+      frontmatter.time ||= localTimestamp(new Date());
+      frontmatter.sets ||= 3;
+      time = new Date(frontmatter.time);
       exercise = frontmatter.exercise;
     });
 
-    // Set default filename, so long as start and exercise have been set
-    if (location) {
-      const path = `exercise/log/circuits/${readableTimestamp(start)} ${exercise}.md`;
+    // Set default filename, so long as time and exercise have been set
+    if (exercise) {
+      const path = `exercise/log/circuits/${readableTimestamp(time)} ${exercise}.md`;
       if (file.path !== path) {
         await this.app.fileManager.renameFile(file, path);
       }
