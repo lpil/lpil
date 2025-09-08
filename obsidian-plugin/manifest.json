@@ -1,0 +1,10 @@
+{
+  "id": "lpil",
+  "name": "lpil's own plugin",
+  "version": "1.0.0",
+  "minAppVersion": "1.9.2",
+  "author": "Louis Pilfold",
+  "description": "Doing stuff that Louis wants",
+  "main": "main.js",
+  "isDesktopOnly": false
+}
