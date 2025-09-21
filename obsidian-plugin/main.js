@@ -33,6 +33,12 @@ class LpilPlugin extends Plugin {
       fm.date ||= readableDate(new Date());
       return { filename: `${readableDate(fm.date)}` };
     });
+
+    await this.dataNote(file, "todo/tasks/", (fm) => {
+      return {
+        filename: fm.due && fm.title && `${readableDate(fm.due)} ${fm.title}`,
+      };
+    });
   }
 
   async dataNote(file, path, callback) {
