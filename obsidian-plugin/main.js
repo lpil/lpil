@@ -10,102 +10,58 @@ class LpilPlugin extends Plugin {
   async onunload() {}
 
   async onChanged(file) {
-    if (file.path.startsWith("exercise/log/sessions/"))
-      return this.onSessionChanged(file);
-
-    if (file.path.startsWith("exercise/log/circuits/"))
-      return this.onCircuitChanged(file);
-
-    if (file.path.startsWith("exercise/log/bike rides/"))
-      return this.onBikeRideChanged(file);
-
-    if (file.path.startsWith("home/meter readings/"))
-      return this.onMeterReadingsChanged(file);
-  }
-
-  async onSessionChanged(file) {
-    let start;
-    let location;
-
-    // Set defaults frontmatter
-    await this.app.fileManager.processFrontMatter(file, (frontmatter) => {
-      frontmatter.start ||= localTimestamp(new Date());
-      start = new Date(frontmatter.start);
-      location = frontmatter.location;
+    await this.dataNote(file, "exercise/log/sessions/", (fm) => {
+      fm.start ||= localTimestamp(new Date());
+      const filename = `${readableTimestamp(fm.start)} ${fm.location}`;
+      return { filename: fm.location && filename };
     });
 
-    // Set default filename, so long as start and location have been set
-    if (location) {
-      const path = `exercise/log/sessions/${readableTimestamp(start)} ${location}.md`;
-      if (file.path !== path) {
-        await this.app.fileManager.renameFile(file, path);
-      }
+    await this.dataNote(file, "exercise/log/circuits/", (fm) => {
+      fm.time ||= localTimestamp(new Date());
+      fm.sets ||= 3;
+      const filename = `${readableTimestamp(fm.time)} ${fm.exercise}`;
+      return { filename: fm.exercise && filename };
+    });
+
+    await this.dataNote(file, "exercise/log/bike rides/", (fm) => {
+      fm.start ||= localTimestamp(new Date());
+      const filename = `${readableTimestamp(fm.start)} ${fm.from} to ${fm.to}`;
+      return { filename: fm.from && fm.to && filename };
+    });
+
+    await this.dataNote(file, "home/meter readings/", (fm) => {
+      fm.date ||= readableDate(new Date());
+      return { filename: `${readableDate(fm.date)}` };
+    });
+  }
+
+  async dataNote(file, path, callback) {
+    if (!path.endsWith("/")) {
+      path = path + "/";
     }
-  }
 
-  async onMeterReadingsChanged(file) {
-    let date;
-
-    // Set defaults frontmatter
-    await this.app.fileManager.processFrontMatter(file, (frontmatter) => {
-      frontmatter.date ||= readableDate(new Date());
-      date = new Date(frontmatter.date);
-    });
-
-    // Set default filename, so long as date has been set
-    if (date) {
-      const path = `home/meter readings/${readableDate(date)}.md`;
-      if (file.path !== path) {
-        await this.app.fileManager.renameFile(file, path);
-      }
+    if (!file.path.startsWith(path)) {
+      return;
     }
-  }
 
-  async onCircuitChanged(file) {
-    let time;
-    let exercise;
-
-    // Set defaults frontmatter
+    let data;
     await this.app.fileManager.processFrontMatter(file, (frontmatter) => {
-      frontmatter.time ||= localTimestamp(new Date());
-      frontmatter.sets ||= 3;
-      time = new Date(frontmatter.time);
-      exercise = frontmatter.exercise;
+      data = callback(frontmatter) || {};
     });
 
-    // Set default filename, so long as time and exercise have been set
-    if (exercise) {
-      const path = `exercise/log/circuits/${readableTimestamp(time)} ${exercise}.md`;
-      if (file.path !== path) {
-        await this.app.fileManager.renameFile(file, path);
-      }
-    }
-  }
-
-  async onBikeRideChanged(file) {
-    let start;
-    let from;
-    let to;
-
-    // Set defaults frontmatter
-    await this.app.fileManager.processFrontMatter(file, (frontmatter) => {
-      frontmatter.start ||= localTimestamp(new Date());
-      start = new Date(frontmatter.start);
-      from = frontmatter.from;
-      to = frontmatter.to;
-    });
-
-    // Set default filename, so long as time and exercise have been set
-    if (from && to) {
-      const path = `exercise/log/bike rides/${readableTimestamp(start)} ${from} to ${to}.md`;
-      if (file.path !== path) {
-        await this.app.fileManager.renameFile(file, path);
+    if (data.filename) {
+      const newPath = path + data.filename + ".md";
+      if (newPath !== file.path) {
+        await this.app.fileManager.renameFile(file, newPath);
       }
     }
   }
 }
 
 function localTimestamp(date) {
+  if (typeof date === "string") {
+    date = new Date(date);
+  }
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0");
   const day = String(date.getDate()).padStart(2, "0");
@@ -116,6 +72,9 @@ function localTimestamp(date) {
 }
 
 function readableTimestamp(date) {
+  if (typeof date === "string") {
+    date = new Date(date);
+  }
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0");
   const day = String(date.getDate()).padStart(2, "0");
@@ -125,6 +84,9 @@ function readableTimestamp(date) {
 }
 
 function readableDate(date) {
+  if (typeof date === "string") {
+    date = new Date(date);
+  }
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0");
   const day = String(date.getDate()).padStart(2, "0");
