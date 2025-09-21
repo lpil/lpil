@@ -18,6 +18,9 @@ class LpilPlugin extends Plugin {
 
     if (file.path.startsWith("exercise/log/bike rides/"))
       return this.onBikeRideChanged(file);
+
+    if (file.path.startsWith("home/meter readings/"))
+      return this.onMeterReadingsChanged(file);
   }
 
   async onSessionChanged(file) {
@@ -34,6 +37,24 @@ class LpilPlugin extends Plugin {
     // Set default filename, so long as start and location have been set
     if (location) {
       const path = `exercise/log/sessions/${readableTimestamp(start)} ${location}.md`;
+      if (file.path !== path) {
+        await this.app.fileManager.renameFile(file, path);
+      }
+    }
+  }
+
+  async onMeterReadingsChanged(file) {
+    let date;
+
+    // Set defaults frontmatter
+    await this.app.fileManager.processFrontMatter(file, (frontmatter) => {
+      frontmatter.date ||= readableDate(new Date());
+      date = new Date(frontmatter.date);
+    });
+
+    // Set default filename, so long as time and exercise have been set
+    if (date) {
+      const path = `home/meter readings/${readableDate(time)}.md`;
       if (file.path !== path) {
         await this.app.fileManager.renameFile(file, path);
       }
@@ -101,6 +122,13 @@ function readableTimestamp(date) {
   const hour = String(date.getHours()).padStart(2, "0");
   const minute = String(date.getMinutes()).padStart(2, "0");
   return `${year}-${month}-${day} ${hour}-${minute}`;
+}
+
+function readableDate(date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
 }
 
 module.exports = LpilPlugin;
