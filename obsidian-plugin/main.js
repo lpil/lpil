@@ -52,9 +52,9 @@ class LpilPlugin extends Plugin {
       date = new Date(frontmatter.date);
     });
 
-    // Set default filename, so long as time and exercise have been set
+    // Set default filename, so long as date has been set
     if (date) {
-      const path = `home/meter readings/${readableDate(time)}.md`;
+      const path = `home/meter readings/${readableDate(date)}.md`;
       if (file.path !== path) {
         await this.app.fileManager.renameFile(file, path);
       }
