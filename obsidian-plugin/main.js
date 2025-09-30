@@ -56,7 +56,8 @@ class LpilPlugin extends Plugin {
     });
 
     if (data.filename) {
-      const newPath = path + data.filename + ".md";
+      const sanitisedFilename = data.filename.replace(/[\/\\:]+/, "-");
+      const newPath = path + sanitisedFilename + ".md";
       if (newPath !== file.path) {
         await this.app.fileManager.renameFile(file, newPath);
       }
