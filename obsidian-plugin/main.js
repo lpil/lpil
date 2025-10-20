@@ -18,7 +18,7 @@ class LpilPlugin extends Plugin {
 
     await this.dataNote(file, "exercise/log/circuits/", (fm) => {
       fm.time ||= localTimestamp(new Date());
-      fm.sets ||= 3;
+      fm.sets ||= 1;
       const filename = `${readableTimestamp(fm.time)} ${fm.exercise}`;
       return { filename: fm.exercise && filename };
     });
