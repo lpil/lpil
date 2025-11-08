@@ -19,9 +19,9 @@ install_immich() {
   podman_quadlet_network immich || true
 
   if
-    podman_quadlet_container immich-redis
+    podman_quadlet_container immich-valkey
   then
-    systemd_restart immich-redis.service
+    systemd_restart immich-valkey.service
   fi
 
   if

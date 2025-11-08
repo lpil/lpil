@@ -1,9 +1,9 @@
 [Unit]
-Description=Redis (for Immich)
+Description=Valkey (for Immich)
 After=local-fs.target
 
 [Container]
-Image=docker.io/redis:7.4.1-alpine
+Image=docker.io/valkey/valkey:8-bookworm
 Network=immich.network
 
 [Install]

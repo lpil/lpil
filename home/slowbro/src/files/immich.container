@@ -3,7 +3,9 @@ Description=Immich
 After=local-fs.target
 
 [Container]
-Image=ghcr.io/imagegenius/immich:1.134.0
+# https://github.com/imagegenius/docker-immich
+# https://github.com/imagegenius/docker-immich/pkgs/container/immich
+Image=ghcr.io/imagegenius/immich:2.2.3
 Network=immich.network
 PublishPort=8001:8080
 
@@ -19,7 +21,7 @@ Environment=DB_HOSTNAME=systemd-immich-postgresql
 Environment=DB_USERNAME=postgres
 Environment=DB_PASSWORD=postgres
 Environment=DB_DATABASE_NAME=immich
-Environment=REDIS_HOSTNAME=systemd-immich-redis
+Environment=REDIS_HOSTNAME=systemd-immich-valkey
 
 [Install]
 WantedBy=multi-user.target default.target

@@ -3,7 +3,8 @@ Description=PostgreSQL (for Immich)
 After=local-fs.target
 
 [Container]
-Image=docker.io/tensorchord/pgvecto-rs:pg15-v0.3.0
+# https://github.com/immich-app/base-images/pkgs/container/postgres
+Image=ghcr.io/immich-app/postgres:15-vectorchord0.4.3-pgvectors0.3.0
 Network=immich.network
 
 Volume=/mnt/data/immich/postgresql:/var/lib/postgresql/data:rw,z
