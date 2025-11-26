@@ -5,7 +5,7 @@ After=local-fs.target
 [Container]
 # https://github.com/imagegenius/docker-immich
 # https://github.com/imagegenius/docker-immich/pkgs/container/immich
-Image=ghcr.io/imagegenius/immich:2.2.3
+Image=ghcr.io/imagegenius/immich:2.3.1
 Network=immich.network
 PublishPort=8001:8080
 
