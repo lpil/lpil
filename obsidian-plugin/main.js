@@ -32,7 +32,7 @@ class LpilPlugin extends Plugin {
     await this.dataNote(file, "exercise/log/grip strength/", (fm) => {
       fm.time ||= localTimestamp(new Date());
       const filename = readableTimestamp(fm.time);
-      return { filename: fm.location && filename };
+      return { filename };
     });
 
     await this.dataNote(file, "home/meter readings/", (fm) => {
