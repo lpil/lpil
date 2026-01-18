@@ -5,3 +5,7 @@ brotli
 entrypoints
 frontend
 refactorings
+metaprogramming
+monomorphisation
+backend
+PureScript

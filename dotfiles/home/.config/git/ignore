@@ -2,3 +2,4 @@
 .DS_Store
 tags
 !tags/
+**/.claude/settings.local.json
