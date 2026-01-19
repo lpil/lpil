@@ -12,21 +12,26 @@ class LpilPlugin extends Plugin {
   async onChanged(file) {
     await this.dataNote(file, "exercise/log/sessions/", (fm) => {
       fm.start ||= localTimestamp(new Date());
-      const filename = `${readableTimestamp(fm.start)} ${fm.location}`;
-      return { filename: fm.location && filename };
+      const filename =
+        fm.location && `${readableTimestamp(fm.start)} ${fm.location}`;
+      return { filename };
     });
 
     await this.dataNote(file, "exercise/log/circuits/", (fm) => {
       fm.time ||= localTimestamp(new Date());
       fm.sets ||= 1;
-      const filename = `${readableTimestamp(fm.time)} ${fm.exercise}`;
-      return { filename: fm.exercise && filename };
+      const filename =
+        fm.exercise && `${readableTimestamp(fm.time)} ${fm.exercise}`;
+      return { filename };
     });
 
     await this.dataNote(file, "exercise/log/bike rides/", (fm) => {
       fm.start ||= localTimestamp(new Date());
-      const filename = `${readableTimestamp(fm.start)} ${fm.from} to ${fm.to}`;
-      return { filename: fm.from && fm.to && filename };
+      const filename =
+        fm.from &&
+        fm.to &&
+        `${readableTimestamp(fm.start)} ${fm.from} to ${fm.to}`;
+      return { filename };
     });
 
     await this.dataNote(file, "exercise/log/grip strength/", (fm) => {
@@ -37,19 +42,23 @@ class LpilPlugin extends Plugin {
 
     await this.dataNote(file, "exercise/log/spending/", (fm) => {
       fm.date ||= localTimestamp(new Date());
-      const filename = `${readableDate(fm.date)} £${fm.amount.round(2)} ${fm.item}`;
-      return fm.amount && fm.item && { filename };
+      const filename =
+        fm.payee &&
+        fm.item &&
+        `${readableDate(fm.date)} ${fm.payee} - ${fm.item}`;
+      return { filename };
     });
 
     await this.dataNote(file, "home/meter readings/", (fm) => {
       fm.date ||= readableDate(new Date());
-      return { filename: `${readableDate(fm.date)}` };
+      const filename = `${readableDate(fm.date)}`;
+      return { filename };
     });
 
     await this.dataNote(file, "todo/tasks/", (fm) => {
-      return {
-        filename: fm.due && fm.title && `${readableDate(fm.due)} ${fm.title}`,
-      };
+      let filename =
+        fm.due && fm.title && `${readableDate(fm.due)} ${fm.title}`;
+      return { filename };
     });
   }
 
