@@ -1,13 +1,25 @@
-import gleam/dynamic as dy
+import gleam/dynamic/decode
 import gleam/hackney
 import gleam/http/request
-import gleam/json as j
+import gleam/json
 import gleam/result
 import script/config.{type Config}
 import script/error.{type Error}
 
 pub type Information {
   Information(thirty_day_visitors: Int, thirty_day_pageviews: Int)
+}
+
+fn information_decoder() -> decode.Decoder(Information) {
+  use thirty_day_visitors <- decode.subfield(
+    ["results", "visitors", "value"],
+    decode.int,
+  )
+  use thirty_day_pageviews <- decode.subfield(
+    ["results", "pageviews", "value"],
+    decode.int,
+  )
+  decode.success(Information(thirty_day_visitors:, thirty_day_pageviews:))
 }
 
 pub fn get_stats(config: Config) -> Result(Information, Error) {
@@ -23,22 +35,15 @@ pub fn get_stats(config: Config) -> Result(Information, Error) {
       "Bearer " <> config.plausible_token,
     )
 
-  let decoder =
-    dy.decode2(
-      Information,
-      dy.field("visitors", dy.field("value", dy.int)),
-      dy.field("pageviews", dy.field("value", dy.int)),
-    )
-
-  use response <- result.then(
+  use response <- result.try(
     hackney.send(request)
     |> result.map_error(error.HttpError)
-    |> result.then(error.ensure_status(_, is: 200)),
+    |> result.try(error.ensure_status(_, is: 200)),
   )
 
-  use members <- result.then(
+  use members <- result.try(
     response.body
-    |> j.decode(using: dy.field("results", decoder))
+    |> json.parse(using: information_decoder())
     |> result.map_error(error.UnexpectedJson),
   )
 

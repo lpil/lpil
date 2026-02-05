@@ -1,7 +1,7 @@
-import gleam/dynamic as dy
+import gleam/dynamic/decode
 import gleam/hackney
 import gleam/http/request
-import gleam/json as j
+import gleam/json
 import gleam/result
 import script/error.{type Error}
 
@@ -9,25 +9,21 @@ pub fn get_stdlib_counts() -> Result(#(Int, Int), Error) {
   let assert Ok(request) =
     request.to("https://hex.pm/api/packages/gleam_stdlib")
 
-  let decoder =
-    dy.field(
-      "downloads",
-      of: dy.decode2(
-        fn(a, b) { #(a, b) },
-        dy.field("all", of: dy.int),
-        dy.field("recent", of: dy.int),
-      ),
-    )
+  let decoder = {
+    use all <- decode.subfield(["downloads", "all"], decode.int)
+    use recent <- decode.subfield(["downloads", "recent"], decode.int)
+    decode.success(#(all, recent))
+  }
 
-  use response <- result.then(
+  use response <- result.try(
     hackney.send(request)
     |> result.map_error(error.HttpError)
-    |> result.then(error.ensure_status(_, is: 200)),
+    |> result.try(error.ensure_status(_, is: 200)),
   )
 
-  use amounts <- result.then(
+  use amounts <- result.try(
     response.body
-    |> j.decode(using: decoder)
+    |> json.parse(decoder)
     |> result.map_error(error.UnexpectedJson),
   )
 

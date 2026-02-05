@@ -24,7 +24,7 @@ pub fn get_track_information() -> Result(Information, Error) {
     |> request.set_header("accept", "text/html")
     |> request.set_header("user-agent", "curl/7.85.0")
 
-  use response <- result.then({
+  use response <- result.try({
     use attempt <- retry.with_retries(backoff: 1000, attempts: 3)
     case attempt {
       0 -> Nil
@@ -33,10 +33,10 @@ pub fn get_track_information() -> Result(Information, Error) {
 
     hackney.send(request)
     |> result.map_error(error.HttpError)
-    |> result.then(error.ensure_status(_, is: 200))
+    |> result.try(error.ensure_status(_, is: 200))
   })
 
-  use info <- result.then(parse_track_page(response.body))
+  use info <- result.try(parse_track_page(response.body))
 
   Ok(info)
 }
@@ -47,12 +47,12 @@ type ParseState {
 }
 
 pub fn parse_track_page(html: String) -> Result(Information, Error) {
-  use state <- result.then(
+  use state <- result.try(
     htmgrrrl.sax(html, Outside([]), handle_event)
     |> result.replace_error(error.UnexpectedHtml),
   )
 
-  use #(discussions, submissions, students) <- result.then(case state {
+  use #(discussions, submissions, students) <- result.try(case state {
     Outside([
       ["Mentoring Discussions" <> _, a],
       ["Submissions" <> _, b],
@@ -61,9 +61,9 @@ pub fn parse_track_page(html: String) -> Result(Information, Error) {
     _ -> Error(error.UnexpectedHtml)
   })
 
-  use students_count <- result.then(parse_int(students))
-  use submissions_count <- result.then(parse_int(submissions))
-  use mentoring_discussions_count <- result.then(parse_int(discussions))
+  use students_count <- result.try(parse_int(students))
+  use submissions_count <- result.try(parse_int(submissions))
+  use mentoring_discussions_count <- result.try(parse_int(discussions))
 
   Ok(Information(
     students_count: students_count,

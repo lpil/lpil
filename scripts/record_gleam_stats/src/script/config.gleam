@@ -1,4 +1,4 @@
-import gleam/erlang/os
+import envoy
 import gleam/result
 import script/error.{type Error}
 
@@ -16,11 +16,11 @@ pub type Config {
 }
 
 pub fn load_from_environment() -> Result(Config, Error) {
-  use client_id <- result.then(env("GCP_CLIENT_ID"))
-  use client_secret <- result.then(env("GCP_CLIENT_SECRET"))
-  use refresh_token <- result.then(env("GCP_REFRESH_TOKEN"))
-  use github_token <- result.then(env("GITHUB_TOKEN"))
-  use plausible_token <- result.then(env("PLAUSIBLE_TOKEN"))
+  use client_id <- result.try(env("GCP_CLIENT_ID"))
+  use client_secret <- result.try(env("GCP_CLIENT_SECRET"))
+  use refresh_token <- result.try(env("GCP_REFRESH_TOKEN"))
+  use github_token <- result.try(env("GITHUB_TOKEN"))
+  use plausible_token <- result.try(env("PLAUSIBLE_TOKEN"))
 
   Ok(Config(
     client_id: client_id,
@@ -32,6 +32,6 @@ pub fn load_from_environment() -> Result(Config, Error) {
 }
 
 fn env(name: String) -> Result(String, Error) {
-  os.get_env(name)
+  envoy.get(name)
   |> result.replace_error(error.MissingEnvironmentVariable(name))
 }

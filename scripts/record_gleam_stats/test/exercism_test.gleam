@@ -1,5 +1,5 @@
-import script/exercism
 import gleeunit/should
+import script/exercism
 
 const track_build_html = "
 <!DOCTYPE html>
@@ -414,9 +414,11 @@ const track_build_html = "
 
 pub fn parsing_test() {
   exercism.parse_track_page(track_build_html)
-  |> should.equal(Ok(exercism.Information(
-    students_count: 267,
-    submissions_count: 4637,
-    mentoring_discussions_count: 51,
-  )))
+  |> should.equal(
+    Ok(exercism.Information(
+      students_count: 267,
+      submissions_count: 4637,
+      mentoring_discussions_count: 51,
+    )),
+  )
 }

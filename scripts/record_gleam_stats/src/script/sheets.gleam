@@ -1,12 +1,12 @@
-import gleam/dynamic
+import gleam/dynamic/decode
 import gleam/hackney
 import gleam/http
 import gleam/http/request
 import gleam/int
-import gleam/json.{type Json} as j
+import gleam/json.{type Json}
 import gleam/result
 import gleam/string
-import script/config.{type Config, Config}
+import script/config.{type Config}
 import script/error.{type Error}
 
 // https://docs.google.com/spreadsheets/d/1OLaTgpN9MXTVNZ--6s6AjE5aCjfpm2lAuy6FUmPuGRI/edit#gid=0
@@ -37,15 +37,15 @@ pub fn get_access_token(config: Config) -> Result(String, Error) {
     )
     |> request.set_body(formdata)
 
-  use response <- result.then(
+  use response <- result.try(
     hackney.send(request)
     |> result.map_error(error.HttpError)
-    |> result.then(error.ensure_status(_, is: 200)),
+    |> result.try(error.ensure_status(_, is: 200)),
   )
 
-  use json <- result.then(
+  use json <- result.try(
     response.body
-    |> j.decode(using: dynamic.field("access_token", of: dynamic.string))
+    |> json.parse(decode.at(["access_token"], decode.string))
     |> result.map_error(error.UnexpectedJson),
   )
 
@@ -57,14 +57,14 @@ fn append_row(
   row: List(Json),
   config: Config,
 ) -> Result(Nil, Error) {
-  use access_token <- result.then(get_access_token(config))
+  use access_token <- result.try(get_access_token(config))
 
   let json =
-    j.to_string(
-      j.object([
-        #("range", j.string(sheet <> "!A:A")),
-        #("majorDimension", j.string("ROWS")),
-        #("values", j.preprocessed_array([j.preprocessed_array(row)])),
+    json.to_string(
+      json.object([
+        #("range", json.string(sheet <> "!A:A")),
+        #("majorDimension", json.string("ROWS")),
+        #("values", json.preprocessed_array([json.preprocessed_array(row)])),
       ]),
     )
 
@@ -86,10 +86,10 @@ fn append_row(
     |> request.set_path(path)
     |> request.prepend_header("content-type", "application/json")
 
-  use _ <- result.then(
+  use _ <- result.try(
     hackney.send(request)
     |> result.map_error(error.HttpError)
-    |> result.then(error.ensure_status(_, is: 200)),
+    |> result.try(error.ensure_status(_, is: 200)),
   )
 
   Ok(Nil)
@@ -113,18 +113,18 @@ pub type Row {
 
 pub fn append_current_income(row: Row, config: Config) -> Result(Nil, Error) {
   let row = [
-    j.string(timestamp()),
-    j.string(cents_to_dollars(row.monthly_sponsorship_cents)),
-    j.int(row.sponsor_count),
-    j.int(row.compiler_github_stars),
-    j.int(row.approximate_discord_member_count),
-    j.int(row.stdlib_all_downloads),
-    j.int(row.stdlib_recent_downloads),
-    j.int(row.site_thirty_day_visitors),
-    j.int(row.site_thirty_day_pageviews),
-    j.int(row.exercism_students_count),
-    j.int(row.exercism_submissions_count),
-    j.int(row.exercism_mentoring_discussions_count),
+    json.string(timestamp()),
+    json.string(cents_to_dollars(row.monthly_sponsorship_cents)),
+    json.int(row.sponsor_count),
+    json.int(row.compiler_github_stars),
+    json.int(row.approximate_discord_member_count),
+    json.int(row.stdlib_all_downloads),
+    json.int(row.stdlib_recent_downloads),
+    json.int(row.site_thirty_day_visitors),
+    json.int(row.site_thirty_day_pageviews),
+    json.int(row.exercism_students_count),
+    json.int(row.exercism_submissions_count),
+    json.int(row.exercism_mentoring_discussions_count),
   ]
   append_row(sheet_name, row, config)
 }
@@ -132,7 +132,7 @@ pub fn append_current_income(row: Row, config: Config) -> Result(Nil, Error) {
 fn cents_to_dollars(cents: Int) -> String {
   int.to_string(cents / 100)
   <> "."
-  <> string.pad_left(int.to_string(cents % 100), to: 2, with: "0")
+  <> string.pad_start(int.to_string(cents % 100), to: 2, with: "0")
 }
 
 @external(erlang, "script_ffi", "timestamp")

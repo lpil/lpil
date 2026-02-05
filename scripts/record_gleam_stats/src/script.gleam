@@ -1,11 +1,11 @@
+import gleam/io
 import script/config
-import script/sheets
-import script/github
 import script/discord
 import script/exercism
-import script/plausible
+import script/github
 import script/hex
-import gleam/io
+import script/plausible
+import script/sheets
 
 pub fn main() {
   io.println("Loading config")

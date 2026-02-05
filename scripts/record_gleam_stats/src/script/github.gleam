@@ -1,8 +1,8 @@
-import gleam/dynamic as dy
+import gleam/dynamic/decode
 import gleam/hackney
 import gleam/http
 import gleam/http/request
-import gleam/json as j
+import gleam/json
 import gleam/result
 import script/config.{type Config}
 import script/error.{type Error}
@@ -13,6 +13,26 @@ pub type Information {
     sponsor_count: Int,
     stars: Int,
   )
+}
+
+fn information_decoder() -> decode.Decoder(Information) {
+  use estimated_monthly_sponsorship <- decode.subfield(
+    ["data", "viewer", "monthlyEstimatedSponsorsIncomeInCents"],
+    decode.int,
+  )
+  use sponsor_count <- decode.subfield(
+    ["data", "viewer", "sponsors", "totalCount"],
+    decode.int,
+  )
+  use stars <- decode.subfield(
+    ["data", "repositoryOwner", "repository", "stargazerCount"],
+    decode.int,
+  )
+  decode.success(Information(
+    estimated_monthly_sponsorship:,
+    sponsor_count:,
+    stars:,
+  ))
 }
 
 pub fn get_information(config: Config) -> Result(Information, Error) {
@@ -29,7 +49,7 @@ pub fn get_information(config: Config) -> Result(Information, Error) {
   }
 }"
 
-  let query = j.to_string(j.object([#("query", j.string(query))]))
+  let query = json.to_string(json.object([#("query", json.string(query))]))
 
   let request =
     request.new()
@@ -40,30 +60,13 @@ pub fn get_information(config: Config) -> Result(Information, Error) {
     |> request.prepend_header("authorization", "bearer " <> config.github_token)
     |> request.set_body(query)
 
-  use response <- result.then(
+  use response <- result.try(
     hackney.send(request)
     |> result.map_error(error.HttpError)
-    |> result.then(error.ensure_status(_, is: 200)),
+    |> result.try(error.ensure_status(_, is: 200)),
   )
 
-  let decoder =
-    dy.decode3(
-      Information,
-      dy.field(
-        "viewer",
-        dy.field("monthlyEstimatedSponsorsIncomeInCents", of: dy.int),
-      ),
-      dy.field(
-        "viewer",
-        dy.field("sponsors", of: dy.field("totalCount", of: dy.int)),
-      ),
-      dy.field(
-        "repositoryOwner",
-        dy.field("repository", of: dy.field("stargazerCount", of: dy.int)),
-      ),
-    )
-
   response.body
-  |> j.decode(using: dy.field("data", decoder))
+  |> json.parse(using: information_decoder())
   |> result.map_error(error.UnexpectedJson)
 }
