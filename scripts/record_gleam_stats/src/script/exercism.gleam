@@ -1,11 +1,12 @@
+import gleam/dict
 import gleam/hackney
 import gleam/http/request
 import gleam/int
 import gleam/io
-import gleam/list
+import gleam/pair
 import gleam/result
 import gleam/string
-import htmgrrrl.{Characters, EndElement, StartElement}
+import presentable_soup as soup
 import retry
 import script/error.{type Error}
 
@@ -36,82 +37,49 @@ pub fn get_track_information() -> Result(Information, Error) {
     |> result.try(error.ensure_status(_, is: 200))
   })
 
-  use info <- result.try(parse_track_page(response.body))
+  use info <- result.try(
+    parse_track_page(response.body)
+    |> result.replace_error(error.UnexpectedHtml),
+  )
 
   Ok(info)
 }
 
-type ParseState {
-  Inside(depth: Int, content: List(String), previous: List(List(String)))
-  Outside(content: List(List(String)))
-}
+pub fn parse_track_page(html: String) -> Result(Information, Nil) {
+  let stat_name =
+    soup.element([soup.with_class("stat-name")])
+    |> soup.return(soup.text_content())
+    |> soup.map(string.concat)
+    |> soup.map(string.trim)
 
-pub fn parse_track_page(html: String) -> Result(Information, Error) {
-  use state <- result.try(
-    htmgrrrl.sax(html, Outside([]), handle_event)
-    |> result.replace_error(error.UnexpectedHtml),
+  let stat_number =
+    soup.element([soup.with_class("current-number")])
+    |> soup.return(soup.text_content())
+    |> soup.map(string.concat)
+    |> soup.map(string.trim)
+    |> soup.try_map(parse_int)
+
+  use stats <- result.try(
+    soup.elements([soup.with_class("report-stat")])
+    |> soup.return(soup.merge2(stat_name, stat_number, pair.new))
+    |> soup.map(dict.from_list)
+    |> soup.scrape(html)
+    |> result.replace_error(Nil),
   )
 
-  use #(discussions, submissions, students) <- result.try(case state {
-    Outside([
-      ["Mentoring Discussions" <> _, a],
-      ["Submissions" <> _, b],
-      ["Students" <> _, c],
-    ]) -> Ok(#(a, b, c))
-    _ -> Error(error.UnexpectedHtml)
-  })
-
-  use students_count <- result.try(parse_int(students))
-  use submissions_count <- result.try(parse_int(submissions))
-  use mentoring_discussions_count <- result.try(parse_int(discussions))
+  use students <- result.try(dict.get(stats, "Students"))
+  use submissions <- result.try(dict.get(stats, "Submissions"))
+  use mentoring <- result.try(dict.get(stats, "Mentoring Discussions"))
 
   Ok(Information(
-    students_count: students_count,
-    submissions_count: submissions_count,
-    mentoring_discussions_count: mentoring_discussions_count,
+    students_count: students,
+    submissions_count: submissions,
+    mentoring_discussions_count: mentoring,
   ))
 }
 
-fn handle_event(
-  state: ParseState,
-  _line: Int,
-  event: htmgrrrl.SaxEvent,
-) -> ParseState {
-  case state, event {
-    Outside(previous), StartElement(attributes: attributes, ..) ->
-      case has_class(attributes, "report-stat") {
-        True -> Inside(1, [], previous)
-        False -> state
-      }
-
-    Inside(depth, content, previous), Characters(c) if c != "" ->
-      Inside(depth, [c, ..content], previous)
-
-    Inside(depth, content, previous), StartElement(..) ->
-      Inside(depth + 1, content, previous)
-
-    Inside(1, content, previous), EndElement(..) ->
-      Outside([list.reverse(content), ..previous])
-
-    Inside(depth, content, previous), EndElement(..) ->
-      Inside(depth - 1, content, previous)
-
-    _, _ -> state
-  }
-}
-
-fn has_class(attributes: List(htmgrrrl.Attribute), class: String) -> Bool {
-  case attributes {
-    [htmgrrrl.Attribute(name: "class", value: value, ..), ..] if value == class ->
-      True
-    [_, ..rest] -> has_class(rest, class)
-    [] -> False
-  }
-}
-
-fn parse_int(string: String) -> Result(Int, Error) {
+fn parse_int(string: String) -> Result(Int, Nil) {
   string
   |> string.replace(",", "")
   |> int.parse
-  |> result.replace_error(error.UnexpectedHtml)
 }
