@@ -49,6 +49,12 @@ class LpilPlugin extends Plugin {
       return { filename };
     });
 
+    await this.dataNote(file, "exercise/log/sends/", (fm) => {
+      fm.date ||= localTimestamp(new Date());
+      const filename = fm.grade && `${readableDate(fm.date)} ${fm.grade}`;
+      return { filename };
+    });
+
     await this.dataNote(file, "home/meter readings/", (fm) => {
       fm.date ||= readableDate(new Date());
       const filename = `${readableDate(fm.date)}`;
