@@ -1,0 +1,6 @@
+#!/bin/sh
+
+in="$1"
+out="${in%.*}.mp3"
+
+ffmpeg -i "$in" -c:a libmp3lame -q:a 4 "$out"
