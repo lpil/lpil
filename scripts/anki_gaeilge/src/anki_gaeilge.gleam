@@ -14,7 +14,7 @@ import shellout
 import simplifile
 
 pub fn main() {
-  let deck = "Irish::lpil::CityLit Irish::Beginners module 1"
+  let deck = "0 Irish::lpil::CityLit Irish::Beginners module 2"
   // let deck = "test-deck-plz-ignore"
 
   let all_notes =
@@ -57,12 +57,6 @@ fn process_note(note: ankiconnect.NoteInfo) {
       ".",
       [],
     )
-  io.println("  Updating note")
-
-  dict.map_values(note.fields, fn(_, v) { v.value })
-  |> dict.insert("Front", normalised <> "<br>[sound:" <> mp3 <> "]")
-  |> ankiconnect.update_note_fields_request(note.note_id, _)
-  |> assert_send(ankiconnect.update_note_fields_response)
 
   io.println("  Storing media")
   ankiconnect.store_media_file_request(
@@ -71,6 +65,12 @@ fn process_note(note: ankiconnect.NoteInfo) {
     delete_existing: True,
   )
   |> assert_send(ankiconnect.store_media_file_response)
+
+  io.println("  Updating note")
+  dict.map_values(note.fields, fn(_, v) { v.value })
+  |> dict.insert("Front", normalised <> "<br>[sound:" <> mp3 <> "]")
+  |> ankiconnect.update_note_fields_request(note.note_id, _)
+  |> assert_send(ankiconnect.update_note_fields_response)
 
   let assert Ok(_) = simplifile.delete(mp3)
   let assert Ok(_) = simplifile.delete(wav)
@@ -84,6 +84,11 @@ fn normalise(text: String) -> String {
     string.starts_with(text, "<div>") && string.ends_with(text, "</div>")
   let text = case wrapped_in_div {
     True -> text |> string.drop_start(5) |> string.drop_end(6)
+    False -> text
+  }
+
+  let text = case string.ends_with(text, "<br>") {
+    True -> text |> string.drop_end(4)
     False -> text
   }
 
