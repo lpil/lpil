@@ -27,10 +27,9 @@
   g = grep --break --heading --line-number
   gi = grep --break --heading --line-number --ignore-case
   files-ive-edited = !git log --no-merges --stat --author='Louis Pilfold' --name-only --pretty=format:"" | sort -u | tail -n +2
-  cleanup = "!git branch --merged | grep -v \"\\*\" | grep -v master | grep -v dev | xargs -n 1 git branch -d"
-  fpp = "!git st | fpp"
   git = "!git"
   both = !git status | grep '^\tboth modified:   ' | cut -c 19- | xargs nvim
+  remove-other-branches = "!git br | grep -v '*' | xargs git branch -D"
 [fetch]
   prune = true
 [init]
