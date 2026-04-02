@@ -41,7 +41,7 @@ local function close_buffer()
 end
 
 local function write_and_quit()
-  vim.cmd('wqa')
+  vim.cmd('wqa!')
 end
 
 vim.keymap.set("n", "<leader>w", ":w<cr>", { desc = "Write buffer" })
@@ -66,7 +66,7 @@ vim.keymap.set("n", "[e", function() error_jump(-1) end,
   { desc = "Previous error diagnostic" })
 
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist,
-  { desc = "Open diagnostic [Q]uickfix list" })
+  { desc = "Open diagnostic quickfix list" })
 
 -- Default is <C-\><C-n>
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
