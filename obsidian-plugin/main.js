@@ -1,13 +1,41 @@
-const { Plugin } = require("obsidian");
+const { Plugin, FuzzySuggestModal } = require("obsidian");
 
 class LpilPlugin extends Plugin {
   async onload() {
     this.registerEvent(
       this.app.metadataCache.on("changed", (file) => this.onChanged(file)),
     );
+
+    this.addCommand({
+      id: "start-exercise-routine",
+      name: "Start exercise routine",
+      callback: () => {
+        new RoutinePickerModal(this.app, (file) =>
+          this.createCircuitsFromRoutine(file),
+        ).open();
+      },
+    });
   }
 
-  async onunload() {}
+  async onunload() { }
+
+  async createCircuitsFromRoutine(routineFile) {
+    let exercises = [];
+    await this.app.fileManager.processFrontMatter(routineFile, (fm) => {
+      exercises = fm.exercises || [];
+    });
+
+    const time = new Date();
+    for (const exercise of exercises) {
+      const filename = `${readableTimestamp(time)} ${exercise}`.replace(/[\/\\:]+/g, "-");
+      const content = `---\nexercise: ${exercise}\ntime: ${localTimestamp(time)}\n---\n`;
+      await this.app.vault.create(
+        `exercise/log/circuits/${filename}.md`,
+        content,
+      );
+      time.setMinutes(time.getMinutes() + 1);
+    }
+  }
 
   async onChanged(file) {
     await this.dataNote(file, "exercise/log/sessions/", (fm) => {
@@ -128,3 +156,24 @@ function readableDate(date) {
 }
 
 module.exports = LpilPlugin;
+
+class RoutinePickerModal extends FuzzySuggestModal {
+  constructor(app, onChoose) {
+    super(app);
+    this.onChoose = onChoose;
+  }
+
+  getItems() {
+    return this.app.vault
+      .getFiles()
+      .filter((f) => f.path.startsWith("exercise/routines/"));
+  }
+
+  getItemText(file) {
+    return file.basename;
+  }
+
+  onChooseItem(file) {
+    this.onChoose(file);
+  }
+}
