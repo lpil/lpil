@@ -1,0 +1,57 @@
+#!/bin/sh
+
+#
+# Find open dependabot PRs in the current git repo, cherry-pick their commits
+# onto a new branch, and squash into a single commit.
+#
+# USAGE:
+#   cd some/repo
+#   gh-squash-dependabot-prs
+#
+
+set -eu
+
+today=$(date +%Y-%m-%d)
+branch="update-deps-$today"
+
+author_name=$(git config user.name)
+author_email=$(git config user.email)
+
+echo "Finding open dependabot PRs..."
+pr_numbers=$(gh pr list --author "app/dependabot" --state open --json number -q '.[].number')
+
+if [ -z "$pr_numbers" ]; then
+    echo "No open dependabot PRs found"
+    exit 0
+fi
+
+pr_count=$(echo "$pr_numbers" | wc -l | tr -d ' ')
+echo "Found $pr_count dependabot PR(s)"
+
+echo "Creating branch $branch..."
+git checkout -b "$branch"
+
+start_commit=$(git rev-parse HEAD)
+
+for pr in $pr_numbers; do
+    echo "Processing PR #$pr..."
+    commits=$(gh pr view "$pr" --json commits -q '.commits[].oid')
+    for commit in $commits; do
+        echo "  Cherry-picking $commit..."
+        if ! git cherry-pick --no-edit "$commit"; then
+            echo "ERROR: Cherry-pick of $commit from PR #$pr failed"
+            git cherry-pick --abort 2>/dev/null || true
+            git checkout -
+            git branch -D "$branch"
+            exit 1
+        fi
+    done
+done
+
+echo "Squashing into a single commit..."
+git reset --soft "$start_commit"
+git commit \
+    --author="$author_name <$author_email>" \
+    --message="chore: update dependencies ($today)"
+
+echo "Done! Branch '$branch' is ready."
