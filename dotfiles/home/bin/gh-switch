@@ -24,3 +24,10 @@ esac
 gh-remote-add "$username"
 
 git switch --track -c "gh/$username/$branch" "$username/$branch"
+
+# The local branch name (gh/username/branch) differs from the remote branch
+# name (branch), so git push cannot infer the destination. This refspec
+# explicitly maps the local name to the remote name so that plain
+# `git push` and `git push --force-with-lease` work without extra arguments.
+git config --add "remote.$username.push" \
+	"refs/heads/gh/$username/$branch:refs/heads/$branch"

@@ -1,0 +1,44 @@
+#!/bin/sh
+
+#
+# Clean up after reviewing GitHub fork branches:
+#   - Switch to main and fast-forward it to its remote
+#   - Delete all other local branches
+#   - Remove push refspecs for branches that no longer exist locally
+#
+# USAGE:
+#   cd some/repo
+#   gh-cleanup
+#
+
+set -eu
+
+git switch main
+git pull --ff-only
+
+# Delete every local branch except main
+branches=$(git branch | grep -v '^\* ' | sed 's/^ *//')
+if [ -n "$branches" ]; then
+	echo "$branches" | xargs git branch -D
+fi
+
+# Remove push refspecs added by gh-switch for branches that have now been
+# deleted. Without this, the remote config would accumulate stale entries
+# mapping old local branch names to remote branch names.
+git remote | while read -r remote; do
+	git config --get-all "remote.$remote.push" 2>/dev/null \
+		| while read -r refspec; do
+			# Skip wildcard refspecs like +refs/heads/*:refs/heads/*
+			case "$refspec" in *\**) continue ;; esac
+
+            # Strip leading + (force-push marker)
+			local_ref=${refspec##\+}
+
+            # take the left (local) side
+			local_ref=${local_ref%%:*}
+
+			local_branch=${local_ref#refs/heads/}
+			git show-ref --verify --quiet "refs/heads/$local_branch" \
+				|| git config --unset "remote.$remote.push" "$refspec"
+		done
+done
