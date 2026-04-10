@@ -1,0 +1,26 @@
+#!/bin/sh
+
+#
+# Switch to a branch from a GitHub fork, adding the remote if needed
+#
+# USAGE:
+#   cd some/repo
+#   gh-switch username:branch-name
+#
+
+set -eu
+
+case "${1-}" in
+	*:?*)
+		username=${1%%:*}
+		branch=${1#*:}
+		;;
+	*)
+		echo "Usage: gh-switch username:branch-name" >&2
+		exit 1
+		;;
+esac
+
+gh-remote-add "$username"
+
+git switch --track -c "gh/$username/$branch" "$username/$branch"

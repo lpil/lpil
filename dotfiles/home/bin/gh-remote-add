@@ -17,4 +17,9 @@ else
 	repo=$2
 fi
 
+if git remote get-url "$username" > /dev/null 2>&1; then
+    git fetch "$username"
+	exit 0
+fi
+
 git remote add -f "$username" "git@github.com:$username/$repo.git"
