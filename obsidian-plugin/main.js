@@ -39,22 +39,22 @@ class LpilPlugin extends Plugin {
 
   async onChanged(file) {
     await this.dataNote(file, "exercise/log/sessions/", (fm) => {
-      fm.start ||= localTimestamp(new Date());
+      fm.start ??= localTimestamp(new Date());
       const filename =
         fm.location && `${readableTimestamp(fm.start)} ${fm.location}`;
       return { filename };
     });
 
     await this.dataNote(file, "exercise/log/circuits/", (fm) => {
-      fm.time ||= localTimestamp(new Date());
-      fm.sets ||= 1;
+      fm.time ??= localTimestamp(new Date());
+      fm.sets ??= 0;
       const filename =
         fm.exercise && `${readableTimestamp(fm.time)} ${fm.exercise}`;
       return { filename };
     });
 
     await this.dataNote(file, "exercise/log/bike rides/", (fm) => {
-      fm.start ||= localTimestamp(new Date());
+      fm.start ??= localTimestamp(new Date());
       const filename =
         fm.from &&
         fm.to &&
@@ -63,13 +63,13 @@ class LpilPlugin extends Plugin {
     });
 
     await this.dataNote(file, "exercise/log/grip strength/", (fm) => {
-      fm.time ||= localTimestamp(new Date());
+      fm.time ??= localTimestamp(new Date());
       const filename = readableTimestamp(fm.time);
       return { filename };
     });
 
     await this.dataNote(file, "exercise/log/spending/", (fm) => {
-      fm.date ||= localTimestamp(new Date());
+      fm.date ??= localTimestamp(new Date());
       const filename =
         fm.payee &&
         fm.item &&
@@ -78,13 +78,13 @@ class LpilPlugin extends Plugin {
     });
 
     await this.dataNote(file, "exercise/log/sends/", (fm) => {
-      fm.date ||= localTimestamp(new Date());
+      fm.date ??= localTimestamp(new Date());
       const filename = fm.grade && `${readableDate(fm.date)} ${fm.grade}`;
       return { filename };
     });
 
     await this.dataNote(file, "home/meter readings/", (fm) => {
-      fm.date ||= readableDate(new Date());
+      fm.date ??= readableDate(new Date());
       const filename = `${readableDate(fm.date)}`;
       return { filename };
     });
