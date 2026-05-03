@@ -52,6 +52,6 @@ echo "Squashing into a single commit..."
 git reset --soft "$start_commit"
 git commit \
     --author="$author_name <$author_email>" \
-    --message="chore: update dependencies ($today)"
+    --message="Update dependencies"
 
 echo "Done! Branch '$branch' is ready."
