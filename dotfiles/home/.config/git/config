@@ -7,7 +7,8 @@
 
 [core]
   excludesfile = ~/.config/git/ignore
-	pager = less -S --tabs 4
+  ; pager = less -S --tabs 4
+  pager = delta
 
 [push]
   default = simple
@@ -47,3 +48,12 @@
   autoupdate = true
 [checkout]
   defaultRemote = origin
+
+[interactive]
+  diffFilter = delta --color-only
+
+[delta]
+  navigate = true  # use n and N to move between diff sections
+
+[merge]
+  conflictStyle = zdiff3
