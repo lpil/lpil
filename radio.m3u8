@@ -41,11 +41,11 @@ http://as-hls-ww-live.akamaized.net/pool_904/live/ww/bbc_london/bbc_london.isml/
 
 #RADIOBROWSERUUID:40e4d577-5bbd-11e9-a622-52543be04c81
 #EXTINF:-1,24-7 Best Of The 80's
-http://www.24-7nicheradio.com:8270/;
+http://antares.dribbcast.com:4424/stream/1/
 
 #RADIOBROWSERUUID:031921ad-bf76-11e9-8502-52543be04c81
 #EXTINF:-1,24-7 Reggae
-http://24-7nicheradio.com:8200/
+http://antares.dribbcast.com:4346/stream/1/
 
 #RADIOBROWSERUUID:96200095-0601-11e8-ae97-52543be04c81
 #EXTINF:-1,Capital FM London
