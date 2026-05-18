@@ -29,5 +29,7 @@ git switch --track -c "gh/$username/$branch" "$username/$branch"
 # name (branch), so git push cannot infer the destination. This refspec
 # explicitly maps the local name to the remote name so that plain
 # `git push` and `git push --force-with-lease` work without extra arguments.
-git config --add "remote.$username.push" \
-	"refs/heads/gh/$username/$branch:refs/heads/$branch"
+refspec="refs/heads/gh/$username/$branch:refs/heads/$branch"
+if ! git config --get-all "remote.$username.push" | grep -Fxq "$refspec"; then
+    git config --add "remote.$username.push" "$refspec"
+fi
