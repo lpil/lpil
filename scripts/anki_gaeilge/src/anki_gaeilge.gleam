@@ -14,6 +14,7 @@ import shellout
 import simplifile
 
 pub fn main() {
+  // let deck = "0 Irish::lpil::CityLit Irish::Beginners module 2"
   let deck = "0 Irish::lpil::CityLit Irish::Beginners module 3"
   // let deck = "test-deck-plz-ignore"
 
