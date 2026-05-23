@@ -26,7 +26,10 @@ vim.keymap.set("n", "L", function() next_non_open_buffer("bnext") end,
 vim.keymap.set("n", "H", function() next_non_open_buffer("bprevious") end,
   { desc = "Previous buffer" })
 
-vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
+vim.keymap.set("n", "<Esc>", function() 
+  vim.lsp.buf.clear_references()
+  vim.cmd("nohlsearch")
+end)
 
 local function close_buffer()
   local window_count = #vim.api.nvim_tabpage_list_wins(0)

@@ -14,3 +14,32 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end
   end,
 })
+
+-- Highlight references
+vim.api.nvim_set_hl(0, "LspReferenceText",  { link = "Search" })
+vim.api.nvim_set_hl(0, "LspReferenceRead",  { link = "Search" })
+vim.api.nvim_set_hl(0, "LspReferenceWrite", { link = "Search" })
+
+-- Highlight references, then clear on next keypress
+vim.keymap.set("n", "grh", function()
+  vim.lsp.buf.document_highlight()
+
+  -- Create a one-shot autocmd to clear on next keypress
+  local group = vim.api.nvim_create_augroup("lsp_highlight_once", { clear = true })
+
+  vim.api.nvim_create_autocmd("CursorMoved", {
+    group = group,
+    once = true,
+    callback = function()
+      vim.lsp.buf.clear_references()
+    end,
+  })
+
+  vim.api.nvim_create_autocmd("InsertEnter", {
+    group = group,
+    once = true,
+    callback = function()
+      vim.lsp.buf.clear_references()
+    end,
+  })
+end, { desc = "LSP highlight references (until next move)" })
