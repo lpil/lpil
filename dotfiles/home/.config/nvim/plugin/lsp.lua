@@ -5,12 +5,23 @@ vim.lsp.enable({
 })
 
 vim.api.nvim_create_autocmd("LspAttach", {
-  callback = function(args)
-    local client = vim.lsp.get_client_by_id(args.data.client_id)
-    if client and client:supports_method("textDocument/completion") then
-      vim.lsp.completion.enable(true, client.id, args.buf, {
+  group = vim.api.nvim_create_augroup("lpil-lsp-attach", { clear = true }),
+  callback = function(event)
+    local client = vim.lsp.get_client_by_id(event.data.client_id)
+    if not client then
+      return
+    end
+
+    if client:supports_method("textDocument/completion") then
+      vim.lsp.completion.enable(true, client.id, event.buf, {
         autotrigger = true, -- triggers automatically as you type
       })
+    end
+
+    if client:supports_method("textDocument/inlayHint", event.buf) then
+      vim.keymap.set("n", "<leader>th", function()
+        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
+      end, { desc = "Toggle inlay hints" })
     end
   end,
 })
@@ -43,3 +54,4 @@ vim.keymap.set("n", "grh", function()
     end,
   })
 end, { desc = "LSP highlight references (until next move)" })
+
