@@ -1,5 +1,6 @@
 import abair
 import ankiconnect
+import argv
 import gleam/bool
 import gleam/dict
 import gleam/http/request.{type Request}
@@ -13,11 +14,77 @@ import input
 import shellout
 import simplifile
 
-pub fn main() {
-  // let deck = "0 Irish::lpil::CityLit Irish::Beginners module 2"
-  let deck = "0 Irish::lpil::CityLit Irish::Beginners module 3"
-  // let deck = "test-deck-plz-ignore"
+// const deck_to_add_to = deck_test
+const deck_to_add_to = deck_module_3
 
+const deck_module_1 = "0 Irish::lpil::CityLit Irish::Beginners module 1"
+
+const deck_module_2 = "0 Irish::lpil::CityLit Irish::Beginners module 2"
+
+const deck_module_3 = "0 Irish::lpil::CityLit Irish::Beginners module 3"
+
+const all_decks = [
+  deck_module_1,
+  deck_module_2,
+  deck_module_3,
+  deck_test,
+]
+
+const deck_test = "test-deck-plz-ignore"
+
+pub fn main() {
+  case argv.load().arguments {
+    ["add-audio"] -> list.each(all_decks, add_audio)
+    ["add-page", path] -> add_page(path)
+    _ -> panic as "unexpected CLI argument"
+  }
+}
+
+fn add_page(path: String) -> Nil {
+  let assert Ok(text) = simplifile.read(path) as "reading file"
+  io.println("Adding to " <> deck_to_add_to)
+  text
+  |> string.trim
+  |> string.split("\n\n")
+  |> list.filter(fn(item) { item != "" })
+  |> list.each(add_item)
+}
+
+fn add_item(text: String) -> Nil {
+  let assert [gaeilge, ..berla] = string.split(text, "\n")
+  let berla = berla |> list.map(string.trim) |> string.join("\n<br>\n")
+  io.println(
+    "\nGaeilge: "
+    <> string.inspect(gaeilge)
+    <> "\nBérla:   "
+    <> string.inspect(berla),
+  )
+
+  let assert Ok(answer) = input.input("Add note? [Yn] ")
+  let skip = answer != "" && answer != "y"
+  use <- bool.guard(skip, Nil)
+
+  let id =
+    ankiconnect.NewNote(
+      deck_name: deck_to_add_to,
+      model_name: "Basic (and reversed card)",
+      fields: dict.from_list([
+        #("Front", gaeilge),
+        #("Back", berla),
+      ]),
+      tags: [],
+      audio: [],
+      video: [],
+      picture: [],
+    )
+    |> ankiconnect.add_note_request
+    |> assert_send(ankiconnect.add_note_response)
+
+  io.println("Added #" <> int.to_string(id))
+  Nil
+}
+
+fn add_audio(deck: String) -> Nil {
   let all_notes =
     ankiconnect.notes_info_query_request(
       "deck:\"" <> deck <> "\" -[sound -tag:no-audio",
