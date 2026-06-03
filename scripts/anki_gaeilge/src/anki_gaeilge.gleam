@@ -9,6 +9,8 @@ import gleam/httpc
 import gleam/int
 import gleam/io
 import gleam/list
+import gleam/pair
+import gleam/result
 import gleam/string
 import input
 import shellout
@@ -45,6 +47,9 @@ fn add_page(path: String) -> Nil {
   io.println("Adding to " <> deck_to_add_to)
   text
   |> string.trim
+  |> string.split_once("---")
+  |> result.map(pair.first)
+  |> result.unwrap(text)
   |> string.split("\n\n")
   |> list.filter(fn(item) { item != "" })
   |> list.each(add_item)
