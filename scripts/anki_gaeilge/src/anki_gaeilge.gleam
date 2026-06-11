@@ -25,11 +25,14 @@ const deck_module_2 = "0 Irish::lpil::CityLit Irish::Beginners module 2"
 
 const deck_module_3 = "0 Irish::lpil::CityLit Irish::Beginners module 3"
 
+const deck_misc_irish = "0 Irish::lpil::Misc Irish"
+
 const all_decks = [
   deck_module_1,
   deck_module_2,
   deck_module_3,
   deck_test,
+  deck_misc_irish,
 ]
 
 const deck_test = "test-deck-plz-ignore"
