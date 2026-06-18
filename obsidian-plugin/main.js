@@ -28,7 +28,12 @@ class LpilPlugin extends Plugin {
     const time = new Date();
     for (const exercise of exercises) {
       const filename = `${readableTimestamp(time)} ${exercise}`.replace(/[\/\\:]+/g, "-");
-      const content = `---\nexercise: ${exercise}\ntime: ${localTimestamp(time)}\n---\n`;
+      const content = `---
+exercise: ${exercise}
+sets: 0
+time: ${localTimestamp(time)}
+---
+`;
       await this.app.vault.create(
         `exercise/log/circuits/${filename}.md`,
         content,
@@ -47,7 +52,7 @@ class LpilPlugin extends Plugin {
 
     await this.dataNote(file, "exercise/log/circuits/", (fm) => {
       fm.time ??= localTimestamp(new Date());
-      fm.sets ??= 0;
+      fm.sets ??= 1;
       const filename =
         fm.exercise && `${readableTimestamp(fm.time)} ${fm.exercise}`;
       return { filename };
