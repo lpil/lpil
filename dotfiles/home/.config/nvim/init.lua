@@ -38,6 +38,9 @@ vim.cmd.colorscheme("duskfox")
 -- Auto-close parens, etc
 require("mini.pairs").setup()
 
+-- Edit surrounding such quotes
+require("mini.surround").setup()
+
 -- Show buffers as tabs
 require("mini.tabline").setup()
 
