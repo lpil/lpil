@@ -1,0 +1,13 @@
+[Unit]
+Description=Mosquitto MQTT server
+After=local-fs.target
+Documentation=https://hub.docker.com/_/eclipse-mosquitto/
+
+[Container]
+Image=docker.io/eclipse-mosquitto:2.1.2-alpine
+Network=host
+
+Volume=/mnt/data/mosquitto:/mosquitto:rw,z
+
+[Install]
+WantedBy=multi-user.target default.target

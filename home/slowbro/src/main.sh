@@ -17,10 +17,12 @@ set +a
 . ./cloudflare_tunnel.sh
 . ./immich.sh
 . ./syncthing.sh
+. ./mosquitto.sh
 
 install_caddy
 install_cloudflare_tunnel
 install_immich
 install_syncthing
+install_mosquitto
 
 echo Up to date ✨
