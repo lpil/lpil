@@ -18,11 +18,13 @@ set +a
 . ./immich.sh
 . ./syncthing.sh
 . ./mosquitto.sh
+. ./zigbee2mqtt.sh
 
 install_caddy
 install_cloudflare_tunnel
 install_immich
 install_syncthing
 install_mosquitto
+install_zigbee2mqtt
 
 echo Up to date ✨

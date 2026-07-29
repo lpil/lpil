@@ -1,0 +1,19 @@
+[Unit]
+Description=Zigbee2MQTT
+After=local-fs.target mosquitto.service
+Documentation=https://www.zigbee2mqtt.io/
+
+[Container]
+Image=ghcr.io/koenkk/zigbee2mqtt:2.12.1
+Network=host
+
+Volume=/mnt/data/zigbee2mqtt/data:/app/data:rw,z
+Volume=/run/udev:/run/udev:ro
+
+Environment=TZ=Europe/London
+
+#Device=/dev/ttyACM0
+AddDevice=/dev/serial/by-id/usb-1a86_USB_Serial-if00-port0:/dev/ttyACM0
+
+[Install]
+WantedBy=multi-user.target default.target
