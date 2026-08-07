@@ -20,5 +20,5 @@ homeassistant:
 onboarding: false
 devices:
   '0xa4c138ee43bc62da':
-    friendly_name: main bedroom thermometer 0
+    friendly_name: climate/main bedroom 0
     humidity_calibration: 4
