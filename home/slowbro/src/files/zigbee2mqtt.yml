@@ -12,6 +12,8 @@ advanced:
   log_output:
     - console
   enable_external_js: false
+  elapsed: true
+  last_seen: ISO_8601
 frontend:
   enabled: true
   port: 8080
