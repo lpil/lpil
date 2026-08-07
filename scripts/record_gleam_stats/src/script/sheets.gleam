@@ -103,9 +103,6 @@ pub type Row {
     approximate_discord_member_count: Int,
     stdlib_all_downloads: Int,
     stdlib_recent_downloads: Int,
-    exercism_students_count: Int,
-    exercism_submissions_count: Int,
-    exercism_mentoring_discussions_count: Int,
     site_thirty_day_visitors: Int,
     site_thirty_day_pageviews: Int,
   )
@@ -122,9 +119,10 @@ pub fn append_current_income(row: Row, config: Config) -> Result(Nil, Error) {
     json.int(row.stdlib_recent_downloads),
     json.int(row.site_thirty_day_visitors),
     json.int(row.site_thirty_day_pageviews),
-    json.int(row.exercism_students_count),
-    json.int(row.exercism_submissions_count),
-    json.int(row.exercism_mentoring_discussions_count),
+    // These are the 3 exercism rows that we can no longer get values for.
+    json.string(""),
+    json.string(""),
+    json.string(""),
   ]
   append_row(sheet_name, row, config)
 }

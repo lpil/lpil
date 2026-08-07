@@ -1,7 +1,6 @@
 import gleam/io
 import script/config
 import script/discord
-import script/exercism
 import script/github
 import script/hex
 import script/plausible
@@ -20,9 +19,6 @@ pub fn main() {
   io.println("Querying Hex")
   let assert Ok(#(stdlib_all, stdlib_recent)) = hex.get_stdlib_counts()
 
-  io.println("Querying Exercism")
-  let assert Ok(exercism) = exercism.get_track_information()
-
   io.println("Querying Plausible")
   let assert Ok(plausible) = plausible.get_stats(config)
 
@@ -34,9 +30,6 @@ pub fn main() {
       approximate_discord_member_count: members,
       stdlib_all_downloads: stdlib_all,
       stdlib_recent_downloads: stdlib_recent,
-      exercism_students_count: exercism.students_count,
-      exercism_submissions_count: exercism.submissions_count,
-      exercism_mentoring_discussions_count: exercism.mentoring_discussions_count,
       site_thirty_day_pageviews: plausible.thirty_day_pageviews,
       site_thirty_day_visitors: plausible.thirty_day_visitors,
     )
