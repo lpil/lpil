@@ -11,10 +11,14 @@ advanced:
   log_level: info
   log_output:
     - console
-  enable_external_js: true
+  enable_external_js: false
 frontend:
-  enabled: false
+  enabled: true
   port: 8080
 homeassistant:
   enabled: false
 onboarding: false
+devices:
+  '0xa4c138ee43bc62da':
+    friendly_name: main bedroom thermometer 0
+    humidity_calibration: 4
