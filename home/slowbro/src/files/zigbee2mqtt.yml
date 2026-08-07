@@ -20,6 +20,8 @@ frontend:
 homeassistant:
   enabled: false
 onboarding: false
+device_options:
+    retain: true
 devices:
   '0xa4c138ee43bc62da':
     friendly_name: climate/main bedroom 0
