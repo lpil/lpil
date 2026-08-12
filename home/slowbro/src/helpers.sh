@@ -24,7 +24,7 @@ podman_quadlet() {
   local name=$1
 
   if
-    copy_file "$name" "/etc/containers/systemd/$name"
+    copy_template "$name" "/etc/containers/systemd/$name"
   then
     systemd_reload
     return 0
@@ -37,7 +37,7 @@ systemd_service() {
   local name=$1
 
   if
-    copy_file "$name" "/etc/systemd/system/$name"
+    copy_template "$name" "/etc/systemd/system/$name"
   then
     systemd_reload
     return 0
@@ -58,6 +58,23 @@ systemd_restart() {
 }
 
 copy_file() {
+  local file_name="$1"
+  local destination="$2"
+  local permission=${3:-644}
+  local source="files/$file_name"
+
+  if ! cmp --silent "$source" "$destination"; then
+    echo Updating $destination
+    show_diff "$source" "$destination"
+    sudo install -D -m "$permission" -o root -g root "$source" "$destination"
+    return 0
+  else
+    return 1
+  fi
+
+}
+
+copy_template() {
   local file_name="$1"
   local destination="$2"
   local permission=${3:-644}

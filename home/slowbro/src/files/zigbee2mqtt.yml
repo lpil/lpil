@@ -11,7 +11,8 @@ advanced:
   log_level: info
   log_output:
     - console
-  enable_external_js: false
+  # For the custom extension that records events
+  enable_external_js: true
   elapsed: true
   last_seen: ISO_8601
 frontend:

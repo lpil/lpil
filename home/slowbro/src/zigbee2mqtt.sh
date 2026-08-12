@@ -7,9 +7,10 @@ set -eu
 install_zigbee2mqtt() {
   echo === Zigbee2MQTT ===
 
-  sudo mkdir -m 777 -p /mnt/data/zigbee2mqtt/data
+  sudo mkdir -m 777 -p /mnt/data/zigbee2mqtt/data/external_extensions
 
-  copy_file zigbee2mqtt.yml /mnt/data/zigbee2mqtt/data/configuration.yaml 444 && updated=0
+  copy_template zigbee2mqtt.yml /mnt/data/zigbee2mqtt/data/configuration.yaml 444 && updated=0
+  copy_file zigbee2mqtt-extension.mjs /mnt/data/zigbee2mqtt/data/external_extensions/zigbee2mqtt-extension.mjs 444 && updated=0
   podman_quadlet_container zigbee2mqtt && updated=0
 
   if
