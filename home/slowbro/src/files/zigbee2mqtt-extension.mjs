@@ -47,6 +47,7 @@ export default class LpilEventRecordingExtension {
 
     // Remove unwanted fields
     const fullPayload = JSON.parse(data.payload);
+    delete fullPayload.elapsed;
     delete fullPayload.last_seen;
     const payload = JSON.stringify(fullPayload)
 
