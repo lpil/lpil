@@ -49,7 +49,11 @@ export default class LpilEventRecordingExtension {
     const fullPayload = JSON.parse(data.payload);
     delete fullPayload.elapsed;
     delete fullPayload.last_seen;
-    const payload = JSON.stringify(fullPayload)
+
+    // Do not record empty payloads
+    if (!fullPayload) {
+      return;
+    }
 
     const topic = data.topic
       // Remove prefix
@@ -57,6 +61,7 @@ export default class LpilEventRecordingExtension {
       // Remove tabs that would break the TSV format
       .replaceAll("\t", " ");
 
+    const payload = JSON.stringify(fullPayload)
     const line = `${Date.now()}\t${topic}\t${payload}\n`;
     const date = new Date().toISOString().slice(0, '2026-08-12'.length);
     const path = joinPath(recordDirectory, date + ".tsv");
