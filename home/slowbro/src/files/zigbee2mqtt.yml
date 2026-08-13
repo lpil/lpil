@@ -25,5 +25,19 @@ device_options:
     retain: true
 devices:
   '0xa4c138ee43bc62da':
-    friendly_name: climate/main bedroom 0
+    friendly_name: climate/main bedroom
     humidity_calibration: 4
+    description: 'id: 0'
+  '0x60a423fffe45811e':
+    friendly_name: plug/living room
+    measurement_poll_interval: 600
+    description: 'id: 0'
+  '0xa4c1385dce6ec4a8':
+    friendly_name: climate/living room
+    description: 'id: 1'
+  '0xa4c138fd74d84448':
+    friendly_name: climate/kitchen
+    description: 'id: 2'
+  '0xa4c138d0400250fb':
+    friendly_name: climate/second bedroom
+    description: 'id: 2'
