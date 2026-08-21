@@ -1,7 +1,7 @@
 import { appendFileSync, mkdirSync, existsSync } from 'node:fs';
 import { join as joinPath } from 'node:path';
 
-const recordDirectory = "/app/data/record"
+const recordDirectory = "/record"
 
 export default class LpilEventRecordingExtension {
   constructor(
@@ -29,9 +29,7 @@ export default class LpilEventRecordingExtension {
   }
 
   async start() {
-    if (!existsSync(recordDirectory)) {
-      mkdirSync(recordDirectory);
-    }
+    ensureDirectory(recordDirectory);
     this.eventBus.onMQTTMessagePublished(this, data => {
       this.onMQTTMessagePublished(data)
     });
@@ -61,11 +59,27 @@ export default class LpilEventRecordingExtension {
       // Remove tabs that would break the TSV format
       .replaceAll("\t", " ");
 
-    const payload = JSON.stringify(fullPayload)
-    const line = `${Date.now()}\t${topic}\t${payload}\n`;
-    const date = new Date().toISOString().slice(0, '2026-08-12'.length);
-    const path = joinPath(recordDirectory, date + ".tsv");
+    const now = new Date();
+    const [year, month, day] = new Date()
+      .toISOString()
+      .slice(0, "2026-08-12".length)
+      .split("-");
+    const yearDirectory = joinPath(recordDirectory, year);
+    ensureDirectory(yearDirectory);
+    const monthDirectory = joinPath(yearDirectory, month);
+    ensureDirectory(monthDirectory);
+
+    const unixMs = now.getTime();
+    const payload = JSON.stringify(fullPayload);
+    const line = `${unixMs}\t${topic}\t${payload}\n`;
+    const path = joinPath(monthDirectory, day + ".tsv");
 
     appendFileSync(path, line);
+  }
+}
+
+function ensureDirectory(path) {
+  if (!existsSync(path)) {
+    mkdirSync(path);
   }
 }

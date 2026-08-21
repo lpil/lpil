@@ -7,6 +7,7 @@ Documentation=https://www.zigbee2mqtt.io/
 Image=ghcr.io/koenkk/zigbee2mqtt:2.12.1
 Network=host
 
+Volume=/mnt/data/sync-data/zigbee-record:/record:rw,z
 Volume=/mnt/data/zigbee2mqtt/data:/app/data:rw,z
 Volume=/run/udev:/run/udev:ro
 
