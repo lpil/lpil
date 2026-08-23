@@ -4,10 +4,7 @@ After=local-fs.target
 
 [Container]
 Image=docker.io/caddy:2.8.4
-PublishPort=80:80
-PublishPort=443:443
-PublishPort=443:443/udp
-Network=caddy.network
+Network=host
 
 Volume=/mnt/data/caddy/Caddyfile:/etc/caddy/Caddyfile:ro,z
 Volume=/mnt/data/caddy/data:/data:rw,z

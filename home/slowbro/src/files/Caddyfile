@@ -1,6 +1,4 @@
-(common) {
-	log
-
+(cloudflare-tunnel) {
 	# Redirect all HTTP to HTTPS (using the tunnel's header).
 	# Cloudflare handles TLS via its tunnel so Caddy doesn't need to, but we
 	# still want to redirect HTTP to HTTPS here.
@@ -8,13 +6,41 @@
 	redir @insecure https://{host}{uri}
 }
 
-http://developer-survey.gleam.run {
-	import common
-	reverse_proxy systemd-gleam-developer-survey:8000
-}
-
 http://caddy.lpil.uk {
-	import common
+	import cloudflare-tunnel
+	log
 	templates
 	respond "{{ .Req }}"
+}
+
+slowbro.lpil.uk,
+http://slowbro.lpil.uk {
+	tls internal
+
+	# handle /record/* {
+	# 	root * /path/to/records
+	# 	file_server
+	# }
+
+	handle {
+		respond "Hello, Joe!"
+	}
+}
+
+immich.slowbro.lpil.uk,
+http://immich.slowbro.lpil.uk {
+	tls internal
+	reverse_proxy localhost:8001
+}
+
+syncthing.slowbro.lpil.uk,
+http://syncthing.slowbro.lpil.uk {
+	tls internal
+	reverse_proxy localhost:8384
+}
+
+zigbee2mqtt.slowbro.lpil.uk,
+http://zigbee2mqtt.slowbro.lpil.uk {
+	tls internal
+	reverse_proxy localhost:8080
 }
