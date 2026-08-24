@@ -13,6 +13,7 @@ set -a
 set +a
 
 . ./helpers.sh
+. ./dnsmasq.sh
 . ./caddy.sh
 . ./cloudflare_tunnel.sh
 . ./immich.sh
@@ -20,6 +21,7 @@ set +a
 . ./mosquitto.sh
 . ./zigbee2mqtt.sh
 
+install_dnsmasq
 install_caddy
 install_cloudflare_tunnel
 install_immich

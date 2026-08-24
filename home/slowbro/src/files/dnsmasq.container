@@ -1,0 +1,12 @@
+[Unit]
+Description=dnsmasq forwarding DNS server 
+After=local-fs.target
+
+[Container]
+Image=dockurr/dnsmasq:2.93
+Network=host
+
+Volume=/mnt/data/dnsmasq/dnsmasq.conf:/etc/dnsmasq.conf:ro,z
+
+[Install]
+WantedBy=multi-user.target default.target

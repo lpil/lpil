@@ -13,8 +13,7 @@ http://caddy.lpil.uk {
 	respond "{{ .Req }}"
 }
 
-slowbro.lpil.uk,
-http://slowbro.lpil.uk {
+slowbro.lpil.uk {
 	tls internal
 
 	# handle /record/* {
@@ -42,20 +41,17 @@ http://slowbro.lpil.uk {
 	}
 }
 
-immich.slowbro.lpil.uk,
-http://immich.slowbro.lpil.uk {
+immich.slowbro.lpil.uk {
 	tls internal
 	reverse_proxy localhost:8001
 }
 
-syncthing.slowbro.lpil.uk,
-http://syncthing.slowbro.lpil.uk {
+syncthing.slowbro.lpil.uk {
 	tls internal
 	reverse_proxy localhost:8384
 }
 
-zigbee2mqtt.slowbro.lpil.uk,
-http://zigbee2mqtt.slowbro.lpil.uk {
+zigbee2mqtt.slowbro.lpil.uk {
 	tls internal
 	reverse_proxy localhost:8080
 }
