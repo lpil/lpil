@@ -9,6 +9,7 @@ Network=host
 Volume=/mnt/data/caddy/Caddyfile:/etc/caddy/Caddyfile:ro,z
 Volume=/mnt/data/caddy/data:/data:rw,z
 Volume=/mnt/data/caddy/config:/config:rw,z
+Volume=/mnt/data/sync-data/zigbee-record:/zigbee-record:ro,z
 
 [Install]
 WantedBy=multi-user.target default.target

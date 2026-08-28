@@ -16,12 +16,15 @@ http://caddy.lpil.uk {
 slowbro.lpil.uk {
 	tls internal
 
-	# handle /record/* {
-	# 	root * /path/to/records
-	# 	file_server
-	# }
+	handle /zigbee-record/* {
+		file_server {
+			browse
+			root /zigbee-record
+			pass_thru
+		}
+	}
 
-	handle {
+	handle / {
 		header "content-type" "text/html"
 		respond <<HTML
         <!doctype html>
@@ -38,6 +41,12 @@ slowbro.lpil.uk {
         </body>
         </html>
         HTML
+	}
+
+	handle {
+		respond <<TXT
+		There's nothing here...
+		TXT 404
 	}
 }
 
