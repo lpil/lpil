@@ -56,7 +56,7 @@ export default class LpilEventRecordingExtension {
     const topic = data.topic
       // Remove prefix
       .replace(/^zigbee2mqtt\//, "")
-      // Remove tabs that would break the TSV format
+      // Remove tabs that would be confused for delimiters
       .replaceAll("\t", " ");
 
     const now = new Date();
@@ -72,7 +72,7 @@ export default class LpilEventRecordingExtension {
     const unixMs = now.getTime();
     const payload = JSON.stringify(fullPayload);
     const line = `${unixMs}\t${topic}\t${payload}\n`;
-    const path = joinPath(monthDirectory, day + ".tsv");
+    const path = joinPath(monthDirectory, day + ".log");
 
     appendFileSync(path, line);
   }
