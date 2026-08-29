@@ -20,6 +20,7 @@ set +a
 . ./syncthing.sh
 . ./mosquitto.sh
 . ./zigbee2mqtt.sh
+. ./mpd.sh
 
 install_dnsmasq
 install_caddy
@@ -28,5 +29,6 @@ install_immich
 install_syncthing
 install_mosquitto
 install_zigbee2mqtt
+install_mpd
 
 echo Up to date ✨

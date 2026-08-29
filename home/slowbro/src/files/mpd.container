@@ -1,0 +1,23 @@
+[Unit]
+Description=mpd
+After=local-fs.target
+Documentation=https://github.com/Tob1as/docker-mpd
+
+[Container]
+Image=docker.io/tobi312/rpi-mpd@sha256:35086a1d88b2b3435174ca22d5e50909314fe192e54e10b544f8debf8c8538b7
+
+AddCapability=sys_nice
+
+Volume=/mnt/data/mpd/mpd.conf:/etc/mpd.conf:ro,z
+Volume=/mnt/data/mpd/data:/data:rw,z
+Volume=/mnt/data/sync-data/data/music:/music:ro,z
+Volume=/mnt/data/sync-data/data/playlists:/playlists:rw,z
+
+# mpd API
+PublishPort=6600:6600
+
+# HTTP audio stream
+PublishPort=8002:8000
+
+[Install]
+WantedBy=multi-user.target default.target

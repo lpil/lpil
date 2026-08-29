@@ -37,6 +37,7 @@ slowbro.lpil.uk {
             <li><a href="https://immich.slowbro.lpil.uk">Immich</a>
             <li><a href="https://syncthing.slowbro.lpil.uk">Syncthing</a>
             <li><a href="https://zigbee2mqtt.slowbro.lpil.uk">Zigbee2mqtt</a>
+            <li><a href="https://mpd.slowbro.lpil.uk">mpd stream</a>
           </ul>
         </body>
         </html>
@@ -63,4 +64,9 @@ syncthing.slowbro.lpil.uk {
 zigbee2mqtt.slowbro.lpil.uk {
 	tls internal
 	reverse_proxy localhost:8080
+}
+
+mpd.slowbro.lpil.uk {
+	tls internal
+	reverse_proxy localhost:8002
 }
