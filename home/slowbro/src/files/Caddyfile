@@ -37,11 +37,18 @@ slowbro.lpil.uk {
             <li><a href="https://immich.slowbro.lpil.uk">Immich</a>
             <li><a href="https://syncthing.slowbro.lpil.uk">Syncthing</a>
             <li><a href="https://zigbee2mqtt.slowbro.lpil.uk">Zigbee2mqtt</a>
-            <li><a href="https://mpd.slowbro.lpil.uk">mpd stream</a>
+            <li>mpd stream (<a href="https://mpd.slowbro.lpil.uk">URL</a>) (<a href="/slowbro.m3u">.m3u</a>)
           </ul>
         </body>
         </html>
         HTML
+	}
+
+	handle /slowbro.m3u {
+		respond <<FILE
+		#EXTM3U
+		http://mpd.slowbro.lpil.uk/
+		FILE
 	}
 
 	handle {
