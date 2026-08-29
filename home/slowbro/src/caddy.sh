@@ -7,6 +7,8 @@ set -eu
 install_caddy() {
   echo === Caddy reverse proxy ===
 
+  unset updated
+
   sudo mkdir -p /mnt/data/caddy/data
   sudo mkdir -p /mnt/data/caddy/config
 

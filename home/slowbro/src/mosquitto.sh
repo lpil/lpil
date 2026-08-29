@@ -5,7 +5,9 @@ set -eu
 . ./helpers.sh
 
 install_mosquitto() {
-  echo === Mosquitto ===
+  echo === Mosquitto MQTT broker ===
+
+  unset updated
 
   sudo mkdir -m 777 -p /mnt/data/mosquitto/config
 

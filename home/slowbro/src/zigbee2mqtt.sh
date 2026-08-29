@@ -7,6 +7,8 @@ set -eu
 install_zigbee2mqtt() {
   echo === Zigbee2MQTT ===
 
+  unset updated
+
   sudo mkdir -m 755 -p /mnt/data/zigbee2mqtt/data/external_extensions
   sudo mkdir -m 755 -p /mnt/data/sync-data/zigbee-record
 

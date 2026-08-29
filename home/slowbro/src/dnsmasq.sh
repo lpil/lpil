@@ -7,6 +7,8 @@ set -eu
 install_dnsmasq() {
   echo === dnsmasq DNS server ===
 
+  unset updated
+
   sudo mkdir -p /mnt/data/dnsmasq/
 
   copy_file dnsmasq.conf /mnt/data/dnsmasq/dnsmasq.conf 444 && updated=0
