@@ -15,7 +15,10 @@ pub fn parse(input: String) -> Result(List(Event), Nil) {
     |> list.map(string.split(_, "\t"))
     |> list.filter(fn(line) { line != [""] })
 
-  list.try_map(rows, se_row(co: List(String)) -> Result(Event, Nil) {
+  list.try_map(rows, fn(row) { parse_row(row) })
+}
+
+fn parse_row(columns: List(String)) -> Result(Event, Nil) {
   use #(unix_ms, topic, payload) <- result.try(case columns {
     [timestamp, topic, payload] -> Ok(#(timestamp, topic, payload))
     _ -> Error(Nil)

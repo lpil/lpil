@@ -1,0 +1,71 @@
+@import "./reset.css";
+@import "./fonts.css";
+
+:root {
+  --black: #000000;
+  --red: #ff0000;
+  --green: #00ff00;
+  --yellow: #ffff00;
+  --blue: #0000ff;
+  --magenta: #ff00ff;
+  --cyan: #00ffff;
+  --white: #ffffff;
+  --line-height: calc(1em + 5px);
+}
+
+body {
+  background-color: var(--black);
+  color: var(--white);
+  font-size: 24px;
+  line-height: var(--line-height);
+  font-family: "Teletext50", monospace;
+
+  display: flex;
+  justify-content: center;
+  padding: 8px;
+  white-space: pre-wrap;
+}
+
+#app {
+  width: 40ch;
+}
+
+h1, h2 {
+  font-size: 2em;
+  line-height: var(--line-height);
+  font-stretch: ultra-condensed;
+  text-transform: uppercase;
+}
+
+a {
+  color: var(--yellow);
+}
+
+header, footer {
+  background-color: var(--blue);
+  color: var(--yellow);
+  padding: 0 0.25ch;
+}
+
+header h1 {
+  font-stretch: normal;
+  font-weight: bold;
+  text-shadow: 0px 5px 0px var(--black);
+}
+
+header span {
+  color: var(--cyan);
+  display: inline-block;
+  text-shadow: 0px 5px 0px var(--black);
+  margin-right: -0.25ch;
+}
+
+hr {
+  margin: 0.5em 0;
+  border-color: var(--blue);
+}
+
+ol {
+  list-style: decimal-leading-zero;
+  padding-left: 4ch;
+}

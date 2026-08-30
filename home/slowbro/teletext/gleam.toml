@@ -1,10 +1,16 @@
 name = "teletext"
 version = "1.0.0"
+target = "javascript"
 
 [dependencies]
 gleam_stdlib = ">= 1.0.0 and < 2.0.0"
 gleam_json = ">= 3.1.0 and < 4.0.0"
 gleam_time = ">= 1.10.0 and < 2.0.0"
+lustre = ">= 5.7.1 and < 6.0.0"
 
 [dev_dependencies]
 gleeunit = ">= 1.0.0 and < 2.0.0"
+lustre_dev_tools = ">= 2.3.6 and < 3.0.0"
+
+[tools.lustre.html]
+stylesheets = [{ href = "/styles/main.css" }]

@@ -1,0 +1,13 @@
+@font-face {
+  font-family: "Teletext50";
+  src: url("/Teletext50.woff2") format("woff2");
+  font-stretch: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Teletext50";
+  src: url("/Teletext50-ultracondensed.woff2") format("woff2");
+  font-stretch: ultra-condensed;
+  font-display: swap;
+}
