@@ -16,7 +16,7 @@
 body {
   background-color: var(--black);
   color: var(--white);
-  font-size: 12px;
+  font-size: round(down, clamp(8px, 3.9vw, 24px), 1px);
   line-height: var(--line-height);
   font-family: "Teletext50", monospace;
 
@@ -25,20 +25,6 @@ body {
   padding: 8px;
   white-space: pre-wrap;
 }
-
-@media (min-width: 300px) { body { font-size: 12px; } }
-@media (min-width: 325px) { body { font-size: 13px; } }
-@media (min-width: 350px) { body { font-size: 14px; } }
-@media (min-width: 375px) { body { font-size: 15px; } }
-@media (min-width: 400px) { body { font-size: 16px; } }
-@media (min-width: 425px) { body { font-size: 17px; } }
-@media (min-width: 450px) { body { font-size: 18px; } }
-@media (min-width: 475px) { body { font-size: 19px; } }
-@media (min-width: 500px) { body { font-size: 20px; } }
-@media (min-width: 525px) { body { font-size: 21px; } }
-@media (min-width: 550px) { body { font-size: 22px; } }
-@media (min-width: 575px) { body { font-size: 23px; } }
-@media (min-width: 600px) { body { font-size: 24px; } }
 
 #app {
   width: 40ch;
