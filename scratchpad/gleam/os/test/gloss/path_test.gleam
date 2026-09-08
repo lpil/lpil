@@ -644,3 +644,147 @@ pub fn join_windows_kind_is_always_preserved_test() {
     == path.kind_windows(left)
     as { "joining " <> left <> " to " <> right <> " should not change kind" }
 }
+
+pub fn file_name_unix_1_test() {
+  assert path.file_name_unix("one/two/three.txt") == Ok("three.txt")
+}
+
+pub fn file_name_unix_2_test() {
+  assert path.file_name_unix("three.txt") == Ok("three.txt")
+}
+
+pub fn file_name_unix_3_test() {
+  assert path.file_name_unix("/usr/local/bin/gleam") == Ok("gleam")
+}
+
+pub fn file_name_unix_4_test() {
+  assert path.file_name_unix("/gleam") == Ok("gleam")
+}
+
+pub fn file_name_unix_5_test() {
+  assert path.file_name_unix("one/.hidden") == Ok(".hidden")
+}
+
+pub fn file_name_unix_6_test() {
+  assert path.file_name_unix("archive.tar.gz") == Ok("archive.tar.gz")
+}
+
+pub fn file_name_unix_7_test() {
+  assert path.file_name_unix("one/...") == Ok("...")
+}
+
+pub fn file_name_unix_8_test() {
+  assert path.file_name_unix("") == Error(Nil)
+}
+
+pub fn file_name_unix_9_test() {
+  assert path.file_name_unix("/") == Error(Nil)
+}
+
+pub fn file_name_unix_10_test() {
+  assert path.file_name_unix("//") == Error(Nil)
+}
+
+pub fn file_name_unix_11_test() {
+  assert path.file_name_unix(".") == Error(Nil)
+}
+
+pub fn file_name_unix_12_test() {
+  assert path.file_name_unix("./.") == Error(Nil)
+}
+
+pub fn file_name_unix_13_test() {
+  assert path.file_name_unix("/.") == Error(Nil)
+}
+
+pub fn file_name_unix_14_test() {
+  assert path.file_name_unix("one/.") == Ok("one")
+}
+
+pub fn file_name_unix_15_test() {
+  assert path.file_name_unix("one/two/.") == Ok("two")
+}
+
+pub fn file_name_unix_16_test() {
+  assert path.file_name_unix("one/./.") == Ok("one")
+}
+
+pub fn file_name_unix_17_test() {
+  assert path.file_name_unix("./one") == Ok("one")
+}
+
+pub fn file_name_unix_18_test() {
+  assert path.file_name_unix("one/./two") == Ok("two")
+}
+
+pub fn file_name_unix_19_test() {
+  assert path.file_name_unix("..") == Error(Nil)
+}
+
+pub fn file_name_unix_20_test() {
+  assert path.file_name_unix("one/..") == Error(Nil)
+}
+
+pub fn file_name_unix_21_test() {
+  assert path.file_name_unix("../..") == Error(Nil)
+}
+
+pub fn file_name_unix_22_test() {
+  assert path.file_name_unix("one/../two") == Ok("two")
+}
+
+pub fn file_name_unix_23_test() {
+  assert path.file_name_unix("../one") == Ok("one")
+}
+
+pub fn file_name_unix_24_test() {
+  assert path.file_name_unix("one/two/") == Ok("two")
+}
+
+pub fn file_name_unix_25_test() {
+  assert path.file_name_unix("one/two//") == Ok("two")
+}
+
+pub fn file_name_unix_26_test() {
+  assert path.file_name_unix("/one/") == Ok("one")
+}
+
+pub fn file_name_unix_27_test() {
+  assert path.file_name_unix("one//two") == Ok("two")
+}
+
+pub fn file_name_unix_28_test() {
+  assert path.file_name_unix("one/./") == Ok("one")
+}
+
+pub fn file_name_unix_29_test() {
+  assert path.file_name_unix("one\\two") == Ok("one\\two")
+}
+
+pub fn file_name_unix_30_test() {
+  assert path.file_name_unix("one/two\\three") == Ok("two\\three")
+}
+
+pub fn file_name_unix_31_test() {
+  assert path.file_name_unix("C:\\one") == Ok("C:\\one")
+}
+
+pub fn file_name_unix_32_test() {
+  assert path.file_name_unix("one/\\") == Ok("\\")
+}
+
+pub fn file_name_unix_33_test() {
+  assert path.file_name_unix("one/.two.") == Ok(".two.")
+}
+
+pub fn file_name_unix_34_test() {
+  assert path.file_name_unix("one/..two") == Ok("..two")
+}
+
+pub fn file_name_unix_35_test() {
+  assert path.file_name_unix("one/two..") == Ok("two..")
+}
+
+pub fn file_name_unix_36_test() {
+  assert path.file_name_unix("one/two//") == Ok("two")
+}

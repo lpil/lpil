@@ -1,3 +1,4 @@
+import gleam/list
 import gleam/string
 
 @external(erlang, "gloss_ffi", "is_windows")
@@ -108,6 +109,13 @@ fn is_drive_prefix(part: String) -> Bool {
   }
 }
 
+pub fn join(left: String, right: String) -> String {
+  case is_windows() {
+    True -> join_windows(left, right)
+    _ -> join_unix(left, right)
+  }
+}
+
 @internal
 pub fn join_unix(left: String, right: String) -> String {
   case left, right {
@@ -130,8 +138,8 @@ pub fn join_windows(left: String, right: String) -> String {
     _, "\\" <> right -> join_windows(left, right)
     "", _ ->
       case kind_windows(right) {
-        Absolute | DriveRelative | RootRelative -> ".\\" <> right
         Relative -> right
+        Absolute | DriveRelative | RootRelative -> ".\\" <> right
       }
     _, "" -> left
     _, _ ->
@@ -143,5 +151,35 @@ pub fn join_windows(left: String, right: String) -> String {
         True -> left <> right
         False -> left <> "\\" <> right
       }
+  }
+}
+
+pub fn file_name(path: String) -> Result(String, Nil) {
+  case is_windows() {
+    True -> file_name_windows(path)
+    _ -> file_name_unix(path)
+  }
+}
+
+@internal
+pub fn file_name_unix(path: String) -> Result(String, Nil) {
+  path
+  |> remove_trailing_unix
+  |> string.split("/")
+  |> list.fold(Error(Nil), fn(found, segment) {
+    case segment {
+      "" -> found
+      "." -> found
+      ".." -> Error(Nil)
+      _ -> Ok(segment)
+    }
+  })
+}
+
+fn remove_trailing_unix(path: String) -> String {
+  let removed = string.remove_suffix(path, "/")
+  case path == removed {
+    True -> path
+    False -> remove_trailing_unix(removed)
   }
 }
