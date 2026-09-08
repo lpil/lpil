@@ -46,6 +46,15 @@ pub fn kind(path: String) -> PathKind {
   }
 }
 
+pub fn is_relative(path: String) -> Bool {
+  kind(path) != Absolute
+}
+
+pub fn is_absolute(path: String) -> Bool {
+  kind(path) == Absolute
+}
+
+@internal
 pub fn kind_unix(path: String) -> PathKind {
   case path {
     "/" <> _ -> Absolute
@@ -53,20 +62,17 @@ pub fn kind_unix(path: String) -> PathKind {
   }
 }
 
+@internal
 pub fn kind_windows(path: String) -> PathKind {
   // First we check for a drive letter, such as `C:` or `d:`
   let first_two = string.slice(path, 0, length: 2)
-  let #(has_drive, path) = case <<first_two:utf8>> {
-    <<drive, ":">>
-      if // Drive letters are expected to be A-Z or a-z
-      { drive >= 65 && drive <= 90 }
-      || { drive >= 97 && drive <= 122 }
-    -> #(True, string.remove_prefix(path, first_two))
-
-    _ -> #(False, path)
+  let is_drive = is_drive_prefix(first_two)
+  let path = case is_drive {
+    True -> string.remove_prefix(path, first_two)
+    False -> path
   }
 
-  case has_drive, path {
+  case is_drive, path {
     // UNC paths: \\server\share\file
     False, "\\\\" <> _ -> Absolute
     False, "\\/" <> _ -> Absolute
@@ -88,5 +94,54 @@ pub fn kind_windows(path: String) -> PathKind {
     True, _ -> DriveRelative
 
     False, _ -> Relative
+  }
+}
+
+fn is_drive_prefix(part: String) -> Bool {
+  case <<part:utf8>> {
+    // Drive letters are expected to be A-Z or a-z
+    <<drive, ":">>
+      if { drive >= 65 && drive <= 90 } || { drive >= 97 && drive <= 122 }
+    -> True
+
+    _ -> False
+  }
+}
+
+@internal
+pub fn join_unix(left: String, right: String) -> String {
+  case left, right {
+    _, "/" <> right -> join_unix(left, right)
+    "", _ -> right
+    _, "" -> left
+    _, _ -> {
+      case string.ends_with(left, "/") {
+        True -> left <> right
+        False -> left <> "/" <> right
+      }
+    }
+  }
+}
+
+@internal
+pub fn join_windows(left: String, right: String) -> String {
+  case left, right {
+    _, "/" <> right -> join_windows(left, right)
+    _, "\\" <> right -> join_windows(left, right)
+    "", _ ->
+      case kind_windows(right) {
+        Absolute | DriveRelative | RootRelative -> ".\\" <> right
+        Relative -> right
+      }
+    _, "" -> left
+    _, _ ->
+      case
+        string.ends_with(left, "\\")
+        || string.ends_with(left, "/")
+        || is_drive_prefix(left)
+      {
+        True -> left <> right
+        False -> left <> "\\" <> right
+      }
   }
 }
