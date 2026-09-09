@@ -1834,3 +1834,245 @@ pub fn parent_unix_40_test() {
 pub fn parent_unix_41_test() {
   assert path.parent_unix("one/..two/") == Ok("one")
 }
+
+pub fn parent_windows_1_test() {
+  assert path.parent_windows("one\\two\\three") == Ok("one\\two")
+}
+
+pub fn parent_windows_2_test() {
+  assert path.parent_windows("one/two/three") == Ok("one/two")
+}
+
+pub fn parent_windows_3_test() {
+  assert path.parent_windows("one/two\\three") == Ok("one/two")
+}
+
+pub fn parent_windows_4_test() {
+  assert path.parent_windows("C:\\usr\\local\\bin") == Ok("C:\\usr\\local")
+}
+
+pub fn parent_windows_5_test() {
+  assert path.parent_windows("one") == Ok("")
+}
+
+pub fn parent_windows_6_test() {
+  assert path.parent_windows("one.txt") == Ok("")
+}
+
+pub fn parent_windows_7_test() {
+  assert path.parent_windows("\\one") == Ok("\\")
+}
+
+pub fn parent_windows_8_test() {
+  assert path.parent_windows("/one") == Ok("/")
+}
+
+pub fn parent_windows_9_test() {
+  assert path.parent_windows("\\") == Error(Nil)
+}
+
+pub fn parent_windows_10_test() {
+  assert path.parent_windows("/") == Error(Nil)
+}
+
+pub fn parent_windows_11_test() {
+  assert path.parent_windows("") == Error(Nil)
+}
+
+pub fn parent_windows_12_test() {
+  assert path.parent_windows("\\\\") == Error(Nil)
+}
+
+pub fn parent_windows_13_test() {
+  assert path.parent_windows("C:\\one") == Ok("C:\\")
+}
+
+pub fn parent_windows_14_test() {
+  assert path.parent_windows("C:/one") == Ok("C:/")
+}
+
+pub fn parent_windows_15_test() {
+  assert path.parent_windows("C:one") == Ok("C:")
+}
+
+pub fn parent_windows_16_test() {
+  assert path.parent_windows("C:one\\two") == Ok("C:one")
+}
+
+pub fn parent_windows_17_test() {
+  assert path.parent_windows("C:\\") == Error(Nil)
+}
+
+pub fn parent_windows_18_test() {
+  assert path.parent_windows("C:/") == Error(Nil)
+}
+
+pub fn parent_windows_19_test() {
+  assert path.parent_windows("C:") == Error(Nil)
+}
+
+pub fn parent_windows_20_test() {
+  assert path.parent_windows("\\\\server\\share\\one")
+    == Ok("\\\\server\\share\\")
+}
+
+pub fn parent_windows_21_test() {
+  assert path.parent_windows("\\\\server\\share\\one\\two")
+    == Ok("\\\\server\\share\\one")
+}
+
+pub fn parent_windows_22_test() {
+  assert path.parent_windows("\\\\server\\share") == Error(Nil)
+}
+
+pub fn parent_windows_23_test() {
+  assert path.parent_windows("\\\\server\\share\\") == Error(Nil)
+}
+
+pub fn parent_windows_24_test() {
+  assert path.parent_windows("//server/share/one") == Ok("//server/share/")
+}
+
+pub fn parent_windows_25_test() {
+  assert path.parent_windows("//server/share") == Error(Nil)
+}
+
+pub fn parent_windows_26_test() {
+  assert path.parent_windows("\\\\server") == Error(Nil)
+}
+
+pub fn parent_windows_27_test() {
+  assert path.parent_windows("one\\") == Ok("")
+}
+
+pub fn parent_windows_28_test() {
+  assert path.parent_windows("one\\\\\\") == Ok("")
+}
+
+pub fn parent_windows_29_test() {
+  assert path.parent_windows("one\\.") == Ok("")
+}
+
+pub fn parent_windows_30_test() {
+  assert path.parent_windows("one\\.\\.\\.") == Ok("")
+}
+
+pub fn parent_windows_31_test() {
+  assert path.parent_windows("one\\two\\") == Ok("one")
+}
+
+pub fn parent_windows_32_test() {
+  assert path.parent_windows("one\\two\\.") == Ok("one")
+}
+
+pub fn parent_windows_33_test() {
+  assert path.parent_windows("one/two/") == Ok("one")
+}
+
+pub fn parent_windows_34_test() {
+  assert path.parent_windows("\\one\\") == Ok("\\")
+}
+
+pub fn parent_windows_35_test() {
+  assert path.parent_windows("C:\\one\\.") == Ok("C:\\")
+}
+
+pub fn parent_windows_36_test() {
+  assert path.parent_windows(".") == Error(Nil)
+}
+
+pub fn parent_windows_37_test() {
+  assert path.parent_windows(".\\") == Error(Nil)
+}
+
+pub fn parent_windows_38_test() {
+  assert path.parent_windows(".\\.\\.") == Error(Nil)
+}
+
+pub fn parent_windows_39_test() {
+  assert path.parent_windows("\\.") == Error(Nil)
+}
+
+pub fn parent_windows_40_test() {
+  assert path.parent_windows("C:\\.") == Error(Nil)
+}
+
+pub fn parent_windows_41_test() {
+  assert path.parent_windows("C:.") == Error(Nil)
+}
+
+pub fn parent_windows_42_test() {
+  assert path.parent_windows(".\\one") == Ok("")
+}
+
+pub fn parent_windows_43_test() {
+  assert path.parent_windows("one\\.\\two") == Ok("one")
+}
+
+pub fn parent_windows_44_test() {
+  assert path.parent_windows("\\.\\one") == Ok("\\")
+}
+
+pub fn parent_windows_45_test() {
+  assert path.parent_windows("C:\\.\\one") == Ok("C:\\")
+}
+
+pub fn parent_windows_46_test() {
+  assert path.parent_windows(".\\one\\two") == Ok(".\\one")
+}
+
+pub fn parent_windows_47_test() {
+  assert path.parent_windows("one\\\\two\\three") == Ok("one\\\\two")
+}
+
+pub fn parent_windows_48_test() {
+  assert path.parent_windows("one\\\\\\two") == Ok("one")
+}
+
+pub fn parent_windows_49_test() {
+  assert path.parent_windows("one/two\\\\three") == Ok("one/two")
+}
+
+pub fn parent_windows_50_test() {
+  assert path.parent_windows("..") == Ok("")
+}
+
+pub fn parent_windows_51_test() {
+  assert path.parent_windows("one\\..") == Ok("one")
+}
+
+pub fn parent_windows_52_test() {
+  assert path.parent_windows("..\\..") == Ok("..")
+}
+
+pub fn parent_windows_53_test() {
+  assert path.parent_windows("..\\one") == Ok("..")
+}
+
+pub fn parent_windows_54_test() {
+  assert path.parent_windows("\\..") == Ok("\\")
+}
+
+pub fn parent_windows_55_test() {
+  assert path.parent_windows("C:\\..") == Ok("C:\\")
+}
+
+pub fn parent_windows_56_test() {
+  assert path.parent_windows("one\\...") == Ok("one")
+}
+
+pub fn parent_windows_57_test() {
+  assert path.parent_windows("one\\.hidden") == Ok("one")
+}
+
+pub fn parent_windows_58_test() {
+  assert path.parent_windows("one\\..two\\") == Ok("one")
+}
+
+pub fn parent_windows_59_test() {
+  assert path.parent_windows("1:one") == Ok("")
+}
+
+pub fn parent_windows_60_test() {
+  assert path.parent_windows("one\\D:two") == Ok("one")
+}

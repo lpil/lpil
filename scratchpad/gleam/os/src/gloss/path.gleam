@@ -174,13 +174,10 @@ pub fn file_name_unix(path: String) -> Result(String, Nil) {
 
 @internal
 pub fn file_name_windows(path: String) -> Result(String, Nil) {
-  let path = case split_drive_prefix(path) {
-    #("", path) -> remove_unc_prefix(path)
-    #(_, path) -> path
-  }
-
+  let slashes = windows_splitter()
+  let #(_, path) = split_prefix(path, slashes)
   path
-  |> splitter.split_all(windows_splitter(), _)
+  |> splitter.split_all(slashes, _)
   |> list.fold(Error(Nil), fn(found, segment) {
     case segment {
       "" -> found
@@ -193,25 +190,6 @@ pub fn file_name_windows(path: String) -> Result(String, Nil) {
 
 fn windows_splitter() -> splitter.Splitter {
   splitter.new(["/", "\\"])
-}
-
-fn remove_unc_prefix(path: String) -> String {
-  case path {
-    "//" <> path | "\\\\" <> path | "/\\" <> path | "\\/" <> path -> {
-      let slashes = windows_splitter()
-      case splitter.split(slashes, path) {
-        // Server was empty
-        #("", _, _) -> ""
-        #(_, _, path) ->
-          case splitter.split(slashes, path) {
-            // Share was empty
-            #("", _, _) -> ""
-            #(_, _, path) -> path
-          }
-      }
-    }
-    path -> path
-  }
 }
 
 fn split_drive_prefix(path: String) -> #(String, String) {
@@ -319,7 +297,80 @@ fn remove_trailing_unix(path: String) -> String {
   }
 }
 
+fn split_prefix(path: String, slashes: splitter.Splitter) -> #(String, String) {
+  let #(prefix, path) = split_drive_prefix(path)
+  case prefix {
+    "" -> split_unc_prefix(path, slashes)
+    _ -> #(prefix, path)
+  }
+}
+
 @internal
 pub fn parent_windows(path: String) -> Result(String, Nil) {
-  todo
+  let slashes = windows_splitter()
+  let #(prefix, path) = split_prefix(path, slashes)
+  let path = remove_trailing_windows(path)
+  let components = splitter.split_all(slashes, path)
+  case components |> list.last {
+    Ok("") | Error(_) -> Error(Nil)
+    Ok(segment) -> {
+      let path =
+        path |> string.remove_suffix(segment) |> remove_trailing_windows
+      Ok(prefix <> path)
+    }
+  }
+}
+
+fn split_unc_prefix(
+  path: String,
+  slashes: splitter.Splitter,
+) -> #(String, String) {
+  case path {
+    // The prefix in `parts` is normalised if a UNC path
+    "//" as prefix <> path
+    | "\\\\" as prefix <> path
+    | "/\\" as prefix <> path
+    | "\\/" as prefix <> path -> {
+      case splitter.split(slashes, path) {
+        // Server was empty
+        #("", _, _) -> #("", path)
+        #(a, b, path) -> {
+          let prefix = prefix <> a <> b
+          case splitter.split(slashes, path) {
+            // Share was empty
+            #("", a, b) -> #(prefix, a <> b)
+            #(a, b, path) -> #(prefix <> a <> b, path)
+          }
+        }
+      }
+    }
+    _ -> #("", path)
+  }
+}
+
+fn remove_trailing_windows(path: String) -> String {
+  case path {
+    "/." -> "/"
+    "/" -> "/"
+    "\\." -> "\\"
+    "\\" -> "\\"
+    "." -> ""
+    _ ->
+      case string.remove_suffix(path, "/.") {
+        new if new != path -> remove_trailing_windows(new)
+        _ ->
+          case string.remove_suffix(path, "/") {
+            new if new != path -> remove_trailing_windows(new)
+            _ ->
+              case string.remove_suffix(path, "\\.") {
+                new if new != path -> remove_trailing_windows(new)
+                _ ->
+                  case string.remove_suffix(path, "\\") {
+                    new if new != path -> remove_trailing_windows(new)
+                    _ -> path
+                  }
+              }
+          }
+      }
+  }
 }
