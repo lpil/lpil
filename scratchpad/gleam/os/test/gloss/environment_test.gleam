@@ -40,3 +40,12 @@ pub fn home_directory_test() {
   }
   assert string.contains(path, separator)
 }
+
+pub fn temporary_directory_test() {
+  let path = environment.temporary_directory()
+  let separator = case environment.system_name() {
+    "win32" -> "\\"
+    _ -> "/"
+  }
+  assert string.contains(path, separator)
+}
