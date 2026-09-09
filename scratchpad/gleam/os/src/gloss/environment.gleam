@@ -1,0 +1,57 @@
+import gleam/dict.{type Dict}
+
+/// Get an environment variable by name.
+///
+/// ```gleam
+/// environment.get("HOME")
+/// // -> Ok("/home/lucy")
+/// ```
+///
+/// ```gleam
+/// environment.get("WORLD_PEACE")
+/// // -> Error(Nil)
+/// ```
+///
+@external(erlang, "gloss_ffi", "environment_get")
+@external(javascript, "./gloss_ffi.mjs", "environment_get")
+pub fn get(name: String) -> Result(String, Nil)
+
+//
+/// Set an environment variable.
+///
+/// ```gleam
+/// environment.get("FAVOURITE_COLOUR")
+/// // -> Error(Nil)
+/// environment.set("FAVOURITE_COLOUR", "Pink")
+///
+/// environment.get("FAVOURITE_COLOUR")
+/// // -> Ok("Pink")
+/// ```
+///
+@external(erlang, "gloss_ffi", "environment_set")
+@external(javascript, "./gloss_ffi.mjs", "environment_set")
+pub fn set(name: String, value: String) -> Nil
+
+/// Unset an environment variable.
+///
+/// ```gleam
+/// environment.set("FAVOURITE_COLOUR", "Pink")
+///
+/// environment.get("FAVOURITE_COLOUR")
+/// // -> Ok("Pink")
+///
+/// environment.unset("FAVOURITE_COLOUR")
+///
+/// environment.get("FAVOURITE_COLOUR")
+/// // -> Error(Nil)
+/// ```
+///
+@external(erlang, "gloss_ffi", "environment_unset")
+@external(javascript, "./gloss_ffi.mjs", "environment_unset")
+pub fn unset(name: String) -> Nil
+
+/// Get all the environment variables.
+///
+@external(erlang, "gloss_ffi", "environment_all")
+@external(javascript, "./gloss_ffi.mjs", "environment_all")
+pub fn all() -> Dict(String, String)
