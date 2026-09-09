@@ -4,7 +4,7 @@ import gleam/string
 import splitter
 
 @external(erlang, "gloss_ffi", "is_windows")
-@external(javascript, "./gloss_ffi.mjs", "is_windows")
+@external(javascript, "../gloss_ffi.mjs", "is_windows")
 fn is_windows() -> Bool
 
 pub type PathKind {

@@ -1,4 +1,5 @@
 import gleam/dict
+import gleam/list
 import gloss/environment
 
 pub fn variables_test() {
@@ -23,4 +24,9 @@ pub fn variables_test() {
   assert environment.get("WIBBLE") == Ok("🦄")
   let all = environment.all()
   assert dict.get(all, "WIBBLE") == Ok("🦄")
+}
+
+pub fn system_name_test() {
+  assert ["darwin", "freebsd", "linux", "openbsd", "win32"]
+    |> list.contains(environment.system_name())
 }

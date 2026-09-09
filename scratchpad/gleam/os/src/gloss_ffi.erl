@@ -2,8 +2,14 @@
 
 -export([
     is_windows/0, environment_get/1, environment_set/2, environment_unset/1,
-    environment_all/0
+    environment_all/0, system_name/0
 ]).
+
+system_name() ->
+    case os:type() of
+        {win32, _} -> ~"win32";
+        {_, Name} -> erlang:atom_to_binary(Name)
+    end.
 
 is_windows() ->
     case os:type() of
