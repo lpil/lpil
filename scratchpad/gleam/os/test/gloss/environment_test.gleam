@@ -1,5 +1,6 @@
 import gleam/dict
 import gleam/list
+import gleam/string
 import gloss/environment
 
 pub fn variables_test() {
@@ -29,4 +30,13 @@ pub fn variables_test() {
 pub fn system_name_test() {
   assert ["darwin", "freebsd", "linux", "openbsd", "win32"]
     |> list.contains(environment.system_name())
+}
+
+pub fn home_directory_test() {
+  let assert Ok(path) = environment.home_directory()
+  let separator = case environment.system_name() {
+    "win32" -> "\\"
+    _ -> "/"
+  }
+  assert string.contains(path, separator)
 }

@@ -15,6 +15,22 @@ import gleam/dict.{type Dict}
 @external(javascript, "../gloss_ffi.mjs", "system_name")
 pub fn system_name() -> String
 
+/// Get the location of the current system user's home directory.
+///
+/// On Windows this will use the `USERPROFILE` and `HOME` environment variables
+/// Windows, and the `HOME` environment variable on other operating systems.
+///
+pub fn home_directory() -> Result(String, Nil) {
+  case system_name() {
+    "win32" ->
+      case get("USERPROFILE") {
+        Error(_) -> get("HOME")
+        path -> path
+      }
+    _ -> get("HOME")
+  }
+}
+
 /// Get an environment variable by name.
 ///
 /// ```gleam
