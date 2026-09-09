@@ -1,4 +1,5 @@
 import gleam/list
+import gleam/option
 import gleam/string
 import splitter
 
@@ -66,15 +67,10 @@ pub fn kind_unix(path: String) -> PathKind {
 
 @internal
 pub fn kind_windows(path: String) -> PathKind {
-  // First we check for a drive letter, such as `C:` or `d:`
-  let first_two = string.slice(path, 0, length: 2)
-  let is_drive = is_drive_prefix(first_two)
-  let path = case is_drive {
-    True -> string.remove_prefix(path, first_two)
-    False -> path
-  }
+  let #(drive_prefix, path) = split_drive_prefix(path)
+  let had_drive = drive_prefix != ""
 
-  case is_drive, path {
+  case had_drive, path {
     // UNC paths: \\server\share\file
     False, "\\\\" <> _ -> Absolute
     False, "\\/" <> _ -> Absolute
@@ -178,13 +174,13 @@ pub fn file_name_unix(path: String) -> Result(String, Nil) {
 
 @internal
 pub fn file_name_windows(path: String) -> Result(String, Nil) {
-  let path = case remove_drive_prefix(path) {
-    had_drive if path != had_drive -> had_drive
-    _ -> remove_unc_prefix(path)
+  let path = case split_drive_prefix(path) {
+    #("", path) -> remove_unc_prefix(path)
+    #(_, path) -> path
   }
 
   path
-  |> splitter.split_all(splitter.new(["/", "\\"]), _)
+  |> splitter.split_all(windows_splitter(), _)
   |> list.fold(Error(Nil), fn(found, segment) {
     case segment {
       "" -> found
@@ -195,10 +191,14 @@ pub fn file_name_windows(path: String) -> Result(String, Nil) {
   })
 }
 
+fn windows_splitter() -> splitter.Splitter {
+  splitter.new(["/", "\\"])
+}
+
 fn remove_unc_prefix(path: String) -> String {
   case path {
     "//" <> path | "\\\\" <> path | "/\\" <> path | "\\/" <> path -> {
-      let slashes = splitter.new(["/", "\\"])
+      let slashes = windows_splitter()
       case splitter.split(slashes, path) {
         // Server was empty
         #("", _, _) -> ""
@@ -214,11 +214,73 @@ fn remove_unc_prefix(path: String) -> String {
   }
 }
 
-fn remove_drive_prefix(path: String) -> String {
+fn split_drive_prefix(path: String) -> #(String, String) {
   let first_two = string.slice(path, 0, length: 2)
   let is_drive = is_drive_prefix(first_two)
   case is_drive {
-    True -> string.remove_prefix(path, first_two)
-    False -> path
+    True -> #(first_two, string.remove_prefix(path, first_two))
+    False -> #("", path)
   }
+}
+
+pub type Parts {
+  Parts(prefix: option.Option(String), rooted: Bool, components: List(String))
+}
+
+pub fn parts(path: String) -> Parts {
+  case is_windows() {
+    True -> parts_windows(path)
+    _ -> parts_unix(path)
+  }
+}
+
+@internal
+pub fn parts_unix(path: String) -> Parts {
+  let #(rooted, path) = case path {
+    "/" <> path -> #(True, path)
+    _ -> #(False, path)
+  }
+  let components =
+    path
+    |> string.split("/")
+    |> list.filter(fn(component) { component != "" && component != "." })
+  Parts(prefix: option.None, rooted:, components:)
+}
+
+@internal
+pub fn parts_windows(path: String) -> Parts {
+  // Drive prefix
+  let #(drive_prefix, path) = split_drive_prefix(path)
+
+  // UNC prefix
+  let slashes = windows_splitter()
+  let #(prefix, components) = case splitter.split_all(slashes, path) {
+    components if drive_prefix != "" -> #(drive_prefix, components)
+    ["", "", server, share, ..components] if server != "" && share != "" -> {
+      let prefix = "\\\\" <> server <> "\\" <> share
+      #(prefix, components)
+    }
+    ["", "", server] if server != "" -> {
+      let prefix = "\\\\" <> server
+      #(prefix, [])
+    }
+    components -> #(drive_prefix, components)
+  }
+
+  // Is rooted
+  let rooted = case path {
+    "/" <> _ -> True
+    "\\" <> _ -> True
+    _ -> False
+  }
+
+  let prefix = case prefix {
+    "" -> option.None
+    _ -> option.Some(prefix)
+  }
+  let components =
+    list.filter(components, fn(component) {
+      component != "" && component != "."
+    })
+  Parts(prefix:, rooted:, components:)
 }
