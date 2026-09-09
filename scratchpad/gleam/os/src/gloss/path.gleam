@@ -284,3 +284,42 @@ pub fn parts_windows(path: String) -> Parts {
     })
   Parts(prefix:, rooted:, components:)
 }
+
+pub fn parent(path: String) -> Result(String, Nil) {
+  case is_windows() {
+    True -> parent_windows(path)
+    _ -> parent_unix(path)
+  }
+}
+
+@internal
+pub fn parent_unix(path: String) -> Result(String, Nil) {
+  let path = remove_trailing_unix(path)
+  case path |> string.split("/") |> list.last {
+    Ok("") | Error(_) -> Error(Nil)
+    Ok(segment) ->
+      path |> string.remove_suffix(segment) |> remove_trailing_unix |> Ok
+  }
+}
+
+fn remove_trailing_unix(path: String) -> String {
+  case path {
+    "/." -> "/"
+    "/" -> "/"
+    "." -> ""
+    _ ->
+      case string.remove_suffix(path, "/.") {
+        new if new != path -> remove_trailing_unix(new)
+        _ ->
+          case string.remove_suffix(path, "/") {
+            new if new != path -> remove_trailing_unix(new)
+            _ -> path
+          }
+      }
+  }
+}
+
+@internal
+pub fn parent_windows(path: String) -> Result(String, Nil) {
+  todo
+}

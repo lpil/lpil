@@ -1670,3 +1670,167 @@ pub fn parts_windows_58_test() {
   assert path.parts_windows("\\\\\\one")
     == path.Parts(prefix: option.None, rooted: True, components: ["one"])
 }
+
+pub fn parent_unix_1_test() {
+  assert path.parent_unix("one/two/three") == Ok("one/two")
+}
+
+pub fn parent_unix_2_test() {
+  assert path.parent_unix("one/two") == Ok("one")
+}
+
+pub fn parent_unix_3_test() {
+  assert path.parent_unix("/usr/local/bin") == Ok("/usr/local")
+}
+
+pub fn parent_unix_4_test() {
+  assert path.parent_unix("one") == Ok("")
+}
+
+pub fn parent_unix_5_test() {
+  assert path.parent_unix("one.txt") == Ok("")
+}
+
+pub fn parent_unix_6_test() {
+  assert path.parent_unix("/one") == Ok("/")
+}
+
+pub fn parent_unix_7_test() {
+  assert path.parent_unix("/") == Error(Nil)
+}
+
+pub fn parent_unix_8_test() {
+  assert path.parent_unix("") == Error(Nil)
+}
+
+pub fn parent_unix_9_test() {
+  assert path.parent_unix("//") == Error(Nil)
+}
+
+pub fn parent_unix_10_test() {
+  assert path.parent_unix("one/") == Ok("")
+}
+
+pub fn parent_unix_11_test() {
+  assert path.parent_unix("one///") == Ok("")
+}
+
+pub fn parent_unix_12_test() {
+  assert path.parent_unix("one/.") == Ok("")
+}
+
+pub fn parent_unix_13_test() {
+  assert path.parent_unix("one/./././.") == Ok("")
+}
+
+pub fn parent_unix_14_test() {
+  assert path.parent_unix("one/./") == Ok("")
+}
+
+pub fn parent_unix_15_test() {
+  assert path.parent_unix("one/two/") == Ok("one")
+}
+
+pub fn parent_unix_16_test() {
+  assert path.parent_unix("one/two/.") == Ok("one")
+}
+
+pub fn parent_unix_17_test() {
+  assert path.parent_unix("/one/") == Ok("/")
+}
+
+pub fn parent_unix_18_test() {
+  assert path.parent_unix("/one/.") == Ok("/")
+}
+
+pub fn parent_unix_19_test() {
+  assert path.parent_unix(".") == Error(Nil)
+}
+
+pub fn parent_unix_20_test() {
+  assert path.parent_unix("./") == Error(Nil)
+}
+
+pub fn parent_unix_21_test() {
+  assert path.parent_unix("././.") == Error(Nil)
+}
+
+pub fn parent_unix_22_test() {
+  assert path.parent_unix("/.") == Error(Nil)
+}
+
+pub fn parent_unix_23_test() {
+  assert path.parent_unix("/./././") == Error(Nil)
+}
+
+pub fn parent_unix_24_test() {
+  assert path.parent_unix("one//two/three") == Ok("one//two")
+}
+
+pub fn parent_unix_25_test() {
+  assert path.parent_unix("one///two") == Ok("one")
+}
+
+pub fn parent_unix_26_test() {
+  assert path.parent_unix("one/./two") == Ok("one")
+}
+
+pub fn parent_unix_27_test() {
+  assert path.parent_unix("./one/two") == Ok("./one")
+}
+
+pub fn parent_unix_28_test() {
+  assert path.parent_unix("./one") == Ok("")
+}
+
+pub fn parent_unix_29_test() {
+  assert path.parent_unix("//one/two") == Ok("//one")
+}
+
+pub fn parent_unix_30_test() {
+  assert path.parent_unix("/./one") == Ok("/")
+}
+
+pub fn parent_unix_31_test() {
+  assert path.parent_unix("..") == Ok("")
+}
+
+pub fn parent_unix_32_test() {
+  assert path.parent_unix("one/..") == Ok("one")
+}
+
+pub fn parent_unix_33_test() {
+  assert path.parent_unix("../..") == Ok("..")
+}
+
+pub fn parent_unix_34_test() {
+  assert path.parent_unix("../one") == Ok("..")
+}
+
+pub fn parent_unix_35_test() {
+  assert path.parent_unix("/..") == Ok("/")
+}
+
+pub fn parent_unix_36_test() {
+  assert path.parent_unix("one/../") == Ok("one")
+}
+
+pub fn parent_unix_37_test() {
+  assert path.parent_unix("one\\two") == Ok("")
+}
+
+pub fn parent_unix_38_test() {
+  assert path.parent_unix("one/two\\three") == Ok("one")
+}
+
+pub fn parent_unix_39_test() {
+  assert path.parent_unix("one/...") == Ok("one")
+}
+
+pub fn parent_unix_40_test() {
+  assert path.parent_unix("one/.hidden") == Ok("one")
+}
+
+pub fn parent_unix_41_test() {
+  assert path.parent_unix("one/..two/") == Ok("one")
+}
