@@ -788,3 +788,250 @@ pub fn file_name_unix_35_test() {
 pub fn file_name_unix_36_test() {
   assert path.file_name_unix("one/two//") == Ok("two")
 }
+
+pub fn file_name_windows_1_test() {
+  assert path.file_name_windows("one\\two\\three.txt") == Ok("three.txt")
+}
+
+pub fn file_name_windows_2_test() {
+  assert path.file_name_windows("one/two/three.txt") == Ok("three.txt")
+}
+
+pub fn file_name_windows_3_test() {
+  assert path.file_name_windows("three.txt") == Ok("three.txt")
+}
+
+pub fn file_name_windows_4_test() {
+  assert path.file_name_windows("C:\\usr\\local\\gleam") == Ok("gleam")
+}
+
+pub fn file_name_windows_5_test() {
+  assert path.file_name_windows("C:\\gleam") == Ok("gleam")
+}
+
+pub fn file_name_windows_6_test() {
+  assert path.file_name_windows("one\\.hidden") == Ok(".hidden")
+}
+
+pub fn file_name_windows_7_test() {
+  assert path.file_name_windows("archive.tar.gz") == Ok("archive.tar.gz")
+}
+
+pub fn file_name_windows_8_test() {
+  assert path.file_name_windows("one\\...") == Ok("...")
+}
+
+pub fn file_name_windows_9_test() {
+  assert path.file_name_windows("one/two\\three") == Ok("three")
+}
+
+pub fn file_name_windows_10_test() {
+  assert path.file_name_windows("one\\two/three") == Ok("three")
+}
+
+pub fn file_name_windows_11_test() {
+  assert path.file_name_windows("") == Error(Nil)
+}
+
+pub fn file_name_windows_12_test() {
+  assert path.file_name_windows("\\") == Error(Nil)
+}
+
+pub fn file_name_windows_13_test() {
+  assert path.file_name_windows("/") == Error(Nil)
+}
+
+pub fn file_name_windows_14_test() {
+  assert path.file_name_windows("\\\\") == Error(Nil)
+}
+
+pub fn file_name_windows_15_test() {
+  assert path.file_name_windows(".") == Error(Nil)
+}
+
+pub fn file_name_windows_16_test() {
+  assert path.file_name_windows(".\\.") == Error(Nil)
+}
+
+pub fn file_name_windows_17_test() {
+  assert path.file_name_windows("\\.") == Error(Nil)
+}
+
+pub fn file_name_windows_18_test() {
+  assert path.file_name_windows("one\\.") == Ok("one")
+}
+
+pub fn file_name_windows_19_test() {
+  assert path.file_name_windows("one\\two\\.") == Ok("two")
+}
+
+pub fn file_name_windows_20_test() {
+  assert path.file_name_windows("one\\.\\.") == Ok("one")
+}
+
+pub fn file_name_windows_21_test() {
+  assert path.file_name_windows(".\\one") == Ok("one")
+}
+
+pub fn file_name_windows_22_test() {
+  assert path.file_name_windows("one\\.\\two") == Ok("two")
+}
+
+pub fn file_name_windows_23_test() {
+  assert path.file_name_windows("one/./two") == Ok("two")
+}
+
+pub fn file_name_windows_24_test() {
+  assert path.file_name_windows("..") == Error(Nil)
+}
+
+pub fn file_name_windows_25_test() {
+  assert path.file_name_windows("one\\..") == Error(Nil)
+}
+
+pub fn file_name_windows_26_test() {
+  assert path.file_name_windows("..\\..") == Error(Nil)
+}
+
+pub fn file_name_windows_27_test() {
+  assert path.file_name_windows("one\\..\\two") == Ok("two")
+}
+
+pub fn file_name_windows_28_test() {
+  assert path.file_name_windows("..\\one") == Ok("one")
+}
+
+pub fn file_name_windows_29_test() {
+  assert path.file_name_windows("one\\two\\") == Ok("two")
+}
+
+pub fn file_name_windows_30_test() {
+  assert path.file_name_windows("one\\two\\\\") == Ok("two")
+}
+
+pub fn file_name_windows_31_test() {
+  assert path.file_name_windows("one/two/") == Ok("two")
+}
+
+pub fn file_name_windows_32_test() {
+  assert path.file_name_windows("\\one\\") == Ok("one")
+}
+
+pub fn file_name_windows_33_test() {
+  assert path.file_name_windows("one\\\\two") == Ok("two")
+}
+
+pub fn file_name_windows_34_test() {
+  assert path.file_name_windows("one\\.\\") == Ok("one")
+}
+
+pub fn file_name_windows_35_test() {
+  assert path.file_name_windows("C:") == Error(Nil)
+}
+
+pub fn file_name_windows_36_test() {
+  assert path.file_name_windows("C:\\") == Error(Nil)
+}
+
+pub fn file_name_windows_37_test() {
+  assert path.file_name_windows("C:/") == Error(Nil)
+}
+
+pub fn file_name_windows_38_test() {
+  assert path.file_name_windows("C:one") == Ok("one")
+}
+
+pub fn file_name_windows_39_test() {
+  assert path.file_name_windows("C:one\\two") == Ok("two")
+}
+
+pub fn file_name_windows_40_test() {
+  assert path.file_name_windows("C:\\one") == Ok("one")
+}
+
+pub fn file_name_windows_41_test() {
+  assert path.file_name_windows("C:.") == Error(Nil)
+}
+
+pub fn file_name_windows_42_test() {
+  assert path.file_name_windows("1:one") == Ok("1:one")
+}
+
+pub fn file_name_windows_43_test() {
+  assert path.file_name_windows("one\\D:two") == Ok("D:two")
+}
+
+pub fn file_name_windows_44_test() {
+  assert path.file_name_windows("foo:bar") == Ok("foo:bar")
+}
+
+pub fn file_name_windows_45_test() {
+  // UNC paths require a server and a share, neither are file names.
+  assert path.file_name_windows("\\\\server\\share") == Error(Nil)
+}
+
+pub fn file_name_windows_46_test() {
+  // UNC paths require a server and a share, neither are file names.
+  assert path.file_name_windows("\\\\server\\share\\") == Error(Nil)
+}
+
+pub fn file_name_windows_47_test() {
+  // UNC paths require a server and a share, neither are file names.
+  assert path.file_name_windows("\\\\server\\share\\file.txt") == Ok("file.txt")
+}
+
+pub fn file_name_windows_48_test() {
+  assert path.file_name_windows("//server/share/file.txt") == Ok("file.txt")
+}
+
+pub fn file_name_windows_49_test() {
+  assert path.file_name_windows("one\\.two.") == Ok(".two.")
+}
+
+pub fn file_name_windows_50_test() {
+  assert path.file_name_windows("one\\..two") == Ok("..two")
+}
+
+pub fn file_name_windows_51_test() {
+  assert path.file_name_windows("one\\two..") == Ok("two..")
+}
+
+pub fn file_name_windows_52_test() {
+  // UNC paths require a server and a share, neither are file names.
+  assert path.file_name_windows("//server/share") == Error(Nil)
+}
+
+pub fn file_name_windows_53_test() {
+  // UNC paths require a server and a share, neither are file names.
+  assert path.file_name_windows("\\/server\\share") == Error(Nil)
+}
+
+pub fn file_name_windows_54_test() {
+  // UNC paths require a server and a share, neither are file names.
+  assert path.file_name_windows("/\\server/share") == Error(Nil)
+}
+
+pub fn file_name_windows_55_test() {
+  // UNC paths require a server and a share, neither are file names.
+  assert path.file_name_windows("//server/share/") == Error(Nil)
+}
+
+pub fn file_name_windows_56_test() {
+  // UNC paths require a server and a share, neither are file names.
+  assert path.file_name_windows("\\/server/share/file.txt") == Ok("file.txt")
+}
+
+pub fn file_name_windows_57_test() {
+  // UNC paths require a server and a share, neither are file names.
+  assert path.file_name_windows("//server/share/one/two") == Ok("two")
+}
+
+pub fn file_name_windows_58_test() {
+  // UNC paths require a server and a share, neither are file names.
+  assert path.file_name_windows("\\\\server") == Error(Nil)
+}
+
+pub fn file_name_windows_59_test() {
+  // UNC paths require a server and a share, neither are file names.
+  assert path.file_name_windows("//server") == Error(Nil)
+}

@@ -1,5 +1,6 @@
 import gleam/list
 import gleam/string
+import splitter
 
 @external(erlang, "gloss_ffi", "is_windows")
 @external(javascript, "./gloss_ffi.mjs", "is_windows")
@@ -164,7 +165,6 @@ pub fn file_name(path: String) -> Result(String, Nil) {
 @internal
 pub fn file_name_unix(path: String) -> Result(String, Nil) {
   path
-  |> remove_trailing_unix
   |> string.split("/")
   |> list.fold(Error(Nil), fn(found, segment) {
     case segment {
@@ -176,10 +176,49 @@ pub fn file_name_unix(path: String) -> Result(String, Nil) {
   })
 }
 
-fn remove_trailing_unix(path: String) -> String {
-  let removed = string.remove_suffix(path, "/")
-  case path == removed {
-    True -> path
-    False -> remove_trailing_unix(removed)
+@internal
+pub fn file_name_windows(path: String) -> Result(String, Nil) {
+  let path = case remove_drive_prefix(path) {
+    had_drive if path != had_drive -> had_drive
+    _ -> remove_unc_prefix(path)
+  }
+
+  path
+  |> splitter.split_all(splitter.new(["/", "\\"]), _)
+  |> list.fold(Error(Nil), fn(found, segment) {
+    case segment {
+      "" -> found
+      "." -> found
+      ".." -> Error(Nil)
+      _ -> Ok(segment)
+    }
+  })
+}
+
+fn remove_unc_prefix(path: String) -> String {
+  case path {
+    "//" <> path | "\\\\" <> path | "/\\" <> path | "\\/" <> path -> {
+      let slashes = splitter.new(["/", "\\"])
+      case splitter.split(slashes, path) {
+        // Server was empty
+        #("", _, _) -> ""
+        #(_, _, path) ->
+          case splitter.split(slashes, path) {
+            // Share was empty
+            #("", _, _) -> ""
+            #(_, _, path) -> path
+          }
+      }
+    }
+    path -> path
+  }
+}
+
+fn remove_drive_prefix(path: String) -> String {
+  let first_two = string.slice(path, 0, length: 2)
+  let is_drive = is_drive_prefix(first_two)
+  case is_drive {
+    True -> string.remove_prefix(path, first_two)
+    False -> path
   }
 }
