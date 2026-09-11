@@ -7,7 +7,9 @@ import splitter
 @external(javascript, "../gloss_ffi.mjs", "is_windows")
 fn is_windows() -> Bool
 
-pub type PathKind {
+/// There are four different kinds of path.
+///
+pub type Kind {
   /// Absolute paths refer to a specific file.
   ///
   /// - On Unix: `/usr/local/bin/gleam`
@@ -42,23 +44,46 @@ pub type PathKind {
   RootRelative
 }
 
-pub fn kind(path: String) -> PathKind {
+/// Returns which kind a given path is.
+///
+/// ```gleam
+/// assert path.kind("/usr/bin/gleam") == path.Absolute
+/// ```
+///
+/// ```gleam
+/// assert path.kind("gleam.toml") == path.Relative
+/// ```
+///
+/// See the `Kind` type for information on the different kinds.
+///
+pub fn kind(path: String) -> Kind {
   case is_windows() {
     True -> kind_windows(path)
     _ -> kind_unix(path)
   }
 }
 
+/// Returns whether a path is relative or not.
+///
+/// On Windows drive-relative and root-relative paths are considered relative
+/// by this function. Use the `kind` function if you want some other behaviour.
+///
 pub fn is_relative(path: String) -> Bool {
   kind(path) != Absolute
 }
 
+/// Returns whether a path is absolute or not.
+///
+/// On Windows drive-relative and root-relative paths are not considered
+/// absolute by this function. Use the `kind` function if you want some other
+/// behaviour.
+///
 pub fn is_absolute(path: String) -> Bool {
   kind(path) == Absolute
 }
 
 @internal
-pub fn kind_unix(path: String) -> PathKind {
+pub fn kind_unix(path: String) -> Kind {
   case path {
     "/" <> _ -> Absolute
     _ -> Relative
@@ -66,7 +91,7 @@ pub fn kind_unix(path: String) -> PathKind {
 }
 
 @internal
-pub fn kind_windows(path: String) -> PathKind {
+pub fn kind_windows(path: String) -> Kind {
   let #(drive_prefix, path) = split_drive_prefix(path)
   let had_drive = drive_prefix != ""
 
@@ -106,6 +131,28 @@ fn is_drive_prefix(part: String) -> Bool {
   }
 }
 
+/// Join new components onto a path.
+///
+/// The seperator of the current operating system is used, so `\` on Windows
+/// and `/` on others.
+///
+/// ```gleam
+/// assert path.join("/usr/bin", "gleam") == "/usr/bin/gleam"
+/// ```
+///
+/// The kind of the path returned by this function will always be the same as
+/// the kind of the first function.
+///
+/// ```gleam
+/// assert path.join("/tmp", "/etc/passwd") == "/tmp/etc/passwd"
+/// ```
+///
+/// `..` components are preserved.
+///
+/// ```gleam
+/// assert path.join("red/..", "green/../blue") == "red/../green/../blue"
+/// ```
+///
 pub fn join(left: String, right: String) -> String {
   case is_windows() {
     True -> join_windows(left, right)
@@ -151,6 +198,18 @@ pub fn join_windows(left: String, right: String) -> String {
   }
 }
 
+/// Get last component of the path.
+///
+/// ```gleam
+/// assert path.file_name("/var/log/snapper.log") == Ok("snapper.log")
+/// ```
+///
+/// An error is returned if the path has no components.
+///
+/// ```gleam
+/// assert path.file_name("/") == Error(Nil)
+/// ```
+///
 pub fn file_name(path: String) -> Result(String, Nil) {
   case is_windows() {
     True -> file_name_windows(path)
@@ -201,10 +260,51 @@ fn split_drive_prefix(path: String) -> #(String, String) {
   }
 }
 
+/// The parts that make up a path.
+///
 pub type Parts {
-  Parts(prefix: option.Option(String), rooted: Bool, components: List(String))
+  Parts(
+    /// A Windows drive prefix (`C:`) or a Windows UNC path prefix
+    /// `\\server\share`, if there was one.
+    ///
+    /// Paths on operating systems other than Windows never have a drive
+    /// prefix.
+    ///
+    prefix: option.Option(String),
+    /// Whether the path is absolute, including the root of the drive on
+    /// Windows, or the root of the file system on other operating systems.
+    ///
+    rooted: Bool,
+    /// Each of the directories and file names in the path.
+    ///
+    components: List(String),
+  )
 }
 
+/// Parse a path into its parts.
+///
+/// On Windows the case of the prefix is preserved.
+///
+/// ```gleam
+/// // On Unix
+/// assert path.parse("/bin/sh") ==
+///   path.Parts(
+///     prefix: option.None,
+///     rooted: True,
+///     components: ["bin", "sh"],
+///   )
+/// ```
+///
+/// ```gleam
+/// // On Windows
+/// assert path.parse("C:src/app.gleam") ==
+///   path.Parts(
+///     prefix: option.Some("C:"),
+///     rooted: False,
+///     components: ["src", "app.gleam"],
+///   )
+/// ```
+///
 pub fn parts(path: String) -> Parts {
   case is_windows() {
     True -> parts_windows(path)
@@ -263,6 +363,19 @@ pub fn parts_windows(path: String) -> Parts {
   Parts(prefix:, rooted:, components:)
 }
 
+/// Get the parent of the file that a path is for.
+///
+/// ```gleam
+/// assert path.parent("src/gleam/list.gleam") == Ok("src/gleam")
+/// ```
+///
+/// An error is returned if there is no parent in the path.
+///
+/// ```gleam
+/// assert path.parent("") == Error(Nil)
+/// assert path.parent("/") == Error(Nil)
+/// ```
+///
 pub fn parent(path: String) -> Result(String, Nil) {
   case is_windows() {
     True -> parent_windows(path)
@@ -375,6 +488,44 @@ fn remove_trailing_windows(path: String) -> String {
   }
 }
 
+/// Determine if one path starts with the other.
+///
+/// ```gleam
+/// assert path.starts_with("/bin", "/bin/sh")
+/// assert path.starts_with("test", "test/helper.gleam")
+/// assert !path.starts_with("one", "two")
+/// ```
+///
+/// Paths are only compared lexically and the file system is not accessed to
+/// check if the files exist, or if any of them are symlinks. If you wish to
+/// check if an actual file is within a directory you must canonicalise both
+/// paths first.
+///
+/// Path components are always compared in a case sensitive manner, regardless
+/// of whether the computer's file system is case sensitive or not.
+///
+/// ```gleam
+/// assert !path.starts_with("/one", "/ONE/two")
+/// ```
+///
+/// A path is considered to start with itself.
+///
+/// ```gleam
+/// assert path.starts_with("/one", "/one")
+/// ```
+/// 
+/// On Windows both `/` and `\` seperators are supported.
+///
+/// ```gleam
+/// assert path.starts_with("one\two", "one/two/three")
+/// ```
+///
+/// On Windows path prefixes are compared in a case insensitive manner.
+///
+/// ```gleam
+/// assert path.starts_with("c:\", "C:\Windows")
+/// ```
+///
 pub fn starts_with(parent: String, child: String) -> Bool {
   case is_windows() {
     True -> starts_with_windows(parent, child)

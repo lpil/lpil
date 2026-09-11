@@ -40,7 +40,7 @@ pub fn home_directory() -> Result(String, Nil) {
 /// created within it. The operating system may delete files from this
 /// directory at some point, but it is not guarenteed.
 ///
-/// On Windows this will use the `TEMP` and `TMP`, and `SystemRoot` (+ `/Temp`)
+/// On Windows this will use the `TEMP` and `TMP`, and `SystemRoot` (+ \Temp)
 /// environment variables Windows, and the `TMPDIR` environment variable on
 /// other operating systems.
 ///
