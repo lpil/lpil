@@ -46,3 +46,6 @@ require("mini.tabline").setup()
 
 -- Better f command
 require('mini.jump').setup()
+
+vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+vim.api.nvim_set_hl(0, "TabLineFill", { bg = "none" })
