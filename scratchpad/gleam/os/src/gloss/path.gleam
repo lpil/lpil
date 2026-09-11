@@ -265,7 +265,7 @@ fn split_drive_prefix(path: String) -> #(String, String) {
 pub type Parts {
   Parts(
     /// A Windows drive prefix (`C:`) or a Windows UNC path prefix
-    /// `\\server\share`, if there was one.
+    /// (`\\server\share`), if there was one.
     ///
     /// Paths on operating systems other than Windows never have a drive
     /// prefix.
