@@ -374,3 +374,43 @@ fn remove_trailing_windows(path: String) -> String {
       }
   }
 }
+
+pub fn starts_with(parent: String, child: String) -> Bool {
+  case is_windows() {
+    True -> starts_with_windows(parent, child)
+    _ -> starts_with_unix(parent, child)
+  }
+}
+
+@internal
+pub fn starts_with_unix(parent: String, child: String) -> Bool {
+  let parent = parts_unix(parent)
+  let child = parts_unix(child)
+  starts_with_parts(parent, child)
+}
+
+@internal
+pub fn starts_with_windows(parent: String, child: String) -> Bool {
+  let parent = parts_windows(parent)
+  let child = parts_windows(child)
+  starts_with_parts(parent, child)
+}
+
+fn starts_with_parts(parent: Parts, child: Parts) -> Bool {
+  let lower = fn(path: Parts) { option.map(path.prefix, string.lowercase) }
+  let same_context =
+    parent.rooted == child.rooted && lower(parent) == lower(child)
+  case same_context {
+    True -> starts_with_components(parent.components, child.components)
+    False -> False
+  }
+}
+
+fn starts_with_components(parent: List(String), child: List(String)) -> Bool {
+  case parent, child {
+    [], _ -> True
+    _, [] -> False
+    [p1, ..], [c1, ..] if p1 != c1 -> False
+    [_, ..parent], [_, ..child] -> starts_with_components(parent, child)
+  }
+}

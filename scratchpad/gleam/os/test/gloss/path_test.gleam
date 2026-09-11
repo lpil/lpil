@@ -2076,3 +2076,390 @@ pub fn parent_windows_59_test() {
 pub fn parent_windows_60_test() {
   assert path.parent_windows("one\\D:two") == Ok("one")
 }
+
+pub fn starts_with_unix_1_test() {
+  assert path.starts_with_unix("one", "one/two")
+}
+
+pub fn starts_with_unix_2_test() {
+  assert path.starts_with_unix("one", "one/two/three")
+}
+
+pub fn starts_with_unix_3_test() {
+  assert path.starts_with_unix("one/two", "one/two/three")
+}
+
+pub fn starts_with_unix_4_test() {
+  assert path.starts_with_unix("/one", "/one/two")
+}
+
+pub fn starts_with_unix_5_test() {
+  assert path.starts_with_unix("/", "/one")
+}
+
+pub fn starts_with_unix_6_test() {
+  assert path.starts_with_unix("/", "/")
+}
+
+pub fn starts_with_unix_7_test() {
+  assert path.starts_with_unix("one", "one")
+}
+
+pub fn starts_with_unix_8_test() {
+  assert path.starts_with_unix("one/two", "one/two")
+}
+
+pub fn starts_with_unix_9_test() {
+  assert path.starts_with_unix("", "")
+}
+
+pub fn starts_with_unix_10_test() {
+  assert path.starts_with_unix("", "one")
+}
+
+pub fn starts_with_unix_11_test() {
+  assert path.starts_with_unix("", "one/two")
+}
+
+pub fn starts_with_unix_12_test() {
+  assert !path.starts_with_unix("one", "onetwo")
+}
+
+pub fn starts_with_unix_13_test() {
+  assert !path.starts_with_unix("one/tw", "one/two")
+}
+
+pub fn starts_with_unix_14_test() {
+  assert !path.starts_with_unix("one.txt", "one.txt.bak")
+}
+
+pub fn starts_with_unix_15_test() {
+  assert !path.starts_with_unix("one/two", "one")
+}
+
+pub fn starts_with_unix_16_test() {
+  assert !path.starts_with_unix("/one/two", "/one")
+}
+
+pub fn starts_with_unix_17_test() {
+  assert !path.starts_with_unix("one", "two/one")
+}
+
+pub fn starts_with_unix_18_test() {
+  assert !path.starts_with_unix("one/two", "one/three")
+}
+
+pub fn starts_with_unix_19_test() {
+  assert !path.starts_with_unix("/one", "one")
+}
+
+pub fn starts_with_unix_20_test() {
+  assert !path.starts_with_unix("one", "/one")
+}
+
+pub fn starts_with_unix_21_test() {
+  assert !path.starts_with_unix("", "/one")
+}
+
+pub fn starts_with_unix_22_test() {
+  assert !path.starts_with_unix("/", "one")
+}
+
+pub fn starts_with_unix_23_test() {
+  assert path.starts_with_unix("one/", "one/two")
+}
+
+pub fn starts_with_unix_24_test() {
+  assert path.starts_with_unix("one", "one/two/")
+}
+
+pub fn starts_with_unix_25_test() {
+  assert path.starts_with_unix("one//two", "one/two/three")
+}
+
+pub fn starts_with_unix_26_test() {
+  assert path.starts_with_unix("//one", "/one/two")
+}
+
+pub fn starts_with_unix_27_test() {
+  assert path.starts_with_unix("./one", "one/two")
+}
+
+pub fn starts_with_unix_28_test() {
+  assert path.starts_with_unix("one", "./one/two")
+}
+
+pub fn starts_with_unix_29_test() {
+  assert path.starts_with_unix("one/.", "one")
+}
+
+pub fn starts_with_unix_30_test() {
+  assert path.starts_with_unix(".", "one")
+}
+
+pub fn starts_with_unix_31_test() {
+  assert path.starts_with_unix("one/./two", "one/two/three")
+}
+
+pub fn starts_with_unix_32_test() {
+  assert path.starts_with_unix("one", "one/..")
+}
+
+pub fn starts_with_unix_33_test() {
+  assert path.starts_with_unix("..", "../one")
+}
+
+pub fn starts_with_unix_34_test() {
+  assert !path.starts_with_unix("..", "one")
+}
+
+pub fn starts_with_unix_35_test() {
+  assert !path.starts_with_unix("one/..", "one")
+}
+
+pub fn starts_with_unix_36_test() {
+  assert path.starts_with_unix("one\\two", "one\\two/three")
+}
+
+pub fn starts_with_unix_37_test() {
+  assert !path.starts_with_unix("one", "one\\two")
+}
+
+pub fn starts_with_windows_1_test() {
+  assert path.starts_with_windows("one", "one\\two")
+}
+
+pub fn starts_with_windows_2_test() {
+  assert path.starts_with_windows("one\\two", "one\\two\\three")
+}
+
+pub fn starts_with_windows_3_test() {
+  assert path.starts_with_windows("\\one", "\\one\\two")
+}
+
+pub fn starts_with_windows_4_test() {
+  assert path.starts_with_windows("\\", "\\one")
+}
+
+pub fn starts_with_windows_5_test() {
+  assert path.starts_with_windows("C:\\one", "C:\\one\\two")
+}
+
+pub fn starts_with_windows_6_test() {
+  assert path.starts_with_windows("C:\\", "C:\\one")
+}
+
+pub fn starts_with_windows_7_test() {
+  assert path.starts_with_windows("C:one", "C:one\\two")
+}
+
+pub fn starts_with_windows_8_test() {
+  assert path.starts_with_windows("C:", "C:one")
+}
+
+pub fn starts_with_windows_9_test() {
+  assert path.starts_with_windows("one", "one")
+}
+
+pub fn starts_with_windows_10_test() {
+  assert path.starts_with_windows("C:\\one", "C:\\one")
+}
+
+pub fn starts_with_windows_11_test() {
+  assert path.starts_with_windows("C:\\", "C:\\")
+}
+
+pub fn starts_with_windows_12_test() {
+  assert path.starts_with_windows("", "")
+}
+
+pub fn starts_with_windows_13_test() {
+  assert path.starts_with_windows("\\\\server\\share", "\\\\server\\share")
+}
+
+pub fn starts_with_windows_14_test() {
+  assert path.starts_with_windows("", "one")
+}
+
+pub fn starts_with_windows_15_test() {
+  assert path.starts_with_windows("", "one\\two")
+}
+
+pub fn starts_with_windows_16_test() {
+  assert !path.starts_with_windows("one", "onetwo")
+}
+
+pub fn starts_with_windows_17_test() {
+  assert !path.starts_with_windows("one\\tw", "one\\two")
+}
+
+pub fn starts_with_windows_18_test() {
+  assert !path.starts_with_windows("C:\\on", "C:\\one")
+}
+
+pub fn starts_with_windows_19_test() {
+  assert !path.starts_with_windows("one\\two", "one")
+}
+
+pub fn starts_with_windows_20_test() {
+  assert !path.starts_with_windows("C:\\one\\two", "C:\\one")
+}
+
+pub fn starts_with_windows_21_test() {
+  assert !path.starts_with_windows("one", "two\\one")
+}
+
+pub fn starts_with_windows_22_test() {
+  assert !path.starts_with_windows("C:\\one", "C:\\two")
+}
+
+pub fn starts_with_windows_23_test() {
+  assert !path.starts_with_windows("\\one", "one")
+}
+
+pub fn starts_with_windows_24_test() {
+  assert !path.starts_with_windows("one", "\\one")
+}
+
+pub fn starts_with_windows_25_test() {
+  assert !path.starts_with_windows("", "\\one")
+}
+
+pub fn starts_with_windows_26_test() {
+  assert !path.starts_with_windows("C:\\one", "one")
+}
+
+pub fn starts_with_windows_27_test() {
+  assert !path.starts_with_windows("\\one", "C:\\one\\two")
+}
+
+pub fn starts_with_windows_28_test() {
+  assert !path.starts_with_windows("", "C:one")
+}
+
+pub fn starts_with_windows_29_test() {
+  assert !path.starts_with_windows("C:", "one")
+}
+
+pub fn starts_with_windows_30_test() {
+  assert !path.starts_with_windows("C:one", "C:\\one\\two")
+}
+
+pub fn starts_with_windows_31_test() {
+  assert !path.starts_with_windows("C:\\", "C:one")
+}
+
+pub fn starts_with_windows_32_test() {
+  assert !path.starts_with_windows("C:\\one", "D:\\one\\two")
+}
+
+pub fn starts_with_windows_33_test() {
+  assert !path.starts_with_windows("C:one", "D:one\\two")
+}
+
+pub fn starts_with_windows_34_test() {
+  assert !path.starts_with_windows("\\\\a\\share", "\\\\b\\share\\one")
+}
+
+pub fn starts_with_windows_35_test() {
+  assert !path.starts_with_windows("\\\\server\\one", "\\\\server\\two\\file")
+}
+
+pub fn starts_with_windows_36_test() {
+  assert path.starts_with_windows("\\\\server\\share", "\\\\server\\share\\one")
+}
+
+pub fn starts_with_windows_37_test() {
+  assert path.starts_with_windows(
+    "\\\\server\\share\\one",
+    "\\\\server\\share\\one\\two",
+  )
+}
+
+pub fn starts_with_windows_38_test() {
+  assert !path.starts_with_windows("\\\\server\\share", "\\one")
+}
+
+pub fn starts_with_windows_39_test() {
+  assert !path.starts_with_windows("\\", "\\\\server\\share")
+}
+
+pub fn starts_with_windows_40_test() {
+  assert path.starts_with_windows("one/two", "one\\two\\three")
+}
+
+pub fn starts_with_windows_41_test() {
+  assert path.starts_with_windows("C:/one", "C:\\one\\two")
+}
+
+pub fn starts_with_windows_42_test() {
+  assert path.starts_with_windows("//server/share", "\\\\server\\share\\one")
+}
+
+pub fn starts_with_windows_43_test() {
+  assert path.starts_with_windows("one\\", "one\\two")
+}
+
+pub fn starts_with_windows_44_test() {
+  assert path.starts_with_windows("one\\\\two", "one\\two\\three")
+}
+
+pub fn starts_with_windows_45_test() {
+  assert path.starts_with_windows(".\\one", "one\\two")
+}
+
+pub fn starts_with_windows_46_test() {
+  assert path.starts_with_windows("one", ".\\one\\two")
+}
+
+pub fn starts_with_windows_47_test() {
+  assert path.starts_with_windows(".", "one")
+}
+
+pub fn starts_with_windows_48_test() {
+  assert path.starts_with_windows("C:\\.\\one", "C:\\one\\two")
+}
+
+pub fn starts_with_windows_49_test() {
+  assert path.starts_with_windows("C:.", "C:one")
+}
+
+pub fn starts_with_windows_50_test() {
+  assert path.starts_with_windows("one", "one\\..")
+}
+
+pub fn starts_with_windows_51_test() {
+  assert path.starts_with_windows("..", "..\\one")
+}
+
+pub fn starts_with_windows_52_test() {
+  assert !path.starts_with_windows("..", "one")
+}
+
+pub fn starts_with_windows_53_test() {
+  assert !path.starts_with_windows("one\\..", "one")
+}
+
+pub fn starts_with_windows_54_test() {
+  assert path.starts_with_windows("one", "one\\D:two")
+}
+
+pub fn starts_with_windows_55_test() {
+  assert path.starts_with_windows("1:one", "1:one\\two")
+}
+
+pub fn starts_with_windows_58_test() {
+  assert !path.starts_with_windows("C:\\One", "C:\\one\\two")
+}
+
+pub fn starts_with_windows_59_test() {
+  assert path.starts_with_windows("c:one", "C:one\\two")
+}
+
+pub fn starts_with_windows_60_test() {
+  assert path.starts_with_windows("//SERVER/share", "\\\\server\\SHARE\\one")
+}
+
+pub fn starts_with_windows_61_test() {
+  assert !path.starts_with_windows("1:One", "1:one\\two")
+}
