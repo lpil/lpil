@@ -50,9 +50,7 @@ set fish_user_paths \
     "$GOBIN" \
     "$HOME/.local/share/asdf/shims" \
     "$HOME/.cache/rebar3/bin" \
-    "$HOME/.cargo/bin" \
-    "$HOME/.local/bin" \
-    "$HOME/bin"
+    "$HOME/.local/bin"
 # Aliases
 source "$HOME/.aliases.sh"
 
@@ -81,8 +79,13 @@ function fish_prompt -d "Write out the prompt"
         printf "(%s) " (basename "$VIRTUAL_ENV")
     end
 
-    printf '%s%s %s%s%s%s%s' \
-        (set_color green) (echo $USER) \
+    printf '%s%s' (set_color green) (echo $USER)
+
+    if test -e /run/.toolboxenv
+        printf "%s@%s" (set_color blue) "$HOSTNAME"
+    end
+
+    printf ' %s%s%s%s%s' \
         (set_color yellow) (echo $PWD | sed -e "s|^$HOME|~|") \
         (set_color white) (__fish_git_prompt) \
         (set_color white)
@@ -117,6 +120,10 @@ end
 if test (uname) = Linux
     set --export SSH_AUTH_SOCK $XDG_RUNTIME_DIR/ssh-agent.socket
 end
+
+set --export RUSTUP_HOME "$HOME/.local/share/rustup"
+set --export CARGO_HOME "$HOME/.local/share/cargo"
+fish_add_path "$CARGO_HOME/bin"
 
 # mpd
 set --export MPD_HOST "$HOME/.mpd/socket"
