@@ -7,8 +7,8 @@ set $term foot
 set $rofi_cmd rofi -terminal '$term'
 set $menu $rofi_cmd -show combi -combi-modes drun#run -modes combi
 
- #    class              title bdr title bg  title txt indicator window bdr
-client.focused           #202020ff #202020ff #ffffffff #ff00ff40 #202020ff
+#                        title bdr title bg  title txt indicator window bdr
+client.focused           #202020ff #202020ff #ffffffff #ff00ff40 #303030ff
 client.focused_inactive  #101010ff #101010ff #ffffffff #00000000 #00000000
 client.focused_tab_title #101010ff #101010ff #ffffffff #00000000 #00000000
 client.unfocused         #101010ff #101010ff #ffffffff #00000000 #00000000
@@ -16,6 +16,10 @@ client.urgent            #101010ff #101010ff #ffffffff #00000000 #00000000
 client.placeholder       #101010ff #101010ff #ffffffff #00000000 #00000000
 default_border pixel 1
 smart_borders on
+
+input type:touchpad {
+  tap enabled
+}
 
 input type:keyboard {
   xkb_layout gb
