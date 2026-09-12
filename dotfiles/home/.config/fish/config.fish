@@ -41,11 +41,14 @@ if test -e /Applications/Tailscale.app/Contents/MacOS/Tailscale
     alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
 end
 
+# asdf version manager
+set --export ASDF_DATA_DIR "$HOME/.local/share/asdf"
+set --export ASDF_CONFIG_FILE $XDG_CONFIG_HOME/asdf/config
 
 # Path
 set fish_user_paths \
     "$GOBIN" \
-    "$HOME/.asdf/shims" \
+    "$HOME/.local/share/asdf/shims" \
     "$HOME/.cache/rebar3/bin" \
     "$HOME/.cargo/bin" \
     "$HOME/.local/bin" \
@@ -57,7 +60,7 @@ if type -q zoxide
     zoxide init fish | source
 end
 
-if type -q zoxide
+if type -q direnv
     direnv hook fish | source
 end
 
