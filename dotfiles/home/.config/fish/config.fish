@@ -108,5 +108,12 @@ function dotenv --description 'Load environment variables from .env file'
     end
 end
 
+# ssh-agent
+# The unit may need to be started for this:
+#   systemctl --user enable --now ssh-agent.socket
+if test (uname) = Linux
+    set --export SSH_AUTH_SOCK $XDG_RUNTIME_DIR/ssh-agent.socket
+end
+
 # mpd
 set --export MPD_HOST "$HOME/.mpd/socket"
