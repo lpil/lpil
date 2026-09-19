@@ -41,14 +41,9 @@ if test -e /Applications/Tailscale.app/Contents/MacOS/Tailscale
     alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
 end
 
-# asdf version manager
-set --export ASDF_DATA_DIR "$HOME/.local/share/asdf"
-set --export ASDF_CONFIG_FILE $XDG_CONFIG_HOME/asdf/config
-
 # Path
 set fish_user_paths \
     "$GOBIN" \
-    "$HOME/.local/share/asdf/shims" \
     "$HOME/.cache/rebar3/bin" \
     "$HOME/.local/bin"
 # Aliases
@@ -124,6 +119,11 @@ end
 set --export RUSTUP_HOME "$HOME/.local/share/rustup"
 set --export CARGO_HOME "$HOME/.local/share/cargo"
 fish_add_path "$CARGO_HOME/bin"
+
+# asdf version manager
+set --export ASDF_DATA_DIR "$HOME/.local/share/asdf"
+set --export ASDF_CONFIG_FILE $XDG_CONFIG_HOME/asdf/config
+fish_add_path --prepend "$HOME/.local/share/asdf/shims"
 
 # mpd
 set --export MPD_HOST "$HOME/.mpd/socket"
