@@ -9,6 +9,7 @@
   excludesfile = ~/.config/git/ignore
   ; pager = less -S --tabs 4
   pager = delta
+  hooksPath = /dev/null
 
 [push]
   default = simple
