@@ -41,7 +41,8 @@ pub fn main() {
   case argv.load().arguments {
     ["add-audio"] -> list.each(all_decks, add_audio)
     ["add-page", path] -> add_page(path)
-    _ -> panic as "unexpected CLI argument"
+    _ ->
+      panic as "USAGE: gleam run add-audio OR gleam run add-page /path/to/page"
   }
 }
 

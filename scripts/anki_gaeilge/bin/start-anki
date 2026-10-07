@@ -2,4 +2,4 @@
 
 set -eu
 
-/Applications/Anki.app/Contents/MacOS/launcher
+/Applications/Anki.app/Contents/MacOS/Anki
