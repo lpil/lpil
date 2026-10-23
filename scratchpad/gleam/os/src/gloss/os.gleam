@@ -120,7 +120,7 @@ pub fn posix_error_from_string(code: String) -> PosixError {
     "EMFILE" -> Emfile
     "EMLINK" -> Emlink
     "EMULTIHOP" -> Emultihop
-    "ENAMETOOLOng" -> Enametoolong
+    "ENAMETOOLONG" -> Enametoolong
     "ENFILE" -> Enfile
     "ENOBUFS" -> Enobufs
     "ENODEV" -> Enodev

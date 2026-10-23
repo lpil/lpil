@@ -63,3 +63,8 @@ pub fn canonicalise_symlink_dot_test() {
   assert file.canonicalise("fixtures/symlink-dot/a")
     == Ok(path.join(cwd, "fixtures/symlink-dot/b"))
 }
+
+pub fn read_ok_test() {
+  assert file.read_bits("fixtures/the-movie/hello-joe.txt", file.unrestricted)
+    == Ok(<<"Hello Mike!\n">>)
+}

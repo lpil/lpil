@@ -11,11 +11,13 @@ pub opaque type Capability {
 // TODO: document
 pub const unrestricted: Capability = Unrestricted
 
+// TODO: document
 pub type FileError {
   OperationFailed(code: os.PosixError, operation: FileOperation, path: String)
   ContentsWereNotUtf8(path: String)
 }
 
+// TODO: document
 pub type FileOperation {
   Copy(to: String)
   Delete
@@ -27,6 +29,7 @@ pub type FileOperation {
 }
 
 // TODO: document
+// TODO: document symlink limit
 // TODO: test
 // TODO: implement
 pub fn canonicalise(path: String) -> Result(String, FileError) {
@@ -105,18 +108,73 @@ pub fn current_working_directory() -> Result(String, FileError) {
   }
 }
 
-@external(erlang, "file", "get_cwd")
+@external(erlang, "prim_file", "get_cwd")
 fn get_cwd() -> Result(Charlist, os.PosixError)
 
 // TODO: document
 // TODO: test
 // TODO: implement
-pub fn change_directory(
+pub fn change_working_directory(
   path: String,
   capability: Capability,
 ) -> Result(Nil, FileError) {
-  todo
+  use <- check_capability(capability, path, Read)
+  unrestricted_cd(path)
 }
+
+// TODO: document
+// TODO: test
+pub fn read_bits(
+  path: String,
+  capability: Capability,
+) -> Result(BitArray, FileError) {
+  use <- check_capability(capability, path, Read)
+  unrestricted_read_bits(path)
+}
+
+// TODO: write bit needs to ensure the bits are byte aligned
+
+// TODO: document
+// TODO: test
+pub fn write(
+  path: String,
+  capability: Capability,
+  contents: String,
+) -> Result(Nil, FileError) {
+  use <- check_capability(capability, path, Write)
+  unrestricted_write(path, contents)
+}
+
+// TODO: document
+// TODO: test
+// TODO: implement in Gleam rather than Erlang to avoid using the file server
+pub fn delete(path: String, capability: Capability) -> Result(Nil, FileError) {
+  use <- check_capability(capability, path, Delete)
+  unrestricted_delete(path)
+}
+
+fn check_capability(
+  capability: Capability,
+  _path: String,
+  _file_operation: FileOperation,
+  continue: fn() -> Result(t, FileError),
+) -> Result(t, FileError) {
+  case capability {
+    Unrestricted -> continue()
+  }
+}
+
+@external(erlang, "gloss_ffi", "cd")
+fn unrestricted_cd(path: String) -> Result(Nil, FileError)
+
+@external(erlang, "gloss_ffi", "read")
+fn unrestricted_read_bits(path: String) -> Result(BitArray, FileError)
+
+@external(erlang, "gloss_ffi", "write")
+fn unrestricted_write(path: String, contents: String) -> Result(Nil, FileError)
+
+@external(erlang, "gloss_ffi", "delete")
+fn unrestricted_delete(path: String) -> Result(Nil, FileError)
 
 type Charlist
 
